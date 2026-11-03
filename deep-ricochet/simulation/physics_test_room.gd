@@ -23,47 +23,45 @@ const CORE_TEXTURE: Texture2D = preload("res://art/source/cekirdek.png")
 var config: GameConfig
 var simulator := ShotSimulator.new()
 var board := BoardModel.new()
-var ball := BallState.new()
+var volley := ShotVolley.new()
+var room := RoomSession.new()
+var phase := GamePhase.Phase.AIMING
 var aiming := false
 var aim_valid := false
 var aim_direction := Vector2.UP
-var aim_preview := PackedVector2Array()
+var aim_preview := AimPreviewResult.new()
 var active_touch_id := -1
 var status_text := "Basılı tut, yönü seç ve bırak."
 
 
 func _ready() -> void:
 	config = GameConfig.load_from_file()
-	_build_test_board()
+	_reset_test_room()
 	set_process_unhandled_input(true)
 	queue_redraw()
 
 
 func _physics_process(delta: float) -> void:
-	if not ball.active:
+	if not volley.active:
 		return
 
-	var collision := simulator.advance_ball(
-		ball,
+	var collisions := volley.advance(
 		delta,
+		simulator,
 		BOARD_SIZE_WORLD,
 		config.ball_radius,
-		board.blocks,
+		board,
 	)
-	if collision.kind == &"collector":
-		status_text = "Top toplandı. Yeni atış yapabilirsin."
-	elif collision.damage_applied:
-		var hit_block := board.get_block_by_id(collision.block_id)
-		if hit_block != null:
-			if hit_block.is_destroyed():
-				status_text = "%s kırıldı." % _block_name(hit_block)
-			else:
-				status_text = "%s hasar aldı. Kalan can: %d" % [
-					_block_name(hit_block),
-					hit_block.hit_points,
-				]
-	elif collision.contact_started and collision.block_type == BlockState.BlockType.ROCK:
-		status_text = "Sert kaya topu hasar almadan yansıttı."
+	for collision: CollisionResult in collisions:
+		for damage_result: BlockDamageResult in collision.damage_results:
+			_handle_damage_result(damage_result)
+		if collision.contact_started and collision.block_type == BlockState.BlockType.ROCK:
+			status_text = "Sert kaya topu hasar almadan yansıttı."
+
+	if volley.consume_finished_event():
+		phase = GamePhase.Phase.RESOLVING
+		var resolution := room.resolve_shot(board, config)
+		_handle_room_resolution(resolution)
 	queue_redraw()
 
 
@@ -87,10 +85,13 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _begin_aim(screen_position: Vector2) -> void:
-	if ball.active:
-		status_text = "Top hareket ederken yeni atış yapılamaz."
+	if room.room_finished:
+		_reset_test_room()
+	if volley.active or room.shot_in_progress:
+		status_text = "Yaylım sürerken yeni atış yapılamaz."
 		queue_redraw()
 		return
+	phase = GamePhase.Phase.AIMING
 	aiming = true
 	_update_aim(screen_position)
 
@@ -103,7 +104,7 @@ func _update_aim(screen_position: Vector2) -> void:
 	var raw_direction := target_world - LAUNCHER_WORLD
 	if raw_direction.length() < config.aim_min_distance:
 		aim_valid = false
-		aim_preview.clear()
+		aim_preview = AimPreviewResult.new(LAUNCHER_WORLD)
 		status_text = "Nişan için fırlatıcıdan biraz uzaklaş."
 		queue_redraw()
 		return
@@ -116,7 +117,7 @@ func _update_aim(screen_position: Vector2) -> void:
 	if aim_valid:
 		_rebuild_aim_preview()
 	else:
-		aim_preview.clear()
+		aim_preview = AimPreviewResult.new(LAUNCHER_WORLD)
 	queue_redraw()
 
 
@@ -124,12 +125,35 @@ func _release_aim() -> void:
 	if not aiming:
 		return
 	aiming = false
-	if aim_valid and not ball.active:
-		ball.launch(LAUNCHER_WORLD, aim_direction * config.ball_speed)
-		status_text = "Tek top fizik testi çalışıyor."
+	if aim_valid and room.can_commit_shot():
+		var volley_started := volley.start(
+			LAUNCHER_WORLD,
+			aim_direction * config.ball_speed,
+			config.ball_count,
+			config.launch_interval_seconds,
+			config.volley_limit_seconds,
+		)
+		if volley_started and room.commit_shot():
+			phase = GamePhase.Phase.FIRING
+			status_text = "8 topluk yaylım başladı."
+		else:
+			status_text = "Atış başlatılamadı; ayarları kontrol et."
 	aim_valid = false
-	aim_preview.clear()
+	aim_preview = AimPreviewResult.new(LAUNCHER_WORLD)
 	queue_redraw()
+
+
+func _reset_test_room() -> void:
+	board = BoardModel.new()
+	volley = ShotVolley.new()
+	room = RoomSession.new()
+	_build_test_board()
+	room.start(config.shots_per_room, config.safe_multiplier_bps)
+	phase = GamePhase.Phase.AIMING
+	aiming = false
+	aim_valid = false
+	aim_preview = AimPreviewResult.new(LAUNCHER_WORLD)
+	status_text = "Basılı tut, yönü seç ve bırak."
 
 
 func _build_test_board() -> void:
@@ -148,6 +172,40 @@ func _rebuild_aim_preview() -> void:
 		board.blocks,
 		config.preview_max_solid_bounces,
 	)
+
+
+func _handle_damage_result(result: BlockDamageResult) -> void:
+	if not result.contact_valid:
+		return
+	var block := board.get_block_by_id(result.block_id)
+	if block == null:
+		return
+	if not result.damage_applied:
+		return
+
+	var awarded_points := room.record_damage_result(result, config)
+	if result.destroyed:
+		status_text = "%s kırıldı. +%d puan" % [_block_name(block), awarded_points]
+	else:
+		status_text = "%s hasar aldı. Kalan can: %d" % [
+			_block_name(block),
+			result.remaining_hit_points,
+		]
+
+
+func _handle_room_resolution(resolution: RoomResolution) -> void:
+	if not resolution.processed:
+		return
+	if not resolution.room_finished:
+		phase = GamePhase.Phase.AIMING
+		status_text = "Yaylım bitti. Kalan atış: %d" % resolution.remaining_shots
+		return
+
+	phase = GamePhase.Phase.RESULTS
+	if resolution.succeeded:
+		status_text = "Oda tamamlandı! Ödül: %d • Yeniden başlamak için dokun." % resolution.reward
+	else:
+		status_text = "Atışlar bitti. Ödül: %d • Yeniden başlamak için dokun." % resolution.reward
 
 
 func _block_name(block: BlockState) -> String:
@@ -185,7 +243,17 @@ func _draw() -> void:
 	draw_rect(Rect2(Vector2.ZERO, VIEW_SIZE), COLOR_BACKGROUND)
 	draw_rect(Rect2(Vector2(18.0, 18.0), Vector2(504.0, 104.0)), COLOR_PANEL, true)
 	_draw_text(Vector2(30.0, 52.0), "DEEP RICOCHET", 28, COLOR_TEXT)
-	_draw_text(Vector2(30.0, 84.0), "Aşama A • Fizik test odası", 18, Color("9fb4c8"))
+	_draw_text(
+		Vector2(30.0, 84.0),
+		"Atış %d/%d • Ham puan %d • Çarpan %.1f" % [
+			room.shots_remaining,
+			config.shots_per_room,
+			room.break_score,
+			float(room.multiplier_bps) / 10_000.0,
+		],
+		17,
+		Color("9fb4c8"),
+	)
 	_draw_text(Vector2(30.0, 112.0), status_text, 16, COLOR_TEXT)
 
 	var board_rect := Rect2(BOARD_ORIGIN, BOARD_SIZE_WORLD * WORLD_SCALE)
@@ -225,25 +293,31 @@ func _draw() -> void:
 	draw_circle(launcher_screen, 12.0, Color("fff1cf"))
 	draw_arc(launcher_screen, 12.0, 0.0, TAU, 32, Color("c9a86a"), 2.0, true)
 
-	if aiming and aim_valid and aim_preview.size() > 1:
-		for point_index in range(aim_preview.size() - 1):
+	if aiming and aim_valid and aim_preview.points.size() > 1:
+		for point_index in range(aim_preview.points.size() - 1):
 			draw_dashed_line(
-				_world_to_screen(aim_preview[point_index]),
-				_world_to_screen(aim_preview[point_index + 1]),
+				_world_to_screen(aim_preview.points[point_index]),
+				_world_to_screen(aim_preview.points[point_index + 1]),
 				COLOR_AIM,
 				3.0,
 				10.0,
 				true,
 				true,
 			)
+		if aim_preview.has_terminal_contact:
+			var contact_screen := _world_to_screen(aim_preview.contact_position_world)
+			draw_circle(contact_screen, 7.0, Color("ffcf66"))
+			draw_arc(contact_screen, 10.0, 0.0, TAU, 20, COLOR_TEXT, 2.0, true)
 
-	if ball.active:
-		var ball_screen := _world_to_screen(ball.position_world)
+	for volley_ball: BallState in volley.balls:
+		if not volley_ball.active:
+			continue
+		var ball_screen := _world_to_screen(volley_ball.position_world)
 		draw_circle(ball_screen, maxf(5.0, config.ball_radius * WORLD_SCALE), COLOR_TEXT)
 		draw_arc(ball_screen, maxf(5.0, config.ball_radius * WORLD_SCALE), 0.0, TAU, 20, Color("d6bc8c"), 1.5, true)
 
-	_draw_text(Vector2(30.0, 790.0), "Bloklar artık fizik simülasyonunun parçası.", 17, Color("c6d6e4"))
-	_draw_text(Vector2(30.0, 820.0), "Kesikli çizgi gerçek atışla aynı simülatörü kullanır.", 15, Color("839bb0"))
+	_draw_text(Vector2(30.0, 790.0), "Her geçerli atışta 8 top, 0,08 sn arayla çıkar.", 17, Color("c6d6e4"))
+	_draw_text(Vector2(30.0, 820.0), "Sarı işaret ilk kırılabilir temas noktasını gösterir.", 15, Color("839bb0"))
 
 
 func _draw_texture_block(

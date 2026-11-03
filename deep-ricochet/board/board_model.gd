@@ -1,19 +1,20 @@
 class_name BoardModel
 extends RefCounted
 
-const GRID_SIZE := Vector2i(8, 10)
+const ROOM_GRID_SIZE := Vector2i(8, 8)
+const CORE_TARGET_ROW := 8
 
 var blocks: Array[BlockState] = []
 
 
 func add_block(block: BlockState) -> bool:
-	if block.cell.x < 0 or block.cell.y < 0:
-		return false
-	if block.cell.x >= GRID_SIZE.x or block.cell.y >= GRID_SIZE.y:
+	if not _is_valid_cell_for_type(block.cell, block.type):
 		return false
 	if get_block_at(block.cell) != null:
 		return false
 	if get_block_by_id(block.id) != null:
+		return false
+	if block.type == BlockState.BlockType.CORE and core_count() > 0:
 		return false
 	blocks.append(block)
 	return true
@@ -39,3 +40,42 @@ func core_count() -> int:
 		if block.type == BlockState.BlockType.CORE:
 			count += 1
 	return count
+
+
+func is_core_destroyed() -> bool:
+	for block: BlockState in blocks:
+		if block.type == BlockState.BlockType.CORE:
+			return block.is_destroyed()
+	return false
+
+
+func resolve_contact(block_id: int, damage: int = 1) -> BlockDamageResult:
+	var result := BlockDamageResult.new()
+	var block := get_block_by_id(block_id)
+	if block == null or block.is_destroyed():
+		return result
+
+	result.block_id = block.id
+	result.block_type = int(block.type)
+	result.contact_valid = true
+	result.remaining_hit_points = block.hit_points
+	if block.apply_damage(damage):
+		result.damage_applied = true
+		result.destroyed = block.is_destroyed()
+		result.remaining_hit_points = block.hit_points
+	return result
+
+
+func duplicate_model() -> BoardModel:
+	var duplicate := BoardModel.new()
+	for block: BlockState in blocks:
+		duplicate.add_block(block.duplicate_state())
+	return duplicate
+
+
+func _is_valid_cell_for_type(cell: Vector2i, block_type: BlockState.BlockType) -> bool:
+	if cell.x < 0 or cell.x >= ROOM_GRID_SIZE.x:
+		return false
+	if block_type == BlockState.BlockType.CORE:
+		return cell.y == CORE_TARGET_ROW
+	return cell.y >= 0 and cell.y < ROOM_GRID_SIZE.y

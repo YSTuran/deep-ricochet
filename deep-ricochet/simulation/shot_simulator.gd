@@ -96,13 +96,22 @@ func advance_ball(
 			if not ball.active_contacts.has(hit_block.id):
 				ball.active_contacts[hit_block.id] = true
 				result.contact_started = true
-				if hit_block.apply_damage():
-					result.damage_applied = true
-					result.block_destroyed = hit_block.is_destroyed()
+				result.block_contacts.append(BlockContactEvent.new(
+					hit_block.id,
+					int(hit_block.type),
+					ball.position_world,
+					hit_normal,
+				))
 
 		ball.velocity_world = ball.velocity_world.bounce(hit_normal)
 		ball.position_world += hit_normal * POSITION_EPSILON
 		result.solid_bounce_count += 1
+		if hit_kind == &"wall" or (
+			hit_kind == &"block"
+			and hit_block != null
+			and hit_block.type == BlockState.BlockType.ROCK
+		):
+			result.preview_bounce_count += 1
 		collision_count += 1
 
 	_refresh_active_contacts(ball, blocks, radius)
@@ -119,14 +128,10 @@ func build_preview_path(
 	max_solid_bounces: int,
 	time_step: float = DEFAULT_PREVIEW_STEP,
 	max_seconds: float = DEFAULT_PREVIEW_SECONDS,
-) -> PackedVector2Array:
-	var points := PackedVector2Array([origin])
-	if velocity.is_zero_approx() or max_solid_bounces <= 0:
-		return points
-
-	var preview_blocks: Array[BlockState] = []
-	for block: BlockState in blocks:
-		preview_blocks.append(block.duplicate_state())
+) -> AimPreviewResult:
+	var preview := AimPreviewResult.new(origin)
+	if velocity.is_zero_approx() or max_solid_bounces < 0:
+		return preview
 
 	var preview_ball := BallState.new()
 	preview_ball.launch(origin, velocity)
@@ -134,23 +139,37 @@ func build_preview_path(
 	var solid_bounces := 0
 	while preview_ball.active and elapsed < max_seconds:
 		var step := minf(time_step, max_seconds - elapsed)
-		var collision := advance_ball(preview_ball, step, board_size, radius, preview_blocks)
+		var collision := advance_ball(preview_ball, step, board_size, radius, blocks)
 		elapsed += step
 
 		if not collision.happened:
 			continue
-		if points[points.size() - 1].distance_to(collision.position_world) > POSITION_EPSILON:
-			points.append(collision.position_world)
+
+		for contact: BlockContactEvent in collision.block_contacts:
+			if contact.block_type == BlockState.BlockType.ROCK:
+				continue
+			_append_preview_point(preview.points, contact.position_world)
+			preview.has_terminal_contact = true
+			preview.contact_position_world = contact.position_world
+			preview.contact_block_id = contact.block_id
+			return preview
+
+		_append_preview_point(preview.points, collision.position_world)
 		if collision.kind == &"collector":
-			return points
+			return preview
 
-		solid_bounces += collision.solid_bounce_count
+		solid_bounces += collision.preview_bounce_count
 		if solid_bounces >= max_solid_bounces:
-			return points
+			return preview
 
-	if preview_ball.active and points[points.size() - 1].distance_to(preview_ball.position_world) > POSITION_EPSILON:
-		points.append(preview_ball.position_world)
-	return points
+	if preview_ball.active:
+		_append_preview_point(preview.points, preview_ball.position_world)
+	return preview
+
+
+func _append_preview_point(points: PackedVector2Array, point: Vector2) -> void:
+	if points[points.size() - 1].distance_to(point) > POSITION_EPSILON:
+		points.append(point)
 
 
 func _swept_circle_against_block(

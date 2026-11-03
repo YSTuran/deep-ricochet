@@ -33,9 +33,13 @@ Test odasında fareyle ya da dokunmatik ekranla basılı tutup yön seçilir; b�
 - Dairesel çekirdek çarpışması
 - Normal, cevher ve çekirdek için can/hasar sistemi
 - Aynı temas sırasında yinelenen hasarı engelleme
-- Simülasyon tabanlı nişan önizlemesi
+- Kırılabilir nesnede duran ve temas noktasını gösteren simülasyon tabanlı nişan önizlemesi
+- Aynı noktadan 0,08 saniye arayla çıkan 8 topluk yaylım
+- 10 saniyelik yaylım üst sınırı ve tek seferlik atış sonucu
+- Kırılma puanları, kalan atış bonusu ve oda çarpanı hesabı
+- Başarı, son atışta başarı önceliği ve başarısız oda sonucu
 
-Ses, çoklu top salvosu, oda akışı ve kalıcı ilerleme sonraki P0 adımlarında eklenecektir.
+Ses, dört odalık akış, rota seçimi, oda şablonları ve kalıcı ilerleme sonraki P0 adımlarında eklenecektir.
 
 ## Otomatik test
 
@@ -45,4 +49,4 @@ Godot komut satırından proje kökünde şu sahne çalıştırılır:
 godot --headless --path deep-ricochet res://tests/smoke_test.tscn
 ```
 
-Test; duvarları, toplayıcıyı, blok hasarını, sert kaya sekmesini, çekirdeğin dairesel çarpışmasını, temas korumasını ve nişan önizlemesini doğrular.
+Test; duvarları, toplayıcıyı, blok hasarını, sert kaya sekmesini, çekirdeğin dairesel çarpışmasını, temas korumasını, nişan önizlemesini, 8 topluk yaylımı, zaman aşımını, puanı ve oda sonucunu doğrular.
