@@ -1,0 +1,109 @@
+{
+  "set": "Cep Madencisi başlangıç v1",
+  "date": "2026-11-01",
+  "method": "built-in image_gen",
+  "status": "visual_checked_alpha_verified_not_device_tested",
+  "no_baked_numbers": true,
+  "bbox_note": "Bounds are [left,top,right,bottom], right/bottom exclusive. Alpha threshold 200 approximates the body, not a collision boundary. Art sizes differ; fit each visible body to its logical cell while preserving aspect ratio. Do not use a glow or transparent canvas as collider.",
+  "assets": [
+    {
+      "id": "blok_normal",
+      "file": "blok_normal.png",
+      "size_px": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_nonzero_bbox_px": [
+        0,
+        0,
+        1254,
+        1254
+      ],
+      "alpha_ge_200_bbox_px": [
+        139,
+        159,
+        1115,
+        1098
+      ],
+      "transparent_pixel_ratio": 0.4042,
+      "partial_alpha_pixel_count": 936747,
+      "pivot_canvas_normalized": [
+        0.5,
+        0.5
+      ],
+      "suggested_hp_anchor_within_body_bbox_top_left_normalized": [
+        0.5,
+        0.5
+      ],
+      "collider": "separate_square_cell",
+      "sha256": "033b4f8814bdc3c8c99e2e53f7846c6d227a205eb6d936f879df58ba7a308d18"
+    },
+    {
+      "id": "blok_cevher",
+      "file": "blok_cevher.png",
+      "size_px": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_nonzero_bbox_px": [
+        0,
+        19,
+        1248,
+        1254
+      ],
+      "alpha_ge_200_bbox_px": [
+        209,
+        220,
+        1046,
+        1051
+      ],
+      "transparent_pixel_ratio": 0.5517,
+      "partial_alpha_pixel_count": 704934,
+      "pivot_canvas_normalized": [
+        0.5,
+        0.5
+      ],
+      "suggested_hp_anchor_within_body_bbox_top_left_normalized": [
+        0.5,
+        0.68
+      ],
+      "collider": "separate_square_cell",
+      "sha256": "1ac01eb40d1919007d79a5bc4044c048dbeae40caf9c87307322857aae84ac39"
+    },
+    {
+      "id": "cekirdek",
+      "file": "cekirdek.png",
+      "size_px": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_nonzero_bbox_px": [
+        0,
+        6,
+        1253,
+        1254
+      ],
+      "alpha_ge_200_bbox_px": [
+        147,
+        153,
+        1106,
+        1097
+      ],
+      "transparent_pixel_ratio": 0.377,
+      "partial_alpha_pixel_count": 979579,
+      "pivot_canvas_normalized": [
+        0.5,
+        0.5
+      ],
+      "suggested_hp_anchor_within_body_bbox_top_left_normalized": [
+        0.5,
+        0.5
+      ],
+      "collider": "separate_circle_excluding_glow",
+      "sha256": "524a9de91a017604ea64b9b137a763d4b3fd127cafb52dc27eb17d2caf4783e7"
+    }
+  ]
+}
