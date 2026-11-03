@@ -36,6 +36,8 @@ func can_commit_shot() -> bool:
 
 
 func record_damage_result(result: BlockDamageResult, config: GameConfig) -> int:
+	if room_finished or not shot_in_progress:
+		return 0
 	if not result.damage_applied or not result.destroyed:
 		return 0
 	if _scored_block_ids.has(result.block_id):

@@ -59,10 +59,10 @@ func advance(
 	board_size: Vector2,
 	ball_radius: float,
 	board: BoardModel,
-) -> Array[CollisionResult]:
-	var collisions: Array[CollisionResult] = []
+) -> VolleyStepResult:
+	var step_result := VolleyStepResult.new()
 	if not active or delta <= 0.0:
-		return collisions
+		return step_result
 
 	var previous_elapsed := elapsed_seconds
 	elapsed_seconds = minf(elapsed_seconds + delta, _time_limit_seconds)
@@ -89,16 +89,16 @@ func advance(
 			board.blocks,
 		)
 		for contact: BlockContactEvent in collision.block_contacts:
-			collision.damage_results.append(board.resolve_contact(contact.block_id))
+			step_result.damage_results.append(board.resolve_contact(contact.block_id))
 		if collision.happened:
-			collisions.append(collision)
+			step_result.collisions.append(collision)
 		if not balls[index].active:
 			_mark_collected(index)
 
 	if elapsed_seconds >= _time_limit_seconds - TIME_EPSILON:
-		_force_collect_remaining_balls()
+		step_result.forced_collection_positions = _force_collect_remaining_balls()
 	_finish_if_ready()
-	return collisions
+	return step_result
 
 
 func consume_finished_event() -> bool:
@@ -106,14 +106,6 @@ func consume_finished_event() -> bool:
 		return false
 	_finish_event_pending = false
 	return true
-
-
-func active_ball_count() -> int:
-	var count := 0
-	for ball: BallState in balls:
-		if ball.active:
-			count += 1
-	return count
 
 
 func reset() -> void:
@@ -148,16 +140,19 @@ func _mark_collected(index: int) -> void:
 	collected_count += 1
 
 
-func _force_collect_remaining_balls() -> void:
+func _force_collect_remaining_balls() -> PackedVector2Array:
+	var collected_positions := PackedVector2Array()
 	for index in range(total_ball_count):
 		if not _launched[index]:
 			_launch_ball(index)
 		if _collected[index]:
 			continue
 		if balls[index].active:
+			collected_positions.append(balls[index].position_world)
 			balls[index].collect()
 			forced_collection_count += 1
 		_mark_collected(index)
+	return collected_positions
 
 
 func _finish_if_ready() -> void:

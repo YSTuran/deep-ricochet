@@ -66,13 +66,6 @@ func resolve_contact(block_id: int, damage: int = 1) -> BlockDamageResult:
 	return result
 
 
-func duplicate_model() -> BoardModel:
-	var duplicate := BoardModel.new()
-	for block: BlockState in blocks:
-		duplicate.add_block(block.duplicate_state())
-	return duplicate
-
-
 func _is_valid_cell_for_type(cell: Vector2i, block_type: BlockState.BlockType) -> bool:
 	if cell.x < 0 or cell.x >= ROOM_GRID_SIZE.x:
 		return false

@@ -49,7 +49,3 @@ func world_rect() -> Rect2:
 
 func collision_center_world() -> Vector2:
 	return world_rect().get_center()
-
-
-func duplicate_state() -> BlockState:
-	return BlockState.new(id, type, cell, hit_points)
