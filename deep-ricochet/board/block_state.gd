@@ -1,6 +1,8 @@
 class_name BlockState
 extends RefCounted
 
+const CORE_COLLISION_RADIUS := 0.48
+
 enum BlockType {
 	NORMAL,
 	ORE,
@@ -39,3 +41,15 @@ func apply_damage(amount: int = 1) -> bool:
 
 func is_destroyed() -> bool:
 	return is_breakable() and hit_points <= 0
+
+
+func world_rect() -> Rect2:
+	return Rect2(Vector2(float(cell.x), float(cell.y)), Vector2.ONE)
+
+
+func collision_center_world() -> Vector2:
+	return world_rect().get_center()
+
+
+func duplicate_state() -> BlockState:
+	return BlockState.new(id, type, cell, hit_points)

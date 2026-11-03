@@ -1,7 +1,7 @@
 class_name BoardModel
 extends RefCounted
 
-const GRID_SIZE := Vector2i(8, 8)
+const GRID_SIZE := Vector2i(8, 10)
 
 var blocks: Array[BlockState] = []
 
@@ -13,6 +13,8 @@ func add_block(block: BlockState) -> bool:
 		return false
 	if get_block_at(block.cell) != null:
 		return false
+	if get_block_by_id(block.id) != null:
+		return false
 	blocks.append(block)
 	return true
 
@@ -20,6 +22,13 @@ func add_block(block: BlockState) -> bool:
 func get_block_at(cell: Vector2i) -> BlockState:
 	for block: BlockState in blocks:
 		if block.cell == cell:
+			return block
+	return null
+
+
+func get_block_by_id(block_id: int) -> BlockState:
+	for block: BlockState in blocks:
+		if block.id == block_id:
 			return block
 	return null
 

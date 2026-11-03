@@ -22,16 +22,19 @@ const CORE_TEXTURE: Texture2D = preload("res://art/source/cekirdek.png")
 
 var config: GameConfig
 var simulator := ShotSimulator.new()
+var board := BoardModel.new()
 var ball := BallState.new()
 var aiming := false
 var aim_valid := false
 var aim_direction := Vector2.UP
+var aim_preview := PackedVector2Array()
 var active_touch_id := -1
 var status_text := "Basılı tut, yönü seç ve bırak."
 
 
 func _ready() -> void:
 	config = GameConfig.load_from_file()
+	_build_test_board()
 	set_process_unhandled_input(true)
 	queue_redraw()
 
@@ -45,9 +48,22 @@ func _physics_process(delta: float) -> void:
 		delta,
 		BOARD_SIZE_WORLD,
 		config.ball_radius,
+		board.blocks,
 	)
 	if collision.kind == &"collector":
 		status_text = "Top toplandı. Yeni atış yapabilirsin."
+	elif collision.damage_applied:
+		var hit_block := board.get_block_by_id(collision.block_id)
+		if hit_block != null:
+			if hit_block.is_destroyed():
+				status_text = "%s kırıldı." % _block_name(hit_block)
+			else:
+				status_text = "%s hasar aldı. Kalan can: %d" % [
+					_block_name(hit_block),
+					hit_block.hit_points,
+				]
+	elif collision.contact_started and collision.block_type == BlockState.BlockType.ROCK:
+		status_text = "Sert kaya topu hasar almadan yansıttı."
 	queue_redraw()
 
 
@@ -87,6 +103,7 @@ func _update_aim(screen_position: Vector2) -> void:
 	var raw_direction := target_world - LAUNCHER_WORLD
 	if raw_direction.length() < config.aim_min_distance:
 		aim_valid = false
+		aim_preview.clear()
 		status_text = "Nişan için fırlatıcıdan biraz uzaklaş."
 		queue_redraw()
 		return
@@ -96,6 +113,10 @@ func _update_aim(screen_position: Vector2) -> void:
 	aim_direction = Vector2.from_angle(deg_to_rad(clamped_angle)).normalized()
 	aim_valid = raw_direction.y > 0.0
 	status_text = "Açı: %.1f°" % clamped_angle if aim_valid else "Yalnızca yukarı doğru nişan alınabilir."
+	if aim_valid:
+		_rebuild_aim_preview()
+	else:
+		aim_preview.clear()
 	queue_redraw()
 
 
@@ -107,7 +128,39 @@ func _release_aim() -> void:
 		ball.launch(LAUNCHER_WORLD, aim_direction * config.ball_speed)
 		status_text = "Tek top fizik testi çalışıyor."
 	aim_valid = false
+	aim_preview.clear()
 	queue_redraw()
+
+
+func _build_test_board() -> void:
+	board.add_block(BlockState.new(1, BlockState.BlockType.NORMAL, Vector2i(1, 7), 4))
+	board.add_block(BlockState.new(2, BlockState.BlockType.ORE, Vector2i(3, 7), 4))
+	board.add_block(BlockState.new(3, BlockState.BlockType.ROCK, Vector2i(5, 7), 0))
+	board.add_block(BlockState.new(4, BlockState.BlockType.CORE, Vector2i(6, 8), 6))
+
+
+func _rebuild_aim_preview() -> void:
+	aim_preview = simulator.build_preview_path(
+		LAUNCHER_WORLD,
+		aim_direction * config.ball_speed,
+		BOARD_SIZE_WORLD,
+		config.ball_radius,
+		board.blocks,
+		config.preview_max_solid_bounces,
+	)
+
+
+func _block_name(block: BlockState) -> String:
+	match block.type:
+		BlockState.BlockType.NORMAL:
+			return "Normal blok"
+		BlockState.BlockType.ORE:
+			return "Cevher bloğu"
+		BlockState.BlockType.ROCK:
+			return "Sert kaya"
+		BlockState.BlockType.CORE:
+			return "Çekirdek"
+	return "Blok"
 
 
 func _world_to_screen(world_position: Vector2) -> Vector2:
@@ -145,26 +198,52 @@ func _draw() -> void:
 		var screen_y := BOARD_ORIGIN.y + float(y) * WORLD_SCALE
 		draw_line(Vector2(BOARD_ORIGIN.x, screen_y), Vector2(BOARD_ORIGIN.x + board_rect.size.x, screen_y), COLOR_GRID, 1.0)
 
-	_draw_texture_block(Rect2(Vector2(1.0, 7.0), Vector2.ONE), NORMAL_TEXTURE, Rect2(139.0, 159.0, 976.0, 939.0), "4")
-	_draw_texture_block(Rect2(Vector2(3.0, 7.0), Vector2.ONE), ORE_TEXTURE, Rect2(209.0, 220.0, 837.0, 831.0), "4")
-	_draw_hard_rock(Rect2(Vector2(5.0, 7.0), Vector2.ONE))
-	_draw_core(Vector2(6.5, 8.5), "6")
+	for block: BlockState in board.blocks:
+		if block.is_destroyed():
+			continue
+		match block.type:
+			BlockState.BlockType.NORMAL:
+				_draw_texture_block(
+					block.world_rect(),
+					NORMAL_TEXTURE,
+					Rect2(139.0, 159.0, 976.0, 939.0),
+					str(block.hit_points),
+				)
+			BlockState.BlockType.ORE:
+				_draw_texture_block(
+					block.world_rect(),
+					ORE_TEXTURE,
+					Rect2(209.0, 220.0, 837.0, 831.0),
+					str(block.hit_points),
+				)
+			BlockState.BlockType.ROCK:
+				_draw_hard_rock(block.world_rect())
+			BlockState.BlockType.CORE:
+				_draw_core(block.collision_center_world(), str(block.hit_points))
 
 	var launcher_screen := _world_to_screen(LAUNCHER_WORLD)
 	draw_circle(launcher_screen, 12.0, Color("fff1cf"))
 	draw_arc(launcher_screen, 12.0, 0.0, TAU, 32, Color("c9a86a"), 2.0, true)
 
-	if aiming and aim_valid:
-		var preview_end := _world_to_screen(LAUNCHER_WORLD + aim_direction * 5.5)
-		draw_dashed_line(launcher_screen, preview_end, COLOR_AIM, 3.0, 10.0, true, true)
+	if aiming and aim_valid and aim_preview.size() > 1:
+		for point_index in range(aim_preview.size() - 1):
+			draw_dashed_line(
+				_world_to_screen(aim_preview[point_index]),
+				_world_to_screen(aim_preview[point_index + 1]),
+				COLOR_AIM,
+				3.0,
+				10.0,
+				true,
+				true,
+			)
 
 	if ball.active:
 		var ball_screen := _world_to_screen(ball.position_world)
 		draw_circle(ball_screen, maxf(5.0, config.ball_radius * WORLD_SCALE), COLOR_TEXT)
 		draw_arc(ball_screen, maxf(5.0, config.ball_radius * WORLD_SCALE), 0.0, TAU, 20, Color("d6bc8c"), 1.5, true)
 
-	_draw_text(Vector2(30.0, 790.0), "İlk hedef: güvenilir hareket ve duvar sekmesi", 17, Color("c6d6e4"))
-	_draw_text(Vector2(30.0, 820.0), "Blok çarpışmaları bir sonraki küçük adımda eklenecek.", 15, Color("839bb0"))
+	_draw_text(Vector2(30.0, 790.0), "Bloklar artık fizik simülasyonunun parçası.", 17, Color("c6d6e4"))
+	_draw_text(Vector2(30.0, 820.0), "Kesikli çizgi gerçek atışla aynı simülatörü kullanır.", 15, Color("839bb0"))
 
 
 func _draw_texture_block(
