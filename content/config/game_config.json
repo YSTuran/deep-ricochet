@@ -1,0 +1,20 @@
+{
+  "configVersion": "prototype-1",
+  "roomCount": 4,
+  "shotsPerRoom": 3,
+  "ballCount": 8,
+  "ballSpeed": 18.0,
+  "ballRadius": 0.07,
+  "launchIntervalSeconds": 0.08,
+  "volleyLimitSeconds": 10.0,
+  "aimMinDegrees": 15.0,
+  "aimMaxDegrees": 165.0,
+  "aimMinDistance": 0.5,
+  "previewMaxSolidBounces": 2,
+  "safeMultiplierBps": 10000,
+  "bonusMultiplierBps": 15000,
+  "normalBreakPoints": 10,
+  "oreBreakPoints": 25,
+  "coreBreakPoints": 100,
+  "unusedShotBonus": 20
+}
