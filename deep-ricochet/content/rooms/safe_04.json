@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "safe_04",
+  "displayName": "Yankı Salonu",
+  "family": "safe",
+  "contentVersion": "p0-content-1",
+  "width": 8,
+  "height": 8,
+  "multiplierBps": 10000,
+  "passageColumns": [3, 4],
+  "exampleAngles": [86.5],
+  "blocks": [
+    { "id": 401, "type": "rock", "cell": [0, 3], "hitPoints": 0 },
+    { "id": 402, "type": "rock", "cell": [7, 3], "hitPoints": 0 },
+    { "id": 403, "type": "normal", "cell": [2, 3], "hitPoints": 2 },
+    { "id": 404, "type": "normal", "cell": [5, 3], "hitPoints": 2 },
+    { "id": 405, "type": "ore", "cell": [1, 5], "hitPoints": 5 },
+    { "id": 406, "type": "ore", "cell": [6, 5], "hitPoints": 5 },
+    { "id": 407, "type": "normal", "cell": [0, 7], "hitPoints": 4 },
+    { "id": 408, "type": "normal", "cell": [2, 7], "hitPoints": 4 },
+    { "id": 409, "type": "normal", "cell": [5, 7], "hitPoints": 4 },
+    { "id": 410, "type": "normal", "cell": [7, 7], "hitPoints": 4 },
+    { "id": 411, "type": "core", "cell": [4, 8], "hitPoints": 6 }
+  ]
+}

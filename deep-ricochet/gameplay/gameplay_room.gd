@@ -10,7 +10,7 @@ const WORLD_SCALE := 60.0
 const LAUNCHER_WORLD := Vector2(4.0, 0.45)
 const FORCED_COLLECTION_EFFECT_SECONDS := 0.35
 
-@export_file("*.json") var initial_room_template_path := "res://content/rooms/prototype_room.json"
+@export_file("*.json") var initial_room_template_path := "res://content/rooms/safe_01.json"
 
 @onready var view: GameplayRoomView = $View
 
@@ -30,6 +30,9 @@ var active_touch_id := -1
 var status_text := "Basılı tut, yönü seç ve bırak."
 var forced_collection_positions := PackedVector2Array()
 var forced_collection_effect_elapsed: float = 0.0
+var run_room_number: int = 1
+var run_room_count: int = 1
+var banked_score: int = 0
 
 
 func _ready() -> void:
@@ -62,6 +65,25 @@ func restart_current_room() -> bool:
 	if current_template == null:
 		return false
 	return _start_loaded_room()
+
+
+func set_run_context(room_number: int, room_count: int, confirmed_score: int) -> void:
+	run_room_number = room_number
+	run_room_count = room_count
+	banked_score = confirmed_score
+	_refresh_view()
+
+
+func set_input_enabled(enabled: bool) -> void:
+	set_process_unhandled_input(enabled)
+	if enabled:
+		return
+	aiming = false
+	aim_valid = false
+	aim_preview_dirty = false
+	aim_preview = AimPreviewResult.new(LAUNCHER_WORLD)
+	active_touch_id = -1
+	_refresh_view()
 
 
 func _physics_process(delta: float) -> void:

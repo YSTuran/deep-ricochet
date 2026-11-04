@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "contentVersion": "p0-content-1",
+  "templates": [
+    "res://content/rooms/safe_01.json",
+    "res://content/rooms/safe_02.json",
+    "res://content/rooms/safe_03.json",
+    "res://content/rooms/safe_04.json",
+    "res://content/rooms/safe_05.json",
+    "res://content/rooms/safe_06.json",
+    "res://content/rooms/bonus_01.json",
+    "res://content/rooms/bonus_02.json",
+    "res://content/rooms/bonus_03.json",
+    "res://content/rooms/bonus_04.json",
+    "res://content/rooms/bonus_05.json",
+    "res://content/rooms/bonus_06.json"
+  ]
+}

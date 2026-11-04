@@ -1,9 +1,20 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=4 format=3]
 
 [ext_resource type="Script" path="res://app/main.gd" id="1_main"]
 [ext_resource type="PackedScene" path="res://gameplay/gameplay_room.tscn" id="2_room"]
+[ext_resource type="Script" path="res://ui/run_flow_view.gd" id="3_flow"]
 
-[node name="Main" type="Node"]
+[node name="RunController" type="Node"]
 script = ExtResource("1_main")
 
 [node name="GameplayRoom" parent="." instance=ExtResource("2_room")]
+
+[node name="Interface" type="CanvasLayer" parent="."]
+
+[node name="RunFlowView" type="Control" parent="Interface"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 540.0
+offset_bottom = 960.0
+mouse_filter = 2
+script = ExtResource("3_flow")

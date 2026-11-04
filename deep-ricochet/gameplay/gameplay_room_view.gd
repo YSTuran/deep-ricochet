@@ -41,13 +41,16 @@ func _draw() -> void:
 	_draw_text(Vector2(30.0, 52.0), "DEEP RICOCHET • %s" % room.current_template.display_name, 24, COLOR_TEXT)
 	_draw_text(
 		Vector2(30.0, 84.0),
-		"Atış %d/%d • Ham puan %d • Çarpan %.1f" % [
+		"Oda %d/%d • Toplam %d • Oda %d • Atış %d/%d • ×%.1f" % [
+			room.run_room_number,
+			room.run_room_count,
+			room.banked_score,
+			room.room.break_score,
 			room.room.shots_remaining,
 			room.config.shots_per_room,
-			room.room.break_score,
 			float(room.room.multiplier_bps) / 10_000.0,
 		],
-		17,
+		14,
 		Color("9fb4c8"),
 	)
 	_draw_text(Vector2(30.0, 112.0), room.status_text, 16, COLOR_TEXT)

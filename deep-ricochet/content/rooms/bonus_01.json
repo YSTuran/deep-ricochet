@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "bonus_01",
+  "displayName": "Altın Yarık",
+  "family": "bonus",
+  "contentVersion": "p0-content-1",
+  "width": 8,
+  "height": 8,
+  "multiplierBps": 15000,
+  "passageColumns": [4],
+  "exampleAngles": [86.5],
+  "blocks": [
+    { "id": 701, "type": "normal", "cell": [3, 2], "hitPoints": 2 },
+    { "id": 702, "type": "normal", "cell": [5, 2], "hitPoints": 2 },
+    { "id": 703, "type": "rock", "cell": [3, 4], "hitPoints": 0 },
+    { "id": 704, "type": "rock", "cell": [5, 4], "hitPoints": 0 },
+    { "id": 705, "type": "ore", "cell": [2, 5], "hitPoints": 4 },
+    { "id": 706, "type": "ore", "cell": [6, 5], "hitPoints": 4 },
+    { "id": 707, "type": "normal", "cell": [3, 6], "hitPoints": 4 },
+    { "id": 708, "type": "normal", "cell": [5, 6], "hitPoints": 4 },
+    { "id": 709, "type": "ore", "cell": [3, 7], "hitPoints": 5 },
+    { "id": 710, "type": "ore", "cell": [5, 7], "hitPoints": 5 },
+    { "id": 711, "type": "core", "cell": [4, 8], "hitPoints": 6 }
+  ]
+}

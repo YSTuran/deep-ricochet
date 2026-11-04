@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "safe_06",
+  "displayName": "Kaya Meydanı",
+  "family": "safe",
+  "contentVersion": "p0-content-1",
+  "width": 8,
+  "height": 8,
+  "multiplierBps": 10000,
+  "passageColumns": [3, 4],
+  "exampleAngles": [86.5],
+  "blocks": [
+    { "id": 601, "type": "rock", "cell": [1, 2], "hitPoints": 0 },
+    { "id": 602, "type": "rock", "cell": [6, 2], "hitPoints": 0 },
+    { "id": 603, "type": "normal", "cell": [2, 4], "hitPoints": 3 },
+    { "id": 604, "type": "normal", "cell": [5, 4], "hitPoints": 3 },
+    { "id": 605, "type": "ore", "cell": [0, 5], "hitPoints": 4 },
+    { "id": 606, "type": "ore", "cell": [7, 5], "hitPoints": 4 },
+    { "id": 607, "type": "rock", "cell": [1, 6], "hitPoints": 0 },
+    { "id": 608, "type": "rock", "cell": [6, 6], "hitPoints": 0 },
+    { "id": 609, "type": "normal", "cell": [2, 7], "hitPoints": 5 },
+    { "id": 610, "type": "normal", "cell": [5, 7], "hitPoints": 5 },
+    { "id": 611, "type": "core", "cell": [4, 8], "hitPoints": 6 }
+  ]
+}

@@ -12,21 +12,35 @@ func _ready() -> void:
 	var main_instance := main_scene.instantiate()
 	add_child(main_instance)
 	await get_tree().process_frame
+	assert(main_instance is RunController)
 	assert(main_instance.has_node("GameplayRoom"))
-	var gameplay_room: GameplayRoom = main_instance.get_node("GameplayRoom")
+	var run_controller: RunController = main_instance
+	var gameplay_room: GameplayRoom = run_controller.gameplay_room
+	assert(run_controller.catalog != null)
+	assert(run_controller.catalog.templates.size() == 12)
+	assert(run_controller.run_session != null)
+	assert(run_controller.run_session.room_number == 1)
+	assert(gameplay_room.current_template.family == RoomTemplate.Family.SAFE)
+	RunFlowTests.run(run_controller, config)
+	main_instance.queue_free()
+
+	var gameplay_scene: PackedScene = load("res://gameplay/gameplay_room.tscn")
+	var standalone_room: GameplayRoom = gameplay_scene.instantiate()
+	add_child(standalone_room)
+	await get_tree().process_frame
+	gameplay_room = standalone_room
 	assert(gameplay_room.config != null)
 	assert(gameplay_room.view != null)
 	assert(gameplay_room.current_template != null)
-	assert(gameplay_room.current_template.room_id == &"prototype_room")
-	assert(gameplay_room.board.blocks.size() == 4)
+	assert(gameplay_room.current_template.room_id == &"safe_01")
 	assert(gameplay_room.board.core_count() == 1)
 	assert(gameplay_room.room.shots_remaining == config.shots_per_room)
 	RoomTemplateTests.run(gameplay_room, config)
 	InputFlowTests.run(gameplay_room, config)
-	main_instance.queue_free()
+	standalone_room.queue_free()
 
 	BoardAndCollisionTests.run(config)
 	VolleyAndRoomTests.run(config)
 
-	print("[PASS] Deep Ricochet şablon, oynanış odası, fizik, girdi, yaylım ve puan testleri geçti.")
+	print("[PASS] Deep Ricochet 4 oda/3 rota, 12 şablon, UI, fizik, girdi, yaylım ve puan testleri geçti.")
 	get_tree().quit()

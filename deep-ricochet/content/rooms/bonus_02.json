@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "bonus_02",
+  "displayName": "Dar Şaft",
+  "family": "bonus",
+  "contentVersion": "p0-content-1",
+  "width": 8,
+  "height": 8,
+  "multiplierBps": 15000,
+  "passageColumns": [3],
+  "exampleAngles": [93.5],
+  "blocks": [
+    { "id": 801, "type": "normal", "cell": [2, 2], "hitPoints": 3 },
+    { "id": 802, "type": "normal", "cell": [4, 2], "hitPoints": 3 },
+    { "id": 803, "type": "ore", "cell": [2, 4], "hitPoints": 3 },
+    { "id": 804, "type": "ore", "cell": [4, 4], "hitPoints": 3 },
+    { "id": 805, "type": "rock", "cell": [2, 5], "hitPoints": 0 },
+    { "id": 806, "type": "rock", "cell": [4, 5], "hitPoints": 0 },
+    { "id": 807, "type": "normal", "cell": [1, 7], "hitPoints": 5 },
+    { "id": 808, "type": "normal", "cell": [2, 7], "hitPoints": 4 },
+    { "id": 809, "type": "normal", "cell": [4, 7], "hitPoints": 4 },
+    { "id": 810, "type": "normal", "cell": [5, 7], "hitPoints": 5 },
+    { "id": 811, "type": "core", "cell": [3, 8], "hitPoints": 6 }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "safe_02",
+  "displayName": "Çift Koridor",
+  "family": "safe",
+  "contentVersion": "p0-content-1",
+  "width": 8,
+  "height": 8,
+  "multiplierBps": 10000,
+  "passageColumns": [3, 4],
+  "exampleAngles": [86.5],
+  "blocks": [
+    { "id": 201, "type": "normal", "cell": [0, 2], "hitPoints": 2 },
+    { "id": 202, "type": "normal", "cell": [7, 2], "hitPoints": 2 },
+    { "id": 203, "type": "rock", "cell": [2, 4], "hitPoints": 0 },
+    { "id": 204, "type": "rock", "cell": [5, 4], "hitPoints": 0 },
+    { "id": 205, "type": "ore", "cell": [1, 5], "hitPoints": 4 },
+    { "id": 206, "type": "ore", "cell": [6, 5], "hitPoints": 4 },
+    { "id": 207, "type": "normal", "cell": [2, 6], "hitPoints": 3 },
+    { "id": 208, "type": "normal", "cell": [5, 6], "hitPoints": 3 },
+    { "id": 209, "type": "normal", "cell": [1, 7], "hitPoints": 5 },
+    { "id": 210, "type": "normal", "cell": [6, 7], "hitPoints": 5 },
+    { "id": 211, "type": "core", "cell": [4, 8], "hitPoints": 6 }
+  ]
+}

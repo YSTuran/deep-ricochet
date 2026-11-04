@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "id": "safe_03",
+  "displayName": "Açık Şaft",
+  "family": "safe",
+  "contentVersion": "p0-content-1",
+  "width": 8,
+  "height": 8,
+  "multiplierBps": 10000,
+  "passageColumns": [3, 4],
+  "exampleAngles": [93.5],
+  "blocks": [
+    { "id": 301, "type": "ore", "cell": [2, 2], "hitPoints": 3 },
+    { "id": 302, "type": "ore", "cell": [5, 2], "hitPoints": 3 },
+    { "id": 303, "type": "normal", "cell": [1, 4], "hitPoints": 3 },
+    { "id": 304, "type": "normal", "cell": [6, 4], "hitPoints": 3 },
+    { "id": 305, "type": "normal", "cell": [2, 5], "hitPoints": 4 },
+    { "id": 306, "type": "normal", "cell": [5, 5], "hitPoints": 4 },
+    { "id": 307, "type": "rock", "cell": [1, 7], "hitPoints": 0 },
+    { "id": 308, "type": "rock", "cell": [6, 7], "hitPoints": 0 },
+    { "id": 309, "type": "core", "cell": [3, 8], "hitPoints": 6 }
+  ]
+}

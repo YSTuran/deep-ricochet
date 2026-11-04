@@ -23,9 +23,9 @@ Godot'ta açılması gereken dosya `deep-ricochet/project.godot` dosyasıdır. A
 
 1. Godot Project Manager içinde **Import** seçeneğini açın.
 2. `deep-ricochet/project.godot` dosyasını seçin.
-3. Projeyi açıp **F6** ile test odasını veya **F5** ile ana sahneyi çalıştırın.
+3. Projeyi açıp **F5** ile dört odalık ana oyun akışını çalıştırın.
 
-Test odasında fareyle ya da dokunmatik ekranla basılı tutup yön seçilir; bırakıldığında top fırlatılır. Kesikli nişan çizgisi gerçek atışla aynı fizik simülatörünü kullanır.
+Oyun alanında fareyle ya da dokunmatik ekranla basılı tutup yön seçilir; bırakıldığında top fırlatılır. Kesikli nişan çizgisi gerçek atışla aynı fizik simülatörünü kullanır. İlk üç başarılı odadan sonra gerçek oda şablonlarını gösteren güvenli ve bonus rota kartlarından biri seçilir.
 
 ## P0 mevcut durum
 
@@ -42,8 +42,12 @@ Test odasında fareyle ya da dokunmatik ekranla basılı tutup yön seçilir; b�
 - Başarı, son atışta başarı önceliği ve başarısız oda sonucu
 - JSON tabanlı, doğrulanan ve yeniden kullanılabilir oda şablonları
 - Dışarıdan oda yükleyebilen ve sonucu sinyalle bildiren `GameplayRoom`
+- Dört oda, üç rota tercihi ve tek seferlik sonuç işleyen `RunSession` / `RunController`
+- Seed tabanlı, aynı koşuda daha önce sunulan şablonu yeniden kullanmayan içerik seçimi
+- Gerçek şablondan çizilen güvenli/bonus rota önizlemeleri ve geçici sonuç ekranı
+- 6 güvenli ve 6 bonus olmak üzere 12 doğrulanan oda şablonu
 
-Ses, dört odalık akış, rota seçimi, ek oda şablonları ve kalıcı ilerleme sonraki P0 adımlarında eklenecektir.
+Duraklatma, yerel kayıt/kurtarma, ana menü, iki dil, öğretici ve ses sonraki P0 adımlarında eklenecektir. Şablonlardaki örnek açı dizileri otomatik simülasyonda çekirdeği kırmaktadır; gerçek Android cihaz geçişleri ayrıca doğrulanacaktır.
 
 ## Otomatik test
 
@@ -53,4 +57,4 @@ Godot komut satırından proje kökünde şu sahne çalıştırılır:
 godot --headless --path deep-ricochet --scene res://tests/smoke_test.tscn
 ```
 
-Test; oda şablonu doğrulamasını, dışarıdan oda yüklemeyi, sonuç sinyalini, duvarları, toplayıcıyı, blok hasarını, sert kaya sekmesini, çekirdeğin dairesel çarpışmasını, temas korumasını, nişan önizlemesini, 8 topluk yaylımı, zaman aşımını, puanı ve oda sonucunu doğrular.
+Test; 12 oda şablonunu, örnek açı geçişlerini, 100 seed seçimini, dört oda/üç rota akışını, gerçek rota önizleme verisini, yinelenen sonuç korumasını, dışarıdan oda yüklemeyi, duvarları, blok hasarını, nişan önizlemesini, 8 topluk yaylımı, zaman aşımını ve puanı doğrular.

@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "bonus_04",
+  "displayName": "Kırık Damar",
+  "family": "bonus",
+  "contentVersion": "p0-content-1",
+  "width": 8,
+  "height": 8,
+  "multiplierBps": 15000,
+  "passageColumns": [3],
+  "exampleAngles": [93.5],
+  "blocks": [
+    { "id": 1001, "type": "rock", "cell": [2, 2], "hitPoints": 0 },
+    { "id": 1002, "type": "rock", "cell": [4, 2], "hitPoints": 0 },
+    { "id": 1003, "type": "normal", "cell": [1, 4], "hitPoints": 3 },
+    { "id": 1004, "type": "normal", "cell": [2, 4], "hitPoints": 2 },
+    { "id": 1005, "type": "normal", "cell": [4, 4], "hitPoints": 2 },
+    { "id": 1006, "type": "normal", "cell": [5, 4], "hitPoints": 3 },
+    { "id": 1007, "type": "ore", "cell": [2, 6], "hitPoints": 5 },
+    { "id": 1008, "type": "ore", "cell": [4, 6], "hitPoints": 5 },
+    { "id": 1009, "type": "rock", "cell": [2, 7], "hitPoints": 0 },
+    { "id": 1010, "type": "rock", "cell": [4, 7], "hitPoints": 0 },
+    { "id": 1011, "type": "core", "cell": [3, 8], "hitPoints": 6 }
+  ]
+}

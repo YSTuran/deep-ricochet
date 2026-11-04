@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "bonus_05",
+  "displayName": "Parlak Yarık",
+  "family": "bonus",
+  "contentVersion": "p0-content-1",
+  "width": 8,
+  "height": 8,
+  "multiplierBps": 15000,
+  "passageColumns": [4],
+  "exampleAngles": [86.5],
+  "blocks": [
+    { "id": 1101, "type": "normal", "cell": [3, 2], "hitPoints": 2 },
+    { "id": 1102, "type": "normal", "cell": [5, 2], "hitPoints": 2 },
+    { "id": 1103, "type": "ore", "cell": [2, 3], "hitPoints": 4 },
+    { "id": 1104, "type": "ore", "cell": [6, 3], "hitPoints": 4 },
+    { "id": 1105, "type": "rock", "cell": [3, 4], "hitPoints": 0 },
+    { "id": 1106, "type": "rock", "cell": [5, 4], "hitPoints": 0 },
+    { "id": 1107, "type": "normal", "cell": [3, 6], "hitPoints": 5 },
+    { "id": 1108, "type": "normal", "cell": [5, 6], "hitPoints": 5 },
+    { "id": 1109, "type": "ore", "cell": [2, 7], "hitPoints": 6 },
+    { "id": 1110, "type": "ore", "cell": [6, 7], "hitPoints": 6 },
+    { "id": 1111, "type": "core", "cell": [4, 8], "hitPoints": 6 }
+  ]
+}

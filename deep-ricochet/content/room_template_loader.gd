@@ -35,7 +35,13 @@ static func from_dictionary(data: Dictionary) -> RoomTemplate:
 	template.schema_version = int(data.get("schemaVersion", 0))
 	template.room_id = StringName(str(data.get("id", "")))
 	template.display_name = str(data.get("displayName", ""))
+	template.family = _family_from_name(str(data.get("family", "")))
+	template.content_version = str(data.get("contentVersion", ""))
+	template.width = int(data.get("width", 0))
+	template.height = int(data.get("height", 0))
 	template.multiplier_bps = int(data.get("multiplierBps", 0))
+	template.passage_columns = _int_array(data.get("passageColumns", []))
+	template.example_angles = _float_array(data.get("exampleAngles", []))
 
 	var raw_blocks: Variant = data.get("blocks", [])
 	if typeof(raw_blocks) != TYPE_ARRAY:
@@ -72,3 +78,30 @@ static func _block_type_from_name(type_name: String) -> int:
 		"core":
 			return BlockState.BlockType.CORE
 	return -1
+
+
+static func _family_from_name(family_name: String) -> int:
+	match family_name.to_lower():
+		"safe":
+			return RoomTemplate.Family.SAFE
+		"bonus":
+			return RoomTemplate.Family.BONUS
+	return -1
+
+
+static func _int_array(value: Variant) -> PackedInt32Array:
+	var result := PackedInt32Array()
+	if typeof(value) != TYPE_ARRAY:
+		return result
+	for item: Variant in value:
+		result.append(int(item))
+	return result
+
+
+static func _float_array(value: Variant) -> PackedFloat32Array:
+	var result := PackedFloat32Array()
+	if typeof(value) != TYPE_ARRAY:
+		return result
+	for item: Variant in value:
+		result.append(float(item))
+	return result
