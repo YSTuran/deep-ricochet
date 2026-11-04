@@ -1,5 +1,7 @@
 extends Node
 
+const MenuPauseTests := preload("res://tests/test_menu_pause.gd")
+
 
 func _ready() -> void:
 	var config := GameConfig.load_from_file()
@@ -19,6 +21,9 @@ func _ready() -> void:
 	var gameplay_room: GameplayRoom = run_controller.gameplay_room
 	assert(run_controller.catalog != null)
 	assert(run_controller.catalog.templates.size() == 12)
+	assert(run_controller.run_session == null)
+	assert(run_controller.main_menu_view.visible)
+	await MenuPauseTests.run(run_controller, self)
 	assert(run_controller.run_session != null)
 	assert(run_controller.run_session.room_number == 1)
 	assert(gameplay_room.current_template.family == RoomTemplate.Family.SAFE)
@@ -44,5 +49,5 @@ func _ready() -> void:
 	BoardAndCollisionTests.run(config)
 	VolleyAndRoomTests.run(config)
 
-	print("[PASS] Deep Ricochet koşu, kayıt/kurtarma, şablon, UI, fizik ve puan testleri geçti.")
+	print("[PASS] Deep Ricochet menü/duraklatma, koşu, kayıt, UI, fizik ve puan testleri geçti.")
 	get_tree().quit()

@@ -50,10 +50,17 @@ Oyun alanında fareyle ya da dokunmatik ekranla basılı tutup yön seçilir; b�
 - Atomik geçici dosya yazımı, son geçerli yedek ve bozuk kayıt doğrulaması
 - Atış öncesi snapshot; yarıda kesilen yaylımda hak/puan kaybetmeden geri dönüş
 - Oda, rota adayları ve sonuç ekranı için otomatik kararlı durum kaydı
+- Açılışta `Devam` ve `Yeni Oyun` seçeneklerini sunan ana menü
+- Devam eden koşuyu yanlışlıkla silmemek için yeni oyun onayı
+- Oynanış ve rota ekranında simülasyonu tamamen donduran duraklatma menüsü
+- Android arka plana geçişinde ve masaüstü odak kaybında otomatik duraklatma
+- Uygulama yeniden öne geldiğinde yalnızca oyuncu `Devam` dediğinde çalışma
 
-Aktif koşu `user://deep_ricochet_active_run.json` konumuna yazılır; önceki geçerli kayıt `.bak` uzantısıyla korunur. Ana menü henüz bulunmadığı için geçerli kayıt uygulama açılışında otomatik devam eder. Kesilmiş atışta canlı top konumları yüklenmez; atış öncesindeki kararlı oda geri gelir.
+Aktif koşu `user://deep_ricochet_active_run.json` konumuna yazılır; önceki geçerli kayıt `.bak` uzantısıyla korunur. Geçerli ve bitmemiş bir kayıt uygulama açılışında ana menüde `Devam` düğmesini etkinleştirir. Kesilmiş atışta canlı top konumları yüklenmez; atış öncesindeki kararlı oda geri gelir.
 
-Duraklatma/arka plan yaşam döngüsü, ana menü, iki dil, öğretici ve ses sonraki P0 adımlarında eklenecektir. Şablonlardaki örnek açı dizileri otomatik simülasyonda çekirdeği kırmaktadır; gerçek Android cihaz geçişleri ayrıca doğrulanacaktır.
+Duraklatma menüsünden ana menüye dönüldüğünde kararlı koşu korunur. Bir yaylım sürüyorsa diskteki atış öncesi snapshot kullanılır; böylece yarım simülasyon kaydedilmez. Uygulama arka plana geçtiğinde oyun otomatik durur, fakat öne döndüğünde kendiliğinden devam etmez.
+
+İki dil, öğretici, profil/en iyi skor, ayarlar ve ses sonraki P0 adımlarındadır. Şablonlardaki örnek açı dizileri otomatik simülasyonda çekirdeği kırmaktadır; gerçek Android cihaz arka plan/geri dönüş geçişleri ayrıca doğrulanacaktır.
 
 ## Otomatik test
 
@@ -63,4 +70,4 @@ Godot komut satırından proje kökünde şu sahne çalıştırılır:
 godot --headless --path deep-ricochet --scene res://tests/smoke_test.tscn
 ```
 
-Test; 12 oda şablonunu, örnek açı geçişlerini, 100 seed seçimini, dört oda/üç rota akışını, kararlı kayıt round-trip işlemini, atış ortası kurtarmayı, sabit rota adaylarını, yedekten kurtarmayı, bozuk kayıt reddini, açılışta otomatik devamı, yinelenen sonuç korumasını, fiziği ve puanı doğrular.
+Test; ana menü ve devam durumunu, nişan sırasında duraklatmayı, canlı yaylımın donmasını, odak kaybını, kullanıcı kontrollü devamı, 12 oda şablonunu, örnek açı geçişlerini, 100 seed seçimini, dört oda/üç rota akışını, kararlı kayıt round-trip işlemini, atış ortası kurtarmayı, sabit rota adaylarını, yedekten kurtarmayı, bozuk kayıt reddini, yinelenen sonuç korumasını, fiziği ve puanı doğrular.

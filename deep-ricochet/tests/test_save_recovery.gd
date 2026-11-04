@@ -11,6 +11,7 @@ static func run(controller: RunController, config: GameConfig, parent: Node) -> 
 	_test_stable_round_trip(controller, service, config)
 	_test_interrupted_shot_uses_pre_shot(controller, service)
 	_test_controller_shot_hook(controller, service)
+	_test_interrupted_shot_main_menu_continue(controller, service)
 	_test_route_and_result_restore(controller, service)
 	_test_backup_and_invalid_save(controller, service, config)
 	await _test_startup_restore(controller, service, parent)
@@ -100,6 +101,38 @@ static func _test_controller_shot_hook(
 	assert(not controller.gameplay_room.volley.active)
 	assert(not controller.gameplay_room.room.shot_in_progress)
 	assert(controller.gameplay_room.room.shots_remaining == initial_shots)
+	controller.persistence_enabled = false
+	controller.save_service = null
+
+
+static func _test_interrupted_shot_main_menu_continue(
+	controller: RunController,
+	service: SaveService,
+) -> void:
+	assert(service.clear_all())
+	controller.persistence_enabled = true
+	controller.save_service = service
+	assert(controller.start_new_run(81_818))
+	var initial_shots := controller.gameplay_room.room.shots_remaining
+	controller.gameplay_room.aiming = true
+	controller.gameplay_room.aim_valid = true
+	controller.gameplay_room.aim_direction = Vector2.UP
+	controller.gameplay_room._release_aim()
+	assert(controller.gameplay_room.room.shot_in_progress)
+	assert(controller.gameplay_room.room.shots_remaining == initial_shots - 1)
+	controller.pause_game()
+	controller.return_to_main_menu()
+	assert(controller.main_menu_view.visible)
+	assert(controller.main_menu_view.continue_available)
+	assert(controller.pending_continue_snapshot != null)
+	assert(controller.continue_saved_run())
+	assert(controller.run_session.seed == 81_818)
+	assert(not controller.gameplay_room.room.shot_in_progress)
+	assert(not controller.gameplay_room.volley.active)
+	assert(controller.gameplay_room.room.shots_remaining == initial_shots)
+	var loaded := service.load_active(controller.catalog, controller.config)
+	assert(loaded.has_valid_save())
+	assert(not loaded.interrupted_shot())
 	controller.persistence_enabled = false
 	controller.save_service = null
 
@@ -196,7 +229,10 @@ static func _test_startup_restore(
 	restored_controller.save_path = TEST_SAVE_PATH
 	parent.add_child(restored_controller)
 	await parent.get_tree().process_frame
-	assert(restored_controller.run_session != null)
+	assert(restored_controller.run_session == null)
+	assert(restored_controller.main_menu_view.visible)
+	assert(restored_controller.main_menu_view.continue_available)
+	assert(restored_controller.continue_saved_run())
 	assert(restored_controller.run_session.seed == 61_616)
 	assert(restored_controller.run_session.current_template_id == expected_template_id)
 	assert(restored_controller.gameplay_room.current_template.room_id == expected_template_id)

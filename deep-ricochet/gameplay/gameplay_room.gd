@@ -34,6 +34,7 @@ var forced_collection_effect_elapsed: float = 0.0
 var run_room_number: int = 1
 var run_room_count: int = 1
 var banked_score: int = 0
+var simulation_enabled := true
 
 
 func _ready() -> void:
@@ -102,7 +103,7 @@ func restore_room(template: RoomTemplate, snapshot: RoomSnapshot) -> bool:
 	volley = ShotVolley.new()
 	_reset_transient_state()
 	status_text = "Kayıtlı oda geri yüklendi."
-	set_process_unhandled_input(not room.room_finished)
+	set_process_unhandled_input(simulation_enabled and not room.room_finished)
 	_refresh_view()
 	return true
 
@@ -120,14 +121,30 @@ func show_status(message: String) -> void:
 
 
 func set_input_enabled(enabled: bool) -> void:
-	set_process_unhandled_input(enabled)
+	set_process_unhandled_input(enabled and simulation_enabled)
 	if enabled:
+		return
+	cancel_aim_for_pause()
+
+
+func set_simulation_enabled(enabled: bool) -> void:
+	simulation_enabled = enabled
+	set_physics_process(enabled)
+	set_process(enabled)
+	set_process_unhandled_input(enabled and not room.room_finished)
+	if not enabled:
+		cancel_aim_for_pause()
+
+
+func cancel_aim_for_pause() -> void:
+	if not aiming and not aim_valid and active_touch_id == -1:
 		return
 	aiming = false
 	aim_valid = false
 	aim_preview_dirty = false
 	aim_preview = AimPreviewResult.new(LAUNCHER_WORLD)
 	active_touch_id = -1
+	status_text = "Nişan iptal edildi."
 	_refresh_view()
 
 
@@ -281,7 +298,7 @@ func _start_loaded_room() -> bool:
 	room.start(config.shots_per_room, current_template.multiplier_bps)
 	_reset_transient_state()
 	status_text = "Basılı tut, yönü seç ve bırak."
-	set_process_unhandled_input(true)
+	set_process_unhandled_input(simulation_enabled)
 	_refresh_view()
 	return true
 

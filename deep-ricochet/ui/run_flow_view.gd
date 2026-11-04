@@ -10,7 +10,8 @@ enum Screen {
 const VIEW_SIZE := Vector2(540.0, 960.0)
 const SAFE_CARD := Rect2(24.0, 150.0, 492.0, 290.0)
 const BONUS_CARD := Rect2(24.0, 465.0, 492.0, 290.0)
-const RESTART_BUTTON := Rect2(90.0, 690.0, 360.0, 76.0)
+const RESTART_BUTTON := Rect2(90.0, 665.0, 360.0, 70.0)
+const RESULT_MENU_BUTTON := Rect2(90.0, 755.0, 360.0, 70.0)
 
 const COLOR_BACKGROUND := Color("111c2a")
 const COLOR_PANEL := Color("17283b")
@@ -75,8 +76,11 @@ func _gui_input(event: InputEvent) -> void:
 			if card_rects[option_index].has_point(event_position):
 				controller.select_route(run_session.pending_routes[option_index].option_id)
 				return
-	elif screen == Screen.RUN_RESULT and RESTART_BUTTON.has_point(event_position):
-		controller.start_new_run()
+	elif screen == Screen.RUN_RESULT:
+		if RESTART_BUTTON.has_point(event_position):
+			controller.start_new_run()
+		elif RESULT_MENU_BUTTON.has_point(event_position):
+			controller.show_main_menu_from_result()
 
 
 func _draw() -> void:
@@ -202,6 +206,9 @@ func _draw_run_result() -> void:
 	)
 	draw_rect(RESTART_BUTTON, accent, true)
 	_draw_centered("YENİDEN OYNA", RESTART_BUTTON, 24, COLOR_BACKGROUND)
+	draw_rect(RESULT_MENU_BUTTON, COLOR_PANEL, true)
+	draw_rect(RESULT_MENU_BUTTON, Color("40546a"), false, 2.0)
+	_draw_centered("ANA MENÜ", RESULT_MENU_BUTTON, 22, COLOR_TEXT)
 
 
 func _draw_text(text: String, position: Vector2, size: int, color: Color) -> void:
