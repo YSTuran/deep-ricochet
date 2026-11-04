@@ -1,4 +1,4 @@
-class_name PhysicsTestRoomView
+class_name GameplayRoomView
 extends Node2D
 
 const VIEW_SIZE := Vector2(540.0, 960.0)
@@ -20,11 +20,11 @@ const NORMAL_TEXTURE: Texture2D = preload("res://art/source/blok_normal.png")
 const ORE_TEXTURE: Texture2D = preload("res://art/source/blok_cevher.png")
 const CORE_TEXTURE: Texture2D = preload("res://art/source/cekirdek.png")
 
-var room: PhysicsTestRoom
+var room: GameplayRoom
 
 
-func bind(test_room: PhysicsTestRoom) -> void:
-	room = test_room
+func bind(gameplay_room: GameplayRoom) -> void:
+	room = gameplay_room
 	queue_redraw()
 
 
@@ -33,12 +33,12 @@ func refresh() -> void:
 
 
 func _draw() -> void:
-	if room == null or room.config == null:
+	if room == null or room.config == null or room.current_template == null:
 		return
 
 	draw_rect(Rect2(Vector2.ZERO, VIEW_SIZE), COLOR_BACKGROUND)
 	draw_rect(Rect2(Vector2(18.0, 18.0), Vector2(504.0, 104.0)), COLOR_PANEL, true)
-	_draw_text(Vector2(30.0, 52.0), "DEEP RICOCHET", 28, COLOR_TEXT)
+	_draw_text(Vector2(30.0, 52.0), "DEEP RICOCHET • %s" % room.current_template.display_name, 24, COLOR_TEXT)
 	_draw_text(
 		Vector2(30.0, 84.0),
 		"Atış %d/%d • Ham puan %d • Çarpan %.1f" % [

@@ -17,4 +17,3 @@ func _init(
 	block_type = contact_block_type
 	position_world = contact_position_world
 	normal = contact_normal
-

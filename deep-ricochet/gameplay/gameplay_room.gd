@@ -1,5 +1,8 @@
-class_name PhysicsTestRoom
+class_name GameplayRoom
 extends Node2D
+
+signal shot_resolved(resolution: RoomResolution)
+signal room_finished(resolution: RoomResolution)
 
 const BOARD_ORIGIN := Vector2(30.0, 150.0)
 const BOARD_SIZE_WORLD := Vector2(8.0, 10.0)
@@ -7,9 +10,12 @@ const WORLD_SCALE := 60.0
 const LAUNCHER_WORLD := Vector2(4.0, 0.45)
 const FORCED_COLLECTION_EFFECT_SECONDS := 0.35
 
-@onready var view: PhysicsTestRoomView = $View
+@export_file("*.json") var initial_room_template_path := "res://content/rooms/prototype_room.json"
+
+@onready var view: GameplayRoomView = $View
 
 var config: GameConfig
+var current_template: RoomTemplate
 var simulator := ShotSimulator.new()
 var aim_preview_builder := AimPreview.new()
 var board := BoardModel.new()
@@ -29,9 +35,33 @@ var forced_collection_effect_elapsed: float = 0.0
 func _ready() -> void:
 	config = GameConfig.load_from_file()
 	view.bind(self)
-	_reset_test_room()
-	set_process_unhandled_input(true)
+	if current_template == null:
+		current_template = RoomTemplateLoader.load_from_file(initial_room_template_path)
+	if current_template == null or not _start_loaded_room():
+		status_text = "Oda şablonu yüklenemedi."
+		set_process_unhandled_input(false)
 	_refresh_view()
+
+
+func load_room(template: RoomTemplate) -> bool:
+	if template == null:
+		push_error("Boş oda şablonu yüklenemez.")
+		return false
+	var errors := template.validation_errors()
+	if not errors.is_empty():
+		push_error("Geçersiz oda şablonu:\n- %s" % "\n- ".join(errors))
+		return false
+
+	current_template = template
+	if not is_node_ready():
+		return true
+	return _start_loaded_room()
+
+
+func restart_current_room() -> bool:
+	if current_template == null:
+		return false
+	return _start_loaded_room()
 
 
 func _physics_process(delta: float) -> void:
@@ -100,8 +130,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _begin_aim(screen_position: Vector2) -> void:
 	if room.room_finished:
-		_reset_test_room()
-		status_text = "Oda yenilendi. Nişan almak için tekrar dokun."
+		status_text = "Oda sona erdi. Devam etmek için sonuç ekranını kullan."
 		_refresh_view()
 		return
 	if volley.active or room.shot_in_progress:
@@ -170,26 +199,28 @@ func _cancel_aim() -> void:
 	_refresh_view()
 
 
-func _reset_test_room() -> void:
-	board = BoardModel.new()
+func _start_loaded_room() -> bool:
+	var loaded_board := current_template.create_board()
+	if loaded_board == null:
+		push_error("Oda şablonundan oyun tahtası oluşturulamadı: %s" % current_template.room_id)
+		return false
+
+	board = loaded_board
 	volley = ShotVolley.new()
 	room = RoomSession.new()
-	_build_test_board()
-	room.start(config.shots_per_room, config.safe_multiplier_bps)
+	room.start(config.shots_per_room, current_template.multiplier_bps)
 	aiming = false
 	aim_valid = false
+	aim_direction = Vector2.UP
 	aim_preview_dirty = false
 	aim_preview = AimPreviewResult.new(LAUNCHER_WORLD)
+	active_touch_id = -1
 	forced_collection_positions.clear()
 	forced_collection_effect_elapsed = 0.0
 	status_text = "Basılı tut, yönü seç ve bırak."
-
-
-func _build_test_board() -> void:
-	board.add_block(BlockState.new(1, BlockState.BlockType.NORMAL, Vector2i(1, 7), 4))
-	board.add_block(BlockState.new(2, BlockState.BlockType.ORE, Vector2i(3, 7), 4))
-	board.add_block(BlockState.new(3, BlockState.BlockType.ROCK, Vector2i(5, 7), 0))
-	board.add_block(BlockState.new(4, BlockState.BlockType.CORE, Vector2i(6, 8), 6))
+	set_process_unhandled_input(true)
+	_refresh_view()
+	return true
 
 
 func _rebuild_aim_preview() -> void:
@@ -224,14 +255,16 @@ func _handle_damage_result(result: BlockDamageResult) -> void:
 func _handle_room_resolution(resolution: RoomResolution) -> void:
 	if not resolution.processed:
 		return
+	shot_resolved.emit(resolution)
 	if not resolution.room_finished:
 		status_text = "Yaylım bitti. Kalan atış: %d" % resolution.remaining_shots
 		return
 
 	if resolution.succeeded:
-		status_text = "Oda tamamlandı! Ödül: %d • Yeniden başlamak için dokun." % resolution.reward
+		status_text = "Oda tamamlandı! Ödül: %d" % resolution.reward
 	else:
-		status_text = "Atışlar bitti. Ödül: %d • Yeniden başlamak için dokun." % resolution.reward
+		status_text = "Atışlar bitti. Ödül: %d" % resolution.reward
+	room_finished.emit(resolution)
 
 
 func _block_name(block: BlockState) -> String:

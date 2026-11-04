@@ -7,6 +7,8 @@ Deep Ricochet, dikey ekranda oynanan nişan alma ve sekme odaklı bir mobil oyun
 - `deep-ricochet/`: Godot projesi ve çalıştırılabilir oyun kaynakları.
 - `assets/`: Orijinal görseller, üretim notları ve asset manifesti.
 
+Oda içerikleri `deep-ricochet/content/rooms/` altındaki JSON şablonlarında tutulur. Oynanış sahnesi bu şablonlardan blok dizilimini, blok canlarını ve oda çarpanını yükler; kaynak şablonu değiştirmeden her başlangıçta yeni bir tahta üretir.
+
 Godot'ta açılması gereken dosya `deep-ricochet/project.godot` dosyasıdır. Ana klasör ise Git deposunun köküdür; böylece hem proje hem de kaynak asset paketi birlikte sürümlenir.
 
 ## Teknolojiler
@@ -38,15 +40,17 @@ Test odasında fareyle ya da dokunmatik ekranla basılı tutup yön seçilir; b�
 - 10 saniyelik yaylım üst sınırı ve tek seferlik atış sonucu
 - Kırılma puanları, kalan atış bonusu ve oda çarpanı hesabı
 - Başarı, son atışta başarı önceliği ve başarısız oda sonucu
+- JSON tabanlı, doğrulanan ve yeniden kullanılabilir oda şablonları
+- Dışarıdan oda yükleyebilen ve sonucu sinyalle bildiren `GameplayRoom`
 
-Ses, dört odalık akış, rota seçimi, oda şablonları ve kalıcı ilerleme sonraki P0 adımlarında eklenecektir.
+Ses, dört odalık akış, rota seçimi, ek oda şablonları ve kalıcı ilerleme sonraki P0 adımlarında eklenecektir.
 
 ## Otomatik test
 
 Godot komut satırından proje kökünde şu sahne çalıştırılır:
 
 ```text
-godot --headless --path deep-ricochet res://tests/smoke_test.tscn
+godot --headless --path deep-ricochet --scene res://tests/smoke_test.tscn
 ```
 
-Test; duvarları, toplayıcıyı, blok hasarını, sert kaya sekmesini, çekirdeğin dairesel çarpışmasını, temas korumasını, nişan önizlemesini, 8 topluk yaylımı, zaman aşımını, puanı ve oda sonucunu doğrular.
+Test; oda şablonu doğrulamasını, dışarıdan oda yüklemeyi, sonuç sinyalini, duvarları, toplayıcıyı, blok hasarını, sert kaya sekmesini, çekirdeğin dairesel çarpışmasını, temas korumasını, nişan önizlemesini, 8 topluk yaylımı, zaman aşımını, puanı ve oda sonucunu doğrular.
