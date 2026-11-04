@@ -3,6 +3,7 @@ extends Node2D
 
 signal shot_resolved(resolution: RoomResolution)
 signal room_finished(resolution: RoomResolution)
+signal shot_will_start
 
 const BOARD_ORIGIN := Vector2(30.0, 150.0)
 const BOARD_SIZE_WORLD := Vector2(8.0, 10.0)
@@ -67,10 +68,54 @@ func restart_current_room() -> bool:
 	return _start_loaded_room()
 
 
+func capture_snapshot() -> RoomSnapshot:
+	return RoomSnapshot.capture(current_template, board, room)
+
+
+func restore_room(template: RoomTemplate, snapshot: RoomSnapshot) -> bool:
+	if template == null or snapshot == null or config == null:
+		return false
+	var errors := snapshot.validation_errors(template, config)
+	if not errors.is_empty():
+		push_error("Oda snapshot geri yüklenemedi:\n- %s" % "\n- ".join(errors))
+		return false
+	var restored_board := template.create_board()
+	if restored_board == null:
+		return false
+	for block: BlockState in restored_board.blocks:
+		block.hit_points = snapshot.hit_points_for(block.id)
+	var restored_room := RoomSession.new()
+	if not restored_room.restore_stable_state(
+		snapshot.shots_remaining,
+		snapshot.break_score,
+		snapshot.multiplier_bps,
+		snapshot.room_finished,
+		snapshot.room_succeeded,
+		snapshot.final_reward,
+		snapshot.scored_block_ids,
+	):
+		return false
+
+	current_template = template
+	board = restored_board
+	room = restored_room
+	volley = ShotVolley.new()
+	_reset_transient_state()
+	status_text = "Kayıtlı oda geri yüklendi."
+	set_process_unhandled_input(not room.room_finished)
+	_refresh_view()
+	return true
+
+
 func set_run_context(room_number: int, room_count: int, confirmed_score: int) -> void:
 	run_room_number = room_number
 	run_room_count = room_count
 	banked_score = confirmed_score
+	_refresh_view()
+
+
+func show_status(message: String) -> void:
+	status_text = message
 	_refresh_view()
 
 
@@ -202,9 +247,12 @@ func _release_aim() -> void:
 			config.launch_interval_seconds,
 			config.volley_limit_seconds,
 		)
+		if volley_started:
+			shot_will_start.emit()
 		if volley_started and room.commit_shot():
 			status_text = "8 topluk yaylım başladı."
 		else:
+			volley.reset()
 			status_text = "Atış başlatılamadı; ayarları kontrol et."
 	aim_valid = false
 	aim_preview_dirty = false
@@ -231,6 +279,14 @@ func _start_loaded_room() -> bool:
 	volley = ShotVolley.new()
 	room = RoomSession.new()
 	room.start(config.shots_per_room, current_template.multiplier_bps)
+	_reset_transient_state()
+	status_text = "Basılı tut, yönü seç ve bırak."
+	set_process_unhandled_input(true)
+	_refresh_view()
+	return true
+
+
+func _reset_transient_state() -> void:
 	aiming = false
 	aim_valid = false
 	aim_direction = Vector2.UP
@@ -239,10 +295,6 @@ func _start_loaded_room() -> bool:
 	active_touch_id = -1
 	forced_collection_positions.clear()
 	forced_collection_effect_elapsed = 0.0
-	status_text = "Basılı tut, yönü seç ve bırak."
-	set_process_unhandled_input(true)
-	_refresh_view()
-	return true
 
 
 func _rebuild_aim_preview() -> void:

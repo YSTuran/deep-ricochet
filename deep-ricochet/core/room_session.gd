@@ -35,6 +35,40 @@ func can_commit_shot() -> bool:
 	return not room_finished and not shot_in_progress and shots_remaining > 0
 
 
+func scored_block_ids() -> PackedInt32Array:
+	var result := PackedInt32Array()
+	for block_id: int in _scored_block_ids:
+		result.append(block_id)
+	result.sort()
+	return result
+
+
+func restore_stable_state(
+	remaining_shots: int,
+	current_break_score: int,
+	room_multiplier_bps: int,
+	finished: bool,
+	succeeded: bool,
+	reward: int,
+	scored_ids: PackedInt32Array,
+) -> bool:
+	if remaining_shots < 0 or current_break_score < 0 or room_multiplier_bps <= 0 or reward < 0:
+		return false
+	if succeeded and not finished:
+		return false
+	shots_remaining = remaining_shots
+	break_score = current_break_score
+	multiplier_bps = room_multiplier_bps
+	shot_in_progress = false
+	room_finished = finished
+	room_succeeded = succeeded
+	final_reward = reward
+	_scored_block_ids.clear()
+	for block_id: int in scored_ids:
+		_scored_block_ids[block_id] = true
+	return true
+
+
 func record_damage_result(result: BlockDamageResult, config: GameConfig) -> int:
 	if room_finished or not shot_in_progress:
 		return 0

@@ -46,8 +46,14 @@ Oyun alanında fareyle ya da dokunmatik ekranla basılı tutup yön seçilir; b�
 - Seed tabanlı, aynı koşuda daha önce sunulan şablonu yeniden kullanmayan içerik seçimi
 - Gerçek şablondan çizilen güvenli/bonus rota önizlemeleri ve geçici sonuç ekranı
 - 6 güvenli ve 6 bonus olmak üzere 12 doğrulanan oda şablonu
+- Sürümlendirilmiş `RunSnapshot`, `RoomSnapshot` ve JSON kayıt zarfı
+- Atomik geçici dosya yazımı, son geçerli yedek ve bozuk kayıt doğrulaması
+- Atış öncesi snapshot; yarıda kesilen yaylımda hak/puan kaybetmeden geri dönüş
+- Oda, rota adayları ve sonuç ekranı için otomatik kararlı durum kaydı
 
-Duraklatma, yerel kayıt/kurtarma, ana menü, iki dil, öğretici ve ses sonraki P0 adımlarında eklenecektir. Şablonlardaki örnek açı dizileri otomatik simülasyonda çekirdeği kırmaktadır; gerçek Android cihaz geçişleri ayrıca doğrulanacaktır.
+Aktif koşu `user://deep_ricochet_active_run.json` konumuna yazılır; önceki geçerli kayıt `.bak` uzantısıyla korunur. Ana menü henüz bulunmadığı için geçerli kayıt uygulama açılışında otomatik devam eder. Kesilmiş atışta canlı top konumları yüklenmez; atış öncesindeki kararlı oda geri gelir.
+
+Duraklatma/arka plan yaşam döngüsü, ana menü, iki dil, öğretici ve ses sonraki P0 adımlarında eklenecektir. Şablonlardaki örnek açı dizileri otomatik simülasyonda çekirdeği kırmaktadır; gerçek Android cihaz geçişleri ayrıca doğrulanacaktır.
 
 ## Otomatik test
 
@@ -57,4 +63,4 @@ Godot komut satırından proje kökünde şu sahne çalıştırılır:
 godot --headless --path deep-ricochet --scene res://tests/smoke_test.tscn
 ```
 
-Test; 12 oda şablonunu, örnek açı geçişlerini, 100 seed seçimini, dört oda/üç rota akışını, gerçek rota önizleme verisini, yinelenen sonuç korumasını, dışarıdan oda yüklemeyi, duvarları, blok hasarını, nişan önizlemesini, 8 topluk yaylımı, zaman aşımını ve puanı doğrular.
+Test; 12 oda şablonunu, örnek açı geçişlerini, 100 seed seçimini, dört oda/üç rota akışını, kararlı kayıt round-trip işlemini, atış ortası kurtarmayı, sabit rota adaylarını, yedekten kurtarmayı, bozuk kayıt reddini, açılışta otomatik devamı, yinelenen sonuç korumasını, fiziği ve puanı doğrular.

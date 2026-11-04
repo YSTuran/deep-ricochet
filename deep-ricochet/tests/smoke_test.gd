@@ -9,7 +9,8 @@ func _ready() -> void:
 	assert(ProjectSettings.get_setting("application/run/main_scene") == "res://app/main.tscn")
 
 	var main_scene: PackedScene = load("res://app/main.tscn")
-	var main_instance := main_scene.instantiate()
+	var main_instance: RunController = main_scene.instantiate()
+	main_instance.persistence_enabled = false
 	add_child(main_instance)
 	await get_tree().process_frame
 	assert(main_instance is RunController)
@@ -22,6 +23,7 @@ func _ready() -> void:
 	assert(run_controller.run_session.room_number == 1)
 	assert(gameplay_room.current_template.family == RoomTemplate.Family.SAFE)
 	RunFlowTests.run(run_controller, config)
+	await SaveRecoveryTests.run(run_controller, config, self)
 	main_instance.queue_free()
 
 	var gameplay_scene: PackedScene = load("res://gameplay/gameplay_room.tscn")
@@ -42,5 +44,5 @@ func _ready() -> void:
 	BoardAndCollisionTests.run(config)
 	VolleyAndRoomTests.run(config)
 
-	print("[PASS] Deep Ricochet 4 oda/3 rota, 12 şablon, UI, fizik, girdi, yaylım ve puan testleri geçti.")
+	print("[PASS] Deep Ricochet koşu, kayıt/kurtarma, şablon, UI, fizik ve puan testleri geçti.")
 	get_tree().quit()
