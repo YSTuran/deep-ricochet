@@ -1,0 +1,100 @@
+keys,en,tr
+MENU_TAGLINE,Aim • Ricochet • Break the core,Nişan al • Sektir • Çekirdeği kır
+MENU_CONTINUE,CONTINUE,DEVAM
+MENU_NO_SAVE,NO SAVED RUN,KAYITLI OYUN YOK
+MENU_NEW_GAME,NEW GAME,YENİ OYUN
+MENU_SETTINGS,SETTINGS,AYARLAR
+MENU_OFFLINE,Offline prototype,Çevrimdışı prototip
+PROFILE_BEST,BEST SCORE  %d,EN İYİ SKOR  %d
+PROFILE_STATS,Runs %d • Wins %d • Cores %d,Koşu %d • Başarı %d • Çekirdek %d
+PAUSE_TITLE,GAME PAUSED,OYUN DURAKLATILDI
+PAUSE_SUBTITLE,Simulation waits until you continue.,Devam etmeden simülasyon akmaz.
+PAUSE_CONTINUE,CONTINUE,DEVAM
+PAUSE_NEW_GAME,NEW GAME,YENİ OYUN
+PAUSE_MAIN_MENU,MAIN MENU,ANA MENÜ
+PAUSE_SETTINGS,SETTINGS,AYARLAR
+CONFIRM_NEW_TITLE,NEW GAME?,YENİ OYUN?
+CONFIRM_NEW_BODY,The current run will be replaced. Profile and settings stay.,Mevcut koşu bırakılacak. Profil ve ayarlar korunacak.
+COMMON_CANCEL,CANCEL,VAZGEÇ
+COMMON_BACK,BACK,GERİ
+SETTINGS_TITLE,SETTINGS,AYARLAR
+SETTINGS_LANGUAGE,LANGUAGE,DİL
+SETTINGS_TURKISH,TÜRKÇE,TÜRKÇE
+SETTINGS_ENGLISH,ENGLISH,ENGLISH
+SETTINGS_TUTORIAL,REPLAY TUTORIAL,ÖĞRETİCİYİ TEKRARLA
+SETTINGS_RESET,RESET PROGRESS,İLERLEMEYİ SIFIRLA
+CONFIRM_RESET_TITLE,RESET PROGRESS?,İLERLEME SIFIRLANSIN MI?
+CONFIRM_RESET_BODY,Saved run and profile statistics will be deleted.,Kayıtlı koşu ve profil istatistikleri silinecek.
+CONFIRM_RESET_ACTION,RESET,SIFIRLA
+TUTORIAL_SKIP,SKIP,ATLA
+TUTORIAL_NEXT,NEXT,İLERİ
+TUTORIAL_START,START,BAŞLA
+TUTORIAL_TITLE_1,AIM AND RELEASE,NİŞAN AL VE BIRAK
+TUTORIAL_BODY_1,Hold anywhere on the board. Drag upward to choose an angle and release to launch.,Tahtaya basılı tut. Açıyı seçmek için yukarı sürükle ve fırlatmak için bırak.
+TUTORIAL_TITLE_2,USE RICOCHETS,SEKMELERİ KULLAN
+TUTORIAL_BODY_2,Walls and hard rocks reflect balls. The dotted preview follows the same physics.,Duvarlar ve sert kayalar topları yansıtır. Kesikli önizleme aynı fiziği kullanır.
+TUTORIAL_TITLE_3,BREAK THE CORE,ÇEKİRDEĞİ KIR
+TUTORIAL_BODY_3,Blue blocks give points. Ore gives more. Break the mint core before shots run out.,Mavi bloklar puan verir. Cevher daha değerlidir. Atışlar bitmeden mint çekirdeği kır.
+TUTORIAL_TITLE_4,CHOOSE YOUR ROUTE,ROTANI SEÇ
+TUTORIAL_BODY_4,Wide passages are safer. Narrow veins have a higher score multiplier.,Geniş geçitler daha güvenlidir. Dar damarların puan çarpanı daha yüksektir.
+ROUTE_SELECT,CHOOSE A ROUTE,ROTA SEÇ
+ROUTE_SUMMARY,Room %d complete • +%d • Total %d • Next %d/%d,Oda %d tamamlandı • +%d • Toplam %d • Sıradaki %d/%d
+ROUTE_HINT,The mini board is the exact room that will be loaded.,Karttaki küçük tahta seçildiğinde yüklenecek gerçek odadır.
+ROUTE_SAFE,Wide Passage,Geniş Geçit
+ROUTE_BONUS,Narrow Vein,Dar Damar
+ROUTE_TAP,TAP TO CHOOSE,DOKUN VE SEÇ
+RESULT_SUCCESS,EXPEDITION COMPLETE,KAZI TAMAMLANDI
+RESULT_FAILURE,EXPEDITION ENDED,KAZI SONA ERDİ
+RESULT_ROOMS,%d / %d rooms,%d / %d oda
+RESULT_TOTAL_SCORE,Total score,Toplam puan
+RESULT_SUMMARY,%d route choices • Last room reward %d,%d rota tercihi • Son oda ödülü %d
+RESULT_NEW_BEST,NEW BEST!,YENİ REKOR!
+RESULT_BEST,Best %d,En iyi %d
+RESULT_REPLAY,PLAY AGAIN,YENİDEN OYNA
+RESULT_MAIN_MENU,MAIN MENU,ANA MENÜ
+HUD_TITLE,DEEP RICOCHET • %s,DEEP RICOCHET • %s
+HUD_STATS,Room %d/%d • Total %d • Room %d • Shots %d/%d • ×%.1f,Oda %d/%d • Toplam %d • Oda %d • Atış %d/%d • ×%.1f
+HUD_VOLLEY_HINT,Each valid shot launches 8 balls at 0.08 s intervals.,Her geçerli atışta 8 top 0.08 sn arayla çıkar.
+HUD_AIM_HINT,The yellow marker shows the first breakable contact.,Sarı işaret ilk kırılabilir temas noktasını gösterir.
+STATUS_AIM,Hold aim and release.,Basılı tut yönü seç ve bırak.
+STATUS_TEMPLATE_FAILED,Room template could not be loaded.,Oda şablonu yüklenemedi.
+STATUS_RESTORED,Saved room restored.,Kayıtlı oda geri yüklendi.
+STATUS_AIM_CANCELLED,Aim cancelled.,Nişan iptal edildi.
+STATUS_ROCK_RICOCHET,Hard rock reflected the ball without taking damage.,Sert kaya topu hasar almadan yansıttı.
+STATUS_ROOM_ENDED,The room has ended. Use the result screen.,Oda sona erdi. Sonuç ekranını kullan.
+STATUS_VOLLEY_ACTIVE,Wait for the current volley to finish.,Yaylım sürerken yeni atış yapılamaz.
+STATUS_AIM_FAR,Aim a little farther from the launcher.,Nişan için fırlatıcıdan biraz uzaklaş.
+STATUS_ANGLE,Angle: %.1f°,Açı: %.1f°
+STATUS_UP_ONLY,You can only aim upward.,Yalnızca yukarı doğru nişan alınabilir.
+STATUS_VOLLEY_STARTED,8-ball volley started.,8 topluk yaylım başladı.
+STATUS_SHOT_FAILED,Shot could not start. Check the settings.,Atış başlatılamadı; ayarları kontrol et.
+STATUS_BLOCK_BROKE,%s broke. +%d points,%s kırıldı. +%d puan
+STATUS_BLOCK_DAMAGED,%s took damage. HP: %d,%s hasar aldı. Kalan can: %d
+STATUS_VOLLEY_ENDED,Volley ended. Shots left: %d,Yaylım bitti. Kalan atış: %d
+STATUS_ROOM_COMPLETE,Room complete! Reward: %d,Oda tamamlandı! Ödül: %d
+STATUS_SHOTS_OVER,No shots left. Reward: %d,Atışlar bitti. Ödül: %d
+BLOCK_NORMAL,Normal block,Normal blok
+BLOCK_ORE,Ore block,Cevher bloğu
+BLOCK_ROCK,Hard rock,Sert kaya
+BLOCK_CORE,Core,Çekirdek
+BLOCK_GENERIC,Block,Blok
+NOTICE_INTERRUPTED,The interrupted shot will restart.,Yarım kalan atış baştan oynanacak.
+NOTICE_BACKUP,The main save failed. The latest valid backup was loaded.,Ana kayıt açılamadı; son geçerli yedek yüklendi.
+NOTICE_SAVE_INVALID,Save validation failed. The damaged file was isolated.,Kayıt doğrulanamadı; bozuk dosya ayrıldı.
+NOTICE_LOAD_FAILED,The save could not be opened.,Kayıt şu anda açılamadı.
+NOTICE_RUN_SAVED,Run saved.,Koşu kaydedildi.
+NOTICE_SHOT_RETRY,Shot cancelled. You can retry after continuing.,Atış iptal edildi; devamda yeniden deneyebilirsin.
+NOTICE_MEMORY_ONLY,Run kept for this session.,Koşu bu oturum için bellekte tutuldu.
+NOTICE_PROGRESS_RESET,Progress reset.,İlerleme sıfırlandı.
+ROOM_SAFE_01,Wide Gallery,Geniş Galeri
+ROOM_SAFE_02,Twin Corridor,Çift Koridor
+ROOM_SAFE_03,Open Shaft,Açık Şaft
+ROOM_SAFE_04,Echo Hall,Yankı Salonu
+ROOM_SAFE_05,Blue Passage,Mavi Geçit
+ROOM_SAFE_06,Rock Plaza,Kaya Meydanı
+ROOM_BONUS_01,Golden Fissure,Altın Yarık
+ROOM_BONUS_02,Narrow Shaft,Dar Şaft
+ROOM_BONUS_03,Ore Gorge,Cevher Boğazı
+ROOM_BONUS_04,Broken Vein,Kırık Damar
+ROOM_BONUS_05,Bright Fissure,Parlak Yarık
+ROOM_BONUS_06,Single Line,Tek Hat

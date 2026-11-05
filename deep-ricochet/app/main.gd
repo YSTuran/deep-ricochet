@@ -3,20 +3,35 @@ extends Node
 
 @export var persistence_enabled := true
 @export var save_path := SaveService.DEFAULT_SAVE_PATH
+@export var profile_path := ProfileService.DEFAULT_PATH
+@export var settings_path := SettingsService.DEFAULT_PATH
+@export var tutorial_enabled := true
 
 @onready var gameplay_room: GameplayRoom = $GameplayRoom
 @onready var flow_view: RunFlowView = $Interface/RunFlowView
 @onready var main_menu_view: MainMenuView = $Interface/MainMenuView
 @onready var pause_button: Button = $Interface/PauseButton
 @onready var pause_overlay: PauseOverlay = $Interface/PauseOverlay
+@onready var settings_overlay: SettingsOverlay = $Interface/SettingsOverlay
+@onready var tutorial_overlay: TutorialOverlay = $Interface/TutorialOverlay
+
+enum SettingsContext {
+	MAIN_MENU,
+	PAUSE,
+}
 
 var config: GameConfig
 var catalog: RoomCatalog
 var run_session: RunSession
 var rng := RandomNumberGenerator.new()
 var save_service: SaveService
+var profile_service: ProfileService
+var settings_service: SettingsService
+var profile: PlayerProfile
+var app_settings: AppSettings
 var last_save_error: String
 var last_recovery_message: String
+var last_result_new_best := false
 
 var pending_continue_snapshot: RunSnapshot
 var pending_continue_interrupted := false
@@ -26,10 +41,13 @@ var continue_in_memory := false
 var pause_active := false
 var pause_origin_screen: int = RunFlowView.Screen.GAMEPLAY
 var confirmation_from_main_menu := false
+var settings_context: SettingsContext = SettingsContext.MAIN_MENU
+var tutorial_return_to_settings := false
 
 
 func _ready() -> void:
 	config = GameConfig.load_from_file()
+	_initialize_user_data()
 	catalog = RoomCatalog.load_default()
 	if catalog == null:
 		push_error("Oda kataloğu yüklenemedi; oyun başlatılmadı.")
@@ -40,6 +58,8 @@ func _ready() -> void:
 	flow_view.bind(self)
 	main_menu_view.bind(self)
 	pause_overlay.bind(self)
+	settings_overlay.bind(self)
+	tutorial_overlay.bind(self)
 	pause_button.pressed.connect(pause_game)
 	gameplay_room.set_simulation_enabled(false)
 	pause_button.visible = false
@@ -53,13 +73,22 @@ func _notification(what: int) -> void:
 	if what == MainLoop.NOTIFICATION_APPLICATION_PAUSED \
 		or what == MainLoop.NOTIFICATION_APPLICATION_FOCUS_OUT:
 		pause_game()
+	elif what == NOTIFICATION_WM_GO_BACK_REQUEST:
+		_handle_back_request()
 
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not event.is_action_pressed("ui_cancel") or event.is_echo():
 		return
 	get_viewport().set_input_as_handled()
-	if pause_overlay.visible and pause_overlay.mode == PauseOverlay.Mode.CONFIRM_NEW_GAME:
+	if tutorial_overlay.visible:
+		complete_tutorial()
+	elif settings_overlay.visible:
+		if settings_overlay.mode == SettingsOverlay.Mode.CONFIRM_RESET:
+			settings_overlay.show_settings()
+		else:
+			close_settings()
+	elif pause_overlay.visible and pause_overlay.mode == PauseOverlay.Mode.CONFIRM_NEW_GAME:
 		cancel_new_game_confirmation()
 	elif pause_active:
 		resume_game()
@@ -70,6 +99,37 @@ func _unhandled_input(event: InputEvent) -> void:
 func _exit_tree() -> void:
 	if pause_active and get_tree() != null:
 		get_tree().paused = false
+
+
+func _initialize_user_data() -> void:
+	profile = PlayerProfile.new()
+	app_settings = AppSettings.new()
+	if persistence_enabled:
+		profile_service = ProfileService.new(profile_path)
+		settings_service = SettingsService.new(settings_path)
+		profile = profile_service.load_profile()
+		app_settings = settings_service.load_settings()
+	TranslationServer.set_locale(str(app_settings.language))
+
+
+func _handle_back_request() -> void:
+	if tutorial_overlay.visible:
+		complete_tutorial()
+	elif settings_overlay.visible:
+		if settings_overlay.mode == SettingsOverlay.Mode.CONFIRM_RESET:
+			settings_overlay.show_settings()
+		else:
+			close_settings()
+	elif pause_overlay.visible and pause_overlay.mode == PauseOverlay.Mode.CONFIRM_NEW_GAME:
+		cancel_new_game_confirmation()
+	elif pause_active:
+		resume_game()
+	elif main_menu_view.visible:
+		get_tree().quit()
+	elif run_session != null and run_session.ended:
+		show_main_menu_from_result()
+	else:
+		pause_game()
 
 
 func _boot_from_save() -> void:
@@ -94,13 +154,13 @@ func _boot_from_save() -> void:
 				load_result.status == SaveLoadResult.Status.RECOVERED_BACKUP
 			)
 			if pending_continue_interrupted:
-				pending_continue_notice = "Yarım kalan atış baştan oynanacak."
+				pending_continue_notice = tr("NOTICE_INTERRUPTED")
 			elif pending_continue_recovered_backup:
-				pending_continue_notice = load_result.message
+				pending_continue_notice = tr("NOTICE_BACKUP")
 			_show_main_menu(true, pending_continue_notice)
 			return
 	if load_result.status == SaveLoadResult.Status.INVALID:
-		last_recovery_message = "Kayıt doğrulanamadı; bozuk dosya ayrıldı."
+		last_recovery_message = tr("NOTICE_SAVE_INVALID")
 		save_service.quarantine_invalid()
 		_show_main_menu(false, last_recovery_message)
 		return
@@ -128,12 +188,14 @@ func start_new_run(requested_seed: int = 0) -> bool:
 		push_error("Koşu oturumu başlatılamadı.")
 		return false
 	run_session = new_session
+	last_result_new_best = false
 	flow_view.show_gameplay()
 	var loaded := _load_current_room(first_template)
 	if loaded:
 		gameplay_room.set_simulation_enabled(true)
 		pause_button.visible = true
 		_save_stable()
+		_maybe_show_first_tutorial()
 	return loaded
 
 
@@ -150,7 +212,7 @@ func continue_saved_run() -> bool:
 	var recovery_message := pending_continue_notice
 	var recovered_backup := pending_continue_recovered_backup
 	if not _restore_snapshot(snapshot):
-		_show_main_menu(true, "Kayıt şu anda açılamadı.")
+		_show_main_menu(true, tr("NOTICE_LOAD_FAILED"))
 		return false
 	if recovered_backup and save_service != null:
 		save_service.discard_primary()
@@ -190,6 +252,94 @@ func confirm_new_game() -> void:
 	start_new_run()
 
 
+func open_settings_from_main_menu() -> void:
+	settings_context = SettingsContext.MAIN_MENU
+	settings_overlay.show_settings()
+
+
+func open_settings_from_pause() -> void:
+	if not pause_active:
+		return
+	settings_context = SettingsContext.PAUSE
+	pause_overlay.hide_overlay()
+	settings_overlay.show_settings()
+
+
+func close_settings() -> void:
+	settings_overlay.hide_overlay()
+	if settings_context == SettingsContext.PAUSE and pause_active:
+		pause_overlay.show_pause()
+
+
+func set_language(language: StringName) -> bool:
+	if app_settings == null or not AppSettings.SUPPORTED_LANGUAGES.has(language):
+		return false
+	app_settings.language = language
+	TranslationServer.set_locale(str(language))
+	if settings_service != null and not settings_service.save_settings(app_settings):
+		push_warning("Ayarlar kaydedilemedi: %s" % settings_service.last_error)
+	_refresh_localized_views()
+	return true
+
+
+func show_tutorial_from_settings() -> void:
+	tutorial_return_to_settings = true
+	settings_overlay.hide_overlay()
+	_show_tutorial()
+
+
+func complete_tutorial() -> void:
+	if not tutorial_overlay.visible:
+		return
+	tutorial_overlay.hide_overlay()
+	if profile != null:
+		profile.tutorial_completed = true
+		_save_profile()
+	if tutorial_return_to_settings:
+		tutorial_return_to_settings = false
+		settings_overlay.show_settings()
+	elif run_session != null:
+		_restore_active_screen()
+
+
+func confirm_reset_progress() -> void:
+	if save_service != null:
+		save_service.clear_all()
+	if profile_service != null:
+		profile_service.clear_all()
+	profile = PlayerProfile.new()
+	_save_profile()
+	run_session = null
+	last_result_new_best = false
+	_clear_pending_continue()
+	settings_overlay.hide_overlay()
+	tutorial_overlay.hide_overlay()
+	pause_overlay.hide_overlay()
+	_leave_pause_state()
+	_show_main_menu(false, tr("NOTICE_PROGRESS_RESET"))
+
+
+func _maybe_show_first_tutorial() -> void:
+	if tutorial_enabled and profile != null and not profile.tutorial_completed:
+		tutorial_return_to_settings = false
+		_show_tutorial()
+
+
+func _show_tutorial() -> void:
+	gameplay_room.set_simulation_enabled(false)
+	pause_button.visible = false
+	tutorial_overlay.show_tutorial()
+
+
+func _refresh_localized_views() -> void:
+	gameplay_room.refresh_locale()
+	main_menu_view.queue_redraw()
+	pause_overlay.queue_redraw()
+	settings_overlay.refresh_locale()
+	tutorial_overlay.refresh_locale()
+	flow_view.queue_redraw()
+
+
 func pause_game() -> void:
 	if pause_active or main_menu_view.visible or run_session == null or run_session.ended:
 		return
@@ -217,7 +367,7 @@ func resume_game() -> void:
 func return_to_main_menu() -> void:
 	if run_session == null or run_session.ended:
 		return
-	var notice := "Koşu kaydedildi."
+	var notice := tr("NOTICE_RUN_SAVED")
 	continue_in_memory = false
 	pending_continue_snapshot = null
 	pending_continue_interrupted = false
@@ -232,13 +382,13 @@ func return_to_main_menu() -> void:
 				pending_continue_recovered_backup = (
 					load_result.status == SaveLoadResult.Status.RECOVERED_BACKUP
 				)
-				notice = "Atış iptal edildi; devamda yeniden deneyebilirsin."
+				notice = tr("NOTICE_SHOT_RETRY")
 			else:
 				continue_in_memory = true
-				notice = "Koşu bu oturum için bellekte tutuldu."
+				notice = tr("NOTICE_MEMORY_ONLY")
 		else:
 			continue_in_memory = true
-			notice = "Koşu bu oturum için bellekte tutuldu."
+			notice = tr("NOTICE_MEMORY_ONLY")
 	else:
 		pending_continue_snapshot = create_snapshot()
 		_save_stable()
@@ -277,9 +427,10 @@ func _on_room_finished(resolution: RoomResolution) -> void:
 		return
 	gameplay_room.set_simulation_enabled(false)
 	if run_session.ended:
+		_record_run_result_if_needed()
 		_save_stable()
 		pause_button.visible = false
-		flow_view.show_run_result(run_session)
+		flow_view.show_run_result(run_session, profile, last_result_new_best)
 		return
 
 	var options := catalog.create_route_options(
@@ -355,6 +506,8 @@ func _restore_snapshot(snapshot: RunSnapshot) -> bool:
 	run_session = restored_session
 	rng.seed = snapshot.seed
 	rng.state = snapshot.rng_state
+	if run_session.ended:
+		_record_run_result_if_needed()
 	main_menu_view.hide_menu()
 	pause_overlay.hide_overlay()
 	_leave_pause_state()
@@ -376,7 +529,7 @@ func _restore_active_screen() -> void:
 			pause_button.visible = true
 		RunSession.Phase.RUN_RESULT:
 			gameplay_room.set_simulation_enabled(false)
-			flow_view.show_run_result(run_session)
+			flow_view.show_run_result(run_session, profile, last_result_new_best)
 			pause_button.visible = false
 
 
@@ -401,6 +554,26 @@ func _clear_pending_continue() -> void:
 	pending_continue_recovered_backup = false
 	pending_continue_notice = ""
 	continue_in_memory = false
+
+
+func _record_run_result_if_needed() -> void:
+	if run_session == null or not run_session.ended or profile == null:
+		return
+	if profile.last_recorded_run_id == run_session.run_id:
+		last_result_new_best = false
+		return
+	last_result_new_best = profile.record_run(
+		run_session.run_id,
+		run_session.banked_score,
+		run_session.succeeded,
+		run_session.cores_broken,
+	)
+	_save_profile()
+
+
+func _save_profile() -> void:
+	if profile_service != null and not profile_service.save_profile(profile):
+		push_warning("Profil kaydedilemedi: %s" % profile_service.last_error)
 
 
 func _save_stable() -> void:

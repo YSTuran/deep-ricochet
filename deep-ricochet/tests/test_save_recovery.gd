@@ -227,6 +227,9 @@ static func _test_startup_restore(
 	var restored_controller: RunController = main_scene.instantiate()
 	restored_controller.persistence_enabled = true
 	restored_controller.save_path = TEST_SAVE_PATH
+	restored_controller.profile_path = "user://tests/deep_ricochet_restore_profile_test.json"
+	restored_controller.settings_path = "user://tests/deep_ricochet_restore_settings_test.json"
+	restored_controller.tutorial_enabled = false
 	parent.add_child(restored_controller)
 	await parent.get_tree().process_frame
 	assert(restored_controller.run_session == null)

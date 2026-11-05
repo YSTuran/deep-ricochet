@@ -55,12 +55,40 @@ Oyun alanında fareyle ya da dokunmatik ekranla basılı tutup yön seçilir; b�
 - Oynanış ve rota ekranında simülasyonu tamamen donduran duraklatma menüsü
 - Android arka plana geçişinde ve masaüstü odak kaybında otomatik duraklatma
 - Uygulama yeniden öne geldiğinde yalnızca oyuncu `Devam` dediğinde çalışma
+- Aktif koşudan ayrı ve atomik yazılan profil/istatistik kaydı
+- En iyi skor, koşu, başarı ve kırılan toplam çekirdek takibi
+- Ana menüde profil özeti ve sonuç ekranında yeni rekor bildirimi
+- Kalıcı dil tercihiyle eksiksiz Türkçe–İngilizce arayüz
+- İlk yeni oyunda açılan, ayarlardan tekrar oynatılabilen dört adımlı öğretici
+- Dil, öğretici ve onaylı ilerleme sıfırlama seçeneklerini içeren ayarlar ekranı
+- Android geri tuşunun menü, ayarlar, öğretici, sonuç ve duraklatma katmanlarına uygun davranması
+- Android 9 (API 28) alt sınırı, API 35 hedefi ve ARMv7/ARM64 Gradle export preseti
+- Assetlerle uyumlu prosedürel hasar halkası ve blok kırılma parçacıkları
 
 Aktif koşu `user://deep_ricochet_active_run.json` konumuna yazılır; önceki geçerli kayıt `.bak` uzantısıyla korunur. Geçerli ve bitmemiş bir kayıt uygulama açılışında ana menüde `Devam` düğmesini etkinleştirir. Kesilmiş atışta canlı top konumları yüklenmez; atış öncesindeki kararlı oda geri gelir.
 
 Duraklatma menüsünden ana menüye dönüldüğünde kararlı koşu korunur. Bir yaylım sürüyorsa diskteki atış öncesi snapshot kullanılır; böylece yarım simülasyon kaydedilmez. Uygulama arka plana geçtiğinde oyun otomatik durur, fakat öne döndüğünde kendiliğinden devam etmez.
 
-İki dil, öğretici, profil/en iyi skor, ayarlar ve ses sonraki P0 adımlarındadır. Şablonlardaki örnek açı dizileri otomatik simülasyonda çekirdeği kırmaktadır; gerçek Android cihaz arka plan/geri dönüş geçişleri ayrıca doğrulanacaktır.
+Profil `user://deep_ricochet_profile.json`, dil tercihi `user://deep_ricochet_settings.json` konumunda aktif koşudan bağımsız tutulur. Her ikisi de geçici dosya ve son geçerli yedek kullanır. İlerlemeyi sıfırlama, dil tercihini korurken aktif koşuyu ve profil istatistiklerini onay sonrasında temizler.
+
+Ses paketi P0'ın kalan ayrı işidir. Şablonlardaki örnek açı dizileri otomatik simülasyonda çekirdeği kırmaktadır; gerçek Android cihaz arka plan/geri dönüş ve dokunmatik geçişleri ayrıca doğrulanacaktır.
+
+## Android dışa aktarma
+
+`deep-ricochet/export_presets.cfg` içindeki **Android** preseti Android 9 ve üzerini, API 35 hedefini, ARMv7/ARM64 mimarilerini ve çevrimdışı çalışma için sıfır ek izin ilkesini kullanır. Paket kimliği şimdilik `com.ysturan.deepricochet` değeridir.
+
+Godot 4.7.2 ile ilk APK'yı üretmeden önce:
+
+1. **Editor → Manage Export Templates** içinden tam olarak `4.7.2.stable` Android export şablonunu kurun.
+2. **Editor Settings → Export → Android** altında Java SDK yolunu Android Studio'nun `jbr` klasörüne, Android SDK yolunu içinde `platform-tools/adb` bulunan SDK klasörüne ayarlayın.
+3. **Project → Install Android Build Template** ile Gradle şablonunu projeye kurun. Oluşan `deep-ricochet/android/` dizini makine üretimi olduğu için Git'e alınmaz.
+4. Debug APK için Godot'un Export ekranındaki **Export Project** düğmesini veya aşağıdaki komutu kullanın:
+
+```text
+godot --headless --path deep-ricochet --export-debug Android build/android/deep-ricochet-debug.apk
+```
+
+Google Play sürümünde AAB seçilmeli ve depoya eklenmeyen özel bir release keystore kullanılmalıdır.
 
 ## Otomatik test
 
@@ -70,4 +98,4 @@ Godot komut satırından proje kökünde şu sahne çalıştırılır:
 godot --headless --path deep-ricochet --scene res://tests/smoke_test.tscn
 ```
 
-Test; ana menü ve devam durumunu, nişan sırasında duraklatmayı, canlı yaylımın donmasını, odak kaybını, kullanıcı kontrollü devamı, 12 oda şablonunu, örnek açı geçişlerini, 100 seed seçimini, dört oda/üç rota akışını, kararlı kayıt round-trip işlemini, atış ortası kurtarmayı, sabit rota adaylarını, yedekten kurtarmayı, bozuk kayıt reddini, yinelenen sonuç korumasını, fiziği ve puanı doğrular.
+Test; profil ve ayar round-trip işlemlerini, profil yedeğinden kurtarmayı, iki dili, ilk-oyun öğreticisini, ilerleme sıfırlamayı, ana menü ve devam durumunu, nişan sırasında duraklatmayı, canlı yaylımın donmasını, odak kaybını, 12 oda şablonunu, örnek açı geçişlerini, 100 seed seçimini, dört oda/üç rota akışını, atış ortası kurtarmayı, bozuk kayıt reddini, fiziği ve puanı doğrular. Ayrıca 12 odanın örnek açı simülasyon süresini test çıktısında `[PERF]` satırıyla raporlar.

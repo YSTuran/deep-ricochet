@@ -10,6 +10,7 @@ const VIEW_SIZE := Vector2(540.0, 960.0)
 const CONTINUE_BUTTON := Rect2(80.0, 390.0, 380.0, 70.0)
 const NEW_GAME_BUTTON := Rect2(80.0, 485.0, 380.0, 70.0)
 const MAIN_MENU_BUTTON := Rect2(80.0, 580.0, 380.0, 70.0)
+const SETTINGS_BUTTON := Rect2(80.0, 675.0, 380.0, 70.0)
 const CANCEL_BUTTON := Rect2(55.0, 560.0, 200.0, 70.0)
 const CONFIRM_BUTTON := Rect2(285.0, 560.0, 200.0, 70.0)
 
@@ -71,6 +72,8 @@ func _gui_input(event: InputEvent) -> void:
 			controller.request_new_game_confirmation(false)
 		elif MAIN_MENU_BUTTON.has_point(event_position):
 			controller.return_to_main_menu()
+		elif SETTINGS_BUTTON.has_point(event_position):
+			controller.open_settings_from_pause()
 	else:
 		if CANCEL_BUTTON.has_point(event_position):
 			controller.cancel_new_game_confirmation()
@@ -87,28 +90,30 @@ func _draw() -> void:
 
 
 func _draw_pause() -> void:
-	_draw_centered("OYUN DURAKLATILDI", Rect2(30.0, 210.0, 480.0, 60.0), 32, COLOR_TEXT)
-	_draw_centered("Devam etmeden simülasyon akmaz.", Rect2(40.0, 285.0, 460.0, 34.0), 17, COLOR_MUTED)
+	_draw_centered(tr("PAUSE_TITLE"), Rect2(30.0, 180.0, 480.0, 60.0), 32, COLOR_TEXT)
+	_draw_centered(tr("PAUSE_SUBTITLE"), Rect2(40.0, 255.0, 460.0, 34.0), 17, COLOR_MUTED)
 	draw_rect(CONTINUE_BUTTON, COLOR_PRIMARY, true)
-	_draw_centered("DEVAM", CONTINUE_BUTTON, 23, COLOR_BACKGROUND)
+	_draw_centered(tr("PAUSE_CONTINUE"), CONTINUE_BUTTON, 23, COLOR_BACKGROUND)
 	draw_rect(NEW_GAME_BUTTON, COLOR_PANEL, true)
-	_draw_centered("YENİ OYUN", NEW_GAME_BUTTON, 21, COLOR_TEXT)
+	_draw_centered(tr("PAUSE_NEW_GAME"), NEW_GAME_BUTTON, 21, COLOR_TEXT)
 	draw_rect(MAIN_MENU_BUTTON, COLOR_PANEL, true)
-	_draw_centered("ANA MENÜ", MAIN_MENU_BUTTON, 21, COLOR_TEXT)
+	_draw_centered(tr("PAUSE_MAIN_MENU"), MAIN_MENU_BUTTON, 21, COLOR_TEXT)
+	draw_rect(SETTINGS_BUTTON, COLOR_PANEL, true)
+	_draw_centered(tr("PAUSE_SETTINGS"), SETTINGS_BUTTON, 21, COLOR_TEXT)
 
 
 func _draw_confirmation() -> void:
-	_draw_centered("YENİ OYUN?", Rect2(30.0, 260.0, 480.0, 56.0), 32, COLOR_TEXT)
+	_draw_centered(tr("CONFIRM_NEW_TITLE"), Rect2(30.0, 260.0, 480.0, 56.0), 32, COLOR_TEXT)
 	_draw_centered(
-		"Mevcut koşu bırakılacak. Rekor ve ayarlar korunacak.",
+		tr("CONFIRM_NEW_BODY"),
 		Rect2(50.0, 355.0, 440.0, 58.0),
 		17,
 		COLOR_MUTED,
 	)
 	draw_rect(CANCEL_BUTTON, COLOR_PANEL, true)
-	_draw_centered("VAZGEÇ", CANCEL_BUTTON, 19, COLOR_TEXT)
+	_draw_centered(tr("COMMON_CANCEL"), CANCEL_BUTTON, 19, COLOR_TEXT)
 	draw_rect(CONFIRM_BUTTON, COLOR_DANGER, true)
-	_draw_centered("YENİ OYUN", CONFIRM_BUTTON, 19, COLOR_TEXT)
+	_draw_centered(tr("PAUSE_NEW_GAME"), CONFIRM_BUTTON, 19, COLOR_TEXT)
 
 
 func _draw_centered(text: String, rect: Rect2, size: int, color: Color) -> void:

@@ -145,6 +145,12 @@ func create_board() -> BoardModel:
 	return board
 
 
+func localized_display_name() -> String:
+	var key := "ROOM_%s" % str(room_id).to_upper()
+	var translated := TranslationServer.translate(key)
+	return display_name if translated == key else translated
+
+
 func _is_known_block_type(block_type: int) -> bool:
 	return block_type == BlockState.BlockType.NORMAL \
 		or block_type == BlockState.BlockType.ORE \

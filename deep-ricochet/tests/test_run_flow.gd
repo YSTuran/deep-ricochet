@@ -67,6 +67,7 @@ static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: Gam
 
 
 static func _test_template_example_angles(catalog: RoomCatalog, config: GameConfig) -> void:
+	var started_usec := Time.get_ticks_usec()
 	var simulator := ShotSimulator.new()
 	for template: RoomTemplate in catalog.templates:
 		var board := template.create_board()
@@ -93,6 +94,8 @@ static func _test_template_example_angles(catalog: RoomCatalog, config: GameConf
 			if board.is_core_destroyed():
 				break
 		assert(board.is_core_destroyed(), "Örnek açı dizisi çekirdeği kıramadı: %s" % template.room_id)
+	var elapsed_msec := float(Time.get_ticks_usec() - started_usec) / 1000.0
+	print("[PERF] 12 oda örnek açı simülasyonu: %.1f ms" % elapsed_msec)
 
 
 static func _test_failed_run(catalog: RoomCatalog, config: GameConfig) -> void:

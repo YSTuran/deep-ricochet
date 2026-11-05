@@ -12,5 +12,5 @@ func _init(route_id: StringName = &"", room_template: RoomTemplate = null) -> vo
 
 func title() -> String:
 	if template != null and template.family == RoomTemplate.Family.BONUS:
-		return "Dar Damar"
-	return "Geniş Geçit"
+		return TranslationServer.translate("ROUTE_BONUS")
+	return TranslationServer.translate("ROUTE_SAFE")

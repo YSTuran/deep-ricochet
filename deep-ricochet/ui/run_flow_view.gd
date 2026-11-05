@@ -26,6 +26,8 @@ const COLOR_CORE := Color("69d8bc")
 
 var controller: RunController
 var run_session: RunSession
+var profile: PlayerProfile
+var new_best := false
 var screen: Screen = Screen.GAMEPLAY
 
 
@@ -36,6 +38,8 @@ func bind(run_controller: RunController) -> void:
 func show_gameplay() -> void:
 	screen = Screen.GAMEPLAY
 	run_session = null
+	profile = null
+	new_best = false
 	visible = false
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 
@@ -48,9 +52,15 @@ func show_route_selection(session: RunSession) -> void:
 	queue_redraw()
 
 
-func show_run_result(session: RunSession) -> void:
+func show_run_result(
+	session: RunSession,
+	current_profile: PlayerProfile = null,
+	is_new_best: bool = false,
+) -> void:
 	screen = Screen.RUN_RESULT
 	run_session = session
+	profile = current_profile
+	new_best = is_new_best
 	visible = true
 	mouse_filter = Control.MOUSE_FILTER_STOP
 	queue_redraw()
@@ -94,9 +104,9 @@ func _draw() -> void:
 
 
 func _draw_route_selection() -> void:
-	_draw_centered("ROTA SEÇ", Rect2(20.0, 30.0, 500.0, 44.0), 30, COLOR_TEXT)
+	_draw_centered(tr("ROUTE_SELECT"), Rect2(20.0, 30.0, 500.0, 44.0), 30, COLOR_TEXT)
 	_draw_centered(
-		"Oda %d tamamlandı • +%d • Toplam %d • Sıradaki oda %d/%d" % [
+		tr("ROUTE_SUMMARY") % [
 			run_session.room_number,
 			run_session.last_room_reward,
 			run_session.banked_score,
@@ -114,7 +124,7 @@ func _draw_route_selection() -> void:
 			run_session.pending_routes[option_index],
 		)
 	_draw_centered(
-		"Karttaki küçük tahta, seçildiğinde yüklenecek gerçek odadır.",
+		tr("ROUTE_HINT"),
 		Rect2(20.0, 805.0, 500.0, 34.0),
 		15,
 		COLOR_MUTED,
@@ -134,13 +144,13 @@ func _draw_route_card(rect: Rect2, option: RouteOption) -> void:
 		accent,
 	)
 	_draw_centered(
-		option.template.display_name,
+		option.template.localized_display_name(),
 		Rect2(rect.position + Vector2(150.0, 42.0), Vector2(192.0, 26.0)),
 		14,
 		COLOR_MUTED,
 	)
 	_draw_template_preview(option.template, rect.position + Vector2(158.0, 82.0), 22.0)
-	_draw_centered("DOKUN VE SEÇ", Rect2(rect.position + Vector2(120.0, 254.0), Vector2(252.0, 26.0)), 16, accent)
+	_draw_centered(tr("ROUTE_TAP"), Rect2(rect.position + Vector2(120.0, 254.0), Vector2(252.0, 26.0)), 16, accent)
 
 
 func _draw_template_preview(template: RoomTemplate, origin: Vector2, cell_size: float) -> void:
@@ -173,18 +183,18 @@ func _draw_template_preview(template: RoomTemplate, origin: Vector2, cell_size: 
 
 
 func _draw_run_result() -> void:
-	var heading := "KAZI TAMAMLANDI" if run_session.succeeded else "KAZI SONA ERDİ"
+	var heading := tr("RESULT_SUCCESS") if run_session.succeeded else tr("RESULT_FAILURE")
 	var accent := COLOR_CORE if run_session.succeeded else COLOR_BONUS
 	_draw_centered(heading, Rect2(30.0, 110.0, 480.0, 56.0), 34, accent)
 	draw_rect(Rect2(45.0, 220.0, 450.0, 360.0), COLOR_PANEL, true)
 	_draw_centered(
-		"%d / %d oda" % [run_session.cores_broken, run_session.room_count],
+		tr("RESULT_ROOMS") % [run_session.cores_broken, run_session.room_count],
 		Rect2(65.0, 270.0, 410.0, 46.0),
 		27,
 		COLOR_TEXT,
 	)
 	_draw_centered(
-		"Toplam puan",
+		tr("RESULT_TOTAL_SCORE"),
 		Rect2(65.0, 350.0, 410.0, 34.0),
 		19,
 		COLOR_MUTED,
@@ -196,7 +206,7 @@ func _draw_run_result() -> void:
 		accent,
 	)
 	_draw_centered(
-		"%d rota tercihi • Son oda ödülü %d" % [
+		tr("RESULT_SUMMARY") % [
 			run_session.route_choices_made,
 			run_session.last_room_reward,
 		],
@@ -204,11 +214,14 @@ func _draw_run_result() -> void:
 		17,
 		COLOR_MUTED,
 	)
+	if profile != null:
+		var best_label := tr("RESULT_NEW_BEST") if new_best else tr("RESULT_BEST") % profile.best_score
+		_draw_centered(best_label, Rect2(65.0, 545.0, 410.0, 30.0), 18, accent)
 	draw_rect(RESTART_BUTTON, accent, true)
-	_draw_centered("YENİDEN OYNA", RESTART_BUTTON, 24, COLOR_BACKGROUND)
+	_draw_centered(tr("RESULT_REPLAY"), RESTART_BUTTON, 24, COLOR_BACKGROUND)
 	draw_rect(RESULT_MENU_BUTTON, COLOR_PANEL, true)
 	draw_rect(RESULT_MENU_BUTTON, Color("40546a"), false, 2.0)
-	_draw_centered("ANA MENÜ", RESULT_MENU_BUTTON, 22, COLOR_TEXT)
+	_draw_centered(tr("RESULT_MAIN_MENU"), RESULT_MENU_BUTTON, 22, COLOR_TEXT)
 
 
 func _draw_text(text: String, position: Vector2, size: int, color: Color) -> void:

@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=8 format=3]
 
 [ext_resource type="Script" path="res://app/main.gd" id="1_main"]
 [ext_resource type="PackedScene" path="res://gameplay/gameplay_room.tscn" id="2_room"]
 [ext_resource type="Script" path="res://ui/run_flow_view.gd" id="3_flow"]
 [ext_resource type="Script" path="res://ui/main_menu_view.gd" id="4_menu"]
 [ext_resource type="Script" path="res://ui/pause_overlay.gd" id="5_pause"]
+[ext_resource type="Script" path="res://ui/settings_overlay.gd" id="6_settings"]
+[ext_resource type="Script" path="res://ui/tutorial_overlay.gd" id="7_tutorial"]
 
 [node name="RunController" type="Node"]
 process_mode = 3
@@ -53,3 +55,23 @@ offset_right = 540.0
 offset_bottom = 960.0
 mouse_filter = 2
 script = ExtResource("5_pause")
+
+[node name="SettingsOverlay" type="Control" parent="Interface"]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 540.0
+offset_bottom = 960.0
+mouse_filter = 2
+script = ExtResource("6_settings")
+
+[node name="TutorialOverlay" type="Control" parent="Interface"]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 540.0
+offset_bottom = 960.0
+mouse_filter = 2
+script = ExtResource("7_tutorial")

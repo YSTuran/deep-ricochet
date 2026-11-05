@@ -28,9 +28,10 @@ var aim_direction := Vector2.UP
 var aim_preview := AimPreviewResult.new()
 var aim_preview_dirty := false
 var active_touch_id := -1
-var status_text := "Basılı tut, yönü seç ve bırak."
+var status_text: String
 var forced_collection_positions := PackedVector2Array()
 var forced_collection_effect_elapsed: float = 0.0
+var impact_effects: Array[Dictionary] = []
 var run_room_number: int = 1
 var run_room_count: int = 1
 var banked_score: int = 0
@@ -40,10 +41,11 @@ var simulation_enabled := true
 func _ready() -> void:
 	config = GameConfig.load_from_file()
 	view.bind(self)
+	status_text = tr("STATUS_AIM")
 	if current_template == null:
 		current_template = RoomTemplateLoader.load_from_file(initial_room_template_path)
 	if current_template == null or not _start_loaded_room():
-		status_text = "Oda şablonu yüklenemedi."
+		status_text = tr("STATUS_TEMPLATE_FAILED")
 		set_process_unhandled_input(false)
 	_refresh_view()
 
@@ -102,7 +104,7 @@ func restore_room(template: RoomTemplate, snapshot: RoomSnapshot) -> bool:
 	room = restored_room
 	volley = ShotVolley.new()
 	_reset_transient_state()
-	status_text = "Kayıtlı oda geri yüklendi."
+	status_text = tr("STATUS_RESTORED")
 	set_process_unhandled_input(simulation_enabled and not room.room_finished)
 	_refresh_view()
 	return true
@@ -144,7 +146,7 @@ func cancel_aim_for_pause() -> void:
 	aim_preview_dirty = false
 	aim_preview = AimPreviewResult.new(LAUNCHER_WORLD)
 	active_touch_id = -1
-	status_text = "Nişan iptal edildi."
+	status_text = tr("STATUS_AIM_CANCELLED")
 	_refresh_view()
 
 
@@ -163,7 +165,7 @@ func _physics_process(delta: float) -> void:
 		_handle_damage_result(damage_result)
 	for collision: CollisionResult in step_result.collisions:
 		if collision.contact_started and collision.block_type == BlockState.BlockType.ROCK:
-			status_text = "Sert kaya topu hasar almadan yansıttı."
+			status_text = tr("STATUS_ROCK_RICOCHET")
 	if not step_result.forced_collection_positions.is_empty():
 		forced_collection_positions = step_result.forced_collection_positions
 		forced_collection_effect_elapsed = 0.0
@@ -185,6 +187,11 @@ func _process(delta: float) -> void:
 		forced_collection_effect_elapsed += delta
 		if forced_collection_effect_elapsed >= FORCED_COLLECTION_EFFECT_SECONDS:
 			forced_collection_positions.clear()
+		view_changed = true
+	for effect_index in range(impact_effects.size() - 1, -1, -1):
+		impact_effects[effect_index]["elapsed"] = float(impact_effects[effect_index]["elapsed"]) + delta
+		if float(impact_effects[effect_index]["elapsed"]) >= 0.32:
+			impact_effects.remove_at(effect_index)
 		view_changed = true
 	if view_changed:
 		_refresh_view()
@@ -214,11 +221,11 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _begin_aim(screen_position: Vector2) -> void:
 	if room.room_finished:
-		status_text = "Oda sona erdi. Devam etmek için sonuç ekranını kullan."
+		status_text = tr("STATUS_ROOM_ENDED")
 		_refresh_view()
 		return
 	if volley.active or room.shot_in_progress:
-		status_text = "Yaylım sürerken yeni atış yapılamaz."
+		status_text = tr("STATUS_VOLLEY_ACTIVE")
 		_refresh_view()
 		return
 	aiming = true
@@ -235,7 +242,7 @@ func _update_aim(screen_position: Vector2) -> void:
 		aim_valid = false
 		aim_preview_dirty = false
 		aim_preview = AimPreviewResult.new(LAUNCHER_WORLD)
-		status_text = "Nişan için fırlatıcıdan biraz uzaklaş."
+		status_text = tr("STATUS_AIM_FAR")
 		_refresh_view()
 		return
 
@@ -243,7 +250,7 @@ func _update_aim(screen_position: Vector2) -> void:
 	var clamped_angle := clampf(raw_angle, config.aim_min_degrees, config.aim_max_degrees)
 	aim_direction = Vector2.from_angle(deg_to_rad(clamped_angle)).normalized()
 	aim_valid = raw_direction.y > 0.0
-	status_text = "Açı: %.1f°" % clamped_angle if aim_valid else "Yalnızca yukarı doğru nişan alınabilir."
+	status_text = tr("STATUS_ANGLE") % clamped_angle if aim_valid else tr("STATUS_UP_ONLY")
 	if aim_valid:
 		aim_preview_dirty = true
 	else:
@@ -267,10 +274,10 @@ func _release_aim() -> void:
 		if volley_started:
 			shot_will_start.emit()
 		if volley_started and room.commit_shot():
-			status_text = "8 topluk yaylım başladı."
+			status_text = tr("STATUS_VOLLEY_STARTED")
 		else:
 			volley.reset()
-			status_text = "Atış başlatılamadı; ayarları kontrol et."
+			status_text = tr("STATUS_SHOT_FAILED")
 	aim_valid = false
 	aim_preview_dirty = false
 	aim_preview = AimPreviewResult.new(LAUNCHER_WORLD)
@@ -282,7 +289,7 @@ func _cancel_aim() -> void:
 	aim_valid = false
 	aim_preview_dirty = false
 	aim_preview = AimPreviewResult.new(LAUNCHER_WORLD)
-	status_text = "Nişan iptal edildi."
+	status_text = tr("STATUS_AIM_CANCELLED")
 	_refresh_view()
 
 
@@ -297,7 +304,7 @@ func _start_loaded_room() -> bool:
 	room = RoomSession.new()
 	room.start(config.shots_per_room, current_template.multiplier_bps)
 	_reset_transient_state()
-	status_text = "Basılı tut, yönü seç ve bırak."
+	status_text = tr("STATUS_AIM")
 	set_process_unhandled_input(simulation_enabled)
 	_refresh_view()
 	return true
@@ -312,6 +319,7 @@ func _reset_transient_state() -> void:
 	active_touch_id = -1
 	forced_collection_positions.clear()
 	forced_collection_effect_elapsed = 0.0
+	impact_effects.clear()
 
 
 func _rebuild_aim_preview() -> void:
@@ -334,10 +342,15 @@ func _handle_damage_result(result: BlockDamageResult) -> void:
 		return
 
 	var awarded_points := room.record_damage_result(result, config)
+	impact_effects.append({
+		"position": block.collision_center_world(),
+		"destroyed": result.destroyed,
+		"elapsed": 0.0,
+	})
 	if result.destroyed:
-		status_text = "%s kırıldı. +%d puan" % [_block_name(block), awarded_points]
+		status_text = tr("STATUS_BLOCK_BROKE") % [_block_name(block), awarded_points]
 	else:
-		status_text = "%s hasar aldı. Kalan can: %d" % [
+		status_text = tr("STATUS_BLOCK_DAMAGED") % [
 			_block_name(block),
 			result.remaining_hit_points,
 		]
@@ -348,27 +361,33 @@ func _handle_room_resolution(resolution: RoomResolution) -> void:
 		return
 	shot_resolved.emit(resolution)
 	if not resolution.room_finished:
-		status_text = "Yaylım bitti. Kalan atış: %d" % resolution.remaining_shots
+		status_text = tr("STATUS_VOLLEY_ENDED") % resolution.remaining_shots
 		return
 
 	if resolution.succeeded:
-		status_text = "Oda tamamlandı! Ödül: %d" % resolution.reward
+		status_text = tr("STATUS_ROOM_COMPLETE") % resolution.reward
 	else:
-		status_text = "Atışlar bitti. Ödül: %d" % resolution.reward
+		status_text = tr("STATUS_SHOTS_OVER") % resolution.reward
 	room_finished.emit(resolution)
 
 
 func _block_name(block: BlockState) -> String:
 	match block.type:
 		BlockState.BlockType.NORMAL:
-			return "Normal blok"
+			return tr("BLOCK_NORMAL")
 		BlockState.BlockType.ORE:
-			return "Cevher bloğu"
+			return tr("BLOCK_ORE")
 		BlockState.BlockType.ROCK:
-			return "Sert kaya"
+			return tr("BLOCK_ROCK")
 		BlockState.BlockType.CORE:
-			return "Çekirdek"
-	return "Blok"
+			return tr("BLOCK_CORE")
+	return tr("BLOCK_GENERIC")
+
+
+func refresh_locale() -> void:
+	if not volley.active and not room.room_finished:
+		status_text = tr("STATUS_AIM")
+	_refresh_view()
 
 
 func _screen_to_world(screen_position: Vector2) -> Vector2:

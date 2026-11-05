@@ -1,6 +1,7 @@
 extends Node
 
 const MenuPauseTests := preload("res://tests/test_menu_pause.gd")
+const ProfileSettingsTests := preload("res://tests/test_profile_settings.gd")
 
 
 func _ready() -> void:
@@ -13,6 +14,7 @@ func _ready() -> void:
 	var main_scene: PackedScene = load("res://app/main.tscn")
 	var main_instance: RunController = main_scene.instantiate()
 	main_instance.persistence_enabled = false
+	main_instance.tutorial_enabled = false
 	add_child(main_instance)
 	await get_tree().process_frame
 	assert(main_instance is RunController)
@@ -29,6 +31,7 @@ func _ready() -> void:
 	assert(gameplay_room.current_template.family == RoomTemplate.Family.SAFE)
 	RunFlowTests.run(run_controller, config)
 	await SaveRecoveryTests.run(run_controller, config, self)
+	ProfileSettingsTests.run(run_controller)
 	main_instance.queue_free()
 
 	var gameplay_scene: PackedScene = load("res://gameplay/gameplay_room.tscn")
@@ -49,5 +52,5 @@ func _ready() -> void:
 	BoardAndCollisionTests.run(config)
 	VolleyAndRoomTests.run(config)
 
-	print("[PASS] Deep Ricochet menü/duraklatma, koşu, kayıt, UI, fizik ve puan testleri geçti.")
+	print("[PASS] Deep Ricochet P0 profil, dil, öğretici, ayarlar, kayıt, UI ve fizik testleri geçti.")
 	get_tree().quit()

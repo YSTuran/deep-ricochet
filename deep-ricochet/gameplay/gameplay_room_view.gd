@@ -38,10 +38,15 @@ func _draw() -> void:
 
 	draw_rect(Rect2(Vector2.ZERO, VIEW_SIZE), COLOR_BACKGROUND)
 	draw_rect(Rect2(Vector2(18.0, 18.0), Vector2(504.0, 104.0)), COLOR_PANEL, true)
-	_draw_text(Vector2(30.0, 52.0), "DEEP RICOCHET • %s" % room.current_template.display_name, 24, COLOR_TEXT)
+	_draw_text(
+		Vector2(30.0, 52.0),
+		tr("HUD_TITLE") % room.current_template.localized_display_name(),
+		24,
+		COLOR_TEXT,
+	)
 	_draw_text(
 		Vector2(30.0, 84.0),
-		"Oda %d/%d • Toplam %d • Oda %d • Atış %d/%d • ×%.1f" % [
+		tr("HUD_STATS") % [
 			room.run_room_number,
 			room.run_room_count,
 			room.banked_score,
@@ -135,8 +140,9 @@ func _draw() -> void:
 		)
 
 	_draw_forced_collection_effect()
-	_draw_text(Vector2(30.0, 790.0), "Her geçerli atışta 8 top, 0,08 sn arayla çıkar.", 17, Color("c6d6e4"))
-	_draw_text(Vector2(30.0, 820.0), "Sarı işaret ilk kırılabilir temas noktasını gösterir.", 15, Color("839bb0"))
+	_draw_impact_effects()
+	_draw_text(Vector2(30.0, 790.0), tr("HUD_VOLLEY_HINT"), 17, Color("c6d6e4"))
+	_draw_text(Vector2(30.0, 820.0), tr("HUD_AIM_HINT"), 15, Color("839bb0"))
 
 
 func _draw_forced_collection_effect() -> void:
@@ -152,6 +158,25 @@ func _draw_forced_collection_effect() -> void:
 		var effect_world := start_world.lerp(LAUNCHER_WORLD, eased_progress)
 		var effect_color := Color(COLOR_TEXT, 1.0 - progress * 0.65)
 		draw_circle(_world_to_screen(effect_world), 5.0, effect_color)
+
+
+func _draw_impact_effects() -> void:
+	for effect: Dictionary in room.impact_effects:
+		var progress := clampf(float(effect.get("elapsed", 0.0)) / 0.32, 0.0, 1.0)
+		var center := _world_to_screen(effect.get("position", Vector2.ZERO))
+		var destroyed := bool(effect.get("destroyed", false))
+		var radius := lerpf(8.0, 34.0 if destroyed else 22.0, progress)
+		var color := Color(COLOR_AIM, 1.0 - progress)
+		draw_arc(center, radius, 0.0, TAU, 24, color, 3.0, true)
+		if destroyed:
+			for ray_index in range(8):
+				var direction := Vector2.from_angle(float(ray_index) * TAU / 8.0)
+				draw_line(
+					center + direction * (10.0 + progress * 8.0),
+					center + direction * (18.0 + progress * 28.0),
+					color,
+					2.0,
+				)
 
 
 func _world_to_screen(world_position: Vector2) -> Vector2:
