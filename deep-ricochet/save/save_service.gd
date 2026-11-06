@@ -56,10 +56,14 @@ func load_active(catalog: RoomCatalog, config: GameConfig) -> SaveLoadResult:
 
 
 func clear_all() -> bool:
+	last_error = ""
 	var succeeded := true
 	for path: String in [primary_path, backup_path, temporary_path]:
 		if FileAccess.file_exists(path):
-			succeeded = _remove(path) == OK and succeeded
+			var remove_error := _remove(path)
+			if remove_error != OK:
+				succeeded = false
+				last_error = "Kayıt dosyası kaldırılamadı: %s (%s)" % [path, remove_error]
 	return succeeded
 
 

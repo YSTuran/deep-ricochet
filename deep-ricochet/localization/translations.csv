@@ -92,6 +92,7 @@ NOTICE_RUN_SAVED,Run saved.,Koşu kaydedildi.
 NOTICE_SHOT_RETRY,Shot cancelled. You can retry after continuing.,Atış iptal edildi; devamda yeniden deneyebilirsin.
 NOTICE_MEMORY_ONLY,Run kept for this session.,Koşu bu oturum için bellekte tutuldu.
 NOTICE_PROGRESS_RESET,Progress reset.,İlerleme sıfırlandı.
+NOTICE_STORAGE_FAILED,Progress could not be updated. Please try again.,İlerleme güncellenemedi. Lütfen yeniden dene.
 ROOM_SAFE_01,Wide Gallery,Geniş Galeri
 ROOM_SAFE_02,Twin Corridor,Çift Koridor
 ROOM_SAFE_03,Open Shaft,Açık Şaft

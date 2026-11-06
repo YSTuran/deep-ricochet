@@ -20,6 +20,10 @@ func load_settings() -> AppSettings:
 		return AppSettings.new()
 	var settings := AppSettings.from_dictionary(data)
 	if settings.is_valid():
+		if store.loaded_from_backup and not store.restore_primary_from_backup():
+			last_error = store.last_error
+		else:
+			last_error = ""
 		return settings
 	store.quarantine_invalid()
 	last_error = "Ayarlar doğrulanamadı; varsayılanlar kullanılıyor."

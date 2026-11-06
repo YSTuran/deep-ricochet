@@ -46,6 +46,8 @@ func hide_overlay() -> void:
 
 
 func _gui_input(event: InputEvent) -> void:
+	if DeepUI.is_emulated_mouse_event(event):
+		return
 	var released := false
 	var event_position := Vector2.ZERO
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:

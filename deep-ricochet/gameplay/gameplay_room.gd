@@ -8,6 +8,7 @@ signal shot_will_start
 const BOARD_ORIGIN := Vector2(30.0, 150.0)
 const BOARD_SIZE_WORLD := Vector2(8.0, 10.0)
 const WORLD_SCALE := 60.0
+const BOARD_SCREEN_RECT := Rect2(BOARD_ORIGIN, BOARD_SIZE_WORLD * WORLD_SCALE)
 const LAUNCHER_WORLD := Vector2(4.0, 0.45)
 const FORCED_COLLECTION_EFFECT_SECONDS := 0.35
 
@@ -203,6 +204,8 @@ func _process(delta: float) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if DeepUI.is_emulated_mouse_event(event):
+		return
 	if event is InputEventScreenTouch:
 		if event.pressed and active_touch_id == -1:
 			active_touch_id = event.index
@@ -225,6 +228,8 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _begin_aim(screen_position: Vector2) -> void:
+	if not BOARD_SCREEN_RECT.has_point(screen_position):
+		return
 	if room.room_finished:
 		status_text = tr("STATUS_ROOM_ENDED")
 		_refresh_view()

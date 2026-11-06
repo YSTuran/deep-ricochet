@@ -30,6 +30,13 @@ static var _style_cache: Dictionary = {}
 static var _cave_polygons: Array[PackedVector2Array] = []
 
 
+static func is_emulated_mouse_event(event: InputEvent) -> bool:
+	return (
+		(event is InputEventMouseButton or event is InputEventMouseMotion)
+		and event.device == InputEvent.DEVICE_ID_EMULATION
+	)
+
+
 static func draw_cave_background(canvas: CanvasItem, size: Vector2 = VIEW_SIZE) -> void:
 	canvas.draw_rect(Rect2(Vector2.ZERO, size), BACKGROUND_DEEP, true)
 	canvas.draw_rect(Rect2(0.0, 0.0, size.x, size.y * 0.58), BACKGROUND, true)

@@ -4,6 +4,26 @@ const PROFILE_PATH := "user://tests/deep_ricochet_profile_test.json"
 const SETTINGS_PATH := "user://tests/deep_ricochet_settings_test.json"
 
 
+class FailingSaveService:
+	extends SaveService
+
+	func clear_all() -> bool:
+		last_error = "Test kayıt silme hatası."
+		return false
+
+
+class FailingProfileService:
+	extends ProfileService
+
+	func clear_all() -> bool:
+		last_error = "Test profil silme hatası."
+		return false
+
+	func save_profile(_profile: PlayerProfile) -> bool:
+		last_error = "Test profil yazma hatası."
+		return false
+
+
 static func run(controller: RunController) -> void:
 	_test_profile_round_trip()
 	_test_settings_round_trip()
@@ -34,6 +54,14 @@ static func _test_profile_round_trip() -> void:
 	restored = service.load_profile()
 	assert(restored.best_score == 450)
 	assert(restored.runs_played == 1)
+	assert(not service.store.loaded_from_backup)
+	assert(FileAccess.file_exists(service.store.primary_path))
+	assert(FileAccess.file_exists(service.store.backup_path))
+	_write_text(service.store.primary_path, "{damaged-again")
+	restored = service.load_profile()
+	assert(restored.best_score == 450)
+	assert(restored.runs_played == 1)
+	assert(not service.store.loaded_from_backup)
 	assert(service.clear_all())
 
 
@@ -98,7 +126,13 @@ static func _test_controller_profile_tutorial_and_locale(controller: RunControll
 	assert(controller.flow_view.profile == controller.profile)
 	assert(controller.flow_view.new_best)
 
-	controller.show_main_menu_from_result()
+	controller.save_service = FailingSaveService.new()
+	assert(not controller.show_main_menu_from_result())
+	assert(controller.run_session != null)
+	assert(controller.continue_in_memory)
+	assert(controller.main_menu_view.continue_available)
+	controller.save_service = null
+	assert(controller.show_main_menu_from_result())
 	controller.open_settings_from_main_menu()
 	assert(controller.settings_overlay.visible)
 	assert(controller.set_language(&"en"))
@@ -114,7 +148,14 @@ static func _test_controller_profile_tutorial_and_locale(controller: RunControll
 	controller.complete_tutorial()
 	assert(controller.settings_overlay.visible)
 	controller.settings_overlay.show_reset_confirmation()
-	controller.confirm_reset_progress()
+	controller.profile_service = FailingProfileService.new()
+	assert(not controller.confirm_reset_progress())
+	assert(controller.profile.best_score == 321)
+	assert(controller.settings_overlay.visible)
+	assert(not controller.settings_overlay.notice.is_empty())
+	controller.profile_service = null
+	controller.settings_overlay.show_reset_confirmation()
+	assert(controller.confirm_reset_progress())
 	assert(controller.profile.best_score == 0)
 	assert(not controller.profile.tutorial_completed)
 	assert(controller.main_menu_view.visible)

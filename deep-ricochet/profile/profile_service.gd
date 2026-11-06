@@ -20,6 +20,10 @@ func load_profile() -> PlayerProfile:
 		return PlayerProfile.new()
 	var profile := PlayerProfile.from_dictionary(data)
 	if profile.is_valid():
+		if store.loaded_from_backup and not store.restore_primary_from_backup():
+			last_error = store.last_error
+		else:
+			last_error = ""
 		return profile
 	store.quarantine_invalid()
 	last_error = "Profil doğrulanamadı; varsayılan profil oluşturuldu."

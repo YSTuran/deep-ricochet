@@ -16,9 +16,49 @@ class RoomSignalProbe:
 
 
 static func run(gameplay_room: GameplayRoom, config: GameConfig) -> void:
+	_test_outside_board_does_not_start_aim(gameplay_room, config)
+	_test_emulated_mouse_is_ignored(gameplay_room, config)
 	_test_cancelled_touch(gameplay_room, config)
 	_test_finished_room_does_not_restart(gameplay_room, config)
 	_test_room_finished_signal(gameplay_room)
+
+
+static func _test_outside_board_does_not_start_aim(
+	gameplay_room: GameplayRoom,
+	config: GameConfig,
+) -> void:
+	assert(gameplay_room.restart_current_room())
+	var press := InputEventScreenTouch.new()
+	press.index = 7
+	press.position = Vector2(270.0, 80.0)
+	press.pressed = true
+	gameplay_room._unhandled_input(press)
+	assert(not gameplay_room.aiming)
+	assert(not gameplay_room.volley.active)
+
+	var release := InputEventScreenTouch.new()
+	release.index = 7
+	release.position = press.position
+	release.pressed = false
+	gameplay_room._unhandled_input(release)
+	assert(not gameplay_room.volley.active)
+	assert(gameplay_room.room.shots_remaining == config.shots_per_room)
+
+
+static func _test_emulated_mouse_is_ignored(
+	gameplay_room: GameplayRoom,
+	config: GameConfig,
+) -> void:
+	assert(gameplay_room.restart_current_room())
+	var press := InputEventMouseButton.new()
+	press.device = InputEvent.DEVICE_ID_EMULATION
+	press.button_index = MOUSE_BUTTON_LEFT
+	press.position = VALID_AIM_SCREEN_POSITION
+	press.pressed = true
+	gameplay_room._unhandled_input(press)
+	assert(not gameplay_room.aiming)
+	assert(not gameplay_room.volley.active)
+	assert(gameplay_room.room.shots_remaining == config.shots_per_room)
 
 
 static func _test_cancelled_touch(gameplay_room: GameplayRoom, config: GameConfig) -> void:

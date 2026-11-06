@@ -19,6 +19,7 @@ const CONFIRM_BUTTON := Rect2(285.0, 570.0, 200.0, 70.0)
 
 var controller: RunController
 var mode: Mode = Mode.SETTINGS
+var notice: String
 
 
 func _ready() -> void:
@@ -29,8 +30,9 @@ func bind(run_controller: RunController) -> void:
 	controller = run_controller
 
 
-func show_settings() -> void:
+func show_settings(message: String = "") -> void:
 	mode = Mode.SETTINGS
+	notice = message
 	visible = true
 	mouse_filter = Control.MOUSE_FILTER_STOP
 	queue_redraw()
@@ -38,6 +40,7 @@ func show_settings() -> void:
 
 func show_reset_confirmation() -> void:
 	mode = Mode.CONFIRM_RESET
+	notice = ""
 	visible = true
 	mouse_filter = Control.MOUSE_FILTER_STOP
 	queue_redraw()
@@ -53,6 +56,8 @@ func refresh_locale() -> void:
 
 
 func _gui_input(event: InputEvent) -> void:
+	if DeepUI.is_emulated_mouse_event(event):
+		return
 	var released := false
 	var event_position := Vector2.ZERO
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
@@ -129,6 +134,8 @@ func _draw_settings() -> void:
 	draw_arc(Vector2(VOLUME_SLIDER.position.x + VOLUME_SLIDER.size.x * sound_volume, VOLUME_SLIDER.get_center().y), 12.0, 0.0, TAU, 20, DeepUI.GOLD_DARK, 2.0, true)
 	DeepUI.draw_button(self, TUTORIAL_BUTTON, tr("SETTINGS_TUTORIAL"), &"secondary", 19)
 	DeepUI.draw_button(self, RESET_BUTTON, tr("SETTINGS_RESET"), &"danger", 19)
+	if not notice.is_empty():
+		DeepUI.draw_centered(self, notice, Rect2(55.0, 735.0, 430.0, 38.0), 13, DeepUI.DANGER)
 	DeepUI.draw_button(self, BACK_BUTTON, tr("COMMON_BACK"), &"primary", 19)
 
 

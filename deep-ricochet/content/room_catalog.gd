@@ -75,6 +75,26 @@ func validation_errors() -> PackedStringArray:
 	return errors
 
 
+func route_capacity_errors(room_count: int) -> PackedStringArray:
+	var errors := PackedStringArray()
+	if room_count <= 0:
+		errors.append("Oda sayısı pozitif olmalıdır.")
+		return errors
+	var safe_count := 0
+	var bonus_count := 0
+	for template: RoomTemplate in templates:
+		if template.family == RoomTemplate.Family.SAFE:
+			safe_count += 1
+		elif template.family == RoomTemplate.Family.BONUS:
+			bonus_count += 1
+	if safe_count < room_count:
+		errors.append("%d odalık koşu için en az %d güvenli şablon gerekir." % [room_count, room_count])
+	var required_bonus := maxi(room_count - 1, 0)
+	if bonus_count < required_bonus:
+		errors.append("%d odalık koşu için en az %d bonus şablon gerekir." % [room_count, required_bonus])
+	return errors
+
+
 func pick_first_room(rng: RandomNumberGenerator) -> RoomTemplate:
 	return _pick_template(RoomTemplate.Family.SAFE, rng, {})
 

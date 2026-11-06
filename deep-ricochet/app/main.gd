@@ -52,6 +52,11 @@ func _ready() -> void:
 	if catalog == null:
 		push_error("Oda kataloğu yüklenemedi; oyun başlatılmadı.")
 		return
+	var route_capacity_errors := catalog.route_capacity_errors(config.room_count)
+	if not route_capacity_errors.is_empty():
+		push_error("Oda kataloğu koşu ayarını karşılamıyor:\n- %s" % "\n- ".join(route_capacity_errors))
+		catalog = null
+		return
 	gameplay_room.room_finished.connect(_on_room_finished)
 	gameplay_room.shot_will_start.connect(_on_shot_will_start)
 	gameplay_room.shot_resolved.connect(_on_shot_resolved)
@@ -322,13 +327,27 @@ func complete_tutorial() -> void:
 		_restore_active_screen()
 
 
-func confirm_reset_progress() -> void:
-	if save_service != null:
-		save_service.clear_all()
+func confirm_reset_progress() -> bool:
+	var replacement_profile := PlayerProfile.new()
+	var errors := PackedStringArray()
+	if save_service != null and not save_service.clear_all():
+		errors.append(save_service.last_error)
 	if profile_service != null:
-		profile_service.clear_all()
-	profile = PlayerProfile.new()
-	_save_profile()
+		if not profile_service.clear_all():
+			errors.append(profile_service.last_error)
+		elif not profile_service.save_profile(replacement_profile):
+			errors.append(profile_service.last_error)
+
+	if not errors.is_empty():
+		last_save_error = "; ".join(errors)
+		push_warning("İlerleme sıfırlanamadı: %s" % last_save_error)
+		_save_profile()
+		if run_session != null:
+			_save_stable()
+		settings_overlay.show_settings(tr("NOTICE_STORAGE_FAILED"))
+		return false
+
+	profile = replacement_profile
 	run_session = null
 	last_result_new_best = false
 	_clear_pending_continue()
@@ -337,6 +356,7 @@ func confirm_reset_progress() -> void:
 	pause_overlay.hide_overlay()
 	_leave_pause_state()
 	_show_main_menu(false, tr("NOTICE_PROGRESS_RESET"))
+	return true
 
 
 func _maybe_show_first_tutorial() -> void:
@@ -419,12 +439,18 @@ func return_to_main_menu() -> void:
 	_show_main_menu(pending_continue_snapshot != null or continue_in_memory, notice)
 
 
-func show_main_menu_from_result() -> void:
-	if save_service != null:
-		save_service.clear_all()
+func show_main_menu_from_result() -> bool:
+	if save_service != null and not save_service.clear_all():
+		last_save_error = save_service.last_error
+		push_warning("Tamamlanan koşu kaydı kaldırılamadı: %s" % last_save_error)
+		_clear_pending_continue()
+		continue_in_memory = true
+		_show_main_menu(true, tr("NOTICE_STORAGE_FAILED"))
+		return false
 	run_session = null
 	_clear_pending_continue()
 	_show_main_menu(false)
+	return true
 
 
 func select_route(option_id: StringName) -> bool:
