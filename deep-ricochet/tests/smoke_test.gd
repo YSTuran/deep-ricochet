@@ -53,4 +53,11 @@ func _ready() -> void:
 	VolleyAndRoomTests.run(config)
 
 	print("[PASS] Deep Ricochet P0 profil, dil, öğretici, ayarlar, kayıt, UI ve fizik testleri geçti.")
+	AudioManager.stop_all()
+	# Audio playback is released by the mixer thread. Give it one short real-time
+	# window before freeing the autoload so headless tests also exit cleanly.
+	await get_tree().create_timer(0.15, true, false, true).timeout
+	AudioManager.queue_free()
+	await get_tree().process_frame
+	await get_tree().process_frame
 	get_tree().quit()

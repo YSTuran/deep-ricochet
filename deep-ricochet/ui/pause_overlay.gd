@@ -14,13 +14,6 @@ const SETTINGS_BUTTON := Rect2(80.0, 675.0, 380.0, 70.0)
 const CANCEL_BUTTON := Rect2(55.0, 560.0, 200.0, 70.0)
 const CONFIRM_BUTTON := Rect2(285.0, 560.0, 200.0, 70.0)
 
-const COLOR_BACKGROUND := Color("0b111a")
-const COLOR_PANEL := Color("17283b")
-const COLOR_TEXT := Color("f4f0e6")
-const COLOR_MUTED := Color("9fb4c8")
-const COLOR_PRIMARY := Color("f2b65b")
-const COLOR_DANGER := Color("d96c5f")
-
 var controller: RunController
 var mode: Mode = Mode.PAUSE
 
@@ -65,6 +58,7 @@ func _gui_input(event: InputEvent) -> void:
 		event_position = event.position
 	if not released or controller == null:
 		return
+	AudioManager.play_ui_click()
 	if mode == Mode.PAUSE:
 		if CONTINUE_BUTTON.has_point(event_position):
 			controller.resume_game()
@@ -82,7 +76,7 @@ func _gui_input(event: InputEvent) -> void:
 
 
 func _draw() -> void:
-	draw_rect(Rect2(Vector2.ZERO, VIEW_SIZE), Color(COLOR_BACKGROUND, 0.97), true)
+	draw_rect(Rect2(Vector2.ZERO, VIEW_SIZE), Color(DeepUI.BACKGROUND_DEEP, 0.95), true)
 	if mode == Mode.PAUSE:
 		_draw_pause()
 	else:
@@ -90,39 +84,24 @@ func _draw() -> void:
 
 
 func _draw_pause() -> void:
-	_draw_centered(tr("PAUSE_TITLE"), Rect2(30.0, 180.0, 480.0, 60.0), 32, COLOR_TEXT)
-	_draw_centered(tr("PAUSE_SUBTITLE"), Rect2(40.0, 255.0, 460.0, 34.0), 17, COLOR_MUTED)
-	draw_rect(CONTINUE_BUTTON, COLOR_PRIMARY, true)
-	_draw_centered(tr("PAUSE_CONTINUE"), CONTINUE_BUTTON, 23, COLOR_BACKGROUND)
-	draw_rect(NEW_GAME_BUTTON, COLOR_PANEL, true)
-	_draw_centered(tr("PAUSE_NEW_GAME"), NEW_GAME_BUTTON, 21, COLOR_TEXT)
-	draw_rect(MAIN_MENU_BUTTON, COLOR_PANEL, true)
-	_draw_centered(tr("PAUSE_MAIN_MENU"), MAIN_MENU_BUTTON, 21, COLOR_TEXT)
-	draw_rect(SETTINGS_BUTTON, COLOR_PANEL, true)
-	_draw_centered(tr("PAUSE_SETTINGS"), SETTINGS_BUTTON, 21, COLOR_TEXT)
+	DeepUI.draw_panel(self, Rect2(46.0, 145.0, 448.0, 650.0), DeepUI.PANEL_SOFT, DeepUI.BORDER, 22, 2, true)
+	DeepUI.draw_title_plate(self, tr("PAUSE_TITLE"), Rect2(72.0, 180.0, 396.0, 66.0), 30, DeepUI.GOLD)
+	DeepUI.draw_centered(self, tr("PAUSE_SUBTITLE"), Rect2(55.0, 265.0, 430.0, 34.0), 16, DeepUI.MUTED)
+	DeepUI.draw_button(self, CONTINUE_BUTTON, tr("PAUSE_CONTINUE"), &"primary", 23)
+	DeepUI.draw_button(self, NEW_GAME_BUTTON, tr("PAUSE_NEW_GAME"), &"secondary", 21)
+	DeepUI.draw_button(self, MAIN_MENU_BUTTON, tr("PAUSE_MAIN_MENU"), &"secondary", 21)
+	DeepUI.draw_button(self, SETTINGS_BUTTON, tr("PAUSE_SETTINGS"), &"ghost", 21)
 
 
 func _draw_confirmation() -> void:
-	_draw_centered(tr("CONFIRM_NEW_TITLE"), Rect2(30.0, 260.0, 480.0, 56.0), 32, COLOR_TEXT)
-	_draw_centered(
+	DeepUI.draw_panel(self, Rect2(38.0, 220.0, 464.0, 455.0), DeepUI.PANEL_SOFT, DeepUI.BORDER, 22, 2, true)
+	DeepUI.draw_title_plate(self, tr("CONFIRM_NEW_TITLE"), Rect2(70.0, 260.0, 400.0, 64.0), 30, DeepUI.DANGER)
+	DeepUI.draw_centered(
+		self,
 		tr("CONFIRM_NEW_BODY"),
 		Rect2(50.0, 355.0, 440.0, 58.0),
 		17,
-		COLOR_MUTED,
+		DeepUI.MUTED,
 	)
-	draw_rect(CANCEL_BUTTON, COLOR_PANEL, true)
-	_draw_centered(tr("COMMON_CANCEL"), CANCEL_BUTTON, 19, COLOR_TEXT)
-	draw_rect(CONFIRM_BUTTON, COLOR_DANGER, true)
-	_draw_centered(tr("PAUSE_NEW_GAME"), CONFIRM_BUTTON, 19, COLOR_TEXT)
-
-
-func _draw_centered(text: String, rect: Rect2, size: int, color: Color) -> void:
-	draw_string(
-		ThemeDB.fallback_font,
-		rect.position + Vector2(0.0, rect.size.y * 0.72),
-		text,
-		HORIZONTAL_ALIGNMENT_CENTER,
-		rect.size.x,
-		size,
-		color,
-	)
+	DeepUI.draw_button(self, CANCEL_BUTTON, tr("COMMON_CANCEL"), &"ghost", 19)
+	DeepUI.draw_button(self, CONFIRM_BUTTON, tr("PAUSE_NEW_GAME"), &"danger", 19)

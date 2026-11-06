@@ -9,18 +9,13 @@ enum Mode {
 const VIEW_SIZE := Vector2(540.0, 960.0)
 const TURKISH_BUTTON := Rect2(55.0, 300.0, 200.0, 66.0)
 const ENGLISH_BUTTON := Rect2(285.0, 300.0, 200.0, 66.0)
-const TUTORIAL_BUTTON := Rect2(80.0, 420.0, 380.0, 70.0)
-const RESET_BUTTON := Rect2(80.0, 515.0, 380.0, 70.0)
-const BACK_BUTTON := Rect2(80.0, 690.0, 380.0, 70.0)
+const SOUND_BUTTON := Rect2(80.0, 405.0, 380.0, 58.0)
+const VOLUME_SLIDER := Rect2(80.0, 510.0, 380.0, 14.0)
+const TUTORIAL_BUTTON := Rect2(80.0, 570.0, 380.0, 64.0)
+const RESET_BUTTON := Rect2(80.0, 655.0, 380.0, 64.0)
+const BACK_BUTTON := Rect2(80.0, 790.0, 380.0, 66.0)
 const CANCEL_BUTTON := Rect2(55.0, 570.0, 200.0, 70.0)
 const CONFIRM_BUTTON := Rect2(285.0, 570.0, 200.0, 70.0)
-
-const COLOR_BACKGROUND := Color("0b111a")
-const COLOR_PANEL := Color("17283b")
-const COLOR_TEXT := Color("f4f0e6")
-const COLOR_MUTED := Color("9fb4c8")
-const COLOR_PRIMARY := Color("f2b65b")
-const COLOR_DANGER := Color("d96c5f")
 
 var controller: RunController
 var mode: Mode = Mode.SETTINGS
@@ -70,12 +65,19 @@ func _gui_input(event: InputEvent) -> void:
 		event_position = event.position
 	if not released or controller == null:
 		return
+	AudioManager.play_ui_click()
 
 	if mode == Mode.SETTINGS:
 		if TURKISH_BUTTON.has_point(event_position):
 			controller.set_language(&"tr")
 		elif ENGLISH_BUTTON.has_point(event_position):
 			controller.set_language(&"en")
+		elif SOUND_BUTTON.has_point(event_position):
+			controller.toggle_sound()
+		elif VOLUME_SLIDER.grow(24.0).has_point(event_position):
+			controller.set_sound_volume(
+				(event_position.x - VOLUME_SLIDER.position.x) / VOLUME_SLIDER.size.x
+			)
 		elif TUTORIAL_BUTTON.has_point(event_position):
 			controller.show_tutorial_from_settings()
 		elif RESET_BUTTON.has_point(event_position):
@@ -90,7 +92,7 @@ func _gui_input(event: InputEvent) -> void:
 
 
 func _draw() -> void:
-	draw_rect(Rect2(Vector2.ZERO, VIEW_SIZE), COLOR_BACKGROUND, true)
+	DeepUI.draw_cave_background(self, VIEW_SIZE)
 	if mode == Mode.SETTINGS:
 		_draw_settings()
 	else:
@@ -98,44 +100,45 @@ func _draw() -> void:
 
 
 func _draw_settings() -> void:
-	_draw_centered(tr("SETTINGS_TITLE"), Rect2(30.0, 105.0, 480.0, 58.0), 34, COLOR_TEXT)
-	_draw_centered(tr("SETTINGS_LANGUAGE"), Rect2(30.0, 220.0, 480.0, 36.0), 19, COLOR_MUTED)
+	DeepUI.draw_panel(self, Rect2(38.0, 76.0, 464.0, 820.0), Color(DeepUI.PANEL_SOFT, 0.96), DeepUI.BORDER, 22, 2, true)
+	DeepUI.draw_title_plate(self, tr("SETTINGS_TITLE"), Rect2(72.0, 105.0, 396.0, 64.0), 32, DeepUI.GOLD)
+	DeepUI.draw_centered(self, tr("SETTINGS_LANGUAGE"), Rect2(30.0, 220.0, 480.0, 36.0), 18, DeepUI.MUTED)
 	var selected_language := &"tr"
 	if controller != null and controller.app_settings != null:
 		selected_language = controller.app_settings.language
 	_draw_choice(TURKISH_BUTTON, tr("SETTINGS_TURKISH"), selected_language == &"tr")
 	_draw_choice(ENGLISH_BUTTON, tr("SETTINGS_ENGLISH"), selected_language == &"en")
-	_draw_button(TUTORIAL_BUTTON, tr("SETTINGS_TUTORIAL"), COLOR_PANEL, COLOR_TEXT)
-	_draw_button(RESET_BUTTON, tr("SETTINGS_RESET"), Color("3b2529"), Color("f2a299"))
-	_draw_button(BACK_BUTTON, tr("COMMON_BACK"), COLOR_PRIMARY, COLOR_BACKGROUND)
+	var sound_enabled := true
+	var sound_volume := 0.8
+	if controller != null and controller.app_settings != null:
+		sound_enabled = controller.app_settings.sound_enabled
+		sound_volume = controller.app_settings.sound_volume
+	var sound_label := tr("SETTINGS_SOUND_ON") if sound_enabled else tr("SETTINGS_SOUND_OFF")
+	DeepUI.draw_button(self, SOUND_BUTTON, sound_label, &"core" if sound_enabled else &"ghost", 19)
+	DeepUI.draw_centered(
+		self,
+		tr("SETTINGS_VOLUME") % int(round(sound_volume * 100.0)),
+		Rect2(80.0, 470.0, 380.0, 30.0),
+		15,
+		DeepUI.MUTED,
+	)
+	DeepUI.draw_panel(self, VOLUME_SLIDER.grow(4.0), DeepUI.PANEL_RAISED, DeepUI.BORDER_SOFT, 9, 1, false)
+	if sound_volume > 0.0:
+		DeepUI.draw_panel(self, Rect2(VOLUME_SLIDER.position, Vector2(VOLUME_SLIDER.size.x * sound_volume, VOLUME_SLIDER.size.y)), DeepUI.GOLD, DeepUI.GOLD, 7, 0, false)
+	draw_circle(Vector2(VOLUME_SLIDER.position.x + VOLUME_SLIDER.size.x * sound_volume, VOLUME_SLIDER.get_center().y), 12.0, DeepUI.GOLD_LIGHT)
+	draw_arc(Vector2(VOLUME_SLIDER.position.x + VOLUME_SLIDER.size.x * sound_volume, VOLUME_SLIDER.get_center().y), 12.0, 0.0, TAU, 20, DeepUI.GOLD_DARK, 2.0, true)
+	DeepUI.draw_button(self, TUTORIAL_BUTTON, tr("SETTINGS_TUTORIAL"), &"secondary", 19)
+	DeepUI.draw_button(self, RESET_BUTTON, tr("SETTINGS_RESET"), &"danger", 19)
+	DeepUI.draw_button(self, BACK_BUTTON, tr("COMMON_BACK"), &"primary", 19)
 
 
 func _draw_reset_confirmation() -> void:
-	_draw_centered(tr("CONFIRM_RESET_TITLE"), Rect2(30.0, 260.0, 480.0, 58.0), 30, COLOR_TEXT)
-	_draw_centered(tr("CONFIRM_RESET_BODY"), Rect2(45.0, 370.0, 450.0, 50.0), 17, COLOR_MUTED)
-	_draw_button(CANCEL_BUTTON, tr("COMMON_CANCEL"), COLOR_PANEL, COLOR_TEXT)
-	_draw_button(CONFIRM_BUTTON, tr("CONFIRM_RESET_ACTION"), COLOR_DANGER, COLOR_TEXT)
+	DeepUI.draw_panel(self, Rect2(38.0, 220.0, 464.0, 455.0), DeepUI.PANEL_SOFT, DeepUI.BORDER, 22, 2, true)
+	DeepUI.draw_title_plate(self, tr("CONFIRM_RESET_TITLE"), Rect2(70.0, 260.0, 400.0, 64.0), 28, DeepUI.DANGER)
+	DeepUI.draw_centered(self, tr("CONFIRM_RESET_BODY"), Rect2(45.0, 370.0, 450.0, 50.0), 17, DeepUI.MUTED)
+	DeepUI.draw_button(self, CANCEL_BUTTON, tr("COMMON_CANCEL"), &"ghost", 19)
+	DeepUI.draw_button(self, CONFIRM_BUTTON, tr("CONFIRM_RESET_ACTION"), &"danger", 19)
 
 
 func _draw_choice(rect: Rect2, label: String, selected: bool) -> void:
-	var color := COLOR_PRIMARY if selected else COLOR_PANEL
-	var text_color := COLOR_BACKGROUND if selected else COLOR_TEXT
-	_draw_button(rect, label, color, text_color)
-
-
-func _draw_button(rect: Rect2, label: String, color: Color, text_color: Color) -> void:
-	draw_rect(rect, color, true)
-	draw_rect(rect, Color("40546a"), false, 2.0)
-	_draw_centered(label, rect, 19, text_color)
-
-
-func _draw_centered(text: String, rect: Rect2, size: int, color: Color) -> void:
-	draw_string(
-		ThemeDB.fallback_font,
-		rect.position + Vector2(0.0, rect.size.y * 0.72),
-		text,
-		HORIZONTAL_ALIGNMENT_CENTER,
-		rect.size.x,
-		size,
-		color,
-	)
+	DeepUI.draw_button(self, rect, label, &"primary" if selected else &"ghost", 19)

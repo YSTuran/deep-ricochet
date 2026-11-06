@@ -64,6 +64,12 @@ Oyun alanında fareyle ya da dokunmatik ekranla basılı tutup yön seçilir; b�
 - Android geri tuşunun menü, ayarlar, öğretici, sonuç ve duraklatma katmanlarına uygun davranması
 - Android 9 (API 28) alt sınırı, API 35 hedefi ve ARMv7/ARM64 Gradle export preseti
 - Assetlerle uyumlu prosedürel hasar halkası ve blok kırılma parçacıkları
+- Brief paletine uyumlu ortak maden arka planı, yuvarlatılmış panel ve düğme sistemi
+- Ana menü, oyun HUD'ı, rota, sonuç, duraklatma, ayarlar ve öğreticide tutarlı UI dili
+- CC0 lisanslı darbe, kırılma, arayüz ve sonuç sesleri
+- Her yaylımda sıfırlanan Re minör pentatonik melodik çarpışma dizisi
+- Normal blok, cevher, sert kaya ve çekirdek için ayrı ses katmanları
+- Kalıcı ses açma/kapama ve ses seviyesi ayarları
 
 Aktif koşu `user://deep_ricochet_active_run.json` konumuna yazılır; önceki geçerli kayıt `.bak` uzantısıyla korunur. Geçerli ve bitmemiş bir kayıt uygulama açılışında ana menüde `Devam` düğmesini etkinleştirir. Kesilmiş atışta canlı top konumları yüklenmez; atış öncesindeki kararlı oda geri gelir.
 
@@ -71,7 +77,11 @@ Duraklatma menüsünden ana menüye dönüldüğünde kararlı koşu korunur. Bi
 
 Profil `user://deep_ricochet_profile.json`, dil tercihi `user://deep_ricochet_settings.json` konumunda aktif koşudan bağımsız tutulur. Her ikisi de geçici dosya ve son geçerli yedek kullanır. İlerlemeyi sıfırlama, dil tercihini korurken aktif koşuyu ve profil istatistiklerini onay sonrasında temizler.
 
-Ses paketi P0'ın kalan ayrı işidir. Şablonlardaki örnek açı dizileri otomatik simülasyonda çekirdeği kırmaktadır; gerçek Android cihaz arka plan/geri dönüş ve dokunmatik geçişleri ayrıca doğrulanacaktır.
+Ses sistemi `deep-ricochet/audio/audio_manager.gd` otomatik yüklemesi üzerinden çalışır. Aynı anda gelen çarpışmalar 45 ms aralıkla sınırlandırılır; böylece sekiz topluk yaylımda sesler üst üste yığılıp bozulmaz. Kullanılan Kenney seslerinin kaynak ve lisans bilgileri `deep-ricochet/audio/THIRD_PARTY_AUDIO.md` dosyasındadır.
+
+UI renkleri, panel biçimleri, düğme türleri ve prosedürel maden arka planı `deep-ricochet/ui/ui_theme.gd` içinde ortaklaştırılmıştır. Hareketli oyun ekranında yeniden kullanılan stil kaynakları önbelleğe alınır; menü ekranları aynı dokunma alanlarını korurken ortak görsel dili paylaşır.
+
+Şablonlardaki örnek açı dizileri otomatik simülasyonda çekirdeği kırmaktadır; gerçek Android cihaz arka plan/geri dönüş, dokunmatik geçişleri ve hoparlör ses dengesi ayrıca doğrulanacaktır.
 
 ## Android dışa aktarma
 
@@ -98,4 +108,4 @@ Godot komut satırından proje kökünde şu sahne çalıştırılır:
 godot --headless --path deep-ricochet --scene res://tests/smoke_test.tscn
 ```
 
-Test; profil ve ayar round-trip işlemlerini, profil yedeğinden kurtarmayı, iki dili, ilk-oyun öğreticisini, ilerleme sıfırlamayı, ana menü ve devam durumunu, nişan sırasında duraklatmayı, canlı yaylımın donmasını, odak kaybını, 12 oda şablonunu, örnek açı geçişlerini, 100 seed seçimini, dört oda/üç rota akışını, atış ortası kurtarmayı, bozuk kayıt reddini, fiziği ve puanı doğrular. Ayrıca 12 odanın örnek açı simülasyon süresini test çıktısında `[PERF]` satırıyla raporlar.
+Test; profil ve ayar round-trip işlemlerini, ses bus'larını, melodik çarpışma hız sınırını, sessiz modu, profil yedeğinden kurtarmayı, iki dili, ilk-oyun öğreticisini, ilerleme sıfırlamayı, ana menü ve devam durumunu, nişan sırasında duraklatmayı, canlı yaylımın donmasını, odak kaybını, 12 oda şablonunu, örnek açı geçişlerini, 100 seed seçimini, dört oda/üç rota akışını, atış ortası kurtarmayı, bozuk kayıt reddini, fiziği ve puanı doğrular. Ayrıca 12 odanın örnek açı simülasyon süresini test çıktısında `[PERF]` satırıyla raporlar.

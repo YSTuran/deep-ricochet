@@ -110,6 +110,7 @@ func _initialize_user_data() -> void:
 		profile = profile_service.load_profile()
 		app_settings = settings_service.load_settings()
 	TranslationServer.set_locale(str(app_settings.language))
+	AudioManager.apply_settings(app_settings)
 
 
 func _handle_back_request() -> void:
@@ -276,10 +277,29 @@ func set_language(language: StringName) -> bool:
 		return false
 	app_settings.language = language
 	TranslationServer.set_locale(str(language))
-	if settings_service != null and not settings_service.save_settings(app_settings):
-		push_warning("Ayarlar kaydedilemedi: %s" % settings_service.last_error)
+	_save_app_settings()
 	_refresh_localized_views()
 	return true
+
+
+func toggle_sound() -> void:
+	if app_settings == null:
+		return
+	app_settings.sound_enabled = not app_settings.sound_enabled
+	AudioManager.apply_settings(app_settings)
+	_save_app_settings()
+	settings_overlay.queue_redraw()
+	if app_settings.sound_enabled:
+		AudioManager.play_ui_confirm()
+
+
+func set_sound_volume(volume: float) -> void:
+	if app_settings == null:
+		return
+	app_settings.sound_volume = clampf(volume, 0.0, 1.0)
+	AudioManager.apply_settings(app_settings)
+	_save_app_settings()
+	settings_overlay.queue_redraw()
 
 
 func show_tutorial_from_settings() -> void:
@@ -413,6 +433,7 @@ func select_route(option_id: StringName) -> bool:
 	var selected_template := run_session.select_route(option_id)
 	if selected_template == null:
 		return false
+	AudioManager.play_route_select()
 	flow_view.show_gameplay()
 	var loaded := _load_current_room(selected_template)
 	if loaded:
@@ -569,11 +590,18 @@ func _record_run_result_if_needed() -> void:
 		run_session.cores_broken,
 	)
 	_save_profile()
+	if last_result_new_best:
+		AudioManager.play_new_best()
 
 
 func _save_profile() -> void:
 	if profile_service != null and not profile_service.save_profile(profile):
 		push_warning("Profil kaydedilemedi: %s" % profile_service.last_error)
+
+
+func _save_app_settings() -> void:
+	if settings_service != null and not settings_service.save_settings(app_settings):
+		push_warning("Ayarlar kaydedilemedi: %s" % settings_service.last_error)
 
 
 func _save_stable() -> void:

@@ -44,6 +44,7 @@ mouse_default_cursor_shape = 2
 theme_override_colors/font_color = Color(0.956863, 0.941176, 0.901961, 1)
 theme_override_colors/font_hover_color = Color(0.94902, 0.713726, 0.356863, 1)
 theme_override_font_sizes/font_size = 24
+flat = true
 text = "Ⅱ"
 
 [node name="PauseOverlay" type="Control" parent="Interface"]

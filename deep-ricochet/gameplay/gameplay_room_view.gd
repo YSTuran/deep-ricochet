@@ -7,11 +7,8 @@ const BOARD_SIZE_WORLD := Vector2(8.0, 10.0)
 const WORLD_SCALE := 60.0
 const LAUNCHER_WORLD := Vector2(4.0, 0.45)
 
-const COLOR_BACKGROUND := Color("111c2a")
-const COLOR_PANEL := Color("17283b")
-const COLOR_GRID := Color("23384c")
-const COLOR_TEXT := Color("f4f0e6")
-const COLOR_AIM := Color("ffe7a8")
+const COLOR_GRID := Color("20364a")
+const COLOR_AIM := Color("ffe0a0")
 const COLOR_ROCK := Color("35414b")
 const COLOR_ROCK_LIGHT := Color("52606b")
 const COLOR_ROCK_DARK := Color("202a33")
@@ -36,33 +33,48 @@ func _draw() -> void:
 	if room == null or room.config == null or room.current_template == null:
 		return
 
-	draw_rect(Rect2(Vector2.ZERO, VIEW_SIZE), COLOR_BACKGROUND)
-	draw_rect(Rect2(Vector2(18.0, 18.0), Vector2(504.0, 104.0)), COLOR_PANEL, true)
+	DeepUI.draw_cave_background(self, VIEW_SIZE)
+	DeepUI.draw_panel(self, Rect2(18.0, 18.0, 504.0, 112.0), DeepUI.PANEL_SOFT, DeepUI.BORDER, 15, 2, true)
 	_draw_text(
-		Vector2(30.0, 52.0),
+		Vector2(30.0, 48.0),
 		tr("HUD_TITLE") % room.current_template.localized_display_name(),
-		24,
-		COLOR_TEXT,
+		20,
+		DeepUI.TEXT,
 	)
-	_draw_text(
-		Vector2(30.0, 84.0),
-		tr("HUD_STATS") % [
-			room.run_room_number,
-			room.run_room_count,
-			room.banked_score,
-			room.room.break_score,
-			room.room.shots_remaining,
-			room.config.shots_per_room,
-			float(room.room.multiplier_bps) / 10_000.0,
-		],
-		14,
-		Color("9fb4c8"),
+	DeepUI.draw_chip(
+		self,
+		Rect2(30.0, 62.0, 98.0, 28.0),
+		tr("HUD_ROOM_CHIP") % [room.run_room_number, room.run_room_count],
+		DeepUI.BLUE,
+		12,
 	)
-	_draw_text(Vector2(30.0, 112.0), room.status_text, 16, COLOR_TEXT)
+	DeepUI.draw_chip(
+		self,
+		Rect2(134.0, 62.0, 112.0, 28.0),
+		tr("HUD_SCORE_CHIP") % room.banked_score,
+		DeepUI.BORDER,
+		12,
+	)
+	DeepUI.draw_chip(
+		self,
+		Rect2(252.0, 62.0, 116.0, 28.0),
+		tr("HUD_SHOTS_CHIP") % [room.room.shots_remaining, room.config.shots_per_room],
+		DeepUI.GOLD,
+		12,
+	)
+	DeepUI.draw_chip(
+		self,
+		Rect2(374.0, 62.0, 74.0, 28.0),
+		"×%.1f" % (float(room.room.multiplier_bps) / 10_000.0),
+		DeepUI.GOLD,
+		13,
+	)
+	DeepUI.draw_panel(self, Rect2(464.0, 24.0, 54.0, 56.0), DeepUI.PANEL_RAISED, DeepUI.BORDER, 11, 2, false)
+	DeepUI.draw_centered(self, room.status_text, Rect2(28.0, 96.0, 424.0, 25.0), 13, DeepUI.MUTED)
 
 	var board_rect := Rect2(BOARD_ORIGIN, BOARD_SIZE_WORLD * WORLD_SCALE)
-	draw_rect(board_rect, Color("0b1724"), true)
-	draw_rect(board_rect, Color("40546a"), false, 4.0)
+	DeepUI.draw_panel(self, board_rect.grow(6.0), DeepUI.BACKGROUND_DEEP, DeepUI.BORDER, 8, 3, true)
+	draw_rect(board_rect, Color("0a1724"), true)
 	for x in range(1, 8):
 		var screen_x := BOARD_ORIGIN.x + float(x) * WORLD_SCALE
 		draw_line(
@@ -104,6 +116,7 @@ func _draw() -> void:
 				_draw_core(block.collision_center_world(), str(block.hit_points))
 
 	var launcher_screen := _world_to_screen(LAUNCHER_WORLD)
+	DeepUI.draw_glow(self, launcher_screen, 12.0, DeepUI.GOLD)
 	draw_circle(launcher_screen, 12.0, Color("fff1cf"))
 	draw_arc(launcher_screen, 12.0, 0.0, TAU, 32, Color("c9a86a"), 2.0, true)
 
@@ -121,13 +134,13 @@ func _draw() -> void:
 		if room.aim_preview.has_terminal_contact:
 			var contact_screen := _world_to_screen(room.aim_preview.contact_position_world)
 			draw_circle(contact_screen, 7.0, Color("ffcf66"))
-			draw_arc(contact_screen, 10.0, 0.0, TAU, 20, COLOR_TEXT, 2.0, true)
+			draw_arc(contact_screen, 10.0, 0.0, TAU, 20, DeepUI.TEXT, 2.0, true)
 
 	for volley_ball: BallState in room.volley.balls:
 		if not volley_ball.active:
 			continue
 		var ball_screen := _world_to_screen(volley_ball.position_world)
-		draw_circle(ball_screen, maxf(5.0, room.config.ball_radius * WORLD_SCALE), COLOR_TEXT)
+		draw_circle(ball_screen, maxf(5.0, room.config.ball_radius * WORLD_SCALE), DeepUI.TEXT)
 		draw_arc(
 			ball_screen,
 			maxf(5.0, room.config.ball_radius * WORLD_SCALE),
@@ -141,8 +154,9 @@ func _draw() -> void:
 
 	_draw_forced_collection_effect()
 	_draw_impact_effects()
-	_draw_text(Vector2(30.0, 790.0), tr("HUD_VOLLEY_HINT"), 17, Color("c6d6e4"))
-	_draw_text(Vector2(30.0, 820.0), tr("HUD_AIM_HINT"), 15, Color("839bb0"))
+	DeepUI.draw_panel(self, Rect2(24.0, 778.0, 492.0, 72.0), Color(DeepUI.PANEL_SOFT, 0.94), DeepUI.BORDER_SOFT, 13, 1, false)
+	DeepUI.draw_centered(self, tr("HUD_VOLLEY_HINT"), Rect2(34.0, 787.0, 472.0, 26.0), 15, Color("c6d6e4"))
+	DeepUI.draw_centered(self, tr("HUD_AIM_HINT"), Rect2(34.0, 817.0, 472.0, 24.0), 13, DeepUI.MUTED_DARK)
 
 
 func _draw_forced_collection_effect() -> void:
@@ -156,7 +170,7 @@ func _draw_forced_collection_effect() -> void:
 	var eased_progress := ease(progress, 2.0)
 	for start_world: Vector2 in room.forced_collection_positions:
 		var effect_world := start_world.lerp(LAUNCHER_WORLD, eased_progress)
-		var effect_color := Color(COLOR_TEXT, 1.0 - progress * 0.65)
+		var effect_color := Color(DeepUI.TEXT, 1.0 - progress * 0.65)
 		draw_circle(_world_to_screen(effect_world), 5.0, effect_color)
 
 
@@ -200,14 +214,14 @@ func _draw_texture_block(
 ) -> void:
 	var destination := _world_rect_to_screen(world_rect, 4.0)
 	draw_texture_rect_region(texture, destination, source_rect)
-	_draw_centered_text(destination, hp_text, 26, COLOR_TEXT, 0.66)
+	_draw_centered_text(destination, hp_text, 26, DeepUI.TEXT, 0.66)
 
 
 func _draw_core(center_world: Vector2, hp_text: String) -> void:
 	var center_screen := _world_to_screen(center_world)
 	var destination := Rect2(center_screen - Vector2.ONE * 39.0, Vector2.ONE * 78.0)
 	draw_texture_rect(CORE_TEXTURE, destination, false)
-	_draw_centered_text(destination, hp_text, 26, COLOR_TEXT, 0.64)
+	_draw_centered_text(destination, hp_text, 26, DeepUI.TEXT, 0.64)
 
 
 func _draw_hard_rock(world_rect: Rect2) -> void:
@@ -243,7 +257,7 @@ func _draw_hard_rock(world_rect: Rect2) -> void:
 
 
 func _draw_text(position: Vector2, text: String, size: int, color: Color) -> void:
-	draw_string(ThemeDB.fallback_font, position, text, HORIZONTAL_ALIGNMENT_LEFT, -1.0, size, color)
+	DeepUI.draw_text(self, text, position, size, color)
 
 
 func _draw_centered_text(rect: Rect2, text: String, size: int, color: Color, baseline_ratio: float) -> void:

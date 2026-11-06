@@ -7,6 +7,7 @@ const SETTINGS_PATH := "user://tests/deep_ricochet_settings_test.json"
 static func run(controller: RunController) -> void:
 	_test_profile_round_trip()
 	_test_settings_round_trip()
+	_test_audio_manager()
 	_test_controller_profile_tutorial_and_locale(controller)
 
 
@@ -42,9 +43,36 @@ static func _test_settings_round_trip() -> void:
 	var settings := service.load_settings()
 	assert(settings.language == &"tr")
 	settings.language = &"en"
+	settings.sound_enabled = false
+	settings.sound_volume = 0.35
 	assert(service.save_settings(settings))
-	assert(service.load_settings().language == &"en")
+	var restored := service.load_settings()
+	assert(restored.language == &"en")
+	assert(not restored.sound_enabled)
+	assert(is_equal_approx(restored.sound_volume, 0.35))
 	assert(service.clear_all())
+
+
+static func _test_audio_manager() -> void:
+	var settings := AppSettings.new()
+	settings.sound_enabled = true
+	settings.sound_volume = 0.5
+	AudioManager.apply_settings(settings)
+	assert(AudioServer.get_bus_index(&"SFX") >= 0)
+	assert(AudioServer.get_bus_index(&"UI") >= 0)
+	assert(is_equal_approx(AudioManager.sound_volume, 0.5))
+	AudioManager.begin_volley()
+	var event_count := AudioManager.played_event_count
+	assert(AudioManager.play_collision(-1, 4.0))
+	assert(AudioManager.melody_index == 1)
+	assert(AudioManager.played_event_count == event_count + 1)
+	assert(not AudioManager.play_collision(-1, 4.0))
+	settings.sound_enabled = false
+	AudioManager.apply_settings(settings)
+	event_count = AudioManager.played_event_count
+	AudioManager.play_ui_click()
+	assert(AudioManager.played_event_count == event_count)
+	AudioManager.apply_settings(AppSettings.new())
 
 
 static func _test_controller_profile_tutorial_and_locale(controller: RunController) -> void:
@@ -75,6 +103,12 @@ static func _test_controller_profile_tutorial_and_locale(controller: RunControll
 	assert(controller.settings_overlay.visible)
 	assert(controller.set_language(&"en"))
 	assert(TranslationServer.translate("MENU_NEW_GAME") == "NEW GAME")
+	controller.set_sound_volume(0.42)
+	assert(is_equal_approx(controller.app_settings.sound_volume, 0.42))
+	controller.toggle_sound()
+	assert(not controller.app_settings.sound_enabled)
+	controller.toggle_sound()
+	assert(controller.app_settings.sound_enabled)
 	controller.show_tutorial_from_settings()
 	assert(controller.tutorial_overlay.visible)
 	controller.complete_tutorial()

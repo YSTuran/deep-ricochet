@@ -164,6 +164,11 @@ func _physics_process(delta: float) -> void:
 	for damage_result: BlockDamageResult in step_result.damage_results:
 		_handle_damage_result(damage_result)
 	for collision: CollisionResult in step_result.collisions:
+		if collision.kind == &"wall" or collision.contact_started:
+			AudioManager.play_collision(
+				collision.block_type if collision.contact_started else -1,
+				collision.position_world.x,
+			)
 		if collision.contact_started and collision.block_type == BlockState.BlockType.ROCK:
 			status_text = tr("STATUS_ROCK_RICOCHET")
 	if not step_result.forced_collection_positions.is_empty():
@@ -274,6 +279,8 @@ func _release_aim() -> void:
 		if volley_started:
 			shot_will_start.emit()
 		if volley_started and room.commit_shot():
+			AudioManager.begin_volley()
+			AudioManager.play_launch()
 			status_text = tr("STATUS_VOLLEY_STARTED")
 		else:
 			volley.reset()
@@ -348,6 +355,7 @@ func _handle_damage_result(result: BlockDamageResult) -> void:
 		"elapsed": 0.0,
 	})
 	if result.destroyed:
+		AudioManager.play_break(block.type)
 		status_text = tr("STATUS_BLOCK_BROKE") % [_block_name(block), awarded_points]
 	else:
 		status_text = tr("STATUS_BLOCK_DAMAGED") % [
@@ -368,6 +376,7 @@ func _handle_room_resolution(resolution: RoomResolution) -> void:
 		status_text = tr("STATUS_ROOM_COMPLETE") % resolution.reward
 	else:
 		status_text = tr("STATUS_SHOTS_OVER") % resolution.reward
+	AudioManager.play_room_result(resolution.succeeded)
 	room_finished.emit(resolution)
 
 
