@@ -109,6 +109,8 @@ static func _test_failed_run(catalog: RoomCatalog, config: GameConfig) -> void:
 	assert(not session.succeeded)
 	assert(session.banked_score == 35)
 	assert(session.cores_broken == 0)
+	assert(session.room_results.size() == 1)
+	assert(not session.room_results[0].succeeded)
 	assert(not session.resolve_room(failure))
 
 
@@ -132,6 +134,7 @@ static func _test_controller_four_room_flow(controller: RunController) -> void:
 			assert(controller.run_session.phase == RunSession.Phase.RUN_RESULT)
 			assert(controller.run_session.succeeded)
 			assert(controller.run_session.banked_score == 1000)
+			assert(controller.run_session.room_results.size() == 4)
 			assert(controller.flow_view.screen == RunFlowView.Screen.RUN_RESULT)
 			assert(controller.flow_view.visible)
 	assert(controller.start_new_run(778))
@@ -147,4 +150,6 @@ static func _finished_resolution(success: bool, reward: int) -> RoomResolution:
 	resolution.reward = reward
 	resolution.break_score = reward
 	resolution.remaining_shots = 0
+	resolution.multiplier_bps = 10_000
+	resolution.unused_shot_bonus = 0
 	return resolution

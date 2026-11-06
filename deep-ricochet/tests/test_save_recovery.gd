@@ -165,6 +165,7 @@ static func _test_route_and_result_restore(
 		controller._on_room_finished(resolution)
 	assert(controller.run_session.phase == RunSession.Phase.RUN_RESULT)
 	assert(controller.run_session.succeeded)
+	assert(controller.run_session.room_results.size() == 4)
 	var result_snapshot := controller.create_snapshot()
 	assert(service.save_stable(result_snapshot))
 	var expected_score := controller.run_session.banked_score
@@ -173,6 +174,8 @@ static func _test_route_and_result_restore(
 	assert(controller.restore_snapshot(loaded.snapshot_for_restore()))
 	assert(controller.flow_view.screen == RunFlowView.Screen.RUN_RESULT)
 	assert(controller.run_session.banked_score == expected_score)
+	assert(controller.run_session.room_results.size() == 4)
+	assert(controller.run_session.room_results[0].reward > 0)
 	controller._on_room_finished(resolution)
 	assert(controller.run_session.banked_score == expected_score)
 
@@ -210,6 +213,15 @@ static func _test_backup_and_invalid_save(
 	var stale_state: Dictionary = stale_envelope["state"]
 	stale_state["contentVersion"] = "eski-icerik"
 	_write_text(service.primary_path, JSON.stringify(stale_envelope))
+	loaded = service.load_active(controller.catalog, config)
+	assert(loaded.status == SaveLoadResult.Status.INVALID)
+
+	assert(service.clear_all())
+	var legacy_envelope := SaveEnvelope.create(controller.create_snapshot()).to_dictionary()
+	var legacy_state: Dictionary = legacy_envelope["state"]
+	legacy_state["schemaVersion"] = 1
+	legacy_state.erase("roomResults")
+	_write_text(service.primary_path, JSON.stringify(legacy_envelope))
 	loaded = service.load_active(controller.catalog, config)
 	assert(loaded.status == SaveLoadResult.Status.INVALID)
 

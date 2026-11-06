@@ -190,37 +190,42 @@ func _draw_run_result() -> void:
 	DeepUI.draw_glow(self, Vector2(270.0, 108.0), 48.0, accent)
 	draw_texture_rect(CORE_TEXTURE, Rect2(216.0, 54.0, 108.0, 108.0), false, Color.WHITE if run_session.succeeded else Color(0.72, 0.72, 0.72, 0.7))
 	DeepUI.draw_title_plate(self, heading, Rect2(58.0, 170.0, 424.0, 68.0), 31, accent)
-	DeepUI.draw_panel(self, Rect2(45.0, 260.0, 450.0, 330.0), DeepUI.PANEL_SOFT, Color(accent, 0.72), 18, 2, true)
+	DeepUI.draw_panel(self, Rect2(45.0, 250.0, 450.0, 385.0), DeepUI.PANEL_SOFT, Color(accent, 0.72), 18, 2, true)
 	_draw_centered(
-		tr("RESULT_ROOMS") % [run_session.cores_broken, run_session.room_count],
-		Rect2(65.0, 288.0, 410.0, 42.0),
-		27,
+		tr("RESULT_REACHED") % [run_session.room_number, run_session.cores_broken],
+		Rect2(65.0, 272.0, 410.0, 36.0),
+		21,
 		DeepUI.TEXT,
 	)
 	_draw_centered(
 		tr("RESULT_TOTAL_SCORE"),
-		Rect2(65.0, 348.0, 410.0, 34.0),
-		19,
+		Rect2(65.0, 313.0, 410.0, 28.0),
+		17,
 		DeepUI.MUTED,
 	)
 	_draw_centered(
 		str(run_session.banked_score),
-		Rect2(65.0, 390.0, 410.0, 74.0),
-		52,
+		Rect2(65.0, 344.0, 410.0, 62.0),
+		46,
 		accent,
 	)
-	_draw_centered(
-		tr("RESULT_SUMMARY") % [
-			run_session.route_choices_made,
-			run_session.last_room_reward,
-		],
-		Rect2(65.0, 490.0, 410.0, 34.0),
-		17,
-		DeepUI.MUTED,
-	)
+	for result_index in range(run_session.room_results.size()):
+		var result := run_session.room_results[result_index]
+		_draw_centered(
+			tr("RESULT_ROOM_BREAKDOWN") % [
+				result.room_number,
+				result.break_score,
+				result.unused_shot_bonus,
+				float(result.multiplier_bps) / 10_000.0,
+				result.reward,
+			],
+			Rect2(65.0, 420.0 + float(result_index) * 32.0, 410.0, 28.0),
+			14,
+			DeepUI.MUTED,
+		)
 	if profile != null:
 		var best_label := tr("RESULT_NEW_BEST") if new_best else tr("RESULT_BEST") % profile.best_score
-		DeepUI.draw_chip(self, Rect2(135.0, 538.0, 270.0, 38.0), best_label, accent, 17)
+		DeepUI.draw_chip(self, Rect2(135.0, 580.0, 270.0, 38.0), best_label, accent, 17)
 	DeepUI.draw_button(self, RESTART_BUTTON, tr("RESULT_REPLAY"), &"core" if run_session.succeeded else &"primary", 24)
 	DeepUI.draw_button(self, RESULT_MENU_BUTTON, tr("RESULT_MAIN_MENU"), &"secondary", 22)
 

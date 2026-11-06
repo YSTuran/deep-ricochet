@@ -1,7 +1,7 @@
 class_name RunSnapshot
 extends RefCounted
 
-const SCHEMA_VERSION := 1
+const SCHEMA_VERSION := 2
 
 var schema_version: int = SCHEMA_VERSION
 var run_id: String
@@ -20,6 +20,7 @@ var current_template_id: StringName
 var selected_template_ids: Array[StringName] = []
 var offered_template_ids: Array[StringName] = []
 var pending_routes: Array[Dictionary] = []
+var room_results: Array[RoomResultRecord] = []
 var last_room_reward: int
 var last_room_break_score: int
 var last_room_remaining_shots: int
@@ -55,6 +56,7 @@ static func capture(
 			"optionId": str(option.option_id),
 			"templateId": str(option.template.room_id),
 		})
+	snapshot.room_results = session.room_results.duplicate()
 	snapshot.last_room_reward = session.last_room_reward
 	snapshot.last_room_break_score = session.last_room_break_score
 	snapshot.last_room_remaining_shots = session.last_room_remaining_shots
@@ -88,6 +90,11 @@ static func from_dictionary(data: Dictionary) -> RunSnapshot:
 				snapshot.pending_routes.append(raw_route)
 			else:
 				snapshot.pending_routes.append({})
+	var raw_results: Variant = data.get("roomResults", [])
+	if typeof(raw_results) == TYPE_ARRAY:
+		for raw_result: Variant in raw_results:
+			if typeof(raw_result) == TYPE_DICTIONARY:
+				snapshot.room_results.append(RoomResultRecord.from_dictionary(raw_result))
 	snapshot.last_room_reward = int(data.get("lastRoomReward", -1))
 	snapshot.last_room_break_score = int(data.get("lastRoomBreakScore", -1))
 	snapshot.last_room_remaining_shots = int(data.get("lastRoomRemainingShots", -1))
@@ -99,6 +106,9 @@ static func from_dictionary(data: Dictionary) -> RunSnapshot:
 
 
 func to_dictionary() -> Dictionary:
+	var serialized_results: Array[Dictionary] = []
+	for result: RoomResultRecord in room_results:
+		serialized_results.append(result.to_dictionary() if result != null else {})
 	return {
 		"schemaVersion": schema_version,
 		"runId": run_id,
@@ -117,6 +127,7 @@ func to_dictionary() -> Dictionary:
 		"selectedTemplateIds": _string_array(selected_template_ids),
 		"offeredTemplateIds": _string_array(offered_template_ids),
 		"pendingRoutes": pending_routes.duplicate(true),
+		"roomResults": serialized_results,
 		"lastRoomReward": last_room_reward,
 		"lastRoomBreakScore": last_room_break_score,
 		"lastRoomRemainingShots": last_room_remaining_shots,
@@ -158,6 +169,7 @@ func validation_errors(catalog: RoomCatalog, config: GameConfig) -> PackedString
 				errors.append("Sunulan şablon katalogda bulunmuyor: %s." % template_id)
 	if not selected_template_ids.has(current_template_id):
 		errors.append("Etkin şablon seçilmiş şablonlar arasında değil.")
+	_validate_room_results(catalog, config, errors)
 
 	var current_template := catalog.get_template(current_template_id) if catalog != null else null
 	if current_template == null:
@@ -210,11 +222,52 @@ func create_session(catalog: RoomCatalog) -> RunSession:
 			StringName(str(route_data.get("optionId", ""))),
 			template,
 		))
+	session.room_results = room_results.duplicate()
 	session.last_room_reward = last_room_reward
 	session.last_room_break_score = last_room_break_score
 	session.last_room_remaining_shots = last_room_remaining_shots
 	session.last_room_succeeded = last_room_succeeded
 	return session
+
+
+func _validate_room_results(
+	catalog: RoomCatalog,
+	config: GameConfig,
+	errors: PackedStringArray,
+) -> void:
+	var expected_count := room_number if phase != RunSession.Phase.PLAYING else room_number - 1
+	if room_results.size() != expected_count:
+		errors.append("Oda sonucu geçmişi ilerlemeyle uyuşmuyor.")
+		return
+	var reward_sum := 0
+	var successful_count := 0
+	for result_index in range(room_results.size()):
+		var result := room_results[result_index]
+		if result == null:
+			errors.append("Oda sonucu geçmişinde boş kayıt var.")
+			continue
+		errors.append_array(result.validation_errors(catalog, config))
+		if result.room_number != result_index + 1:
+			errors.append("Oda sonucu sıralaması geçersiz.")
+		if result_index >= selected_template_ids.size() \
+			or result.template_id != selected_template_ids[result_index]:
+			errors.append("Oda sonucu seçilen şablonla uyuşmuyor.")
+		if not result.succeeded and (not ended or result_index != room_results.size() - 1):
+			errors.append("Başarısız oda yalnızca bitmiş koşunun son odası olabilir.")
+		reward_sum += result.reward
+		if result.succeeded:
+			successful_count += 1
+	if reward_sum != banked_score:
+		errors.append("Oda sonuçları toplamı koşu puanıyla uyuşmuyor.")
+	if successful_count != cores_broken:
+		errors.append("Oda sonuçları kırılan çekirdek sayısıyla uyuşmuyor.")
+	if not room_results.is_empty():
+		var last_result: RoomResultRecord = room_results.back()
+		if last_result.reward != last_room_reward \
+			or last_result.break_score != last_room_break_score \
+			or last_result.remaining_shots != last_room_remaining_shots \
+			or last_result.succeeded != last_room_succeeded:
+			errors.append("Son oda özeti oda sonucu geçmişiyle uyuşmuyor.")
 
 
 func _validate_pending_routes(catalog: RoomCatalog, errors: PackedStringArray) -> void:

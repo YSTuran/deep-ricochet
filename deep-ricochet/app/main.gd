@@ -43,6 +43,7 @@ var pause_origin_screen: int = RunFlowView.Screen.GAMEPLAY
 var confirmation_from_main_menu := false
 var settings_context: SettingsContext = SettingsContext.MAIN_MENU
 var tutorial_return_to_settings := false
+var tutorial_coach_step := -1
 
 
 func _ready() -> void:
@@ -60,6 +61,7 @@ func _ready() -> void:
 	gameplay_room.room_finished.connect(_on_room_finished)
 	gameplay_room.shot_will_start.connect(_on_shot_will_start)
 	gameplay_room.shot_resolved.connect(_on_shot_resolved)
+	gameplay_room.block_destroyed.connect(_on_block_destroyed)
 	flow_view.bind(self)
 	main_menu_view.bind(self)
 	pause_overlay.bind(self)
@@ -86,10 +88,10 @@ func _unhandled_input(event: InputEvent) -> void:
 	if not event.is_action_pressed("ui_cancel") or event.is_echo():
 		return
 	get_viewport().set_input_as_handled()
-	if tutorial_overlay.visible:
+	if tutorial_overlay.is_modal():
 		complete_tutorial()
 	elif settings_overlay.visible:
-		if settings_overlay.mode == SettingsOverlay.Mode.CONFIRM_RESET:
+		if settings_overlay.mode == SettingsOverlay.Mode.CONFIRM_DELETE_ALL:
 			settings_overlay.show_settings()
 		else:
 			close_settings()
@@ -119,10 +121,10 @@ func _initialize_user_data() -> void:
 
 
 func _handle_back_request() -> void:
-	if tutorial_overlay.visible:
+	if tutorial_overlay.is_modal():
 		complete_tutorial()
 	elif settings_overlay.visible:
-		if settings_overlay.mode == SettingsOverlay.Mode.CONFIRM_RESET:
+		if settings_overlay.mode == SettingsOverlay.Mode.CONFIRM_DELETE_ALL:
 			settings_overlay.show_settings()
 		else:
 			close_settings()
@@ -287,22 +289,48 @@ func set_language(language: StringName) -> bool:
 	return true
 
 
-func toggle_sound() -> void:
+func toggle_sfx() -> void:
 	if app_settings == null:
 		return
-	app_settings.sound_enabled = not app_settings.sound_enabled
+	app_settings.sfx_enabled = not app_settings.sfx_enabled
 	AudioManager.apply_settings(app_settings)
 	_save_app_settings()
 	settings_overlay.queue_redraw()
-	if app_settings.sound_enabled:
+	if app_settings.sfx_enabled:
 		AudioManager.play_ui_confirm()
 
 
-func set_sound_volume(volume: float) -> void:
+func set_sfx_volume(volume: float) -> void:
 	if app_settings == null:
 		return
-	app_settings.sound_volume = clampf(volume, 0.0, 1.0)
+	app_settings.sfx_volume = clampf(volume, 0.0, 1.0)
 	AudioManager.apply_settings(app_settings)
+	_save_app_settings()
+	settings_overlay.queue_redraw()
+
+
+func toggle_music() -> void:
+	if app_settings == null:
+		return
+	app_settings.music_enabled = not app_settings.music_enabled
+	AudioManager.apply_settings(app_settings)
+	_save_app_settings()
+	settings_overlay.queue_redraw()
+
+
+func set_music_volume(volume: float) -> void:
+	if app_settings == null:
+		return
+	app_settings.music_volume = clampf(volume, 0.0, 1.0)
+	AudioManager.apply_settings(app_settings)
+	_save_app_settings()
+	settings_overlay.queue_redraw()
+
+
+func toggle_screen_shake() -> void:
+	if app_settings == null:
+		return
+	app_settings.shake_enabled = not app_settings.shake_enabled
 	_save_app_settings()
 	settings_overlay.queue_redraw()
 
@@ -314,9 +342,10 @@ func show_tutorial_from_settings() -> void:
 
 
 func complete_tutorial() -> void:
-	if not tutorial_overlay.visible:
+	if not tutorial_overlay.is_modal():
 		return
 	tutorial_overlay.hide_overlay()
+	tutorial_coach_step = -1
 	if profile != null:
 		profile.tutorial_completed = true
 		_save_profile()
@@ -350,6 +379,7 @@ func confirm_reset_progress() -> bool:
 	profile = replacement_profile
 	run_session = null
 	last_result_new_best = false
+	tutorial_coach_step = -1
 	_clear_pending_continue()
 	settings_overlay.hide_overlay()
 	tutorial_overlay.hide_overlay()
@@ -359,16 +389,63 @@ func confirm_reset_progress() -> bool:
 	return true
 
 
+func confirm_delete_all_data() -> bool:
+	var errors := PackedStringArray()
+	if save_service != null and not save_service.clear_all():
+		errors.append(save_service.last_error)
+	if profile_service != null and not profile_service.clear_all():
+		errors.append(profile_service.last_error)
+	if settings_service != null and not settings_service.clear_all():
+		errors.append(settings_service.last_error)
+	if not errors.is_empty():
+		last_save_error = "; ".join(errors)
+		push_warning("Tüm veriler silinemedi: %s" % last_save_error)
+		_save_profile()
+		_save_app_settings()
+		if run_session != null:
+			_save_stable()
+		settings_overlay.show_settings(tr("NOTICE_STORAGE_FAILED"))
+		return false
+
+	profile = PlayerProfile.new()
+	app_settings = AppSettings.new()
+	run_session = null
+	last_result_new_best = false
+	tutorial_coach_step = -1
+	_clear_pending_continue()
+	TranslationServer.set_locale(str(app_settings.language))
+	AudioManager.apply_settings(app_settings)
+	settings_overlay.hide_overlay()
+	tutorial_overlay.hide_overlay()
+	pause_overlay.hide_overlay()
+	_leave_pause_state()
+	_refresh_localized_views()
+	_show_main_menu(false, tr("NOTICE_ALL_DATA_DELETED"))
+	return true
+
+
 func _maybe_show_first_tutorial() -> void:
 	if tutorial_enabled and profile != null and not profile.tutorial_completed:
 		tutorial_return_to_settings = false
-		_show_tutorial()
+		tutorial_coach_step = 0
+		tutorial_overlay.show_coach(tutorial_coach_step)
 
 
 func _show_tutorial() -> void:
+	tutorial_coach_step = -1
 	gameplay_room.set_simulation_enabled(false)
 	pause_button.visible = false
 	tutorial_overlay.show_tutorial()
+
+
+func _finish_interactive_tutorial() -> void:
+	if tutorial_coach_step < 0:
+		return
+	tutorial_coach_step = -1
+	tutorial_overlay.hide_overlay()
+	if profile != null and not profile.tutorial_completed:
+		profile.tutorial_completed = true
+		_save_profile()
 
 
 func _refresh_localized_views() -> void:
@@ -387,6 +464,8 @@ func pause_game() -> void:
 		and flow_view.screen != RunFlowView.Screen.ROUTE_SELECTION:
 		return
 	gameplay_room.cancel_aim_for_pause()
+	if tutorial_overlay.mode == TutorialOverlay.Mode.COACH:
+		tutorial_overlay.hide_overlay()
 	if not gameplay_room.room.shot_in_progress:
 		_save_stable()
 	pause_origin_screen = flow_view.screen
@@ -465,6 +544,8 @@ func select_route(option_id: StringName) -> bool:
 	if loaded:
 		gameplay_room.set_simulation_enabled(true)
 		pause_button.visible = true
+		if tutorial_coach_step == 2:
+			_finish_interactive_tutorial()
 		_save_stable()
 	return loaded
 
@@ -474,6 +555,9 @@ func _on_room_finished(resolution: RoomResolution) -> void:
 		return
 	gameplay_room.set_simulation_enabled(false)
 	if run_session.ended:
+		if tutorial_overlay.mode == TutorialOverlay.Mode.COACH:
+			tutorial_overlay.hide_overlay()
+			tutorial_coach_step = -1
 		_record_run_result_if_needed()
 		_save_stable()
 		pause_button.visible = false
@@ -491,6 +575,9 @@ func _on_room_finished(resolution: RoomResolution) -> void:
 	_save_stable()
 	pause_button.visible = true
 	flow_view.show_route_selection(run_session)
+	if tutorial_coach_step == 1 and run_session.room_number == 1:
+		tutorial_coach_step = 2
+		tutorial_overlay.show_coach(tutorial_coach_step)
 
 
 func create_snapshot() -> RunSnapshot:
@@ -510,6 +597,9 @@ func restore_snapshot(snapshot: RunSnapshot, recovery_message: String = "") -> b
 
 
 func _on_shot_will_start() -> void:
+	if tutorial_coach_step == 0:
+		tutorial_coach_step = 1
+		tutorial_overlay.show_coach(tutorial_coach_step)
 	if not persistence_enabled or save_service == null:
 		return
 	var snapshot := create_snapshot()
@@ -521,6 +611,16 @@ func _on_shot_resolved(resolution: RoomResolution) -> void:
 	if resolution.room_finished:
 		return
 	_save_stable()
+
+
+func _on_block_destroyed(block_type: int) -> void:
+	if app_settings == null or not app_settings.shake_enabled:
+		return
+	var is_core := block_type == BlockState.BlockType.CORE
+	gameplay_room.trigger_screen_shake(
+		7.0 if is_core else 3.0,
+		0.26 if is_core else 0.14,
+	)
 
 
 func _load_current_room(template: RoomTemplate) -> bool:
@@ -578,6 +678,26 @@ func _restore_active_screen() -> void:
 			gameplay_room.set_simulation_enabled(false)
 			flow_view.show_run_result(run_session, profile, last_result_new_best)
 			pause_button.visible = false
+	_restore_tutorial_coach()
+
+
+func _restore_tutorial_coach() -> void:
+	if not tutorial_enabled or profile == null or profile.tutorial_completed or run_session == null:
+		tutorial_coach_step = -1
+		if tutorial_overlay.mode == TutorialOverlay.Mode.COACH:
+			tutorial_overlay.hide_overlay()
+		return
+	if run_session.phase == RunSession.Phase.ROUTE_SELECTION and run_session.room_number == 1:
+		tutorial_coach_step = 2
+	elif run_session.phase == RunSession.Phase.PLAYING and run_session.room_number == 1:
+		tutorial_coach_step = 0 if gameplay_room.room.break_score == 0 \
+			and gameplay_room.room.shots_remaining == config.shots_per_room else 1
+	else:
+		tutorial_coach_step = -1
+	if tutorial_coach_step >= 0:
+		tutorial_overlay.show_coach(tutorial_coach_step)
+	elif tutorial_overlay.mode == TutorialOverlay.Mode.COACH:
+		tutorial_overlay.hide_overlay()
 
 
 func _show_main_menu(can_continue: bool, notice: String = "") -> void:
@@ -586,6 +706,8 @@ func _show_main_menu(can_continue: bool, notice: String = "") -> void:
 	pause_button.visible = false
 	flow_view.show_gameplay()
 	gameplay_room.set_simulation_enabled(false)
+	if tutorial_overlay.mode == TutorialOverlay.Mode.COACH:
+		tutorial_overlay.hide_overlay()
 	main_menu_view.show_menu(can_continue, notice)
 
 

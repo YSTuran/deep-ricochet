@@ -18,6 +18,9 @@ const ORE_TEXTURE: Texture2D = preload("res://art/source/blok_cevher.png")
 const CORE_TEXTURE: Texture2D = preload("res://art/source/cekirdek.png")
 
 var room: GameplayRoom
+var shake_remaining := 0.0
+var shake_duration := 0.0
+var shake_strength := 0.0
 
 
 func bind(gameplay_room: GameplayRoom) -> void:
@@ -27,6 +30,29 @@ func bind(gameplay_room: GameplayRoom) -> void:
 
 func refresh() -> void:
 	queue_redraw()
+
+
+func start_screen_shake(strength: float, duration: float) -> void:
+	shake_strength = maxf(shake_strength, maxf(0.0, strength))
+	shake_duration = maxf(shake_duration, maxf(0.01, duration))
+	shake_remaining = maxf(shake_remaining, shake_duration)
+	set_process(true)
+
+
+func _process(delta: float) -> void:
+	if shake_remaining <= 0.0:
+		position = Vector2.ZERO
+		set_process(false)
+		return
+	shake_remaining = maxf(0.0, shake_remaining - delta)
+	var progress := 1.0 - shake_remaining / shake_duration
+	var amplitude := shake_strength * (1.0 - progress)
+	position = Vector2(
+		sin(progress * 52.0 * TAU),
+		sin(progress * 37.0 * TAU + 0.8),
+	) * amplitude
+	if shake_remaining <= 0.0:
+		position = Vector2.ZERO
 
 
 func _draw() -> void:

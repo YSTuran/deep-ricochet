@@ -1,13 +1,19 @@
 class_name TutorialOverlay
 extends Control
 
+enum Mode {
+	WALKTHROUGH,
+	COACH,
+}
+
 const VIEW_SIZE := Vector2(540.0, 960.0)
 const SKIP_BUTTON := Rect2(35.0, 845.0, 170.0, 65.0)
 const NEXT_BUTTON := Rect2(275.0, 845.0, 230.0, 65.0)
-const PAGE_COUNT := 4
+const PAGE_COUNT := 3
 
 var controller: RunController
 var page_index := 0
+var mode: Mode = Mode.WALKTHROUGH
 
 
 func _ready() -> void:
@@ -19,10 +25,23 @@ func bind(run_controller: RunController) -> void:
 
 
 func show_tutorial() -> void:
+	mode = Mode.WALKTHROUGH
 	page_index = 0
 	visible = true
 	mouse_filter = Control.MOUSE_FILTER_STOP
 	queue_redraw()
+
+
+func show_coach(step: int) -> void:
+	mode = Mode.COACH
+	page_index = clampi(step, 0, PAGE_COUNT - 1)
+	visible = true
+	mouse_filter = Control.MOUSE_FILTER_IGNORE
+	queue_redraw()
+
+
+func is_modal() -> bool:
+	return visible and mode == Mode.WALKTHROUGH
 
 
 func hide_overlay() -> void:
@@ -35,6 +54,8 @@ func refresh_locale() -> void:
 
 
 func _gui_input(event: InputEvent) -> void:
+	if mode == Mode.COACH:
+		return
 	if DeepUI.is_emulated_mouse_event(event):
 		return
 	var released := false
@@ -61,6 +82,9 @@ func _gui_input(event: InputEvent) -> void:
 
 
 func _draw() -> void:
+	if mode == Mode.COACH:
+		_draw_coach()
+		return
 	DeepUI.draw_cave_background(self, VIEW_SIZE)
 	DeepUI.draw_panel(self, Rect2(35.0, 60.0, 470.0, 755.0), Color(DeepUI.PANEL_SOFT, 0.96), DeepUI.BORDER, 22, 2, true)
 	_draw_illustration()
@@ -85,6 +109,31 @@ func _draw() -> void:
 	DeepUI.draw_button(self, NEXT_BUTTON, next_label, &"primary", 19)
 
 
+func _draw_coach() -> void:
+	DeepUI.draw_panel(
+		self,
+		Rect2(24.0, 858.0, 492.0, 82.0),
+		Color(DeepUI.PANEL_SOFT, 0.97),
+		DeepUI.GOLD,
+		14,
+		2,
+		true,
+	)
+	DeepUI.draw_centered(
+		self,
+		tr("TUTORIAL_TITLE_%d" % (page_index + 1)),
+		Rect2(38.0, 866.0, 464.0, 24.0),
+		16,
+		DeepUI.GOLD_LIGHT,
+	)
+	_draw_wrapped(
+		tr("TUTORIAL_BODY_%d" % (page_index + 1)),
+		Rect2(38.0, 892.0, 464.0, 38.0),
+		13,
+		DeepUI.TEXT,
+	)
+
+
 func _draw_illustration() -> void:
 	DeepUI.draw_panel(self, Rect2(55.0, 90.0, 430.0, 360.0), DeepUI.PANEL, DeepUI.BORDER_SOFT, 16, 2, false)
 	match page_index:
@@ -94,14 +143,6 @@ func _draw_illustration() -> void:
 			draw_dashed_line(launcher, Vector2(175.0, 180.0), DeepUI.GOLD_LIGHT, 4.0, 12.0)
 			draw_circle(Vector2(175.0, 180.0), 9.0, DeepUI.GOLD)
 		1:
-			draw_line(Vector2(95.0, 390.0), Vector2(95.0, 145.0), DeepUI.BORDER, 8.0)
-			draw_line(Vector2(445.0, 390.0), Vector2(445.0, 145.0), DeepUI.BORDER, 8.0)
-			draw_rect(Rect2(220.0, 205.0, 100.0, 100.0), Color("35414b"), true)
-			draw_line(Vector2(235.0, 220.0), Vector2(305.0, 290.0), DeepUI.TEXT, 7.0)
-			draw_line(Vector2(305.0, 220.0), Vector2(235.0, 290.0), DeepUI.TEXT, 7.0)
-			draw_dashed_line(Vector2(155.0, 365.0), Vector2(220.0, 255.0), DeepUI.GOLD_LIGHT, 4.0, 11.0)
-			draw_dashed_line(Vector2(220.0, 255.0), Vector2(120.0, 170.0), DeepUI.GOLD_LIGHT, 4.0, 11.0)
-		2:
 			DeepUI.draw_panel(self, Rect2(100.0, 270.0, 105.0, 105.0), DeepUI.BLUE, DeepUI.BLUE_LIGHT, 12, 2, true)
 			DeepUI.draw_panel(self, Rect2(218.0, 270.0, 105.0, 105.0), DeepUI.GOLD, DeepUI.GOLD_LIGHT, 12, 2, true)
 			DeepUI.draw_glow(self, Vector2(388.0, 322.0), 48.0, DeepUI.CORE)
@@ -109,7 +150,7 @@ func _draw_illustration() -> void:
 			DeepUI.draw_centered(self, "3", Rect2(100.0, 290.0, 105.0, 55.0), 25, DeepUI.TEXT)
 			DeepUI.draw_centered(self, "5", Rect2(218.0, 290.0, 105.0, 55.0), 25, DeepUI.BACKGROUND_DEEP)
 			DeepUI.draw_centered(self, "6", Rect2(335.0, 290.0, 105.0, 55.0), 25, DeepUI.BACKGROUND_DEEP)
-		3:
+		2:
 			DeepUI.draw_panel(self, Rect2(80.0, 155.0, 175.0, 225.0), Color("173550"), DeepUI.BLUE, 15, 2, true)
 			DeepUI.draw_panel(self, Rect2(285.0, 155.0, 175.0, 225.0), Color("4a3923"), DeepUI.GOLD, 15, 2, true)
 			DeepUI.draw_centered(self, "×1.0", Rect2(90.0, 195.0, 155.0, 50.0), 25, DeepUI.BLUE_LIGHT)

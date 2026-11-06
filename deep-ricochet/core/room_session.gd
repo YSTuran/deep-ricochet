@@ -86,6 +86,9 @@ func resolve_shot(board: BoardModel, config: GameConfig) -> RoomResolution:
 	var resolution := RoomResolution.new()
 	resolution.break_score = break_score
 	resolution.remaining_shots = shots_remaining
+	resolution.multiplier_bps = multiplier_bps
+	resolution.unused_shot_bonus = config.unused_shot_bonus * shots_remaining \
+		if room_succeeded else 0
 	resolution.reward = final_reward
 	resolution.room_finished = room_finished
 	resolution.succeeded = room_succeeded
@@ -113,5 +116,8 @@ func resolve_shot(board: BoardModel, config: GameConfig) -> RoomResolution:
 	resolution.succeeded = room_succeeded
 	resolution.break_score = break_score
 	resolution.remaining_shots = shots_remaining
+	resolution.multiplier_bps = multiplier_bps
+	resolution.unused_shot_bonus = config.unused_shot_bonus * shots_remaining \
+		if room_succeeded else 0
 	resolution.reward = final_reward
 	return resolution

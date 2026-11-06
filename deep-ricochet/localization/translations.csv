@@ -21,25 +21,28 @@ SETTINGS_TITLE,SETTINGS,AYARLAR
 SETTINGS_LANGUAGE,LANGUAGE,DİL
 SETTINGS_TURKISH,TÜRKÇE,TÜRKÇE
 SETTINGS_ENGLISH,ENGLISH,İNGİLİZCE
-SETTINGS_SOUND_ON,SOUND: ON,SES: AÇIK
-SETTINGS_SOUND_OFF,SOUND: OFF,SES: KAPALI
-SETTINGS_VOLUME,Volume %d%%,Ses seviyesi %d%%
+SETTINGS_SFX_ON,EFFECTS: ON,EFEKTLER: AÇIK
+SETTINGS_SFX_OFF,EFFECTS: OFF,EFEKTLER: KAPALI
+SETTINGS_SFX_VOLUME,Effects volume %d%%,Efekt seviyesi %d%%
+SETTINGS_MUSIC_ON,MUSIC: ON,MÜZİK: AÇIK
+SETTINGS_MUSIC_OFF,MUSIC: OFF,MÜZİK: KAPALI
+SETTINGS_MUSIC_VOLUME,Music volume %d%%,Müzik seviyesi %d%%
+SETTINGS_SHAKE_ON,SCREEN SHAKE: ON,EKRAN SARSINTISI: AÇIK
+SETTINGS_SHAKE_OFF,SCREEN SHAKE: OFF,EKRAN SARSINTISI: KAPALI
 SETTINGS_TUTORIAL,REPLAY TUTORIAL,ÖĞRETİCİYİ TEKRARLA
-SETTINGS_RESET,RESET PROGRESS,İLERLEMEYİ SIFIRLA
-CONFIRM_RESET_TITLE,RESET PROGRESS?,İLERLEME SIFIRLANSIN MI?
-CONFIRM_RESET_BODY,Saved run and profile statistics will be deleted.,Kayıtlı koşu ve profil istatistikleri silinecek.
-CONFIRM_RESET_ACTION,RESET,SIFIRLA
+SETTINGS_DELETE_DATA,DELETE ALL DATA,TÜM VERİLERİ SİL
+CONFIRM_DELETE_TITLE,DELETE ALL DATA?,TÜM VERİLER SİLİNSİN Mİ?
+CONFIRM_DELETE_BODY,Saved run, records and settings will be deleted.,Kayıtlı koşu, rekorlar ve ayarlar silinecek.
+CONFIRM_DELETE_ACTION,DELETE,SİL
 TUTORIAL_SKIP,SKIP,ATLA
 TUTORIAL_NEXT,NEXT,İLERİ
 TUTORIAL_START,START,BAŞLA
 TUTORIAL_TITLE_1,AIM AND RELEASE,NİŞAN AL VE BIRAK
 TUTORIAL_BODY_1,Hold anywhere on the board. Drag upward to choose an angle and release to launch.,Tahtaya basılı tut. Açıyı seçmek için yukarı sürükle ve fırlatmak için bırak.
-TUTORIAL_TITLE_2,USE RICOCHETS,SEKMELERİ KULLAN
-TUTORIAL_BODY_2,Walls and hard rocks reflect balls. The dotted preview follows the same physics.,Duvarlar ve sert kayalar topları yansıtır. Kesikli önizleme aynı fiziği kullanır.
-TUTORIAL_TITLE_3,BREAK THE CORE,ÇEKİRDEĞİ KIR
-TUTORIAL_BODY_3,Blue blocks give points. Ore gives more. Break the mint core before shots run out.,Mavi bloklar puan verir. Cevher daha değerlidir. Atışlar bitmeden mint çekirdeği kır.
-TUTORIAL_TITLE_4,CHOOSE YOUR ROUTE,ROTANI SEÇ
-TUTORIAL_BODY_4,Wide passages are safer. Narrow veins have a higher score multiplier.,Geniş geçitler daha güvenlidir. Dar damarların puan çarpanı daha yüksektir.
+TUTORIAL_TITLE_2,BREAK THE CORE,ÇEKİRDEĞİ KIR
+TUTORIAL_BODY_2,Blue blocks give points. Ore gives more. Break the mint core before shots run out.,Mavi bloklar puan verir. Cevher daha değerlidir. Atışlar bitmeden mint çekirdeği kır.
+TUTORIAL_TITLE_3,CHOOSE YOUR ROUTE,ROTANI SEÇ
+TUTORIAL_BODY_3,Wide passages are safer. Narrow veins have a higher score multiplier.,Geniş geçitler daha güvenlidir. Dar damarların puan çarpanı daha yüksektir.
 ROUTE_SELECT,CHOOSE A ROUTE,ROTA SEÇ
 ROUTE_SUMMARY,Room %d complete • +%d • Total %d • Next %d/%d,Oda %d tamamlandı • +%d • Toplam %d • Sıradaki %d/%d
 ROUTE_HINT,The mini board is the exact room that will be loaded.,Karttaki küçük tahta seçildiğinde yüklenecek gerçek odadır.
@@ -49,8 +52,10 @@ ROUTE_TAP,TAP TO CHOOSE,DOKUN VE SEÇ
 RESULT_SUCCESS,EXPEDITION COMPLETE,KAZI TAMAMLANDI
 RESULT_FAILURE,EXPEDITION ENDED,KAZI SONA ERDİ
 RESULT_ROOMS,%d / %d rooms,%d / %d oda
+RESULT_REACHED,Reached room %d • Cores %d,Ulaşılan oda %d • Çekirdek %d
 RESULT_TOTAL_SCORE,Total score,Toplam puan
 RESULT_SUMMARY,%d route choices • Last room reward %d,%d rota tercihi • Son oda ödülü %d
+RESULT_ROOM_BREAKDOWN,Room %d  %d + %d  ×%.1f = %d,Oda %d  %d + %d  ×%.1f = %d
 RESULT_NEW_BEST,NEW BEST!,YENİ REKOR!
 RESULT_BEST,Best %d,En iyi %d
 RESULT_REPLAY,PLAY AGAIN,YENİDEN OYNA
@@ -92,6 +97,7 @@ NOTICE_RUN_SAVED,Run saved.,Koşu kaydedildi.
 NOTICE_SHOT_RETRY,Shot cancelled. You can retry after continuing.,Atış iptal edildi; devamda yeniden deneyebilirsin.
 NOTICE_MEMORY_ONLY,Run kept for this session.,Koşu bu oturum için bellekte tutuldu.
 NOTICE_PROGRESS_RESET,Progress reset.,İlerleme sıfırlandı.
+NOTICE_ALL_DATA_DELETED,All local data deleted.,Tüm yerel veriler silindi.
 NOTICE_STORAGE_FAILED,Progress could not be updated. Please try again.,İlerleme güncellenemedi. Lütfen yeniden dene.
 ROOM_SAFE_01,Wide Gallery,Geniş Galeri
 ROOM_SAFE_02,Twin Corridor,Çift Koridor

@@ -4,6 +4,7 @@ extends Node2D
 signal shot_resolved(resolution: RoomResolution)
 signal room_finished(resolution: RoomResolution)
 signal shot_will_start
+signal block_destroyed(block_type: int)
 
 const BOARD_ORIGIN := Vector2(30.0, 150.0)
 const BOARD_SIZE_WORLD := Vector2(8.0, 10.0)
@@ -137,6 +138,11 @@ func set_simulation_enabled(enabled: bool) -> void:
 	set_process_unhandled_input(enabled and not room.room_finished)
 	if not enabled:
 		cancel_aim_for_pause()
+
+
+func trigger_screen_shake(strength: float, duration: float) -> void:
+	if is_instance_valid(view):
+		view.start_screen_shake(strength, duration)
 
 
 func cancel_aim_for_pause() -> void:
@@ -361,6 +367,7 @@ func _handle_damage_result(result: BlockDamageResult) -> void:
 	})
 	if result.destroyed:
 		AudioManager.play_break(block.type)
+		block_destroyed.emit(block.type)
 		status_text = tr("STATUS_BLOCK_BROKE") % [_block_name(block), awarded_points]
 	else:
 		status_text = tr("STATUS_BLOCK_DAMAGED") % [

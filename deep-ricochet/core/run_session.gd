@@ -22,6 +22,7 @@ var current_template_id: StringName
 var selected_template_ids: Array[StringName] = []
 var offered_template_ids: Array[StringName] = []
 var pending_routes: Array[RouteOption] = []
+var room_results: Array[RoomResultRecord] = []
 var last_room_reward: int = 0
 var last_room_break_score: int = 0
 var last_room_remaining_shots: int = 0
@@ -51,6 +52,7 @@ func start_run(
 	selected_template_ids = [first_template.room_id]
 	offered_template_ids.clear()
 	pending_routes.clear()
+	room_results.clear()
 	last_room_reward = 0
 	last_room_break_score = 0
 	last_room_remaining_shots = 0
@@ -69,6 +71,14 @@ func resolve_room(resolution: RoomResolution) -> bool:
 	last_room_break_score = resolution.break_score
 	last_room_remaining_shots = resolution.remaining_shots
 	last_room_succeeded = resolution.succeeded
+	var room_result := RoomResultRecord.from_resolution(
+		room_number,
+		current_template_id,
+		resolution,
+	)
+	if room_result == null:
+		return false
+	room_results.append(room_result)
 	if resolution.succeeded:
 		cores_broken += 1
 	else:

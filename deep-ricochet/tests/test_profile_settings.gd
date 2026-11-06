@@ -71,31 +71,55 @@ static func _test_settings_round_trip() -> void:
 	var settings := service.load_settings()
 	assert(settings.language == &"tr")
 	settings.language = &"en"
-	settings.sound_enabled = false
-	settings.sound_volume = 0.35
+	settings.sfx_enabled = false
+	settings.sfx_volume = 0.35
+	settings.music_enabled = false
+	settings.music_volume = 0.2
+	settings.shake_enabled = false
 	assert(service.save_settings(settings))
 	var restored := service.load_settings()
 	assert(restored.language == &"en")
-	assert(not restored.sound_enabled)
-	assert(is_equal_approx(restored.sound_volume, 0.35))
+	assert(not restored.sfx_enabled)
+	assert(is_equal_approx(restored.sfx_volume, 0.35))
+	assert(not restored.music_enabled)
+	assert(is_equal_approx(restored.music_volume, 0.2))
+	assert(not restored.shake_enabled)
+
+	_write_text(SETTINGS_PATH, JSON.stringify({
+		"schemaVersion": 1,
+		"language": "tr",
+		"soundEnabled": true,
+		"soundVolume": 0.45,
+	}))
+	restored = service.load_settings()
+	assert(restored.schema_version == AppSettings.SCHEMA_VERSION)
+	assert(restored.sfx_enabled)
+	assert(is_equal_approx(restored.sfx_volume, 0.45))
+	assert(restored.music_enabled)
+	assert(restored.shake_enabled)
 	assert(service.clear_all())
 
 
 static func _test_audio_manager() -> void:
 	var settings := AppSettings.new()
-	settings.sound_enabled = true
-	settings.sound_volume = 0.5
+	settings.sfx_enabled = true
+	settings.sfx_volume = 0.5
+	settings.music_enabled = true
+	settings.music_volume = 0.25
 	AudioManager.apply_settings(settings)
 	assert(AudioServer.get_bus_index(&"SFX") >= 0)
 	assert(AudioServer.get_bus_index(&"UI") >= 0)
-	assert(is_equal_approx(AudioManager.sound_volume, 0.5))
+	assert(AudioServer.get_bus_index(&"Music") >= 0)
+	assert(is_equal_approx(AudioManager.sfx_volume, 0.5))
+	assert(is_equal_approx(AudioManager.music_volume, 0.25))
+	assert(AudioManager._music_player.stream is AudioStreamWAV)
 	AudioManager.begin_volley()
 	var event_count := AudioManager.played_event_count
 	assert(AudioManager.play_collision(-1, 4.0))
 	assert(AudioManager.melody_index == 1)
 	assert(AudioManager.played_event_count == event_count + 1)
 	assert(not AudioManager.play_collision(-1, 4.0))
-	settings.sound_enabled = false
+	settings.sfx_enabled = false
 	AudioManager.apply_settings(settings)
 	event_count = AudioManager.played_event_count
 	AudioManager.play_ui_click()
@@ -108,12 +132,29 @@ static func _test_controller_profile_tutorial_and_locale(controller: RunControll
 	controller.tutorial_enabled = true
 	assert(controller.start_new_run(92_001))
 	assert(controller.tutorial_overlay.visible)
-	assert(not controller.gameplay_room.simulation_enabled)
-	controller.complete_tutorial()
+	assert(controller.tutorial_overlay.mode == TutorialOverlay.Mode.COACH)
+	assert(controller.tutorial_coach_step == 0)
+	assert(controller.gameplay_room.simulation_enabled)
+	controller._on_shot_will_start()
+	assert(controller.tutorial_coach_step == 1)
+	var tutorial_result := RoomResolution.new()
+	tutorial_result.processed = true
+	tutorial_result.room_finished = true
+	tutorial_result.succeeded = true
+	tutorial_result.break_score = 100
+	tutorial_result.remaining_shots = 2
+	tutorial_result.multiplier_bps = controller.gameplay_room.room.multiplier_bps
+	tutorial_result.unused_shot_bonus = 40
+	tutorial_result.reward = 140
+	controller._on_room_finished(tutorial_result)
+	assert(controller.tutorial_coach_step == 2)
+	assert(controller.run_session.phase == RunSession.Phase.ROUTE_SELECTION)
+	assert(controller.select_route(controller.run_session.pending_routes[0].option_id))
 	assert(controller.profile.tutorial_completed)
 	assert(not controller.tutorial_overlay.visible)
 	assert(controller.gameplay_room.simulation_enabled)
 
+	assert(controller.start_new_run(92_002))
 	var result := RoomResolution.new()
 	result.processed = true
 	result.room_finished = true
@@ -137,29 +178,48 @@ static func _test_controller_profile_tutorial_and_locale(controller: RunControll
 	assert(controller.settings_overlay.visible)
 	assert(controller.set_language(&"en"))
 	assert(TranslationServer.translate("MENU_NEW_GAME") == "NEW GAME")
-	controller.set_sound_volume(0.42)
-	assert(is_equal_approx(controller.app_settings.sound_volume, 0.42))
-	controller.toggle_sound()
-	assert(not controller.app_settings.sound_enabled)
-	controller.toggle_sound()
-	assert(controller.app_settings.sound_enabled)
+	controller.set_sfx_volume(0.42)
+	assert(is_equal_approx(controller.app_settings.sfx_volume, 0.42))
+	controller.set_music_volume(0.24)
+	assert(is_equal_approx(controller.app_settings.music_volume, 0.24))
+	controller.toggle_sfx()
+	assert(not controller.app_settings.sfx_enabled)
+	controller.toggle_sfx()
+	assert(controller.app_settings.sfx_enabled)
+	controller.toggle_music()
+	assert(not controller.app_settings.music_enabled)
+	controller.toggle_music()
+	assert(controller.app_settings.music_enabled)
+	if not controller.app_settings.shake_enabled:
+		controller.toggle_screen_shake()
+	controller.gameplay_room.view.shake_remaining = 0.0
+	controller._on_block_destroyed(BlockState.BlockType.CORE)
+	assert(controller.gameplay_room.view.shake_remaining > 0.0)
+	controller.toggle_screen_shake()
+	controller.gameplay_room.view.shake_remaining = 0.0
+	controller._on_block_destroyed(BlockState.BlockType.CORE)
+	assert(is_zero_approx(controller.gameplay_room.view.shake_remaining))
 	controller.show_tutorial_from_settings()
 	assert(controller.tutorial_overlay.visible)
+	assert(controller.tutorial_overlay.is_modal())
+	assert(TutorialOverlay.PAGE_COUNT == 3)
 	controller.complete_tutorial()
 	assert(controller.settings_overlay.visible)
-	controller.settings_overlay.show_reset_confirmation()
+	controller.settings_overlay.show_delete_all_confirmation()
 	controller.profile_service = FailingProfileService.new()
-	assert(not controller.confirm_reset_progress())
+	assert(not controller.confirm_delete_all_data())
 	assert(controller.profile.best_score == 321)
 	assert(controller.settings_overlay.visible)
 	assert(not controller.settings_overlay.notice.is_empty())
 	controller.profile_service = null
-	controller.settings_overlay.show_reset_confirmation()
-	assert(controller.confirm_reset_progress())
+	controller.settings_overlay.show_delete_all_confirmation()
+	assert(controller.confirm_delete_all_data())
 	assert(controller.profile.best_score == 0)
 	assert(not controller.profile.tutorial_completed)
+	assert(controller.app_settings.language == &"tr")
+	assert(is_equal_approx(controller.app_settings.sfx_volume, 0.8))
+	assert(is_equal_approx(controller.app_settings.music_volume, 0.28))
 	assert(controller.main_menu_view.visible)
-	assert(controller.set_language(&"tr"))
 	controller.tutorial_enabled = false
 
 

@@ -58,9 +58,12 @@ Oyun alanında fareyle ya da dokunmatik ekranla basılı tutup yön seçilir; b�
 - Aktif koşudan ayrı ve atomik yazılan profil/istatistik kaydı
 - En iyi skor, koşu, başarı ve kırılan toplam çekirdek takibi
 - Ana menüde profil özeti ve sonuç ekranında yeni rekor bildirimi
+- Her oda için ham puan, kalan atış bonusu, çarpan ve ödülü saklayan sonuç geçmişi
+- Sonuç ekranında dört odaya kadar ayrıntılı puan dökümü
 - Kalıcı dil tercihiyle eksiksiz Türkçe–İngilizce arayüz
-- İlk yeni oyunda açılan, ayarlardan tekrar oynatılabilen dört adımlı öğretici
-- Dil, öğretici ve onaylı ilerleme sıfırlama seçeneklerini içeren ayarlar ekranı
+- İlk yeni oyunda atış, çekirdek ve rota aşamalarına bağlanan üç adımlı etkileşimli öğretici
+- Ayarlardan tekrar açılabilen üç sayfalı öğretici özeti
+- Dil, ayrı efekt/müzik seviyeleri, ekran sarsıntısı ve onaylı tüm veri silme seçeneklerini içeren ayarlar ekranı
 - Android geri tuşunun menü, ayarlar, öğretici, sonuç ve duraklatma katmanlarına uygun davranması
 - Android 9 (API 28) alt sınırı, API 35 hedefi ve ARMv7/ARM64 Gradle export preseti
 - Assetlerle uyumlu prosedürel hasar halkası ve blok kırılma parçacıkları
@@ -69,15 +72,16 @@ Oyun alanında fareyle ya da dokunmatik ekranla basılı tutup yön seçilir; b�
 - CC0 lisanslı darbe, kırılma, arayüz ve sonuç sesleri
 - Her yaylımda sıfırlanan Re minör pentatonik melodik çarpışma dizisi
 - Normal blok, cevher, sert kaya ve çekirdek için ayrı ses katmanları
-- Kalıcı ses açma/kapama ve ses seviyesi ayarları
+- Kodla üretilen düşük seviyeli döngüsel maden atmosferi
+- Kalıcı ve birbirinden bağımsız efekt/müzik açma-kapama ve seviye ayarları
 
-Aktif koşu `user://deep_ricochet_active_run.json` konumuna yazılır; önceki geçerli kayıt `.bak` uzantısıyla korunur. Geçerli ve bitmemiş bir kayıt uygulama açılışında ana menüde `Devam` düğmesini etkinleştirir. Kesilmiş atışta canlı top konumları yüklenmez; atış öncesindeki kararlı oda geri gelir.
+Aktif koşu `user://deep_ricochet_active_run.json` konumuna yazılır; önceki geçerli kayıt `.bak` uzantısıyla korunur. Geçerli ve bitmemiş bir kayıt uygulama açılışında ana menüde `Devam` düğmesini etkinleştirir. Kesilmiş atışta canlı top konumları yüklenmez; atış öncesindeki kararlı oda geri gelir. Oda sonuç geçmişini ekleyen snapshot şeması sürüm 2'dir; eski geliştirme kayıtları profil ve rekor korunarak kontrollü yeni oyun davranışına gider.
 
 Duraklatma menüsünden ana menüye dönüldüğünde kararlı koşu korunur. Bir yaylım sürüyorsa diskteki atış öncesi snapshot kullanılır; böylece yarım simülasyon kaydedilmez. Uygulama arka plana geçtiğinde oyun otomatik durur, fakat öne döndüğünde kendiliğinden devam etmez.
 
-Profil `user://deep_ricochet_profile.json`, dil tercihi `user://deep_ricochet_settings.json` konumunda aktif koşudan bağımsız tutulur. Her ikisi de geçici dosya ve son geçerli yedek kullanır. İlerlemeyi sıfırlama, dil tercihini korurken aktif koşuyu ve profil istatistiklerini onay sonrasında temizler.
+Profil `user://deep_ricochet_profile.json`; dil, ses ve ekran sarsıntısı tercihleri `user://deep_ricochet_settings.json` konumunda aktif koşudan bağımsız tutulur. Her ikisi de geçici dosya ve son geçerli yedek kullanır. Yeni oyun aktif koşuyu değiştirirken rekor ve ayarları korur; ayarlardaki açık onaylı `Tüm Verileri Sil` işlemi aktif koşuyu, profili ve ayarları birlikte temizler.
 
-Ses sistemi `deep-ricochet/audio/audio_manager.gd` otomatik yüklemesi üzerinden çalışır. Aynı anda gelen çarpışmalar 45 ms aralıkla sınırlandırılır; böylece sekiz topluk yaylımda sesler üst üste yığılıp bozulmaz. Kullanılan Kenney seslerinin kaynak ve lisans bilgileri `deep-ricochet/audio/THIRD_PARTY_AUDIO.md` dosyasındadır.
+Ses sistemi `deep-ricochet/audio/audio_manager.gd` otomatik yüklemesi üzerinden çalışır. Aynı anda gelen çarpışmalar 45 ms aralıkla sınırlandırılır; böylece sekiz topluk yaylımda sesler üst üste yığılıp bozulmaz. Arka plan atmosferi çalışma anında kodla üretilir; kullanılan Kenney efektlerinin kaynak ve lisans bilgileri `deep-ricochet/audio/THIRD_PARTY_AUDIO.md` dosyasındadır.
 
 UI renkleri, panel biçimleri, düğme türleri ve prosedürel maden arka planı `deep-ricochet/ui/ui_theme.gd` içinde ortaklaştırılmıştır. Hareketli oyun ekranında yeniden kullanılan stil kaynakları önbelleğe alınır; menü ekranları aynı dokunma alanlarını korurken ortak görsel dili paylaşır.
 
@@ -108,4 +112,4 @@ Godot komut satırından proje kökünde şu sahne çalıştırılır:
 godot --headless --path deep-ricochet --scene res://tests/smoke_test.tscn
 ```
 
-Test; profil ve ayar round-trip işlemlerini, ses bus'larını, melodik çarpışma hız sınırını, sessiz modu, profil yedeğinden kurtarmayı, iki dili, ilk-oyun öğreticisini, ilerleme sıfırlamayı, ana menü ve devam durumunu, nişan sırasında duraklatmayı, canlı yaylımın donmasını, odak kaybını, 12 oda şablonunu, örnek açı geçişlerini, 100 seed seçimini, dört oda/üç rota akışını, atış ortası kurtarmayı, bozuk kayıt reddini, fiziği ve puanı doğrular. Ayrıca 12 odanın örnek açı simülasyon süresini test çıktısında `[PERF]` satırıyla raporlar.
+Test; profil ve ayar geçişlerini, eski ayar şeması göçünü, efekt/müzik bus'larını, melodik çarpışma hız sınırını, sessiz modu, profil yedeğinden kurtarmayı, iki dili, üç aşamalı ilk-oyun öğreticisini, tüm veri silme hata davranışını, ayrıntılı oda sonuç geçmişini, ana menü ve devam durumunu, nişan sırasında duraklatmayı, canlı yaylımın donmasını, odak kaybını, 12 oda şablonunu, örnek açı geçişlerini, 100 seed seçimini, dört oda/üç rota akışını, atış ortası kurtarmayı, bozuk kayıt reddini, fiziği ve puanı doğrular. Ayrıca 12 odanın örnek açı simülasyon süresini test çıktısında `[PERF]` satırıyla raporlar.
