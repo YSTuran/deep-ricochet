@@ -13,6 +13,9 @@ const BONUS_CARD := Rect2(24.0, 465.0, 492.0, 290.0)
 const RESTART_BUTTON := Rect2(90.0, 665.0, 360.0, 70.0)
 const RESULT_MENU_BUTTON := Rect2(90.0, 755.0, 360.0, 70.0)
 const CORE_TEXTURE: Texture2D = preload("res://art/source/cekirdek.png")
+const PREVIEW_COLUMNS := 8
+const PREVIEW_ROWS := 10
+const PREVIEW_CELL_SIZE := 15.5
 
 var controller: RunController
 var run_session: RunSession
@@ -144,7 +147,12 @@ func _draw_route_card(rect: Rect2, option: RouteOption) -> void:
 		14,
 		DeepUI.MUTED,
 	)
-	_draw_template_preview(option.template, rect.position + Vector2(168.0, 84.0), 19.5)
+	var preview_size := Vector2(PREVIEW_COLUMNS, PREVIEW_ROWS) * PREVIEW_CELL_SIZE
+	var preview_origin := rect.position + Vector2(
+		(rect.size.x - preview_size.x) * 0.5,
+		76.0,
+	)
+	_draw_template_preview(option.template, preview_origin, PREVIEW_CELL_SIZE)
 	DeepUI.draw_button(
 		self,
 		Rect2(rect.position + Vector2(120.0, 244.0), Vector2(252.0, 34.0)),
@@ -155,19 +163,28 @@ func _draw_route_card(rect: Rect2, option: RouteOption) -> void:
 
 
 func _draw_template_preview(template: RoomTemplate, origin: Vector2, cell_size: float) -> void:
-	var grid_rect := Rect2(origin, Vector2.ONE * cell_size * 8.0)
+	var grid_rect := Rect2(
+		origin,
+		Vector2(PREVIEW_COLUMNS, PREVIEW_ROWS) * cell_size,
+	)
 	DeepUI.draw_panel(self, grid_rect.grow(6.0), DeepUI.BACKGROUND_DEEP, DeepUI.BORDER_SOFT, 10, 2, false)
-	for grid_line in range(1, 8):
-		var offset := float(grid_line) * cell_size
-		draw_line(origin + Vector2(offset, 0.0), origin + Vector2(offset, grid_rect.size.y), DeepUI.BORDER_SOFT)
-		draw_line(origin + Vector2(0.0, offset), origin + Vector2(grid_rect.size.x, offset), DeepUI.BORDER_SOFT)
+	for column in range(1, PREVIEW_COLUMNS):
+		var offset_x := float(column) * cell_size
+		draw_line(origin + Vector2(offset_x, 0.0), origin + Vector2(offset_x, grid_rect.size.y), DeepUI.BORDER_SOFT)
+	for row in range(1, PREVIEW_ROWS):
+		var offset_y := float(row) * cell_size
+		draw_line(origin + Vector2(0.0, offset_y), origin + Vector2(grid_rect.size.x, offset_y), DeepUI.BORDER_SOFT)
 	for definition: RoomBlockDefinition in template.blocks:
+		var preview_row := clampi(
+			PREVIEW_ROWS - 1 - definition.cell.y,
+			0,
+			PREVIEW_ROWS - 1,
+		)
 		var center := origin + Vector2(
 			(float(definition.cell.x) + 0.5) * cell_size,
-			(float(7 - definition.cell.y) + 0.5) * cell_size,
+			(float(preview_row) + 0.5) * cell_size,
 		)
 		if definition.block_type == BlockState.BlockType.CORE:
-			center = origin + Vector2((float(definition.cell.x) + 0.5) * cell_size, -cell_size * 0.45)
 			DeepUI.draw_glow(self, center, cell_size * 0.32, DeepUI.CORE)
 			draw_circle(center, cell_size * 0.36, DeepUI.CORE)
 			_draw_mini_value(center, str(definition.hit_points), cell_size, DeepUI.BACKGROUND_DEEP)

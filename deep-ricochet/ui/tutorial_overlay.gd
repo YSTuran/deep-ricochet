@@ -10,6 +10,11 @@ const VIEW_SIZE := Vector2(540.0, 960.0)
 const SKIP_BUTTON := Rect2(35.0, 845.0, 170.0, 65.0)
 const NEXT_BUTTON := Rect2(275.0, 845.0, 230.0, 65.0)
 const PAGE_COUNT := 3
+const NORMAL_TEXTURE: Texture2D = preload("res://art/source/blok_normal.png")
+const ORE_TEXTURE: Texture2D = preload("res://art/source/blok_cevher.png")
+const CORE_TEXTURE: Texture2D = preload("res://art/source/cekirdek.png")
+const NORMAL_SOURCE_RECT := Rect2(139.0, 159.0, 976.0, 939.0)
+const ORE_SOURCE_RECT := Rect2(209.0, 220.0, 837.0, 831.0)
 
 var controller: RunController
 var page_index := 0
@@ -143,13 +148,20 @@ func _draw_illustration() -> void:
 			draw_dashed_line(launcher, Vector2(175.0, 180.0), DeepUI.GOLD_LIGHT, 4.0, 12.0)
 			draw_circle(Vector2(175.0, 180.0), 9.0, DeepUI.GOLD)
 		1:
-			DeepUI.draw_panel(self, Rect2(100.0, 270.0, 105.0, 105.0), DeepUI.BLUE, DeepUI.BLUE_LIGHT, 12, 2, true)
-			DeepUI.draw_panel(self, Rect2(218.0, 270.0, 105.0, 105.0), DeepUI.GOLD, DeepUI.GOLD_LIGHT, 12, 2, true)
-			DeepUI.draw_glow(self, Vector2(388.0, 322.0), 48.0, DeepUI.CORE)
-			draw_circle(Vector2(388.0, 322.0), 51.0, DeepUI.CORE)
+			draw_texture_rect_region(
+				NORMAL_TEXTURE,
+				Rect2(100.0, 270.0, 105.0, 105.0),
+				NORMAL_SOURCE_RECT,
+			)
+			draw_texture_rect_region(
+				ORE_TEXTURE,
+				Rect2(218.0, 270.0, 105.0, 105.0),
+				ORE_SOURCE_RECT,
+			)
+			draw_texture_rect(CORE_TEXTURE, Rect2(335.0, 269.0, 106.0, 106.0), false)
 			DeepUI.draw_centered(self, "3", Rect2(100.0, 290.0, 105.0, 55.0), 25, DeepUI.TEXT)
-			DeepUI.draw_centered(self, "5", Rect2(218.0, 290.0, 105.0, 55.0), 25, DeepUI.BACKGROUND_DEEP)
-			DeepUI.draw_centered(self, "6", Rect2(335.0, 290.0, 105.0, 55.0), 25, DeepUI.BACKGROUND_DEEP)
+			DeepUI.draw_centered(self, "5", Rect2(218.0, 290.0, 105.0, 55.0), 25, DeepUI.TEXT)
+			DeepUI.draw_centered(self, "6", Rect2(335.0, 290.0, 105.0, 55.0), 25, DeepUI.TEXT)
 		2:
 			DeepUI.draw_panel(self, Rect2(80.0, 155.0, 175.0, 225.0), Color("173550"), DeepUI.BLUE, 15, 2, true)
 			DeepUI.draw_panel(self, Rect2(285.0, 155.0, 175.0, 225.0), Color("4a3923"), DeepUI.GOLD, 15, 2, true)
