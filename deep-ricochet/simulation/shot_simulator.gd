@@ -63,14 +63,13 @@ func advance_ball(
 				radius,
 				block,
 			)
-			if block_hit.is_empty():
+			var block_time := block_hit.x
+			if block_time >= time_to_hit:
 				continue
-			var block_time := float(block_hit.get("time", remaining + 1.0))
-			if block_time < time_to_hit:
-				time_to_hit = block_time
-				hit_normal = block_hit.get("normal", Vector2.ZERO)
-				hit_kind = &"block"
-				hit_block = block
+			time_to_hit = block_time
+			hit_normal = Vector2(block_hit.y, block_hit.z)
+			hit_kind = &"block"
+			hit_block = block
 
 		if time_to_hit > remaining:
 			ball.position_world += ball.velocity_world * remaining
@@ -120,17 +119,21 @@ func _refresh_active_contacts(
 	blocks: Array[BlockState],
 	radius: float,
 ) -> void:
-	var blocks_by_id: Dictionary[int, BlockState] = {}
-	for block: BlockState in blocks:
-		if not block.is_destroyed():
-			blocks_by_id[block.id] = block
-
-	for block_id: int in ball.active_contacts.keys():
-		var block: BlockState = blocks_by_id.get(block_id)
-		if block == null or not CollisionGeometry.is_touching_block(
+	if ball.active_contacts.is_empty():
+		return
+	var released_contacts: Array[int] = []
+	for block_id: int in ball.active_contacts:
+		var active_block: BlockState = null
+		for block: BlockState in blocks:
+			if block.id == block_id and not block.is_destroyed():
+				active_block = block
+				break
+		if active_block == null or not CollisionGeometry.is_touching_block(
 			ball.position_world,
 			radius,
 			CONTACT_RELEASE_EPSILON,
-			block,
+			active_block,
 		):
-			ball.active_contacts.erase(block_id)
+			released_contacts.append(block_id)
+	for block_id: int in released_contacts:
+		ball.active_contacts.erase(block_id)

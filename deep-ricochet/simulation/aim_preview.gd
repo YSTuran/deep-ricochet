@@ -1,7 +1,7 @@
 class_name AimPreview
 extends RefCounted
 
-const DEFAULT_TIME_STEP := 1.0 / 120.0
+const DEFAULT_TIME_STEP := 1.0 / 60.0
 const DEFAULT_MAX_SECONDS := 3.0
 const POINT_EPSILON := 0.0001
 

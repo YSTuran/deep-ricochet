@@ -2,6 +2,7 @@ class_name CollisionGeometry
 extends RefCounted
 
 const TIME_EPSILON := 0.000001
+const NO_HIT := Vector3(INF, 0.0, 0.0)
 
 
 static func sweep_circle_against_block(
@@ -10,7 +11,7 @@ static func sweep_circle_against_block(
 	max_time: float,
 	radius: float,
 	block: BlockState,
-) -> Dictionary:
+) -> Vector3:
 	if block.type == BlockState.BlockType.CORE:
 		return _swept_point_circle(
 			position,
@@ -40,18 +41,18 @@ static func _swept_point_rect(
 	velocity: Vector2,
 	max_time: float,
 	rect: Rect2,
-) -> Dictionary:
+) -> Vector3:
 	if _point_inside_rect(position, rect):
 		var overlap_normal := _closest_rect_exit_normal(position, rect)
 		if velocity.dot(overlap_normal) < -TIME_EPSILON:
-			return {"time": 0.0, "normal": overlap_normal}
-		return {}
+			return Vector3(0.0, overlap_normal.x, overlap_normal.y)
+		return NO_HIT
 
 	var near_x := -INF
 	var far_x := INF
 	if absf(velocity.x) <= TIME_EPSILON:
 		if position.x < rect.position.x or position.x > rect.end.x:
-			return {}
+			return NO_HIT
 	else:
 		near_x = (rect.position.x - position.x) / velocity.x
 		far_x = (rect.end.x - position.x) / velocity.x
@@ -64,7 +65,7 @@ static func _swept_point_rect(
 	var far_y := INF
 	if absf(velocity.y) <= TIME_EPSILON:
 		if position.y < rect.position.y or position.y > rect.end.y:
-			return {}
+			return NO_HIT
 	else:
 		near_y = (rect.position.y - position.y) / velocity.y
 		far_y = (rect.end.y - position.y) / velocity.y
@@ -76,7 +77,7 @@ static func _swept_point_rect(
 	var entry_time := maxf(near_x, near_y)
 	var exit_time := minf(far_x, far_y)
 	if entry_time > exit_time or exit_time < 0.0 or entry_time < 0.0 or entry_time > max_time:
-		return {}
+		return NO_HIT
 
 	var normal := Vector2.ZERO
 	if absf(near_x - near_y) <= TIME_EPSILON:
@@ -85,7 +86,7 @@ static func _swept_point_rect(
 		normal = Vector2(-signf(velocity.x), 0.0)
 	else:
 		normal = Vector2(0.0, -signf(velocity.y))
-	return {"time": entry_time, "normal": normal}
+	return Vector3(entry_time, normal.x, normal.y)
 
 
 static func _swept_point_circle(
@@ -94,33 +95,33 @@ static func _swept_point_circle(
 	max_time: float,
 	center: Vector2,
 	combined_radius: float,
-) -> Dictionary:
+) -> Vector3:
 	var relative := position - center
 	if relative.length_squared() <= combined_radius * combined_radius:
 		var overlap_normal := relative.normalized()
 		if overlap_normal.is_zero_approx():
 			overlap_normal = -velocity.normalized()
 		if velocity.dot(overlap_normal) < -TIME_EPSILON:
-			return {"time": 0.0, "normal": overlap_normal}
-		return {}
+			return Vector3(0.0, overlap_normal.x, overlap_normal.y)
+		return NO_HIT
 
 	var speed_squared := velocity.length_squared()
 	if speed_squared <= TIME_EPSILON:
-		return {}
+		return NO_HIT
 	var b := 2.0 * relative.dot(velocity)
 	var c := relative.length_squared() - combined_radius * combined_radius
 	var discriminant := b * b - 4.0 * speed_squared * c
 	if discriminant < 0.0:
-		return {}
+		return NO_HIT
 
 	var hit_time := (-b - sqrt(discriminant)) / (2.0 * speed_squared)
 	if hit_time < 0.0 or hit_time > max_time:
-		return {}
+		return NO_HIT
 	var hit_position := position + velocity * hit_time
 	var normal := (hit_position - center).normalized()
 	if velocity.dot(normal) >= 0.0:
-		return {}
-	return {"time": hit_time, "normal": normal}
+		return NO_HIT
+	return Vector3(hit_time, normal.x, normal.y)
 
 
 static func _point_inside_rect(point: Vector2, rect: Rect2) -> bool:
