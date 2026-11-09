@@ -13,8 +13,6 @@ const BONUS_CARD := Rect2(24.0, 465.0, 492.0, 290.0)
 const RESTART_BUTTON := Rect2(90.0, 665.0, 360.0, 70.0)
 const RESULT_MENU_BUTTON := Rect2(90.0, 755.0, 360.0, 70.0)
 const CORE_TEXTURE: Texture2D = preload("res://art/source/cekirdek.png")
-const PREVIEW_COLUMNS := 8
-const PREVIEW_ROWS := 10
 const PREVIEW_CELL_SIZE := 15.5
 
 var controller: RunController
@@ -147,7 +145,7 @@ func _draw_route_card(rect: Rect2, option: RouteOption) -> void:
 		14,
 		DeepUI.MUTED,
 	)
-	var preview_size := Vector2(PREVIEW_COLUMNS, PREVIEW_ROWS) * PREVIEW_CELL_SIZE
+	var preview_size := Vector2(BoardGeometry.WORLD_GRID_SIZE) * PREVIEW_CELL_SIZE
 	var preview_origin := rect.position + Vector2(
 		(rect.size.x - preview_size.x) * 0.5,
 		76.0,
@@ -165,21 +163,17 @@ func _draw_route_card(rect: Rect2, option: RouteOption) -> void:
 func _draw_template_preview(template: RoomTemplate, origin: Vector2, cell_size: float) -> void:
 	var grid_rect := Rect2(
 		origin,
-		Vector2(PREVIEW_COLUMNS, PREVIEW_ROWS) * cell_size,
+		Vector2(BoardGeometry.WORLD_GRID_SIZE) * cell_size,
 	)
 	DeepUI.draw_panel(self, grid_rect.grow(6.0), DeepUI.BACKGROUND_DEEP, DeepUI.BORDER_SOFT, 10, 2, false)
-	for column in range(1, PREVIEW_COLUMNS):
+	for column in range(1, BoardGeometry.WORLD_GRID_SIZE.x):
 		var offset_x := float(column) * cell_size
 		draw_line(origin + Vector2(offset_x, 0.0), origin + Vector2(offset_x, grid_rect.size.y), DeepUI.BORDER_SOFT)
-	for row in range(1, PREVIEW_ROWS):
+	for row in range(1, BoardGeometry.WORLD_GRID_SIZE.y):
 		var offset_y := float(row) * cell_size
 		draw_line(origin + Vector2(0.0, offset_y), origin + Vector2(grid_rect.size.x, offset_y), DeepUI.BORDER_SOFT)
 	for definition: RoomBlockDefinition in template.blocks:
-		var preview_row := clampi(
-			PREVIEW_ROWS - 1 - definition.cell.y,
-			0,
-			PREVIEW_ROWS - 1,
-		)
+		var preview_row := BoardGeometry.preview_row_for_cell(definition.cell.y)
 		var center := origin + Vector2(
 			(float(definition.cell.x) + 0.5) * cell_size,
 			(float(preview_row) + 0.5) * cell_size,

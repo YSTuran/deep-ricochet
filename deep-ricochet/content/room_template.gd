@@ -16,8 +16,8 @@ var room_id: StringName
 var display_name: String
 var family: int = Family.SAFE
 var content_version: String
-var width: int = BoardModel.ROOM_GRID_SIZE.x
-var height: int = BoardModel.ROOM_GRID_SIZE.y
+var width: int = BoardGeometry.BLOCK_GRID_SIZE.x
+var height: int = BoardGeometry.BLOCK_GRID_SIZE.y
 var multiplier_bps: int = 10_000
 var passage_columns := PackedInt32Array()
 var example_angles := PackedFloat32Array()
@@ -41,8 +41,13 @@ func validation_errors() -> PackedStringArray:
 		errors.append("İçerik sürümü boş olamaz.")
 	if family != Family.SAFE and family != Family.BONUS:
 		errors.append("Oda ailesi safe veya bonus olmalıdır.")
-	if width != BoardModel.ROOM_GRID_SIZE.x or height != BoardModel.ROOM_GRID_SIZE.y:
-		errors.append("Oda ölçüsü 8x8 olmalıdır.")
+	if width != BoardGeometry.BLOCK_GRID_SIZE.x or height != BoardGeometry.BLOCK_GRID_SIZE.y:
+		errors.append(
+			"Oda ölçüsü %dx%d olmalıdır." % [
+				BoardGeometry.BLOCK_GRID_SIZE.x,
+				BoardGeometry.BLOCK_GRID_SIZE.y,
+			]
+		)
 	var expected_multiplier := 0
 	if family == Family.SAFE:
 		expected_multiplier = SAFE_MULTIPLIER_BPS
@@ -90,12 +95,12 @@ func validation_errors() -> PackedStringArray:
 		if definition.block_type == BlockState.BlockType.CORE:
 			core_count += 1
 			core_cell = definition.cell
-			if definition.cell.y != BoardModel.CORE_TARGET_ROW:
+			if definition.cell.y != BoardGeometry.CORE_ROW:
 				errors.append("%s çekirdek satırında olmalıdır." % label)
-		elif definition.cell.y < 0 or definition.cell.y >= BoardModel.ROOM_GRID_SIZE.y:
+		elif definition.cell.y < 0 or definition.cell.y >= BoardGeometry.BLOCK_GRID_SIZE.y:
 			errors.append("%s 8x8 oda alanının dışında." % label)
 
-		if definition.cell.x < 0 or definition.cell.x >= BoardModel.ROOM_GRID_SIZE.x:
+		if definition.cell.x < 0 or definition.cell.x >= BoardGeometry.BLOCK_GRID_SIZE.x:
 			errors.append("%s yatay oda sınırlarının dışında." % label)
 
 		if definition.block_type == BlockState.BlockType.ROCK:
@@ -169,7 +174,7 @@ func _validate_passage(errors: PackedStringArray) -> void:
 		)
 	var seen_columns: Dictionary[int, bool] = {}
 	for column: int in passage_columns:
-		if column < 0 or column >= BoardModel.ROOM_GRID_SIZE.x:
+		if column < 0 or column >= BoardGeometry.BLOCK_GRID_SIZE.x:
 			errors.append("Ana geçit sütunu oda dışında: %d." % column)
 		elif seen_columns.has(column):
 			errors.append("Ana geçit sütunu yineleniyor: %d." % column)

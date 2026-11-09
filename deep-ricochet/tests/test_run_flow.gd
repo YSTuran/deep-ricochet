@@ -1,8 +1,8 @@
 class_name RunFlowTests
 extends RefCounted
 
-const BOARD_SIZE := Vector2(8.0, 10.0)
-const LAUNCHER := Vector2(4.0, 0.45)
+const BOARD_SIZE := Vector2(BoardGeometry.WORLD_GRID_SIZE)
+const LAUNCHER := BoardGeometry.LAUNCHER_WORLD
 
 
 static func run(controller: RunController, config: GameConfig) -> void:
@@ -49,6 +49,14 @@ static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: Gam
 			assert(options[1].template.family == RoomTemplate.Family.BONUS)
 			assert(session.set_route_options(options))
 			var selected_index := (sample_index + room_index) % 2
+			var room_number_before_selection := session.room_number
+			var selected_count_before_selection := session.selected_template_ids.size()
+			assert(
+				session.route_template(options[selected_index].option_id)
+				== options[selected_index].template
+			)
+			assert(session.room_number == room_number_before_selection)
+			assert(session.selected_template_ids.size() == selected_count_before_selection)
 			assert(session.select_route(options[selected_index].option_id) != null)
 		assert(session.resolve_room(_finished_resolution(true, 100)))
 		assert(session.ended)

@@ -6,12 +6,11 @@ signal room_finished(resolution: RoomResolution)
 signal shot_will_start
 signal block_destroyed(block_type: int)
 
-const BOARD_ORIGIN := Vector2(30.0, 150.0)
-const BOARD_SIZE_WORLD := Vector2(8.0, 10.0)
-const WORLD_SCALE := 60.0
-const BOARD_SCREEN_RECT := Rect2(BOARD_ORIGIN, BOARD_SIZE_WORLD * WORLD_SCALE)
-const LAUNCHER_WORLD := Vector2(4.0, 0.45)
+const BOARD_SIZE_WORLD := Vector2(BoardGeometry.WORLD_GRID_SIZE)
+const BOARD_SCREEN_RECT := BoardGeometry.SCREEN_RECT
+const LAUNCHER_WORLD := BoardGeometry.LAUNCHER_WORLD
 const FORCED_COLLECTION_EFFECT_SECONDS := 0.35
+const MAX_IMPACT_EFFECTS := 24
 
 @export_file("*.json") var initial_room_template_path := "res://content/rooms/safe_01.json"
 
@@ -61,10 +60,14 @@ func load_room(template: RoomTemplate) -> bool:
 		push_error("Geçersiz oda şablonu:\n- %s" % "\n- ".join(errors))
 		return false
 
-	current_template = template
 	if not is_node_ready():
+		current_template = template
 		return true
-	return _start_loaded_room()
+	var loaded_board := template.create_board()
+	if loaded_board == null:
+		push_error("Oda şablonundan oyun tahtası oluşturulamadı: %s" % template.room_id)
+		return false
+	return _commit_loaded_room(template, loaded_board)
 
 
 func restart_current_room() -> bool:
@@ -168,8 +171,9 @@ func _physics_process(delta: float) -> void:
 		config.ball_radius,
 		board,
 	)
+	var static_view_changed := false
 	for damage_result: BlockDamageResult in step_result.damage_results:
-		_handle_damage_result(damage_result)
+		static_view_changed = _handle_damage_result(damage_result) or static_view_changed
 	for collision: CollisionResult in step_result.collisions:
 		if collision.kind == &"wall" or collision.contact_started:
 			AudioManager.play_collision(
@@ -178,6 +182,7 @@ func _physics_process(delta: float) -> void:
 			)
 		if collision.contact_started and collision.block_type == BlockState.BlockType.ROCK:
 			status_text = tr("STATUS_ROCK_RICOCHET")
+			static_view_changed = true
 	if not step_result.forced_collection_positions.is_empty():
 		forced_collection_positions = step_result.forced_collection_positions
 		forced_collection_effect_elapsed = 0.0
@@ -185,7 +190,10 @@ func _physics_process(delta: float) -> void:
 	if volley.consume_finished_event():
 		var resolution := room.resolve_shot(board, config)
 		_handle_room_resolution(resolution)
-	_refresh_view()
+		static_view_changed = true
+	if static_view_changed:
+		_refresh_static_view()
+	_refresh_dynamic_view()
 
 
 func _process(delta: float) -> void:
@@ -197,16 +205,17 @@ func _process(delta: float) -> void:
 			view_changed = true
 	if not forced_collection_positions.is_empty():
 		forced_collection_effect_elapsed += delta
+		view_changed = true
 		if forced_collection_effect_elapsed >= FORCED_COLLECTION_EFFECT_SECONDS:
 			forced_collection_positions.clear()
+	if not impact_effects.is_empty():
 		view_changed = true
 	for effect_index in range(impact_effects.size() - 1, -1, -1):
 		impact_effects[effect_index]["elapsed"] = float(impact_effects[effect_index]["elapsed"]) + delta
 		if float(impact_effects[effect_index]["elapsed"]) >= 0.32:
 			impact_effects.remove_at(effect_index)
-		view_changed = true
 	if view_changed:
-		_refresh_view()
+		_refresh_dynamic_view()
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -317,6 +326,13 @@ func _start_loaded_room() -> bool:
 		push_error("Oda şablonundan oyun tahtası oluşturulamadı: %s" % current_template.room_id)
 		return false
 
+	return _commit_loaded_room(current_template, loaded_board)
+
+
+func _commit_loaded_room(template: RoomTemplate, loaded_board: BoardModel) -> bool:
+	if template == null or loaded_board == null:
+		return false
+	current_template = template
 	board = loaded_board
 	volley = ShotVolley.new()
 	room = RoomSession.new()
@@ -352,14 +368,16 @@ func _rebuild_aim_preview() -> void:
 	)
 
 
-func _handle_damage_result(result: BlockDamageResult) -> void:
+func _handle_damage_result(result: BlockDamageResult) -> bool:
 	if not result.contact_valid:
-		return
+		return false
 	var block := board.get_block_by_id(result.block_id)
 	if block == null or not result.damage_applied:
-		return
+		return false
 
 	var awarded_points := room.record_damage_result(result, config)
+	if impact_effects.size() >= MAX_IMPACT_EFFECTS:
+		impact_effects.pop_front()
 	impact_effects.append({
 		"position": block.collision_center_world(),
 		"destroyed": result.destroyed,
@@ -374,6 +392,7 @@ func _handle_damage_result(result: BlockDamageResult) -> void:
 			_block_name(block),
 			result.remaining_hit_points,
 		]
+	return true
 
 
 func _handle_room_resolution(resolution: RoomResolution) -> void:
@@ -412,10 +431,19 @@ func refresh_locale() -> void:
 
 
 func _screen_to_world(screen_position: Vector2) -> Vector2:
-	var local := (screen_position - BOARD_ORIGIN) / WORLD_SCALE
-	return Vector2(local.x, BOARD_SIZE_WORLD.y - local.y)
+	return BoardGeometry.screen_to_world(screen_position)
 
 
 func _refresh_view() -> void:
 	if is_instance_valid(view):
 		view.refresh()
+
+
+func _refresh_static_view() -> void:
+	if is_instance_valid(view):
+		view.refresh_static()
+
+
+func _refresh_dynamic_view() -> void:
+	if is_instance_valid(view):
+		view.refresh_dynamic()

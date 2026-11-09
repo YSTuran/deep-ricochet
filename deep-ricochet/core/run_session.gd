@@ -140,6 +140,15 @@ func select_route(option_id: StringName) -> RoomTemplate:
 	return null
 
 
+func route_template(option_id: StringName) -> RoomTemplate:
+	if phase != Phase.ROUTE_SELECTION or ended:
+		return null
+	for option: RouteOption in pending_routes:
+		if option.option_id == option_id:
+			return option.template
+	return null
+
+
 func used_template_ids() -> Dictionary[StringName, bool]:
 	var result: Dictionary[StringName, bool] = {}
 	for template_id: StringName in selected_template_ids:

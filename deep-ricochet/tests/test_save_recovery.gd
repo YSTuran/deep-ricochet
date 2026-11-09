@@ -13,6 +13,7 @@ static func run(controller: RunController, config: GameConfig, parent: Node) -> 
 	_test_controller_shot_hook(controller, service)
 	_test_interrupted_shot_main_menu_continue(controller, service)
 	_test_route_and_result_restore(controller, service)
+	_test_snapshot_integrity(controller, config)
 	_test_backup_and_invalid_save(controller, service, config)
 	await _test_startup_restore(controller, service, parent)
 	assert(service.clear_all())
@@ -37,7 +38,15 @@ static func _test_stable_round_trip(
 
 	var snapshot := controller.create_snapshot()
 	assert(snapshot != null)
-	assert(snapshot.validation_errors(controller.catalog, config).is_empty())
+	var validation_errors := snapshot.validation_errors(controller.catalog, config)
+	assert(validation_errors.is_empty(), "\n- %s" % "\n- ".join(validation_errors))
+	var serialized: Variant = JSON.parse_string(JSON.stringify(snapshot.to_dictionary()))
+	assert(typeof(serialized) == TYPE_DICTIONARY)
+	var round_trip := RunSnapshot.from_dictionary(serialized)
+	var round_trip_errors := round_trip.validation_errors(controller.catalog, config)
+	if not round_trip_errors.is_empty():
+		push_error("Kayıt JSON dönüşümü başarısız:\n- %s" % "\n- ".join(round_trip_errors))
+	assert(round_trip_errors.is_empty())
 	assert(service.save_stable(snapshot))
 	assert(not FileAccess.file_exists(service.temporary_path))
 	var loaded := service.load_active(controller.catalog, config)
@@ -206,6 +215,15 @@ static func _test_backup_and_invalid_save(
 	_write_text(service.primary_path, "{hala-bozuk")
 	loaded = service.load_active(controller.catalog, config)
 	assert(loaded.status == SaveLoadResult.Status.INVALID)
+
+	assert(service.clear_all())
+	var legacy_envelope := SaveEnvelope.create(controller.create_snapshot()).to_dictionary()
+	var legacy_state: Dictionary = legacy_envelope["state"]
+	legacy_state["schemaVersion"] = 1
+	legacy_state.erase("roomResults")
+	_write_text(service.primary_path, JSON.stringify(legacy_envelope))
+	loaded = service.load_active(controller.catalog, config)
+	assert(loaded.status == SaveLoadResult.Status.INVALID)
 	assert(not loaded.has_valid_save())
 
 	assert(service.clear_all())
@@ -216,14 +234,46 @@ static func _test_backup_and_invalid_save(
 	loaded = service.load_active(controller.catalog, config)
 	assert(loaded.status == SaveLoadResult.Status.INVALID)
 
-	assert(service.clear_all())
-	var legacy_envelope := SaveEnvelope.create(controller.create_snapshot()).to_dictionary()
-	var legacy_state: Dictionary = legacy_envelope["state"]
-	legacy_state["schemaVersion"] = 1
-	legacy_state.erase("roomResults")
-	_write_text(service.primary_path, JSON.stringify(legacy_envelope))
-	loaded = service.load_active(controller.catalog, config)
-	assert(loaded.status == SaveLoadResult.Status.INVALID)
+
+static func _test_snapshot_integrity(controller: RunController, config: GameConfig) -> void:
+	assert(controller.start_new_run(66_606))
+	var resolution := _complete_active_room(controller)
+	controller._on_room_finished(resolution)
+	var snapshot := controller.create_snapshot()
+	assert(snapshot != null)
+	assert(snapshot.schema_version == RunSnapshot.SCHEMA_VERSION)
+	assert(snapshot.validation_errors(controller.catalog, config).is_empty())
+	var result := snapshot.room_results[0]
+	assert(result.schema_version == RoomResultRecord.SCHEMA_VERSION)
+	assert(not result.scored_block_ids.is_empty())
+	var legacy_data := snapshot.to_dictionary()
+	legacy_data["schemaVersion"] = RunSnapshot.LEGACY_SCHEMA_VERSION
+	legacy_data["rngState"] = float(snapshot.rng_state)
+	var legacy_snapshot := RunSnapshot.from_dictionary(legacy_data)
+	assert(legacy_snapshot.validation_errors(controller.catalog, config).is_empty())
+	assert(legacy_snapshot.rng_state_for_restore(controller.catalog) == snapshot.rng_state)
+
+	var original_break_score := result.break_score
+	var original_reward := result.reward
+	result.break_score += config.normal_break_points
+	result.reward = ScoreCalculator.room_reward(
+		result.break_score,
+		result.remaining_shots,
+		result.multiplier_bps,
+		result.succeeded,
+		config,
+	)
+	assert(not result.validation_errors(controller.catalog, config).is_empty())
+	result.break_score = original_break_score
+	result.reward = original_reward
+
+	var original_rng_state := snapshot.rng_state
+	snapshot.rng_state = original_rng_state ^ 1
+	assert(not snapshot.validation_errors(controller.catalog, config).is_empty())
+	snapshot.rng_state = original_rng_state
+
+	snapshot.last_room_break_score += 1
+	assert(not snapshot.validation_errors(controller.catalog, config).is_empty())
 
 
 static func _test_startup_restore(

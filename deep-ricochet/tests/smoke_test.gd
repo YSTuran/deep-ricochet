@@ -51,6 +51,7 @@ func _ready() -> void:
 	gameplay_room = standalone_room
 	assert(gameplay_room.config != null)
 	assert(gameplay_room.view != null)
+	assert(gameplay_room.view.dynamic_layer != null)
 	assert(gameplay_room.current_template != null)
 	assert(gameplay_room.current_template.room_id == &"safe_01")
 	assert(gameplay_room.board.core_count() == 1)

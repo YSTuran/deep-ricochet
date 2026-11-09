@@ -1,7 +1,8 @@
 class_name RoomResultRecord
 extends RefCounted
 
-const SCHEMA_VERSION := 1
+const SCHEMA_VERSION := 2
+const LEGACY_SCHEMA_VERSION := 1
 
 var schema_version := SCHEMA_VERSION
 var room_number: int
@@ -12,6 +13,7 @@ var remaining_shots: int
 var unused_shot_bonus: int
 var reward: int
 var succeeded: bool
+var scored_block_ids := PackedInt32Array()
 
 
 static func from_resolution(
@@ -30,6 +32,7 @@ static func from_resolution(
 	record.unused_shot_bonus = resolution.unused_shot_bonus
 	record.reward = resolution.reward
 	record.succeeded = resolution.succeeded
+	record.scored_block_ids = resolution.scored_block_ids.duplicate()
 	return record
 
 
@@ -44,10 +47,17 @@ static func from_dictionary(data: Dictionary) -> RoomResultRecord:
 	record.unused_shot_bonus = int(data.get("unusedShotBonus", -1))
 	record.reward = int(data.get("reward", -1))
 	record.succeeded = bool(data.get("succeeded", false))
+	var raw_scored_ids: Variant = data.get("scoredBlockIds", [])
+	if typeof(raw_scored_ids) == TYPE_ARRAY:
+		for raw_id: Variant in raw_scored_ids:
+			record.scored_block_ids.append(int(raw_id))
 	return record
 
 
 func to_dictionary() -> Dictionary:
+	var scored_ids: Array[int] = []
+	for block_id: int in scored_block_ids:
+		scored_ids.append(block_id)
 	return {
 		"schemaVersion": schema_version,
 		"roomNumber": room_number,
@@ -58,12 +68,13 @@ func to_dictionary() -> Dictionary:
 		"unusedShotBonus": unused_shot_bonus,
 		"reward": reward,
 		"succeeded": succeeded,
+		"scoredBlockIds": scored_ids,
 	}
 
 
 func validation_errors(catalog: RoomCatalog, config: GameConfig) -> PackedStringArray:
 	var errors := PackedStringArray()
-	if schema_version != SCHEMA_VERSION:
+	if schema_version != SCHEMA_VERSION and schema_version != LEGACY_SCHEMA_VERSION:
 		errors.append("Desteklenmeyen oda sonucu sürümü.")
 	if room_number < 1 or room_number > config.room_count:
 		errors.append("Oda sonucu sıra numarası geçersiz.")
@@ -72,8 +83,15 @@ func validation_errors(catalog: RoomCatalog, config: GameConfig) -> PackedString
 		errors.append("Oda sonucu şablonu katalogda bulunamadı.")
 	elif multiplier_bps != template.multiplier_bps:
 		errors.append("Oda sonucu çarpanı şablonla uyuşmuyor.")
+	if template != null:
+		if schema_version == SCHEMA_VERSION:
+			_validate_scored_blocks(template, config, errors)
+		elif schema_version == LEGACY_SCHEMA_VERSION:
+			_validate_legacy_break_score(template, config, errors)
 	if break_score < 0 or remaining_shots < 0 or remaining_shots > config.shots_per_room:
 		errors.append("Oda sonucu puanı veya kalan atışı geçersiz.")
+	if not succeeded and remaining_shots != 0:
+		errors.append("Başarısız oda sonucunda kalan atış sıfır olmalıdır.")
 	var expected_bonus := config.unused_shot_bonus * remaining_shots if succeeded else 0
 	if unused_shot_bonus != expected_bonus:
 		errors.append("Oda sonucu kullanılmayan atış bonusu geçersiz.")
@@ -87,3 +105,61 @@ func validation_errors(catalog: RoomCatalog, config: GameConfig) -> PackedString
 	if reward != expected_reward:
 		errors.append("Oda sonucu ödülü puan formülüyle uyuşmuyor.")
 	return errors
+
+
+func _validate_scored_blocks(
+	template: RoomTemplate,
+	config: GameConfig,
+	errors: PackedStringArray,
+) -> void:
+	var definitions_by_id: Dictionary[int, RoomBlockDefinition] = {}
+	for definition: RoomBlockDefinition in template.blocks:
+		definitions_by_id[definition.id] = definition
+	var seen_ids: Dictionary[int, bool] = {}
+	var expected_break_score := 0
+	var core_scored := false
+	for block_id: int in scored_block_ids:
+		if seen_ids.has(block_id):
+			errors.append("Oda sonucunda puanlanan blok kimliği yineleniyor.")
+			continue
+		seen_ids[block_id] = true
+		var definition: RoomBlockDefinition = definitions_by_id.get(block_id)
+		if definition == null:
+			errors.append("Oda sonucunda puanlanan blok şablonda bulunmuyor: %d." % block_id)
+			continue
+		if definition.block_type == BlockState.BlockType.ROCK:
+			errors.append("Sert kaya oda sonucunda puanlanamaz.")
+			continue
+		expected_break_score += ScoreCalculator.break_points(definition.block_type, config)
+		if definition.block_type == BlockState.BlockType.CORE:
+			core_scored = true
+	if break_score != expected_break_score:
+		errors.append("Oda sonucu ham puanı kırılan blok kimlikleriyle uyuşmuyor.")
+	if succeeded != core_scored:
+		errors.append("Oda sonucu başarı durumu kırılan çekirdekle uyuşmuyor.")
+
+
+func _validate_legacy_break_score(
+	template: RoomTemplate,
+	config: GameConfig,
+	errors: PackedStringArray,
+) -> void:
+	var reachable_scores: Dictionary[int, bool] = {0: true}
+	for definition: RoomBlockDefinition in template.blocks:
+		if definition.block_type == BlockState.BlockType.ROCK:
+			continue
+		var points := ScoreCalculator.break_points(definition.block_type, config)
+		if definition.block_type == BlockState.BlockType.CORE:
+			if not succeeded:
+				continue
+			var scores_with_core: Dictionary[int, bool] = {}
+			for score: int in reachable_scores:
+				scores_with_core[score + points] = true
+			reachable_scores = scores_with_core
+			continue
+		var expanded_scores := reachable_scores.duplicate()
+		for score: int in reachable_scores:
+			expanded_scores[score + points] = true
+		reachable_scores = expanded_scores
+	if not reachable_scores.has(break_score):
+		errors.append("Eski oda sonucu ham puanı şablondaki bloklarla üretilemiyor.")

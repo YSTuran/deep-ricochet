@@ -1,6 +1,6 @@
 extends Node
 
-const BOARD_SIZE := Vector2(8.0, 10.0)
+const BOARD_SIZE := Vector2(BoardGeometry.WORLD_GRID_SIZE)
 const BALL_RADIUS := 0.07
 const BALL_SPEED := 18.0
 const BALL_COUNT := 8

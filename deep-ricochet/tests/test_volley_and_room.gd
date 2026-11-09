@@ -1,7 +1,7 @@
 class_name VolleyAndRoomTests
 extends RefCounted
 
-const BOARD_SIZE := Vector2(8.0, 10.0)
+const BOARD_SIZE := Vector2(BoardGeometry.WORLD_GRID_SIZE)
 
 
 static func run(config: GameConfig) -> void:

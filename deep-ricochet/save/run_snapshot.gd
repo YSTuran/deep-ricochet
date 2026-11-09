@@ -1,7 +1,8 @@
 class_name RunSnapshot
 extends RefCounted
 
-const SCHEMA_VERSION := 2
+const SCHEMA_VERSION := 3
+const LEGACY_SCHEMA_VERSION := 2
 
 var schema_version: int = SCHEMA_VERSION
 var run_id: String
@@ -70,7 +71,7 @@ static func from_dictionary(data: Dictionary) -> RunSnapshot:
 	snapshot.schema_version = int(data.get("schemaVersion", 0))
 	snapshot.run_id = str(data.get("runId", ""))
 	snapshot.seed = int(data.get("seed", 0))
-	snapshot.rng_state = int(data.get("rngState", 0))
+	snapshot.rng_state = int(str(data.get("rngState", "0")))
 	snapshot.content_version = str(data.get("contentVersion", ""))
 	snapshot.room_count = int(data.get("roomCount", 0))
 	snapshot.room_number = int(data.get("roomNumber", 0))
@@ -113,7 +114,7 @@ func to_dictionary() -> Dictionary:
 		"schemaVersion": schema_version,
 		"runId": run_id,
 		"seed": seed,
-		"rngState": rng_state,
+		"rngState": str(rng_state),
 		"contentVersion": content_version,
 		"roomCount": room_count,
 		"roomNumber": room_number,
@@ -138,7 +139,7 @@ func to_dictionary() -> Dictionary:
 
 func validation_errors(catalog: RoomCatalog, config: GameConfig) -> PackedStringArray:
 	var errors := PackedStringArray()
-	if schema_version != SCHEMA_VERSION:
+	if schema_version != SCHEMA_VERSION and schema_version != LEGACY_SCHEMA_VERSION:
 		errors.append("Desteklenmeyen koşu snapshot sürümü.")
 	if run_id.strip_edges().is_empty() or seed == 0:
 		errors.append("Koşu kimliği veya seed geçersiz.")
@@ -167,6 +168,7 @@ func validation_errors(catalog: RoomCatalog, config: GameConfig) -> PackedString
 		for template_id: StringName in offered_template_ids:
 			if catalog.get_template(template_id) == null:
 				errors.append("Sunulan şablon katalogda bulunmuyor: %s." % template_id)
+	_validate_rng_history(catalog, errors)
 	if not selected_template_ids.has(current_template_id):
 		errors.append("Etkin şablon seçilmiş şablonlar arasında değil.")
 	_validate_room_results(catalog, config, errors)
@@ -192,6 +194,8 @@ func validation_errors(catalog: RoomCatalog, config: GameConfig) -> PackedString
 		errors.append("Son oda özeti geçersiz.")
 	if phase != RunSession.Phase.PLAYING and active_room != null:
 		if last_room_reward != active_room.final_reward \
+			or last_room_break_score != active_room.break_score \
+			or last_room_remaining_shots != active_room.shots_remaining \
 			or last_room_succeeded != active_room.room_succeeded:
 			errors.append("Son oda özeti etkin oda sonucuyla uyuşmuyor.")
 	return errors
@@ -228,6 +232,24 @@ func create_session(catalog: RoomCatalog) -> RunSession:
 	session.last_room_remaining_shots = last_room_remaining_shots
 	session.last_room_succeeded = last_room_succeeded
 	return session
+
+
+func rng_state_for_restore(catalog: RoomCatalog) -> int:
+	if schema_version == SCHEMA_VERSION:
+		return rng_state
+	var history_rng := RandomNumberGenerator.new()
+	history_rng.seed = seed
+	var first_template := catalog.pick_first_room(history_rng)
+	if first_template == null:
+		return rng_state
+	var used_ids: Dictionary[StringName, bool] = {first_template.room_id: true}
+	for pair_index in range(offered_template_ids.size() / 2):
+		var options := catalog.create_route_options(pair_index + 2, history_rng, used_ids)
+		if options.size() != 2:
+			return rng_state
+		used_ids[options[0].template.room_id] = true
+		used_ids[options[1].template.room_id] = true
+	return history_rng.state
 
 
 func _validate_room_results(
@@ -296,6 +318,44 @@ func _validate_pending_routes(catalog: RoomCatalog, errors: PackedStringArray) -
 	if family_count[RoomTemplate.Family.SAFE] != 1 \
 		or family_count[RoomTemplate.Family.BONUS] != 1:
 		errors.append("Rota adayları bir güvenli ve bir bonus oda içermelidir.")
+
+
+func _validate_rng_history(catalog: RoomCatalog, errors: PackedStringArray) -> void:
+	if catalog == null or seed == 0 or selected_template_ids.is_empty():
+		return
+	var expected_offer_count := route_choices_made * 2
+	if phase == RunSession.Phase.ROUTE_SELECTION:
+		expected_offer_count += 2
+	if offered_template_ids.size() != expected_offer_count:
+		errors.append("Sunulan şablon geçmişi rota ilerlemesiyle uyuşmuyor.")
+		return
+
+	var history_rng := RandomNumberGenerator.new()
+	history_rng.seed = seed
+	var first_template := catalog.pick_first_room(history_rng)
+	if first_template == null or selected_template_ids[0] != first_template.room_id:
+		errors.append("İlk oda şablonu koşu seed değeriyle uyuşmuyor.")
+		return
+	var used_ids: Dictionary[StringName, bool] = {first_template.room_id: true}
+	var offer_pair_count := offered_template_ids.size() / 2
+	for pair_index in range(offer_pair_count):
+		var options := catalog.create_route_options(pair_index + 2, history_rng, used_ids)
+		if options.size() != 2:
+			errors.append("Rota geçmişi seed değerinden yeniden üretilemedi.")
+			return
+		for option_index in range(2):
+			var expected_id := options[option_index].template.room_id
+			var history_index := pair_index * 2 + option_index
+			if offered_template_ids[history_index] != expected_id:
+				errors.append("Sunulan rota geçmişi koşu seed değeriyle uyuşmuyor.")
+			used_ids[expected_id] = true
+		if pair_index + 1 < selected_template_ids.size():
+			var selected_id := selected_template_ids[pair_index + 1]
+			if selected_id != options[0].template.room_id \
+				and selected_id != options[1].template.room_id:
+				errors.append("Seçilen oda, o adımda sunulan rotalardan biri değil.")
+	if schema_version == SCHEMA_VERSION and rng_state != history_rng.state:
+		errors.append("Koşu RNG durumu seed ve rota geçmişiyle uyuşmuyor.")
 
 
 static func _string_name_array(value: Variant) -> Array[StringName]:

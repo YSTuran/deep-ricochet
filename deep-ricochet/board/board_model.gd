@@ -1,8 +1,8 @@
 class_name BoardModel
 extends RefCounted
 
-const ROOM_GRID_SIZE := Vector2i(8, 8)
-const CORE_TARGET_ROW := 8
+const ROOM_GRID_SIZE := BoardGeometry.BLOCK_GRID_SIZE
+const CORE_TARGET_ROW := BoardGeometry.CORE_ROW
 
 var blocks: Array[BlockState] = []
 

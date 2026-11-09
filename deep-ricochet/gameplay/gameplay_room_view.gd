@@ -2,13 +2,8 @@ class_name GameplayRoomView
 extends Node2D
 
 const VIEW_SIZE := Vector2(540.0, 960.0)
-const BOARD_ORIGIN := Vector2(30.0, 150.0)
-const BOARD_SIZE_WORLD := Vector2(8.0, 10.0)
-const WORLD_SCALE := 60.0
-const LAUNCHER_WORLD := Vector2(4.0, 0.45)
 
 const COLOR_GRID := Color("20364a")
-const COLOR_AIM := Color("ffe0a0")
 const COLOR_ROCK := Color("35414b")
 const COLOR_ROCK_LIGHT := Color("52606b")
 const COLOR_ROCK_DARK := Color("202a33")
@@ -18,6 +13,7 @@ const ORE_TEXTURE: Texture2D = preload("res://art/source/blok_cevher.png")
 const CORE_TEXTURE: Texture2D = preload("res://art/source/cekirdek.png")
 
 var room: GameplayRoom
+@onready var dynamic_layer: GameplayRoomDynamicView = $Dynamic
 var shake_remaining := 0.0
 var shake_duration := 0.0
 var shake_strength := 0.0
@@ -25,11 +21,21 @@ var shake_strength := 0.0
 
 func bind(gameplay_room: GameplayRoom) -> void:
 	room = gameplay_room
+	dynamic_layer.bind(gameplay_room)
 	queue_redraw()
 
 
 func refresh() -> void:
 	queue_redraw()
+	dynamic_layer.queue_redraw()
+
+
+func refresh_static() -> void:
+	queue_redraw()
+
+
+func refresh_dynamic() -> void:
+	dynamic_layer.queue_redraw()
 
 
 func start_screen_shake(strength: float, duration: float) -> void:
@@ -98,22 +104,22 @@ func _draw() -> void:
 	DeepUI.draw_panel(self, Rect2(464.0, 24.0, 54.0, 56.0), DeepUI.PANEL_RAISED, DeepUI.BORDER, 11, 2, false)
 	DeepUI.draw_centered(self, room.status_text, Rect2(28.0, 96.0, 424.0, 25.0), 13, DeepUI.MUTED)
 
-	var board_rect := Rect2(BOARD_ORIGIN, BOARD_SIZE_WORLD * WORLD_SCALE)
+	var board_rect := BoardGeometry.SCREEN_RECT
 	DeepUI.draw_panel(self, board_rect.grow(6.0), DeepUI.BACKGROUND_DEEP, DeepUI.BORDER, 8, 3, true)
 	draw_rect(board_rect, Color("0a1724"), true)
-	for x in range(1, 8):
-		var screen_x := BOARD_ORIGIN.x + float(x) * WORLD_SCALE
+	for x in range(1, BoardGeometry.WORLD_GRID_SIZE.x):
+		var screen_x := BoardGeometry.SCREEN_ORIGIN.x + float(x) * BoardGeometry.WORLD_SCALE
 		draw_line(
-			Vector2(screen_x, BOARD_ORIGIN.y),
-			Vector2(screen_x, BOARD_ORIGIN.y + board_rect.size.y),
+			Vector2(screen_x, BoardGeometry.SCREEN_ORIGIN.y),
+			Vector2(screen_x, BoardGeometry.SCREEN_ORIGIN.y + board_rect.size.y),
 			COLOR_GRID,
 			1.0,
 		)
-	for y in range(1, 10):
-		var screen_y := BOARD_ORIGIN.y + float(y) * WORLD_SCALE
+	for y in range(1, BoardGeometry.WORLD_GRID_SIZE.y):
+		var screen_y := BoardGeometry.SCREEN_ORIGIN.y + float(y) * BoardGeometry.WORLD_SCALE
 		draw_line(
-			Vector2(BOARD_ORIGIN.x, screen_y),
-			Vector2(BOARD_ORIGIN.x + board_rect.size.x, screen_y),
+			Vector2(BoardGeometry.SCREEN_ORIGIN.x, screen_y),
+			Vector2(BoardGeometry.SCREEN_ORIGIN.x + board_rect.size.x, screen_y),
 			COLOR_GRID,
 			1.0,
 		)
@@ -141,95 +147,17 @@ func _draw() -> void:
 			BlockState.BlockType.CORE:
 				_draw_core(block.collision_center_world(), str(block.hit_points))
 
-	var launcher_screen := _world_to_screen(LAUNCHER_WORLD)
+	var launcher_screen := BoardGeometry.world_to_screen(BoardGeometry.LAUNCHER_WORLD)
 	DeepUI.draw_glow(self, launcher_screen, 12.0, DeepUI.GOLD)
 	draw_circle(launcher_screen, 12.0, Color("fff1cf"))
 	draw_arc(launcher_screen, 12.0, 0.0, TAU, 32, Color("c9a86a"), 2.0, true)
-
-	if room.aiming and room.aim_valid and room.aim_preview.points.size() > 1:
-		for point_index in range(room.aim_preview.points.size() - 1):
-			draw_dashed_line(
-				_world_to_screen(room.aim_preview.points[point_index]),
-				_world_to_screen(room.aim_preview.points[point_index + 1]),
-				COLOR_AIM,
-				3.0,
-				10.0,
-				true,
-				true,
-			)
-		if room.aim_preview.has_terminal_contact:
-			var contact_screen := _world_to_screen(room.aim_preview.contact_position_world)
-			draw_circle(contact_screen, 7.0, Color("ffcf66"))
-			draw_arc(contact_screen, 10.0, 0.0, TAU, 20, DeepUI.TEXT, 2.0, true)
-
-	for volley_ball: BallState in room.volley.balls:
-		if not volley_ball.active:
-			continue
-		var ball_screen := _world_to_screen(volley_ball.position_world)
-		draw_circle(ball_screen, maxf(5.0, room.config.ball_radius * WORLD_SCALE), DeepUI.TEXT)
-		draw_arc(
-			ball_screen,
-			maxf(5.0, room.config.ball_radius * WORLD_SCALE),
-			0.0,
-			TAU,
-			20,
-			Color("d6bc8c"),
-			1.5,
-			true,
-		)
-
-	_draw_forced_collection_effect()
-	_draw_impact_effects()
 	DeepUI.draw_panel(self, Rect2(24.0, 778.0, 492.0, 72.0), Color(DeepUI.PANEL_SOFT, 0.94), DeepUI.BORDER_SOFT, 13, 1, false)
 	DeepUI.draw_centered(self, tr("HUD_VOLLEY_HINT"), Rect2(34.0, 787.0, 472.0, 26.0), 15, Color("c6d6e4"))
 	DeepUI.draw_centered(self, tr("HUD_AIM_HINT"), Rect2(34.0, 817.0, 472.0, 24.0), 13, DeepUI.MUTED_DARK)
 
 
-func _draw_forced_collection_effect() -> void:
-	if room.forced_collection_positions.is_empty():
-		return
-	var progress := clampf(
-		room.forced_collection_effect_elapsed / room.FORCED_COLLECTION_EFFECT_SECONDS,
-		0.0,
-		1.0,
-	)
-	var eased_progress := ease(progress, 2.0)
-	for start_world: Vector2 in room.forced_collection_positions:
-		var effect_world := start_world.lerp(LAUNCHER_WORLD, eased_progress)
-		var effect_color := Color(DeepUI.TEXT, 1.0 - progress * 0.65)
-		draw_circle(_world_to_screen(effect_world), 5.0, effect_color)
-
-
-func _draw_impact_effects() -> void:
-	for effect: Dictionary in room.impact_effects:
-		var progress := clampf(float(effect.get("elapsed", 0.0)) / 0.32, 0.0, 1.0)
-		var center := _world_to_screen(effect.get("position", Vector2.ZERO))
-		var destroyed := bool(effect.get("destroyed", false))
-		var radius := lerpf(8.0, 34.0 if destroyed else 22.0, progress)
-		var color := Color(COLOR_AIM, 1.0 - progress)
-		draw_arc(center, radius, 0.0, TAU, 24, color, 3.0, true)
-		if destroyed:
-			for ray_index in range(8):
-				var direction := Vector2.from_angle(float(ray_index) * TAU / 8.0)
-				draw_line(
-					center + direction * (10.0 + progress * 8.0),
-					center + direction * (18.0 + progress * 28.0),
-					color,
-					2.0,
-				)
-
-
-func _world_to_screen(world_position: Vector2) -> Vector2:
-	return BOARD_ORIGIN + Vector2(
-		world_position.x * WORLD_SCALE,
-		(BOARD_SIZE_WORLD.y - world_position.y) * WORLD_SCALE,
-	)
-
-
 func _world_rect_to_screen(world_rect: Rect2, margin: float = 4.0) -> Rect2:
-	var top_left := _world_to_screen(world_rect.position + Vector2(0.0, world_rect.size.y))
-	var size := world_rect.size * WORLD_SCALE
-	return Rect2(top_left + Vector2.ONE * margin, size - Vector2.ONE * margin * 2.0)
+	return BoardGeometry.world_rect_to_screen(world_rect, margin)
 
 
 func _draw_texture_block(
@@ -244,7 +172,7 @@ func _draw_texture_block(
 
 
 func _draw_core(center_world: Vector2, hp_text: String) -> void:
-	var center_screen := _world_to_screen(center_world)
+	var center_screen := BoardGeometry.world_to_screen(center_world)
 	var destination := Rect2(center_screen - Vector2.ONE * 39.0, Vector2.ONE * 78.0)
 	draw_texture_rect(CORE_TEXTURE, destination, false)
 	_draw_centered_text(destination, hp_text, 26, DeepUI.TEXT, 0.64)

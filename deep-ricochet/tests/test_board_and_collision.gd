@@ -1,15 +1,31 @@
 class_name BoardAndCollisionTests
 extends RefCounted
 
-const BOARD_SIZE := Vector2(8.0, 10.0)
+const BOARD_SIZE := Vector2(BoardGeometry.WORLD_GRID_SIZE)
 
 
 static func run(config: GameConfig) -> void:
+	_test_shared_geometry()
 	_test_board_contract()
 	_test_collision_and_damage(config)
 	_test_repeated_contact(config)
 	_test_corner_collision(config)
 	_test_preview_contract(config)
+
+
+static func _test_shared_geometry() -> void:
+	assert(BoardModel.ROOM_GRID_SIZE == BoardGeometry.BLOCK_GRID_SIZE)
+	assert(BoardModel.CORE_TARGET_ROW == BoardGeometry.CORE_ROW)
+	assert(BoardGeometry.WORLD_GRID_SIZE.x == BoardGeometry.BLOCK_GRID_SIZE.x)
+	assert(BoardGeometry.WORLD_GRID_SIZE.y == BoardGeometry.BLOCK_GRID_SIZE.y + 2)
+	assert(BoardGeometry.CORE_ROW == BoardGeometry.BLOCK_GRID_SIZE.y)
+	assert(BoardGeometry.preview_row_for_cell(0) == BoardGeometry.WORLD_GRID_SIZE.y - 1)
+	assert(BoardGeometry.preview_row_for_cell(BoardGeometry.CORE_ROW) == 1)
+	var sample_world := Vector2(3.25, 7.5)
+	assert(
+		BoardGeometry.screen_to_world(BoardGeometry.world_to_screen(sample_world))
+		.is_equal_approx(sample_world)
+	)
 
 
 static func _test_board_contract() -> void:
