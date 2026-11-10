@@ -8,6 +8,17 @@ static func run(controller: RunController, parent: Node) -> void:
 	assert(not controller.main_menu_view.continue_available)
 	assert(controller.run_session == null)
 	assert(not controller.gameplay_room.simulation_enabled)
+	_assert_blank_release_is_silent(controller.main_menu_view)
+
+	controller.open_settings_from_main_menu()
+	assert(controller.settings_overlay.visible)
+	_assert_blank_release_is_silent(controller.settings_overlay)
+	controller.close_settings()
+	assert(controller.main_menu_view.visible)
+
+	controller.tutorial_overlay.show_tutorial()
+	_assert_blank_release_is_silent(controller.tutorial_overlay)
+	controller.tutorial_overlay.hide_overlay()
 
 	assert(controller.start_new_run(31_415))
 	assert(not controller.main_menu_view.visible)
@@ -22,6 +33,7 @@ static func run(controller: RunController, parent: Node) -> void:
 	assert(controller.pause_overlay.visible)
 	assert(not controller.gameplay_room.aiming)
 	assert(not controller.gameplay_room.volley.active)
+	_assert_blank_release_is_silent(controller.pause_overlay)
 	controller.resume_game()
 	assert(not parent.get_tree().paused)
 	assert(not controller.pause_overlay.visible)
@@ -74,4 +86,14 @@ static func run(controller: RunController, parent: Node) -> void:
 	assert(not parent.get_tree().paused)
 	assert(not controller.main_menu_view.visible)
 	assert(controller.run_session != null)
+
+
+static func _assert_blank_release_is_silent(control: Control) -> void:
+	var event_count := AudioManager.played_event_count
+	var release := InputEventScreenTouch.new()
+	release.index = 0
+	release.position = Vector2(12.0, 12.0)
+	release.pressed = false
+	control._gui_input(release)
+	assert(AudioManager.played_event_count == event_count)
 

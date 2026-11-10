@@ -60,20 +60,25 @@ func _gui_input(event: InputEvent) -> void:
 		event_position = event.position
 	if not released or controller == null:
 		return
-	AudioManager.play_ui_click()
 	if mode == Mode.PAUSE:
 		if CONTINUE_BUTTON.has_point(event_position):
+			AudioManager.play_ui_click()
 			controller.resume_game()
 		elif NEW_GAME_BUTTON.has_point(event_position):
+			AudioManager.play_ui_click()
 			controller.request_new_game_confirmation(false)
 		elif MAIN_MENU_BUTTON.has_point(event_position):
+			AudioManager.play_ui_click()
 			controller.return_to_main_menu()
 		elif SETTINGS_BUTTON.has_point(event_position):
+			AudioManager.play_ui_click()
 			controller.open_settings_from_pause()
 	else:
 		if CANCEL_BUTTON.has_point(event_position):
+			AudioManager.play_ui_click()
 			controller.cancel_new_game_confirmation()
 		elif CONFIRM_BUTTON.has_point(event_position):
+			AudioManager.play_ui_click()
 			controller.confirm_new_game()
 
 

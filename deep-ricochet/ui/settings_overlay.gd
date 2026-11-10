@@ -73,37 +73,47 @@ func _gui_input(event: InputEvent) -> void:
 		event_position = event.position
 	if not released or controller == null:
 		return
-	AudioManager.play_ui_click()
-
 	if mode == Mode.SETTINGS:
 		if TURKISH_BUTTON.has_point(event_position):
+			AudioManager.play_ui_click()
 			controller.set_language(&"tr")
 		elif ENGLISH_BUTTON.has_point(event_position):
+			AudioManager.play_ui_click()
 			controller.set_language(&"en")
 		elif SFX_BUTTON.has_point(event_position):
+			AudioManager.play_ui_click()
 			controller.toggle_sfx()
 		elif SFX_SLIDER.grow(22.0).has_point(event_position):
+			AudioManager.play_ui_click()
 			controller.set_sfx_volume(
 				(event_position.x - SFX_SLIDER.position.x) / SFX_SLIDER.size.x
 			)
 		elif MUSIC_BUTTON.has_point(event_position):
+			AudioManager.play_ui_click()
 			controller.toggle_music()
 		elif MUSIC_SLIDER.grow(22.0).has_point(event_position):
+			AudioManager.play_ui_click()
 			controller.set_music_volume(
 				(event_position.x - MUSIC_SLIDER.position.x) / MUSIC_SLIDER.size.x
 			)
 		elif SHAKE_BUTTON.has_point(event_position):
+			AudioManager.play_ui_click()
 			controller.toggle_screen_shake()
 		elif TUTORIAL_BUTTON.has_point(event_position):
+			AudioManager.play_ui_click()
 			controller.show_tutorial_from_settings()
 		elif DELETE_DATA_BUTTON.has_point(event_position):
+			AudioManager.play_ui_click()
 			show_delete_all_confirmation()
 		elif BACK_BUTTON.has_point(event_position):
+			AudioManager.play_ui_click()
 			controller.close_settings()
 	else:
 		if CANCEL_BUTTON.has_point(event_position):
+			AudioManager.play_ui_click()
 			show_settings()
 		elif CONFIRM_BUTTON.has_point(event_position):
+			AudioManager.play_ui_click()
 			controller.confirm_delete_all_data()
 
 

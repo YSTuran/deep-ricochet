@@ -48,12 +48,14 @@ func _gui_input(event: InputEvent) -> void:
 		event_position = event.position
 	if not released or controller == null:
 		return
-	AudioManager.play_ui_click()
 	if continue_available and CONTINUE_BUTTON.has_point(event_position):
+		AudioManager.play_ui_click()
 		controller.continue_saved_run()
 	elif NEW_GAME_BUTTON.has_point(event_position):
+		AudioManager.play_ui_click()
 		controller.request_new_game_from_menu()
 	elif SETTINGS_BUTTON.has_point(event_position):
+		AudioManager.play_ui_click()
 		controller.open_settings_from_main_menu()
 
 

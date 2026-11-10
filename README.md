@@ -65,7 +65,7 @@ Oyun alanında fareyle ya da dokunmatik ekranla basılı tutup yön seçilir; b�
 - Ayarlardan tekrar açılabilen üç sayfalı öğretici özeti
 - Dil, ayrı efekt/müzik seviyeleri, ekran sarsıntısı ve onaylı tüm veri silme seçeneklerini içeren ayarlar ekranı
 - Android geri tuşunun menü, ayarlar, öğretici, sonuç ve duraklatma katmanlarına uygun davranması
-- Android 9 (API 28) alt sınırı, API 35 hedefi ve ARMv7/ARM64 Gradle export preseti
+- Android 9 (API 28) alt sınırı ve API 35 hedefi için ARMv7 Gradle export preseti
 - Assetlerle uyumlu prosedürel hasar halkası ve blok kırılma parçacıkları
 - Brief paletine uyumlu ortak maden arka planı, yuvarlatılmış panel ve düğme sistemi
 - Ana menü, oyun HUD'ı, rota, sonuç, duraklatma, ayarlar ve öğreticide tutarlı UI dili
@@ -89,7 +89,7 @@ UI renkleri, panel biçimleri, düğme türleri ve prosedürel maden arka planı
 
 ## Android dışa aktarma
 
-`deep-ricochet/export_presets.cfg` içindeki **Android** preseti Android 9 ve üzerini, API 35 hedefini, ARMv7/ARM64 mimarilerini ve çevrimdışı çalışma için sıfır ek izin ilkesini kullanır. Paket kimliği şimdilik `com.ysturan.deepricochet` değeridir.
+`deep-ricochet/export_presets.cfg` içindeki **Android** preseti Android 9 ve üzerini, API 35 hedefini, Galaxy A10 için ARMv7 mimarisini ve çevrimdışı çalışma için sıfır ek izin ilkesini kullanır. P0 dağıtım hedefi Google Play değil, cihaza doğrudan yüklenen debug APK prototipidir. Paket kimliği şimdilik `com.ysturan.deepricochet` değeridir.
 
 Godot 4.7.2 ile ilk APK'yı üretmeden önce:
 
@@ -102,7 +102,14 @@ Godot 4.7.2 ile ilk APK'yı üretmeden önce:
 godot --headless --path deep-ricochet --export-debug Android build/android/deep-ricochet-debug.apk
 ```
 
-Google Play sürümünde AAB seçilmeli ve depoya eklenmeyen özel bir release keystore kullanılmalıdır.
+Temiz bir checkout'ta aynı akışı doğrulayan PowerShell betiği de kullanılabilir. Betik Godot sürümünü denetler, eksikse Android Gradle build şablonunu kurar, kaynakları içe aktarır ve ARMv7 debug APK'yı üretir:
+
+```powershell
+.\deep-ricochet\tools\build_android_debug.ps1 `
+  -GodotPath "C:\path\to\Godot_v4.7.2-stable_win64.exe"
+```
+
+Google Play sürümü P0 kapsamı dışındadır. İleride mağaza dağıtımına geçilirse AAB, güncel hedef API, ARM64 ve depoya eklenmeyen özel bir release keystore ayrıca yapılandırılmalıdır.
 
 ## Otomatik test
 

@@ -75,10 +75,11 @@ func _gui_input(event: InputEvent) -> void:
 		event_position = event.position
 	if not released or controller == null:
 		return
-	AudioManager.play_ui_click()
 	if SKIP_BUTTON.has_point(event_position):
+		AudioManager.play_ui_click()
 		controller.complete_tutorial()
 	elif NEXT_BUTTON.has_point(event_position):
+		AudioManager.play_ui_click()
 		if page_index >= PAGE_COUNT - 1:
 			controller.complete_tutorial()
 		else:
