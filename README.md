@@ -75,6 +75,18 @@ Oyun alanında fareyle ya da dokunmatik ekranla basılı tutup yön seçilir; b�
 - Kodla üretilen düşük seviyeli döngüsel maden atmosferi
 - Kalıcı ve birbirinden bağımsız efekt/müzik açma-kapama ve seviye ayarları
 
+## P1 ilk aşama
+
+- Sonuç ekranında biten koşunun seed'i ve ilk oda seçimi korunarak **Aynı Madeni Dene** seçeneği
+- Aynı seed tekrarında istatistik kaydının yeni koşu olarak işlenmesini sağlayan benzersiz koşu kimliği
+- Oynanış sırasında 1× ve 2× arasında değiştirilebilen, sabit fizik adımını koruyan simülasyon hızı
+- Normal blok, cevher ve çekirdek için renk ve şiddeti ayrışan; aynı anda en fazla 16 darbe animasyonu tutan hafif görsel efektler
+- Cevher ve çekirdek vuruşlarında ayrışan ses tonu; mevcut ses yığılma sınırı korunarak düşük maliyetli ses cilası
+- Android'de blok kırılması ve çekirdeğin kırılması için kısa, farklı şiddette ve 90 ms aralıkla sınırlanan titreşim
+- Ayarlar ekranında kalıcı titreşim açma-kapama seçeneği ve eski ayar kayıtları için şema geçişi
+
+2× seçeneği topların fizik hızını veya çarpışma sonuçlarını değiştirmez; her çizim karesinde iki sabit simülasyon adımı çalıştırır. Yeni koşu ve aynı seed tekrarı 1× hızda başlar. Titreşim yalnızca Android özelliği algılandığında çağrılır; masaüstü testleri ve diğer platformlarda devre dışı kalır.
+
 Aktif koşu `user://deep_ricochet_active_run.json` konumuna yazılır; önceki geçerli kayıt `.bak` uzantısıyla korunur. Geçerli ve bitmemiş bir kayıt uygulama açılışında ana menüde `Devam` düğmesini etkinleştirir. Kesilmiş atışta canlı top konumları yüklenmez; atış öncesindeki kararlı oda geri gelir. Oda sonuç geçmişini ekleyen snapshot şeması sürüm 2'dir; eski geliştirme kayıtları profil ve rekor korunarak kontrollü yeni oyun davranışına gider.
 
 Duraklatma menüsünden ana menüye dönüldüğünde kararlı koşu korunur. Bir yaylım sürüyorsa diskteki atış öncesi snapshot kullanılır; böylece yarım simülasyon kaydedilmez. Uygulama arka plana geçtiğinde oyun otomatik durur, fakat öne döndüğünde kendiliğinden devam etmez.
@@ -89,7 +101,7 @@ UI renkleri, panel biçimleri, düğme türleri ve prosedürel maden arka planı
 
 ## Android dışa aktarma
 
-`deep-ricochet/export_presets.cfg` içindeki **Android** preseti Android 9 ve üzerini, API 35 hedefini, Galaxy A10 için ARMv7 mimarisini ve çevrimdışı çalışma için sıfır ek izin ilkesini kullanır. P0 dağıtım hedefi Google Play değil, cihaza doğrudan yüklenen debug APK prototipidir. Paket kimliği şimdilik `com.ysturan.deepricochet` değeridir.
+`deep-ricochet/export_presets.cfg` içindeki **Android** preseti Android 9 ve üzerini, API 35 hedefini ve Galaxy A10 için ARMv7 mimarisini kullanır. Çevrimdışı çalışan uygulamanın tek ek Android izni titreşim geri bildirimi için `VIBRATE` iznidir; kullanıcıdan çalışma anında izin penceresi istemez. P0/P1 dağıtım hedefi Google Play değil, cihaza doğrudan yüklenen debug APK prototipidir. Paket kimliği şimdilik `com.ysturan.deepricochet` değeridir.
 
 Godot 4.7.2 ile ilk APK'yı üretmeden önce:
 
@@ -119,4 +131,4 @@ Godot komut satırından proje kökünde şu sahne çalıştırılır:
 godot --headless --path deep-ricochet --scene res://tests/smoke_test.tscn
 ```
 
-Test; profil ve ayar geçişlerini, eski ayar şeması göçünü, efekt/müzik bus'larını, melodik çarpışma hız sınırını, sessiz modu, profil yedeğinden kurtarmayı, iki dili, üç aşamalı ilk-oyun öğreticisini, tüm veri silme hata davranışını, ayrıntılı oda sonuç geçmişini, ana menü ve devam durumunu, nişan sırasında duraklatmayı, canlı yaylımın donmasını, odak kaybını, 12 oda şablonunu, örnek açı geçişlerini, 100 seed seçimini, dört oda/üç rota akışını, atış ortası kurtarmayı, bozuk kayıt reddini, fiziği ve puanı doğrular. Ayrıca 12 odanın örnek açı simülasyon süresini test çıktısında `[PERF]` satırıyla raporlar.
+Test; profil ve ayar geçişlerini, titreşim ayarı ile eski ayar şeması göçünü, efekt/müzik bus'larını, melodik çarpışma hız sınırını, sessiz modu, profil yedeğinden kurtarmayı, iki dili, üç aşamalı ilk-oyun öğreticisini, tüm veri silme hata davranışını, ayrıntılı oda sonuç geçmişini, aynı seed tekrarını, 1×/2× sabit adımlı simülasyonu, ana menü ve devam durumunu, nişan sırasında duraklatmayı, canlı yaylımın donmasını, odak kaybını, 12 oda şablonunu, örnek açı geçişlerini, 100 seed seçimini, dört oda/üç rota akışını, atış ortası kurtarmayı, bozuk kayıt reddini, fiziği ve puanı doğrular. Ayrıca 12 odanın örnek açı simülasyon süresini test çıktısında `[PERF]` satırıyla raporlar.

@@ -10,7 +10,7 @@ const BOARD_SIZE_WORLD := Vector2(BoardGeometry.WORLD_GRID_SIZE)
 const BOARD_SCREEN_RECT := BoardGeometry.SCREEN_RECT
 const LAUNCHER_WORLD := BoardGeometry.LAUNCHER_WORLD
 const FORCED_COLLECTION_EFFECT_SECONDS := 0.35
-const MAX_IMPACT_EFFECTS := 24
+const MAX_IMPACT_EFFECTS := 16
 
 @export_file("*.json") var initial_room_template_path := "res://content/rooms/safe_01.json"
 
@@ -37,6 +37,7 @@ var run_room_number: int = 1
 var run_room_count: int = 1
 var banked_score: int = 0
 var simulation_enabled := true
+var simulation_speed := 1
 
 
 func _ready() -> void:
@@ -161,6 +162,10 @@ func trigger_screen_shake(strength: float, duration: float) -> void:
 		view.start_screen_shake(strength, duration)
 
 
+func set_simulation_speed(speed: int) -> void:
+	simulation_speed = 2 if speed >= 2 else 1
+
+
 func cancel_aim_for_pause() -> void:
 	if not aiming and not aim_valid and active_touch_id == -1:
 		return
@@ -177,6 +182,17 @@ func _physics_process(delta: float) -> void:
 	if not volley.active:
 		return
 
+	var static_view_changed := false
+	for _step_index in range(simulation_speed):
+		if not volley.active:
+			break
+		static_view_changed = _advance_volley(delta) or static_view_changed
+	if static_view_changed:
+		_refresh_static_view()
+	_refresh_dynamic_view()
+
+
+func _advance_volley(delta: float) -> bool:
 	var step_result := volley.advance(
 		delta,
 		simulator,
@@ -204,9 +220,7 @@ func _physics_process(delta: float) -> void:
 		var resolution := room.resolve_shot(board, config)
 		_handle_room_resolution(resolution)
 		static_view_changed = true
-	if static_view_changed:
-		_refresh_static_view()
-	_refresh_dynamic_view()
+	return static_view_changed
 
 
 func _process(delta: float) -> void:
@@ -393,7 +407,9 @@ func _handle_damage_result(result: BlockDamageResult) -> bool:
 		impact_effects.pop_front()
 	impact_effects.append({
 		"position": block.collision_center_world(),
+		"block_type": block.type,
 		"destroyed": result.destroyed,
+		"points": awarded_points,
 		"elapsed": 0.0,
 	})
 	if result.destroyed:

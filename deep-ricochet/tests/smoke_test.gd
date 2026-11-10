@@ -63,7 +63,7 @@ func _ready() -> void:
 	BoardAndCollisionTests.run(config)
 	VolleyAndRoomTests.run(config)
 
-	print("[PASS] Deep Ricochet P0 profil, dil, öğretici, ayarlar, kayıt, UI ve fizik testleri geçti.")
+	print("[PASS] Deep Ricochet P0/P1 profil, dil, öğretici, ayarlar, kayıt, UI ve fizik testleri geçti.")
 	AudioManager.stop_all()
 	# Audio playback is released by the mixer thread. Give it one short real-time
 	# window before freeing the autoload so headless tests also exit cleanly.

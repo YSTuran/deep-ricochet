@@ -76,6 +76,7 @@ static func _test_settings_round_trip() -> void:
 	settings.music_enabled = false
 	settings.music_volume = 0.2
 	settings.shake_enabled = false
+	settings.haptics_enabled = false
 	assert(service.save_settings(settings))
 	var restored := service.load_settings()
 	assert(restored.language == &"en")
@@ -84,6 +85,20 @@ static func _test_settings_round_trip() -> void:
 	assert(not restored.music_enabled)
 	assert(is_equal_approx(restored.music_volume, 0.2))
 	assert(not restored.shake_enabled)
+	assert(not restored.haptics_enabled)
+
+	_write_text(SETTINGS_PATH, JSON.stringify({
+		"schemaVersion": 2,
+		"language": "en",
+		"sfxEnabled": true,
+		"sfxVolume": 0.6,
+		"musicEnabled": true,
+		"musicVolume": 0.3,
+		"shakeEnabled": false,
+	}))
+	restored = service.load_settings()
+	assert(restored.schema_version == AppSettings.SCHEMA_VERSION)
+	assert(restored.haptics_enabled)
 
 	_write_text(SETTINGS_PATH, JSON.stringify({
 		"schemaVersion": 1,
@@ -97,6 +112,7 @@ static func _test_settings_round_trip() -> void:
 	assert(is_equal_approx(restored.sfx_volume, 0.45))
 	assert(restored.music_enabled)
 	assert(restored.shake_enabled)
+	assert(restored.haptics_enabled)
 	assert(service.clear_all())
 
 
@@ -190,6 +206,11 @@ static func _test_controller_profile_tutorial_and_locale(controller: RunControll
 	assert(not controller.app_settings.music_enabled)
 	controller.toggle_music()
 	assert(controller.app_settings.music_enabled)
+	var previous_haptics := controller.app_settings.haptics_enabled
+	controller.toggle_haptics()
+	assert(controller.app_settings.haptics_enabled != previous_haptics)
+	controller.toggle_haptics()
+	assert(controller.app_settings.haptics_enabled == previous_haptics)
 	if not controller.app_settings.shake_enabled:
 		controller.toggle_screen_shake()
 	controller.gameplay_room.view.shake_remaining = 0.0
@@ -221,6 +242,7 @@ static func _test_controller_profile_tutorial_and_locale(controller: RunControll
 	assert(controller.app_settings.language == &"tr")
 	assert(is_equal_approx(controller.app_settings.sfx_volume, 0.8))
 	assert(is_equal_approx(controller.app_settings.music_volume, 0.28))
+	assert(controller.app_settings.haptics_enabled)
 	assert(controller.failed_storage_channels.is_empty())
 	assert(not controller.storage_notice.visible)
 	assert(controller.main_menu_view.visible)

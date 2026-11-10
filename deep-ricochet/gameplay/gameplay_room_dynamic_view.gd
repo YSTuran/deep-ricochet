@@ -68,16 +68,37 @@ func _draw_impact_effects() -> void:
 	for effect: Dictionary in room.impact_effects:
 		var progress := clampf(float(effect.get("elapsed", 0.0)) / 0.32, 0.0, 1.0)
 		var center := BoardGeometry.world_to_screen(effect.get("position", Vector2.ZERO))
+		var block_type := int(effect.get("block_type", BlockState.BlockType.NORMAL))
 		var destroyed := bool(effect.get("destroyed", false))
-		var radius := lerpf(8.0, 34.0 if destroyed else 22.0, progress)
-		var color := Color(COLOR_AIM, 1.0 - progress)
+		var is_core := block_type == BlockState.BlockType.CORE
+		var radius := lerpf(8.0, 38.0 if is_core else (30.0 if destroyed else 20.0), progress)
+		var color := Color(_impact_color(block_type), 1.0 - progress)
 		draw_arc(center, radius, 0.0, TAU, 16, color, 3.0, true)
 		if destroyed:
-			for ray_index in range(6):
-				var direction := Vector2.from_angle(float(ray_index) * TAU / 6.0)
+			var ray_count := 6 if is_core else 4
+			for ray_index in range(ray_count):
+				var direction := Vector2.from_angle(float(ray_index) * TAU / float(ray_count))
 				draw_line(
 					center + direction * (10.0 + progress * 8.0),
 					center + direction * (18.0 + progress * 28.0),
 					color,
 					2.0,
 				)
+			var points := int(effect.get("points", 0))
+			if points > 0:
+				DeepUI.draw_centered(
+					self,
+					"+%d" % points,
+					Rect2(center + Vector2(-30.0, -30.0 - progress * 16.0), Vector2(60.0, 24.0)),
+					13,
+					color,
+				)
+
+
+func _impact_color(block_type: int) -> Color:
+	match block_type:
+		BlockState.BlockType.ORE:
+			return DeepUI.GOLD
+		BlockState.BlockType.CORE:
+			return DeepUI.CORE
+	return DeepUI.BLUE

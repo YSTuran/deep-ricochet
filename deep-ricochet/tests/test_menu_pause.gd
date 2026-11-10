@@ -26,6 +26,14 @@ static func run(controller: RunController, parent: Node) -> void:
 	assert(controller.start_new_run(31_415))
 	assert(not controller.main_menu_view.visible)
 	assert(controller.pause_button.visible)
+	assert(controller.speed_button.visible)
+	assert(controller.gameplay_room.simulation_speed == 1)
+	assert(controller.speed_button.text == "×1")
+	controller.toggle_simulation_speed()
+	assert(controller.gameplay_room.simulation_speed == 2)
+	assert(controller.speed_button.text == "×2")
+	controller.toggle_simulation_speed()
+	assert(controller.gameplay_room.simulation_speed == 1)
 	assert(controller.gameplay_room.simulation_enabled)
 
 	controller.gameplay_room._begin_aim(VALID_AIM_SCREEN_POSITION)
@@ -34,12 +42,14 @@ static func run(controller: RunController, parent: Node) -> void:
 	assert(controller.pause_active)
 	assert(parent.get_tree().paused)
 	assert(controller.pause_overlay.visible)
+	assert(not controller.speed_button.visible)
 	assert(not controller.gameplay_room.aiming)
 	assert(not controller.gameplay_room.volley.active)
 	_assert_blank_release_is_silent(controller.pause_overlay)
 	controller.resume_game()
 	assert(not parent.get_tree().paused)
 	assert(not controller.pause_overlay.visible)
+	assert(controller.speed_button.visible)
 
 	controller._notification(MainLoop.NOTIFICATION_APPLICATION_FOCUS_OUT)
 	assert(controller.pause_active)
@@ -53,6 +63,22 @@ static func run(controller: RunController, parent: Node) -> void:
 	controller.gameplay_room.aim_direction = Vector2.UP
 	controller.gameplay_room._release_aim()
 	assert(controller.gameplay_room.volley.active)
+	var normal_elapsed_before := controller.gameplay_room.volley.elapsed_seconds
+	controller.gameplay_room.set_simulation_speed(1)
+	controller.gameplay_room._physics_process(0.005)
+	assert(is_equal_approx(
+		controller.gameplay_room.volley.elapsed_seconds - normal_elapsed_before,
+		0.005,
+	))
+	var fast_elapsed_before := controller.gameplay_room.volley.elapsed_seconds
+	controller.gameplay_room.set_simulation_speed(2)
+	controller.gameplay_room._physics_process(0.005)
+	assert(is_equal_approx(
+		controller.gameplay_room.volley.elapsed_seconds - fast_elapsed_before,
+		0.01,
+	))
+	controller.gameplay_room.set_simulation_speed(1)
+	controller._refresh_speed_button()
 	await parent.get_tree().physics_frame
 	controller.pause_game()
 	var paused_elapsed := controller.gameplay_room.volley.elapsed_seconds

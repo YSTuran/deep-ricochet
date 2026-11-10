@@ -48,6 +48,20 @@ theme_override_font_sizes/font_size = 24
 flat = true
 text = "Ⅱ"
 
+[node name="SpeedButton" type="Button" parent="Interface"]
+process_mode = 3
+visible = false
+offset_left = 460.0
+offset_top = 84.0
+offset_right = 516.0
+offset_bottom = 134.0
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0.956863, 0.941176, 0.901961, 1)
+theme_override_colors/font_hover_color = Color(0.94902, 0.713726, 0.356863, 1)
+theme_override_font_sizes/font_size = 17
+flat = true
+text = "×1"
+
 [node name="PauseOverlay" type="Control" parent="Interface"]
 process_mode = 3
 visible = false

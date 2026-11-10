@@ -10,8 +10,9 @@ enum Screen {
 const VIEW_SIZE := Vector2(540.0, 960.0)
 const SAFE_CARD := Rect2(24.0, 150.0, 492.0, 290.0)
 const BONUS_CARD := Rect2(24.0, 465.0, 492.0, 290.0)
-const RESTART_BUTTON := Rect2(90.0, 665.0, 360.0, 70.0)
-const RESULT_MENU_BUTTON := Rect2(90.0, 755.0, 360.0, 70.0)
+const SAME_SEED_BUTTON := Rect2(70.0, 650.0, 400.0, 60.0)
+const RESTART_BUTTON := Rect2(70.0, 725.0, 400.0, 60.0)
+const RESULT_MENU_BUTTON := Rect2(70.0, 800.0, 400.0, 60.0)
 const CORE_TEXTURE: Texture2D = preload("res://art/source/cekirdek.png")
 const PREVIEW_CELL_SIZE := 15.5
 
@@ -80,7 +81,10 @@ func _gui_input(event: InputEvent) -> void:
 				controller.select_route(run_session.pending_routes[option_index].option_id)
 				return
 	elif screen == Screen.RUN_RESULT:
-		if RESTART_BUTTON.has_point(event_position):
+		if SAME_SEED_BUTTON.has_point(event_position):
+			AudioManager.play_ui_click()
+			controller.restart_same_seed()
+		elif RESTART_BUTTON.has_point(event_position):
 			AudioManager.play_ui_click()
 			controller.start_new_run()
 		elif RESULT_MENU_BUTTON.has_point(event_position):
@@ -237,7 +241,8 @@ func _draw_run_result() -> void:
 	if profile != null:
 		var best_label := tr("RESULT_NEW_BEST") if new_best else tr("RESULT_BEST") % profile.best_score
 		DeepUI.draw_chip(self, Rect2(135.0, 580.0, 270.0, 38.0), best_label, accent, 17)
-	DeepUI.draw_button(self, RESTART_BUTTON, tr("RESULT_REPLAY"), &"core" if run_session.succeeded else &"primary", 24)
+	DeepUI.draw_button(self, SAME_SEED_BUTTON, tr("RESULT_RETRY_SEED"), &"core" if run_session.succeeded else &"primary", 21)
+	DeepUI.draw_button(self, RESTART_BUTTON, tr("RESULT_REPLAY"), &"secondary", 21)
 	DeepUI.draw_button(self, RESULT_MENU_BUTTON, tr("RESULT_MAIN_MENU"), &"secondary", 22)
 
 

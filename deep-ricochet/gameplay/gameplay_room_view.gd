@@ -66,7 +66,7 @@ func _draw() -> void:
 		return
 
 	DeepUI.draw_cave_background(self, VIEW_SIZE)
-	DeepUI.draw_panel(self, Rect2(18.0, 18.0, 504.0, 112.0), DeepUI.PANEL_SOFT, DeepUI.BORDER, 15, 2, true)
+	DeepUI.draw_panel(self, Rect2(18.0, 18.0, 504.0, 120.0), DeepUI.PANEL_SOFT, DeepUI.BORDER, 15, 2, true)
 	_draw_text(
 		Vector2(30.0, 48.0),
 		tr("HUD_TITLE") % room.current_template.localized_display_name(),
@@ -109,6 +109,7 @@ func _draw() -> void:
 		12,
 	)
 	DeepUI.draw_panel(self, Rect2(464.0, 24.0, 54.0, 56.0), DeepUI.PANEL_RAISED, DeepUI.BORDER, 11, 2, false)
+	DeepUI.draw_panel(self, Rect2(458.0, 84.0, 60.0, 50.0), DeepUI.PANEL_RAISED, DeepUI.GOLD_DARK, 11, 2, false)
 	DeepUI.draw_centered(self, room.status_text, Rect2(152.0, 92.0, 296.0, 28.0), 12, DeepUI.MUTED)
 
 	var board_rect := BoardGeometry.SCREEN_RECT

@@ -150,8 +150,10 @@ func _play_material_layer(block_type: int, now: int, _position_x: float) -> void
 	match block_type:
 		BlockState.BlockType.NORMAL:
 			_play_sfx(NORMAL_HIT, -19.0, 1.0)
-		BlockState.BlockType.ORE, BlockState.BlockType.CORE:
+		BlockState.BlockType.ORE:
 			_play_sfx(ORE_HIT, -17.0, 1.05)
+		BlockState.BlockType.CORE:
+			_play_sfx(ORE_HIT, -15.0, 0.78)
 		BlockState.BlockType.ROCK:
 			_play_sfx(ROCK_HIT, -16.0, 0.9)
 

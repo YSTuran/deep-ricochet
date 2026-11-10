@@ -124,6 +124,7 @@ static func _test_failed_run(catalog: RoomCatalog, config: GameConfig) -> void:
 
 static func _test_controller_four_room_flow(controller: RunController) -> void:
 	assert(controller.start_new_run(777))
+	var first_template_id := controller.run_session.current_template_id
 	assert(controller.run_session.room_number == 1)
 	assert(controller.gameplay_room.current_template.family == RoomTemplate.Family.SAFE)
 	for completed_room in range(1, 5):
@@ -145,6 +146,12 @@ static func _test_controller_four_room_flow(controller: RunController) -> void:
 			assert(controller.run_session.room_results.size() == 4)
 			assert(controller.flow_view.screen == RunFlowView.Screen.RUN_RESULT)
 			assert(controller.flow_view.visible)
+	var completed_run_id := controller.run_session.run_id
+	assert(controller.restart_same_seed())
+	assert(controller.run_session.seed == 777)
+	assert(controller.run_session.current_template_id == first_template_id)
+	assert(controller.run_session.run_id != completed_run_id)
+	assert(controller.gameplay_room.simulation_speed == 1)
 	assert(controller.start_new_run(778))
 	assert(controller.run_session.banked_score == 0)
 	assert(controller.run_session.room_number == 1)

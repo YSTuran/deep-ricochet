@@ -34,11 +34,12 @@ func start_run(
 	run_content_version: String,
 	total_rooms: int,
 	first_template: RoomTemplate,
+	new_run_id: String = "",
 ) -> bool:
 	if first_template == null or not first_template.is_valid() or total_rooms <= 0:
 		return false
 	seed = run_seed
-	run_id = "run_%d" % abs(run_seed)
+	run_id = new_run_id if not new_run_id.is_empty() else "run_%d" % abs(run_seed)
 	content_version = run_content_version
 	room_count = total_rooms
 	room_number = 1

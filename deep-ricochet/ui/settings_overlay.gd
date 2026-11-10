@@ -13,7 +13,8 @@ const SFX_BUTTON := Rect2(80.0, 305.0, 380.0, 52.0)
 const SFX_SLIDER := Rect2(80.0, 403.0, 380.0, 14.0)
 const MUSIC_BUTTON := Rect2(80.0, 447.0, 380.0, 52.0)
 const MUSIC_SLIDER := Rect2(80.0, 545.0, 380.0, 14.0)
-const SHAKE_BUTTON := Rect2(80.0, 585.0, 380.0, 52.0)
+const SHAKE_BUTTON := Rect2(55.0, 585.0, 210.0, 52.0)
+const HAPTICS_BUTTON := Rect2(275.0, 585.0, 210.0, 52.0)
 const TUTORIAL_BUTTON := Rect2(80.0, 655.0, 380.0, 56.0)
 const DELETE_DATA_BUTTON := Rect2(80.0, 725.0, 380.0, 56.0)
 const BACK_BUTTON := Rect2(80.0, 815.0, 380.0, 58.0)
@@ -99,6 +100,9 @@ func _gui_input(event: InputEvent) -> void:
 		elif SHAKE_BUTTON.has_point(event_position):
 			AudioManager.play_ui_click()
 			controller.toggle_screen_shake()
+		elif HAPTICS_BUTTON.has_point(event_position):
+			AudioManager.play_ui_click()
+			controller.toggle_haptics()
 		elif TUTORIAL_BUTTON.has_point(event_position):
 			AudioManager.play_ui_click()
 			controller.show_tutorial_from_settings()
@@ -139,12 +143,14 @@ func _draw_settings() -> void:
 	var music_enabled := true
 	var music_volume := 0.28
 	var shake_enabled := true
+	var haptics_enabled := true
 	if controller != null and controller.app_settings != null:
 		sfx_enabled = controller.app_settings.sfx_enabled
 		sfx_volume = controller.app_settings.sfx_volume
 		music_enabled = controller.app_settings.music_enabled
 		music_volume = controller.app_settings.music_volume
 		shake_enabled = controller.app_settings.shake_enabled
+		haptics_enabled = controller.app_settings.haptics_enabled
 	var sfx_label := tr("SETTINGS_SFX_ON") if sfx_enabled else tr("SETTINGS_SFX_OFF")
 	DeepUI.draw_button(self, SFX_BUTTON, sfx_label, &"core" if sfx_enabled else &"ghost", 17)
 	DeepUI.draw_centered(
@@ -166,7 +172,9 @@ func _draw_settings() -> void:
 	)
 	_draw_volume_slider(MUSIC_SLIDER, music_volume)
 	var shake_label := tr("SETTINGS_SHAKE_ON") if shake_enabled else tr("SETTINGS_SHAKE_OFF")
-	DeepUI.draw_button(self, SHAKE_BUTTON, shake_label, &"secondary" if shake_enabled else &"ghost", 17)
+	DeepUI.draw_button(self, SHAKE_BUTTON, shake_label, &"secondary" if shake_enabled else &"ghost", 13)
+	var haptics_label := tr("SETTINGS_HAPTICS_ON") if haptics_enabled else tr("SETTINGS_HAPTICS_OFF")
+	DeepUI.draw_button(self, HAPTICS_BUTTON, haptics_label, &"secondary" if haptics_enabled else &"ghost", 14)
 	DeepUI.draw_button(self, TUTORIAL_BUTTON, tr("SETTINGS_TUTORIAL"), &"secondary", 19)
 	DeepUI.draw_button(self, DELETE_DATA_BUTTON, tr("SETTINGS_DELETE_DATA"), &"danger", 18)
 	if not notice.is_empty():

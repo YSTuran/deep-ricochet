@@ -11,6 +11,7 @@ extends Node
 @onready var flow_view: RunFlowView = $Interface/RunFlowView
 @onready var main_menu_view: MainMenuView = $Interface/MainMenuView
 @onready var pause_button: Button = $Interface/PauseButton
+@onready var speed_button: Button = $Interface/SpeedButton
 @onready var pause_overlay: PauseOverlay = $Interface/PauseOverlay
 @onready var settings_overlay: SettingsOverlay = $Interface/SettingsOverlay
 @onready var tutorial_overlay: TutorialOverlay = $Interface/TutorialOverlay
@@ -20,6 +21,8 @@ enum SettingsContext {
 	MAIN_MENU,
 	PAUSE,
 }
+
+const HAPTIC_COOLDOWN_MSEC := 90
 
 var config: GameConfig
 var catalog: RoomCatalog
@@ -46,6 +49,8 @@ var confirmation_from_main_menu := false
 var settings_context: SettingsContext = SettingsContext.MAIN_MENU
 var tutorial_return_to_settings := false
 var tutorial_coach_step := -1
+var run_id_sequence := 0
+var last_haptic_tick_msec := -HAPTIC_COOLDOWN_MSEC
 
 
 func _ready() -> void:
@@ -70,8 +75,10 @@ func _ready() -> void:
 	settings_overlay.bind(self)
 	tutorial_overlay.bind(self)
 	pause_button.pressed.connect(pause_game)
+	speed_button.pressed.connect(toggle_simulation_speed)
 	gameplay_room.set_simulation_enabled(false)
 	pause_button.visible = false
+	speed_button.visible = false
 	_boot_from_save()
 	print("Deep Ricochet hazır. İçerik: %s" % catalog.content_version)
 
@@ -191,7 +198,13 @@ func start_new_run(requested_seed: int = 0) -> bool:
 		return false
 
 	var new_session := RunSession.new()
-	if not new_session.start_run(run_seed, catalog.content_version, config.room_count, first_template):
+	if not new_session.start_run(
+		run_seed,
+		catalog.content_version,
+		config.room_count,
+		first_template,
+		_create_run_id(run_seed),
+	):
 		push_error("Koşu oturumu başlatılamadı.")
 		return false
 	var previous_session := run_session
@@ -207,8 +220,11 @@ func start_new_run(requested_seed: int = 0) -> bool:
 	pause_overlay.hide_overlay()
 	last_result_new_best = false
 	flow_view.show_gameplay()
+	gameplay_room.set_simulation_speed(1)
+	_refresh_speed_button()
 	gameplay_room.set_simulation_enabled(true)
 	pause_button.visible = true
+	speed_button.visible = true
 	_save_stable()
 	_maybe_show_first_tutorial()
 	return true
@@ -265,6 +281,25 @@ func confirm_new_game() -> void:
 	confirmation_from_main_menu = false
 	_leave_pause_state()
 	start_new_run()
+
+
+func restart_same_seed() -> bool:
+	if run_session == null or not run_session.ended or catalog == null:
+		return false
+	if run_session.content_version != catalog.content_version:
+		return false
+	var retry_seed := run_session.seed
+	return start_new_run(retry_seed)
+
+
+func toggle_simulation_speed() -> void:
+	if main_menu_view.visible or pause_active or run_session == null or run_session.ended:
+		return
+	if flow_view.screen != RunFlowView.Screen.GAMEPLAY:
+		return
+	gameplay_room.set_simulation_speed(2 if gameplay_room.simulation_speed == 1 else 1)
+	AudioManager.play_ui_click()
+	_refresh_speed_button()
 
 
 func request_main_menu_confirmation() -> void:
@@ -354,6 +389,16 @@ func toggle_screen_shake() -> void:
 	app_settings.shake_enabled = not app_settings.shake_enabled
 	_save_app_settings()
 	settings_overlay.queue_redraw()
+
+
+func toggle_haptics() -> void:
+	if app_settings == null:
+		return
+	app_settings.haptics_enabled = not app_settings.haptics_enabled
+	_save_app_settings()
+	settings_overlay.queue_redraw()
+	if app_settings.haptics_enabled:
+		_try_haptic(25)
 
 
 func show_tutorial_from_settings() -> void:
@@ -458,6 +503,7 @@ func _show_tutorial() -> void:
 	tutorial_coach_step = -1
 	gameplay_room.set_simulation_enabled(false)
 	pause_button.visible = false
+	speed_button.visible = false
 	tutorial_overlay.show_tutorial()
 
 
@@ -494,6 +540,7 @@ func pause_game() -> void:
 	pause_origin_screen = flow_view.screen
 	pause_active = true
 	pause_button.visible = false
+	speed_button.visible = false
 	pause_overlay.show_pause()
 	get_tree().paused = true
 
@@ -579,6 +626,8 @@ func select_route(option_id: StringName) -> bool:
 	flow_view.show_gameplay()
 	gameplay_room.set_simulation_enabled(true)
 	pause_button.visible = true
+	speed_button.visible = true
+	_refresh_speed_button()
 	if tutorial_coach_step == 2:
 		_finish_interactive_tutorial()
 	_save_stable()
@@ -596,6 +645,7 @@ func _on_room_finished(resolution: RoomResolution) -> void:
 		_record_run_result_if_needed()
 		_save_stable()
 		pause_button.visible = false
+		speed_button.visible = false
 		flow_view.show_run_result(run_session, profile, last_result_new_best)
 		return
 
@@ -609,6 +659,7 @@ func _on_room_finished(resolution: RoomResolution) -> void:
 		return
 	_save_stable()
 	pause_button.visible = true
+	speed_button.visible = false
 	flow_view.show_route_selection(run_session)
 	if tutorial_coach_step == 1 and run_session.room_number == 1:
 		tutorial_coach_step = 2
@@ -651,9 +702,13 @@ func _on_shot_resolved(resolution: RoomResolution) -> void:
 
 
 func _on_block_destroyed(block_type: int) -> void:
-	if app_settings == null or not app_settings.shake_enabled:
+	if app_settings == null:
 		return
 	var is_core := block_type == BlockState.BlockType.CORE
+	if app_settings.haptics_enabled:
+		_try_haptic(70 if is_core else 20)
+	if not app_settings.shake_enabled:
+		return
 	gameplay_room.trigger_screen_shake(
 		7.0 if is_core else 3.0,
 		0.26 if is_core else 0.14,
@@ -709,14 +764,18 @@ func _restore_active_screen() -> void:
 			flow_view.show_gameplay()
 			gameplay_room.set_simulation_enabled(true)
 			pause_button.visible = true
+			speed_button.visible = true
+			_refresh_speed_button()
 		RunSession.Phase.ROUTE_SELECTION:
 			gameplay_room.set_simulation_enabled(false)
 			flow_view.show_route_selection(run_session)
 			pause_button.visible = true
+			speed_button.visible = false
 		RunSession.Phase.RUN_RESULT:
 			gameplay_room.set_simulation_enabled(false)
 			flow_view.show_run_result(run_session, profile, last_result_new_best)
 			pause_button.visible = false
+			speed_button.visible = false
 	_restore_tutorial_coach()
 
 
@@ -743,6 +802,7 @@ func _show_main_menu(can_continue: bool, notice: String = "") -> void:
 	_leave_pause_state()
 	pause_overlay.hide_overlay()
 	pause_button.visible = false
+	speed_button.visible = false
 	flow_view.show_gameplay()
 	gameplay_room.set_simulation_enabled(false)
 	if tutorial_overlay.mode == TutorialOverlay.Mode.COACH:
@@ -830,3 +890,28 @@ func _clear_storage_failure_state() -> void:
 	failed_storage_channels.clear()
 	if is_instance_valid(storage_notice):
 		storage_notice.hide_notice()
+
+
+func _create_run_id(run_seed: int) -> String:
+	run_id_sequence += 1
+	return "run_%d_%d_%d" % [
+		abs(run_seed),
+		int(Time.get_unix_time_from_system() * 1_000_000.0),
+		run_id_sequence,
+	]
+
+
+func _refresh_speed_button() -> void:
+	if not is_instance_valid(speed_button):
+		return
+	speed_button.text = "×%d" % gameplay_room.simulation_speed
+
+
+func _try_haptic(duration_msec: int) -> void:
+	if not OS.has_feature("android"):
+		return
+	var now_msec := Time.get_ticks_msec()
+	if now_msec - last_haptic_tick_msec < HAPTIC_COOLDOWN_MSEC:
+		return
+	last_haptic_tick_msec = now_msec
+	Input.vibrate_handheld(duration_msec)
