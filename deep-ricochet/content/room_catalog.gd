@@ -35,9 +35,18 @@ static func load_from_manifest(path: String) -> RoomCatalog:
 		push_error("Oda kataloğu templates dizisi içermelidir: %s" % path)
 		return null
 	for raw_path: Variant in raw_paths:
-		var template := RoomTemplateLoader.load_from_file(str(raw_path))
+		var template_path := str(raw_path)
+		var template := RoomTemplateLoader.load_from_file(template_path)
 		if template == null:
-			return null
+			template = RoomTemplateLoader.create_verified_fallback_for_path(
+				template_path,
+				catalog.content_version,
+			)
+			if template == null:
+				return null
+			push_warning(
+				"Oda şablonu doğrulanamadı; doğrulanmış yedek kullanılıyor: %s" % template_path
+			)
 		catalog.templates.append(template)
 
 	var errors := catalog.validation_errors()

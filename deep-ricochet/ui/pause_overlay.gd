@@ -4,6 +4,7 @@ extends Control
 enum Mode {
 	PAUSE,
 	CONFIRM_NEW_GAME,
+	CONFIRM_MAIN_MENU,
 }
 
 const VIEW_SIZE := Vector2(540.0, 960.0)
@@ -40,6 +41,13 @@ func show_new_game_confirmation() -> void:
 	queue_redraw()
 
 
+func show_main_menu_confirmation() -> void:
+	mode = Mode.CONFIRM_MAIN_MENU
+	visible = true
+	mouse_filter = Control.MOUSE_FILTER_STOP
+	queue_redraw()
+
+
 func hide_overlay() -> void:
 	visible = false
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -69,7 +77,7 @@ func _gui_input(event: InputEvent) -> void:
 			controller.request_new_game_confirmation(false)
 		elif MAIN_MENU_BUTTON.has_point(event_position):
 			AudioManager.play_ui_click()
-			controller.return_to_main_menu()
+			controller.request_main_menu_confirmation()
 		elif SETTINGS_BUTTON.has_point(event_position):
 			AudioManager.play_ui_click()
 			controller.open_settings_from_pause()
@@ -79,7 +87,10 @@ func _gui_input(event: InputEvent) -> void:
 			controller.cancel_new_game_confirmation()
 		elif CONFIRM_BUTTON.has_point(event_position):
 			AudioManager.play_ui_click()
-			controller.confirm_new_game()
+			if mode == Mode.CONFIRM_MAIN_MENU:
+				controller.confirm_main_menu_return()
+			else:
+				controller.confirm_new_game()
 
 
 func _draw() -> void:
@@ -101,14 +112,18 @@ func _draw_pause() -> void:
 
 
 func _draw_confirmation() -> void:
+	var is_main_menu := mode == Mode.CONFIRM_MAIN_MENU
+	var title := tr("CONFIRM_MENU_TITLE") if is_main_menu else tr("CONFIRM_NEW_TITLE")
+	var body := tr("CONFIRM_MENU_BODY") if is_main_menu else tr("CONFIRM_NEW_BODY")
+	var action := tr("CONFIRM_MENU_ACTION") if is_main_menu else tr("PAUSE_NEW_GAME")
 	DeepUI.draw_panel(self, Rect2(38.0, 220.0, 464.0, 455.0), DeepUI.PANEL_SOFT, DeepUI.BORDER, 22, 2, true)
-	DeepUI.draw_title_plate(self, tr("CONFIRM_NEW_TITLE"), Rect2(70.0, 260.0, 400.0, 64.0), 30, DeepUI.DANGER)
+	DeepUI.draw_title_plate(self, title, Rect2(70.0, 260.0, 400.0, 64.0), 27, DeepUI.DANGER)
 	DeepUI.draw_centered(
 		self,
-		tr("CONFIRM_NEW_BODY"),
+		body,
 		Rect2(50.0, 355.0, 440.0, 58.0),
 		17,
 		DeepUI.MUTED,
 	)
 	DeepUI.draw_button(self, CANCEL_BUTTON, tr("COMMON_CANCEL"), &"ghost", 19)
-	DeepUI.draw_button(self, CONFIRM_BUTTON, tr("PAUSE_NEW_GAME"), &"danger", 19)
+	DeepUI.draw_button(self, CONFIRM_BUTTON, action, &"danger", 17)

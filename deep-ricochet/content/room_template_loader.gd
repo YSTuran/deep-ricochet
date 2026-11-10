@@ -1,6 +1,15 @@
 class_name RoomTemplateLoader
 extends RefCounted
 
+const SAFE_FALLBACK_PATHS := [
+	"res://content/rooms/safe_01.json",
+	"res://content/rooms/safe_02.json",
+]
+const BONUS_FALLBACK_PATHS := [
+	"res://content/rooms/bonus_01.json",
+	"res://content/rooms/bonus_02.json",
+]
+
 
 static func load_from_file(path: String) -> RoomTemplate:
 	if not FileAccess.file_exists(path):
@@ -52,6 +61,86 @@ static func from_dictionary(data: Dictionary) -> RoomTemplate:
 			continue
 		template.blocks.append(_block_from_dictionary(raw_block))
 	return template
+
+
+static func create_verified_fallback_for_path(
+	failed_path: String,
+	content_version: String = "",
+) -> RoomTemplate:
+	var room_id := StringName(failed_path.get_file().get_basename())
+	var family := RoomTemplate.Family.BONUS \
+		if str(room_id).begins_with("bonus_") else RoomTemplate.Family.SAFE
+	return create_verified_fallback(
+		family,
+		room_id,
+		str(room_id).replace("_", " ").capitalize(),
+		content_version,
+		failed_path,
+	)
+
+
+static func repair_from_verified_fallback(template: RoomTemplate) -> bool:
+	if template == null:
+		return false
+	var repaired := create_verified_fallback(
+		template.family,
+		template.room_id,
+		template.display_name,
+		template.content_version,
+	)
+	if repaired == null:
+		return false
+	_copy_template(repaired, template)
+	return template.is_valid()
+
+
+static func create_verified_fallback(
+	family: int,
+	room_id: StringName,
+	display_name: String,
+	content_version: String,
+	excluded_path: String = "",
+) -> RoomTemplate:
+	var normalized_family := RoomTemplate.Family.BONUS \
+		if family == RoomTemplate.Family.BONUS else RoomTemplate.Family.SAFE
+	var fallback_paths: Array = BONUS_FALLBACK_PATHS \
+		if normalized_family == RoomTemplate.Family.BONUS else SAFE_FALLBACK_PATHS
+	for fallback_path: String in fallback_paths:
+		if fallback_path == excluded_path:
+			continue
+		var source := load_from_file(fallback_path)
+		if source == null:
+			continue
+		var repaired := RoomTemplate.new()
+		_copy_template(source, repaired)
+		repaired.room_id = room_id if not room_id.is_empty() else source.room_id
+		repaired.display_name = display_name if not display_name.strip_edges().is_empty() \
+			else source.display_name
+		repaired.content_version = content_version if not content_version.strip_edges().is_empty() \
+			else source.content_version
+		return repaired if repaired.is_valid() else null
+	return null
+
+
+static func _copy_template(source: RoomTemplate, target: RoomTemplate) -> void:
+	target.schema_version = source.schema_version
+	target.room_id = source.room_id
+	target.display_name = source.display_name
+	target.family = source.family
+	target.content_version = source.content_version
+	target.width = source.width
+	target.height = source.height
+	target.multiplier_bps = source.multiplier_bps
+	target.passage_columns = source.passage_columns.duplicate()
+	target.example_angles = source.example_angles.duplicate()
+	target.blocks.clear()
+	for definition: RoomBlockDefinition in source.blocks:
+		target.blocks.append(RoomBlockDefinition.new(
+			definition.id,
+			definition.block_type,
+			definition.cell,
+			definition.hit_points,
+		))
 
 
 static func _block_from_dictionary(data: Dictionary) -> RoomBlockDefinition:

@@ -23,5 +23,6 @@ static func room_reward(
 	var raw_total := break_score
 	if succeeded:
 		raw_total += maxi(0, remaining_shots) * config.unused_shot_bonus
-	return floori(float(raw_total) * float(multiplier_bps) / 10_000.0)
+	@warning_ignore("integer_division")
+	return (raw_total * multiplier_bps) / 10_000
 

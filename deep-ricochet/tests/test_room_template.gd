@@ -7,6 +7,7 @@ const SAFE_ROOM_PATH := "res://content/rooms/safe_01.json"
 static func run(gameplay_room: GameplayRoom, config: GameConfig) -> void:
 	_test_template_load_and_board_isolation()
 	_test_invalid_template_rejected()
+	_test_gameplay_room_recovers_invalid_template(gameplay_room)
 	_test_gameplay_room_accepts_external_template(gameplay_room, config)
 
 
@@ -90,3 +91,19 @@ static func _test_gameplay_room_accepts_external_template(
 
 	var safe_room := RoomTemplateLoader.load_from_file(SAFE_ROOM_PATH)
 	assert(gameplay_room.load_room(safe_room))
+
+
+static func _test_gameplay_room_recovers_invalid_template(gameplay_room: GameplayRoom) -> void:
+	var invalid := RoomTemplate.new()
+	invalid.room_id = &"safe_recovery_test"
+	invalid.display_name = "Kurtarma Testi"
+	invalid.content_version = "test"
+	invalid.passage_columns = PackedInt32Array([3, 4])
+	invalid.example_angles = PackedFloat32Array([90.0])
+	assert(not invalid.is_valid())
+	assert(gameplay_room.load_room(invalid))
+	assert(gameplay_room.current_template == invalid)
+	assert(invalid.room_id == &"safe_recovery_test")
+	assert(invalid.is_valid())
+	assert(gameplay_room.board.core_count() == 1)
+	assert(not gameplay_room.board.is_core_destroyed())

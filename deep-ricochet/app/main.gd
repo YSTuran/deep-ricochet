@@ -14,6 +14,7 @@ extends Node
 @onready var pause_overlay: PauseOverlay = $Interface/PauseOverlay
 @onready var settings_overlay: SettingsOverlay = $Interface/SettingsOverlay
 @onready var tutorial_overlay: TutorialOverlay = $Interface/TutorialOverlay
+@onready var storage_notice: Control = $Interface/StorageNotice
 
 enum SettingsContext {
 	MAIN_MENU,
@@ -32,6 +33,7 @@ var app_settings: AppSettings
 var last_save_error: String
 var last_recovery_message: String
 var last_result_new_best := false
+var failed_storage_channels: Dictionary[StringName, bool] = {}
 
 var pending_continue_snapshot: RunSnapshot
 var pending_continue_interrupted := false
@@ -95,7 +97,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			settings_overlay.show_settings()
 		else:
 			close_settings()
-	elif pause_overlay.visible and pause_overlay.mode == PauseOverlay.Mode.CONFIRM_NEW_GAME:
+	elif pause_overlay.visible and pause_overlay.mode != PauseOverlay.Mode.PAUSE:
 		cancel_new_game_confirmation()
 	elif pause_active:
 		resume_game()
@@ -128,7 +130,7 @@ func _handle_back_request() -> void:
 			settings_overlay.show_settings()
 		else:
 			close_settings()
-	elif pause_overlay.visible and pause_overlay.mode == PauseOverlay.Mode.CONFIRM_NEW_GAME:
+	elif pause_overlay.visible and pause_overlay.mode != PauseOverlay.Mode.PAUSE:
 		cancel_new_game_confirmation()
 	elif pause_active:
 		resume_game()
@@ -265,6 +267,20 @@ func confirm_new_game() -> void:
 	start_new_run()
 
 
+func request_main_menu_confirmation() -> void:
+	if not pause_active or run_session == null or run_session.ended:
+		return
+	confirmation_from_main_menu = false
+	pause_overlay.show_main_menu_confirmation()
+
+
+func confirm_main_menu_return() -> void:
+	if not pause_active or pause_overlay.mode != PauseOverlay.Mode.CONFIRM_MAIN_MENU:
+		return
+	pause_overlay.hide_overlay()
+	return_to_main_menu()
+
+
 func open_settings_from_main_menu() -> void:
 	settings_context = SettingsContext.MAIN_MENU
 	settings_overlay.show_settings()
@@ -385,6 +401,7 @@ func confirm_reset_progress() -> bool:
 	run_session = null
 	last_result_new_best = false
 	tutorial_coach_step = -1
+	_clear_storage_failure_state()
 	_clear_pending_continue()
 	settings_overlay.hide_overlay()
 	tutorial_overlay.hide_overlay()
@@ -417,6 +434,7 @@ func confirm_delete_all_data() -> bool:
 	run_session = null
 	last_result_new_best = false
 	tutorial_coach_step = -1
+	_clear_storage_failure_state()
 	_clear_pending_continue()
 	TranslationServer.set_locale(str(app_settings.language))
 	AudioManager.apply_settings(app_settings)
@@ -531,6 +549,7 @@ func show_main_menu_from_result() -> bool:
 		continue_in_memory = true
 		_show_main_menu(true, tr("NOTICE_STORAGE_FAILED"))
 		return false
+	_mark_storage_write_succeeded(&"run")
 	run_session = null
 	_clear_pending_continue()
 	_show_main_menu(false)
@@ -619,8 +638,10 @@ func _on_shot_will_start() -> void:
 	if not persistence_enabled or save_service == null:
 		return
 	var snapshot := create_snapshot()
-	if not save_service.save_pre_shot(snapshot):
-		_report_save_error()
+	if save_service.save_pre_shot(snapshot):
+		_mark_storage_write_succeeded(&"run")
+	else:
+		_report_save_error(save_service.last_error, &"run")
 
 
 func _on_shot_resolved(resolution: RoomResolution) -> void:
@@ -761,23 +782,51 @@ func _record_run_result_if_needed() -> void:
 
 
 func _save_profile() -> void:
-	if profile_service != null and not profile_service.save_profile(profile):
-		push_warning("Profil kaydedilemedi: %s" % profile_service.last_error)
+	if profile_service == null:
+		return
+	if profile_service.save_profile(profile):
+		_mark_storage_write_succeeded(&"profile")
+	else:
+		_report_save_error(profile_service.last_error, &"profile")
 
 
 func _save_app_settings() -> void:
-	if settings_service != null and not settings_service.save_settings(app_settings):
-		push_warning("Ayarlar kaydedilemedi: %s" % settings_service.last_error)
+	if settings_service == null:
+		return
+	if settings_service.save_settings(app_settings):
+		_mark_storage_write_succeeded(&"settings")
+	else:
+		_report_save_error(settings_service.last_error, &"settings")
 
 
 func _save_stable() -> void:
 	if not persistence_enabled or save_service == null:
 		return
 	var snapshot := create_snapshot()
-	if not save_service.save_stable(snapshot):
-		_report_save_error()
+	if save_service.save_stable(snapshot):
+		_mark_storage_write_succeeded(&"run")
+	else:
+		_report_save_error(save_service.last_error, &"run")
 
 
-func _report_save_error() -> void:
-	last_save_error = save_service.last_error if save_service != null else "Kayıt servisi hazır değil."
-	push_warning("Oyun kaydedilemedi: %s" % last_save_error)
+func _report_save_error(error_message: String = "", channel: StringName = &"run") -> void:
+	last_save_error = error_message
+	if last_save_error.is_empty():
+		last_save_error = save_service.last_error if save_service != null else "Kayıt servisi hazır değil."
+	push_warning("Yerel veri yazılamadı: %s" % last_save_error)
+	var failure_episode_active := not failed_storage_channels.is_empty()
+	failed_storage_channels[channel] = true
+	if failure_episode_active:
+		return
+	if is_instance_valid(storage_notice):
+		storage_notice.show_notice(tr("NOTICE_STORAGE_FAILED"))
+
+
+func _mark_storage_write_succeeded(channel: StringName) -> void:
+	failed_storage_channels.erase(channel)
+
+
+func _clear_storage_failure_state() -> void:
+	failed_storage_channels.clear()
+	if is_instance_valid(storage_notice):
+		storage_notice.hide_notice()

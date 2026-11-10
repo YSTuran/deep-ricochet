@@ -15,6 +15,9 @@ PAUSE_MAIN_MENU,MAIN MENU,ANA MENÜ
 PAUSE_SETTINGS,SETTINGS,AYARLAR
 CONFIRM_NEW_TITLE,NEW GAME?,YENİ OYUN?
 CONFIRM_NEW_BODY,The current run will be replaced. Profile and settings stay.,Mevcut koşu bırakılacak. Profil ve ayarlar korunacak.
+CONFIRM_MENU_TITLE,RETURN TO MAIN MENU?,ANA MENÜYE DÖNÜLSÜN MÜ?
+CONFIRM_MENU_BODY,Your run will be saved and can be continued.,Koşun kaydedilecek ve daha sonra devam edebileceksin.
+CONFIRM_MENU_ACTION,RETURN TO MENU,MENÜYE DÖN
 COMMON_CANCEL,CANCEL,VAZGEÇ
 COMMON_BACK,BACK,GERİ
 SETTINGS_TITLE,SETTINGS,AYARLAR
@@ -62,7 +65,8 @@ RESULT_REPLAY,PLAY AGAIN,YENİDEN OYNA
 RESULT_MAIN_MENU,MAIN MENU,ANA MENÜ
 HUD_TITLE,DEEP RICOCHET • %s,DEEP RICOCHET • %s
 HUD_ROOM_CHIP,ROOM %d/%d,ODA %d/%d
-HUD_SCORE_CHIP,SCORE %d,PUAN %d
+HUD_SCORE_CHIP,TOTAL %d,TOPLAM %d
+HUD_ROOM_SCORE_CHIP,ROOM %d,ODA %d
 HUD_SHOTS_CHIP,SHOT %d/%d,ATIŞ %d/%d
 HUD_STATS,Room %d/%d • Total %d • Room %d • Shots %d/%d • ×%.1f,Oda %d/%d • Toplam %d • Oda %d • Atış %d/%d • ×%.1f
 HUD_VOLLEY_HINT,Each valid shot launches 8 balls at 0.08 s intervals.,Her geçerli atışta 8 top 0.08 sn arayla çıkar.

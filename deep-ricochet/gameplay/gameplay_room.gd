@@ -45,6 +45,12 @@ func _ready() -> void:
 	status_text = tr("STATUS_AIM")
 	if current_template == null:
 		current_template = RoomTemplateLoader.load_from_file(initial_room_template_path)
+		if current_template == null:
+			current_template = RoomTemplateLoader.create_verified_fallback_for_path(
+				initial_room_template_path
+			)
+			if current_template != null:
+				push_warning("Başlangıç odası yerine doğrulanmış yedek oda kullanılıyor.")
 	if current_template == null or not _start_loaded_room():
 		status_text = tr("STATUS_TEMPLATE_FAILED")
 		set_process_unhandled_input(false)
@@ -57,8 +63,15 @@ func load_room(template: RoomTemplate) -> bool:
 		return false
 	var errors := template.validation_errors()
 	if not errors.is_empty():
-		push_error("Geçersiz oda şablonu:\n- %s" % "\n- ".join(errors))
-		return false
+		if not RoomTemplateLoader.repair_from_verified_fallback(template):
+			push_error("Geçersiz oda şablonu kurtarılamadı:\n- %s" % "\n- ".join(errors))
+			return false
+		push_warning(
+			"Geçersiz oda şablonu doğrulanmış yedek düzenle onarıldı (%s):\n- %s" % [
+				template.room_id,
+				"\n- ".join(errors),
+			]
+		)
 
 	if not is_node_ready():
 		current_template = template

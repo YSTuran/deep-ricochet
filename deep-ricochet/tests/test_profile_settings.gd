@@ -211,6 +211,8 @@ static func _test_controller_profile_tutorial_and_locale(controller: RunControll
 	assert(controller.profile.best_score == 321)
 	assert(controller.settings_overlay.visible)
 	assert(not controller.settings_overlay.notice.is_empty())
+	assert(controller.storage_notice.visible)
+	assert(controller.failed_storage_channels.has(&"profile"))
 	controller.profile_service = null
 	controller.settings_overlay.show_delete_all_confirmation()
 	assert(controller.confirm_delete_all_data())
@@ -219,6 +221,8 @@ static func _test_controller_profile_tutorial_and_locale(controller: RunControll
 	assert(controller.app_settings.language == &"tr")
 	assert(is_equal_approx(controller.app_settings.sfx_volume, 0.8))
 	assert(is_equal_approx(controller.app_settings.music_volume, 0.28))
+	assert(controller.failed_storage_channels.is_empty())
+	assert(not controller.storage_notice.visible)
 	assert(controller.main_menu_view.visible)
 	controller.tutorial_enabled = false
 

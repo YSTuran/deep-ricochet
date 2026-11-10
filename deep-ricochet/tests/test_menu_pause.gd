@@ -8,6 +8,9 @@ static func run(controller: RunController, parent: Node) -> void:
 	assert(not controller.main_menu_view.continue_available)
 	assert(controller.run_session == null)
 	assert(not controller.gameplay_room.simulation_enabled)
+	assert(controller.main_menu_view._new_game_button_rect() == MainMenuView.CONTINUE_BUTTON)
+	assert(controller.main_menu_view._settings_button_rect() == MainMenuView.NEW_GAME_BUTTON)
+	assert(controller.storage_notice != null)
 	_assert_blank_release_is_silent(controller.main_menu_view)
 
 	controller.open_settings_from_main_menu()
@@ -64,10 +67,16 @@ static func run(controller: RunController, parent: Node) -> void:
 	var expected_seed := controller.run_session.seed
 	var expected_template := controller.run_session.current_template_id
 	controller.pause_game()
-	controller.return_to_main_menu()
+	controller.request_main_menu_confirmation()
+	assert(controller.pause_overlay.mode == PauseOverlay.Mode.CONFIRM_MAIN_MENU)
+	controller.cancel_new_game_confirmation()
+	assert(controller.pause_overlay.mode == PauseOverlay.Mode.PAUSE)
+	controller.request_main_menu_confirmation()
+	controller.confirm_main_menu_return()
 	assert(not parent.get_tree().paused)
 	assert(controller.main_menu_view.visible)
 	assert(controller.main_menu_view.continue_available)
+	assert(controller.main_menu_view._new_game_button_rect() == MainMenuView.NEW_GAME_BUTTON)
 	assert(not controller.gameplay_room.simulation_enabled)
 	assert(controller.continue_saved_run())
 	assert(controller.run_session.seed == expected_seed)
@@ -75,7 +84,8 @@ static func run(controller: RunController, parent: Node) -> void:
 	assert(controller.gameplay_room.simulation_enabled)
 
 	controller.pause_game()
-	controller.return_to_main_menu()
+	controller.request_main_menu_confirmation()
+	controller.confirm_main_menu_return()
 	controller.request_new_game_from_menu()
 	assert(controller.pause_overlay.mode == PauseOverlay.Mode.CONFIRM_NEW_GAME)
 	controller.cancel_new_game_confirmation()

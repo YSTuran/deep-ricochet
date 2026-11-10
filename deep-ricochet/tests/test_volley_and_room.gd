@@ -70,6 +70,8 @@ static func _test_full_timeout(config: GameConfig) -> void:
 
 
 static func _test_scoring_and_room_resolution(config: GameConfig) -> void:
+	assert(ScoreCalculator.room_reward(25, 0, 15_000, false, config) == 37)
+
 	var guard_board := BoardModel.new()
 	var guard_block := BlockState.new(29, BlockState.BlockType.NORMAL, Vector2i(7, 0), 1)
 	assert(guard_board.add_block(guard_block))

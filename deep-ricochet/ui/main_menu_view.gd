@@ -51,10 +51,10 @@ func _gui_input(event: InputEvent) -> void:
 	if continue_available and CONTINUE_BUTTON.has_point(event_position):
 		AudioManager.play_ui_click()
 		controller.continue_saved_run()
-	elif NEW_GAME_BUTTON.has_point(event_position):
+	elif _new_game_button_rect().has_point(event_position):
 		AudioManager.play_ui_click()
 		controller.request_new_game_from_menu()
-	elif SETTINGS_BUTTON.has_point(event_position):
+	elif _settings_button_rect().has_point(event_position):
 		AudioManager.play_ui_click()
 		controller.open_settings_from_main_menu()
 
@@ -107,16 +107,14 @@ func _draw() -> void:
 		)
 	if continue_available:
 		DeepUI.draw_button(self, CONTINUE_BUTTON, tr("MENU_CONTINUE"), &"primary", 24)
-	else:
-		DeepUI.draw_button(self, CONTINUE_BUTTON, tr("MENU_NO_SAVE"), &"ghost", 17, false)
 	DeepUI.draw_button(
 		self,
-		NEW_GAME_BUTTON,
+		_new_game_button_rect(),
 		tr("MENU_NEW_GAME"),
 		&"secondary" if continue_available else &"primary",
 		22,
 	)
-	DeepUI.draw_button(self, SETTINGS_BUTTON, tr("MENU_SETTINGS"), &"ghost", 19)
+	DeepUI.draw_button(self, _settings_button_rect(), tr("MENU_SETTINGS"), &"ghost", 19)
 	if not notice.is_empty():
 		DeepUI.draw_centered(self, notice, Rect2(45.0, 800.0, 450.0, 58.0), 15, DeepUI.MUTED)
 	DeepUI.draw_centered(
@@ -126,3 +124,11 @@ func _draw() -> void:
 		14,
 		Color(DeepUI.MUTED, 0.7),
 	)
+
+
+func _new_game_button_rect() -> Rect2:
+	return NEW_GAME_BUTTON if continue_available else CONTINUE_BUTTON
+
+
+func _settings_button_rect() -> Rect2:
+	return SETTINGS_BUTTON if continue_available else NEW_GAME_BUTTON
