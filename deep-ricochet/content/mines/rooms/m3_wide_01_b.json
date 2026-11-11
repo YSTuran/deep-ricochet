@@ -1,0 +1,103 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        6,
+        1
+      ],
+      "hitPoints": 4,
+      "id": 30151,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        0,
+        2
+      ],
+      "hitPoints": 5,
+      "id": 30152,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        7,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 30153,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        2,
+        4
+      ],
+      "hitPoints": 5,
+      "id": 30154,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        5,
+        5
+      ],
+      "hitPoints": 6,
+      "id": 30155,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        1,
+        6
+      ],
+      "hitPoints": 0,
+      "id": 30156,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        6,
+        7
+      ],
+      "hitPoints": 6,
+      "id": 30157,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        2,
+        7
+      ],
+      "hitPoints": 6,
+      "id": 30158,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        4,
+        8
+      ],
+      "hitPoints": 6,
+      "id": 30249,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-1",
+  "displayName": "Basınç Tüneli",
+  "displayNameKey": "MINE_3_WIDE_01",
+  "exampleAngles": [
+    86.5
+  ],
+  "family": "safe",
+  "height": 8,
+  "id": "m3_wide_01_b",
+  "mineId": "mine_03",
+  "multiplierBps": 10000,
+  "passageColumns": [
+    3,
+    4
+  ],
+  "role": "wide",
+  "schemaVersion": 1,
+  "width": 8
+}

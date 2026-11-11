@@ -242,6 +242,8 @@ static func _test_snapshot_integrity(controller: RunController, config: GameConf
 	var snapshot := controller.create_snapshot()
 	assert(snapshot != null)
 	assert(snapshot.schema_version == RunSnapshot.SCHEMA_VERSION)
+	assert(snapshot.mine_id == &"mine_01")
+	assert(snapshot.run_kind == RunSession.RunKind.NORMAL)
 	assert(snapshot.validation_errors(controller.catalog, config).is_empty())
 	var result := snapshot.room_results[0]
 	assert(result.schema_version == RoomResultRecord.SCHEMA_VERSION)
@@ -249,6 +251,9 @@ static func _test_snapshot_integrity(controller: RunController, config: GameConf
 	var legacy_data := snapshot.to_dictionary()
 	legacy_data["schemaVersion"] = RunSnapshot.LEGACY_SCHEMA_VERSION
 	legacy_data["rngState"] = float(snapshot.rng_state)
+	legacy_data.erase("mineId")
+	legacy_data.erase("runKind")
+	legacy_data.erase("dailyKey")
 	var legacy_snapshot := RunSnapshot.from_dictionary(legacy_data)
 	assert(legacy_snapshot.validation_errors(controller.catalog, config).is_empty())
 	assert(legacy_snapshot.rng_state_for_restore(controller.catalog) == snapshot.rng_state)

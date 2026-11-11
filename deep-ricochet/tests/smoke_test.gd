@@ -30,9 +30,11 @@ func _ready() -> void:
 	var run_controller: RunController = main_instance
 	var gameplay_room: GameplayRoom = run_controller.gameplay_room
 	assert(run_controller.catalog != null)
-	assert(run_controller.catalog.templates.size() == 24)
+	assert(run_controller.mine_registry != null)
+	assert(run_controller.mine_registry.mines.size() == 3)
+	assert(run_controller.catalog.templates.size() == 42)
 	assert(run_controller.catalog.route_capacity_errors(config.room_count).is_empty())
-	assert(not run_controller.catalog.route_capacity_errors(13).is_empty())
+	assert(not run_controller.catalog.route_capacity_errors(8).is_empty())
 	assert(run_controller.run_session == null)
 	assert(run_controller.main_menu_view.visible)
 	await MenuPauseTests.run(run_controller, self)

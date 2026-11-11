@@ -1,0 +1,103 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        7,
+        1
+      ],
+      "hitPoints": 4,
+      "id": 30051,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        1,
+        1
+      ],
+      "hitPoints": 5,
+      "id": 30052,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        6,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 30053,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        2,
+        3
+      ],
+      "hitPoints": 5,
+      "id": 30054,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        5,
+        5
+      ],
+      "hitPoints": 6,
+      "id": 30055,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        1,
+        5
+      ],
+      "hitPoints": 6,
+      "id": 30056,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        7,
+        7
+      ],
+      "hitPoints": 6,
+      "id": 30057,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        2,
+        7
+      ],
+      "hitPoints": 6,
+      "id": 30058,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        4,
+        8
+      ],
+      "hitPoints": 6,
+      "id": 30149,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-1",
+  "displayName": "Çekirdek Kapısı",
+  "displayNameKey": "MINE_3_START",
+  "exampleAngles": [
+    86.5
+  ],
+  "family": "safe",
+  "height": 8,
+  "id": "m3_start_b",
+  "mineId": "mine_03",
+  "multiplierBps": 10000,
+  "passageColumns": [
+    3,
+    4
+  ],
+  "role": "start",
+  "schemaVersion": 1,
+  "width": 8
+}

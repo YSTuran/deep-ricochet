@@ -2,9 +2,10 @@ class_name MainMenuView
 extends Control
 
 const VIEW_SIZE := Vector2(540.0, 960.0)
-const CONTINUE_BUTTON := Rect2(80.0, 510.0, 380.0, 76.0)
-const NEW_GAME_BUTTON := Rect2(80.0, 610.0, 380.0, 76.0)
-const SETTINGS_BUTTON := Rect2(80.0, 710.0, 380.0, 66.0)
+const CONTINUE_BUTTON := Rect2(80.0, 500.0, 380.0, 66.0)
+const NEW_GAME_BUTTON := Rect2(80.0, 580.0, 380.0, 66.0)
+const DAILY_BUTTON := Rect2(80.0, 660.0, 380.0, 66.0)
+const SETTINGS_BUTTON := Rect2(80.0, 740.0, 380.0, 62.0)
 const CORE_TEXTURE: Texture2D = preload("res://art/source/cekirdek.png")
 
 var controller: RunController
@@ -54,6 +55,9 @@ func _gui_input(event: InputEvent) -> void:
 	elif _new_game_button_rect().has_point(event_position):
 		AudioManager.play_ui_click()
 		controller.request_new_game_from_menu()
+	elif _daily_button_rect().has_point(event_position):
+		AudioManager.play_ui_click()
+		controller.request_daily_run()
 	elif _settings_button_rect().has_point(event_position):
 		AudioManager.play_ui_click()
 		controller.open_settings_from_main_menu()
@@ -114,9 +118,14 @@ func _draw() -> void:
 		&"secondary" if continue_available else &"primary",
 		22,
 	)
+	var daily_label := tr("MENU_DAILY_MINE")
+	if controller != null and controller.profile != null \
+		and controller.profile.daily_key == controller.current_daily_key():
+		daily_label = tr("MENU_DAILY_SCORE") % controller.profile.daily_best_score
+	DeepUI.draw_button(self, _daily_button_rect(), daily_label, &"core", 19)
 	DeepUI.draw_button(self, _settings_button_rect(), tr("MENU_SETTINGS"), &"ghost", 19)
 	if not notice.is_empty():
-		DeepUI.draw_centered(self, notice, Rect2(45.0, 800.0, 450.0, 58.0), 15, DeepUI.MUTED)
+		DeepUI.draw_centered(self, notice, Rect2(45.0, 818.0, 450.0, 52.0), 14, DeepUI.MUTED)
 	DeepUI.draw_centered(
 		self,
 		tr("MENU_OFFLINE"),
@@ -131,4 +140,8 @@ func _new_game_button_rect() -> Rect2:
 
 
 func _settings_button_rect() -> Rect2:
-	return SETTINGS_BUTTON if continue_available else NEW_GAME_BUTTON
+	return SETTINGS_BUTTON if continue_available else DAILY_BUTTON
+
+
+func _daily_button_rect() -> Rect2:
+	return DAILY_BUTTON if continue_available else NEW_GAME_BUTTON

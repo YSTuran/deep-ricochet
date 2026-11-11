@@ -1,0 +1,103 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        7,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 30351,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        2,
+        2
+      ],
+      "hitPoints": 4,
+      "id": 30352,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        5,
+        3
+      ],
+      "hitPoints": 5,
+      "id": 30353,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        0,
+        4
+      ],
+      "hitPoints": 5,
+      "id": 30354,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        6,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 30355,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        1,
+        5
+      ],
+      "hitPoints": 6,
+      "id": 30356,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        7,
+        7
+      ],
+      "hitPoints": 6,
+      "id": 30357,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        2,
+        7
+      ],
+      "hitPoints": 6,
+      "id": 30358,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        4,
+        8
+      ],
+      "hitPoints": 6,
+      "id": 30449,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-1",
+  "displayName": "Derin Kemer",
+  "displayNameKey": "MINE_3_WIDE_03",
+  "exampleAngles": [
+    86.5
+  ],
+  "family": "safe",
+  "height": 8,
+  "id": "m3_wide_03_b",
+  "mineId": "mine_03",
+  "multiplierBps": 10000,
+  "passageColumns": [
+    3,
+    4
+  ],
+  "role": "wide",
+  "schemaVersion": 1,
+  "width": 8
+}

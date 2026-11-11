@@ -1,14 +1,18 @@
 class_name RunSnapshot
 extends RefCounted
 
-const SCHEMA_VERSION := 3
-const LEGACY_SCHEMA_VERSION := 2
+const SCHEMA_VERSION := 4
+const LEGACY_SCHEMA_VERSION := 3
+const OLDEST_SUPPORTED_SCHEMA_VERSION := 2
 
 var schema_version: int = SCHEMA_VERSION
 var run_id: String
 var seed: int
 var rng_state: int
 var content_version: String
+var mine_id: StringName = &"mine_01"
+var run_kind: int = RunSession.RunKind.NORMAL
+var daily_key: String
 var room_count: int
 var room_number: int
 var phase: int
@@ -41,6 +45,9 @@ static func capture(
 	snapshot.seed = session.seed
 	snapshot.rng_state = current_rng_state
 	snapshot.content_version = session.content_version
+	snapshot.mine_id = session.mine_id
+	snapshot.run_kind = session.run_kind
+	snapshot.daily_key = session.daily_key
 	snapshot.room_count = session.room_count
 	snapshot.room_number = session.room_number
 	snapshot.phase = int(session.phase)
@@ -73,6 +80,9 @@ static func from_dictionary(data: Dictionary) -> RunSnapshot:
 	snapshot.seed = int(data.get("seed", 0))
 	snapshot.rng_state = int(str(data.get("rngState", "0")))
 	snapshot.content_version = str(data.get("contentVersion", ""))
+	snapshot.mine_id = StringName(str(data.get("mineId", "mine_01")))
+	snapshot.run_kind = int(data.get("runKind", RunSession.RunKind.NORMAL))
+	snapshot.daily_key = str(data.get("dailyKey", ""))
 	snapshot.room_count = int(data.get("roomCount", 0))
 	snapshot.room_number = int(data.get("roomNumber", 0))
 	snapshot.phase = int(data.get("phase", -1))
@@ -116,6 +126,9 @@ func to_dictionary() -> Dictionary:
 		"seed": seed,
 		"rngState": str(rng_state),
 		"contentVersion": content_version,
+		"mineId": str(mine_id),
+		"runKind": run_kind,
+		"dailyKey": daily_key,
 		"roomCount": room_count,
 		"roomNumber": room_number,
 		"phase": phase,
@@ -139,12 +152,20 @@ func to_dictionary() -> Dictionary:
 
 func validation_errors(catalog: RoomCatalog, config: GameConfig) -> PackedStringArray:
 	var errors := PackedStringArray()
-	if schema_version != SCHEMA_VERSION and schema_version != LEGACY_SCHEMA_VERSION:
+	if schema_version not in [SCHEMA_VERSION, LEGACY_SCHEMA_VERSION, OLDEST_SUPPORTED_SCHEMA_VERSION]:
 		errors.append("Desteklenmeyen koşu snapshot sürümü.")
 	if run_id.strip_edges().is_empty() or seed == 0:
 		errors.append("Koşu kimliği veya seed geçersiz.")
 	if catalog == null or content_version != catalog.content_version:
 		errors.append("Kayıt içerik sürümü mevcut katalogla uyuşmuyor.")
+	if mine_id.is_empty():
+		errors.append("Koşu maden kimliği eksik.")
+	if run_kind < RunSession.RunKind.NORMAL or run_kind > RunSession.RunKind.DAILY:
+		errors.append("Koşu türü geçersiz.")
+	if run_kind == RunSession.RunKind.DAILY and daily_key.is_empty():
+		errors.append("Günlük koşu anahtarı eksik.")
+	elif run_kind == RunSession.RunKind.NORMAL and not daily_key.is_empty():
+		errors.append("Normal koşuda günlük anahtarı bulunamaz.")
 	if room_count != config.room_count or room_number < 1 or room_number > room_count:
 		errors.append("Oda ilerlemesi geçersiz.")
 	if phase < RunSession.Phase.PLAYING or phase > RunSession.Phase.RUN_RESULT:
@@ -163,11 +184,17 @@ func validation_errors(catalog: RoomCatalog, config: GameConfig) -> PackedString
 		errors.append("Sunulan şablon listesinde tekrar var.")
 	if catalog != null:
 		for template_id: StringName in selected_template_ids:
-			if catalog.get_template(template_id) == null:
+			var selected_template := catalog.get_template(template_id)
+			if selected_template == null:
 				errors.append("Seçilen şablon katalogda bulunmuyor: %s." % template_id)
+			elif selected_template.mine_id != mine_id:
+				errors.append("Seçilen şablon koşu madeniyle uyuşmuyor: %s." % template_id)
 		for template_id: StringName in offered_template_ids:
-			if catalog.get_template(template_id) == null:
+			var offered_template := catalog.get_template(template_id)
+			if offered_template == null:
 				errors.append("Sunulan şablon katalogda bulunmuyor: %s." % template_id)
+			elif offered_template.mine_id != mine_id:
+				errors.append("Sunulan şablon koşu madeniyle uyuşmuyor: %s." % template_id)
 	_validate_rng_history(catalog, errors)
 	if not selected_template_ids.has(current_template_id):
 		errors.append("Etkin şablon seçilmiş şablonlar arasında değil.")
@@ -206,6 +233,9 @@ func create_session(catalog: RoomCatalog) -> RunSession:
 	session.run_id = run_id
 	session.seed = seed
 	session.content_version = content_version
+	session.mine_id = mine_id
+	session.run_kind = run_kind
+	session.daily_key = daily_key
 	session.room_count = room_count
 	session.room_number = room_number
 	session.phase = phase
@@ -239,12 +269,12 @@ func rng_state_for_restore(catalog: RoomCatalog) -> int:
 		return rng_state
 	var history_rng := RandomNumberGenerator.new()
 	history_rng.seed = seed
-	var first_template := catalog.pick_first_room(history_rng)
+	var first_template := catalog.pick_first_room(history_rng, mine_id)
 	if first_template == null:
 		return rng_state
 	var used_ids: Dictionary[StringName, bool] = {first_template.room_id: true}
 	for pair_index in range(offered_template_ids.size() / 2):
-		var options := catalog.create_route_options(pair_index + 2, history_rng, used_ids)
+		var options := catalog.create_route_options(pair_index + 2, history_rng, used_ids, mine_id)
 		if options.size() != 2:
 			return rng_state
 		used_ids[options[0].template.room_id] = true
@@ -332,14 +362,14 @@ func _validate_rng_history(catalog: RoomCatalog, errors: PackedStringArray) -> v
 
 	var history_rng := RandomNumberGenerator.new()
 	history_rng.seed = seed
-	var first_template := catalog.pick_first_room(history_rng)
+	var first_template := catalog.pick_first_room(history_rng, mine_id)
 	if first_template == null or selected_template_ids[0] != first_template.room_id:
 		errors.append("İlk oda şablonu koşu seed değeriyle uyuşmuyor.")
 		return
 	var used_ids: Dictionary[StringName, bool] = {first_template.room_id: true}
 	var offer_pair_count := offered_template_ids.size() / 2
 	for pair_index in range(offer_pair_count):
-		var options := catalog.create_route_options(pair_index + 2, history_rng, used_ids)
+		var options := catalog.create_route_options(pair_index + 2, history_rng, used_ids, mine_id)
 		if options.size() != 2:
 			errors.append("Rota geçmişi seed değerinden yeniden üretilemedi.")
 			return

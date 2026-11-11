@@ -28,6 +28,11 @@ const DANGER_DARK := Color("4a292d")
 
 static var _style_cache: Dictionary = {}
 static var _cave_polygons: Array[PackedVector2Array] = []
+static var high_quality_enabled := false
+
+
+static func set_high_quality(enabled: bool) -> void:
+	high_quality_enabled = enabled
 
 
 static func is_emulated_mouse_event(event: InputEvent) -> bool:
@@ -43,6 +48,8 @@ static func draw_cave_background(canvas: CanvasItem, size: Vector2 = VIEW_SIZE) 
 	_ensure_cave_polygons(size)
 	canvas.draw_colored_polygon(_cave_polygons[0], CAVE_DARK)
 	canvas.draw_colored_polygon(_cave_polygons[1], CAVE_DARK)
+	if not high_quality_enabled:
+		return
 	canvas.draw_colored_polygon(_cave_polygons[2], CAVE_MID)
 	canvas.draw_colored_polygon(_cave_polygons[3], CAVE_MID)
 	canvas.draw_colored_polygon(_cave_polygons[4], CAVE_DARK)
@@ -186,6 +193,9 @@ static func draw_chip(
 
 
 static func draw_glow(canvas: CanvasItem, center: Vector2, radius: float, color: Color) -> void:
+	if not high_quality_enabled:
+		canvas.draw_circle(center, radius * 1.18, Color(color, 0.10))
+		return
 	canvas.draw_circle(center, radius * 1.55, Color(color, 0.06))
 	canvas.draw_circle(center, radius * 1.3, Color(color, 0.10))
 	canvas.draw_circle(center, radius * 1.12, Color(color, 0.14))

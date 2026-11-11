@@ -11,9 +11,18 @@ enum Family {
 	BONUS,
 }
 
+enum Role {
+	START,
+	WIDE,
+	NARROW,
+}
+
 var schema_version: int = SUPPORTED_SCHEMA_VERSION
 var room_id: StringName
 var display_name: String
+var display_name_key: StringName
+var mine_id: StringName = &"mine_01"
+var role: int = Role.WIDE
 var family: int = Family.SAFE
 var content_version: String
 var width: int = BoardGeometry.BLOCK_GRID_SIZE.x
@@ -37,6 +46,10 @@ func validation_errors() -> PackedStringArray:
 		errors.append("Oda kimliği boş olamaz.")
 	if display_name.strip_edges().is_empty():
 		errors.append("Oda adı boş olamaz.")
+	if mine_id.is_empty():
+		errors.append("Oda maden kimliği boş olamaz.")
+	if role < Role.START or role > Role.NARROW:
+		errors.append("Oda rolü start, wide veya narrow olmalıdır.")
 	if content_version.strip_edges().is_empty():
 		errors.append("İçerik sürümü boş olamaz.")
 	if family != Family.SAFE and family != Family.BONUS:
@@ -57,6 +70,10 @@ func validation_errors() -> PackedStringArray:
 		errors.append(
 			"Oda ailesi ile çarpan uyuşmuyor; beklenen: %d." % expected_multiplier
 		)
+	if (role == Role.START or role == Role.WIDE) and family != Family.SAFE:
+		errors.append("Başlangıç ve geniş geçit odaları güvenli ailede olmalıdır.")
+	elif role == Role.NARROW and family != Family.BONUS:
+		errors.append("Dar damar odaları bonus ailede olmalıdır.")
 	_validate_passage(errors)
 	if example_angles.is_empty() or example_angles.size() > 3:
 		errors.append("Şablon 1-3 örnek atış açısı içermelidir.")
@@ -151,7 +168,9 @@ func create_board() -> BoardModel:
 
 
 func localized_display_name() -> String:
-	var key := "ROOM_%s" % str(room_id).to_upper()
+	var key := str(display_name_key)
+	if key.is_empty():
+		key = "ROOM_%s" % str(room_id).to_upper()
 	var translated := TranslationServer.translate(key)
 	return display_name if translated == key else translated
 

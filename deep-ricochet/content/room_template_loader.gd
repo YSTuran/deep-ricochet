@@ -44,7 +44,13 @@ static func from_dictionary(data: Dictionary) -> RoomTemplate:
 	template.schema_version = int(data.get("schemaVersion", 0))
 	template.room_id = StringName(str(data.get("id", "")))
 	template.display_name = str(data.get("displayName", ""))
+	template.display_name_key = StringName(str(data.get("displayNameKey", "")))
+	template.mine_id = StringName(str(data.get("mineId", "mine_01")))
 	template.family = _family_from_name(str(data.get("family", "")))
+	template.role = _role_from_name(str(data.get(
+		"role",
+		"narrow" if template.family == RoomTemplate.Family.BONUS else "wide",
+	)))
 	template.content_version = str(data.get("contentVersion", ""))
 	template.width = int(data.get("width", 0))
 	template.height = int(data.get("height", 0))
@@ -126,6 +132,9 @@ static func _copy_template(source: RoomTemplate, target: RoomTemplate) -> void:
 	target.schema_version = source.schema_version
 	target.room_id = source.room_id
 	target.display_name = source.display_name
+	target.display_name_key = source.display_name_key
+	target.mine_id = source.mine_id
+	target.role = source.role
 	target.family = source.family
 	target.content_version = source.content_version
 	target.width = source.width
@@ -175,6 +184,17 @@ static func _family_from_name(family_name: String) -> int:
 			return RoomTemplate.Family.SAFE
 		"bonus":
 			return RoomTemplate.Family.BONUS
+	return -1
+
+
+static func _role_from_name(role_name: String) -> int:
+	match role_name.to_lower():
+		"start":
+			return RoomTemplate.Role.START
+		"wide":
+			return RoomTemplate.Role.WIDE
+		"narrow":
+			return RoomTemplate.Role.NARROW
 	return -1
 
 

@@ -10,6 +10,7 @@ extends Node
 @onready var gameplay_room: GameplayRoom = $GameplayRoom
 @onready var flow_view: RunFlowView = $Interface/RunFlowView
 @onready var main_menu_view: MainMenuView = $Interface/MainMenuView
+@onready var mine_select_view: MineSelectView = $Interface/MineSelectView
 @onready var pause_button: Button = $Interface/PauseButton
 @onready var speed_button: Button = $Interface/SpeedButton
 @onready var pause_overlay: PauseOverlay = $Interface/PauseOverlay
@@ -25,6 +26,7 @@ enum SettingsContext {
 const HAPTIC_COOLDOWN_MSEC := 90
 
 var config: GameConfig
+var mine_registry: MineRegistry
 var catalog: RoomCatalog
 var run_session: RunSession
 var rng := RandomNumberGenerator.new()
@@ -51,26 +53,33 @@ var tutorial_return_to_settings := false
 var tutorial_coach_step := -1
 var run_id_sequence := 0
 var last_haptic_tick_msec := -HAPTIC_COOLDOWN_MSEC
+var pending_new_mine_id: StringName = &"mine_01"
+var pending_new_run_kind: int = RunSession.RunKind.NORMAL
+var pending_new_seed := 0
+var pending_new_daily_key: String
 
 
 func _ready() -> void:
 	config = GameConfig.load_from_file()
 	_initialize_user_data()
-	catalog = RoomCatalog.load_default()
-	if catalog == null:
-		push_error("Oda kataloğu yüklenemedi; oyun başlatılmadı.")
+	mine_registry = MineRegistry.load_default()
+	catalog = mine_registry.catalog if mine_registry != null else null
+	if mine_registry == null or catalog == null:
+		push_error("Maden ve oda kataloğu yüklenemedi; oyun başlatılmadı.")
 		return
-	var route_capacity_errors := catalog.route_capacity_errors(config.room_count)
-	if not route_capacity_errors.is_empty():
-		push_error("Oda kataloğu koşu ayarını karşılamıyor:\n- %s" % "\n- ".join(route_capacity_errors))
-		catalog = null
-		return
+	for mine: MineDefinition in mine_registry.mines:
+		var route_capacity_errors := catalog.route_capacity_errors(config.room_count, mine.mine_id)
+		if not route_capacity_errors.is_empty():
+			push_error("%s koşu ayarını karşılamıyor:\n- %s" % [mine.mine_id, "\n- ".join(route_capacity_errors)])
+			catalog = null
+			return
 	gameplay_room.room_finished.connect(_on_room_finished)
 	gameplay_room.shot_will_start.connect(_on_shot_will_start)
 	gameplay_room.shot_resolved.connect(_on_shot_resolved)
 	gameplay_room.block_destroyed.connect(_on_block_destroyed)
 	flow_view.bind(self)
 	main_menu_view.bind(self)
+	mine_select_view.bind(self)
 	pause_overlay.bind(self)
 	settings_overlay.bind(self)
 	tutorial_overlay.bind(self)
@@ -80,7 +89,7 @@ func _ready() -> void:
 	pause_button.visible = false
 	speed_button.visible = false
 	_boot_from_save()
-	print("Deep Ricochet hazır. İçerik: %s" % catalog.content_version)
+	print("Deep Ricochet hazır. Madenler: %d, içerik: %s" % [mine_registry.mines.size(), catalog.content_version])
 
 
 func _notification(what: int) -> void:
@@ -104,6 +113,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			settings_overlay.show_settings()
 		else:
 			close_settings()
+	elif mine_select_view.visible:
+		close_mine_selection()
 	elif pause_overlay.visible and pause_overlay.mode != PauseOverlay.Mode.PAUSE:
 		cancel_new_game_confirmation()
 	elif pause_active:
@@ -127,6 +138,7 @@ func _initialize_user_data() -> void:
 		app_settings = settings_service.load_settings()
 	TranslationServer.set_locale(str(app_settings.language))
 	AudioManager.apply_settings(app_settings)
+	_apply_quality_mode()
 
 
 func _handle_back_request() -> void:
@@ -137,6 +149,8 @@ func _handle_back_request() -> void:
 			settings_overlay.show_settings()
 		else:
 			close_settings()
+	elif mine_select_view.visible:
+		close_mine_selection()
 	elif pause_overlay.visible and pause_overlay.mode != PauseOverlay.Mode.PAUSE:
 		cancel_new_game_confirmation()
 	elif pause_active:
@@ -184,15 +198,23 @@ func _boot_from_save() -> void:
 	_show_main_menu(false)
 
 
-func start_new_run(requested_seed: int = 0) -> bool:
-	if catalog == null:
+func start_new_run(
+	requested_seed: int = 0,
+	requested_mine_id: StringName = &"mine_01",
+	run_kind: int = RunSession.RunKind.NORMAL,
+	daily_key: String = "",
+) -> bool:
+	if catalog == null or mine_registry == null or mine_registry.get_mine(requested_mine_id) == null:
+		return false
+	if run_kind == RunSession.RunKind.NORMAL and profile != null \
+		and not profile.is_mine_unlocked(requested_mine_id):
 		return false
 	var run_seed := requested_seed
 	if run_seed == 0:
 		run_seed = int(Time.get_unix_time_from_system() * 1000.0) ^ Time.get_ticks_usec()
 	var candidate_rng := RandomNumberGenerator.new()
 	candidate_rng.seed = run_seed
-	var first_template := catalog.pick_first_room(candidate_rng)
+	var first_template := catalog.pick_first_room(candidate_rng, requested_mine_id)
 	if first_template == null:
 		push_error("İlk güvenli oda seçilemedi.")
 		return false
@@ -204,6 +226,9 @@ func start_new_run(requested_seed: int = 0) -> bool:
 		config.room_count,
 		first_template,
 		_create_run_id(run_seed),
+		requested_mine_id,
+		run_kind,
+		daily_key,
 	):
 		push_error("Koşu oturumu başlatılamadı.")
 		return false
@@ -217,6 +242,7 @@ func start_new_run(requested_seed: int = 0) -> bool:
 	_leave_pause_state()
 	_clear_pending_continue()
 	main_menu_view.hide_menu()
+	mine_select_view.hide_selector()
 	pause_overlay.hide_overlay()
 	last_result_new_best = false
 	flow_view.show_gameplay()
@@ -256,13 +282,64 @@ func continue_saved_run() -> bool:
 
 
 func request_new_game_from_menu() -> void:
+	open_mine_selection()
+
+
+func open_mine_selection() -> void:
+	main_menu_view.hide_menu()
+	mine_select_view.show_selector()
+
+
+func close_mine_selection() -> void:
+	mine_select_view.hide_selector()
+	main_menu_view.show_menu(
+		pending_continue_snapshot != null or continue_in_memory,
+		pending_continue_notice,
+	)
+
+
+func request_mine_run(mine_id: StringName) -> bool:
+	if mine_registry == null or mine_registry.get_mine(mine_id) == null \
+		or profile == null or not profile.is_mine_unlocked(mine_id):
+		return false
+	_prepare_new_run(mine_id, RunSession.RunKind.NORMAL, 0, "")
 	if pending_continue_snapshot != null or continue_in_memory:
 		request_new_game_confirmation(true)
 	else:
-		start_new_run()
+		start_new_run(0, mine_id)
+	return true
+
+
+func request_daily_run() -> void:
+	var key := current_daily_key()
+	_prepare_new_run(&"mine_01", RunSession.RunKind.DAILY, daily_seed_for_key(key), key)
+	if pending_continue_snapshot != null or continue_in_memory:
+		request_new_game_confirmation(true)
+	else:
+		start_new_run(pending_new_seed, pending_new_mine_id, pending_new_run_kind, key)
+
+
+func current_daily_key() -> String:
+	var date := Time.get_date_dict_from_system()
+	return "%04d-%02d-%02d" % [int(date["year"]), int(date["month"]), int(date["day"])]
+
+
+func daily_seed_for_key(key: String) -> int:
+	var digits := key.replace("-", "").to_int()
+	return maxi(1, digits * 97 + 31)
+
+
+func _prepare_new_run(mine_id: StringName, kind: int, seed: int, daily_key: String) -> void:
+	pending_new_mine_id = mine_id
+	pending_new_run_kind = kind
+	pending_new_seed = seed
+	pending_new_daily_key = daily_key
 
 
 func request_new_game_confirmation(from_main_menu: bool) -> void:
+	if not from_main_menu:
+		var current_mine := run_session.mine_id if run_session != null else &"mine_01"
+		_prepare_new_run(current_mine, RunSession.RunKind.NORMAL, 0, "")
 	confirmation_from_main_menu = from_main_menu
 	pause_overlay.show_new_game_confirmation()
 	if not from_main_menu:
@@ -280,7 +357,12 @@ func cancel_new_game_confirmation() -> void:
 func confirm_new_game() -> void:
 	confirmation_from_main_menu = false
 	_leave_pause_state()
-	start_new_run()
+	start_new_run(
+		pending_new_seed,
+		pending_new_mine_id,
+		pending_new_run_kind,
+		pending_new_daily_key,
+	)
 
 
 func restart_same_seed() -> bool:
@@ -289,7 +371,12 @@ func restart_same_seed() -> bool:
 	if run_session.content_version != catalog.content_version:
 		return false
 	var retry_seed := run_session.seed
-	return start_new_run(retry_seed)
+	return start_new_run(
+		retry_seed,
+		run_session.mine_id,
+		run_session.run_kind,
+		run_session.daily_key,
+	)
 
 
 func toggle_simulation_speed() -> void:
@@ -401,6 +488,16 @@ func toggle_haptics() -> void:
 		_try_haptic(25)
 
 
+func set_quality_mode(mode: int) -> void:
+	if app_settings == null or mode < AppSettings.QualityMode.PERFORMANCE \
+		or mode > AppSettings.QualityMode.GRAPHICS:
+		return
+	app_settings.quality_mode = mode
+	_apply_quality_mode()
+	_save_app_settings()
+	settings_overlay.queue_redraw()
+
+
 func show_tutorial_from_settings() -> void:
 	tutorial_return_to_settings = true
 	settings_overlay.hide_overlay()
@@ -483,6 +580,7 @@ func confirm_delete_all_data() -> bool:
 	_clear_pending_continue()
 	TranslationServer.set_locale(str(app_settings.language))
 	AudioManager.apply_settings(app_settings)
+	_apply_quality_mode()
 	settings_overlay.hide_overlay()
 	tutorial_overlay.hide_overlay()
 	pause_overlay.hide_overlay()
@@ -653,6 +751,7 @@ func _on_room_finished(resolution: RoomResolution) -> void:
 		run_session.room_number + 1,
 		rng,
 		run_session.used_template_ids(),
+		run_session.mine_id,
 	)
 	if not run_session.set_route_options(options):
 		push_error("Sonraki oda için rota seçenekleri üretilemedi.")
@@ -709,9 +808,10 @@ func _on_block_destroyed(block_type: int) -> void:
 		_try_haptic(70 if is_core else 20)
 	if not app_settings.shake_enabled:
 		return
+	var quality_scale := 1.0 if app_settings.quality_mode == AppSettings.QualityMode.GRAPHICS else 0.55
 	gameplay_room.trigger_screen_shake(
-		7.0 if is_core else 3.0,
-		0.26 if is_core else 0.14,
+		(7.0 if is_core else 3.0) * quality_scale,
+		(0.26 if is_core else 0.14) * quality_scale,
 	)
 
 
@@ -750,6 +850,7 @@ func _restore_snapshot(snapshot: RunSnapshot) -> bool:
 	if run_session.ended:
 		_record_run_result_if_needed()
 	main_menu_view.hide_menu()
+	mine_select_view.hide_selector()
 	pause_overlay.hide_overlay()
 	_leave_pause_state()
 	_restore_active_screen()
@@ -805,6 +906,7 @@ func _show_main_menu(can_continue: bool, notice: String = "") -> void:
 	speed_button.visible = false
 	flow_view.show_gameplay()
 	gameplay_room.set_simulation_enabled(false)
+	mine_select_view.hide_selector()
 	if tutorial_overlay.mode == TutorialOverlay.Mode.COACH:
 		tutorial_overlay.hide_overlay()
 	main_menu_view.show_menu(can_continue, notice)
@@ -835,6 +937,9 @@ func _record_run_result_if_needed() -> void:
 		run_session.banked_score,
 		run_session.succeeded,
 		run_session.cores_broken,
+		run_session.mine_id,
+		run_session.run_kind == RunSession.RunKind.DAILY,
+		run_session.daily_key,
 	)
 	_save_profile()
 	if last_result_new_best:
@@ -905,6 +1010,18 @@ func _refresh_speed_button() -> void:
 	if not is_instance_valid(speed_button):
 		return
 	speed_button.text = "×%d" % gameplay_room.simulation_speed
+
+
+func _apply_quality_mode() -> void:
+	if app_settings == null:
+		return
+	DeepUI.set_high_quality(app_settings.quality_mode == AppSettings.QualityMode.GRAPHICS)
+	if is_instance_valid(gameplay_room):
+		gameplay_room.set_quality_mode(app_settings.quality_mode)
+	if is_instance_valid(main_menu_view):
+		main_menu_view.queue_redraw()
+	if is_instance_valid(flow_view):
+		flow_view.queue_redraw()
 
 
 func _try_haptic(duration_msec: int) -> void:

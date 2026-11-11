@@ -1,8 +1,13 @@
 class_name AppSettings
 extends RefCounted
 
-const SCHEMA_VERSION := 3
+const SCHEMA_VERSION := 4
 const SUPPORTED_LANGUAGES := [&"tr", &"en"]
+
+enum QualityMode {
+	PERFORMANCE,
+	GRAPHICS,
+}
 
 var schema_version := SCHEMA_VERSION
 var language: StringName = &"tr"
@@ -12,6 +17,7 @@ var music_enabled := true
 var music_volume := 0.28
 var shake_enabled := true
 var haptics_enabled := true
+var quality_mode: int = QualityMode.PERFORMANCE
 
 
 func to_dictionary() -> Dictionary:
@@ -24,13 +30,14 @@ func to_dictionary() -> Dictionary:
 		"musicVolume": music_volume,
 		"shakeEnabled": shake_enabled,
 		"hapticsEnabled": haptics_enabled,
+		"qualityMode": quality_mode,
 	}
 
 
 static func from_dictionary(data: Dictionary) -> AppSettings:
 	var settings := AppSettings.new()
 	var source_schema := int(data.get("schemaVersion", 0))
-	if source_schema not in [1, 2, SCHEMA_VERSION]:
+	if source_schema not in [1, 2, 3, SCHEMA_VERSION]:
 		settings.schema_version = source_schema
 		return settings
 	settings.schema_version = SCHEMA_VERSION
@@ -45,6 +52,7 @@ static func from_dictionary(data: Dictionary) -> AppSettings:
 	settings.music_volume = float(data.get("musicVolume", 0.28))
 	settings.shake_enabled = bool(data.get("shakeEnabled", true))
 	settings.haptics_enabled = bool(data.get("hapticsEnabled", true))
+	settings.quality_mode = int(data.get("qualityMode", QualityMode.PERFORMANCE))
 	return settings
 
 
@@ -54,4 +62,6 @@ func is_valid() -> bool:
 		and sfx_volume >= 0.0 \
 		and sfx_volume <= 1.0 \
 		and music_volume >= 0.0 \
-		and music_volume <= 1.0
+		and music_volume <= 1.0 \
+		and quality_mode >= QualityMode.PERFORMANCE \
+		and quality_mode <= QualityMode.GRAPHICS

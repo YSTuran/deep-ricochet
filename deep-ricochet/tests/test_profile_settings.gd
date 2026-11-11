@@ -42,12 +42,17 @@ static func _test_profile_round_trip() -> void:
 	assert(profile.runs_played == 1)
 	assert(profile.successful_runs == 1)
 	assert(profile.total_cores_broken == 4)
+	assert(profile.highest_unlocked_mine == 2)
+	assert(profile.best_for_mine(&"mine_01") == 450)
+	assert(profile.completions_for_mine(&"mine_01") == 1)
 	profile.tutorial_completed = true
 	assert(service.save_profile(profile))
 	var restored := service.load_profile()
 	assert(restored.best_score == 450)
 	assert(restored.tutorial_completed)
 	assert(restored.last_recorded_run_id == "run_profile_1")
+	assert(restored.highest_unlocked_mine == 2)
+	assert(restored.best_for_mine(&"mine_01") == 450)
 	assert(not profile.record_run("run_profile_2", 300, false, 1))
 	assert(service.save_profile(profile))
 	_write_text(service.store.primary_path, "{damaged-profile")
@@ -62,6 +67,20 @@ static func _test_profile_round_trip() -> void:
 	assert(restored.best_score == 450)
 	assert(restored.runs_played == 1)
 	assert(not service.store.loaded_from_backup)
+	var daily := PlayerProfile.new()
+	assert(daily.record_run("daily_1", 220, true, 4, &"mine_01", true, "2026-11-11"))
+	assert(daily.highest_unlocked_mine == 1)
+	assert(daily.daily_best_score == 220)
+	assert(daily.daily_attempts == 1)
+	assert(daily.best_for_mine(&"mine_01") == 0)
+	assert(not daily.is_mine_unlocked(&"mine_unknown"))
+	assert(not daily.record_run("daily_2", 180, false, 1, &"mine_01", true, "2026-11-11"))
+	assert(daily.daily_best_score == 220)
+	assert(daily.daily_attempts == 2)
+	assert(daily.record_run("mine_1_clear", 300, true, 4, &"mine_01"))
+	assert(daily.highest_unlocked_mine == 2)
+	assert(daily.record_run("mine_2_clear", 360, true, 4, &"mine_02"))
+	assert(daily.highest_unlocked_mine == 3)
 	assert(service.clear_all())
 
 
@@ -77,6 +96,7 @@ static func _test_settings_round_trip() -> void:
 	settings.music_volume = 0.2
 	settings.shake_enabled = false
 	settings.haptics_enabled = false
+	settings.quality_mode = AppSettings.QualityMode.GRAPHICS
 	assert(service.save_settings(settings))
 	var restored := service.load_settings()
 	assert(restored.language == &"en")
@@ -86,6 +106,7 @@ static func _test_settings_round_trip() -> void:
 	assert(is_equal_approx(restored.music_volume, 0.2))
 	assert(not restored.shake_enabled)
 	assert(not restored.haptics_enabled)
+	assert(restored.quality_mode == AppSettings.QualityMode.GRAPHICS)
 
 	_write_text(SETTINGS_PATH, JSON.stringify({
 		"schemaVersion": 2,
@@ -99,6 +120,7 @@ static func _test_settings_round_trip() -> void:
 	restored = service.load_settings()
 	assert(restored.schema_version == AppSettings.SCHEMA_VERSION)
 	assert(restored.haptics_enabled)
+	assert(restored.quality_mode == AppSettings.QualityMode.PERFORMANCE)
 
 	_write_text(SETTINGS_PATH, JSON.stringify({
 		"schemaVersion": 1,
@@ -113,6 +135,7 @@ static func _test_settings_round_trip() -> void:
 	assert(restored.music_enabled)
 	assert(restored.shake_enabled)
 	assert(restored.haptics_enabled)
+	assert(restored.quality_mode == AppSettings.QualityMode.PERFORMANCE)
 	assert(service.clear_all())
 
 
@@ -211,6 +234,13 @@ static func _test_controller_profile_tutorial_and_locale(controller: RunControll
 	assert(controller.app_settings.haptics_enabled != previous_haptics)
 	controller.toggle_haptics()
 	assert(controller.app_settings.haptics_enabled == previous_haptics)
+	controller.set_quality_mode(AppSettings.QualityMode.GRAPHICS)
+	assert(controller.app_settings.quality_mode == AppSettings.QualityMode.GRAPHICS)
+	assert(controller.gameplay_room.quality_mode == AppSettings.QualityMode.GRAPHICS)
+	assert(DeepUI.high_quality_enabled)
+	controller.set_quality_mode(AppSettings.QualityMode.PERFORMANCE)
+	assert(controller.gameplay_room.quality_mode == AppSettings.QualityMode.PERFORMANCE)
+	assert(not DeepUI.high_quality_enabled)
 	if not controller.app_settings.shake_enabled:
 		controller.toggle_screen_shake()
 	controller.gameplay_room.view.shake_remaining = 0.0
@@ -243,6 +273,7 @@ static func _test_controller_profile_tutorial_and_locale(controller: RunControll
 	assert(is_equal_approx(controller.app_settings.sfx_volume, 0.8))
 	assert(is_equal_approx(controller.app_settings.music_volume, 0.28))
 	assert(controller.app_settings.haptics_enabled)
+	assert(controller.app_settings.quality_mode == AppSettings.QualityMode.PERFORMANCE)
 	assert(controller.failed_storage_channels.is_empty())
 	assert(not controller.storage_notice.visible)
 	assert(controller.main_menu_view.visible)

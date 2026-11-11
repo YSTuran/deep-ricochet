@@ -7,9 +7,17 @@ enum Phase {
 	RUN_RESULT,
 }
 
+enum RunKind {
+	NORMAL,
+	DAILY,
+}
+
 var run_id: String
 var seed: int
 var content_version: String
+var mine_id: StringName = &"mine_01"
+var run_kind: int = RunKind.NORMAL
+var daily_key: String
 var room_count: int = 4
 var room_number: int = 1
 var phase: Phase = Phase.PLAYING
@@ -35,12 +43,23 @@ func start_run(
 	total_rooms: int,
 	first_template: RoomTemplate,
 	new_run_id: String = "",
+	new_mine_id: StringName = &"mine_01",
+	new_run_kind: int = RunKind.NORMAL,
+	new_daily_key: String = "",
 ) -> bool:
-	if first_template == null or not first_template.is_valid() or total_rooms <= 0:
+	if first_template == null or not first_template.is_valid() or total_rooms <= 0 \
+		or first_template.mine_id != new_mine_id:
+		return false
+	if new_run_kind < RunKind.NORMAL or new_run_kind > RunKind.DAILY:
+		return false
+	if (new_run_kind == RunKind.DAILY) != (not new_daily_key.is_empty()):
 		return false
 	seed = run_seed
 	run_id = new_run_id if not new_run_id.is_empty() else "run_%d" % abs(run_seed)
 	content_version = run_content_version
+	mine_id = new_mine_id
+	run_kind = new_run_kind
+	daily_key = new_daily_key
 	room_count = total_rooms
 	room_number = 1
 	phase = Phase.PLAYING

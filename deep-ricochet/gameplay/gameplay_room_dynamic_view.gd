@@ -75,7 +75,8 @@ func _draw_impact_effects() -> void:
 		var color := Color(_impact_color(block_type), 1.0 - progress)
 		draw_arc(center, radius, 0.0, TAU, 16, color, 3.0, true)
 		if destroyed:
-			var ray_count := 6 if is_core else 4
+			var high_quality := room.quality_mode == AppSettings.QualityMode.GRAPHICS
+			var ray_count := (6 if is_core else 4) if high_quality else 2
 			for ray_index in range(ray_count):
 				var direction := Vector2.from_angle(float(ray_index) * TAU / float(ray_count))
 				draw_line(
@@ -85,7 +86,7 @@ func _draw_impact_effects() -> void:
 					2.0,
 				)
 			var points := int(effect.get("points", 0))
-			if points > 0:
+			if points > 0 and high_quality:
 				DeepUI.draw_centered(
 					self,
 					"+%d" % points,

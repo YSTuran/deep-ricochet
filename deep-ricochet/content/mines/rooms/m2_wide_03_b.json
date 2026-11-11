@@ -1,0 +1,103 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        7,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 20351,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        2,
+        2
+      ],
+      "hitPoints": 3,
+      "id": 20352,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        5,
+        3
+      ],
+      "hitPoints": 4,
+      "id": 20353,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        0,
+        4
+      ],
+      "hitPoints": 4,
+      "id": 20354,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        6,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 20355,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        1,
+        5
+      ],
+      "hitPoints": 5,
+      "id": 20356,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        7,
+        7
+      ],
+      "hitPoints": 6,
+      "id": 20357,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        2,
+        7
+      ],
+      "hitPoints": 6,
+      "id": 20358,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        4,
+        8
+      ],
+      "hitPoints": 6,
+      "id": 20449,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-1",
+  "displayName": "Sessiz Kemer",
+  "displayNameKey": "MINE_2_WIDE_03",
+  "exampleAngles": [
+    86.5
+  ],
+  "family": "safe",
+  "height": 8,
+  "id": "m2_wide_03_b",
+  "mineId": "mine_02",
+  "multiplierBps": 10000,
+  "passageColumns": [
+    3,
+    4
+  ],
+  "role": "wide",
+  "schemaVersion": 1,
+  "width": 8
+}

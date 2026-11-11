@@ -10,7 +10,8 @@ const BOARD_SIZE_WORLD := Vector2(BoardGeometry.WORLD_GRID_SIZE)
 const BOARD_SCREEN_RECT := BoardGeometry.SCREEN_RECT
 const LAUNCHER_WORLD := BoardGeometry.LAUNCHER_WORLD
 const FORCED_COLLECTION_EFFECT_SECONDS := 0.35
-const MAX_IMPACT_EFFECTS := 16
+const PERFORMANCE_IMPACT_EFFECTS := 8
+const GRAPHICS_IMPACT_EFFECTS := 16
 
 @export_file("*.json") var initial_room_template_path := "res://content/rooms/safe_01.json"
 
@@ -38,6 +39,7 @@ var run_room_count: int = 1
 var banked_score: int = 0
 var simulation_enabled := true
 var simulation_speed := 1
+var quality_mode: int = AppSettings.QualityMode.PERFORMANCE
 
 
 func _ready() -> void:
@@ -164,6 +166,16 @@ func trigger_screen_shake(strength: float, duration: float) -> void:
 
 func set_simulation_speed(speed: int) -> void:
 	simulation_speed = 2 if speed >= 2 else 1
+
+
+func set_quality_mode(mode: int) -> void:
+	quality_mode = AppSettings.QualityMode.GRAPHICS \
+		if mode == AppSettings.QualityMode.GRAPHICS else AppSettings.QualityMode.PERFORMANCE
+	var effect_limit := GRAPHICS_IMPACT_EFFECTS \
+		if quality_mode == AppSettings.QualityMode.GRAPHICS else PERFORMANCE_IMPACT_EFFECTS
+	while impact_effects.size() > effect_limit:
+		impact_effects.pop_front()
+	_refresh_view()
 
 
 func cancel_aim_for_pause() -> void:
@@ -403,7 +415,9 @@ func _handle_damage_result(result: BlockDamageResult) -> bool:
 		return false
 
 	var awarded_points := room.record_damage_result(result, config)
-	if impact_effects.size() >= MAX_IMPACT_EFFECTS:
+	var effect_limit := GRAPHICS_IMPACT_EFFECTS \
+		if quality_mode == AppSettings.QualityMode.GRAPHICS else PERFORMANCE_IMPACT_EFFECTS
+	if impact_effects.size() >= effect_limit:
 		impact_effects.pop_front()
 	impact_effects.append({
 		"position": block.collision_center_world(),

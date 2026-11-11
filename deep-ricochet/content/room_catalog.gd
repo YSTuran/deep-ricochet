@@ -1,7 +1,7 @@
 class_name RoomCatalog
 extends RefCounted
 
-const DEFAULT_MANIFEST_PATH := "res://content/rooms/catalog.json"
+const DEFAULT_MANIFEST_PATH := "res://content/mines/catalog.json"
 const SUPPORTED_SCHEMA_VERSION := 1
 
 var content_version: String
@@ -84,37 +84,52 @@ func validation_errors() -> PackedStringArray:
 	return errors
 
 
-func route_capacity_errors(room_count: int) -> PackedStringArray:
+func route_capacity_errors(
+	room_count: int,
+	mine_id: StringName = &"mine_01",
+) -> PackedStringArray:
 	var errors := PackedStringArray()
 	if room_count <= 0:
 		errors.append("Oda sayısı pozitif olmalıdır.")
 		return errors
-	var safe_count := 0
-	var bonus_count := 0
+	var start_count := 0
+	var wide_count := 0
+	var narrow_count := 0
 	for template: RoomTemplate in templates:
-		if template.family == RoomTemplate.Family.SAFE:
-			safe_count += 1
-		elif template.family == RoomTemplate.Family.BONUS:
-			bonus_count += 1
-	if safe_count < room_count:
-		errors.append("%d odalık koşu için en az %d güvenli şablon gerekir." % [room_count, room_count])
-	var required_bonus := maxi(room_count - 1, 0)
-	if bonus_count < required_bonus:
-		errors.append("%d odalık koşu için en az %d bonus şablon gerekir." % [room_count, required_bonus])
+		if template.mine_id != mine_id:
+			continue
+		match template.role:
+			RoomTemplate.Role.START:
+				start_count += 1
+			RoomTemplate.Role.WIDE:
+				wide_count += 1
+			RoomTemplate.Role.NARROW:
+				narrow_count += 1
+	if start_count < 1:
+		errors.append("%s madeni en az bir başlangıç şablonu gerektirir." % mine_id)
+	var required_routes := maxi(room_count - 1, 0)
+	if wide_count < required_routes:
+		errors.append("%d odalık koşu için en az %d geniş geçit gerekir." % [room_count, required_routes])
+	if narrow_count < required_routes:
+		errors.append("%d odalık koşu için en az %d dar damar gerekir." % [room_count, required_routes])
 	return errors
 
 
-func pick_first_room(rng: RandomNumberGenerator) -> RoomTemplate:
-	return _pick_template(RoomTemplate.Family.SAFE, rng, {})
+func pick_first_room(
+	rng: RandomNumberGenerator,
+	mine_id: StringName = &"mine_01",
+) -> RoomTemplate:
+	return _pick_template(RoomTemplate.Role.START, rng, {}, mine_id)
 
 
 func create_route_options(
 	next_room_number: int,
 	rng: RandomNumberGenerator,
 	excluded_ids: Dictionary[StringName, bool],
+	mine_id: StringName = &"mine_01",
 ) -> Array[RouteOption]:
-	var safe_template := _pick_template(RoomTemplate.Family.SAFE, rng, excluded_ids)
-	var bonus_template := _pick_template(RoomTemplate.Family.BONUS, rng, excluded_ids)
+	var safe_template := _pick_template(RoomTemplate.Role.WIDE, rng, excluded_ids, mine_id)
+	var bonus_template := _pick_template(RoomTemplate.Role.NARROW, rng, excluded_ids, mine_id)
 	if safe_template == null or bonus_template == null:
 		return []
 	return [
@@ -136,14 +151,29 @@ func get_template(template_id: StringName) -> RoomTemplate:
 	return null
 
 
+func role_counts(mine_id: StringName) -> Dictionary[int, int]:
+	var counts: Dictionary[int, int] = {
+		RoomTemplate.Role.START: 0,
+		RoomTemplate.Role.WIDE: 0,
+		RoomTemplate.Role.NARROW: 0,
+	}
+	for template: RoomTemplate in templates:
+		if template.mine_id == mine_id:
+			counts[template.role] = counts.get(template.role, 0) + 1
+	return counts
+
+
 func _pick_template(
-	family: int,
+	role: int,
 	rng: RandomNumberGenerator,
 	excluded_ids: Dictionary[StringName, bool],
+	mine_id: StringName,
 ) -> RoomTemplate:
 	var candidates: Array[RoomTemplate] = []
 	for template: RoomTemplate in templates:
-		if template.family == family and not excluded_ids.has(template.room_id):
+		if template.mine_id == mine_id \
+			and template.role == role \
+			and not excluded_ids.has(template.room_id):
 			candidates.append(template)
 	if candidates.is_empty():
 		return null

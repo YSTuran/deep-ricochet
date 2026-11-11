@@ -3,6 +3,8 @@ MENU_TAGLINE,Aim • Ricochet • Break the core,Nişan al • Sektir • Çekir
 MENU_CONTINUE,CONTINUE,DEVAM
 MENU_NO_SAVE,NO SAVED RUN,KAYITLI OYUN YOK
 MENU_NEW_GAME,NEW GAME,YENİ OYUN
+MENU_DAILY_MINE,DAILY MINE,GÜNLÜK MADEN
+MENU_DAILY_SCORE,DAILY MINE • BEST %d,GÜNLÜK MADEN • EN İYİ %d
 MENU_SETTINGS,SETTINGS,AYARLAR
 MENU_OFFLINE,Offline prototype,Çevrimdışı prototip
 PROFILE_BEST,BEST SCORE  %d,EN İYİ SKOR  %d
@@ -34,6 +36,9 @@ SETTINGS_SHAKE_ON,SCREEN SHAKE: ON,EKRAN SARSINTISI: AÇIK
 SETTINGS_SHAKE_OFF,SCREEN SHAKE: OFF,EKRAN SARSINTISI: KAPALI
 SETTINGS_HAPTICS_ON,VIBRATION: ON,TİTREŞİM: AÇIK
 SETTINGS_HAPTICS_OFF,VIBRATION: OFF,TİTREŞİM: KAPALI
+SETTINGS_QUALITY,GRAPHICS MODE,GRAFİK MODU
+SETTINGS_PERFORMANCE,PERFORMANCE,PERFORMANS
+SETTINGS_GRAPHICS,GRAPHICS,GRAFİK
 SETTINGS_TUTORIAL,REPLAY TUTORIAL,ÖĞRETİCİYİ TEKRARLA
 SETTINGS_DELETE_DATA,DELETE ALL DATA,TÜM VERİLERİ SİL
 CONFIRM_DELETE_TITLE,DELETE ALL DATA?,TÜM VERİLER SİLİNSİN Mİ?
@@ -106,6 +111,37 @@ NOTICE_MEMORY_ONLY,Run kept for this session.,Koşu bu oturum için bellekte tut
 NOTICE_PROGRESS_RESET,Progress reset.,İlerleme sıfırlandı.
 NOTICE_ALL_DATA_DELETED,All local data deleted.,Tüm yerel veriler silindi.
 NOTICE_STORAGE_FAILED,Progress could not be updated. Please try again.,İlerleme güncellenemedi. Lütfen yeniden dene.
+MINE_SELECT_TITLE,CHOOSE A MINE,MADEN SEÇ
+MINE_SELECT_HINT,Each mine is a four-room expedition.,Her maden dört odalık bir kazıdır.
+MINE_UNLOCKED,OPEN,AÇIK
+MINE_LOCKED,LOCKED,KİLİTLİ
+MINE_STATS,Best %d • Clears %d,En iyi %d • Tamamlama %d
+MINE_SELECT,ENTER MINE,MADENE GİR
+MINE_COMPLETE_PREVIOUS,COMPLETE PREVIOUS,ÖNCEKİNİ TAMAMLA
+MINE_01_NAME,COAST MINE,KIYI MADENİ
+MINE_02_NAME,DEEP MINE,DERİN MADEN
+MINE_03_NAME,CORE MINE,ÇEKİRDEK MADENİ
+MINE_1_START,Coastal Gallery,Kıyı Galerisi
+MINE_1_WIDE_01,Open Steps,Açık Basamak
+MINE_1_WIDE_02,Blue Corridor,Mavi Koridor
+MINE_1_WIDE_03,Echo Arch,Yankı Kemeri
+MINE_1_NARROW_01,Golden Fissure,Altın Yarık
+MINE_1_NARROW_02,Narrow Shaft,Dar Şaft
+MINE_1_NARROW_03,Ore Gorge,Cevher Boğazı
+MINE_2_START,Deep Entrance,Derin Giriş
+MINE_2_WIDE_01,Coal Hall,Kömür Salonu
+MINE_2_WIDE_02,Broken Gallery,Kırık Galeri
+MINE_2_WIDE_03,Silent Arch,Sessiz Kemer
+MINE_2_NARROW_01,Dark Gutter,Karanlık Oluk
+MINE_2_NARROW_02,Tight Vein,Sıkışık Damar
+MINE_2_NARROW_03,Crystal Gorge,Kristal Boğazı
+MINE_3_START,Core Gate,Çekirdek Kapısı
+MINE_3_WIDE_01,Pressure Tunnel,Basınç Tüneli
+MINE_3_WIDE_02,Crimson Hall,Kızıl Salon
+MINE_3_WIDE_03,Deep Arch,Derin Kemer
+MINE_3_NARROW_01,Molten Fissure,Erimiş Yarık
+MINE_3_NARROW_02,Sharp Vein,Keskin Damar
+MINE_3_NARROW_03,Final Shaft,Son Şaft
 ROOM_SAFE_01,Wide Gallery,Geniş Galeri
 ROOM_SAFE_02,Twin Corridor,Çift Koridor
 ROOM_SAFE_03,Open Shaft,Açık Şaft

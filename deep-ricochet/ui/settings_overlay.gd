@@ -15,9 +15,11 @@ const MUSIC_BUTTON := Rect2(80.0, 447.0, 380.0, 52.0)
 const MUSIC_SLIDER := Rect2(80.0, 545.0, 380.0, 14.0)
 const SHAKE_BUTTON := Rect2(55.0, 585.0, 210.0, 52.0)
 const HAPTICS_BUTTON := Rect2(275.0, 585.0, 210.0, 52.0)
-const TUTORIAL_BUTTON := Rect2(80.0, 655.0, 380.0, 56.0)
-const DELETE_DATA_BUTTON := Rect2(80.0, 725.0, 380.0, 56.0)
-const BACK_BUTTON := Rect2(80.0, 815.0, 380.0, 58.0)
+const PERFORMANCE_BUTTON := Rect2(55.0, 674.0, 210.0, 48.0)
+const GRAPHICS_BUTTON := Rect2(275.0, 674.0, 210.0, 48.0)
+const TUTORIAL_BUTTON := Rect2(80.0, 738.0, 380.0, 48.0)
+const DELETE_DATA_BUTTON := Rect2(80.0, 798.0, 380.0, 48.0)
+const BACK_BUTTON := Rect2(80.0, 866.0, 380.0, 54.0)
 const CANCEL_BUTTON := Rect2(55.0, 570.0, 200.0, 70.0)
 const CONFIRM_BUTTON := Rect2(285.0, 570.0, 200.0, 70.0)
 
@@ -103,6 +105,12 @@ func _gui_input(event: InputEvent) -> void:
 		elif HAPTICS_BUTTON.has_point(event_position):
 			AudioManager.play_ui_click()
 			controller.toggle_haptics()
+		elif PERFORMANCE_BUTTON.has_point(event_position):
+			AudioManager.play_ui_click()
+			controller.set_quality_mode(AppSettings.QualityMode.PERFORMANCE)
+		elif GRAPHICS_BUTTON.has_point(event_position):
+			AudioManager.play_ui_click()
+			controller.set_quality_mode(AppSettings.QualityMode.GRAPHICS)
 		elif TUTORIAL_BUTTON.has_point(event_position):
 			AudioManager.play_ui_click()
 			controller.show_tutorial_from_settings()
@@ -130,8 +138,8 @@ func _draw() -> void:
 
 
 func _draw_settings() -> void:
-	DeepUI.draw_panel(self, Rect2(38.0, 55.0, 464.0, 850.0), Color(DeepUI.PANEL_SOFT, 0.96), DeepUI.BORDER, 22, 2, true)
-	DeepUI.draw_title_plate(self, tr("SETTINGS_TITLE"), Rect2(72.0, 82.0, 396.0, 60.0), 30, DeepUI.GOLD)
+	DeepUI.draw_panel(self, Rect2(38.0, 30.0, 464.0, 900.0), Color(DeepUI.PANEL_SOFT, 0.96), DeepUI.BORDER, 22, 2, true)
+	DeepUI.draw_title_plate(self, tr("SETTINGS_TITLE"), Rect2(72.0, 72.0, 396.0, 60.0), 30, DeepUI.GOLD)
 	DeepUI.draw_centered(self, tr("SETTINGS_LANGUAGE"), Rect2(30.0, 166.0, 480.0, 30.0), 17, DeepUI.MUTED)
 	var selected_language := &"tr"
 	if controller != null and controller.app_settings != null:
@@ -144,6 +152,7 @@ func _draw_settings() -> void:
 	var music_volume := 0.28
 	var shake_enabled := true
 	var haptics_enabled := true
+	var quality_mode := AppSettings.QualityMode.PERFORMANCE
 	if controller != null and controller.app_settings != null:
 		sfx_enabled = controller.app_settings.sfx_enabled
 		sfx_volume = controller.app_settings.sfx_volume
@@ -151,6 +160,7 @@ func _draw_settings() -> void:
 		music_volume = controller.app_settings.music_volume
 		shake_enabled = controller.app_settings.shake_enabled
 		haptics_enabled = controller.app_settings.haptics_enabled
+		quality_mode = controller.app_settings.quality_mode
 	var sfx_label := tr("SETTINGS_SFX_ON") if sfx_enabled else tr("SETTINGS_SFX_OFF")
 	DeepUI.draw_button(self, SFX_BUTTON, sfx_label, &"core" if sfx_enabled else &"ghost", 17)
 	DeepUI.draw_centered(
@@ -175,10 +185,13 @@ func _draw_settings() -> void:
 	DeepUI.draw_button(self, SHAKE_BUTTON, shake_label, &"secondary" if shake_enabled else &"ghost", 13)
 	var haptics_label := tr("SETTINGS_HAPTICS_ON") if haptics_enabled else tr("SETTINGS_HAPTICS_OFF")
 	DeepUI.draw_button(self, HAPTICS_BUTTON, haptics_label, &"secondary" if haptics_enabled else &"ghost", 14)
+	DeepUI.draw_centered(self, tr("SETTINGS_QUALITY"), Rect2(55.0, 645.0, 430.0, 24.0), 14, DeepUI.MUTED)
+	_draw_choice(PERFORMANCE_BUTTON, tr("SETTINGS_PERFORMANCE"), quality_mode == AppSettings.QualityMode.PERFORMANCE)
+	_draw_choice(GRAPHICS_BUTTON, tr("SETTINGS_GRAPHICS"), quality_mode == AppSettings.QualityMode.GRAPHICS)
 	DeepUI.draw_button(self, TUTORIAL_BUTTON, tr("SETTINGS_TUTORIAL"), &"secondary", 19)
 	DeepUI.draw_button(self, DELETE_DATA_BUTTON, tr("SETTINGS_DELETE_DATA"), &"danger", 18)
 	if not notice.is_empty():
-		DeepUI.draw_centered(self, notice, Rect2(55.0, 785.0, 430.0, 26.0), 12, DeepUI.DANGER)
+		DeepUI.draw_centered(self, notice, Rect2(55.0, 846.0, 430.0, 20.0), 11, DeepUI.DANGER)
 	DeepUI.draw_button(self, BACK_BUTTON, tr("COMMON_BACK"), &"primary", 19)
 
 

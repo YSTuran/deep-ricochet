@@ -1,0 +1,102 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        7,
+        1
+      ],
+      "hitPoints": 3,
+      "id": 10451,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        2,
+        1
+      ],
+      "hitPoints": 3,
+      "id": 10452,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        5,
+        3
+      ],
+      "hitPoints": 3,
+      "id": 10453,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        3,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 10454,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        6,
+        5
+      ],
+      "hitPoints": 4,
+      "id": 10455,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        1,
+        5
+      ],
+      "hitPoints": 4,
+      "id": 10456,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        5,
+        7
+      ],
+      "hitPoints": 5,
+      "id": 10457,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        3,
+        7
+      ],
+      "hitPoints": 5,
+      "id": 10458,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        4,
+        8
+      ],
+      "hitPoints": 6,
+      "id": 10549,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-1",
+  "displayName": "Altın Yarık",
+  "displayNameKey": "MINE_1_NARROW_01",
+  "exampleAngles": [
+    86.5
+  ],
+  "family": "bonus",
+  "height": 8,
+  "id": "m1_narrow_01_b",
+  "mineId": "mine_01",
+  "multiplierBps": 15000,
+  "passageColumns": [
+    4
+  ],
+  "role": "narrow",
+  "schemaVersion": 1,
+  "width": 8
+}

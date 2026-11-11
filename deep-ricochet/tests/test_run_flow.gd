@@ -14,71 +14,83 @@ static func run(controller: RunController, config: GameConfig) -> void:
 
 static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: GameConfig) -> void:
 	assert(catalog != null)
-	assert(catalog.templates.size() == 24)
-	var safe_count := 0
-	var bonus_count := 0
-	var layout_signatures: Dictionary[String, bool] = {}
+	assert(catalog.templates.size() == 42)
+	var mine_counts: Dictionary[StringName, int] = {}
+	var role_counts: Dictionary[StringName, Dictionary] = {}
+	var layout_signatures: Dictionary[StringName, Dictionary] = {}
 	for template: RoomTemplate in catalog.templates:
 		assert(template.is_valid())
 		assert(template.create_board().core_count() == 1)
+		if not layout_signatures.has(template.mine_id):
+			layout_signatures[template.mine_id] = {}
+		var mine_layouts: Dictionary = layout_signatures[template.mine_id]
 		var layout_signature := _layout_signature(template)
 		assert(
-			not layout_signatures.has(layout_signature),
+			not mine_layouts.has(layout_signature),
 			"Yinelenen oda düzeni bulundu: %s" % template.room_id,
 		)
-		layout_signatures[layout_signature] = true
+		mine_layouts[layout_signature] = true
+		mine_counts[template.mine_id] = mine_counts.get(template.mine_id, 0) + 1
+		if not role_counts.has(template.mine_id):
+			role_counts[template.mine_id] = {}
+		var mine_roles: Dictionary = role_counts[template.mine_id]
+		mine_roles[template.role] = mine_roles.get(template.role, 0) + 1
 		if template.family == RoomTemplate.Family.SAFE:
-			safe_count += 1
 			assert(template.multiplier_bps == config.safe_multiplier_bps)
 			assert(template.passage_columns.size() == 2)
 		else:
-			bonus_count += 1
 			assert(template.multiplier_bps == config.bonus_multiplier_bps)
 			assert(template.passage_columns.size() == 1)
-	assert(safe_count == 12)
-	assert(bonus_count == 12)
+	for mine_order in range(1, 4):
+		var mine_id := StringName("mine_%02d" % mine_order)
+		assert(mine_counts.get(mine_id, 0) == 14)
+		var counts: Dictionary = role_counts[mine_id]
+		assert(counts.get(RoomTemplate.Role.START, 0) == 2)
+		assert(counts.get(RoomTemplate.Role.WIDE, 0) == 6)
+		assert(counts.get(RoomTemplate.Role.NARROW, 0) == 6)
 
-	for sample_index in range(100):
-		var rng := RandomNumberGenerator.new()
-		rng.seed = sample_index + 1000
-		var first_room := catalog.pick_first_room(rng)
-		var session := RunSession.new()
-		assert(session.start_run(rng.seed, catalog.content_version, config.room_count, first_room))
-		for room_index in range(3):
-			assert(session.resolve_room(_finished_resolution(true, 100 + room_index)))
-			var options := catalog.create_route_options(
-				session.room_number + 1,
-				rng,
-				session.used_template_ids(),
-			)
-			assert(options.size() == 2)
-			assert(options[0].template.family == RoomTemplate.Family.SAFE)
-			assert(options[1].template.family == RoomTemplate.Family.BONUS)
-			assert(session.set_route_options(options))
-			var selected_index := (sample_index + room_index) % 2
-			var room_number_before_selection := session.room_number
-			var selected_count_before_selection := session.selected_template_ids.size()
-			assert(
-				session.route_template(options[selected_index].option_id)
-				== options[selected_index].template
-			)
-			assert(session.room_number == room_number_before_selection)
-			assert(session.selected_template_ids.size() == selected_count_before_selection)
-			assert(session.select_route(options[selected_index].option_id) != null)
-		assert(session.resolve_room(_finished_resolution(true, 100)))
-		assert(session.ended)
-		assert(session.succeeded)
-		assert(session.cores_broken == 4)
-		assert(session.route_choices_made == 3)
-		assert(session.selected_template_ids.size() == 4)
-		assert(session.offered_template_ids.size() == 6)
-		assert(session.used_template_ids().size() == 7)
+	for mine_order in range(1, 4):
+		var mine_id := StringName("mine_%02d" % mine_order)
+		for sample_index in range(100):
+			var rng := RandomNumberGenerator.new()
+			rng.seed = sample_index + 1000
+			var first_room := catalog.pick_first_room(rng, mine_id)
+			assert(first_room.role == RoomTemplate.Role.START)
+			var session := RunSession.new()
+			assert(session.start_run(rng.seed, catalog.content_version, config.room_count, first_room, "", mine_id))
+			for room_index in range(3):
+				assert(session.resolve_room(_finished_resolution(true, 100 + room_index)))
+				var options := catalog.create_route_options(
+					session.room_number + 1,
+					rng,
+					session.used_template_ids(),
+					mine_id,
+				)
+				assert(options.size() == 2)
+				assert(options[0].template.role == RoomTemplate.Role.WIDE)
+				assert(options[1].template.role == RoomTemplate.Role.NARROW)
+				assert(session.set_route_options(options))
+				var selected_index := (sample_index + room_index) % 2
+				var room_number_before_selection := session.room_number
+				var selected_count_before_selection := session.selected_template_ids.size()
+				assert(session.route_template(options[selected_index].option_id) == options[selected_index].template)
+				assert(session.room_number == room_number_before_selection)
+				assert(session.selected_template_ids.size() == selected_count_before_selection)
+				assert(session.select_route(options[selected_index].option_id) != null)
+			assert(session.resolve_room(_finished_resolution(true, 100)))
+			assert(session.ended)
+			assert(session.succeeded)
+			assert(session.cores_broken == 4)
+			assert(session.route_choices_made == 3)
+			assert(session.selected_template_ids.size() == 4)
+			assert(session.offered_template_ids.size() == 6)
+			assert(session.used_template_ids().size() == 7)
 
 	var first_rng := RandomNumberGenerator.new()
 	first_rng.seed = 4444
 	var second_rng := RandomNumberGenerator.new()
 	second_rng.seed = 4444
-	assert(catalog.pick_first_room(first_rng).room_id == catalog.pick_first_room(second_rng).room_id)
+	assert(catalog.pick_first_room(first_rng, &"mine_03").room_id == catalog.pick_first_room(second_rng, &"mine_03").room_id)
 
 
 static func _layout_signature(template: RoomTemplate) -> String:
@@ -149,6 +161,7 @@ static func _test_controller_four_room_flow(controller: RunController) -> void:
 	assert(controller.start_new_run(777))
 	var first_template_id := controller.run_session.current_template_id
 	assert(controller.run_session.room_number == 1)
+	assert(controller.run_session.mine_id == &"mine_01")
 	assert(controller.gameplay_room.current_template.family == RoomTemplate.Family.SAFE)
 	for completed_room in range(1, 5):
 		controller._on_room_finished(_finished_resolution(true, completed_room * 100))
@@ -170,14 +183,26 @@ static func _test_controller_four_room_flow(controller: RunController) -> void:
 			assert(controller.flow_view.screen == RunFlowView.Screen.RUN_RESULT)
 			assert(controller.flow_view.visible)
 	var completed_run_id := controller.run_session.run_id
+	assert(controller.profile.is_mine_unlocked(&"mine_02"))
 	assert(controller.restart_same_seed())
 	assert(controller.run_session.seed == 777)
 	assert(controller.run_session.current_template_id == first_template_id)
 	assert(controller.run_session.run_id != completed_run_id)
 	assert(controller.gameplay_room.simulation_speed == 1)
+	var daily_key := "2026-11-11"
+	var daily_seed := controller.daily_seed_for_key(daily_key)
+	assert(controller.start_new_run(daily_seed, &"mine_01", RunSession.RunKind.DAILY, daily_key))
+	assert(controller.run_session.run_kind == RunSession.RunKind.DAILY)
+	assert(controller.run_session.daily_key == daily_key)
+	var daily_snapshot := controller.create_snapshot()
+	assert(daily_snapshot.mine_id == &"mine_01")
+	assert(daily_snapshot.run_kind == RunSession.RunKind.DAILY)
+	assert(daily_snapshot.daily_key == daily_key)
 	assert(controller.start_new_run(778))
 	assert(controller.run_session.banked_score == 0)
 	assert(controller.run_session.room_number == 1)
+	assert(controller.start_new_run(779, &"mine_02"))
+	assert(controller.run_session.mine_id == &"mine_02")
 
 
 static func _finished_resolution(success: bool, reward: int) -> RoomResolution:
