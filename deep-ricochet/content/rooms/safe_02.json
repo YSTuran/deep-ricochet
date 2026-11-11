@@ -3,7 +3,7 @@
   "id": "safe_02",
   "displayName": "Çift Koridor",
   "family": "safe",
-  "contentVersion": "p0-content-1",
+  "contentVersion": "p1-content-1",
   "width": 8,
   "height": 8,
   "multiplierBps": 10000,

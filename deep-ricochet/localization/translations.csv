@@ -112,9 +112,21 @@ ROOM_SAFE_03,Open Shaft,Açık Şaft
 ROOM_SAFE_04,Echo Hall,Yankı Salonu
 ROOM_SAFE_05,Blue Passage,Mavi Geçit
 ROOM_SAFE_06,Rock Plaza,Kaya Meydanı
+ROOM_SAFE_07,Stepped Gallery,Basamaklı Galeri
+ROOM_SAFE_08,Silent Arch,Sessiz Kemer
+ROOM_SAFE_09,Crosscut,Çapraz Oyuk
+ROOM_SAFE_10,Deep Hall,Derin Salon
+ROOM_SAFE_11,Twin Pockets,İkiz Cepler
+ROOM_SAFE_12,Open Arch,Açık Kemer
 ROOM_BONUS_01,Golden Fissure,Altın Yarık
 ROOM_BONUS_02,Narrow Shaft,Dar Şaft
 ROOM_BONUS_03,Ore Gorge,Cevher Boğazı
 ROOM_BONUS_04,Broken Vein,Kırık Damar
 ROOM_BONUS_05,Bright Fissure,Parlak Yarık
 ROOM_BONUS_06,Single Line,Tek Hat
+ROOM_BONUS_07,Crystal Gorge,Kristal Boğazı
+ROOM_BONUS_08,Coal Needle,Kömür İğnesi
+ROOM_BONUS_09,Golden Steps,Altın Basamak
+ROOM_BONUS_10,Dark Gutter,Karanlık Oluk
+ROOM_BONUS_11,Ore Crown,Cevher Tacı
+ROOM_BONUS_12,Tight Vein,Sıkışık Damar

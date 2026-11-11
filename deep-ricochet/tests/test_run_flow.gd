@@ -14,12 +14,19 @@ static func run(controller: RunController, config: GameConfig) -> void:
 
 static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: GameConfig) -> void:
 	assert(catalog != null)
-	assert(catalog.templates.size() == 12)
+	assert(catalog.templates.size() == 24)
 	var safe_count := 0
 	var bonus_count := 0
+	var layout_signatures: Dictionary[String, bool] = {}
 	for template: RoomTemplate in catalog.templates:
 		assert(template.is_valid())
 		assert(template.create_board().core_count() == 1)
+		var layout_signature := _layout_signature(template)
+		assert(
+			not layout_signatures.has(layout_signature),
+			"Yinelenen oda düzeni bulundu: %s" % template.room_id,
+		)
+		layout_signatures[layout_signature] = true
 		if template.family == RoomTemplate.Family.SAFE:
 			safe_count += 1
 			assert(template.multiplier_bps == config.safe_multiplier_bps)
@@ -28,8 +35,8 @@ static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: Gam
 			bonus_count += 1
 			assert(template.multiplier_bps == config.bonus_multiplier_bps)
 			assert(template.passage_columns.size() == 1)
-	assert(safe_count == 6)
-	assert(bonus_count == 6)
+	assert(safe_count == 12)
+	assert(bonus_count == 12)
 
 	for sample_index in range(100):
 		var rng := RandomNumberGenerator.new()
@@ -74,6 +81,19 @@ static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: Gam
 	assert(catalog.pick_first_room(first_rng).room_id == catalog.pick_first_room(second_rng).room_id)
 
 
+static func _layout_signature(template: RoomTemplate) -> String:
+	var parts := PackedStringArray()
+	for block: RoomBlockDefinition in template.blocks:
+		parts.append("%d:%d:%d:%d" % [
+			block.block_type,
+			block.cell.x,
+			block.cell.y,
+			block.hit_points,
+		])
+	parts.sort()
+	return "|".join(parts)
+
+
 static func _test_template_example_angles(catalog: RoomCatalog, config: GameConfig) -> void:
 	var started_usec := Time.get_ticks_usec()
 	var simulator := ShotSimulator.new()
@@ -103,7 +123,10 @@ static func _test_template_example_angles(catalog: RoomCatalog, config: GameConf
 				break
 		assert(board.is_core_destroyed(), "Örnek açı dizisi çekirdeği kıramadı: %s" % template.room_id)
 	var elapsed_msec := float(Time.get_ticks_usec() - started_usec) / 1000.0
-	print("[PERF] 12 oda örnek açı simülasyonu: %.1f ms" % elapsed_msec)
+	print("[PERF] %d oda örnek açı simülasyonu: %.1f ms" % [
+		catalog.templates.size(),
+		elapsed_msec,
+	])
 
 
 static func _test_failed_run(catalog: RoomCatalog, config: GameConfig) -> void:

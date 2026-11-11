@@ -3,7 +3,7 @@
   "id": "bonus_04",
   "displayName": "Kırık Damar",
   "family": "bonus",
-  "contentVersion": "p0-content-1",
+  "contentVersion": "p1-content-1",
   "width": 8,
   "height": 8,
   "multiplierBps": 15000,

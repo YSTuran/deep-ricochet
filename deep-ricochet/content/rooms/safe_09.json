@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "safe_09",
+  "displayName": "Çapraz Oyuk",
+  "family": "safe",
+  "contentVersion": "p1-content-1",
+  "width": 8,
+  "height": 8,
+  "multiplierBps": 10000,
+  "passageColumns": [3, 4],
+  "exampleAngles": [93.5, 86.5],
+  "blocks": [
+    { "id": 1501, "type": "ore", "cell": [0, 1], "hitPoints": 3 },
+    { "id": 1502, "type": "ore", "cell": [7, 1], "hitPoints": 3 },
+    { "id": 1503, "type": "rock", "cell": [2, 3], "hitPoints": 0 },
+    { "id": 1504, "type": "rock", "cell": [5, 3], "hitPoints": 0 },
+    { "id": 1505, "type": "normal", "cell": [1, 5], "hitPoints": 4 },
+    { "id": 1506, "type": "normal", "cell": [6, 5], "hitPoints": 4 },
+    { "id": 1507, "type": "normal", "cell": [0, 6], "hitPoints": 3 },
+    { "id": 1508, "type": "normal", "cell": [7, 6], "hitPoints": 3 },
+    { "id": 1509, "type": "ore", "cell": [2, 7], "hitPoints": 6 },
+    { "id": 1510, "type": "ore", "cell": [5, 7], "hitPoints": 6 },
+    { "id": 1511, "type": "core", "cell": [3, 8], "hitPoints": 6 }
+  ]
+}

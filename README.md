@@ -45,7 +45,7 @@ Oyun alanında fareyle ya da dokunmatik ekranla basılı tutup yön seçilir; b�
 - Dört oda, üç rota tercihi ve tek seferlik sonuç işleyen `RunSession` / `RunController`
 - Seed tabanlı, aynı koşuda daha önce sunulan şablonu yeniden kullanmayan içerik seçimi
 - Gerçek şablondan çizilen güvenli/bonus rota önizlemeleri ve geçici sonuç ekranı
-- 6 güvenli ve 6 bonus olmak üzere 12 doğrulanan oda şablonu
+- 12 güvenli ve 12 bonus olmak üzere 24 doğrulanan oda şablonu
 - Sürümlendirilmiş `RunSnapshot`, `RoomSnapshot` ve JSON kayıt zarfı
 - Atomik geçici dosya yazımı, son geçerli yedek ve bozuk kayıt doğrulaması
 - Atış öncesi snapshot; yarıda kesilen yaylımda hak/puan kaybetmeden geri dönüş
@@ -84,6 +84,7 @@ Oyun alanında fareyle ya da dokunmatik ekranla basılı tutup yön seçilir; b�
 - Cevher ve çekirdek vuruşlarında ayrışan ses tonu; mevcut ses yığılma sınırı korunarak düşük maliyetli ses cilası
 - Android'de blok kırılması ve çekirdeğin kırılması için kısa, farklı şiddette ve 90 ms aralıkla sınırlanan titreşim
 - Ayarlar ekranında kalıcı titreşim açma-kapama seçeneği ve eski ayar kayıtları için şema geçişi
+- Mevcut havuza eklenen 6 güvenli ve 6 bonus yeni oda; toplam 24 seed tabanlı şablon
 
 2× seçeneği topların fizik hızını veya çarpışma sonuçlarını değiştirmez; her çizim karesinde iki sabit simülasyon adımı çalıştırır. Yeni koşu ve aynı seed tekrarı 1× hızda başlar. Titreşim yalnızca Android özelliği algılandığında çağrılır; masaüstü testleri ve diğer platformlarda devre dışı kalır.
 
@@ -131,4 +132,4 @@ Godot komut satırından proje kökünde şu sahne çalıştırılır:
 godot --headless --path deep-ricochet --scene res://tests/smoke_test.tscn
 ```
 
-Test; profil ve ayar geçişlerini, titreşim ayarı ile eski ayar şeması göçünü, efekt/müzik bus'larını, melodik çarpışma hız sınırını, sessiz modu, profil yedeğinden kurtarmayı, iki dili, üç aşamalı ilk-oyun öğreticisini, tüm veri silme hata davranışını, ayrıntılı oda sonuç geçmişini, aynı seed tekrarını, 1×/2× sabit adımlı simülasyonu, ana menü ve devam durumunu, nişan sırasında duraklatmayı, canlı yaylımın donmasını, odak kaybını, 12 oda şablonunu, örnek açı geçişlerini, 100 seed seçimini, dört oda/üç rota akışını, atış ortası kurtarmayı, bozuk kayıt reddini, fiziği ve puanı doğrular. Ayrıca 12 odanın örnek açı simülasyon süresini test çıktısında `[PERF]` satırıyla raporlar.
+Test; profil ve ayar geçişlerini, titreşim ayarı ile eski ayar şeması göçünü, efekt/müzik bus'larını, melodik çarpışma hız sınırını, sessiz modu, profil yedeğinden kurtarmayı, iki dili, üç aşamalı ilk-oyun öğreticisini, tüm veri silme hata davranışını, ayrıntılı oda sonuç geçmişini, aynı seed tekrarını, 1×/2× sabit adımlı simülasyonu, ana menü ve devam durumunu, nişan sırasında duraklatmayı, canlı yaylımın donmasını, odak kaybını, 24 oda şablonunu, örnek açı geçişlerini, 100 seed seçimini, dört oda/üç rota akışını, atış ortası kurtarmayı, bozuk kayıt reddini, fiziği ve puanı doğrular. Ayrıca 24 odanın örnek açı simülasyon süresini test çıktısında `[PERF]` satırıyla raporlar.

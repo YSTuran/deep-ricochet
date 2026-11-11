@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "safe_08",
+  "displayName": "Sessiz Kemer",
+  "family": "safe",
+  "contentVersion": "p1-content-1",
+  "width": 8,
+  "height": 8,
+  "multiplierBps": 10000,
+  "passageColumns": [3, 4],
+  "exampleAngles": [86.5, 93.5],
+  "blocks": [
+    { "id": 1401, "type": "normal", "cell": [2, 1], "hitPoints": 2 },
+    { "id": 1402, "type": "normal", "cell": [5, 1], "hitPoints": 2 },
+    { "id": 1403, "type": "rock", "cell": [0, 3], "hitPoints": 0 },
+    { "id": 1404, "type": "rock", "cell": [7, 3], "hitPoints": 0 },
+    { "id": 1405, "type": "normal", "cell": [1, 4], "hitPoints": 3 },
+    { "id": 1406, "type": "normal", "cell": [6, 4], "hitPoints": 3 },
+    { "id": 1407, "type": "ore", "cell": [2, 6], "hitPoints": 5 },
+    { "id": 1408, "type": "ore", "cell": [5, 6], "hitPoints": 5 },
+    { "id": 1409, "type": "normal", "cell": [1, 7], "hitPoints": 5 },
+    { "id": 1410, "type": "normal", "cell": [6, 7], "hitPoints": 5 },
+    { "id": 1411, "type": "core", "cell": [4, 8], "hitPoints": 6 }
+  ]
+}

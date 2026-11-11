@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "contentVersion": "p0-content-1",
+  "contentVersion": "p1-content-1",
   "templates": [
     "res://content/rooms/safe_01.json",
     "res://content/rooms/safe_02.json",
@@ -8,11 +8,23 @@
     "res://content/rooms/safe_04.json",
     "res://content/rooms/safe_05.json",
     "res://content/rooms/safe_06.json",
+    "res://content/rooms/safe_07.json",
+    "res://content/rooms/safe_08.json",
+    "res://content/rooms/safe_09.json",
+    "res://content/rooms/safe_10.json",
+    "res://content/rooms/safe_11.json",
+    "res://content/rooms/safe_12.json",
     "res://content/rooms/bonus_01.json",
     "res://content/rooms/bonus_02.json",
     "res://content/rooms/bonus_03.json",
     "res://content/rooms/bonus_04.json",
     "res://content/rooms/bonus_05.json",
-    "res://content/rooms/bonus_06.json"
+    "res://content/rooms/bonus_06.json",
+    "res://content/rooms/bonus_07.json",
+    "res://content/rooms/bonus_08.json",
+    "res://content/rooms/bonus_09.json",
+    "res://content/rooms/bonus_10.json",
+    "res://content/rooms/bonus_11.json",
+    "res://content/rooms/bonus_12.json"
   ]
 }

@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "safe_12",
+  "displayName": "Açık Kemer",
+  "family": "safe",
+  "contentVersion": "p1-content-1",
+  "width": 8,
+  "height": 8,
+  "multiplierBps": 10000,
+  "passageColumns": [3, 4],
+  "exampleAngles": [86.5, 93.5],
+  "blocks": [
+    { "id": 1801, "type": "normal", "cell": [2, 2], "hitPoints": 2 },
+    { "id": 1802, "type": "normal", "cell": [5, 2], "hitPoints": 2 },
+    { "id": 1803, "type": "ore", "cell": [1, 4], "hitPoints": 4 },
+    { "id": 1804, "type": "ore", "cell": [6, 4], "hitPoints": 4 },
+    { "id": 1805, "type": "rock", "cell": [0, 5], "hitPoints": 0 },
+    { "id": 1806, "type": "rock", "cell": [7, 5], "hitPoints": 0 },
+    { "id": 1807, "type": "normal", "cell": [2, 6], "hitPoints": 4 },
+    { "id": 1808, "type": "normal", "cell": [5, 6], "hitPoints": 4 },
+    { "id": 1809, "type": "ore", "cell": [1, 7], "hitPoints": 5 },
+    { "id": 1810, "type": "ore", "cell": [6, 7], "hitPoints": 5 },
+    { "id": 1811, "type": "core", "cell": [4, 8], "hitPoints": 6 }
+  ]
+}

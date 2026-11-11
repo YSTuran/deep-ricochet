@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "bonus_07",
+  "displayName": "Kristal Boğazı",
+  "family": "bonus",
+  "contentVersion": "p1-content-1",
+  "width": 8,
+  "height": 8,
+  "multiplierBps": 15000,
+  "passageColumns": [4],
+  "exampleAngles": [86.5, 93.5],
+  "blocks": [
+    { "id": 1901, "type": "normal", "cell": [2, 1], "hitPoints": 3 },
+    { "id": 1902, "type": "normal", "cell": [6, 1], "hitPoints": 3 },
+    { "id": 1903, "type": "ore", "cell": [3, 3], "hitPoints": 4 },
+    { "id": 1904, "type": "ore", "cell": [5, 3], "hitPoints": 4 },
+    { "id": 1905, "type": "rock", "cell": [3, 5], "hitPoints": 0 },
+    { "id": 1906, "type": "rock", "cell": [5, 5], "hitPoints": 0 },
+    { "id": 1907, "type": "normal", "cell": [2, 6], "hitPoints": 5 },
+    { "id": 1908, "type": "normal", "cell": [6, 6], "hitPoints": 5 },
+    { "id": 1909, "type": "ore", "cell": [3, 7], "hitPoints": 6 },
+    { "id": 1910, "type": "ore", "cell": [5, 7], "hitPoints": 6 },
+    { "id": 1911, "type": "core", "cell": [4, 8], "hitPoints": 6 }
+  ]
+}

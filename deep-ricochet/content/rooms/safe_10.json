@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "safe_10",
+  "displayName": "Derin Salon",
+  "family": "safe",
+  "contentVersion": "p1-content-1",
+  "width": 8,
+  "height": 8,
+  "multiplierBps": 10000,
+  "passageColumns": [3, 4],
+  "exampleAngles": [86.5, 93.5],
+  "blocks": [
+    { "id": 1601, "type": "rock", "cell": [1, 2], "hitPoints": 0 },
+    { "id": 1602, "type": "rock", "cell": [6, 2], "hitPoints": 0 },
+    { "id": 1603, "type": "normal", "cell": [0, 4], "hitPoints": 3 },
+    { "id": 1604, "type": "normal", "cell": [7, 4], "hitPoints": 3 },
+    { "id": 1605, "type": "ore", "cell": [2, 5], "hitPoints": 4 },
+    { "id": 1606, "type": "ore", "cell": [5, 5], "hitPoints": 4 },
+    { "id": 1607, "type": "normal", "cell": [0, 6], "hitPoints": 4 },
+    { "id": 1608, "type": "normal", "cell": [7, 6], "hitPoints": 4 },
+    { "id": 1609, "type": "normal", "cell": [1, 7], "hitPoints": 5 },
+    { "id": 1610, "type": "normal", "cell": [6, 7], "hitPoints": 5 },
+    { "id": 1611, "type": "core", "cell": [4, 8], "hitPoints": 6 }
+  ]
+}

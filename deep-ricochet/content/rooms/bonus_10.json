@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "bonus_10",
+  "displayName": "Karanlık Oluk",
+  "family": "bonus",
+  "contentVersion": "p1-content-1",
+  "width": 8,
+  "height": 8,
+  "multiplierBps": 15000,
+  "passageColumns": [3],
+  "exampleAngles": [93.5, 86.5],
+  "blocks": [
+    { "id": 2201, "type": "rock", "cell": [1, 1], "hitPoints": 0 },
+    { "id": 2202, "type": "rock", "cell": [5, 1], "hitPoints": 0 },
+    { "id": 2203, "type": "normal", "cell": [2, 2], "hitPoints": 3 },
+    { "id": 2204, "type": "normal", "cell": [4, 2], "hitPoints": 3 },
+    { "id": 2205, "type": "ore", "cell": [1, 4], "hitPoints": 4 },
+    { "id": 2206, "type": "ore", "cell": [5, 4], "hitPoints": 4 },
+    { "id": 2207, "type": "rock", "cell": [2, 5], "hitPoints": 0 },
+    { "id": 2208, "type": "rock", "cell": [4, 5], "hitPoints": 0 },
+    { "id": 2209, "type": "normal", "cell": [1, 7], "hitPoints": 6 },
+    { "id": 2210, "type": "normal", "cell": [5, 7], "hitPoints": 6 },
+    { "id": 2211, "type": "core", "cell": [3, 8], "hitPoints": 6 }
+  ]
+}

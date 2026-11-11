@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "bonus_09",
+  "displayName": "Altın Basamak",
+  "family": "bonus",
+  "contentVersion": "p1-content-1",
+  "width": 8,
+  "height": 8,
+  "multiplierBps": 15000,
+  "passageColumns": [4],
+  "exampleAngles": [86.5, 93.5],
+  "blocks": [
+    { "id": 2101, "type": "ore", "cell": [1, 2], "hitPoints": 3 },
+    { "id": 2102, "type": "ore", "cell": [7, 2], "hitPoints": 3 },
+    { "id": 2103, "type": "normal", "cell": [3, 3], "hitPoints": 3 },
+    { "id": 2104, "type": "normal", "cell": [5, 3], "hitPoints": 3 },
+    { "id": 2105, "type": "rock", "cell": [2, 4], "hitPoints": 0 },
+    { "id": 2106, "type": "rock", "cell": [6, 4], "hitPoints": 0 },
+    { "id": 2107, "type": "ore", "cell": [3, 6], "hitPoints": 5 },
+    { "id": 2108, "type": "ore", "cell": [5, 6], "hitPoints": 5 },
+    { "id": 2109, "type": "normal", "cell": [2, 7], "hitPoints": 6 },
+    { "id": 2110, "type": "normal", "cell": [6, 7], "hitPoints": 6 },
+    { "id": 2111, "type": "core", "cell": [4, 8], "hitPoints": 6 }
+  ]
+}

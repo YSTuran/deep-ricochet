@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "bonus_11",
+  "displayName": "Cevher Tacı",
+  "family": "bonus",
+  "contentVersion": "p1-content-1",
+  "width": 8,
+  "height": 8,
+  "multiplierBps": 15000,
+  "passageColumns": [4],
+  "exampleAngles": [86.5, 93.5],
+  "blocks": [
+    { "id": 2301, "type": "ore", "cell": [2, 2], "hitPoints": 4 },
+    { "id": 2302, "type": "ore", "cell": [6, 2], "hitPoints": 4 },
+    { "id": 2303, "type": "normal", "cell": [3, 4], "hitPoints": 3 },
+    { "id": 2304, "type": "normal", "cell": [5, 4], "hitPoints": 3 },
+    { "id": 2305, "type": "rock", "cell": [2, 5], "hitPoints": 0 },
+    { "id": 2306, "type": "rock", "cell": [6, 5], "hitPoints": 0 },
+    { "id": 2307, "type": "ore", "cell": [1, 6], "hitPoints": 5 },
+    { "id": 2308, "type": "ore", "cell": [7, 6], "hitPoints": 5 },
+    { "id": 2309, "type": "normal", "cell": [3, 7], "hitPoints": 6 },
+    { "id": 2310, "type": "normal", "cell": [5, 7], "hitPoints": 6 },
+    { "id": 2311, "type": "core", "cell": [4, 8], "hitPoints": 6 }
+  ]
+}

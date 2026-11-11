@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "bonus_12",
+  "displayName": "Sıkışık Damar",
+  "family": "bonus",
+  "contentVersion": "p1-content-1",
+  "width": 8,
+  "height": 8,
+  "multiplierBps": 15000,
+  "passageColumns": [3],
+  "exampleAngles": [23.5],
+  "blocks": [
+    { "id": 2401, "type": "normal", "cell": [2, 1], "hitPoints": 3 },
+    { "id": 2402, "type": "normal", "cell": [4, 1], "hitPoints": 3 },
+    { "id": 2403, "type": "rock", "cell": [1, 3], "hitPoints": 0 },
+    { "id": 2404, "type": "rock", "cell": [5, 3], "hitPoints": 0 },
+    { "id": 2405, "type": "ore", "cell": [2, 4], "hitPoints": 4 },
+    { "id": 2406, "type": "ore", "cell": [4, 4], "hitPoints": 4 },
+    { "id": 2407, "type": "normal", "cell": [1, 6], "hitPoints": 5 },
+    { "id": 2408, "type": "normal", "cell": [5, 6], "hitPoints": 5 },
+    { "id": 2409, "type": "ore", "cell": [2, 7], "hitPoints": 6 },
+    { "id": 2410, "type": "ore", "cell": [4, 7], "hitPoints": 6 },
+    { "id": 2411, "type": "core", "cell": [3, 8], "hitPoints": 6 }
+  ]
+}
