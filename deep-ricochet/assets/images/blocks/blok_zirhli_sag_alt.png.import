@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bkx5kyd5c34pk"
-path="res://.godot/imported/blok_zirhli_sag_alt.png-1fddd421409903fa3a83c87823755256.ctex"
+uid="uid://cc5ywscj5rni4"
+path="res://.godot/imported/blok_zirhli_sag_alt.png-23ea53e15ef3525b573a11576159697f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/source/blok_zirhli_sag_alt.png"
-dest_files=["res://.godot/imported/blok_zirhli_sag_alt.png-1fddd421409903fa3a83c87823755256.ctex"]
+source_file="res://assets/images/blocks/blok_zirhli_sag_alt.png"
+dest_files=["res://.godot/imported/blok_zirhli_sag_alt.png-23ea53e15ef3525b573a11576159697f.ctex"]
 
 [params]
 

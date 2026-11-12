@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c66xeg2jtq4cq"
-path="res://.godot/imported/deep_ricochet_main.png-3c0e5ae1e2f3131f7b6ddaeb27859079.ctex"
+uid="uid://bj60x3mc21pm"
+path="res://.godot/imported/deep_ricochet_main.png-f9dc73c4242a49ed6e430d039e251f67.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/icons/deep_ricochet_main.png"
-dest_files=["res://.godot/imported/deep_ricochet_main.png-3c0e5ae1e2f3131f7b6ddaeb27859079.ctex"]
+source_file="res://assets/images/icons/deep_ricochet_main.png"
+dest_files=["res://.godot/imported/deep_ricochet_main.png-f9dc73c4242a49ed6e430d039e251f67.ctex"]
 
 [params]
 

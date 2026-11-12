@@ -10,9 +10,9 @@ const VIEW_SIZE := Vector2(540.0, 960.0)
 const SKIP_BUTTON := Rect2(35.0, 845.0, 170.0, 65.0)
 const NEXT_BUTTON := Rect2(275.0, 845.0, 230.0, 65.0)
 const PAGE_COUNT := 3
-const NORMAL_TEXTURE: Texture2D = preload("res://art/source/blok_normal.png")
-const ORE_TEXTURE: Texture2D = preload("res://art/source/blok_cevher.png")
-const CORE_TEXTURE: Texture2D = preload("res://art/source/cekirdek.png")
+const NORMAL_TEXTURE: Texture2D = preload("res://assets/images/blocks/blok_normal.png")
+const ORE_TEXTURE: Texture2D = preload("res://assets/images/blocks/blok_cevher.png")
+const CORE_TEXTURE: Texture2D = preload("res://assets/images/blocks/cekirdek.png")
 const NORMAL_SOURCE_RECT := Rect2(139.0, 159.0, 976.0, 939.0)
 const ORE_SOURCE_RECT := Rect2(209.0, 220.0, 837.0, 831.0)
 

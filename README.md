@@ -5,11 +5,13 @@ Deep Ricochet, dikey ekranda oynanan nişan alma ve sekme odaklı bir mobil oyun
 ## Dizin yapısı
 
 - `deep-ricochet/`: Godot projesi ve çalıştırılabilir oyun kaynakları.
-- `assets/`: Orijinal görseller, üretim notları ve asset manifesti.
+- `deep-ricochet/assets/images/blocks/`: Oyunda kullanılan blok ve çekirdek görselleri.
+- `deep-ricochet/assets/images/icons/`: Uygulama, adaptive launcher ve proje ikonları.
+- `deep-ricochet/assets/audio/sfx/`: Oyunda kullanılan kısa ses efektleri.
 
 Etkin oda içerikleri `deep-ricochet/content/mines/rooms/` altındaki JSON şablonlarında, beş madenin sırası ve kilit koşulları ise `deep-ricochet/content/mines/mines.json` içinde tutulur. Oynanış sahnesi bu şablonlardan blok dizilimini, blok canlarını, zırhlı blokların açık kenarlarını ve oda çarpanını yükler; kaynak şablonu değiştirmeden her başlangıçta yeni bir tahta üretir. Şablon paketi `deep-ricochet/tools/generate_mine_rooms.gd` ile deterministik olarak yeniden üretilebilir.
 
-Godot'ta açılması gereken dosya `deep-ricochet/project.godot` dosyasıdır. Ana klasör ise Git deposunun köküdür; böylece hem proje hem de kaynak asset paketi birlikte sürümlenir.
+Godot'ta açılması gereken dosya `deep-ricochet/project.godot` dosyasıdır. Çalışma zamanı assetlerinin tamamı Godot'un `res://assets/` kökü altında tutulur; kullanılmayan üretim notları ve yinelenen kaynak kopyaları depoya eklenmez.
 
 ## Teknolojiler
 
@@ -103,7 +105,7 @@ Duraklatma menüsünden ana menüye dönüldüğünde kararlı koşu korunur. Bi
 
 Profil `user://deep_ricochet_profile.json`; dil, ses, titreşim, ekran sarsıntısı ve kalite modu tercihleri `user://deep_ricochet_settings.json` konumunda aktif koşudan bağımsız tutulur. Profil şeması maden kilitlerini, maden bazındaki istatistikleri ve o günün günlük maden sonucunu da saklar. Her iki dosya geçici dosya ve son geçerli yedek kullanır. Yeni oyun aktif koşuyu değiştirirken rekor ve ayarları korur; ayarlardaki açık onaylı `Tüm Verileri Sil` işlemi aktif koşuyu, profili ve ayarları birlikte temizler.
 
-Ses sistemi `deep-ricochet/audio/audio_manager.gd` otomatik yüklemesi üzerinden çalışır. Aynı anda gelen çarpışmalar 45 ms aralıkla sınırlandırılır; böylece sekiz topluk yaylımda sesler üst üste yığılıp bozulmaz. Arka plan atmosferi çalışma anında kodla üretilir; kullanılan Kenney efektlerinin kaynak ve lisans bilgileri `deep-ricochet/audio/THIRD_PARTY_AUDIO.md` dosyasındadır.
+Ses sistemi `deep-ricochet/audio/audio_manager.gd` otomatik yüklemesi üzerinden çalışır; ses dosyaları `deep-ricochet/assets/audio/sfx/` altında tutulur. Aynı anda gelen çarpışmalar 45 ms aralıkla sınırlandırılır; böylece sekiz topluk yaylımda sesler üst üste yığılıp bozulmaz. Arka plan atmosferi çalışma anında kodla üretilir; kullanılan Kenney efektlerinin kaynak ve lisans bilgileri `deep-ricochet/audio/THIRD_PARTY_AUDIO.md` dosyasındadır.
 
 UI renkleri, panel biçimleri, düğme türleri ve prosedürel maden arka planı `deep-ricochet/ui/ui_theme.gd` içinde ortaklaştırılmıştır. Hareketli oyun ekranında yeniden kullanılan stil kaynakları önbelleğe alınır; menü ekranları aynı dokunma alanlarını korurken ortak görsel dili paylaşır.
 

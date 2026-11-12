@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dssym8b4i3elf"
-path="res://.godot/imported/cekirdek.png-34486d98010b55b198656ff6a93fa0f9.ctex"
+uid="uid://bqq1ttjheq61w"
+path="res://.godot/imported/cekirdek.png-1c3865667ca4df65a7f9df8f68069026.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/source/cekirdek.png"
-dest_files=["res://.godot/imported/cekirdek.png-34486d98010b55b198656ff6a93fa0f9.ctex"]
+source_file="res://assets/images/blocks/cekirdek.png"
+dest_files=["res://.godot/imported/cekirdek.png-1c3865667ca4df65a7f9df8f68069026.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bdo47gbme12f4"
-path="res://.godot/imported/blok_patlayici.png-6a09e169af9eda0c64dcab4d858fa0aa.ctex"
+uid="uid://d2awy5cv546qn"
+path="res://.godot/imported/blok_patlayici.png-b1318821a0e452694936347dc1b0ad65.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/source/blok_patlayici.png"
-dest_files=["res://.godot/imported/blok_patlayici.png-6a09e169af9eda0c64dcab4d858fa0aa.ctex"]
+source_file="res://assets/images/blocks/blok_patlayici.png"
+dest_files=["res://.godot/imported/blok_patlayici.png-b1318821a0e452694936347dc1b0ad65.ctex"]
 
 [params]
 

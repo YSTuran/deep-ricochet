@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bho7aevg6reoe"
-path="res://.godot/imported/blok_catlak.png-aefd296d646dcd685ab6c1576b0b9a54.ctex"
+uid="uid://c56tx7wgi47mo"
+path="res://.godot/imported/blok_catlak.png-06745c815eeaa2bd3fd5fabdea6823b5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/source/blok_catlak.png"
-dest_files=["res://.godot/imported/blok_catlak.png-aefd296d646dcd685ab6c1576b0b9a54.ctex"]
+source_file="res://assets/images/blocks/blok_catlak.png"
+dest_files=["res://.godot/imported/blok_catlak.png-06745c815eeaa2bd3fd5fabdea6823b5.ctex"]
 
 [params]
 

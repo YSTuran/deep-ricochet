@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cmcbgwim14a6g"
-path="res://.godot/imported/blok_cevher.png-72e223027849422fd400465900d935a4.ctex"
+uid="uid://1tb748kan3r1"
+path="res://.godot/imported/blok_cevher.png-acacaeb94fed0a8d484a204f7a3a9da7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/source/blok_cevher.png"
-dest_files=["res://.godot/imported/blok_cevher.png-72e223027849422fd400465900d935a4.ctex"]
+source_file="res://assets/images/blocks/blok_cevher.png"
+dest_files=["res://.godot/imported/blok_cevher.png-acacaeb94fed0a8d484a204f7a3a9da7.ctex"]
 
 [params]
 

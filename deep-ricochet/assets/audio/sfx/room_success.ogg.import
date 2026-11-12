@@ -2,13 +2,13 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://bpui67p2bx72u"
-path="res://.godot/imported/room_success.ogg-d0b5bd1b78c00d89f1217d56fda479df.oggvorbisstr"
+uid="uid://c73yepyjiggy2"
+path="res://.godot/imported/room_success.ogg-3667e9ec1dc7d43ff33d55a6e94a26d8.oggvorbisstr"
 
 [deps]
 
-source_file="res://audio/sfx/room_success.ogg"
-dest_files=["res://.godot/imported/room_success.ogg-d0b5bd1b78c00d89f1217d56fda479df.oggvorbisstr"]
+source_file="res://assets/audio/sfx/room_success.ogg"
+dest_files=["res://.godot/imported/room_success.ogg-3667e9ec1dc7d43ff33d55a6e94a26d8.oggvorbisstr"]
 
 [params]
 

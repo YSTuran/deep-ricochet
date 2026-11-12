@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c0nabb8hi7nr7"
-path="res://.godot/imported/deep_ricochet_adaptive_foreground.png-ed3fc1294e5f726b97608c7a90ff2136.ctex"
+uid="uid://g7bjt7hd3l3y"
+path="res://.godot/imported/deep_ricochet_adaptive_foreground.png-8f2d6e940f1237a74d737651f66a993f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/icons/deep_ricochet_adaptive_foreground.png"
-dest_files=["res://.godot/imported/deep_ricochet_adaptive_foreground.png-ed3fc1294e5f726b97608c7a90ff2136.ctex"]
+source_file="res://assets/images/icons/deep_ricochet_adaptive_foreground.png"
+dest_files=["res://.godot/imported/deep_ricochet_adaptive_foreground.png-8f2d6e940f1237a74d737651f66a993f.ctex"]
 
 [params]
 

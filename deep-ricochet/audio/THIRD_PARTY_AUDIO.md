@@ -1,6 +1,6 @@
 # Üçüncü taraf ses varlıkları
 
-Bu klasördeki kısa ses efektleri Kenney'nin aşağıdaki paketlerinden seçilmiştir:
+`res://assets/audio/sfx/` altında kullanılan kısa ses efektleri Kenney'nin aşağıdaki paketlerinden seçilmiştir:
 
 - Impact Sounds: https://kenney.nl/assets/impact-sounds
 - Interface Sounds: https://kenney.nl/assets/interface-sounds

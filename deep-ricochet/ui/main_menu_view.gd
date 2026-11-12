@@ -6,7 +6,7 @@ const CONTINUE_BUTTON := Rect2(80.0, 500.0, 380.0, 66.0)
 const NEW_GAME_BUTTON := Rect2(80.0, 580.0, 380.0, 66.0)
 const DAILY_BUTTON := Rect2(80.0, 660.0, 380.0, 66.0)
 const SETTINGS_BUTTON := Rect2(80.0, 740.0, 380.0, 62.0)
-const CORE_TEXTURE: Texture2D = preload("res://art/source/cekirdek.png")
+const CORE_TEXTURE: Texture2D = preload("res://assets/images/blocks/cekirdek.png")
 
 var controller: RunController
 var continue_available := false

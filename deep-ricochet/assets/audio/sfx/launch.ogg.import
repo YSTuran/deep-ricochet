@@ -2,13 +2,13 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://hua4rhuab138"
-path="res://.godot/imported/launch.ogg-ef90122ac3e7ad48cf9e4d6250021e75.oggvorbisstr"
+uid="uid://0e3h2xrgmiw1"
+path="res://.godot/imported/launch.ogg-4b83a4ac94963ce8967f4ca5182f8453.oggvorbisstr"
 
 [deps]
 
-source_file="res://audio/sfx/launch.ogg"
-dest_files=["res://.godot/imported/launch.ogg-ef90122ac3e7ad48cf9e4d6250021e75.oggvorbisstr"]
+source_file="res://assets/audio/sfx/launch.ogg"
+dest_files=["res://.godot/imported/launch.ogg-4b83a4ac94963ce8967f4ca5182f8453.oggvorbisstr"]
 
 [params]
 
