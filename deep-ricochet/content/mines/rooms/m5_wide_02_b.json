@@ -1,0 +1,110 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        5,
+        1
+      ],
+      "hitPoints": 6,
+      "id": 50251,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        1,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 50252,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        4
+      ],
+      "hitPoints": 5,
+      "id": 50253,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        2,
+        4
+      ],
+      "hitPoints": 1,
+      "id": 50254,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        6,
+        5
+      ],
+      "hitPoints": 6,
+      "id": 50255,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        0,
+        6
+      ],
+      "hitPoints": 6,
+      "id": 50256,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        5,
+        7
+      ],
+      "hitPoints": 0,
+      "id": 50257,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        1,
+        7
+      ],
+      "hitPoints": 6,
+      "id": 50258,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom",
+        "left"
+      ]
+    },
+    {
+      "cell": [
+        4,
+        8
+      ],
+      "hitPoints": 6,
+      "id": 50349,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-2",
+  "displayName": "Volkan Salonu",
+  "displayNameKey": "MINE_5_WIDE_02",
+  "exampleAngles": [
+    86.5
+  ],
+  "family": "safe",
+  "height": 8,
+  "id": "m5_wide_02_b",
+  "mineId": "mine_05",
+  "multiplierBps": 10000,
+  "passageColumns": [
+    3,
+    4
+  ],
+  "role": "wide",
+  "schemaVersion": 1,
+  "width": 8
+}

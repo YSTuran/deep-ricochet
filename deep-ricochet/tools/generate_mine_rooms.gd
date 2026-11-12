@@ -1,6 +1,6 @@
 extends SceneTree
 
-const CONTENT_VERSION := "p2-mines-1"
+const CONTENT_VERSION := "p2-mines-2"
 const OUTPUT_DIR := "res://content/mines/rooms"
 const CATALOG_PATH := "res://content/mines/catalog.json"
 
@@ -46,6 +46,8 @@ const DISPLAY_NAMES := [
 	["Kıyı Galerisi", "Açık Basamak", "Mavi Koridor", "Yankı Kemeri", "Altın Yarık", "Dar Şaft", "Cevher Boğazı"],
 	["Derin Giriş", "Kömür Salonu", "Kırık Galeri", "Sessiz Kemer", "Karanlık Oluk", "Sıkışık Damar", "Kristal Boğazı"],
 	["Çekirdek Kapısı", "Basınç Tüneli", "Kızıl Salon", "Derin Kemer", "Erimiş Yarık", "Keskin Damar", "Son Şaft"],
+	["Barut Girişi", "Kıvılcım Galerisi", "Zırh Koridoru", "Çatlak Kemer", "Patlama Yarığı", "Çelik Damar", "Kızıl Boğaz"],
+	["Kadim Kapı", "Muhafız Tüneli", "Volkan Salonu", "Demir Kemer", "Son Yarık", "Tek Açık Damar", "Derin Çekirdek"],
 ]
 
 
@@ -56,7 +58,7 @@ func _initialize() -> void:
 func _generate() -> void:
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(OUTPUT_DIR))
 	var paths: Array[String] = []
-	for mine_index in range(3):
+	for mine_index in range(DISPLAY_NAMES.size()):
 		for archetype_index in range(ARCHETYPES.size()):
 			for mirrored in [false, true]:
 				var data := _room_data(mine_index, archetype_index, mirrored)
@@ -97,14 +99,27 @@ func _room_data(mine_index: int, archetype_index: int, mirrored: bool) -> Dictio
 		var x := int(source[0])
 		if mirrored:
 			x = 7 - x
-		var type_name := _type_for_mine(str(source[2]), mine_index, block_index)
+		var type_name := _type_for_mine(
+			str(source[2]),
+			mine_index,
+			archetype_index,
+			block_index,
+		)
 		var hp := _hit_points(type_name, int(source[3]), mine_index)
-		blocks.append({
+		var block_data := {
 			"id": mine_number * 10_000 + archetype_index * 100 + (50 if mirrored else 0) + block_index + 1,
 			"type": type_name,
 			"cell": [x, int(source[1])],
 			"hitPoints": hp,
-		})
+		}
+		if type_name == "armored":
+			block_data["vulnerableSides"] = _vulnerable_sides(
+				mine_index,
+				archetype_index,
+				block_index,
+				mirrored,
+			)
+		blocks.append(block_data)
 	var core_x := int(archetype["core_x"])
 	if mirrored:
 		core_x = 7 - core_x
@@ -136,18 +151,75 @@ func _room_data(mine_index: int, archetype_index: int, mirrored: bool) -> Dictio
 	}
 
 
-func _type_for_mine(base_type: String, mine_index: int, block_index: int) -> String:
+func _type_for_mine(
+	base_type: String,
+	mine_index: int,
+	archetype_index: int,
+	block_index: int,
+) -> String:
 	if base_type == "rock":
 		return base_type
-	if mine_index == 1 and block_index % 3 == 0:
-		return "ore" if base_type == "normal" else "normal"
-	if mine_index == 2 and block_index % 2 == 1:
-		return "ore" if base_type == "normal" else "normal"
+	var selector := archetype_index * 7 + block_index
+	match mine_index:
+		0:
+			if selector % 7 == 0:
+				return "cracked"
+		1:
+			if selector % 5 == 0:
+				return "explosive"
+			if selector % 4 == 1:
+				return "cracked"
+		2:
+			if selector % 6 == 0:
+				return "armored"
+			if selector % 5 == 1:
+				return "explosive"
+			if selector % 4 == 2:
+				return "cracked"
+		3:
+			match selector % 4:
+				0:
+					return "armored"
+				1:
+					return "explosive"
+				2:
+					return "cracked"
+		4:
+			match selector % 3:
+				0:
+					return "armored"
+				1:
+					return "explosive"
+			if selector % 5 == 2:
+				return "cracked"
 	return base_type
 
 
 func _hit_points(type_name: String, base_hp: int, mine_index: int) -> int:
 	if type_name == "rock":
 		return 0
+	if type_name == "cracked":
+		return 1
+	if type_name == "explosive":
+		return clampi(base_hp + floori(float(mine_index) * 0.5), 1, 6)
+	if type_name == "armored":
+		return clampi(base_hp + 1 + floori(float(mine_index) * 0.5), 3, 6)
 	var minimum := 3 if type_name == "ore" else 2
 	return clampi(base_hp + mine_index, minimum, 6)
+
+
+func _vulnerable_sides(
+	mine_index: int,
+	archetype_index: int,
+	block_index: int,
+	mirrored: bool,
+) -> Array[String]:
+	var sides: Array[String] = ["bottom"]
+	var single_side := mine_index >= 4 and (archetype_index + block_index) % 2 == 0
+	if single_side:
+		return sides
+	var side := "left" if (archetype_index + block_index) % 2 == 0 else "right"
+	if mirrored:
+		side = "right" if side == "left" else "left"
+	sides.append(side)
+	return sides

@@ -84,6 +84,7 @@ STATUS_TEMPLATE_FAILED,Room template could not be loaded.,Oda şablonu yüklenem
 STATUS_RESTORED,Saved room restored.,Kayıtlı oda geri yüklendi.
 STATUS_AIM_CANCELLED,Aim cancelled.,Nişan iptal edildi.
 STATUS_ROCK_RICOCHET,Hard rock reflected the ball without taking damage.,Sert kaya topu hasar almadan yansıttı.
+STATUS_ARMOR_RICOCHET,The armored face reflected the ball. Aim for a glowing edge.,Zırhlı yüz topu yansıttı. Parlayan açık kenarı hedefle.
 STATUS_ROOM_ENDED,The room has ended. Use the result screen.,Oda sona erdi. Sonuç ekranını kullan.
 STATUS_VOLLEY_ACTIVE,Wait for the current volley to finish.,Yaylım sürerken yeni atış yapılamaz.
 STATUS_AIM_FAR,Aim a little farther from the launcher.,Nişan için fırlatıcıdan biraz uzaklaş.
@@ -100,6 +101,9 @@ BLOCK_NORMAL,Normal block,Normal blok
 BLOCK_ORE,Ore block,Cevher bloğu
 BLOCK_ROCK,Hard rock,Sert kaya
 BLOCK_CORE,Core,Çekirdek
+BLOCK_EXPLOSIVE,Explosive block,Patlayıcı blok
+BLOCK_CRACKED,Cracked rock,Çatlak kaya
+BLOCK_ARMORED,Armored block,Zırhlı blok
 BLOCK_GENERIC,Block,Blok
 NOTICE_INTERRUPTED,The interrupted shot will restart.,Yarım kalan atış baştan oynanacak.
 NOTICE_BACKUP,The main save failed. The latest valid backup was loaded.,Ana kayıt açılamadı; son geçerli yedek yüklendi.
@@ -121,6 +125,8 @@ MINE_COMPLETE_PREVIOUS,COMPLETE PREVIOUS,ÖNCEKİNİ TAMAMLA
 MINE_01_NAME,COAST MINE,KIYI MADENİ
 MINE_02_NAME,DEEP MINE,DERİN MADEN
 MINE_03_NAME,CORE MINE,ÇEKİRDEK MADENİ
+MINE_04_NAME,BLAST MINE,PATLAMA MADENİ
+MINE_05_NAME,ANCIENT MINE,KADİM MADEN
 MINE_1_START,Coastal Gallery,Kıyı Galerisi
 MINE_1_WIDE_01,Open Steps,Açık Basamak
 MINE_1_WIDE_02,Blue Corridor,Mavi Koridor
@@ -142,6 +148,20 @@ MINE_3_WIDE_03,Deep Arch,Derin Kemer
 MINE_3_NARROW_01,Molten Fissure,Erimiş Yarık
 MINE_3_NARROW_02,Sharp Vein,Keskin Damar
 MINE_3_NARROW_03,Final Shaft,Son Şaft
+MINE_4_START,Powder Entrance,Barut Girişi
+MINE_4_WIDE_01,Spark Gallery,Kıvılcım Galerisi
+MINE_4_WIDE_02,Armor Corridor,Zırh Koridoru
+MINE_4_WIDE_03,Cracked Arch,Çatlak Kemer
+MINE_4_NARROW_01,Blast Fissure,Patlama Yarığı
+MINE_4_NARROW_02,Steel Vein,Çelik Damar
+MINE_4_NARROW_03,Crimson Gorge,Kızıl Boğaz
+MINE_5_START,Ancient Gate,Kadim Kapı
+MINE_5_WIDE_01,Guardian Tunnel,Muhafız Tüneli
+MINE_5_WIDE_02,Volcanic Hall,Volkan Salonu
+MINE_5_WIDE_03,Iron Arch,Demir Kemer
+MINE_5_NARROW_01,Final Fissure,Son Yarık
+MINE_5_NARROW_02,Single Opening,Tek Açık Damar
+MINE_5_NARROW_03,Deep Core,Derin Çekirdek
 ROOM_SAFE_01,Wide Gallery,Geniş Galeri
 ROOM_SAFE_02,Twin Corridor,Çift Koridor
 ROOM_SAFE_03,Open Shaft,Açık Şaft

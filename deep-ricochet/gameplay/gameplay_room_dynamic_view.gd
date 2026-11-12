@@ -66,17 +66,20 @@ func _draw_forced_collection_effect() -> void:
 
 func _draw_impact_effects() -> void:
 	for effect: Dictionary in room.impact_effects:
-		var progress := clampf(float(effect.get("elapsed", 0.0)) / 0.32, 0.0, 1.0)
+		var duration := float(effect.get("duration", 0.32))
+		var progress := clampf(float(effect.get("elapsed", 0.0)) / duration, 0.0, 1.0)
 		var center := BoardGeometry.world_to_screen(effect.get("position", Vector2.ZERO))
 		var block_type := int(effect.get("block_type", BlockState.BlockType.NORMAL))
 		var destroyed := bool(effect.get("destroyed", false))
+		var is_explosion := bool(effect.get("is_explosion", false))
 		var is_core := block_type == BlockState.BlockType.CORE
-		var radius := lerpf(8.0, 38.0 if is_core else (30.0 if destroyed else 20.0), progress)
-		var color := Color(_impact_color(block_type), 1.0 - progress)
+		var end_radius := 72.0 if is_explosion else (38.0 if is_core else (30.0 if destroyed else 20.0))
+		var radius := lerpf(8.0, end_radius, progress)
+		var color := Color(Color("ff8a3d") if is_explosion else _impact_color(block_type), 1.0 - progress)
 		draw_arc(center, radius, 0.0, TAU, 16, color, 3.0, true)
 		if destroyed:
 			var high_quality := room.quality_mode == AppSettings.QualityMode.GRAPHICS
-			var ray_count := (6 if is_core else 4) if high_quality else 2
+			var ray_count := (8 if is_explosion else (6 if is_core else 4)) if high_quality else 2
 			for ray_index in range(ray_count):
 				var direction := Vector2.from_angle(float(ray_index) * TAU / float(ray_count))
 				draw_line(
@@ -102,4 +105,10 @@ func _impact_color(block_type: int) -> Color:
 			return DeepUI.GOLD
 		BlockState.BlockType.CORE:
 			return DeepUI.CORE
+		BlockState.BlockType.EXPLOSIVE:
+			return Color("ff6b35")
+		BlockState.BlockType.CRACKED:
+			return Color("b7a58b")
+		BlockState.BlockType.ARMORED:
+			return Color("8ca6b8")
 	return DeepUI.BLUE

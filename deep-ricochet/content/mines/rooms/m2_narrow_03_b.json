@@ -7,7 +7,7 @@
       ],
       "hitPoints": 4,
       "id": 20651,
-      "type": "normal"
+      "type": "ore"
     },
     {
       "cell": [
@@ -32,9 +32,9 @@
         0,
         4
       ],
-      "hitPoints": 5,
+      "hitPoints": 4,
       "id": 20654,
-      "type": "normal"
+      "type": "explosive"
     },
     {
       "cell": [
@@ -61,16 +61,16 @@
       ],
       "hitPoints": 6,
       "id": 20657,
-      "type": "ore"
+      "type": "normal"
     },
     {
       "cell": [
         2,
         7
       ],
-      "hitPoints": 6,
+      "hitPoints": 1,
       "id": 20658,
-      "type": "ore"
+      "type": "cracked"
     },
     {
       "cell": [
@@ -82,7 +82,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-1",
+  "contentVersion": "p2-mines-2",
   "displayName": "Kristal Boğazı",
   "displayNameKey": "MINE_2_NARROW_03",
   "exampleAngles": [

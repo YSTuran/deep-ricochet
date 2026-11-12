@@ -1,10 +1,12 @@
 {
   "schemaVersion": 1,
-  "contentVersion": "p2-mines-1",
+  "contentVersion": "p2-mines-2",
   "roomCatalog": "res://content/mines/catalog.json",
   "mines": [
     { "id": "mine_01", "displayNameKey": "MINE_01_NAME", "order": 1, "unlockAfter": "" },
     { "id": "mine_02", "displayNameKey": "MINE_02_NAME", "order": 2, "unlockAfter": "mine_01" },
-    { "id": "mine_03", "displayNameKey": "MINE_03_NAME", "order": 3, "unlockAfter": "mine_02" }
+    { "id": "mine_03", "displayNameKey": "MINE_03_NAME", "order": 3, "unlockAfter": "mine_02" },
+    { "id": "mine_04", "displayNameKey": "MINE_04_NAME", "order": 4, "unlockAfter": "mine_03" },
+    { "id": "mine_05", "displayNameKey": "MINE_05_NAME", "order": 5, "unlockAfter": "mine_04" }
   ]
 }

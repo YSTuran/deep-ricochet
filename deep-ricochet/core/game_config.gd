@@ -12,6 +12,9 @@ const INTEGER_FIELDS := [
 	"normalBreakPoints",
 	"oreBreakPoints",
 	"coreBreakPoints",
+	"explosiveBreakPoints",
+	"crackedBreakPoints",
+	"armoredBreakPoints",
 	"unusedShotBonus",
 ]
 const NUMBER_FIELDS := [
@@ -41,6 +44,9 @@ var bonus_multiplier_bps: int = 15_000
 var normal_break_points: int = 10
 var ore_break_points: int = 25
 var core_break_points: int = 100
+var explosive_break_points: int = 10
+var cracked_break_points: int = 6
+var armored_break_points: int = 10
 var unused_shot_bonus: int = 20
 
 
@@ -77,6 +83,9 @@ static func load_from_file(path: String = DEFAULT_PATH) -> GameConfig:
 	config.normal_break_points = int(data.get("normalBreakPoints", config.normal_break_points))
 	config.ore_break_points = int(data.get("oreBreakPoints", config.ore_break_points))
 	config.core_break_points = int(data.get("coreBreakPoints", config.core_break_points))
+	config.explosive_break_points = int(data.get("explosiveBreakPoints", config.explosive_break_points))
+	config.cracked_break_points = int(data.get("crackedBreakPoints", config.cracked_break_points))
+	config.armored_break_points = int(data.get("armoredBreakPoints", config.armored_break_points))
 	config.unused_shot_bonus = int(data.get("unusedShotBonus", config.unused_shot_bonus))
 	var validation_errors := config.validation_errors()
 	if not validation_errors.is_empty():
@@ -124,7 +133,9 @@ func validation_errors() -> PackedStringArray:
 		errors.append("Önizleme sekme sayısı 0 ile 64 arasında olmalıdır.")
 	if safe_multiplier_bps <= 0 or bonus_multiplier_bps < safe_multiplier_bps:
 		errors.append("Rota çarpanları pozitif olmalı ve bonus güvenli rotadan düşük olmamalıdır.")
-	if normal_break_points < 0 or ore_break_points < 0 or core_break_points <= 0:
+	if normal_break_points < 0 or ore_break_points < 0 or core_break_points <= 0 \
+		or explosive_break_points != 10 or cracked_break_points != 6 \
+		or armored_break_points < 0:
 		errors.append("Blok puanları negatif olamaz; çekirdek puanı pozitif olmalıdır.")
 	if unused_shot_bonus < 0:
 		errors.append("Kullanılmayan atış bonusu negatif olamaz.")

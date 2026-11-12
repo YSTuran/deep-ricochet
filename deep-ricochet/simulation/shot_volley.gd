@@ -89,7 +89,13 @@ func advance(
 			board.blocks,
 		)
 		for contact: BlockContactEvent in collision.block_contacts:
-			step_result.damage_results.append(board.resolve_contact(contact.block_id))
+			var damage_result := board.resolve_contact(contact.block_id, 1, contact.normal)
+			step_result.damage_results.append(damage_result)
+			if damage_result.destroyed \
+				and damage_result.block_type == BlockState.BlockType.EXPLOSIVE:
+				step_result.damage_results.append_array(
+					board.resolve_explosion(damage_result.block_id, 3)
+				)
 		if collision.happened:
 			step_result.collisions.append(collision)
 		if not balls[index].active:

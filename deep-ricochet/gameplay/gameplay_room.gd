@@ -224,6 +224,11 @@ func _advance_volley(delta: float) -> bool:
 		if collision.contact_started and collision.block_type == BlockState.BlockType.ROCK:
 			status_text = tr("STATUS_ROCK_RICOCHET")
 			static_view_changed = true
+		elif collision.contact_started and collision.block_type == BlockState.BlockType.ARMORED:
+			var armored_block := board.get_block_by_id(collision.block_id)
+			if armored_block != null and not armored_block.accepts_contact(collision.normal):
+				status_text = tr("STATUS_ARMOR_RICOCHET")
+				static_view_changed = true
 	if not step_result.forced_collection_positions.is_empty():
 		forced_collection_positions = step_result.forced_collection_positions
 		forced_collection_effect_elapsed = 0.0
@@ -251,7 +256,9 @@ func _process(delta: float) -> void:
 		view_changed = true
 	for effect_index in range(impact_effects.size() - 1, -1, -1):
 		impact_effects[effect_index]["elapsed"] = float(impact_effects[effect_index]["elapsed"]) + delta
-		if float(impact_effects[effect_index]["elapsed"]) >= 0.32:
+		if float(impact_effects[effect_index]["elapsed"]) >= float(
+			impact_effects[effect_index].get("duration", 0.32)
+		):
 			impact_effects.remove_at(effect_index)
 	if view_changed:
 		_refresh_dynamic_view()
@@ -419,11 +426,16 @@ func _handle_damage_result(result: BlockDamageResult) -> bool:
 		if quality_mode == AppSettings.QualityMode.GRAPHICS else PERFORMANCE_IMPACT_EFFECTS
 	if impact_effects.size() >= effect_limit:
 		impact_effects.pop_front()
+	var is_blast := result.is_explosion or (
+		result.destroyed and block.type == BlockState.BlockType.EXPLOSIVE
+	)
 	impact_effects.append({
 		"position": block.collision_center_world(),
 		"block_type": block.type,
 		"destroyed": result.destroyed,
 		"points": awarded_points,
+		"is_explosion": is_blast,
+		"duration": 0.45 if is_blast else 0.32,
 		"elapsed": 0.0,
 	})
 	if result.destroyed:
@@ -464,6 +476,12 @@ func _block_name(block: BlockState) -> String:
 			return tr("BLOCK_ROCK")
 		BlockState.BlockType.CORE:
 			return tr("BLOCK_CORE")
+		BlockState.BlockType.EXPLOSIVE:
+			return tr("BLOCK_EXPLOSIVE")
+		BlockState.BlockType.CRACKED:
+			return tr("BLOCK_CRACKED")
+		BlockState.BlockType.ARMORED:
+			return tr("BLOCK_ARMORED")
 	return tr("BLOCK_GENERIC")
 
 

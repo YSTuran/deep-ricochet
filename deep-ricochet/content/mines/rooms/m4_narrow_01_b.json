@@ -1,0 +1,110 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        7,
+        1
+      ],
+      "hitPoints": 5,
+      "id": 40451,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom",
+        "right"
+      ]
+    },
+    {
+      "cell": [
+        2,
+        1
+      ],
+      "hitPoints": 4,
+      "id": 40452,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        5,
+        3
+      ],
+      "hitPoints": 1,
+      "id": 40453,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        3,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 40454,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        6,
+        5
+      ],
+      "hitPoints": 6,
+      "id": 40455,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom",
+        "right"
+      ]
+    },
+    {
+      "cell": [
+        1,
+        5
+      ],
+      "hitPoints": 5,
+      "id": 40456,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        5,
+        7
+      ],
+      "hitPoints": 1,
+      "id": 40457,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        3,
+        7
+      ],
+      "hitPoints": 6,
+      "id": 40458,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        4,
+        8
+      ],
+      "hitPoints": 6,
+      "id": 40549,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-2",
+  "displayName": "Patlama Yarığı",
+  "displayNameKey": "MINE_4_NARROW_01",
+  "exampleAngles": [
+    86.5
+  ],
+  "family": "bonus",
+  "height": 8,
+  "id": "m4_narrow_01_b",
+  "mineId": "mine_04",
+  "multiplierBps": 15000,
+  "passageColumns": [
+    4
+  ],
+  "role": "narrow",
+  "schemaVersion": 1,
+  "width": 8
+}

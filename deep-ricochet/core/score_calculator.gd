@@ -10,6 +10,12 @@ static func break_points(block_type: int, config: GameConfig) -> int:
 			return config.ore_break_points
 		BlockState.BlockType.CORE:
 			return config.core_break_points
+		BlockState.BlockType.EXPLOSIVE:
+			return config.explosive_break_points
+		BlockState.BlockType.CRACKED:
+			return config.cracked_break_points
+		BlockState.BlockType.ARMORED:
+			return config.armored_break_points
 	return 0
 
 

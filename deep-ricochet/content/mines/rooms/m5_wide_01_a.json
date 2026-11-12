@@ -1,0 +1,103 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        1,
+        1
+      ],
+      "hitPoints": 4,
+      "id": 50101,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        7,
+        2
+      ],
+      "hitPoints": 6,
+      "id": 50102,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        0,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 50103,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        5,
+        4
+      ],
+      "hitPoints": 5,
+      "id": 50104,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        2,
+        5
+      ],
+      "hitPoints": 6,
+      "id": 50105,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        6,
+        6
+      ],
+      "hitPoints": 0,
+      "id": 50106,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        1,
+        7
+      ],
+      "hitPoints": 6,
+      "id": 50107,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        5,
+        7
+      ],
+      "hitPoints": 6,
+      "id": 50108,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        3,
+        8
+      ],
+      "hitPoints": 6,
+      "id": 50199,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-2",
+  "displayName": "Muhafız Tüneli",
+  "displayNameKey": "MINE_5_WIDE_01",
+  "exampleAngles": [
+    93.5
+  ],
+  "family": "safe",
+  "height": 8,
+  "id": "m5_wide_01_a",
+  "mineId": "mine_05",
+  "multiplierBps": 10000,
+  "passageColumns": [
+    3,
+    4
+  ],
+  "role": "wide",
+  "schemaVersion": 1,
+  "width": 8
+}

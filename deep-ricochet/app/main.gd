@@ -804,14 +804,15 @@ func _on_block_destroyed(block_type: int) -> void:
 	if app_settings == null:
 		return
 	var is_core := block_type == BlockState.BlockType.CORE
+	var is_explosive := block_type == BlockState.BlockType.EXPLOSIVE
 	if app_settings.haptics_enabled:
-		_try_haptic(70 if is_core else 20)
+		_try_haptic(70 if is_core else (45 if is_explosive else 20))
 	if not app_settings.shake_enabled:
 		return
 	var quality_scale := 1.0 if app_settings.quality_mode == AppSettings.QualityMode.GRAPHICS else 0.55
 	gameplay_room.trigger_screen_shake(
-		(7.0 if is_core else 3.0) * quality_scale,
-		(0.26 if is_core else 0.14) * quality_scale,
+		(7.0 if is_core else (5.0 if is_explosive else 3.0)) * quality_scale,
+		(0.26 if is_core else (0.2 if is_explosive else 0.14)) * quality_scale,
 	)
 
 

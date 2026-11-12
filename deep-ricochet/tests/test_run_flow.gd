@@ -14,8 +14,9 @@ static func run(controller: RunController, config: GameConfig) -> void:
 
 static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: GameConfig) -> void:
 	assert(catalog != null)
-	assert(catalog.templates.size() == 42)
+	assert(catalog.templates.size() == 70)
 	var mine_counts: Dictionary[StringName, int] = {}
+	var block_type_counts: Dictionary[int, int] = {}
 	var role_counts: Dictionary[StringName, Dictionary] = {}
 	var layout_signatures: Dictionary[StringName, Dictionary] = {}
 	for template: RoomTemplate in catalog.templates:
@@ -31,6 +32,8 @@ static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: Gam
 		)
 		mine_layouts[layout_signature] = true
 		mine_counts[template.mine_id] = mine_counts.get(template.mine_id, 0) + 1
+		for definition: RoomBlockDefinition in template.blocks:
+			block_type_counts[definition.block_type] = block_type_counts.get(definition.block_type, 0) + 1
 		if not role_counts.has(template.mine_id):
 			role_counts[template.mine_id] = {}
 		var mine_roles: Dictionary = role_counts[template.mine_id]
@@ -41,7 +44,7 @@ static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: Gam
 		else:
 			assert(template.multiplier_bps == config.bonus_multiplier_bps)
 			assert(template.passage_columns.size() == 1)
-	for mine_order in range(1, 4):
+	for mine_order in range(1, 6):
 		var mine_id := StringName("mine_%02d" % mine_order)
 		assert(mine_counts.get(mine_id, 0) == 14)
 		var counts: Dictionary = role_counts[mine_id]
@@ -49,7 +52,11 @@ static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: Gam
 		assert(counts.get(RoomTemplate.Role.WIDE, 0) == 6)
 		assert(counts.get(RoomTemplate.Role.NARROW, 0) == 6)
 
-	for mine_order in range(1, 4):
+	assert(block_type_counts.get(BlockState.BlockType.EXPLOSIVE, 0) > 0)
+	assert(block_type_counts.get(BlockState.BlockType.CRACKED, 0) > 0)
+	assert(block_type_counts.get(BlockState.BlockType.ARMORED, 0) > 0)
+
+	for mine_order in range(1, 6):
 		var mine_id := StringName("mine_%02d" % mine_order)
 		for sample_index in range(100):
 			var rng := RandomNumberGenerator.new()
@@ -90,17 +97,18 @@ static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: Gam
 	first_rng.seed = 4444
 	var second_rng := RandomNumberGenerator.new()
 	second_rng.seed = 4444
-	assert(catalog.pick_first_room(first_rng, &"mine_03").room_id == catalog.pick_first_room(second_rng, &"mine_03").room_id)
+	assert(catalog.pick_first_room(first_rng, &"mine_05").room_id == catalog.pick_first_room(second_rng, &"mine_05").room_id)
 
 
 static func _layout_signature(template: RoomTemplate) -> String:
 	var parts := PackedStringArray()
 	for block: RoomBlockDefinition in template.blocks:
-		parts.append("%d:%d:%d:%d" % [
+		parts.append("%d:%d:%d:%d:%d" % [
 			block.block_type,
 			block.cell.x,
 			block.cell.y,
 			block.hit_points,
+			block.vulnerable_sides,
 		])
 	parts.sort()
 	return "|".join(parts)

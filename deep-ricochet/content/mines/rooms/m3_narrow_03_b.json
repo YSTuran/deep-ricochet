@@ -7,7 +7,11 @@
       ],
       "hitPoints": 5,
       "id": 30651,
-      "type": "ore"
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom",
+        "right"
+      ]
     },
     {
       "cell": [
@@ -16,7 +20,7 @@
       ],
       "hitPoints": 5,
       "id": 30652,
-      "type": "ore"
+      "type": "normal"
     },
     {
       "cell": [
@@ -34,16 +38,16 @@
       ],
       "hitPoints": 6,
       "id": 30654,
-      "type": "normal"
+      "type": "ore"
     },
     {
       "cell": [
         7,
         5
       ],
-      "hitPoints": 6,
+      "hitPoints": 5,
       "id": 30655,
-      "type": "normal"
+      "type": "explosive"
     },
     {
       "cell": [
@@ -61,7 +65,11 @@
       ],
       "hitPoints": 6,
       "id": 30657,
-      "type": "normal"
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom",
+        "right"
+      ]
     },
     {
       "cell": [
@@ -70,7 +78,7 @@
       ],
       "hitPoints": 6,
       "id": 30658,
-      "type": "normal"
+      "type": "ore"
     },
     {
       "cell": [
@@ -82,7 +90,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-1",
+  "contentVersion": "p2-mines-2",
   "displayName": "Son Şaft",
   "displayNameKey": "MINE_3_NARROW_03",
   "exampleAngles": [

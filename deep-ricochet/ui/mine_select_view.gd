@@ -3,11 +3,13 @@ extends Control
 
 const VIEW_SIZE := Vector2(540.0, 960.0)
 const CARD_RECTS := [
-	Rect2(42.0, 190.0, 456.0, 150.0),
-	Rect2(42.0, 365.0, 456.0, 150.0),
-	Rect2(42.0, 540.0, 456.0, 150.0),
+	Rect2(42.0, 155.0, 456.0, 112.0),
+	Rect2(42.0, 280.0, 456.0, 112.0),
+	Rect2(42.0, 405.0, 456.0, 112.0),
+	Rect2(42.0, 530.0, 456.0, 112.0),
+	Rect2(42.0, 655.0, 456.0, 112.0),
 ]
-const BACK_BUTTON := Rect2(80.0, 790.0, 380.0, 62.0)
+const BACK_BUTTON := Rect2(80.0, 815.0, 380.0, 58.0)
 
 var controller: RunController
 
@@ -60,8 +62,8 @@ func _gui_input(event: InputEvent) -> void:
 
 func _draw() -> void:
 	DeepUI.draw_cave_background(self, VIEW_SIZE)
-	DeepUI.draw_title_plate(self, tr("MINE_SELECT_TITLE"), Rect2(68.0, 55.0, 404.0, 70.0), 30, DeepUI.GOLD)
-	DeepUI.draw_centered(self, tr("MINE_SELECT_HINT"), Rect2(40.0, 135.0, 460.0, 30.0), 15, DeepUI.MUTED)
+	DeepUI.draw_title_plate(self, tr("MINE_SELECT_TITLE"), Rect2(68.0, 42.0, 404.0, 64.0), 28, DeepUI.GOLD)
+	DeepUI.draw_centered(self, tr("MINE_SELECT_HINT"), Rect2(40.0, 112.0, 460.0, 28.0), 14, DeepUI.MUTED)
 	if controller == null or controller.mine_registry == null or controller.profile == null:
 		return
 	for index in range(mini(CARD_RECTS.size(), controller.mine_registry.mines.size())):
@@ -72,25 +74,25 @@ func _draw() -> void:
 func _draw_mine_card(rect: Rect2, mine: MineDefinition) -> void:
 	var unlocked := controller.profile.is_mine_unlocked(mine.mine_id)
 	var accent := DeepUI.CORE if unlocked else DeepUI.BORDER_SOFT
-	DeepUI.draw_panel(self, rect, DeepUI.PANEL_SOFT, accent, 18, 2, true)
-	DeepUI.draw_text(self, mine.localized_name(), rect.position + Vector2(20.0, 36.0), 24, DeepUI.TEXT if unlocked else DeepUI.MUTED_DARK)
+	DeepUI.draw_panel(self, rect, DeepUI.PANEL_SOFT, accent, 15, 2, true)
+	DeepUI.draw_text(self, mine.localized_name(), rect.position + Vector2(18.0, 29.0), 20, DeepUI.TEXT if unlocked else DeepUI.MUTED_DARK)
 	var state_text := tr("MINE_UNLOCKED") if unlocked else tr("MINE_LOCKED")
-	DeepUI.draw_chip(self, Rect2(rect.end.x - 132.0, rect.position.y + 14.0, 108.0, 32.0), state_text, accent, 13)
+	DeepUI.draw_chip(self, Rect2(rect.end.x - 112.0, rect.position.y + 10.0, 92.0, 27.0), state_text, accent, 11)
 	DeepUI.draw_centered(
 		self,
 		tr("MINE_STATS") % [
 			controller.profile.best_for_mine(mine.mine_id),
 			controller.profile.completions_for_mine(mine.mine_id),
 		],
-		Rect2(rect.position + Vector2(16.0, 58.0), Vector2(rect.size.x - 32.0, 30.0)),
-		14,
+		Rect2(rect.position + Vector2(14.0, 39.0), Vector2(rect.size.x - 28.0, 24.0)),
+		12,
 		DeepUI.MUTED,
 	)
 	DeepUI.draw_button(
 		self,
-		Rect2(rect.position + Vector2(82.0, 96.0), Vector2(rect.size.x - 164.0, 40.0)),
+		Rect2(rect.position + Vector2(86.0, 72.0), Vector2(rect.size.x - 172.0, 30.0)),
 		tr("MINE_SELECT") if unlocked else tr("MINE_COMPLETE_PREVIOUS"),
 		&"core" if unlocked else &"ghost",
-		15,
+		12,
 		unlocked,
 	)

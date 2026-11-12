@@ -11,6 +11,16 @@ const COLOR_ROCK_DARK := Color("202a33")
 const NORMAL_TEXTURE: Texture2D = preload("res://art/source/blok_normal.png")
 const ORE_TEXTURE: Texture2D = preload("res://art/source/blok_cevher.png")
 const CORE_TEXTURE: Texture2D = preload("res://art/source/cekirdek.png")
+const CRACKED_TEXTURE: Texture2D = preload("res://art/source/blok_catlak.png")
+const EXPLOSIVE_TEXTURE: Texture2D = preload("res://art/source/blok_patlayici.png")
+const ARMORED_BOTTOM_TEXTURE: Texture2D = preload("res://art/source/blok_zirhli_alt.png")
+const ARMORED_LEFT_BOTTOM_TEXTURE: Texture2D = preload("res://art/source/blok_zirhli_sol_alt.png")
+const ARMORED_RIGHT_BOTTOM_TEXTURE: Texture2D = preload("res://art/source/blok_zirhli_sag_alt.png")
+const CRACKED_SOURCE := Rect2(32.0, 36.0, 447.0, 454.0)
+const EXPLOSIVE_SOURCE := Rect2(54.0, 65.0, 404.0, 407.0)
+const ARMORED_BOTTOM_SOURCE := Rect2(5.0, 6.0, 502.0, 502.0)
+const ARMORED_LEFT_BOTTOM_SOURCE := Rect2(5.0, 5.0, 503.0, 503.0)
+const ARMORED_RIGHT_BOTTOM_SOURCE := Rect2(4.0, 5.0, 503.0, 503.0)
 
 var room: GameplayRoom
 @onready var dynamic_layer: GameplayRoomDynamicView = $Dynamic
@@ -154,6 +164,22 @@ func _draw() -> void:
 				_draw_hard_rock(block.world_rect())
 			BlockState.BlockType.CORE:
 				_draw_core(block.collision_center_world(), str(block.hit_points))
+			BlockState.BlockType.EXPLOSIVE:
+				_draw_illustrated_block(
+					block.world_rect(),
+					EXPLOSIVE_TEXTURE,
+					EXPLOSIVE_SOURCE,
+					str(block.hit_points),
+				)
+			BlockState.BlockType.CRACKED:
+				_draw_illustrated_block(
+					block.world_rect(),
+					CRACKED_TEXTURE,
+					CRACKED_SOURCE,
+					str(block.hit_points),
+				)
+			BlockState.BlockType.ARMORED:
+				_draw_armored(block)
 
 	var launcher_screen := BoardGeometry.world_to_screen(BoardGeometry.LAUNCHER_WORLD)
 	DeepUI.draw_glow(self, launcher_screen, 12.0, DeepUI.GOLD)
@@ -216,6 +242,29 @@ func _draw_hard_rock(world_rect: Rect2) -> void:
 	draw_line(c, d, Color("111820"), 10.0, true)
 	draw_line(a, b, Color("c5cbd0"), 5.0, true)
 	draw_line(c, d, Color("c5cbd0"), 5.0, true)
+
+
+func _draw_illustrated_block(
+	world_rect: Rect2,
+	texture: Texture2D,
+	source_rect: Rect2,
+	hp_text: String,
+) -> void:
+	var rect := _world_rect_to_screen(world_rect, 4.0)
+	draw_texture_rect_region(texture, rect, source_rect)
+	_draw_centered_text(rect, hp_text, 26, DeepUI.TEXT, 0.66)
+
+
+func _draw_armored(block: BlockState) -> void:
+	var texture := ARMORED_BOTTOM_TEXTURE
+	var source_rect := ARMORED_BOTTOM_SOURCE
+	if (block.vulnerable_sides & BlockState.VulnerableSide.LEFT) != 0:
+		texture = ARMORED_LEFT_BOTTOM_TEXTURE
+		source_rect = ARMORED_LEFT_BOTTOM_SOURCE
+	elif (block.vulnerable_sides & BlockState.VulnerableSide.RIGHT) != 0:
+		texture = ARMORED_RIGHT_BOTTOM_TEXTURE
+		source_rect = ARMORED_RIGHT_BOTTOM_SOURCE
+	_draw_illustrated_block(block.world_rect(), texture, source_rect, str(block.hit_points))
 
 
 func _draw_text(position: Vector2, text: String, size: int, color: Color) -> void:

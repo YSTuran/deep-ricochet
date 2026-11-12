@@ -5,9 +5,9 @@
         6,
         1
       ],
-      "hitPoints": 2,
+      "hitPoints": 1,
       "id": 10151,
-      "type": "normal"
+      "type": "cracked"
     },
     {
       "cell": [
@@ -68,9 +68,9 @@
         2,
         7
       ],
-      "hitPoints": 5,
+      "hitPoints": 1,
       "id": 10158,
-      "type": "ore"
+      "type": "cracked"
     },
     {
       "cell": [
@@ -82,7 +82,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-1",
+  "contentVersion": "p2-mines-2",
   "displayName": "Açık Basamak",
   "displayNameKey": "MINE_1_WIDE_01",
   "exampleAngles": [

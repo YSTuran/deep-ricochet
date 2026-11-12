@@ -105,7 +105,13 @@ func advance_ball(
 		if hit_kind == &"wall" or (
 			hit_kind == &"block"
 			and hit_block != null
-			and hit_block.type == BlockState.BlockType.ROCK
+			and (
+				hit_block.type == BlockState.BlockType.ROCK
+				or (
+					hit_block.type == BlockState.BlockType.ARMORED
+					and not hit_block.accepts_contact(hit_normal)
+				)
+			)
 		):
 			result.preview_bounce_count += 1
 		collision_count += 1

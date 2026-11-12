@@ -5,9 +5,9 @@
         6,
         1
       ],
-      "hitPoints": 3,
+      "hitPoints": 1,
       "id": 10651,
-      "type": "ore"
+      "type": "cracked"
     },
     {
       "cell": [
@@ -68,9 +68,9 @@
         2,
         7
       ],
-      "hitPoints": 6,
+      "hitPoints": 1,
       "id": 10658,
-      "type": "ore"
+      "type": "cracked"
     },
     {
       "cell": [
@@ -82,7 +82,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-1",
+  "contentVersion": "p2-mines-2",
   "displayName": "Cevher Boğazı",
   "displayNameKey": "MINE_1_NARROW_03",
   "exampleAngles": [

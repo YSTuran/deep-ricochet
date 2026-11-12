@@ -15,6 +15,7 @@ static func run(controller: RunController, parent: Node) -> void:
 	_assert_blank_release_is_silent(controller.main_menu_view)
 	controller.request_new_game_from_menu()
 	assert(controller.mine_select_view.visible)
+	assert(MineSelectView.CARD_RECTS.size() == 5)
 	assert(not controller.main_menu_view.visible)
 	controller.close_mine_selection()
 	assert(controller.main_menu_view.visible)

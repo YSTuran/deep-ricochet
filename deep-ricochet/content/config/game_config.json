@@ -16,5 +16,8 @@
   "normalBreakPoints": 10,
   "oreBreakPoints": 25,
   "coreBreakPoints": 100,
+  "explosiveBreakPoints": 10,
+  "crackedBreakPoints": 6,
+  "armoredBreakPoints": 10,
   "unusedShotBonus": 20
 }

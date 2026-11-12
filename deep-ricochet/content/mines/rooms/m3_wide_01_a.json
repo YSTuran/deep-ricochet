@@ -16,7 +16,7 @@
       ],
       "hitPoints": 5,
       "id": 30102,
-      "type": "normal"
+      "type": "ore"
     },
     {
       "cell": [
@@ -32,18 +32,18 @@
         5,
         4
       ],
-      "hitPoints": 5,
+      "hitPoints": 1,
       "id": 30104,
-      "type": "ore"
+      "type": "cracked"
     },
     {
       "cell": [
         2,
         5
       ],
-      "hitPoints": 6,
+      "hitPoints": 5,
       "id": 30105,
-      "type": "ore"
+      "type": "explosive"
     },
     {
       "cell": [
@@ -68,9 +68,9 @@
         5,
         7
       ],
-      "hitPoints": 6,
+      "hitPoints": 1,
       "id": 30108,
-      "type": "normal"
+      "type": "cracked"
     },
     {
       "cell": [
@@ -82,7 +82,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-1",
+  "contentVersion": "p2-mines-2",
   "displayName": "Basınç Tüneli",
   "displayNameKey": "MINE_3_WIDE_01",
   "exampleAngles": [

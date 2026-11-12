@@ -11,6 +11,7 @@ static func run(config: GameConfig) -> void:
 	_test_repeated_contact(config)
 	_test_corner_collision(config)
 	_test_preview_contract(config)
+	_test_special_blocks()
 
 
 static func _test_shared_geometry() -> void:
@@ -194,3 +195,102 @@ static func _test_preview_contract(config: GameConfig) -> void:
 	)
 	assert(not rock_preview.has_terminal_contact)
 	assert(rock_preview.points.size() == 3)
+
+	var closed_armor_board := BoardModel.new()
+	assert(closed_armor_board.add_block(BlockState.new(
+		22,
+		BlockState.BlockType.ARMORED,
+		Vector2i(3, 3),
+		4,
+		BlockState.VulnerableSide.BOTTOM,
+	)))
+	var closed_armor_preview := preview_builder.build_path(
+		simulator,
+		origin,
+		velocity,
+		BOARD_SIZE,
+		config.ball_radius,
+		closed_armor_board.blocks,
+		2,
+	)
+	assert(not closed_armor_preview.has_terminal_contact)
+	assert(closed_armor_preview.points.size() == 3)
+
+	var open_armor_board := BoardModel.new()
+	assert(open_armor_board.add_block(BlockState.new(
+		23,
+		BlockState.BlockType.ARMORED,
+		Vector2i(3, 3),
+		4,
+		BlockState.VulnerableSide.LEFT,
+	)))
+	var open_armor_preview := preview_builder.build_path(
+		simulator,
+		origin,
+		velocity,
+		BOARD_SIZE,
+		config.ball_radius,
+		open_armor_board.blocks,
+		2,
+	)
+	assert(open_armor_preview.has_terminal_contact)
+	assert(open_armor_preview.contact_block_id == 23)
+
+
+static func _test_special_blocks() -> void:
+	var armored := BlockState.new(
+		60,
+		BlockState.BlockType.ARMORED,
+		Vector2i(1, 1),
+		4,
+		BlockState.VulnerableSide.LEFT | BlockState.VulnerableSide.BOTTOM,
+	)
+	var armor_board := BoardModel.new()
+	assert(armor_board.add_block(armored))
+	var blocked := armor_board.resolve_contact(armored.id, 1, Vector2.RIGHT)
+	assert(blocked.contact_valid)
+	assert(blocked.blocked_by_armor)
+	assert(not blocked.damage_applied)
+	assert(armored.hit_points == 4)
+	var exposed := armor_board.resolve_contact(armored.id, 1, Vector2.LEFT)
+	assert(exposed.damage_applied)
+	assert(not exposed.blocked_by_armor)
+	assert(armored.hit_points == 3)
+
+	var board := BoardModel.new()
+	var source := BlockState.new(70, BlockState.BlockType.EXPLOSIVE, Vector2i(3, 3), 1)
+	var chain := BlockState.new(71, BlockState.BlockType.EXPLOSIVE, Vector2i(4, 3), 2)
+	var cracked := BlockState.new(72, BlockState.BlockType.CRACKED, Vector2i(2, 2), 1)
+	var blast_armor := BlockState.new(
+		73,
+		BlockState.BlockType.ARMORED,
+		Vector2i(2, 3),
+		5,
+		BlockState.VulnerableSide.TOP,
+	)
+	var overlap_target := BlockState.new(74, BlockState.BlockType.NORMAL, Vector2i(3, 4), 5)
+	var chain_only_target := BlockState.new(75, BlockState.BlockType.NORMAL, Vector2i(5, 3), 5)
+	var hard_rock := BlockState.new(76, BlockState.BlockType.ROCK, Vector2i(3, 2), 0)
+	for block: BlockState in [
+		source,
+		chain,
+		cracked,
+		blast_armor,
+		overlap_target,
+		chain_only_target,
+		hard_rock,
+	]:
+		assert(board.add_block(block))
+	var source_damage := board.resolve_contact(source.id, 1, Vector2.LEFT)
+	assert(source_damage.destroyed)
+	assert(not source_damage.is_explosion)
+	var explosion_results := board.resolve_explosion(source.id)
+	assert(not explosion_results.is_empty())
+	for result: BlockDamageResult in explosion_results:
+		assert(result.is_explosion)
+	assert(chain.is_destroyed())
+	assert(cracked.is_destroyed())
+	assert(blast_armor.hit_points == 2)
+	assert(overlap_target.is_destroyed())
+	assert(chain_only_target.hit_points == 2)
+	assert(hard_rock.hit_points == 0)

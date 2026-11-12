@@ -7,7 +7,7 @@ Deep Ricochet, dikey ekranda oynanan nişan alma ve sekme odaklı bir mobil oyun
 - `deep-ricochet/`: Godot projesi ve çalıştırılabilir oyun kaynakları.
 - `assets/`: Orijinal görseller, üretim notları ve asset manifesti.
 
-Etkin oda içerikleri `deep-ricochet/content/mines/rooms/` altındaki JSON şablonlarında, üç madenin sırası ve kilit koşulları ise `deep-ricochet/content/mines/mines.json` içinde tutulur. Oynanış sahnesi bu şablonlardan blok dizilimini, blok canlarını ve oda çarpanını yükler; kaynak şablonu değiştirmeden her başlangıçta yeni bir tahta üretir. Şablon paketi `deep-ricochet/tools/generate_mine_rooms.gd` ile deterministik olarak yeniden üretilebilir.
+Etkin oda içerikleri `deep-ricochet/content/mines/rooms/` altındaki JSON şablonlarında, beş madenin sırası ve kilit koşulları ise `deep-ricochet/content/mines/mines.json` içinde tutulur. Oynanış sahnesi bu şablonlardan blok dizilimini, blok canlarını, zırhlı blokların açık kenarlarını ve oda çarpanını yükler; kaynak şablonu değiştirmeden her başlangıçta yeni bir tahta üretir. Şablon paketi `deep-ricochet/tools/generate_mine_rooms.gd` ile deterministik olarak yeniden üretilebilir.
 
 Godot'ta açılması gereken dosya `deep-ricochet/project.godot` dosyasıdır. Ana klasör ise Git deposunun köküdür; böylece hem proje hem de kaynak asset paketi birlikte sürümlenir.
 
@@ -45,8 +45,12 @@ Oyun alanında fareyle ya da dokunmatik ekranla basılı tutup yön seçilir; b�
 - Dört oda, üç rota tercihi ve tek seferlik sonuç işleyen `RunSession` / `RunController`
 - Seed tabanlı, aynı koşuda daha önce sunulan şablonu yeniden kullanmayan içerik seçimi
 - Gerçek şablondan çizilen güvenli/bonus rota önizlemeleri ve geçici sonuç ekranı
-- Birbirinin ardından açılan üç maden/seviye ve maden seçim ekranı
-- Her madende 2 başlangıç, 6 geniş geçit ve 6 dar damar olmak üzere 14; toplam 42 doğrulanan oda şablonu
+- Birbirinin ardından açılan beş maden/seviye ve maden seçim ekranı
+- Her madende 2 başlangıç, 6 geniş geçit ve 6 dar damar olmak üzere 14; toplam 70 doğrulanan oda şablonu
+- Kırıldığında 10 puan veren ve 3×3 alana 3 hasar uygulayan zincirleme patlayıcı blok
+- Tek canla kırılan ve 6 puan veren çatlak kaya
+- Oda şablonunda tanımlanan 1 veya 2 parlak kenardan doğrudan hasar alan zırhlı blok
+- Patlama hasarının zırhı aşması; sert kayanın patlamada da kırılmaz kalması
 - Sürümlendirilmiş `RunSnapshot`, `RoomSnapshot` ve JSON kayıt zarfı
 - Atomik geçici dosya yazımı, son geçerli yedek ve bozuk kayıt doğrulaması
 - Atış öncesi snapshot; yarıda kesilen yaylımda hak/puan kaybetmeden geri dönüş
@@ -86,7 +90,7 @@ Oyun alanında fareyle ya da dokunmatik ekranla basılı tutup yön seçilir; b�
 - Android'de blok kırılması ve çekirdeğin kırılması için kısa, farklı şiddette ve 90 ms aralıkla sınırlanan titreşim
 - Ayarlar ekranında kalıcı titreşim açma-kapama seçeneği ve eski ayar kayıtları için şema geçişi
 - Üç madenin her biri için dört odalık koşu; ilk oda başlangıç havuzundan, sonraki üç oda geniş geçit/dar damar rota çiftlerinden seçilir
-- Her maden için yedi temel düzenin yatay aynalarıyla oluşturulan 14 şablon; toplam 42 seed tabanlı şablon
+- Her maden için yedi temel düzenin yatay aynalarıyla oluşturulan 14 şablon; toplam 70 seed tabanlı şablon
 - Bir madeni başarıyla bitirince sıradakini açan seviye ilerlemesi, maden bazında en iyi skor ve tamamlanma sayısı
 - Her gün aynı yerel tarih için aynı seed'i kullanan, ilerleme kilitlerini etkilemeyen günlük maden
 - Düşük maliyetli efekt sınırı ve azaltılmış sarsıntı kullanan **Performans** modu ile daha yoğun görsel cila sunan **Grafik** modu
@@ -137,4 +141,4 @@ Godot komut satırından proje kökünde şu sahne çalıştırılır:
 godot --headless --path deep-ricochet --scene res://tests/smoke_test.tscn
 ```
 
-Test; profil ve ayar geçişlerini, maden kilitleri ile günlük maden istatistiklerini, grafik/performans tercihini, titreşim ayarı ile eski ayar şeması göçünü, efekt/müzik bus'larını, melodik çarpışma hız sınırını, sessiz modu, profil yedeğinden kurtarmayı, iki dili, üç aşamalı ilk-oyun öğreticisini, tüm veri silme hata davranışını, ayrıntılı oda sonuç geçmişini, aynı seed tekrarını, 1×/2× sabit adımlı simülasyonu, ana menü ve devam durumunu, nişan sırasında duraklatmayı, canlı yaylımın donmasını, odak kaybını, üç madendeki 42 oda şablonunu, örnek açı geçişlerini, maden başına 100 seed seçimini, dört oda/üç rota akışını, atış ortası kurtarmayı, bozuk kayıt reddini, fiziği ve puanı doğrular. Ayrıca 42 odanın örnek açı simülasyon süresini test çıktısında `[PERF]` satırıyla raporlar.
+Test; profil ve ayar geçişlerini, beş madenin kilitleri ile günlük maden istatistiklerini, grafik/performans tercihini, titreşim ayarı ile eski ayar şeması göçünü, efekt/müzik bus'larını, melodik çarpışma hız sınırını, sessiz modu, profil yedeğinden kurtarmayı, iki dili, üç aşamalı ilk-oyun öğreticisini, tüm veri silme hata davranışını, ayrıntılı oda sonuç geçmişini, aynı seed tekrarını, 1×/2× sabit adımlı simülasyonu, ana menü ve devam durumunu, nişan sırasında duraklatmayı, canlı yaylımın donmasını, odak kaybını, beş madendeki 70 oda şablonunu, özel blok puanlarını, zırh yönlerini, 3×3 ve zincirleme patlama davranışını, örnek açı geçişlerini, maden başına 100 seed seçimini, dört oda/üç rota akışını, atış ortası kurtarmayı, bozuk kayıt reddini, fiziği ve puanı doğrular. Ayrıca 70 odanın örnek açı simülasyon süresini test çıktısında `[PERF]` satırıyla raporlar.

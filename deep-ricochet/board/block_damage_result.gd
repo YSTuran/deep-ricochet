@@ -7,4 +7,7 @@ var contact_valid: bool = false
 var damage_applied: bool = false
 var destroyed: bool = false
 var remaining_hit_points: int = 0
+var damage_amount: int = 0
+var is_explosion: bool = false
+var blocked_by_armor: bool = false
 

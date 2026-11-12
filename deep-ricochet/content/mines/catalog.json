@@ -1,5 +1,5 @@
 {
-  "contentVersion": "p2-mines-1",
+  "contentVersion": "p2-mines-2",
   "schemaVersion": 1,
   "templates": [
     "res://content/mines/rooms/m1_start_a.json",
@@ -43,6 +43,34 @@
     "res://content/mines/rooms/m3_narrow_02_a.json",
     "res://content/mines/rooms/m3_narrow_02_b.json",
     "res://content/mines/rooms/m3_narrow_03_a.json",
-    "res://content/mines/rooms/m3_narrow_03_b.json"
+    "res://content/mines/rooms/m3_narrow_03_b.json",
+    "res://content/mines/rooms/m4_start_a.json",
+    "res://content/mines/rooms/m4_start_b.json",
+    "res://content/mines/rooms/m4_wide_01_a.json",
+    "res://content/mines/rooms/m4_wide_01_b.json",
+    "res://content/mines/rooms/m4_wide_02_a.json",
+    "res://content/mines/rooms/m4_wide_02_b.json",
+    "res://content/mines/rooms/m4_wide_03_a.json",
+    "res://content/mines/rooms/m4_wide_03_b.json",
+    "res://content/mines/rooms/m4_narrow_01_a.json",
+    "res://content/mines/rooms/m4_narrow_01_b.json",
+    "res://content/mines/rooms/m4_narrow_02_a.json",
+    "res://content/mines/rooms/m4_narrow_02_b.json",
+    "res://content/mines/rooms/m4_narrow_03_a.json",
+    "res://content/mines/rooms/m4_narrow_03_b.json",
+    "res://content/mines/rooms/m5_start_a.json",
+    "res://content/mines/rooms/m5_start_b.json",
+    "res://content/mines/rooms/m5_wide_01_a.json",
+    "res://content/mines/rooms/m5_wide_01_b.json",
+    "res://content/mines/rooms/m5_wide_02_a.json",
+    "res://content/mines/rooms/m5_wide_02_b.json",
+    "res://content/mines/rooms/m5_wide_03_a.json",
+    "res://content/mines/rooms/m5_wide_03_b.json",
+    "res://content/mines/rooms/m5_narrow_01_a.json",
+    "res://content/mines/rooms/m5_narrow_01_b.json",
+    "res://content/mines/rooms/m5_narrow_02_a.json",
+    "res://content/mines/rooms/m5_narrow_02_b.json",
+    "res://content/mines/rooms/m5_narrow_03_a.json",
+    "res://content/mines/rooms/m5_narrow_03_b.json"
   ]
 }

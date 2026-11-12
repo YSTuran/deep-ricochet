@@ -16,7 +16,11 @@
       ],
       "hitPoints": 5,
       "id": 30552,
-      "type": "ore"
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom",
+        "right"
+      ]
     },
     {
       "cell": [
@@ -32,9 +36,9 @@
         3,
         4
       ],
-      "hitPoints": 6,
+      "hitPoints": 1,
       "id": 30554,
-      "type": "ore"
+      "type": "cracked"
     },
     {
       "cell": [
@@ -52,7 +56,7 @@
       ],
       "hitPoints": 6,
       "id": 30556,
-      "type": "normal"
+      "type": "ore"
     },
     {
       "cell": [
@@ -61,7 +65,7 @@
       ],
       "hitPoints": 6,
       "id": 30557,
-      "type": "normal"
+      "type": "explosive"
     },
     {
       "cell": [
@@ -70,7 +74,11 @@
       ],
       "hitPoints": 6,
       "id": 30558,
-      "type": "normal"
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom",
+        "right"
+      ]
     },
     {
       "cell": [
@@ -82,7 +90,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-1",
+  "contentVersion": "p2-mines-2",
   "displayName": "Keskin Damar",
   "displayNameKey": "MINE_3_NARROW_02",
   "exampleAngles": [

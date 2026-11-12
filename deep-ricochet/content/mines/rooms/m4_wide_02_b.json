@@ -1,0 +1,107 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        5,
+        1
+      ],
+      "hitPoints": 1,
+      "id": 40251,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        1,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 40252,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        4
+      ],
+      "hitPoints": 5,
+      "id": 40253,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom",
+        "right"
+      ]
+    },
+    {
+      "cell": [
+        2,
+        4
+      ],
+      "hitPoints": 4,
+      "id": 40254,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        6,
+        5
+      ],
+      "hitPoints": 1,
+      "id": 40255,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        0,
+        6
+      ],
+      "hitPoints": 6,
+      "id": 40256,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        5,
+        7
+      ],
+      "hitPoints": 0,
+      "id": 40257,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        1,
+        7
+      ],
+      "hitPoints": 6,
+      "id": 40258,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        4,
+        8
+      ],
+      "hitPoints": 6,
+      "id": 40349,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-2",
+  "displayName": "Zırh Koridoru",
+  "displayNameKey": "MINE_4_WIDE_02",
+  "exampleAngles": [
+    86.5
+  ],
+  "family": "safe",
+  "height": 8,
+  "id": "m4_wide_02_b",
+  "mineId": "mine_04",
+  "multiplierBps": 10000,
+  "passageColumns": [
+    3,
+    4
+  ],
+  "role": "wide",
+  "schemaVersion": 1,
+  "width": 8
+}

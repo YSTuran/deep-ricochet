@@ -81,6 +81,10 @@ static func _test_profile_round_trip() -> void:
 	assert(daily.highest_unlocked_mine == 2)
 	assert(daily.record_run("mine_2_clear", 360, true, 4, &"mine_02"))
 	assert(daily.highest_unlocked_mine == 3)
+	assert(daily.record_run("mine_3_clear", 420, true, 4, &"mine_03"))
+	assert(daily.highest_unlocked_mine == 4)
+	assert(daily.record_run("mine_4_clear", 480, true, 4, &"mine_04"))
+	assert(daily.highest_unlocked_mine == 5)
 	assert(service.clear_all())
 
 

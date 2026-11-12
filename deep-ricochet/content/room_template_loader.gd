@@ -149,6 +149,7 @@ static func _copy_template(source: RoomTemplate, target: RoomTemplate) -> void:
 			definition.block_type,
 			definition.cell,
 			definition.hit_points,
+			definition.vulnerable_sides,
 		))
 
 
@@ -157,11 +158,16 @@ static func _block_from_dictionary(data: Dictionary) -> RoomBlockDefinition:
 	var cell := Vector2i(-1, -1)
 	if typeof(raw_cell) == TYPE_ARRAY and raw_cell.size() == 2:
 		cell = Vector2i(int(raw_cell[0]), int(raw_cell[1]))
+	var block_type := _block_type_from_name(str(data.get("type", "")))
 	return RoomBlockDefinition.new(
 		int(data.get("id", 0)),
-		_block_type_from_name(str(data.get("type", ""))),
+		block_type,
 		cell,
 		int(data.get("hitPoints", -1)),
+		_vulnerable_sides_from_value(
+			data.get("vulnerableSides", []),
+			block_type == BlockState.BlockType.ARMORED,
+		),
 	)
 
 
@@ -175,7 +181,32 @@ static func _block_type_from_name(type_name: String) -> int:
 			return BlockState.BlockType.ROCK
 		"core":
 			return BlockState.BlockType.CORE
+		"explosive":
+			return BlockState.BlockType.EXPLOSIVE
+		"cracked":
+			return BlockState.BlockType.CRACKED
+		"armored":
+			return BlockState.BlockType.ARMORED
 	return -1
+
+
+static func _vulnerable_sides_from_value(value: Variant, required: bool) -> int:
+	if not required:
+		return BlockState.ALL_VULNERABLE_SIDES
+	if typeof(value) != TYPE_ARRAY:
+		return 0
+	var mask := 0
+	for raw_side: Variant in value:
+		match str(raw_side).to_lower():
+			"left":
+				mask |= BlockState.VulnerableSide.LEFT
+			"right":
+				mask |= BlockState.VulnerableSide.RIGHT
+			"top":
+				mask |= BlockState.VulnerableSide.TOP
+			"bottom":
+				mask |= BlockState.VulnerableSide.BOTTOM
+	return mask
 
 
 static func _family_from_name(family_name: String) -> int:

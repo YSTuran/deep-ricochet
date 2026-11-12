@@ -1,0 +1,113 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        0,
+        1
+      ],
+      "hitPoints": 5,
+      "id": 50001,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        6,
+        1
+      ],
+      "hitPoints": 5,
+      "id": 50002,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        1,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 50003,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        5,
+        3
+      ],
+      "hitPoints": 6,
+      "id": 50004,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom",
+        "right"
+      ]
+    },
+    {
+      "cell": [
+        2,
+        5
+      ],
+      "hitPoints": 6,
+      "id": 50005,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        6,
+        5
+      ],
+      "hitPoints": 6,
+      "id": 50006,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        0,
+        7
+      ],
+      "hitPoints": 6,
+      "id": 50007,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        5,
+        7
+      ],
+      "hitPoints": 6,
+      "id": 50008,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        3,
+        8
+      ],
+      "hitPoints": 6,
+      "id": 50099,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-2",
+  "displayName": "Kadim Kapı",
+  "displayNameKey": "MINE_5_START",
+  "exampleAngles": [
+    93.5
+  ],
+  "family": "safe",
+  "height": 8,
+  "id": "m5_start_a",
+  "mineId": "mine_05",
+  "multiplierBps": 10000,
+  "passageColumns": [
+    3,
+    4
+  ],
+  "role": "start",
+  "schemaVersion": 1,
+  "width": 8
+}

@@ -5,9 +5,9 @@
         2,
         1
       ],
-      "hitPoints": 4,
+      "hitPoints": 1,
       "id": 30201,
-      "type": "normal"
+      "type": "cracked"
     },
     {
       "cell": [
@@ -23,9 +23,9 @@
         0,
         4
       ],
-      "hitPoints": 5,
+      "hitPoints": 4,
       "id": 30203,
-      "type": "ore"
+      "type": "explosive"
     },
     {
       "cell": [
@@ -34,7 +34,7 @@
       ],
       "hitPoints": 5,
       "id": 30204,
-      "type": "ore"
+      "type": "normal"
     },
     {
       "cell": [
@@ -43,7 +43,11 @@
       ],
       "hitPoints": 6,
       "id": 30205,
-      "type": "normal"
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom",
+        "left"
+      ]
     },
     {
       "cell": [
@@ -52,7 +56,7 @@
       ],
       "hitPoints": 6,
       "id": 30206,
-      "type": "normal"
+      "type": "ore"
     },
     {
       "cell": [
@@ -70,7 +74,7 @@
       ],
       "hitPoints": 6,
       "id": 30208,
-      "type": "ore"
+      "type": "explosive"
     },
     {
       "cell": [
@@ -82,7 +86,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-1",
+  "contentVersion": "p2-mines-2",
   "displayName": "Kızıl Salon",
   "displayNameKey": "MINE_3_WIDE_02",
   "exampleAngles": [

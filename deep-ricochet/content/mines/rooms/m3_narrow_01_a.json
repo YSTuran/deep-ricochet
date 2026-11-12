@@ -16,7 +16,7 @@
       ],
       "hitPoints": 5,
       "id": 30402,
-      "type": "normal"
+      "type": "ore"
     },
     {
       "cell": [
@@ -25,7 +25,11 @@
       ],
       "hitPoints": 5,
       "id": 30403,
-      "type": "normal"
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom",
+        "left"
+      ]
     },
     {
       "cell": [
@@ -52,16 +56,16 @@
       ],
       "hitPoints": 6,
       "id": 30406,
-      "type": "ore"
+      "type": "normal"
     },
     {
       "cell": [
         2,
         7
       ],
-      "hitPoints": 6,
+      "hitPoints": 1,
       "id": 30407,
-      "type": "ore"
+      "type": "cracked"
     },
     {
       "cell": [
@@ -70,7 +74,7 @@
       ],
       "hitPoints": 6,
       "id": 30408,
-      "type": "ore"
+      "type": "normal"
     },
     {
       "cell": [
@@ -82,7 +86,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-1",
+  "contentVersion": "p2-mines-2",
   "displayName": "Erimiş Yarık",
   "displayNameKey": "MINE_3_NARROW_01",
   "exampleAngles": [

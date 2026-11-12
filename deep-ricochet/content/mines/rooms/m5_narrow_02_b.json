@@ -1,0 +1,108 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        5,
+        1
+      ],
+      "hitPoints": 0,
+      "id": 50551,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        1,
+        2
+      ],
+      "hitPoints": 6,
+      "id": 50552,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        7,
+        3
+      ],
+      "hitPoints": 5,
+      "id": 50553,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        3,
+        4
+      ],
+      "hitPoints": 6,
+      "id": 50554,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        6,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 50555,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        2,
+        6
+      ],
+      "hitPoints": 6,
+      "id": 50556,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        5,
+        7
+      ],
+      "hitPoints": 6,
+      "id": 50557,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        1,
+        7
+      ],
+      "hitPoints": 6,
+      "id": 50558,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        4,
+        8
+      ],
+      "hitPoints": 6,
+      "id": 50649,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-2",
+  "displayName": "Tek Açık Damar",
+  "displayNameKey": "MINE_5_NARROW_02",
+  "exampleAngles": [
+    86.5
+  ],
+  "family": "bonus",
+  "height": 8,
+  "id": "m5_narrow_02_b",
+  "mineId": "mine_05",
+  "multiplierBps": 15000,
+  "passageColumns": [
+    4
+  ],
+  "role": "narrow",
+  "schemaVersion": 1,
+  "width": 8
+}

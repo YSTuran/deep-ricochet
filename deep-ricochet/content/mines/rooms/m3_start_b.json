@@ -7,16 +7,20 @@
       ],
       "hitPoints": 4,
       "id": 30051,
-      "type": "normal"
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom",
+        "right"
+      ]
     },
     {
       "cell": [
         1,
         1
       ],
-      "hitPoints": 5,
+      "hitPoints": 4,
       "id": 30052,
-      "type": "normal"
+      "type": "explosive"
     },
     {
       "cell": [
@@ -34,7 +38,7 @@
       ],
       "hitPoints": 5,
       "id": 30054,
-      "type": "ore"
+      "type": "normal"
     },
     {
       "cell": [
@@ -52,7 +56,7 @@
       ],
       "hitPoints": 6,
       "id": 30056,
-      "type": "ore"
+      "type": "normal"
     },
     {
       "cell": [
@@ -61,7 +65,11 @@
       ],
       "hitPoints": 6,
       "id": 30057,
-      "type": "normal"
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom",
+        "right"
+      ]
     },
     {
       "cell": [
@@ -70,7 +78,7 @@
       ],
       "hitPoints": 6,
       "id": 30058,
-      "type": "normal"
+      "type": "ore"
     },
     {
       "cell": [
@@ -82,7 +90,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-1",
+  "contentVersion": "p2-mines-2",
   "displayName": "Çekirdek Kapısı",
   "displayNameKey": "MINE_3_START",
   "exampleAngles": [

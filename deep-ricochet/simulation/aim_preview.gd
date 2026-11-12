@@ -34,7 +34,13 @@ func build_path(
 			continue
 
 		for contact: BlockContactEvent in collision.block_contacts:
-			if contact.block_type == BlockState.BlockType.ROCK:
+			var contact_block := _block_by_id(blocks, contact.block_id)
+			if contact.block_type == BlockState.BlockType.ROCK \
+				or (
+					contact_block != null
+					and contact_block.type == BlockState.BlockType.ARMORED
+					and not contact_block.accepts_contact(contact.normal)
+				):
 				continue
 			_append_point(preview.points, contact.position_world)
 			preview.has_terminal_contact = true
@@ -53,6 +59,13 @@ func build_path(
 	if preview_ball.active:
 		_append_point(preview.points, preview_ball.position_world)
 	return preview
+
+
+func _block_by_id(blocks: Array[BlockState], block_id: int) -> BlockState:
+	for block: BlockState in blocks:
+		if block.id == block_id:
+			return block
+	return null
 
 
 func _append_point(points: PackedVector2Array, point: Vector2) -> void:

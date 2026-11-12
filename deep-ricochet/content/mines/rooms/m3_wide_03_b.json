@@ -14,9 +14,9 @@
         2,
         2
       ],
-      "hitPoints": 4,
+      "hitPoints": 1,
       "id": 30352,
-      "type": "ore"
+      "type": "cracked"
     },
     {
       "cell": [
@@ -34,7 +34,11 @@
       ],
       "hitPoints": 5,
       "id": 30354,
-      "type": "ore"
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom",
+        "right"
+      ]
     },
     {
       "cell": [
@@ -50,9 +54,9 @@
         1,
         5
       ],
-      "hitPoints": 6,
+      "hitPoints": 5,
       "id": 30356,
-      "type": "normal"
+      "type": "explosive"
     },
     {
       "cell": [
@@ -70,7 +74,7 @@
       ],
       "hitPoints": 6,
       "id": 30358,
-      "type": "ore"
+      "type": "normal"
     },
     {
       "cell": [
@@ -82,7 +86,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-1",
+  "contentVersion": "p2-mines-2",
   "displayName": "Derin Kemer",
   "displayNameKey": "MINE_3_WIDE_03",
   "exampleAngles": [

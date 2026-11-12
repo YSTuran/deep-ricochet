@@ -106,6 +106,12 @@ func play_collision(block_type: int, position_x: float) -> bool:
 			pitch *= 0.5
 		BlockState.BlockType.CORE:
 			pitch *= 1.5
+		BlockState.BlockType.EXPLOSIVE:
+			pitch *= 0.75
+		BlockState.BlockType.CRACKED:
+			pitch *= 1.12
+		BlockState.BlockType.ARMORED:
+			pitch *= 0.62
 	_play_sfx(COLLISION_NOTE, -11.0, pitch)
 	melody_index += 1
 	_last_note_usec = now
@@ -116,6 +122,8 @@ func play_collision(block_type: int, position_x: float) -> bool:
 func play_break(block_type: int) -> void:
 	if block_type == BlockState.BlockType.CORE:
 		_play_sfx(CORE_BREAK, -3.0, 1.0)
+	elif block_type == BlockState.BlockType.EXPLOSIVE:
+		_play_sfx(BLOCK_BREAK, -3.0, 0.72)
 	else:
 		_play_sfx(BLOCK_BREAK, -7.0, 0.96)
 
@@ -156,6 +164,12 @@ func _play_material_layer(block_type: int, now: int, _position_x: float) -> void
 			_play_sfx(ORE_HIT, -15.0, 0.78)
 		BlockState.BlockType.ROCK:
 			_play_sfx(ROCK_HIT, -16.0, 0.9)
+		BlockState.BlockType.EXPLOSIVE:
+			_play_sfx(ORE_HIT, -15.0, 0.72)
+		BlockState.BlockType.CRACKED:
+			_play_sfx(NORMAL_HIT, -17.0, 1.18)
+		BlockState.BlockType.ARMORED:
+			_play_sfx(ROCK_HIT, -14.0, 0.72)
 
 
 func _play_sfx(stream: AudioStream, volume_db: float, pitch: float) -> void:

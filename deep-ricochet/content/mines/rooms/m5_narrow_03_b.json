@@ -1,0 +1,112 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        6,
+        1
+      ],
+      "hitPoints": 6,
+      "id": 50651,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        2,
+        2
+      ],
+      "hitPoints": 5,
+      "id": 50652,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        5,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 50653,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        4
+      ],
+      "hitPoints": 6,
+      "id": 50654,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom",
+        "left"
+      ]
+    },
+    {
+      "cell": [
+        7,
+        5
+      ],
+      "hitPoints": 6,
+      "id": 50655,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        3,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 50656,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        6,
+        7
+      ],
+      "hitPoints": 6,
+      "id": 50657,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        2,
+        7
+      ],
+      "hitPoints": 6,
+      "id": 50658,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        4,
+        8
+      ],
+      "hitPoints": 6,
+      "id": 50749,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-2",
+  "displayName": "Derin Çekirdek",
+  "displayNameKey": "MINE_5_NARROW_03",
+  "exampleAngles": [
+    86.5
+  ],
+  "family": "bonus",
+  "height": 8,
+  "id": "m5_narrow_03_b",
+  "mineId": "mine_05",
+  "multiplierBps": 15000,
+  "passageColumns": [
+    4
+  ],
+  "role": "narrow",
+  "schemaVersion": 1,
+  "width": 8
+}

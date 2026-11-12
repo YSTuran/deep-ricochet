@@ -130,6 +130,18 @@ func validation_errors() -> PackedStringArray:
 		elif definition.block_type == BlockState.BlockType.ORE:
 			if definition.hit_points < 3 or definition.hit_points > 6:
 				errors.append("%s cevher bloğu olduğu için 3-6 cana sahip olmalıdır." % label)
+		elif definition.block_type == BlockState.BlockType.EXPLOSIVE:
+			if definition.hit_points < 1 or definition.hit_points > 6:
+				errors.append("%s patlayıcı blok olduğu için 1-6 cana sahip olmalıdır." % label)
+		elif definition.block_type == BlockState.BlockType.CRACKED:
+			if definition.hit_points != 1:
+				errors.append("%s çatlak kaya olduğu için 1 cana sahip olmalıdır." % label)
+		elif definition.block_type == BlockState.BlockType.ARMORED:
+			if definition.hit_points < 3 or definition.hit_points > 6:
+				errors.append("%s zırhlı blok olduğu için 3-6 cana sahip olmalıdır." % label)
+			var vulnerable_count := _vulnerable_side_count(definition.vulnerable_sides)
+			if vulnerable_count < 1 or vulnerable_count > 2:
+				errors.append("%s zırhlı blok olduğu için 1 veya 2 açık kenara sahip olmalıdır." % label)
 		elif definition.block_type == BlockState.BlockType.CORE and definition.hit_points != 6:
 			errors.append("%s çekirdek olduğu için 6 cana sahip olmalıdır." % label)
 
@@ -179,7 +191,23 @@ func _is_known_block_type(block_type: int) -> bool:
 	return block_type == BlockState.BlockType.NORMAL \
 		or block_type == BlockState.BlockType.ORE \
 		or block_type == BlockState.BlockType.ROCK \
-		or block_type == BlockState.BlockType.CORE
+		or block_type == BlockState.BlockType.CORE \
+		or block_type == BlockState.BlockType.EXPLOSIVE \
+		or block_type == BlockState.BlockType.CRACKED \
+		or block_type == BlockState.BlockType.ARMORED
+
+
+func _vulnerable_side_count(mask: int) -> int:
+	var count := 0
+	for side in [
+		BlockState.VulnerableSide.LEFT,
+		BlockState.VulnerableSide.RIGHT,
+		BlockState.VulnerableSide.TOP,
+		BlockState.VulnerableSide.BOTTOM,
+	]:
+		if (mask & side) != 0:
+			count += 1
+	return count
 
 
 func _validate_passage(errors: PackedStringArray) -> void:

@@ -14,6 +14,16 @@ const SAME_SEED_BUTTON := Rect2(70.0, 650.0, 400.0, 60.0)
 const RESTART_BUTTON := Rect2(70.0, 725.0, 400.0, 60.0)
 const RESULT_MENU_BUTTON := Rect2(70.0, 800.0, 400.0, 60.0)
 const CORE_TEXTURE: Texture2D = preload("res://art/source/cekirdek.png")
+const CRACKED_TEXTURE: Texture2D = preload("res://art/source/blok_catlak.png")
+const EXPLOSIVE_TEXTURE: Texture2D = preload("res://art/source/blok_patlayici.png")
+const ARMORED_BOTTOM_TEXTURE: Texture2D = preload("res://art/source/blok_zirhli_alt.png")
+const ARMORED_LEFT_BOTTOM_TEXTURE: Texture2D = preload("res://art/source/blok_zirhli_sol_alt.png")
+const ARMORED_RIGHT_BOTTOM_TEXTURE: Texture2D = preload("res://art/source/blok_zirhli_sag_alt.png")
+const CRACKED_SOURCE := Rect2(32.0, 36.0, 447.0, 454.0)
+const EXPLOSIVE_SOURCE := Rect2(54.0, 65.0, 404.0, 407.0)
+const ARMORED_BOTTOM_SOURCE := Rect2(5.0, 6.0, 502.0, 502.0)
+const ARMORED_LEFT_BOTTOM_SOURCE := Rect2(5.0, 5.0, 503.0, 503.0)
+const ARMORED_RIGHT_BOTTOM_SOURCE := Rect2(4.0, 5.0, 503.0, 503.0)
 const PREVIEW_CELL_SIZE := 15.5
 
 var controller: RunController
@@ -187,6 +197,7 @@ func _draw_template_preview(template: RoomTemplate, origin: Vector2, cell_size: 
 			draw_circle(center, cell_size * 0.36, DeepUI.CORE)
 			_draw_mini_value(center, str(definition.hit_points), cell_size, DeepUI.BACKGROUND_DEEP)
 			continue
+		var block_rect := Rect2(center - Vector2.ONE * cell_size * 0.4, Vector2.ONE * cell_size * 0.8)
 		var color := DeepUI.BLUE
 		var value := str(definition.hit_points)
 		if definition.block_type == BlockState.BlockType.ORE:
@@ -194,9 +205,49 @@ func _draw_template_preview(template: RoomTemplate, origin: Vector2, cell_size: 
 		elif definition.block_type == BlockState.BlockType.ROCK:
 			color = Color("35414b")
 			value = "×"
-		var block_rect := Rect2(center - Vector2.ONE * cell_size * 0.4, Vector2.ONE * cell_size * 0.8)
+		elif definition.block_type == BlockState.BlockType.EXPLOSIVE:
+			_draw_preview_illustrated_block(
+				block_rect,
+				EXPLOSIVE_TEXTURE,
+				EXPLOSIVE_SOURCE,
+				value,
+			)
+			continue
+		elif definition.block_type == BlockState.BlockType.CRACKED:
+			_draw_preview_illustrated_block(
+				block_rect,
+				CRACKED_TEXTURE,
+				CRACKED_SOURCE,
+				value,
+			)
+			continue
+		elif definition.block_type == BlockState.BlockType.ARMORED:
+			_draw_preview_armored_block(block_rect, definition.vulnerable_sides, value)
+			continue
 		DeepUI.draw_panel(self, block_rect, color, Color(color).lightened(0.18), 4, 1, false)
 		_draw_mini_value(center, value, cell_size, DeepUI.TEXT)
+
+
+func _draw_preview_illustrated_block(
+	rect: Rect2,
+	texture: Texture2D,
+	source_rect: Rect2,
+	hp_text: String,
+) -> void:
+	draw_texture_rect_region(texture, rect, source_rect)
+	_draw_mini_value(rect.get_center(), hp_text, rect.size.x / 0.8, DeepUI.TEXT)
+
+
+func _draw_preview_armored_block(rect: Rect2, vulnerable_sides: int, hp_text: String) -> void:
+	var texture := ARMORED_BOTTOM_TEXTURE
+	var source_rect := ARMORED_BOTTOM_SOURCE
+	if (vulnerable_sides & BlockState.VulnerableSide.LEFT) != 0:
+		texture = ARMORED_LEFT_BOTTOM_TEXTURE
+		source_rect = ARMORED_LEFT_BOTTOM_SOURCE
+	elif (vulnerable_sides & BlockState.VulnerableSide.RIGHT) != 0:
+		texture = ARMORED_RIGHT_BOTTOM_TEXTURE
+		source_rect = ARMORED_RIGHT_BOTTOM_SOURCE
+	_draw_preview_illustrated_block(rect, texture, source_rect, hp_text)
 
 
 func _draw_run_result() -> void:
