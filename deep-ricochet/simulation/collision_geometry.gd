@@ -12,14 +12,6 @@ static func sweep_circle_against_block(
 	radius: float,
 	block: BlockState,
 ) -> Vector3:
-	if block.type == BlockState.BlockType.CORE:
-		return _swept_point_circle(
-			position,
-			velocity,
-			max_time,
-			block.collision_center_world(),
-			BlockState.CORE_COLLISION_RADIUS + radius,
-		)
 	return _swept_point_rect(position, velocity, max_time, block.world_rect().grow(radius))
 
 
@@ -30,9 +22,6 @@ static func is_touching_block(
 	block: BlockState,
 ) -> bool:
 	var release_radius := radius + contact_release_epsilon
-	if block.type == BlockState.BlockType.CORE:
-		var combined_radius := BlockState.CORE_COLLISION_RADIUS + release_radius
-		return position.distance_squared_to(block.collision_center_world()) <= combined_radius * combined_radius
 	return _point_inside_rect(position, block.world_rect().grow(release_radius))
 
 
@@ -87,41 +76,6 @@ static func _swept_point_rect(
 	else:
 		normal = Vector2(0.0, -signf(velocity.y))
 	return Vector3(entry_time, normal.x, normal.y)
-
-
-static func _swept_point_circle(
-	position: Vector2,
-	velocity: Vector2,
-	max_time: float,
-	center: Vector2,
-	combined_radius: float,
-) -> Vector3:
-	var relative := position - center
-	if relative.length_squared() <= combined_radius * combined_radius:
-		var overlap_normal := relative.normalized()
-		if overlap_normal.is_zero_approx():
-			overlap_normal = -velocity.normalized()
-		if velocity.dot(overlap_normal) < -TIME_EPSILON:
-			return Vector3(0.0, overlap_normal.x, overlap_normal.y)
-		return NO_HIT
-
-	var speed_squared := velocity.length_squared()
-	if speed_squared <= TIME_EPSILON:
-		return NO_HIT
-	var b := 2.0 * relative.dot(velocity)
-	var c := relative.length_squared() - combined_radius * combined_radius
-	var discriminant := b * b - 4.0 * speed_squared * c
-	if discriminant < 0.0:
-		return NO_HIT
-
-	var hit_time := (-b - sqrt(discriminant)) / (2.0 * speed_squared)
-	if hit_time < 0.0 or hit_time > max_time:
-		return NO_HIT
-	var hit_position := position + velocity * hit_time
-	var normal := (hit_position - center).normalized()
-	if velocity.dot(normal) >= 0.0:
-		return NO_HIT
-	return Vector3(hit_time, normal.x, normal.y)
 
 
 static func _point_inside_rect(point: Vector2, rect: Rect2) -> bool:

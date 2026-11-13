@@ -1,8 +1,6 @@
 class_name BlockState
 extends RefCounted
 
-const CORE_COLLISION_RADIUS := 0.48
-
 enum BlockType {
 	NORMAL,
 	ORE,
@@ -88,4 +86,5 @@ func world_rect() -> Rect2:
 
 
 func collision_center_world() -> Vector2:
+	# Görsel efektlerin ve çizimin merkezidir. Fizik alanı world_rect() ile karedir.
 	return world_rect().get_center()

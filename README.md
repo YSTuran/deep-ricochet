@@ -33,8 +33,7 @@ Oyun alanında fareyle ya da dokunmatik ekranla basılı tutup yön seçilir; b�
 
 - Sabit zaman adımlı top hareketi ve duvar sekmesi
 - Alt sınırda top toplama
-- Kare normal, cevher ve sert kaya çarpışmaları
-- Dairesel çekirdek çarpışması
+- Normal, cevher, sert kaya ve çekirdek için kare hücre çarpışmaları; çekirdekte yuvarlak görsel
 - Normal, cevher ve çekirdek için can/hasar sistemi
 - Aynı temas sırasında yinelenen hasarı engelleme
 - Kırılabilir nesnede duran ve temas noktasını gösteren simülasyon tabanlı nişan önizlemesi
@@ -46,7 +45,7 @@ Oyun alanında fareyle ya da dokunmatik ekranla basılı tutup yön seçilir; b�
 - Dışarıdan oda yükleyebilen ve sonucu sinyalle bildiren `GameplayRoom`
 - Dört oda, üç rota tercihi ve tek seferlik sonuç işleyen `RunSession` / `RunController`
 - Seed tabanlı, aynı koşuda daha önce sunulan şablonu yeniden kullanmayan içerik seçimi
-- Gerçek şablondan çizilen güvenli/bonus rota önizlemeleri ve geçici sonuç ekranı
+- Gerçek şablondan çizilen güvenli/bonus rota önizlemeleri ve ayrıntılı sonuç ekranı
 - Birbirinin ardından açılan yedi maden/seviye ve maden seçim ekranı
 - Her madende 2 başlangıç, 6 geniş geçit ve 6 dar damar olmak üzere 14; toplam 98 doğrulanan oda şablonu
 - İlk üç madende klasik bloklar; dördüncü madenden itibaren çatlak ve patlayıcı, altıncı madenden itibaren zırhlı bloklar
@@ -68,10 +67,11 @@ Oyun alanında fareyle ya da dokunmatik ekranla basılı tutup yön seçilir; b�
 - Ana menüde profil özeti ve sonuç ekranında yeni rekor bildirimi
 - Her oda için ham puan, kalan atış bonusu, çarpan ve ödülü saklayan sonuç geçmişi
 - Sonuç ekranında dört odaya kadar ayrıntılı puan dökümü
+- Başarılı sonuç ekranında sonraki maden, mevcut madeni yeniden başlatma ve ana menü seçenekleri
 - Kalıcı dil tercihiyle eksiksiz Türkçe–İngilizce arayüz
 - İlk yeni oyunda atış, çekirdek ve rota aşamalarına bağlanan üç adımlı etkileşimli öğretici
 - Ayarlardan tekrar açılabilen üç sayfalı öğretici özeti
-- Dil, ayrı efekt/müzik seviyeleri, titreşim, ekran sarsıntısı, grafik/performans modu ve onaylı tüm veri silme seçeneklerini içeren ayarlar ekranı
+- Genel, ses ve görüntü/geri bildirim sayfalarına ayrılan; dil, ayrı efekt/müzik seviyeleri, titreşim, ekran sarsıntısı, grafik/performans modu ve onaylı tüm veri silme seçeneklerini içeren ayarlar ekranı
 - Android geri tuşunun menü, ayarlar, öğretici, sonuç ve duraklatma katmanlarına uygun davranması
 - Android 9 (API 28) alt sınırı ve API 35 hedefi için ARMv7 Gradle export preseti
 - Assetlerle uyumlu prosedürel hasar halkası ve blok kırılma parçacıkları

@@ -98,13 +98,18 @@ static func _test_collision_and_damage(config: GameConfig) -> void:
 	assert(damage.damage_applied)
 	assert(core_block.hit_points == 1)
 
-	var missed_core_board := BoardModel.new()
-	var missed_core := BlockState.new(14, BlockState.BlockType.CORE, Vector2i(5, 8), 2)
-	assert(missed_core_board.add_block(missed_core))
+	var square_core_board := BoardModel.new()
+	var square_core := BlockState.new(14, BlockState.BlockType.CORE, Vector2i(5, 8), 2)
+	assert(square_core_board.add_block(square_core))
 	ball.launch(Vector2(4.0, 7.94), Vector2(10.0, 0.0))
-	collision = simulator.advance_ball(ball, 0.25, BOARD_SIZE, config.ball_radius, missed_core_board.blocks)
-	assert(collision.kind == &"none")
-	assert(missed_core.hit_points == 2)
+	collision = simulator.advance_ball(ball, 0.25, BOARD_SIZE, config.ball_radius, square_core_board.blocks)
+	assert(collision.kind == &"block")
+	assert(collision.block_id == square_core.id)
+	assert(collision.block_contacts.size() == 1)
+	assert(ball.velocity_world.x < 0.0)
+	damage = square_core_board.resolve_contact(collision.block_contacts[0].block_id)
+	assert(damage.damage_applied)
+	assert(square_core.hit_points == 1)
 
 	var guarded_board := BoardModel.new()
 	var guarded_block := BlockState.new(15, BlockState.BlockType.NORMAL, Vector2i(2, 4), 3)
@@ -181,6 +186,21 @@ static func _test_preview_contract(config: GameConfig) -> void:
 	var collision := simulator.advance_ball(real_ball, 0.2, BOARD_SIZE, config.ball_radius, board.blocks)
 	assert(collision.block_contacts.size() == 1)
 	assert(preview.contact_position_world.distance_to(collision.block_contacts[0].position_world) <= 0.1)
+
+	var core_preview_board := BoardModel.new()
+	var preview_core := BlockState.new(24, BlockState.BlockType.CORE, Vector2i(5, 8), 2)
+	assert(core_preview_board.add_block(preview_core))
+	var core_preview := preview_builder.build_path(
+		simulator,
+		Vector2(4.0, 7.94),
+		Vector2(10.0, 0.0),
+		BOARD_SIZE,
+		config.ball_radius,
+		core_preview_board.blocks,
+		2,
+	)
+	assert(core_preview.has_terminal_contact)
+	assert(core_preview.contact_block_id == preview_core.id)
 
 	var rock_board := BoardModel.new()
 	assert(rock_board.add_block(BlockState.new(21, BlockState.BlockType.ROCK, Vector2i(3, 3), 0)))

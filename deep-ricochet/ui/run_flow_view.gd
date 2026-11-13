@@ -93,10 +93,18 @@ func _gui_input(event: InputEvent) -> void:
 	elif screen == Screen.RUN_RESULT:
 		if SAME_SEED_BUTTON.has_point(event_position):
 			AudioManager.play_ui_click()
-			controller.restart_same_seed()
+			if _shows_mine_progression_actions():
+				controller.start_next_mine_from_result()
+			else:
+				controller.restart_same_seed()
 		elif RESTART_BUTTON.has_point(event_position):
 			AudioManager.play_ui_click()
-			controller.start_new_run()
+			if _shows_mine_progression_actions():
+				controller.restart_same_seed()
+			elif run_session.run_kind == RunSession.RunKind.NORMAL:
+				controller.restart_current_mine()
+			else:
+				controller.start_new_run()
 		elif RESULT_MENU_BUTTON.has_point(event_position):
 			AudioManager.play_ui_click()
 			controller.show_main_menu_from_result()
@@ -292,9 +300,24 @@ func _draw_run_result() -> void:
 	if profile != null:
 		var best_label := tr("RESULT_NEW_BEST") if new_best else tr("RESULT_BEST") % profile.best_score
 		DeepUI.draw_chip(self, Rect2(135.0, 580.0, 270.0, 38.0), best_label, accent, 17)
-	DeepUI.draw_button(self, SAME_SEED_BUTTON, tr("RESULT_RETRY_SEED"), &"core" if run_session.succeeded else &"primary", 21)
-	DeepUI.draw_button(self, RESTART_BUTTON, tr("RESULT_REPLAY"), &"secondary", 21)
+	var primary_label := tr("RESULT_RETRY_SEED")
+	var restart_label := tr("RESULT_REPLAY")
+	if _shows_mine_progression_actions():
+		primary_label = tr("RESULT_NEXT_MINE") \
+			if not controller.next_mine_id_from_result().is_empty() \
+			else tr("RESULT_CHOOSE_MINE")
+		restart_label = tr("RESULT_RESTART")
+	DeepUI.draw_button(self, SAME_SEED_BUTTON, primary_label, &"core" if run_session.succeeded else &"primary", 21)
+	DeepUI.draw_button(self, RESTART_BUTTON, restart_label, &"secondary", 21)
 	DeepUI.draw_button(self, RESULT_MENU_BUTTON, tr("RESULT_MAIN_MENU"), &"secondary", 22)
+
+
+func _shows_mine_progression_actions() -> bool:
+	return run_session != null \
+		and run_session.ended \
+		and run_session.succeeded \
+		and run_session.run_kind == RunSession.RunKind.NORMAL \
+		and controller != null
 
 
 func _draw_text(text: String, position: Vector2, size: int, color: Color) -> void:

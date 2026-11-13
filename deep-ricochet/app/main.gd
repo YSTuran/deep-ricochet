@@ -379,6 +379,37 @@ func restart_same_seed() -> bool:
 	)
 
 
+func restart_current_mine() -> bool:
+	if run_session == null or not run_session.ended:
+		return false
+	if run_session.run_kind == RunSession.RunKind.DAILY:
+		return restart_same_seed()
+	return start_new_run(0, run_session.mine_id, RunSession.RunKind.NORMAL)
+
+
+func next_mine_id_from_result() -> StringName:
+	if run_session == null or not run_session.ended or not run_session.succeeded \
+		or run_session.run_kind != RunSession.RunKind.NORMAL or mine_registry == null:
+		return &""
+	var current_mine := mine_registry.get_mine(run_session.mine_id)
+	if current_mine == null:
+		return &""
+	return mine_registry.mine_id_for_order(current_mine.order + 1)
+
+
+func start_next_mine_from_result() -> bool:
+	if run_session == null or not run_session.ended or not run_session.succeeded \
+		or run_session.run_kind != RunSession.RunKind.NORMAL or mine_registry == null:
+		return false
+	var next_mine_id := next_mine_id_from_result()
+	if not next_mine_id.is_empty():
+		return start_new_run(0, next_mine_id, RunSession.RunKind.NORMAL)
+	if not show_main_menu_from_result():
+		return false
+	open_mine_selection()
+	return true
+
+
 func toggle_simulation_speed() -> void:
 	if main_menu_view.visible or pause_active or run_session == null or run_session.ended:
 		return
@@ -514,7 +545,7 @@ func complete_tutorial() -> void:
 		_save_profile()
 	if tutorial_return_to_settings:
 		tutorial_return_to_settings = false
-		settings_overlay.show_settings()
+		settings_overlay.show_settings("", SettingsOverlay.Page.GENERAL)
 	elif run_session != null:
 		_restore_active_screen()
 
@@ -536,7 +567,10 @@ func confirm_reset_progress() -> bool:
 		_save_profile()
 		if run_session != null:
 			_save_stable()
-		settings_overlay.show_settings(tr("NOTICE_STORAGE_FAILED"))
+		settings_overlay.show_settings(
+			tr("NOTICE_STORAGE_FAILED"),
+			SettingsOverlay.Page.GENERAL,
+		)
 		return false
 
 	profile = replacement_profile
@@ -568,7 +602,10 @@ func confirm_delete_all_data() -> bool:
 		_save_app_settings()
 		if run_session != null:
 			_save_stable()
-		settings_overlay.show_settings(tr("NOTICE_STORAGE_FAILED"))
+		settings_overlay.show_settings(
+			tr("NOTICE_STORAGE_FAILED"),
+			SettingsOverlay.Page.GENERAL,
+		)
 		return false
 
 	profile = PlayerProfile.new()

@@ -225,11 +225,23 @@ static func _test_controller_four_room_flow(controller: RunController) -> void:
 			assert(controller.flow_view.visible)
 	var completed_run_id := controller.run_session.run_id
 	assert(controller.profile.is_mine_unlocked(&"mine_02"))
+	assert(controller.next_mine_id_from_result() == &"mine_02")
 	assert(controller.restart_same_seed())
 	assert(controller.run_session.seed == 777)
 	assert(controller.run_session.current_template_id == first_template_id)
 	assert(controller.run_session.run_id != completed_run_id)
 	assert(controller.gameplay_room.simulation_speed == 1)
+	for completed_room in range(1, 5):
+		controller._on_room_finished(_finished_resolution(true, completed_room * 50))
+		if completed_room < 4:
+			assert(controller.run_session.pending_routes.size() == 2)
+			assert(controller.select_route(controller.run_session.pending_routes[0].option_id))
+	assert(controller.run_session.ended)
+	assert(controller.run_session.succeeded)
+	assert(controller.start_next_mine_from_result())
+	assert(controller.run_session.mine_id == &"mine_02")
+	assert(controller.run_session.room_number == 1)
+	assert(not controller.flow_view.visible)
 	var daily_key := "2026-11-11"
 	var daily_seed := controller.daily_seed_for_key(daily_key)
 	assert(controller.start_new_run(daily_seed, &"mine_01", RunSession.RunKind.DAILY, daily_key))
@@ -244,6 +256,19 @@ static func _test_controller_four_room_flow(controller: RunController) -> void:
 	assert(controller.run_session.room_number == 1)
 	assert(controller.start_new_run(779, &"mine_02"))
 	assert(controller.run_session.mine_id == &"mine_02")
+
+	var final_mine_result := RunSession.new()
+	final_mine_result.mine_id = &"mine_07"
+	final_mine_result.run_kind = RunSession.RunKind.NORMAL
+	final_mine_result.ended = true
+	final_mine_result.succeeded = true
+	final_mine_result.phase = RunSession.Phase.RUN_RESULT
+	controller.run_session = final_mine_result
+	assert(controller.next_mine_id_from_result().is_empty())
+	assert(controller.start_next_mine_from_result())
+	assert(controller.run_session == null)
+	assert(controller.mine_select_view.visible)
+	controller.close_mine_selection()
 
 
 static func _finished_resolution(success: bool, reward: int) -> RoomResolution:
