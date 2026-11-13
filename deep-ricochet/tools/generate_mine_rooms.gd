@@ -1,6 +1,6 @@
 extends SceneTree
 
-const CONTENT_VERSION := "p2-mines-2"
+const CONTENT_VERSION := "p2-mines-3"
 const OUTPUT_DIR := "res://content/mines/rooms"
 const CATALOG_PATH := "res://content/mines/catalog.json"
 
@@ -46,8 +46,10 @@ const DISPLAY_NAMES := [
 	["Kıyı Galerisi", "Açık Basamak", "Mavi Koridor", "Yankı Kemeri", "Altın Yarık", "Dar Şaft", "Cevher Boğazı"],
 	["Derin Giriş", "Kömür Salonu", "Kırık Galeri", "Sessiz Kemer", "Karanlık Oluk", "Sıkışık Damar", "Kristal Boğazı"],
 	["Çekirdek Kapısı", "Basınç Tüneli", "Kızıl Salon", "Derin Kemer", "Erimiş Yarık", "Keskin Damar", "Son Şaft"],
-	["Barut Girişi", "Kıvılcım Galerisi", "Zırh Koridoru", "Çatlak Kemer", "Patlama Yarığı", "Çelik Damar", "Kızıl Boğaz"],
+	["Barut Girişi", "Kıvılcım Galerisi", "Barut Koridoru", "Çatlak Kemer", "Patlama Yarığı", "Çelik Damar", "Kızıl Boğaz"],
 	["Kadim Kapı", "Muhafız Tüneli", "Volkan Salonu", "Demir Kemer", "Son Yarık", "Tek Açık Damar", "Derin Çekirdek"],
+	["Obsidyen Eşiği", "Kristal Burç", "Kara Örs", "Muhafız Kemeri", "Zırhlı Yarık", "Nöbetçi Damar", "Derin Mahzen"],
+	["Uçurum Kapısı", "Son İniş", "Çekirdek Hisarı", "Son Kemer", "Titan Yarığı", "Mühürlü Damar", "Derinlik Kalbi"],
 ]
 
 
@@ -127,7 +129,7 @@ func _room_data(mine_index: int, archetype_index: int, mirrored: bool) -> Dictio
 		"id": mine_number * 10_000 + archetype_index * 100 + (50 if mirrored else 0) + 99,
 		"type": "core",
 		"cell": [core_x, 8],
-		"hitPoints": 6,
+		"hitPoints": 6 + floori(float(mine_index) / 3.0),
 	})
 	var passage: Array = []
 	for raw_column: Variant in archetype["passage"]:
@@ -161,37 +163,33 @@ func _type_for_mine(
 		return base_type
 	var selector := archetype_index * 7 + block_index
 	match mine_index:
-		0:
-			if selector % 7 == 0:
-				return "cracked"
-		1:
-			if selector % 5 == 0:
-				return "explosive"
-			if selector % 4 == 1:
-				return "cracked"
-		2:
-			if selector % 6 == 0:
-				return "armored"
-			if selector % 5 == 1:
-				return "explosive"
-			if selector % 4 == 2:
-				return "cracked"
+		0, 1, 2:
+			return base_type
 		3:
-			match selector % 4:
-				0:
-					return "armored"
-				1:
-					return "explosive"
-				2:
-					return "cracked"
-		4:
-			match selector % 3:
-				0:
-					return "armored"
-				1:
-					return "explosive"
-			if selector % 5 == 2:
+			if selector % 9 == 0:
+				return "explosive"
+			if selector % 9 == 4:
 				return "cracked"
+		4:
+			if selector % 7 == 0:
+				return "explosive"
+			if selector % 7 == 3:
+				return "cracked"
+		5:
+			if selector % 8 == 0:
+				return "armored"
+			if selector % 7 == 2:
+				return "explosive"
+			if selector % 7 == 5:
+				return "cracked"
+		6:
+			match selector % 6:
+				0:
+					return "armored"
+				2:
+					return "explosive"
+				4:
+					return "cracked"
 	return base_type
 
 
@@ -201,11 +199,13 @@ func _hit_points(type_name: String, base_hp: int, mine_index: int) -> int:
 	if type_name == "cracked":
 		return 1
 	if type_name == "explosive":
-		return clampi(base_hp + floori(float(mine_index) * 0.5), 1, 6)
+		return clampi(base_hp + maxi(0, floori(float(mine_index - 3) / 2.0)), 2, 7)
 	if type_name == "armored":
-		return clampi(base_hp + 1 + floori(float(mine_index) * 0.5), 3, 6)
+		return clampi(base_hp + 1 + maxi(0, mine_index - 5), 3, 8)
 	var minimum := 3 if type_name == "ore" else 2
-	return clampi(base_hp + mine_index, minimum, 6)
+	var difficulty_bonus := ceili(float(mine_index) / 2.0) \
+		if type_name == "ore" else floori(float(mine_index) / 2.0)
+	return clampi(base_hp + difficulty_bonus, minimum, 8)
 
 
 func _vulnerable_sides(

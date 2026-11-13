@@ -14,12 +14,9 @@
         1,
         2
       ],
-      "hitPoints": 6,
+      "hitPoints": 5,
       "id": 50552,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "normal"
     },
     {
       "cell": [
@@ -28,16 +25,16 @@
       ],
       "hitPoints": 5,
       "id": 50553,
-      "type": "explosive"
+      "type": "ore"
     },
     {
       "cell": [
         3,
         4
       ],
-      "hitPoints": 6,
+      "hitPoints": 1,
       "id": 50554,
-      "type": "normal"
+      "type": "cracked"
     },
     {
       "cell": [
@@ -53,16 +50,16 @@
         2,
         6
       ],
-      "hitPoints": 6,
+      "hitPoints": 7,
       "id": 50556,
-      "type": "explosive"
+      "type": "ore"
     },
     {
       "cell": [
         5,
         7
       ],
-      "hitPoints": 6,
+      "hitPoints": 7,
       "id": 50557,
       "type": "normal"
     },
@@ -73,22 +70,19 @@
       ],
       "hitPoints": 6,
       "id": 50558,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "explosive"
     },
     {
       "cell": [
         4,
         8
       ],
-      "hitPoints": 6,
+      "hitPoints": 7,
       "id": 50649,
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-2",
+  "contentVersion": "p2-mines-3",
   "displayName": "Tek Açık Damar",
   "displayNameKey": "MINE_5_NARROW_02",
   "exampleAngles": [

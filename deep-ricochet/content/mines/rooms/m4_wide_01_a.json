@@ -5,7 +5,7 @@
         1,
         1
       ],
-      "hitPoints": 5,
+      "hitPoints": 3,
       "id": 40101,
       "type": "normal"
     },
@@ -16,11 +16,7 @@
       ],
       "hitPoints": 5,
       "id": 40102,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom",
-        "left"
-      ]
+      "type": "ore"
     },
     {
       "cell": [
@@ -36,9 +32,9 @@
         5,
         4
       ],
-      "hitPoints": 1,
+      "hitPoints": 4,
       "id": 40104,
-      "type": "cracked"
+      "type": "normal"
     },
     {
       "cell": [
@@ -63,30 +59,30 @@
         1,
         7
       ],
-      "hitPoints": 6,
+      "hitPoints": 1,
       "id": 40107,
-      "type": "explosive"
+      "type": "cracked"
     },
     {
       "cell": [
         5,
         7
       ],
-      "hitPoints": 1,
+      "hitPoints": 7,
       "id": 40108,
-      "type": "cracked"
+      "type": "ore"
     },
     {
       "cell": [
         3,
         8
       ],
-      "hitPoints": 6,
+      "hitPoints": 7,
       "id": 40199,
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-2",
+  "contentVersion": "p2-mines-3",
   "displayName": "Kıvılcım Galerisi",
   "displayNameKey": "MINE_4_WIDE_01",
   "exampleAngles": [

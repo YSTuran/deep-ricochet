@@ -5,16 +5,16 @@
         6,
         1
       ],
-      "hitPoints": 1,
+      "hitPoints": 5,
       "id": 40651,
-      "type": "cracked"
+      "type": "ore"
     },
     {
       "cell": [
         2,
         2
       ],
-      "hitPoints": 6,
+      "hitPoints": 4,
       "id": 40652,
       "type": "normal"
     },
@@ -32,7 +32,7 @@
         0,
         4
       ],
-      "hitPoints": 5,
+      "hitPoints": 4,
       "id": 40654,
       "type": "explosive"
     },
@@ -41,9 +41,9 @@
         7,
         5
       ],
-      "hitPoints": 1,
+      "hitPoints": 5,
       "id": 40655,
-      "type": "cracked"
+      "type": "normal"
     },
     {
       "cell": [
@@ -61,32 +61,28 @@
       ],
       "hitPoints": 6,
       "id": 40657,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom",
-        "right"
-      ]
+      "type": "normal"
     },
     {
       "cell": [
         2,
         7
       ],
-      "hitPoints": 6,
+      "hitPoints": 1,
       "id": 40658,
-      "type": "explosive"
+      "type": "cracked"
     },
     {
       "cell": [
         4,
         8
       ],
-      "hitPoints": 6,
+      "hitPoints": 7,
       "id": 40749,
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-2",
+  "contentVersion": "p2-mines-3",
   "displayName": "Kızıl Boğaz",
   "displayNameKey": "MINE_4_NARROW_03",
   "exampleAngles": [

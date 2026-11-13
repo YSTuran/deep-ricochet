@@ -14,14 +14,19 @@ static func run(controller: RunController, config: GameConfig) -> void:
 
 static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: GameConfig) -> void:
 	assert(catalog != null)
-	assert(catalog.templates.size() == 70)
+	assert(catalog.templates.size() == 98)
 	var mine_counts: Dictionary[StringName, int] = {}
 	var block_type_counts: Dictionary[int, int] = {}
+	var mine_block_type_counts: Dictionary[StringName, Dictionary] = {}
+	var mine_classic_hp_totals: Dictionary[StringName, int] = {}
+	var mine_classic_block_counts: Dictionary[StringName, int] = {}
 	var role_counts: Dictionary[StringName, Dictionary] = {}
 	var layout_signatures: Dictionary[StringName, Dictionary] = {}
 	for template: RoomTemplate in catalog.templates:
 		assert(template.is_valid())
 		assert(template.create_board().core_count() == 1)
+		var mine_order := str(template.mine_id).trim_prefix("mine_").to_int()
+		assert(mine_order >= 1 and mine_order <= 7)
 		if not layout_signatures.has(template.mine_id):
 			layout_signatures[template.mine_id] = {}
 		var mine_layouts: Dictionary = layout_signatures[template.mine_id]
@@ -32,8 +37,18 @@ static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: Gam
 		)
 		mine_layouts[layout_signature] = true
 		mine_counts[template.mine_id] = mine_counts.get(template.mine_id, 0) + 1
+		if not mine_block_type_counts.has(template.mine_id):
+			mine_block_type_counts[template.mine_id] = {}
+		var mine_types: Dictionary = mine_block_type_counts[template.mine_id]
 		for definition: RoomBlockDefinition in template.blocks:
 			block_type_counts[definition.block_type] = block_type_counts.get(definition.block_type, 0) + 1
+			mine_types[definition.block_type] = mine_types.get(definition.block_type, 0) + 1
+			if definition.block_type in [BlockState.BlockType.NORMAL, BlockState.BlockType.ORE]:
+				mine_classic_hp_totals[template.mine_id] = mine_classic_hp_totals.get(template.mine_id, 0) \
+					+ definition.hit_points
+				mine_classic_block_counts[template.mine_id] = mine_classic_block_counts.get(template.mine_id, 0) + 1
+			elif definition.block_type == BlockState.BlockType.CORE:
+				assert(definition.hit_points == 6 + floori(float(mine_order - 1) / 3.0))
 		if not role_counts.has(template.mine_id):
 			role_counts[template.mine_id] = {}
 		var mine_roles: Dictionary = role_counts[template.mine_id]
@@ -44,19 +59,37 @@ static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: Gam
 		else:
 			assert(template.multiplier_bps == config.bonus_multiplier_bps)
 			assert(template.passage_columns.size() == 1)
-	for mine_order in range(1, 6):
+	var previous_classic_average := 0.0
+	for mine_order in range(1, 8):
 		var mine_id := StringName("mine_%02d" % mine_order)
 		assert(mine_counts.get(mine_id, 0) == 14)
 		var counts: Dictionary = role_counts[mine_id]
 		assert(counts.get(RoomTemplate.Role.START, 0) == 2)
 		assert(counts.get(RoomTemplate.Role.WIDE, 0) == 6)
 		assert(counts.get(RoomTemplate.Role.NARROW, 0) == 6)
+		var classic_average := float(mine_classic_hp_totals[mine_id]) \
+			/ float(mine_classic_block_counts[mine_id])
+		assert(classic_average > previous_classic_average)
+		previous_classic_average = classic_average
+		var mine_types: Dictionary = mine_block_type_counts[mine_id]
+		if mine_order <= 3:
+			assert(mine_types.get(BlockState.BlockType.EXPLOSIVE, 0) == 0)
+			assert(mine_types.get(BlockState.BlockType.CRACKED, 0) == 0)
+			assert(mine_types.get(BlockState.BlockType.ARMORED, 0) == 0)
+		elif mine_order <= 5:
+			assert(mine_types.get(BlockState.BlockType.EXPLOSIVE, 0) > 0)
+			assert(mine_types.get(BlockState.BlockType.CRACKED, 0) > 0)
+			assert(mine_types.get(BlockState.BlockType.ARMORED, 0) == 0)
+		else:
+			assert(mine_types.get(BlockState.BlockType.EXPLOSIVE, 0) > 0)
+			assert(mine_types.get(BlockState.BlockType.CRACKED, 0) > 0)
+			assert(mine_types.get(BlockState.BlockType.ARMORED, 0) > 0)
 
 	assert(block_type_counts.get(BlockState.BlockType.EXPLOSIVE, 0) > 0)
 	assert(block_type_counts.get(BlockState.BlockType.CRACKED, 0) > 0)
 	assert(block_type_counts.get(BlockState.BlockType.ARMORED, 0) > 0)
 
-	for mine_order in range(1, 6):
+	for mine_order in range(1, 8):
 		var mine_id := StringName("mine_%02d" % mine_order)
 		for sample_index in range(100):
 			var rng := RandomNumberGenerator.new()
@@ -97,7 +130,7 @@ static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: Gam
 	first_rng.seed = 4444
 	var second_rng := RandomNumberGenerator.new()
 	second_rng.seed = 4444
-	assert(catalog.pick_first_room(first_rng, &"mine_05").room_id == catalog.pick_first_room(second_rng, &"mine_05").room_id)
+	assert(catalog.pick_first_room(first_rng, &"mine_07").room_id == catalog.pick_first_room(second_rng, &"mine_07").room_id)
 
 
 static func _layout_signature(template: RoomTemplate) -> String:

@@ -5,12 +5,9 @@
         7,
         1
       ],
-      "hitPoints": 5,
+      "hitPoints": 2,
       "id": 50051,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "explosive"
     },
     {
       "cell": [
@@ -19,7 +16,7 @@
       ],
       "hitPoints": 5,
       "id": 50052,
-      "type": "explosive"
+      "type": "ore"
     },
     {
       "cell": [
@@ -35,13 +32,9 @@
         2,
         3
       ],
-      "hitPoints": 6,
+      "hitPoints": 1,
       "id": 50054,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom",
-        "left"
-      ]
+      "type": "cracked"
     },
     {
       "cell": [
@@ -50,7 +43,7 @@
       ],
       "hitPoints": 6,
       "id": 50055,
-      "type": "explosive"
+      "type": "ore"
     },
     {
       "cell": [
@@ -66,19 +59,16 @@
         7,
         7
       ],
-      "hitPoints": 6,
+      "hitPoints": 7,
       "id": 50057,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "normal"
     },
     {
       "cell": [
         2,
         7
       ],
-      "hitPoints": 6,
+      "hitPoints": 5,
       "id": 50058,
       "type": "explosive"
     },
@@ -87,12 +77,12 @@
         4,
         8
       ],
-      "hitPoints": 6,
+      "hitPoints": 7,
       "id": 50149,
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-2",
+  "contentVersion": "p2-mines-3",
   "displayName": "Kadim Kapı",
   "displayNameKey": "MINE_5_START",
   "exampleAngles": [

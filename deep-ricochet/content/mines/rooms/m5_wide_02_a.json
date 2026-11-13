@@ -5,9 +5,9 @@
         2,
         1
       ],
-      "hitPoints": 6,
+      "hitPoints": 2,
       "id": 50201,
-      "type": "normal"
+      "type": "explosive"
     },
     {
       "cell": [
@@ -25,7 +25,7 @@
       ],
       "hitPoints": 5,
       "id": 50203,
-      "type": "explosive"
+      "type": "ore"
     },
     {
       "cell": [
@@ -43,10 +43,7 @@
       ],
       "hitPoints": 6,
       "id": 50205,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "normal"
     },
     {
       "cell": [
@@ -55,7 +52,7 @@
       ],
       "hitPoints": 6,
       "id": 50206,
-      "type": "explosive"
+      "type": "ore"
     },
     {
       "cell": [
@@ -71,25 +68,21 @@
         6,
         7
       ],
-      "hitPoints": 6,
+      "hitPoints": 5,
       "id": 50208,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom",
-        "right"
-      ]
+      "type": "explosive"
     },
     {
       "cell": [
         3,
         8
       ],
-      "hitPoints": 6,
+      "hitPoints": 7,
       "id": 50299,
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-2",
+  "contentVersion": "p2-mines-3",
   "displayName": "Volkan Salonu",
   "displayNameKey": "MINE_5_WIDE_02",
   "exampleAngles": [

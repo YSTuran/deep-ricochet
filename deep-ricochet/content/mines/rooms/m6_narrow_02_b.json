@@ -1,0 +1,105 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        5,
+        1
+      ],
+      "hitPoints": 0,
+      "id": 60551,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        1,
+        2
+      ],
+      "hitPoints": 5,
+      "id": 60552,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        7,
+        3
+      ],
+      "hitPoints": 4,
+      "id": 60553,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        3,
+        4
+      ],
+      "hitPoints": 6,
+      "id": 60554,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        6,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 60555,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        2,
+        6
+      ],
+      "hitPoints": 6,
+      "id": 60556,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        5,
+        7
+      ],
+      "hitPoints": 7,
+      "id": 60557,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        1,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 60558,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        4,
+        8
+      ],
+      "hitPoints": 7,
+      "id": 60649,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-3",
+  "displayName": "Nöbetçi Damar",
+  "displayNameKey": "MINE_6_NARROW_02",
+  "exampleAngles": [
+    86.5
+  ],
+  "family": "bonus",
+  "height": 8,
+  "id": "m6_narrow_02_b",
+  "mineId": "mine_06",
+  "multiplierBps": 15000,
+  "passageColumns": [
+    4
+  ],
+  "role": "narrow",
+  "schemaVersion": 1,
+  "width": 8
+}

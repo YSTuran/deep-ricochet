@@ -15,7 +15,13 @@ static func run(controller: RunController, parent: Node) -> void:
 	_assert_blank_release_is_silent(controller.main_menu_view)
 	controller.request_new_game_from_menu()
 	assert(controller.mine_select_view.visible)
-	assert(MineSelectView.CARD_RECTS.size() == 5)
+	assert(MineSelectView.CARD_RECTS.size() == 7)
+	for card_index in range(MineSelectView.CARD_RECTS.size()):
+		var card_rect: Rect2 = MineSelectView.CARD_RECTS[card_index]
+		assert(Rect2(Vector2.ZERO, MineSelectView.VIEW_SIZE).encloses(card_rect))
+		if card_index > 0:
+			assert(not MineSelectView.CARD_RECTS[card_index - 1].intersects(card_rect))
+	assert(MineSelectView.CARD_RECTS[-1].end.y < MineSelectView.BACK_BUTTON.position.y)
 	assert(not controller.main_menu_view.visible)
 	controller.close_mine_selection()
 	assert(controller.main_menu_view.visible)

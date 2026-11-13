@@ -1,0 +1,106 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        0,
+        1
+      ],
+      "hitPoints": 3,
+      "id": 60001,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        6,
+        1
+      ],
+      "hitPoints": 6,
+      "id": 60002,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        1,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 60003,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        5,
+        3
+      ],
+      "hitPoints": 5,
+      "id": 60004,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        2,
+        5
+      ],
+      "hitPoints": 7,
+      "id": 60005,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        6,
+        5
+      ],
+      "hitPoints": 1,
+      "id": 60006,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        0,
+        7
+      ],
+      "hitPoints": 7,
+      "id": 60007,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        5,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 60008,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        3,
+        8
+      ],
+      "hitPoints": 7,
+      "id": 60099,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-3",
+  "displayName": "Obsidyen Eşiği",
+  "displayNameKey": "MINE_6_START",
+  "exampleAngles": [
+    93.5
+  ],
+  "family": "safe",
+  "height": 8,
+  "id": "m6_start_a",
+  "mineId": "mine_06",
+  "multiplierBps": 10000,
+  "passageColumns": [
+    3,
+    4
+  ],
+  "role": "start",
+  "schemaVersion": 1,
+  "width": 8
+}

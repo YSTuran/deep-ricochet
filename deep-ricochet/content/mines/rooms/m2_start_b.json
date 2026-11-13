@@ -7,16 +7,16 @@
       ],
       "hitPoints": 2,
       "id": 20051,
-      "type": "explosive"
+      "type": "normal"
     },
     {
       "cell": [
         1,
         1
       ],
-      "hitPoints": 1,
+      "hitPoints": 4,
       "id": 20052,
-      "type": "cracked"
+      "type": "ore"
     },
     {
       "cell": [
@@ -32,7 +32,7 @@
         2,
         3
       ],
-      "hitPoints": 4,
+      "hitPoints": 3,
       "id": 20054,
       "type": "normal"
     },
@@ -52,14 +52,14 @@
       ],
       "hitPoints": 4,
       "id": 20056,
-      "type": "explosive"
+      "type": "normal"
     },
     {
       "cell": [
         7,
         7
       ],
-      "hitPoints": 6,
+      "hitPoints": 5,
       "id": 20057,
       "type": "normal"
     },
@@ -82,7 +82,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-2",
+  "contentVersion": "p2-mines-3",
   "displayName": "Derin Giriş",
   "displayNameKey": "MINE_2_START",
   "exampleAngles": [

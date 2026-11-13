@@ -5,9 +5,9 @@
         7,
         1
       ],
-      "hitPoints": 1,
+      "hitPoints": 3,
       "id": 10451,
-      "type": "cracked"
+      "type": "normal"
     },
     {
       "cell": [
@@ -68,9 +68,9 @@
         3,
         7
       ],
-      "hitPoints": 1,
+      "hitPoints": 5,
       "id": 10458,
-      "type": "cracked"
+      "type": "normal"
     },
     {
       "cell": [
@@ -82,7 +82,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-2",
+  "contentVersion": "p2-mines-3",
   "displayName": "Altın Yarık",
   "displayNameKey": "MINE_1_NARROW_01",
   "exampleAngles": [

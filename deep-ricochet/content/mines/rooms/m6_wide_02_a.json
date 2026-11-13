@@ -1,0 +1,106 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        2,
+        1
+      ],
+      "hitPoints": 4,
+      "id": 60201,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        6,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 60202,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        4
+      ],
+      "hitPoints": 4,
+      "id": 60203,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        5,
+        4
+      ],
+      "hitPoints": 5,
+      "id": 60204,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        1,
+        5
+      ],
+      "hitPoints": 6,
+      "id": 60205,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        7,
+        6
+      ],
+      "hitPoints": 1,
+      "id": 60206,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        2,
+        7
+      ],
+      "hitPoints": 0,
+      "id": 60207,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        6,
+        7
+      ],
+      "hitPoints": 7,
+      "id": 60208,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        3,
+        8
+      ],
+      "hitPoints": 7,
+      "id": 60299,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-3",
+  "displayName": "Kara Örs",
+  "displayNameKey": "MINE_6_WIDE_02",
+  "exampleAngles": [
+    93.5
+  ],
+  "family": "safe",
+  "height": 8,
+  "id": "m6_wide_02_a",
+  "mineId": "mine_06",
+  "multiplierBps": 10000,
+  "passageColumns": [
+    3,
+    4
+  ],
+  "role": "wide",
+  "schemaVersion": 1,
+  "width": 8
+}

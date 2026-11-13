@@ -1,0 +1,106 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        1,
+        1
+      ],
+      "hitPoints": 4,
+      "id": 60101,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        7,
+        2
+      ],
+      "hitPoints": 4,
+      "id": 60102,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        0,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 60103,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        5,
+        4
+      ],
+      "hitPoints": 5,
+      "id": 60104,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        2,
+        5
+      ],
+      "hitPoints": 7,
+      "id": 60105,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        6,
+        6
+      ],
+      "hitPoints": 0,
+      "id": 60106,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        1,
+        7
+      ],
+      "hitPoints": 7,
+      "id": 60107,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        5,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 60108,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        3,
+        8
+      ],
+      "hitPoints": 7,
+      "id": 60199,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-3",
+  "displayName": "Kristal Burç",
+  "displayNameKey": "MINE_6_WIDE_01",
+  "exampleAngles": [
+    93.5
+  ],
+  "family": "safe",
+  "height": 8,
+  "id": "m6_wide_01_a",
+  "mineId": "mine_06",
+  "multiplierBps": 10000,
+  "passageColumns": [
+    3,
+    4
+  ],
+  "role": "wide",
+  "schemaVersion": 1,
+  "width": 8
+}

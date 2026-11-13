@@ -1,0 +1,103 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        6,
+        1
+      ],
+      "hitPoints": 5,
+      "id": 70151,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        0,
+        2
+      ],
+      "hitPoints": 4,
+      "id": 70152,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        7,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 70153,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        2,
+        4
+      ],
+      "hitPoints": 1,
+      "id": 70154,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        5,
+        5
+      ],
+      "hitPoints": 7,
+      "id": 70155,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        1,
+        6
+      ],
+      "hitPoints": 0,
+      "id": 70156,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        6,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 70157,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        2,
+        7
+      ],
+      "hitPoints": 6,
+      "id": 70158,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        4,
+        8
+      ],
+      "hitPoints": 8,
+      "id": 70249,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-3",
+  "displayName": "Son İniş",
+  "displayNameKey": "MINE_7_WIDE_01",
+  "exampleAngles": [
+    86.5
+  ],
+  "family": "safe",
+  "height": 8,
+  "id": "m7_wide_01_b",
+  "mineId": "mine_07",
+  "multiplierBps": 10000,
+  "passageColumns": [
+    3,
+    4
+  ],
+  "role": "wide",
+  "schemaVersion": 1,
+  "width": 8
+}

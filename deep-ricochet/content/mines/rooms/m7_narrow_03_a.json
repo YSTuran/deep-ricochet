@@ -1,0 +1,108 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        1,
+        1
+      ],
+      "hitPoints": 5,
+      "id": 70601,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        5,
+        2
+      ],
+      "hitPoints": 6,
+      "id": 70602,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        2,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 70603,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        4
+      ],
+      "hitPoints": 7,
+      "id": 70604,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        0,
+        5
+      ],
+      "hitPoints": 1,
+      "id": 70605,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        4,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 70606,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        1,
+        7
+      ],
+      "hitPoints": 7,
+      "id": 70607,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        5,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 70608,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        3,
+        8
+      ],
+      "hitPoints": 8,
+      "id": 70699,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-3",
+  "displayName": "Derinlik Kalbi",
+  "displayNameKey": "MINE_7_NARROW_03",
+  "exampleAngles": [
+    93.5
+  ],
+  "family": "bonus",
+  "height": 8,
+  "id": "m7_narrow_03_a",
+  "mineId": "mine_07",
+  "multiplierBps": 15000,
+  "passageColumns": [
+    3
+  ],
+  "role": "narrow",
+  "schemaVersion": 1,
+  "width": 8
+}

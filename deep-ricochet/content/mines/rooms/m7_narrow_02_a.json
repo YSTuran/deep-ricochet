@@ -1,0 +1,108 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        2,
+        1
+      ],
+      "hitPoints": 0,
+      "id": 70501,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        6,
+        2
+      ],
+      "hitPoints": 5,
+      "id": 70502,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        0,
+        3
+      ],
+      "hitPoints": 6,
+      "id": 70503,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        4,
+        4
+      ],
+      "hitPoints": 5,
+      "id": 70504,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        1,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 70505,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        5,
+        6
+      ],
+      "hitPoints": 1,
+      "id": 70506,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        2,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 70507,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        6,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 70508,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        3,
+        8
+      ],
+      "hitPoints": 8,
+      "id": 70599,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-3",
+  "displayName": "Mühürlü Damar",
+  "displayNameKey": "MINE_7_NARROW_02",
+  "exampleAngles": [
+    93.5
+  ],
+  "family": "bonus",
+  "height": 8,
+  "id": "m7_narrow_02_a",
+  "mineId": "mine_07",
+  "multiplierBps": 15000,
+  "passageColumns": [
+    3
+  ],
+  "role": "narrow",
+  "schemaVersion": 1,
+  "width": 8
+}

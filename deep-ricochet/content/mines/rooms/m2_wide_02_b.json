@@ -5,7 +5,7 @@
         5,
         1
       ],
-      "hitPoints": 3,
+      "hitPoints": 2,
       "id": 20251,
       "type": "normal"
     },
@@ -32,16 +32,16 @@
         2,
         4
       ],
-      "hitPoints": 1,
+      "hitPoints": 3,
       "id": 20254,
-      "type": "cracked"
+      "type": "normal"
     },
     {
       "cell": [
         6,
         5
       ],
-      "hitPoints": 5,
+      "hitPoints": 4,
       "id": 20255,
       "type": "normal"
     },
@@ -68,9 +68,9 @@
         1,
         7
       ],
-      "hitPoints": 1,
+      "hitPoints": 5,
       "id": 20258,
-      "type": "cracked"
+      "type": "normal"
     },
     {
       "cell": [
@@ -82,7 +82,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-2",
+  "contentVersion": "p2-mines-3",
   "displayName": "Kırık Galeri",
   "displayNameKey": "MINE_2_WIDE_02",
   "exampleAngles": [

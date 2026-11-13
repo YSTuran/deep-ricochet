@@ -5,31 +5,27 @@
         0,
         1
       ],
-      "hitPoints": 5,
+      "hitPoints": 4,
       "id": 40401,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom",
-        "left"
-      ]
+      "type": "normal"
     },
     {
       "cell": [
         5,
         1
       ],
-      "hitPoints": 4,
+      "hitPoints": 5,
       "id": 40402,
-      "type": "explosive"
+      "type": "ore"
     },
     {
       "cell": [
         2,
         3
       ],
-      "hitPoints": 1,
+      "hitPoints": 4,
       "id": 40403,
-      "type": "cracked"
+      "type": "normal"
     },
     {
       "cell": [
@@ -47,11 +43,7 @@
       ],
       "hitPoints": 6,
       "id": 40405,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom",
-        "left"
-      ]
+      "type": "ore"
     },
     {
       "cell": [
@@ -60,16 +52,16 @@
       ],
       "hitPoints": 5,
       "id": 40406,
-      "type": "explosive"
+      "type": "normal"
     },
     {
       "cell": [
         2,
         7
       ],
-      "hitPoints": 1,
+      "hitPoints": 7,
       "id": 40407,
-      "type": "cracked"
+      "type": "ore"
     },
     {
       "cell": [
@@ -85,12 +77,12 @@
         3,
         8
       ],
-      "hitPoints": 6,
+      "hitPoints": 7,
       "id": 40499,
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-2",
+  "contentVersion": "p2-mines-3",
   "displayName": "Patlama Yarığı",
   "displayNameKey": "MINE_4_NARROW_01",
   "exampleAngles": [

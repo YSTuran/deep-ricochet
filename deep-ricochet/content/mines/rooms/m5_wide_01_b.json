@@ -5,7 +5,7 @@
         6,
         1
       ],
-      "hitPoints": 4,
+      "hitPoints": 2,
       "id": 50151,
       "type": "explosive"
     },
@@ -14,7 +14,7 @@
         0,
         2
       ],
-      "hitPoints": 6,
+      "hitPoints": 5,
       "id": 50152,
       "type": "ore"
     },
@@ -32,9 +32,9 @@
         2,
         4
       ],
-      "hitPoints": 5,
+      "hitPoints": 1,
       "id": 50154,
-      "type": "explosive"
+      "type": "cracked"
     },
     {
       "cell": [
@@ -59,30 +59,30 @@
         6,
         7
       ],
-      "hitPoints": 6,
+      "hitPoints": 7,
       "id": 50157,
-      "type": "explosive"
+      "type": "normal"
     },
     {
       "cell": [
         2,
         7
       ],
-      "hitPoints": 6,
+      "hitPoints": 5,
       "id": 50158,
-      "type": "ore"
+      "type": "explosive"
     },
     {
       "cell": [
         4,
         8
       ],
-      "hitPoints": 6,
+      "hitPoints": 7,
       "id": 50249,
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-2",
+  "contentVersion": "p2-mines-3",
   "displayName": "Muhafız Tüneli",
   "displayNameKey": "MINE_5_WIDE_01",
   "exampleAngles": [

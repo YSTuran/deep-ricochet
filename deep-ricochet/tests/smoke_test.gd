@@ -33,8 +33,8 @@ func _ready() -> void:
 	var gameplay_room: GameplayRoom = run_controller.gameplay_room
 	assert(run_controller.catalog != null)
 	assert(run_controller.mine_registry != null)
-	assert(run_controller.mine_registry.mines.size() == 5)
-	assert(run_controller.catalog.templates.size() == 70)
+	assert(run_controller.mine_registry.mines.size() == 7)
+	assert(run_controller.catalog.templates.size() == 98)
 	assert(run_controller.catalog.route_capacity_errors(config.room_count).is_empty())
 	assert(not run_controller.catalog.route_capacity_errors(8).is_empty())
 	assert(run_controller.run_session == null)
@@ -67,7 +67,7 @@ func _ready() -> void:
 	BoardAndCollisionTests.run(config)
 	VolleyAndRoomTests.run(config)
 
-	print("[PASS] Deep Ricochet beş maden, özel blok, kayıt, UI ve fizik testleri geçti.")
+	print("[PASS] Deep Ricochet yedi maden, özel blok, kayıt, UI ve fizik testleri geçti.")
 	AudioManager.stop_all()
 	# Audio playback is released by the mixer thread. Give it one short real-time
 	# window before freeing the autoload so headless tests also exit cleanly.

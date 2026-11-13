@@ -1,0 +1,106 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        7,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 60351,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        2,
+        2
+      ],
+      "hitPoints": 4,
+      "id": 60352,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        5,
+        3
+      ],
+      "hitPoints": 4,
+      "id": 60353,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        0,
+        4
+      ],
+      "hitPoints": 4,
+      "id": 60354,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        6,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 60355,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        1,
+        5
+      ],
+      "hitPoints": 1,
+      "id": 60356,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        7,
+        7
+      ],
+      "hitPoints": 7,
+      "id": 60357,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        2,
+        7
+      ],
+      "hitPoints": 7,
+      "id": 60358,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        4,
+        8
+      ],
+      "hitPoints": 7,
+      "id": 60449,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-3",
+  "displayName": "Muhafız Kemeri",
+  "displayNameKey": "MINE_6_WIDE_03",
+  "exampleAngles": [
+    86.5
+  ],
+  "family": "safe",
+  "height": 8,
+  "id": "m6_wide_03_b",
+  "mineId": "mine_06",
+  "multiplierBps": 10000,
+  "passageColumns": [
+    3,
+    4
+  ],
+  "role": "wide",
+  "schemaVersion": 1,
+  "width": 8
+}

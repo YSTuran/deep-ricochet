@@ -14,7 +14,7 @@
         5,
         2
       ],
-      "hitPoints": 3,
+      "hitPoints": 2,
       "id": 20302,
       "type": "normal"
     },
@@ -32,7 +32,7 @@
         7,
         4
       ],
-      "hitPoints": 4,
+      "hitPoints": 3,
       "id": 20304,
       "type": "normal"
     },
@@ -59,7 +59,7 @@
         0,
         7
       ],
-      "hitPoints": 6,
+      "hitPoints": 5,
       "id": 20307,
       "type": "normal"
     },
@@ -68,7 +68,7 @@
         5,
         7
       ],
-      "hitPoints": 6,
+      "hitPoints": 5,
       "id": 20308,
       "type": "normal"
     },
@@ -82,7 +82,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-2",
+  "contentVersion": "p2-mines-3",
   "displayName": "Sessiz Kemer",
   "displayNameKey": "MINE_2_WIDE_03",
   "exampleAngles": [

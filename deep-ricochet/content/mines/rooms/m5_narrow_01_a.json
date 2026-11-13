@@ -5,7 +5,7 @@
         0,
         1
       ],
-      "hitPoints": 5,
+      "hitPoints": 3,
       "id": 50401,
       "type": "explosive"
     },
@@ -14,7 +14,7 @@
         5,
         1
       ],
-      "hitPoints": 6,
+      "hitPoints": 5,
       "id": 50402,
       "type": "ore"
     },
@@ -23,12 +23,9 @@
         2,
         3
       ],
-      "hitPoints": 6,
+      "hitPoints": 5,
       "id": 50403,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "normal"
     },
     {
       "cell": [
@@ -44,9 +41,9 @@
         1,
         5
       ],
-      "hitPoints": 1,
+      "hitPoints": 6,
       "id": 50405,
-      "type": "cracked"
+      "type": "ore"
     },
     {
       "cell": [
@@ -55,41 +52,37 @@
       ],
       "hitPoints": 6,
       "id": 50406,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom",
-        "right"
-      ]
+      "type": "normal"
     },
     {
       "cell": [
         2,
         7
       ],
-      "hitPoints": 6,
+      "hitPoints": 7,
       "id": 50407,
-      "type": "explosive"
+      "type": "ore"
     },
     {
       "cell": [
         4,
         7
       ],
-      "hitPoints": 6,
+      "hitPoints": 5,
       "id": 50408,
-      "type": "normal"
+      "type": "explosive"
     },
     {
       "cell": [
         3,
         8
       ],
-      "hitPoints": 6,
+      "hitPoints": 7,
       "id": 50499,
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-2",
+  "contentVersion": "p2-mines-3",
   "displayName": "Son Yarık",
   "displayNameKey": "MINE_5_NARROW_01",
   "exampleAngles": [

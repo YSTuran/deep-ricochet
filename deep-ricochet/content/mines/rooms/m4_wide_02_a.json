@@ -5,9 +5,9 @@
         2,
         1
       ],
-      "hitPoints": 1,
+      "hitPoints": 3,
       "id": 40201,
-      "type": "cracked"
+      "type": "normal"
     },
     {
       "cell": [
@@ -25,11 +25,7 @@
       ],
       "hitPoints": 5,
       "id": 40203,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom",
-        "left"
-      ]
+      "type": "ore"
     },
     {
       "cell": [
@@ -38,16 +34,16 @@
       ],
       "hitPoints": 4,
       "id": 40204,
-      "type": "explosive"
+      "type": "normal"
     },
     {
       "cell": [
         1,
         5
       ],
-      "hitPoints": 1,
+      "hitPoints": 4,
       "id": 40205,
-      "type": "cracked"
+      "type": "explosive"
     },
     {
       "cell": [
@@ -74,20 +70,20 @@
       ],
       "hitPoints": 6,
       "id": 40208,
-      "type": "explosive"
+      "type": "normal"
     },
     {
       "cell": [
         3,
         8
       ],
-      "hitPoints": 6,
+      "hitPoints": 7,
       "id": 40299,
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-2",
-  "displayName": "Zırh Koridoru",
+  "contentVersion": "p2-mines-3",
+  "displayName": "Barut Koridoru",
   "displayNameKey": "MINE_4_WIDE_02",
   "exampleAngles": [
     93.5

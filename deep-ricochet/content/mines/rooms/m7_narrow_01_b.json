@@ -1,0 +1,105 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        7,
+        1
+      ],
+      "hitPoints": 1,
+      "id": 70451,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        2,
+        1
+      ],
+      "hitPoints": 6,
+      "id": 70452,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        5,
+        3
+      ],
+      "hitPoints": 5,
+      "id": 70453,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        3,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 70454,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        6,
+        5
+      ],
+      "hitPoints": 5,
+      "id": 70455,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        1,
+        5
+      ],
+      "hitPoints": 7,
+      "id": 70456,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        5,
+        7
+      ],
+      "hitPoints": 1,
+      "id": 70457,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        3,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 70458,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        4,
+        8
+      ],
+      "hitPoints": 8,
+      "id": 70549,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-3",
+  "displayName": "Titan Yarığı",
+  "displayNameKey": "MINE_7_NARROW_01",
+  "exampleAngles": [
+    86.5
+  ],
+  "family": "bonus",
+  "height": 8,
+  "id": "m7_narrow_01_b",
+  "mineId": "mine_07",
+  "multiplierBps": 15000,
+  "passageColumns": [
+    4
+  ],
+  "role": "narrow",
+  "schemaVersion": 1,
+  "width": 8
+}

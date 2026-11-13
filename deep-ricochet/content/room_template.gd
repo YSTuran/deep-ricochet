@@ -5,6 +5,10 @@ const SUPPORTED_SCHEMA_VERSION := 1
 const SAFE_MULTIPLIER_BPS := 10_000
 const BONUS_MULTIPLIER_BPS := 15_000
 const MAX_ROCK_COUNT := 10
+const MAX_STANDARD_BLOCK_HP := 8
+const MAX_SPECIAL_BLOCK_HP := 8
+const MIN_CORE_HP := 6
+const MAX_CORE_HP := 8
 
 enum Family {
 	SAFE,
@@ -125,25 +129,26 @@ func validation_errors() -> PackedStringArray:
 			if definition.hit_points != 0:
 				errors.append("%s sert kaya olduğu için canı 0 olmalıdır." % label)
 		elif definition.block_type == BlockState.BlockType.NORMAL:
-			if definition.hit_points < 2 or definition.hit_points > 6:
-				errors.append("%s normal blok olduğu için 2-6 cana sahip olmalıdır." % label)
+			if definition.hit_points < 2 or definition.hit_points > MAX_STANDARD_BLOCK_HP:
+				errors.append("%s normal blok olduğu için 2-%d cana sahip olmalıdır." % [label, MAX_STANDARD_BLOCK_HP])
 		elif definition.block_type == BlockState.BlockType.ORE:
-			if definition.hit_points < 3 or definition.hit_points > 6:
-				errors.append("%s cevher bloğu olduğu için 3-6 cana sahip olmalıdır." % label)
+			if definition.hit_points < 3 or definition.hit_points > MAX_STANDARD_BLOCK_HP:
+				errors.append("%s cevher bloğu olduğu için 3-%d cana sahip olmalıdır." % [label, MAX_STANDARD_BLOCK_HP])
 		elif definition.block_type == BlockState.BlockType.EXPLOSIVE:
-			if definition.hit_points < 1 or definition.hit_points > 6:
-				errors.append("%s patlayıcı blok olduğu için 1-6 cana sahip olmalıdır." % label)
+			if definition.hit_points < 1 or definition.hit_points > MAX_SPECIAL_BLOCK_HP:
+				errors.append("%s patlayıcı blok olduğu için 1-%d cana sahip olmalıdır." % [label, MAX_SPECIAL_BLOCK_HP])
 		elif definition.block_type == BlockState.BlockType.CRACKED:
 			if definition.hit_points != 1:
 				errors.append("%s çatlak kaya olduğu için 1 cana sahip olmalıdır." % label)
 		elif definition.block_type == BlockState.BlockType.ARMORED:
-			if definition.hit_points < 3 or definition.hit_points > 6:
-				errors.append("%s zırhlı blok olduğu için 3-6 cana sahip olmalıdır." % label)
+			if definition.hit_points < 3 or definition.hit_points > MAX_SPECIAL_BLOCK_HP:
+				errors.append("%s zırhlı blok olduğu için 3-%d cana sahip olmalıdır." % [label, MAX_SPECIAL_BLOCK_HP])
 			var vulnerable_count := _vulnerable_side_count(definition.vulnerable_sides)
 			if vulnerable_count < 1 or vulnerable_count > 2:
 				errors.append("%s zırhlı blok olduğu için 1 veya 2 açık kenara sahip olmalıdır." % label)
-		elif definition.block_type == BlockState.BlockType.CORE and definition.hit_points != 6:
-			errors.append("%s çekirdek olduğu için 6 cana sahip olmalıdır." % label)
+		elif definition.block_type == BlockState.BlockType.CORE \
+			and (definition.hit_points < MIN_CORE_HP or definition.hit_points > MAX_CORE_HP):
+			errors.append("%s çekirdek olduğu için %d-%d cana sahip olmalıdır." % [label, MIN_CORE_HP, MAX_CORE_HP])
 
 	if core_count != 1:
 		errors.append("Bir oda tam olarak bir çekirdek içermelidir; bulunan: %d." % core_count)

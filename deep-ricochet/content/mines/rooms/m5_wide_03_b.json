@@ -16,14 +16,14 @@
       ],
       "hitPoints": 4,
       "id": 50352,
-      "type": "explosive"
+      "type": "normal"
     },
     {
       "cell": [
         5,
         3
       ],
-      "hitPoints": 6,
+      "hitPoints": 5,
       "id": 50353,
       "type": "ore"
     },
@@ -32,12 +32,9 @@
         0,
         4
       ],
-      "hitPoints": 6,
+      "hitPoints": 1,
       "id": 50354,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "cracked"
     },
     {
       "cell": [
@@ -62,20 +59,16 @@
         7,
         7
       ],
-      "hitPoints": 6,
+      "hitPoints": 7,
       "id": 50357,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom",
-        "left"
-      ]
+      "type": "normal"
     },
     {
       "cell": [
         2,
         7
       ],
-      "hitPoints": 6,
+      "hitPoints": 5,
       "id": 50358,
       "type": "explosive"
     },
@@ -84,12 +77,12 @@
         4,
         8
       ],
-      "hitPoints": 6,
+      "hitPoints": 7,
       "id": 50449,
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-2",
+  "contentVersion": "p2-mines-3",
   "displayName": "Demir Kemer",
   "displayNameKey": "MINE_5_WIDE_03",
   "exampleAngles": [

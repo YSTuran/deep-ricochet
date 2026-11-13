@@ -5,7 +5,7 @@
         7,
         1
       ],
-      "hitPoints": 4,
+      "hitPoints": 3,
       "id": 20451,
       "type": "normal"
     },
@@ -14,9 +14,9 @@
         2,
         1
       ],
-      "hitPoints": 1,
+      "hitPoints": 4,
       "id": 20452,
-      "type": "cracked"
+      "type": "ore"
     },
     {
       "cell": [
@@ -25,7 +25,7 @@
       ],
       "hitPoints": 3,
       "id": 20453,
-      "type": "explosive"
+      "type": "normal"
     },
     {
       "cell": [
@@ -50,9 +50,9 @@
         1,
         5
       ],
-      "hitPoints": 1,
+      "hitPoints": 4,
       "id": 20456,
-      "type": "cracked"
+      "type": "normal"
     },
     {
       "cell": [
@@ -70,7 +70,7 @@
       ],
       "hitPoints": 5,
       "id": 20458,
-      "type": "explosive"
+      "type": "normal"
     },
     {
       "cell": [
@@ -82,7 +82,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-2",
+  "contentVersion": "p2-mines-3",
   "displayName": "Karanlık Oluk",
   "displayNameKey": "MINE_2_NARROW_01",
   "exampleAngles": [

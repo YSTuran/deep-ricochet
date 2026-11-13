@@ -5,12 +5,9 @@
         6,
         1
       ],
-      "hitPoints": 6,
+      "hitPoints": 3,
       "id": 50651,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "explosive"
     },
     {
       "cell": [
@@ -19,7 +16,7 @@
       ],
       "hitPoints": 5,
       "id": 50652,
-      "type": "explosive"
+      "type": "normal"
     },
     {
       "cell": [
@@ -35,13 +32,9 @@
         0,
         4
       ],
-      "hitPoints": 6,
+      "hitPoints": 1,
       "id": 50654,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom",
-        "left"
-      ]
+      "type": "cracked"
     },
     {
       "cell": [
@@ -50,7 +43,7 @@
       ],
       "hitPoints": 6,
       "id": 50655,
-      "type": "explosive"
+      "type": "normal"
     },
     {
       "cell": [
@@ -66,12 +59,9 @@
         6,
         7
       ],
-      "hitPoints": 6,
+      "hitPoints": 7,
       "id": 50657,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "normal"
     },
     {
       "cell": [
@@ -87,12 +77,12 @@
         4,
         8
       ],
-      "hitPoints": 6,
+      "hitPoints": 7,
       "id": 50749,
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-2",
+  "contentVersion": "p2-mines-3",
   "displayName": "Derin Çekirdek",
   "displayNameKey": "MINE_5_NARROW_03",
   "exampleAngles": [

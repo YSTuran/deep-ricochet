@@ -1,0 +1,105 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        1,
+        1
+      ],
+      "hitPoints": 6,
+      "id": 60601,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        5,
+        2
+      ],
+      "hitPoints": 5,
+      "id": 60602,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        2,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 60603,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        4
+      ],
+      "hitPoints": 7,
+      "id": 60604,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        0,
+        5
+      ],
+      "hitPoints": 6,
+      "id": 60605,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        4,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 60606,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        1,
+        7
+      ],
+      "hitPoints": 6,
+      "id": 60607,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        5,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 60608,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        3,
+        8
+      ],
+      "hitPoints": 7,
+      "id": 60699,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-3",
+  "displayName": "Derin Mahzen",
+  "displayNameKey": "MINE_6_NARROW_03",
+  "exampleAngles": [
+    93.5
+  ],
+  "family": "bonus",
+  "height": 8,
+  "id": "m6_narrow_03_a",
+  "mineId": "mine_06",
+  "multiplierBps": 15000,
+  "passageColumns": [
+    3
+  ],
+  "role": "narrow",
+  "schemaVersion": 1,
+  "width": 8
+}

@@ -14,7 +14,7 @@
         1,
         2
       ],
-      "hitPoints": 4,
+      "hitPoints": 3,
       "id": 20552,
       "type": "normal"
     },
@@ -23,16 +23,16 @@
         7,
         3
       ],
-      "hitPoints": 1,
+      "hitPoints": 4,
       "id": 20553,
-      "type": "cracked"
+      "type": "ore"
     },
     {
       "cell": [
         3,
         4
       ],
-      "hitPoints": 5,
+      "hitPoints": 4,
       "id": 20554,
       "type": "normal"
     },
@@ -50,25 +50,25 @@
         2,
         6
       ],
-      "hitPoints": 5,
+      "hitPoints": 6,
       "id": 20556,
-      "type": "explosive"
+      "type": "ore"
     },
     {
       "cell": [
         5,
         7
       ],
-      "hitPoints": 1,
+      "hitPoints": 5,
       "id": 20557,
-      "type": "cracked"
+      "type": "normal"
     },
     {
       "cell": [
         1,
         7
       ],
-      "hitPoints": 6,
+      "hitPoints": 7,
       "id": 20558,
       "type": "ore"
     },
@@ -82,7 +82,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-2",
+  "contentVersion": "p2-mines-3",
   "displayName": "Sıkışık Damar",
   "displayNameKey": "MINE_2_NARROW_02",
   "exampleAngles": [

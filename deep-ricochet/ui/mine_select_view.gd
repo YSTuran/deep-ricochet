@@ -3,11 +3,13 @@ extends Control
 
 const VIEW_SIZE := Vector2(540.0, 960.0)
 const CARD_RECTS := [
-	Rect2(42.0, 155.0, 456.0, 112.0),
-	Rect2(42.0, 280.0, 456.0, 112.0),
-	Rect2(42.0, 405.0, 456.0, 112.0),
-	Rect2(42.0, 530.0, 456.0, 112.0),
-	Rect2(42.0, 655.0, 456.0, 112.0),
+	Rect2(36.0, 146.0, 468.0, 82.0),
+	Rect2(36.0, 236.0, 468.0, 82.0),
+	Rect2(36.0, 326.0, 468.0, 82.0),
+	Rect2(36.0, 416.0, 468.0, 82.0),
+	Rect2(36.0, 506.0, 468.0, 82.0),
+	Rect2(36.0, 596.0, 468.0, 82.0),
+	Rect2(36.0, 686.0, 468.0, 82.0),
 ]
 const BACK_BUTTON := Rect2(80.0, 815.0, 380.0, 58.0)
 
@@ -75,24 +77,24 @@ func _draw_mine_card(rect: Rect2, mine: MineDefinition) -> void:
 	var unlocked := controller.profile.is_mine_unlocked(mine.mine_id)
 	var accent := DeepUI.CORE if unlocked else DeepUI.BORDER_SOFT
 	DeepUI.draw_panel(self, rect, DeepUI.PANEL_SOFT, accent, 15, 2, true)
-	DeepUI.draw_text(self, mine.localized_name(), rect.position + Vector2(18.0, 29.0), 20, DeepUI.TEXT if unlocked else DeepUI.MUTED_DARK)
+	DeepUI.draw_text(self, mine.localized_name(), rect.position + Vector2(16.0, 24.0), 18, DeepUI.TEXT if unlocked else DeepUI.MUTED_DARK)
 	var state_text := tr("MINE_UNLOCKED") if unlocked else tr("MINE_LOCKED")
-	DeepUI.draw_chip(self, Rect2(rect.end.x - 112.0, rect.position.y + 10.0, 92.0, 27.0), state_text, accent, 11)
+	DeepUI.draw_chip(self, Rect2(rect.end.x - 104.0, rect.position.y + 7.0, 86.0, 24.0), state_text, accent, 10)
 	DeepUI.draw_centered(
 		self,
 		tr("MINE_STATS") % [
 			controller.profile.best_for_mine(mine.mine_id),
 			controller.profile.completions_for_mine(mine.mine_id),
 		],
-		Rect2(rect.position + Vector2(14.0, 39.0), Vector2(rect.size.x - 28.0, 24.0)),
-		12,
+		Rect2(rect.position + Vector2(12.0, 28.0), Vector2(rect.size.x - 24.0, 20.0)),
+		11,
 		DeepUI.MUTED,
 	)
 	DeepUI.draw_button(
 		self,
-		Rect2(rect.position + Vector2(86.0, 72.0), Vector2(rect.size.x - 172.0, 30.0)),
+		Rect2(rect.position + Vector2(88.0, 53.0), Vector2(rect.size.x - 176.0, 23.0)),
 		tr("MINE_SELECT") if unlocked else tr("MINE_COMPLETE_PREVIOUS"),
 		&"core" if unlocked else &"ghost",
-		12,
+		10,
 		unlocked,
 	)

@@ -3,7 +3,7 @@ extends RefCounted
 
 const SCHEMA_VERSION := 2
 const LEGACY_SCHEMA_VERSION := 1
-const MINE_COUNT := 5
+const MINE_COUNT := 7
 
 var schema_version := SCHEMA_VERSION
 var best_score := 0

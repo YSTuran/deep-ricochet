@@ -85,6 +85,12 @@ static func _test_profile_round_trip() -> void:
 	assert(daily.highest_unlocked_mine == 4)
 	assert(daily.record_run("mine_4_clear", 480, true, 4, &"mine_04"))
 	assert(daily.highest_unlocked_mine == 5)
+	assert(daily.record_run("mine_5_clear", 540, true, 4, &"mine_05"))
+	assert(daily.highest_unlocked_mine == 6)
+	assert(daily.record_run("mine_6_clear", 600, true, 4, &"mine_06"))
+	assert(daily.highest_unlocked_mine == 7)
+	assert(daily.record_run("mine_7_clear", 660, true, 4, &"mine_07"))
+	assert(daily.highest_unlocked_mine == 7)
 	assert(service.clear_all())
 
 
@@ -221,6 +227,8 @@ static func _test_controller_profile_tutorial_and_locale(controller: RunControll
 	assert(controller.settings_overlay.visible)
 	assert(controller.set_language(&"en"))
 	assert(TranslationServer.translate("MENU_NEW_GAME") == "NEW GAME")
+	assert(TranslationServer.translate("MINE_06_NAME") == "OBSIDIAN MINE")
+	assert(TranslationServer.translate("MINE_07_NAME") == "ABYSS MINE")
 	controller.set_sfx_volume(0.42)
 	assert(is_equal_approx(controller.app_settings.sfx_volume, 0.42))
 	controller.set_music_volume(0.24)

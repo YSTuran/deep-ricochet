@@ -1,0 +1,105 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        0,
+        1
+      ],
+      "hitPoints": 5,
+      "id": 60401,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        5,
+        1
+      ],
+      "hitPoints": 6,
+      "id": 60402,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        2,
+        3
+      ],
+      "hitPoints": 4,
+      "id": 60403,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        4,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 60404,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        1,
+        5
+      ],
+      "hitPoints": 5,
+      "id": 60405,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        6,
+        5
+      ],
+      "hitPoints": 1,
+      "id": 60406,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        2,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 60407,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        4,
+        7
+      ],
+      "hitPoints": 7,
+      "id": 60408,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        3,
+        8
+      ],
+      "hitPoints": 7,
+      "id": 60499,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-3",
+  "displayName": "Zırhlı Yarık",
+  "displayNameKey": "MINE_6_NARROW_01",
+  "exampleAngles": [
+    93.5
+  ],
+  "family": "bonus",
+  "height": 8,
+  "id": "m6_narrow_01_a",
+  "mineId": "mine_06",
+  "multiplierBps": 15000,
+  "passageColumns": [
+    3
+  ],
+  "role": "narrow",
+  "schemaVersion": 1,
+  "width": 8
+}

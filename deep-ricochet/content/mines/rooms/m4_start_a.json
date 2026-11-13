@@ -5,22 +5,18 @@
         0,
         1
       ],
-      "hitPoints": 4,
+      "hitPoints": 2,
       "id": 40001,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom",
-        "left"
-      ]
+      "type": "explosive"
     },
     {
       "cell": [
         6,
         1
       ],
-      "hitPoints": 4,
+      "hitPoints": 5,
       "id": 40002,
-      "type": "explosive"
+      "type": "ore"
     },
     {
       "cell": [
@@ -36,7 +32,7 @@
         5,
         3
       ],
-      "hitPoints": 6,
+      "hitPoints": 4,
       "id": 40004,
       "type": "normal"
     },
@@ -45,13 +41,9 @@
         2,
         5
       ],
-      "hitPoints": 6,
+      "hitPoints": 1,
       "id": 40005,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom",
-        "left"
-      ]
+      "type": "cracked"
     },
     {
       "cell": [
@@ -60,23 +52,23 @@
       ],
       "hitPoints": 5,
       "id": 40006,
-      "type": "explosive"
+      "type": "normal"
     },
     {
       "cell": [
         0,
         7
       ],
-      "hitPoints": 1,
+      "hitPoints": 6,
       "id": 40007,
-      "type": "cracked"
+      "type": "normal"
     },
     {
       "cell": [
         5,
         7
       ],
-      "hitPoints": 6,
+      "hitPoints": 7,
       "id": 40008,
       "type": "ore"
     },
@@ -85,12 +77,12 @@
         3,
         8
       ],
-      "hitPoints": 6,
+      "hitPoints": 7,
       "id": 40099,
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-2",
+  "contentVersion": "p2-mines-3",
   "displayName": "Barut Girişi",
   "displayNameKey": "MINE_4_START",
   "exampleAngles": [

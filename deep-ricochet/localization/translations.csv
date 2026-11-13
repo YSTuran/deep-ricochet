@@ -127,6 +127,8 @@ MINE_02_NAME,DEEP MINE,DERİN MADEN
 MINE_03_NAME,CORE MINE,ÇEKİRDEK MADENİ
 MINE_04_NAME,BLAST MINE,PATLAMA MADENİ
 MINE_05_NAME,ANCIENT MINE,KADİM MADEN
+MINE_06_NAME,OBSIDIAN MINE,OBSİDYEN MADENİ
+MINE_07_NAME,ABYSS MINE,UÇURUM MADENİ
 MINE_1_START,Coastal Gallery,Kıyı Galerisi
 MINE_1_WIDE_01,Open Steps,Açık Basamak
 MINE_1_WIDE_02,Blue Corridor,Mavi Koridor
@@ -150,7 +152,7 @@ MINE_3_NARROW_02,Sharp Vein,Keskin Damar
 MINE_3_NARROW_03,Final Shaft,Son Şaft
 MINE_4_START,Powder Entrance,Barut Girişi
 MINE_4_WIDE_01,Spark Gallery,Kıvılcım Galerisi
-MINE_4_WIDE_02,Armor Corridor,Zırh Koridoru
+MINE_4_WIDE_02,Powder Corridor,Barut Koridoru
 MINE_4_WIDE_03,Cracked Arch,Çatlak Kemer
 MINE_4_NARROW_01,Blast Fissure,Patlama Yarığı
 MINE_4_NARROW_02,Steel Vein,Çelik Damar
@@ -162,6 +164,20 @@ MINE_5_WIDE_03,Iron Arch,Demir Kemer
 MINE_5_NARROW_01,Final Fissure,Son Yarık
 MINE_5_NARROW_02,Single Opening,Tek Açık Damar
 MINE_5_NARROW_03,Deep Core,Derin Çekirdek
+MINE_6_START,Obsidian Threshold,Obsidyen Eşiği
+MINE_6_WIDE_01,Crystal Bastion,Kristal Burç
+MINE_6_WIDE_02,Black Anvil,Kara Örs
+MINE_6_WIDE_03,Guarded Arch,Muhafız Kemeri
+MINE_6_NARROW_01,Armored Rift,Zırhlı Yarık
+MINE_6_NARROW_02,Sentinel Vein,Nöbetçi Damar
+MINE_6_NARROW_03,Deep Vault,Derin Mahzen
+MINE_7_START,Abyss Gate,Uçurum Kapısı
+MINE_7_WIDE_01,Final Descent,Son İniş
+MINE_7_WIDE_02,Core Citadel,Çekirdek Hisarı
+MINE_7_WIDE_03,Last Arch,Son Kemer
+MINE_7_NARROW_01,Titan Rift,Titan Yarığı
+MINE_7_NARROW_02,Sealed Vein,Mühürlü Damar
+MINE_7_NARROW_03,Heart of the Deep,Derinlik Kalbi
 ROOM_SAFE_01,Wide Gallery,Geniş Galeri
 ROOM_SAFE_02,Twin Corridor,Çift Koridor
 ROOM_SAFE_03,Open Shaft,Açık Şaft

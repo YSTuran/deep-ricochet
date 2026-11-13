@@ -56,8 +56,8 @@ func validation_errors() -> PackedStringArray:
 		return errors
 	if catalog.content_version != content_version:
 		errors.append("Maden ve oda kataloğu içerik sürümleri uyuşmuyor.")
-	if mines.size() != 5:
-		errors.append("Seviye paketi tam beş maden içermelidir.")
+	if mines.size() != 7:
+		errors.append("Seviye paketi tam yedi maden içermelidir.")
 	var ids: Dictionary[StringName, bool] = {}
 	var orders: Dictionary[int, bool] = {}
 	for mine: MineDefinition in mines:

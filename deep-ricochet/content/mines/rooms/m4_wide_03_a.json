@@ -23,7 +23,7 @@
         2,
         3
       ],
-      "hitPoints": 6,
+      "hitPoints": 5,
       "id": 40303,
       "type": "ore"
     },
@@ -32,13 +32,9 @@
         7,
         4
       ],
-      "hitPoints": 5,
+      "hitPoints": 4,
       "id": 40304,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom",
-        "left"
-      ]
+      "type": "normal"
     },
     {
       "cell": [
@@ -54,18 +50,18 @@
         6,
         5
       ],
-      "hitPoints": 1,
+      "hitPoints": 6,
       "id": 40306,
-      "type": "cracked"
+      "type": "ore"
     },
     {
       "cell": [
         0,
         7
       ],
-      "hitPoints": 6,
+      "hitPoints": 5,
       "id": 40307,
-      "type": "normal"
+      "type": "explosive"
     },
     {
       "cell": [
@@ -74,23 +70,19 @@
       ],
       "hitPoints": 6,
       "id": 40308,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom",
-        "left"
-      ]
+      "type": "normal"
     },
     {
       "cell": [
         3,
         8
       ],
-      "hitPoints": 6,
+      "hitPoints": 7,
       "id": 40399,
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-2",
+  "contentVersion": "p2-mines-3",
   "displayName": "Çatlak Kemer",
   "displayNameKey": "MINE_4_WIDE_03",
   "exampleAngles": [
