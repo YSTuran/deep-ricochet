@@ -176,6 +176,8 @@ func set_quality_mode(mode: int) -> void:
 		if quality_mode == AppSettings.QualityMode.GRAPHICS else PERFORMANCE_IMPACT_EFFECTS
 	while impact_effects.size() > effect_limit:
 		impact_effects.pop_front()
+	if is_instance_valid(view):
+		view.refresh_background()
 	_refresh_view()
 
 
@@ -490,6 +492,8 @@ func _block_name(block: BlockState) -> String:
 func refresh_locale() -> void:
 	if not volley.active and not room.room_finished:
 		status_text = tr("STATUS_AIM")
+	if is_instance_valid(view):
+		view.refresh_background()
 	_refresh_view()
 
 

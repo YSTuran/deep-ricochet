@@ -1,9 +1,6 @@
 class_name GameplayRoomView
 extends Node2D
 
-const VIEW_SIZE := Vector2(540.0, 960.0)
-
-const COLOR_GRID := Color("20364a")
 const COLOR_ROCK := Color("35414b")
 const COLOR_ROCK_LIGHT := Color("52606b")
 const COLOR_ROCK_DARK := Color("202a33")
@@ -23,6 +20,7 @@ const ARMORED_LEFT_BOTTOM_SOURCE := Rect2(5.0, 5.0, 503.0, 503.0)
 const ARMORED_RIGHT_BOTTOM_SOURCE := Rect2(4.0, 5.0, 503.0, 503.0)
 
 var room: GameplayRoom
+@onready var background_layer: GameplayRoomBackgroundView = $Background
 @onready var dynamic_layer: GameplayRoomDynamicView = $Dynamic
 var shake_remaining := 0.0
 var shake_duration := 0.0
@@ -40,6 +38,10 @@ func refresh() -> void:
 	dynamic_layer.queue_redraw()
 
 
+func refresh_background() -> void:
+	background_layer.refresh()
+
+
 func refresh_static() -> void:
 	queue_redraw()
 
@@ -49,16 +51,23 @@ func refresh_dynamic() -> void:
 
 
 func start_screen_shake(strength: float, duration: float) -> void:
-	shake_strength = maxf(shake_strength, maxf(0.0, strength))
-	shake_duration = maxf(shake_duration, maxf(0.01, duration))
-	shake_remaining = maxf(shake_remaining, shake_duration)
+	var incoming_strength := maxf(0.0, strength)
+	var incoming_duration := maxf(0.01, duration)
+	if shake_remaining > 0.0 and shake_duration > 0.0:
+		var current_strength := shake_strength * shake_remaining / shake_duration
+		shake_strength = maxf(current_strength, incoming_strength)
+		shake_duration = maxf(shake_remaining, incoming_duration)
+		shake_remaining = shake_duration
+	else:
+		shake_strength = incoming_strength
+		shake_duration = incoming_duration
+		shake_remaining = incoming_duration
 	set_process(true)
 
 
 func _process(delta: float) -> void:
 	if shake_remaining <= 0.0:
-		position = Vector2.ZERO
-		set_process(false)
+		_finish_screen_shake()
 		return
 	shake_remaining = maxf(0.0, shake_remaining - delta)
 	var progress := 1.0 - shake_remaining / shake_duration
@@ -68,15 +77,21 @@ func _process(delta: float) -> void:
 		sin(progress * 37.0 * TAU + 0.8),
 	) * amplitude
 	if shake_remaining <= 0.0:
-		position = Vector2.ZERO
+		_finish_screen_shake()
+
+
+func _finish_screen_shake() -> void:
+	position = Vector2.ZERO
+	shake_remaining = 0.0
+	shake_duration = 0.0
+	shake_strength = 0.0
+	set_process(false)
 
 
 func _draw() -> void:
 	if room == null or room.config == null or room.current_template == null:
 		return
 
-	DeepUI.draw_cave_background(self, VIEW_SIZE)
-	DeepUI.draw_panel(self, Rect2(18.0, 18.0, 504.0, 120.0), DeepUI.PANEL_SOFT, DeepUI.BORDER, 15, 2, true)
 	_draw_text(
 		Vector2(30.0, 48.0),
 		tr("HUD_TITLE") % room.current_template.localized_display_name(),
@@ -118,29 +133,7 @@ func _draw() -> void:
 		DeepUI.GOLD,
 		12,
 	)
-	DeepUI.draw_panel(self, Rect2(464.0, 24.0, 54.0, 56.0), DeepUI.PANEL_RAISED, DeepUI.BORDER, 11, 2, false)
-	DeepUI.draw_panel(self, Rect2(458.0, 84.0, 60.0, 50.0), DeepUI.PANEL_RAISED, DeepUI.GOLD_DARK, 11, 2, false)
 	DeepUI.draw_centered(self, room.status_text, Rect2(152.0, 92.0, 296.0, 28.0), 12, DeepUI.MUTED)
-
-	var board_rect := BoardGeometry.SCREEN_RECT
-	DeepUI.draw_panel(self, board_rect.grow(6.0), DeepUI.BACKGROUND_DEEP, DeepUI.BORDER, 8, 3, true)
-	draw_rect(board_rect, Color("0a1724"), true)
-	for x in range(1, BoardGeometry.WORLD_GRID_SIZE.x):
-		var screen_x := BoardGeometry.SCREEN_ORIGIN.x + float(x) * BoardGeometry.WORLD_SCALE
-		draw_line(
-			Vector2(screen_x, BoardGeometry.SCREEN_ORIGIN.y),
-			Vector2(screen_x, BoardGeometry.SCREEN_ORIGIN.y + board_rect.size.y),
-			COLOR_GRID,
-			1.0,
-		)
-	for y in range(1, BoardGeometry.WORLD_GRID_SIZE.y):
-		var screen_y := BoardGeometry.SCREEN_ORIGIN.y + float(y) * BoardGeometry.WORLD_SCALE
-		draw_line(
-			Vector2(BoardGeometry.SCREEN_ORIGIN.x, screen_y),
-			Vector2(BoardGeometry.SCREEN_ORIGIN.x + board_rect.size.x, screen_y),
-			COLOR_GRID,
-			1.0,
-		)
 
 	for block: BlockState in room.board.blocks:
 		if block.is_destroyed():
@@ -181,13 +174,6 @@ func _draw() -> void:
 			BlockState.BlockType.ARMORED:
 				_draw_armored(block)
 
-	var launcher_screen := BoardGeometry.world_to_screen(BoardGeometry.LAUNCHER_WORLD)
-	DeepUI.draw_glow(self, launcher_screen, 12.0, DeepUI.GOLD)
-	draw_circle(launcher_screen, 12.0, Color("fff1cf"))
-	draw_arc(launcher_screen, 12.0, 0.0, TAU, 32, Color("c9a86a"), 2.0, true)
-	DeepUI.draw_panel(self, Rect2(24.0, 778.0, 492.0, 72.0), Color(DeepUI.PANEL_SOFT, 0.94), DeepUI.BORDER_SOFT, 13, 1, false)
-	DeepUI.draw_centered(self, tr("HUD_VOLLEY_HINT"), Rect2(34.0, 787.0, 472.0, 26.0), 15, Color("c6d6e4"))
-	DeepUI.draw_centered(self, tr("HUD_AIM_HINT"), Rect2(34.0, 817.0, 472.0, 24.0), 13, DeepUI.MUTED_DARK)
 
 
 func _world_rect_to_screen(world_rect: Rect2, margin: float = 4.0) -> Rect2:

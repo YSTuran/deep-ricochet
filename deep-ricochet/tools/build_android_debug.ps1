@@ -58,6 +58,18 @@ function Invoke-Godot {
     }
 }
 
+function Assert-NoGodotScriptErrors {
+    param(
+        [string]$Output,
+        [string]$Stage
+    )
+
+    $failurePattern = '(?im)(SCRIPT ERROR:|Parse Error:|Compile Error:|Failed to load script|Invalid call\.)'
+    if ($Output -match $failurePattern) {
+        throw "$Stage reported a GDScript error."
+    }
+}
+
 $versionOutput = Invoke-Godot @("--headless", "--version")
 $versionLine = $versionOutput -split "`r?`n" |
     Where-Object { $_ -match '^\d+\.\d+\.\d+' } |
@@ -70,7 +82,12 @@ $androidTemplate = Join-Path $projectPath "android\build\build.gradle"
 $installBuildTemplate = -not (Test-Path -LiteralPath $androidTemplate)
 
 Write-Host "Importing project resources..."
-$null = Invoke-Godot @("--headless", "--path", $projectPath, "--import")
+$importOutput = Invoke-Godot @("--headless", "--path", $projectPath, "--import")
+Assert-NoGodotScriptErrors -Output $importOutput -Stage "Project import"
+
+Write-Host "Running mandatory smoke-test gate..."
+$smokeTestScript = Join-Path $PSScriptRoot "run_smoke_tests.ps1"
+& $smokeTestScript -GodotPath $godotExecutable
 
 Write-Host "Building ARMv7 Android debug APK..."
 $exportArguments = @(
@@ -82,7 +99,8 @@ if ($installBuildTemplate) {
     $exportArguments += "--install-android-build-template"
 }
 $exportArguments += @("--export-debug", "Android", $OutputPath, "--quit")
-$null = Invoke-Godot $exportArguments
+$exportOutput = Invoke-Godot $exportArguments
+Assert-NoGodotScriptErrors -Output $exportOutput -Stage "Android export"
 
 if (-not (Test-Path -LiteralPath $OutputPath)) {
     throw "Godot reported success, but the APK was not created: $OutputPath"
@@ -91,6 +109,27 @@ if (-not (Test-Path -LiteralPath $OutputPath)) {
 $apk = Get-Item -LiteralPath $OutputPath
 if ($apk.Length -le 0) {
     throw "The generated APK is empty: $OutputPath"
+}
+
+Add-Type -AssemblyName System.IO.Compression.FileSystem
+$archive = [System.IO.Compression.ZipFile]::OpenRead($OutputPath)
+try {
+    $nativeLibraries = @(
+        $archive.Entries |
+            Where-Object { $_.FullName -match '^lib/[^/]+/[^/]+\.so$' } |
+            ForEach-Object { $_.FullName }
+    )
+    if ($nativeLibraries -notcontains "lib/armeabi-v7a/libgodot_android.so") {
+        throw "The APK does not contain the required ARMv7 Godot library."
+    }
+    $unexpectedLibraries = @(
+        $nativeLibraries | Where-Object { $_ -notmatch '^lib/armeabi-v7a/' }
+    )
+    if ($unexpectedLibraries.Count -gt 0) {
+        throw "The phone-specific APK contains unexpected ABIs: $($unexpectedLibraries -join ', ')"
+    }
+} finally {
+    $archive.Dispose()
 }
 
 Write-Host "APK ready: $($apk.FullName) ($([math]::Round($apk.Length / 1MB, 1)) MB)"

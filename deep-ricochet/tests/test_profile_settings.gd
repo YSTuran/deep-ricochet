@@ -60,6 +60,14 @@ static func _test_profile_round_trip() -> void:
 	assert(restored.best_score == 450)
 	assert(restored.runs_played == 1)
 	assert(not service.store.loaded_from_backup)
+	_write_text(service.store.primary_path, JSON.stringify({
+		"schemaVersion": PlayerProfile.SCHEMA_VERSION,
+		"bestScore": -10,
+	}))
+	restored = service.load_profile()
+	assert(restored.best_score == 450)
+	assert(restored.runs_played == 1)
+	assert(not service.store.loaded_from_backup)
 	assert(FileAccess.file_exists(service.store.primary_path))
 	assert(FileAccess.file_exists(service.store.backup_path))
 	_write_text(service.store.primary_path, "{damaged-again")
@@ -117,6 +125,16 @@ static func _test_settings_round_trip() -> void:
 	assert(not restored.shake_enabled)
 	assert(not restored.haptics_enabled)
 	assert(restored.quality_mode == AppSettings.QualityMode.GRAPHICS)
+	assert(service.save_settings(settings))
+	settings.sfx_volume = 0.4
+	assert(service.save_settings(settings))
+	_write_text(SETTINGS_PATH, JSON.stringify({
+		"schemaVersion": AppSettings.SCHEMA_VERSION,
+		"language": "unsupported",
+	}))
+	restored = service.load_settings()
+	assert(restored.language == &"en")
+	assert(is_equal_approx(restored.sfx_volume, 0.35))
 
 	_write_text(SETTINGS_PATH, JSON.stringify({
 		"schemaVersion": 2,

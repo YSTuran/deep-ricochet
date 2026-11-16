@@ -102,6 +102,7 @@ func _notification(what: int) -> void:
 	if what == MainLoop.NOTIFICATION_APPLICATION_PAUSED \
 		or what == MainLoop.NOTIFICATION_APPLICATION_FOCUS_OUT:
 		pause_game()
+		_flush_test_events()
 	elif what == NOTIFICATION_WM_GO_BACK_REQUEST:
 		_handle_back_request()
 
@@ -128,6 +129,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _exit_tree() -> void:
+	_flush_test_events()
 	if pause_active and get_tree() != null:
 		get_tree().paused = false
 
@@ -846,7 +848,7 @@ func _on_room_finished(resolution: RoomResolution) -> void:
 		"reward": resolution.reward,
 		"multiplierBps": resolution.multiplier_bps,
 		"succeeded": resolution.succeeded,
-	})
+	}, false)
 	gameplay_room.set_simulation_enabled(false)
 	if run_session.ended:
 		_record_test_event(&"run_ended", {
@@ -929,7 +931,7 @@ func _on_shot_started() -> void:
 		"templateId": str(run_session.current_template_id) if run_session != null else "",
 		"shotsRemaining": gameplay_room.room.shots_remaining,
 		"ballsLaunched": gameplay_room.volley.launched_count,
-	})
+	}, false)
 
 
 func _on_shot_resolved(resolution: RoomResolution) -> void:
@@ -944,7 +946,7 @@ func _on_shot_resolved(resolution: RoomResolution) -> void:
 		"multiplierBps": resolution.multiplier_bps,
 		"succeeded": resolution.succeeded,
 		"roomFinished": resolution.room_finished,
-	})
+	}, not resolution.room_finished)
 	if resolution.room_finished:
 		return
 	_save_stable()
@@ -1175,7 +1177,11 @@ func _apply_quality_mode() -> void:
 		flow_view.queue_redraw()
 
 
-func _record_test_event(event_name: StringName, data: Dictionary = {}) -> void:
+func _record_test_event(
+	event_name: StringName,
+	data: Dictionary = {},
+	persist_immediately := true,
+) -> void:
 	if test_event_service == null:
 		return
 	var context := {}
@@ -1187,12 +1193,23 @@ func _record_test_event(event_name: StringName, data: Dictionary = {}) -> void:
 			"seed": run_session.seed,
 			"contentVersion": run_session.content_version,
 		}
-	if test_event_service.record_event(event_name, context, data):
+	if test_event_service.record_event(event_name, context, data, persist_immediately):
 		test_event_write_warning_shown = false
 		return
 	if not test_event_write_warning_shown:
 		test_event_write_warning_shown = true
 		push_warning("Test olayı kaydedilemedi: %s" % test_event_service.last_error)
+
+
+func _flush_test_events() -> void:
+	if test_event_service == null:
+		return
+	if test_event_service.flush():
+		test_event_write_warning_shown = false
+		return
+	if not test_event_write_warning_shown:
+		test_event_write_warning_shown = true
+		push_warning("Test olayları diske yazılamadı: %s" % test_event_service.last_error)
 
 
 func _record_snapshot_test_event(

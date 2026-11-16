@@ -15,16 +15,16 @@ func _init(path: String) -> void:
 	temporary_path = "%s.tmp" % path
 
 
-func load_dictionary() -> Variant:
+func load_dictionary(validator: Callable = Callable()) -> Variant:
 	last_error = ""
 	load_had_invalid_data = false
 	loaded_from_backup = false
 	var primary: Variant = _read_dictionary(primary_path)
-	if primary != null:
+	if primary != null and _passes_validator(primary, validator):
 		return primary
 	load_had_invalid_data = FileAccess.file_exists(primary_path)
 	var backup: Variant = _read_dictionary(backup_path)
-	if backup != null:
+	if backup != null and _passes_validator(backup, validator):
 		loaded_from_backup = true
 		return backup
 	load_had_invalid_data = load_had_invalid_data or FileAccess.file_exists(backup_path)
@@ -141,6 +141,10 @@ func _read_dictionary(path: String) -> Variant:
 	if json.parse(file.get_as_text()) != OK or typeof(json.data) != TYPE_DICTIONARY:
 		return null
 	return json.data
+
+
+func _passes_validator(data: Dictionary, validator: Callable) -> bool:
+	return not validator.is_valid() or bool(validator.call(data))
 
 
 func _remove(path: String) -> Error:

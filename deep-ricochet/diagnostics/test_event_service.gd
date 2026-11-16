@@ -49,6 +49,7 @@ var store: AtomicJsonStore
 var max_events: int
 var events: Array[Dictionary] = []
 var last_error: String
+var dirty := false
 
 
 func _init(path: String = DEFAULT_PATH, event_limit: int = DEFAULT_MAX_EVENTS) -> void:
@@ -61,6 +62,7 @@ func record_event(
 	event_name: StringName,
 	context: Dictionary,
 	data: Dictionary = {},
+	persist_immediately := true,
 ) -> bool:
 	last_error = ""
 	if not ALLOWED_EVENTS.has(event_name):
@@ -79,7 +81,8 @@ func record_event(
 	events.append(event)
 	while events.size() > max_events:
 		events.pop_front()
-	return _save()
+	dirty = true
+	return flush() if persist_immediately else true
 
 
 func event_count() -> int:
@@ -97,19 +100,30 @@ func export_json() -> String:
 	return JSON.stringify(_envelope(), "\t")
 
 
+func flush() -> bool:
+	if not dirty:
+		return true
+	if _save():
+		dirty = false
+		return true
+	return false
+
+
 func clear_all() -> bool:
 	last_error = ""
 	if not store.clear_all():
 		last_error = store.last_error
 		return false
 	events.clear()
+	dirty = false
 	return true
 
 
 func _load() -> void:
 	events.clear()
+	dirty = false
 	last_error = ""
-	var raw: Variant = store.load_dictionary()
+	var raw: Variant = store.load_dictionary(_is_valid_envelope_data)
 	if raw == null:
 		if store.load_had_invalid_data:
 			store.quarantine_invalid()
@@ -124,7 +138,7 @@ func _load() -> void:
 
 
 func _load_envelope(raw: Variant) -> bool:
-	if typeof(raw) != TYPE_DICTIONARY:
+	if typeof(raw) != TYPE_DICTIONARY or not _is_valid_envelope_data(raw):
 		return false
 	var envelope: Dictionary = raw
 	if int(envelope.get("schemaVersion", 0)) != SCHEMA_VERSION:
@@ -139,6 +153,18 @@ func _load_envelope(raw: Variant) -> bool:
 		events.append(event)
 	while events.size() > max_events:
 		events.pop_front()
+	return true
+
+
+func _is_valid_envelope_data(envelope: Dictionary) -> bool:
+	if int(envelope.get("schemaVersion", 0)) != SCHEMA_VERSION:
+		return false
+	var raw_events: Variant = envelope.get("events", [])
+	if typeof(raw_events) != TYPE_ARRAY:
+		return false
+	for raw_event: Variant in raw_events:
+		if _validated_event(raw_event).is_empty():
+			return false
 	return true
 
 

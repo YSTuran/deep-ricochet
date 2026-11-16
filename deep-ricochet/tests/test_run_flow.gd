@@ -4,13 +4,36 @@ extends RefCounted
 const BOARD_SIZE := Vector2(BoardGeometry.WORLD_GRID_SIZE)
 const LAUNCHER := BoardGeometry.LAUNCHER_WORLD
 const CONTROLLER_EVENT_PATH := "user://tests/deep_ricochet_controller_events_test.json"
+const MINE_ORDER_PATH := "user://tests/deep_ricochet_mines_order_test.json"
 
 
 static func run(controller: RunController, config: GameConfig) -> void:
+	_test_mine_registry_normalizes_order()
 	_test_catalog_and_seeded_selection(controller.catalog, config)
 	_test_template_example_angles(controller.catalog, config)
 	_test_failed_run(controller.catalog, config)
 	_test_controller_four_room_flow(controller)
+
+
+static func _test_mine_registry_normalizes_order() -> void:
+	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path("user://tests"))
+	var source: Variant = JSON.parse_string(
+		FileAccess.get_file_as_string("res://content/mines/mines.json")
+	)
+	assert(typeof(source) == TYPE_DICTIONARY)
+	var data: Dictionary = source
+	var reversed_mines: Array = data["mines"].duplicate(true)
+	reversed_mines.reverse()
+	data["mines"] = reversed_mines
+	var file := FileAccess.open(MINE_ORDER_PATH, FileAccess.WRITE)
+	assert(file != null)
+	file.store_string(JSON.stringify(data, "\t"))
+	file.close()
+	var registry := MineRegistry.load_from_file(MINE_ORDER_PATH)
+	assert(registry != null)
+	for index in range(registry.mines.size()):
+		assert(registry.mines[index].order == index + 1)
+	DirAccess.remove_absolute(ProjectSettings.globalize_path(MINE_ORDER_PATH))
 
 
 static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: GameConfig) -> void:

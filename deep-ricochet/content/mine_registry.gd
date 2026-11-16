@@ -40,11 +40,16 @@ static func load_from_file(path: String) -> MineRegistry:
 		definition.order = int(raw_mine.get("order", 0))
 		definition.unlock_after = StringName(str(raw_mine.get("unlockAfter", "")))
 		registry.mines.append(definition)
+	registry.mines.sort_custom(_mine_order_less)
 	var errors := registry.validation_errors()
 	if not errors.is_empty():
 		push_error("Geçersiz maden kaydı:\n- %s" % "\n- ".join(errors))
 		return null
 	return registry
+
+
+static func _mine_order_less(left: MineDefinition, right: MineDefinition) -> bool:
+	return left.order < right.order
 
 
 func validation_errors() -> PackedStringArray:

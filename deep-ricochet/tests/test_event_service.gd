@@ -3,12 +3,14 @@ extends RefCounted
 
 const TEST_PATH := "user://tests/deep_ricochet_events_test.json"
 const LIMIT_PATH := "user://tests/deep_ricochet_events_limit_test.json"
+const BATCH_PATH := "user://tests/deep_ricochet_events_batch_test.json"
 
 
 static func run() -> void:
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path("user://tests"))
 	_test_round_trip_and_privacy()
 	_test_event_limit()
+	_test_batched_flush()
 
 
 static func _test_round_trip_and_privacy() -> void:
@@ -51,6 +53,14 @@ static func _test_round_trip_and_privacy() -> void:
 	var count_before_invalid := restored.event_count()
 	assert(not restored.record_event(&"unsupported_event", context))
 	assert(restored.event_count() == count_before_invalid)
+	assert(restored.record_event(&"shot_started", context))
+	assert(restored.record_event(&"shot_resolved", context))
+	_write_text(TEST_PATH, JSON.stringify({
+		"schemaVersion": TestEventService.SCHEMA_VERSION,
+		"events": [{"eventName": "unsupported_event"}],
+	}))
+	restored = TestEventService.new(TEST_PATH, 32)
+	assert(restored.event_count() == count_before_invalid + 1)
 	assert(restored.clear_all())
 
 
@@ -72,3 +82,29 @@ static func _test_event_limit() -> void:
 	assert(int(service.events[0]["data"]["shotsRemaining"]) == 2)
 	assert(int(service.events[2]["data"]["shotsRemaining"]) == 4)
 	assert(service.clear_all())
+
+
+static func _test_batched_flush() -> void:
+	var service := TestEventService.new(BATCH_PATH, 8)
+	assert(service.clear_all())
+	var context := {
+		"runId": "run_batch",
+		"mineId": "mine_01",
+		"room": 1,
+		"seed": 77,
+		"contentVersion": "test-content",
+	}
+	assert(service.record_event(&"shot_started", context, {}, false))
+	assert(service.dirty)
+	assert(TestEventService.new(BATCH_PATH, 8).event_count() == 0)
+	assert(service.flush())
+	assert(not service.dirty)
+	assert(TestEventService.new(BATCH_PATH, 8).event_count() == 1)
+	assert(service.clear_all())
+
+
+static func _write_text(path: String, content: String) -> void:
+	var file := FileAccess.open(path, FileAccess.WRITE)
+	assert(file != null)
+	file.store_string(content)
+	file.close()

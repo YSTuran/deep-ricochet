@@ -20,6 +20,7 @@ static func run(gameplay_room: GameplayRoom, config: GameConfig) -> void:
 	_test_emulated_mouse_is_ignored(gameplay_room, config)
 	_test_cancelled_touch(gameplay_room, config)
 	_test_typed_impact_effect(gameplay_room)
+	_test_screen_shake_resets(gameplay_room)
 	_test_finished_room_does_not_restart(gameplay_room, config)
 	_test_room_finished_signal(gameplay_room)
 
@@ -123,6 +124,22 @@ static func _test_typed_impact_effect(gameplay_room: GameplayRoom) -> void:
 	var effect: Dictionary = gameplay_room.impact_effects.back()
 	assert(int(effect["block_type"]) == BlockState.BlockType.NORMAL)
 	assert(effect.has("points"))
+
+
+static func _test_screen_shake_resets(gameplay_room: GameplayRoom) -> void:
+	var view := gameplay_room.view
+	view.start_screen_shake(7.0, 0.26)
+	assert(is_equal_approx(view.shake_strength, 7.0))
+	view._process(0.30)
+	assert(view.position == Vector2.ZERO)
+	assert(is_zero_approx(view.shake_strength))
+	assert(is_zero_approx(view.shake_duration))
+	assert(is_zero_approx(view.shake_remaining))
+
+	view.start_screen_shake(1.5, 0.08)
+	assert(is_equal_approx(view.shake_strength, 1.5))
+	assert(is_equal_approx(view.shake_duration, 0.08))
+	view._process(0.10)
 
 
 static func _test_room_finished_signal(gameplay_room: GameplayRoom) -> void:

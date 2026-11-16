@@ -12,7 +12,7 @@ func _init(path: String = DEFAULT_PATH) -> void:
 
 
 func load_profile() -> PlayerProfile:
-	var data: Variant = store.load_dictionary()
+	var data: Variant = store.load_dictionary(_is_valid_profile_data)
 	if data == null:
 		if store.load_had_invalid_data:
 			store.quarantine_invalid()
@@ -28,6 +28,10 @@ func load_profile() -> PlayerProfile:
 	store.quarantine_invalid()
 	last_error = "Profil doğrulanamadı; varsayılan profil oluşturuldu."
 	return PlayerProfile.new()
+
+
+func _is_valid_profile_data(data: Dictionary) -> bool:
+	return PlayerProfile.from_dictionary(data).is_valid()
 
 
 func save_profile(profile: PlayerProfile) -> bool:

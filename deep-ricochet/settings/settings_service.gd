@@ -12,7 +12,7 @@ func _init(path: String = DEFAULT_PATH) -> void:
 
 
 func load_settings() -> AppSettings:
-	var data: Variant = store.load_dictionary()
+	var data: Variant = store.load_dictionary(_is_valid_settings_data)
 	if data == null:
 		if store.load_had_invalid_data:
 			store.quarantine_invalid()
@@ -28,6 +28,10 @@ func load_settings() -> AppSettings:
 	store.quarantine_invalid()
 	last_error = "Ayarlar doğrulanamadı; varsayılanlar kullanılıyor."
 	return AppSettings.new()
+
+
+func _is_valid_settings_data(data: Dictionary) -> bool:
+	return AppSettings.from_dictionary(data).is_valid()
 
 
 func save_settings(settings: AppSettings) -> bool:
