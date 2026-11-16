@@ -20,7 +20,8 @@ const DISPLAY_CATEGORY_BUTTON := Rect2(80.0, 510.0, 380.0, 64.0)
 const TURKISH_BUTTON := Rect2(55.0, 245.0, 210.0, 58.0)
 const ENGLISH_BUTTON := Rect2(275.0, 245.0, 210.0, 58.0)
 const TUTORIAL_BUTTON := Rect2(80.0, 390.0, 380.0, 58.0)
-const DELETE_DATA_BUTTON := Rect2(80.0, 485.0, 380.0, 58.0)
+const EXPORT_EVENTS_BUTTON := Rect2(80.0, 485.0, 380.0, 58.0)
+const DELETE_DATA_BUTTON := Rect2(80.0, 580.0, 380.0, 58.0)
 const SFX_BUTTON := Rect2(80.0, 220.0, 380.0, 58.0)
 const SFX_SLIDER := Rect2(80.0, 345.0, 380.0, 14.0)
 const MUSIC_BUTTON := Rect2(80.0, 455.0, 380.0, 58.0)
@@ -125,6 +126,9 @@ func _handle_general_page(event_position: Vector2) -> void:
 	elif TUTORIAL_BUTTON.has_point(event_position):
 		AudioManager.play_ui_click()
 		controller.show_tutorial_from_settings()
+	elif EXPORT_EVENTS_BUTTON.has_point(event_position):
+		AudioManager.play_ui_click()
+		controller.export_test_events_to_clipboard()
 	elif DELETE_DATA_BUTTON.has_point(event_position):
 		AudioManager.play_ui_click()
 		show_delete_all_confirmation()
@@ -240,9 +244,10 @@ func _draw_general_page() -> void:
 	_draw_choice(TURKISH_BUTTON, tr("SETTINGS_TURKISH"), selected_language == &"tr")
 	_draw_choice(ENGLISH_BUTTON, tr("SETTINGS_ENGLISH"), selected_language == &"en")
 	DeepUI.draw_button(self, TUTORIAL_BUTTON, tr("SETTINGS_TUTORIAL"), &"secondary", 19)
+	DeepUI.draw_button(self, EXPORT_EVENTS_BUTTON, tr("SETTINGS_EXPORT_EVENTS"), &"secondary", 17)
 	DeepUI.draw_button(self, DELETE_DATA_BUTTON, tr("SETTINGS_DELETE_DATA"), &"danger", 18)
 	if not notice.is_empty():
-		DeepUI.draw_centered(self, notice, Rect2(55.0, 570.0, 430.0, 48.0), 12, DeepUI.DANGER)
+		DeepUI.draw_centered(self, notice, Rect2(55.0, 660.0, 430.0, 54.0), 12, DeepUI.MUTED)
 	DeepUI.draw_button(self, BACK_BUTTON, tr("COMMON_BACK"), &"primary", 19)
 
 

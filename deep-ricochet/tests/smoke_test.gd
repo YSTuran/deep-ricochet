@@ -2,6 +2,7 @@ extends Node
 
 const MenuPauseTests := preload("res://tests/test_menu_pause.gd")
 const ProfileSettingsTests := preload("res://tests/test_profile_settings.gd")
+const LocalEventTests := preload("res://tests/test_event_service.gd")
 
 
 func _ready() -> void:
@@ -17,6 +18,7 @@ func _ready() -> void:
 	invalid_config.aim_min_degrees = 170.0
 	invalid_config.aim_max_degrees = 10.0
 	assert(invalid_config.validation_errors().size() >= 2)
+	LocalEventTests.run()
 	assert(ProjectSettings.get_setting("application/run/main_scene") == "res://app/main.tscn")
 	assert(ProjectSettings.get_setting("display/window/stretch/aspect") == "keep")
 	assert(not ProjectSettings.get_setting("input_devices/pointing/emulate_touch_from_mouse"))
@@ -67,7 +69,7 @@ func _ready() -> void:
 	BoardAndCollisionTests.run(config)
 	VolleyAndRoomTests.run(config)
 
-	print("[PASS] Deep Ricochet yedi maden, özel blok, kayıt, UI ve fizik testleri geçti.")
+	print("[PASS] Deep Ricochet P1 olay, determinizm, içerik, kayıt, UI ve fizik testleri geçti.")
 	AudioManager.stop_all()
 	# Audio playback is released by the mixer thread. Give it one short real-time
 	# window before freeing the autoload so headless tests also exit cleanly.

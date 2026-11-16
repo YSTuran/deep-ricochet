@@ -3,6 +3,7 @@ extends RefCounted
 
 const BOARD_SIZE := Vector2(BoardGeometry.WORLD_GRID_SIZE)
 const LAUNCHER := BoardGeometry.LAUNCHER_WORLD
+const CONTROLLER_EVENT_PATH := "user://tests/deep_ricochet_controller_events_test.json"
 
 
 static func run(controller: RunController, config: GameConfig) -> void:
@@ -131,6 +132,17 @@ static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: Gam
 	var second_rng := RandomNumberGenerator.new()
 	second_rng.seed = 4444
 	assert(catalog.pick_first_room(first_rng, &"mine_07").room_id == catalog.pick_first_room(second_rng, &"mine_07").room_id)
+	for mine_id: StringName in [&"mine_01", &"mine_04", &"mine_07"]:
+		for seed in [1, 4444, 98_765]:
+			var first_signature := _seeded_route_signature(catalog, config, seed, mine_id)
+			var second_signature := _seeded_route_signature(catalog, config, seed, mine_id)
+			assert(
+				first_signature == second_signature,
+				"Aynı seed tüm rota tekliflerinde farklı sonuç üretti: %s / %d" % [
+					mine_id,
+					seed,
+				],
+			)
 
 
 static func _layout_signature(template: RoomTemplate) -> String:
@@ -144,6 +156,52 @@ static func _layout_signature(template: RoomTemplate) -> String:
 			block.vulnerable_sides,
 		])
 	parts.sort()
+	return "|".join(parts)
+
+
+static func _seeded_route_signature(
+	catalog: RoomCatalog,
+	config: GameConfig,
+	seed: int,
+	mine_id: StringName,
+) -> String:
+	var rng := RandomNumberGenerator.new()
+	rng.seed = seed
+	var first_room := catalog.pick_first_room(rng, mine_id)
+	assert(first_room != null)
+	var session := RunSession.new()
+	assert(session.start_run(
+		seed,
+		catalog.content_version,
+		config.room_count,
+		first_room,
+		"",
+		mine_id,
+	))
+	var parts := PackedStringArray(["start=%s" % first_room.room_id])
+	for route_index in range(config.room_count - 1):
+		assert(session.resolve_room(_finished_resolution(true, 100 + route_index)))
+		var options := catalog.create_route_options(
+			session.room_number + 1,
+			rng,
+			session.used_template_ids(),
+			mine_id,
+		)
+		assert(options.size() == 2)
+		parts.append("offer%d=%s,%s" % [
+			route_index + 1,
+			options[0].template.room_id,
+			options[1].template.room_id,
+		])
+		assert(session.set_route_options(options))
+		var selected_index := route_index % 2
+		parts.append("select%d=%s" % [
+			route_index + 1,
+			options[selected_index].template.room_id,
+		])
+		assert(session.select_route(options[selected_index].option_id) != null)
+	assert(session.resolve_room(_finished_resolution(true, 100)))
+	assert(session.ended and session.succeeded)
 	return "|".join(parts)
 
 
@@ -199,7 +257,13 @@ static func _test_failed_run(catalog: RoomCatalog, config: GameConfig) -> void:
 
 
 static func _test_controller_four_room_flow(controller: RunController) -> void:
+	controller.test_event_service = TestEventService.new(CONTROLLER_EVENT_PATH, 200)
+	assert(controller.test_event_service.clear_all())
 	assert(controller.start_new_run(777))
+	controller.pause_game()
+	controller.resume_game()
+	controller._on_shot_started()
+	controller._on_shot_resolved(_finished_resolution(false, 0))
 	var first_template_id := controller.run_session.current_template_id
 	assert(controller.run_session.room_number == 1)
 	assert(controller.run_session.mine_id == &"mine_01")
@@ -269,6 +333,21 @@ static func _test_controller_four_room_flow(controller: RunController) -> void:
 	assert(controller.run_session == null)
 	assert(controller.mine_select_view.visible)
 	controller.close_mine_selection()
+	var recorded_names := controller.test_event_service.event_names()
+	for required_name in [
+		"run_started",
+		"shot_started",
+		"shot_resolved",
+		"room_completed",
+		"route_offered",
+		"route_selected",
+		"run_ended",
+		"run_restarted",
+		"session_resumed",
+	]:
+		assert(recorded_names.has(required_name), "Denetleyici olayı eksik: %s" % required_name)
+	assert(controller.test_event_service.clear_all())
+	controller.test_event_service = null
 
 
 static func _finished_resolution(success: bool, reward: int) -> RoomResolution:

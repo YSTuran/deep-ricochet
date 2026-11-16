@@ -5,6 +5,7 @@ extends Node
 @export var save_path := SaveService.DEFAULT_SAVE_PATH
 @export var profile_path := ProfileService.DEFAULT_PATH
 @export var settings_path := SettingsService.DEFAULT_PATH
+@export var test_event_path := TestEventService.DEFAULT_PATH
 @export var tutorial_enabled := true
 
 @onready var gameplay_room: GameplayRoom = $GameplayRoom
@@ -33,6 +34,7 @@ var rng := RandomNumberGenerator.new()
 var save_service: SaveService
 var profile_service: ProfileService
 var settings_service: SettingsService
+var test_event_service: TestEventService
 var profile: PlayerProfile
 var app_settings: AppSettings
 var last_save_error: String
@@ -57,6 +59,7 @@ var pending_new_mine_id: StringName = &"mine_01"
 var pending_new_run_kind: int = RunSession.RunKind.NORMAL
 var pending_new_seed := 0
 var pending_new_daily_key: String
+var test_event_write_warning_shown := false
 
 
 func _ready() -> void:
@@ -75,6 +78,7 @@ func _ready() -> void:
 			return
 	gameplay_room.room_finished.connect(_on_room_finished)
 	gameplay_room.shot_will_start.connect(_on_shot_will_start)
+	gameplay_room.shot_started.connect(_on_shot_started)
 	gameplay_room.shot_resolved.connect(_on_shot_resolved)
 	gameplay_room.block_destroyed.connect(_on_block_destroyed)
 	flow_view.bind(self)
@@ -134,6 +138,7 @@ func _initialize_user_data() -> void:
 	if persistence_enabled:
 		profile_service = ProfileService.new(profile_path)
 		settings_service = SettingsService.new(settings_path)
+		test_event_service = TestEventService.new(test_event_path)
 		profile = profile_service.load_profile()
 		app_settings = settings_service.load_settings()
 	TranslationServer.set_locale(str(app_settings.language))
@@ -171,6 +176,13 @@ func _boot_from_save() -> void:
 	var load_result := save_service.load_active(catalog, config)
 	if load_result.has_valid_save():
 		var snapshot := load_result.snapshot_for_restore()
+		if load_result.status == SaveLoadResult.Status.RECOVERED_BACKUP \
+			or load_result.interrupted_shot():
+			_record_snapshot_test_event(&"save_recovered", snapshot, {
+				"source": "startup",
+				"recoveredBackup": load_result.status == SaveLoadResult.Status.RECOVERED_BACKUP,
+				"interruptedShot": load_result.interrupted_shot(),
+			})
 		if snapshot.ended:
 			if _restore_snapshot(snapshot):
 				if load_result.status == SaveLoadResult.Status.RECOVERED_BACKUP:
@@ -252,6 +264,10 @@ func start_new_run(
 	pause_button.visible = true
 	speed_button.visible = true
 	_save_stable()
+	_record_test_event(&"run_started", {
+		"runKind": run_session.run_kind,
+		"firstTemplateId": str(first_template.room_id),
+	})
 	_maybe_show_first_tutorial()
 	return true
 
@@ -261,6 +277,7 @@ func continue_saved_run() -> bool:
 		continue_in_memory = false
 		main_menu_view.hide_menu()
 		_restore_active_screen()
+		_record_test_event(&"session_resumed", {"source": "memory"})
 		return true
 	if pending_continue_snapshot == null:
 		return false
@@ -268,6 +285,7 @@ func continue_saved_run() -> bool:
 	var snapshot := pending_continue_snapshot
 	var recovery_message := pending_continue_notice
 	var recovered_backup := pending_continue_recovered_backup
+	var interrupted_shot := pending_continue_interrupted
 	if not _restore_snapshot(snapshot):
 		_show_main_menu(true, tr("NOTICE_LOAD_FAILED"))
 		return false
@@ -278,6 +296,11 @@ func continue_saved_run() -> bool:
 	if not recovery_message.is_empty():
 		gameplay_room.show_status(recovery_message)
 	_save_stable()
+	_record_test_event(&"session_resumed", {
+		"source": "saved_run",
+		"recoveredBackup": recovered_backup,
+		"interruptedShot": interrupted_shot,
+	})
 	return true
 
 
@@ -371,12 +394,19 @@ func restart_same_seed() -> bool:
 	if run_session.content_version != catalog.content_version:
 		return false
 	var retry_seed := run_session.seed
-	return start_new_run(
+	var previous_run_id := run_session.run_id
+	var restarted := start_new_run(
 		retry_seed,
 		run_session.mine_id,
 		run_session.run_kind,
 		run_session.daily_key,
 	)
+	if restarted:
+		_record_test_event(&"run_restarted", {
+			"previousRunId": previous_run_id,
+			"sameSeed": true,
+		})
+	return restarted
 
 
 func restart_current_mine() -> bool:
@@ -384,7 +414,14 @@ func restart_current_mine() -> bool:
 		return false
 	if run_session.run_kind == RunSession.RunKind.DAILY:
 		return restart_same_seed()
-	return start_new_run(0, run_session.mine_id, RunSession.RunKind.NORMAL)
+	var previous_run_id := run_session.run_id
+	var restarted := start_new_run(0, run_session.mine_id, RunSession.RunKind.NORMAL)
+	if restarted:
+		_record_test_event(&"run_restarted", {
+			"previousRunId": previous_run_id,
+			"sameSeed": false,
+		})
+	return restarted
 
 
 func next_mine_id_from_result() -> StringName:
@@ -535,6 +572,29 @@ func show_tutorial_from_settings() -> void:
 	_show_tutorial()
 
 
+func export_test_events_to_clipboard() -> bool:
+	if test_event_service == null or test_event_service.event_count() <= 0:
+		settings_overlay.show_settings(
+			tr("NOTICE_TEST_EVENTS_EMPTY"),
+			SettingsOverlay.Page.GENERAL,
+		)
+		return false
+	var exported_json := test_event_service.export_json()
+	if exported_json.is_empty():
+		settings_overlay.show_settings(
+			tr("NOTICE_TEST_EVENTS_FAILED"),
+			SettingsOverlay.Page.GENERAL,
+		)
+		return false
+	DisplayServer.clipboard_set(exported_json)
+	AudioManager.play_ui_confirm()
+	settings_overlay.show_settings(
+		tr("NOTICE_TEST_EVENTS_COPIED") % test_event_service.event_count(),
+		SettingsOverlay.Page.GENERAL,
+	)
+	return true
+
+
 func complete_tutorial() -> void:
 	if not tutorial_overlay.is_modal():
 		return
@@ -595,6 +655,8 @@ func confirm_delete_all_data() -> bool:
 		errors.append(profile_service.last_error)
 	if settings_service != null and not settings_service.clear_all():
 		errors.append(settings_service.last_error)
+	if test_event_service != null and not test_event_service.clear_all():
+		errors.append(test_event_service.last_error)
 	if not errors.is_empty():
 		last_save_error = "; ".join(errors)
 		push_warning("Tüm veriler silinemedi: %s" % last_save_error)
@@ -686,6 +748,7 @@ func resume_game() -> void:
 	_leave_pause_state()
 	pause_overlay.hide_overlay()
 	_restore_active_screen()
+	_record_test_event(&"session_resumed", {"source": "pause"})
 
 
 func return_to_main_menu() -> void:
@@ -752,6 +815,10 @@ func select_route(option_id: StringName) -> bool:
 		if previous_template != null and previous_room_snapshot != null:
 			gameplay_room.restore_room(previous_template, previous_room_snapshot)
 		return false
+	_record_test_event(&"route_selected", {
+		"optionId": str(option_id),
+		"templateId": str(selected_template.room_id),
+	})
 	gameplay_room.set_run_context(
 		run_session.room_number,
 		run_session.room_count,
@@ -772,8 +839,22 @@ func select_route(option_id: StringName) -> bool:
 func _on_room_finished(resolution: RoomResolution) -> void:
 	if run_session == null or not run_session.resolve_room(resolution):
 		return
+	_record_test_event(&"room_completed", {
+		"templateId": str(run_session.current_template_id),
+		"shotsRemaining": resolution.remaining_shots,
+		"breakScore": resolution.break_score,
+		"reward": resolution.reward,
+		"multiplierBps": resolution.multiplier_bps,
+		"succeeded": resolution.succeeded,
+	})
 	gameplay_room.set_simulation_enabled(false)
 	if run_session.ended:
+		_record_test_event(&"run_ended", {
+			"succeeded": run_session.succeeded,
+			"coresBroken": run_session.cores_broken,
+			"routeChoices": run_session.route_choices_made,
+			"totalScore": run_session.banked_score,
+		})
 		if tutorial_overlay.mode == TutorialOverlay.Mode.COACH:
 			tutorial_overlay.hide_overlay()
 			tutorial_coach_step = -1
@@ -793,6 +874,18 @@ func _on_room_finished(resolution: RoomResolution) -> void:
 	if not run_session.set_route_options(options):
 		push_error("Sonraki oda için rota seçenekleri üretilemedi.")
 		return
+	var option_ids: Array[String] = []
+	var template_ids: Array[String] = []
+	var multipliers_bps: Array[int] = []
+	for option: RouteOption in options:
+		option_ids.append(str(option.option_id))
+		template_ids.append(str(option.template.room_id))
+		multipliers_bps.append(option.template.multiplier_bps)
+	_record_test_event(&"route_offered", {
+		"optionIds": option_ids,
+		"templateIds": template_ids,
+		"multipliersBps": multipliers_bps,
+	})
 	_save_stable()
 	pause_button.visible = true
 	speed_button.visible = false
@@ -831,7 +924,27 @@ func _on_shot_will_start() -> void:
 		_report_save_error(save_service.last_error, &"run")
 
 
+func _on_shot_started() -> void:
+	_record_test_event(&"shot_started", {
+		"templateId": str(run_session.current_template_id) if run_session != null else "",
+		"shotsRemaining": gameplay_room.room.shots_remaining,
+		"ballsLaunched": gameplay_room.volley.launched_count,
+	})
+
+
 func _on_shot_resolved(resolution: RoomResolution) -> void:
+	_record_test_event(&"shot_resolved", {
+		"templateId": str(run_session.current_template_id) if run_session != null else "",
+		"shotsRemaining": resolution.remaining_shots,
+		"ballsLaunched": gameplay_room.volley.launched_count,
+		"ballsCollected": gameplay_room.volley.collected_count,
+		"ballsForcedCollected": gameplay_room.volley.forced_collection_count,
+		"breakScore": resolution.break_score,
+		"reward": resolution.reward,
+		"multiplierBps": resolution.multiplier_bps,
+		"succeeded": resolution.succeeded,
+		"roomFinished": resolution.room_finished,
+	})
 	if resolution.room_finished:
 		return
 	_save_stable()
@@ -1060,6 +1173,46 @@ func _apply_quality_mode() -> void:
 		main_menu_view.queue_redraw()
 	if is_instance_valid(flow_view):
 		flow_view.queue_redraw()
+
+
+func _record_test_event(event_name: StringName, data: Dictionary = {}) -> void:
+	if test_event_service == null:
+		return
+	var context := {}
+	if run_session != null:
+		context = {
+			"runId": run_session.run_id,
+			"mineId": str(run_session.mine_id),
+			"room": run_session.room_number,
+			"seed": run_session.seed,
+			"contentVersion": run_session.content_version,
+		}
+	if test_event_service.record_event(event_name, context, data):
+		test_event_write_warning_shown = false
+		return
+	if not test_event_write_warning_shown:
+		test_event_write_warning_shown = true
+		push_warning("Test olayı kaydedilemedi: %s" % test_event_service.last_error)
+
+
+func _record_snapshot_test_event(
+	event_name: StringName,
+	snapshot: RunSnapshot,
+	data: Dictionary = {},
+) -> void:
+	if test_event_service == null or snapshot == null:
+		return
+	var context := {
+		"runId": snapshot.run_id,
+		"mineId": str(snapshot.mine_id),
+		"room": snapshot.room_number,
+		"seed": snapshot.seed,
+		"contentVersion": snapshot.content_version,
+	}
+	if not test_event_service.record_event(event_name, context, data) \
+		and not test_event_write_warning_shown:
+		test_event_write_warning_shown = true
+		push_warning("Test olayı kaydedilemedi: %s" % test_event_service.last_error)
 
 
 func _try_haptic(duration_msec: int) -> void:

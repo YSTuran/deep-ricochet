@@ -8,6 +8,7 @@ static func run(config: GameConfig) -> void:
 	_test_volley_lifecycle(config)
 	_test_full_timeout(config)
 	_test_scoring_and_room_resolution(config)
+	_test_speed_grouping_equivalence(config)
 
 
 static func _test_volley_lifecycle(config: GameConfig) -> void:
@@ -153,3 +154,76 @@ static func _test_scoring_and_room_resolution(config: GameConfig) -> void:
 	assert(resolution.room_finished)
 	assert(not resolution.succeeded)
 	assert(resolution.reward == config.normal_break_points)
+
+
+static func _test_speed_grouping_equivalence(config: GameConfig) -> void:
+	var template := RoomTemplateLoader.load_from_file(
+		"res://content/mines/rooms/m1_start_a.json"
+	)
+	assert(template != null)
+	var normal_result := _simulate_grouped_volley(template, config, 1)
+	var fast_result := _simulate_grouped_volley(template, config, 2)
+	assert(normal_result == fast_result, "1x ve 2x nihai simülasyon durumu ayrıştı.")
+
+
+static func _simulate_grouped_volley(
+	template: RoomTemplate,
+	config: GameConfig,
+	steps_per_frame: int,
+) -> Dictionary:
+	var board := template.create_board()
+	var room := RoomSession.new()
+	room.start(config.shots_per_room, template.multiplier_bps)
+	assert(room.commit_shot())
+
+	var volley := ShotVolley.new()
+	var direction := Vector2.from_angle(deg_to_rad(template.example_angles[0]))
+	assert(volley.start(
+		BoardGeometry.LAUNCHER_WORLD,
+		direction * config.ball_speed,
+		config.ball_count,
+		config.launch_interval_seconds,
+		config.volley_limit_seconds,
+	))
+	var simulator := ShotSimulator.new()
+	var frame_count := 0
+	while volley.active:
+		for _step_index in range(steps_per_frame):
+			if not volley.active:
+				break
+			var step_result := volley.advance(
+				1.0 / 60.0,
+				simulator,
+				BOARD_SIZE,
+				config.ball_radius,
+				board,
+			)
+			for damage_result: BlockDamageResult in step_result.damage_results:
+				room.record_damage_result(damage_result, config)
+		frame_count += 1
+		assert(frame_count <= 700, "Yaylım beklenen sürede tamamlanmadı.")
+
+	assert(volley.consume_finished_event())
+	var resolution := room.resolve_shot(board, config)
+	var block_states: Array[String] = []
+	for block: BlockState in board.blocks:
+		block_states.append("%d:%d:%d:%d:%d" % [
+			block.id,
+			block.type,
+			block.cell.x,
+			block.cell.y,
+			block.hit_points,
+		])
+	block_states.sort()
+	return {
+		"blocks": block_states,
+		"breakScore": resolution.break_score,
+		"reward": resolution.reward,
+		"remainingShots": resolution.remaining_shots,
+		"roomFinished": resolution.room_finished,
+		"succeeded": resolution.succeeded,
+		"launched": volley.launched_count,
+		"collected": volley.collected_count,
+		"forcedCollected": volley.forced_collection_count,
+		"elapsedUsec": roundi(volley.elapsed_seconds * 1_000_000.0),
+	}

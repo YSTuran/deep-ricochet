@@ -296,6 +296,7 @@ static func _test_startup_restore(
 	restored_controller.save_path = TEST_SAVE_PATH
 	restored_controller.profile_path = "user://tests/deep_ricochet_restore_profile_test.json"
 	restored_controller.settings_path = "user://tests/deep_ricochet_restore_settings_test.json"
+	restored_controller.test_event_path = "user://tests/deep_ricochet_restore_events_test.json"
 	restored_controller.tutorial_enabled = false
 	parent.add_child(restored_controller)
 	await parent.get_tree().process_frame
@@ -306,6 +307,7 @@ static func _test_startup_restore(
 	assert(restored_controller.run_session.seed == 61_616)
 	assert(restored_controller.run_session.current_template_id == expected_template_id)
 	assert(restored_controller.gameplay_room.current_template.room_id == expected_template_id)
+	assert(restored_controller.test_event_service.clear_all())
 	restored_controller.queue_free()
 	await parent.get_tree().process_frame
 

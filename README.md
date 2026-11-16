@@ -92,13 +92,16 @@ Oyun alanında fareyle ya da dokunmatik ekranla basılı tutup yön seçilir; b�
 - Cevher ve çekirdek vuruşlarında ayrışan ses tonu; mevcut ses yığılma sınırı korunarak düşük maliyetli ses cilası
 - Android'de blok kırılması ve çekirdeğin kırılması için kısa, farklı şiddette ve 90 ms aralıkla sınırlanan titreşim
 - Ayarlar ekranında kalıcı titreşim açma-kapama seçeneği ve eski ayar kayıtları için şema geçişi
-- Üç madenin her biri için dört odalık koşu; ilk oda başlangıç havuzundan, sonraki üç oda geniş geçit/dar damar rota çiftlerinden seçilir
+- Kişisel veri toplamayan, yalnızca izin verilen P1 test olaylarını yerelde tutan ve ayarlardan JSON olarak panoya kopyalanabilen test günlüğü
+- Yedi madenin her biri için dört odalık koşu; ilk oda başlangıç havuzundan, sonraki üç oda geniş geçit/dar damar rota çiftlerinden seçilir
 - Her maden için yedi temel düzenin yatay aynalarıyla oluşturulan 14 şablon; toplam 98 seed tabanlı şablon
 - Bir madeni başarıyla bitirince sıradakini açan seviye ilerlemesi, maden bazında en iyi skor ve tamamlanma sayısı
 - Her gün aynı yerel tarih için aynı seed'i kullanan, ilerleme kilitlerini etkilemeyen günlük maden
 - Düşük maliyetli efekt sınırı ve azaltılmış sarsıntı kullanan **Performans** modu ile daha yoğun görsel cila sunan **Grafik** modu
 
 2× seçeneği topların fizik hızını veya çarpışma sonuçlarını değiştirmez; her çizim karesinde iki sabit simülasyon adımı çalıştırır. Yeni koşu ve aynı seed tekrarı 1× hızda başlar. Titreşim yalnızca Android özelliği algılandığında çağrılır; masaüstü testleri ve diğer platformlarda devre dışı kalır.
+
+P1 test günlüğü `user://deep_ricochet_test_events.json` konumunda en fazla son 500 olayı saklar. `run_started`, `shot_started`, `shot_resolved`, `room_completed`, `route_offered`, `route_selected`, `run_ended`, `run_restarted`, `session_resumed` ve `save_recovered` olayları UTC zaman damgası, yerel koşu kimliği, maden/oda, seed, içerik sürümü ve olayla ilgili sayısal sonuçlarla kaydedilir. İsim, e-posta, reklam kimliği veya kalıcı cihaz kimliği alınmaz; bilinmeyen alanlar izin listesi dışında bırakılır. **Ayarlar → Genel → Test Verisini Kopyala** işlemi günlüğü açık kullanıcı eylemiyle JSON olarak panoya kopyalar. **Tüm Verileri Sil** bu günlüğü de temizler.
 
 Aktif koşu `user://deep_ricochet_active_run.json` konumuna yazılır; önceki geçerli kayıt `.bak` uzantısıyla korunur. Geçerli ve bitmemiş bir kayıt uygulama açılışında ana menüde `Devam` düğmesini etkinleştirir. Kesilmiş atışta canlı top konumları yüklenmez; atış öncesindeki kararlı oda geri gelir. Maden kimliği, normal/günlük koşu türü ve günlük tarih anahtarını taşıyan aktif snapshot şeması sürüm 4'tür. İçerik sürümüyle uyuşmayan eski geliştirme koşuları güvenli biçimde reddedilir; profil ve ayarlar kendi şema geçişleriyle korunur.
 
@@ -144,4 +147,6 @@ Godot komut satırından proje kökünde şu sahne çalıştırılır:
 godot --headless --path deep-ricochet --scene res://tests/smoke_test.tscn
 ```
 
-Test; profil ve ayar geçişlerini, yedi madenin kilitleri ile günlük maden istatistiklerini, grafik/performans tercihini, titreşim ayarı ile eski ayar şeması göçünü, efekt/müzik bus'larını, melodik çarpışma hız sınırını, sessiz modu, profil yedeğinden kurtarmayı, iki dili, üç aşamalı ilk-oyun öğreticisini, tüm veri silme hata davranışını, ayrıntılı oda sonuç geçmişini, aynı seed tekrarını, 1×/2× sabit adımlı simülasyonu, ana menü ve devam durumunu, nişan sırasında duraklatmayı, canlı yaylımın donmasını, odak kaybını, yedi madendeki 98 oda şablonunu, özel blokların seviye eşiklerini, zırh yönlerini, 3×3 ve zincirleme patlama davranışını, örnek açı geçişlerini, maden başına 100 seed seçimini, dört oda/üç rota akışını, atış ortası kurtarmayı, bozuk kayıt reddini, fiziği ve puanı doğrular. Ayrıca 98 odanın örnek açı simülasyon süresini test çıktısında `[PERF]` satırıyla raporlar.
+Test; profil ve ayar geçişlerini, yedi madenin kilitleri ile günlük maden istatistiklerini, grafik/performans tercihini, titreşim ayarı ile eski ayar şeması göçünü, efekt/müzik bus'larını, melodik çarpışma hız sınırını, sessiz modu, profil yedeğinden kurtarmayı, iki dili, üç aşamalı ilk-oyun öğreticisini, tüm veri silme hata davranışını, ayrıntılı oda sonuç geçmişini, aynı seed tekrarını, 1×/2× sabit adımlı simülasyonu ve iki hızın aynı blok/puan/top sonucunu üretmesini, ana menü ve devam durumunu, nişan sırasında duraklatmayı, canlı yaylımın donmasını, odak kaybını, yedi madendeki 98 oda şablonunu, özel blokların seviye eşiklerini, zırh yönlerini, 3×3 ve zincirleme patlama davranışını, örnek açı geçişlerini, maden başına 100 seed seçimini, aynı seed'in tüm rota tekliflerini, dört oda/üç rota akışını, P1 test olaylarının izin listesi ile JSON dışa aktarımını, atış ortası kurtarmayı, bozuk kayıt reddini, fiziği ve puanı doğrular. Ayrıca 98 odanın örnek açı simülasyon süresini test çıktısında `[PERF]` satırıyla raporlar.
+
+Gerçek cihazda kalan kabul adımları [P1 kabul kontrol listesinde](P1_ACCEPTANCE.md) tutulur.

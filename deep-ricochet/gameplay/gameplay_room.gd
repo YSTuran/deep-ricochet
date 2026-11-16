@@ -4,6 +4,7 @@ extends Node2D
 signal shot_resolved(resolution: RoomResolution)
 signal room_finished(resolution: RoomResolution)
 signal shot_will_start
+signal shot_started
 signal block_destroyed(block_type: int)
 
 const BOARD_SIZE_WORLD := Vector2(BoardGeometry.WORLD_GRID_SIZE)
@@ -345,6 +346,7 @@ func _release_aim() -> void:
 		if volley_started:
 			shot_will_start.emit()
 		if volley_started and room.commit_shot():
+			shot_started.emit()
 			AudioManager.begin_volley()
 			AudioManager.play_launch()
 			status_text = tr("STATUS_VOLLEY_STARTED")
