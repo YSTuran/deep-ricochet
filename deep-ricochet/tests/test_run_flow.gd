@@ -1,6 +1,8 @@
 class_name RunFlowTests
 extends RefCounted
 
+const DailyRooms := preload("res://content/daily_room_factory.gd")
+
 const BOARD_SIZE := Vector2(BoardGeometry.WORLD_GRID_SIZE)
 const LAUNCHER := BoardGeometry.LAUNCHER_WORLD
 const CONTROLLER_EVENT_PATH := "user://tests/deep_ricochet_controller_events_test.json"
@@ -12,7 +14,7 @@ static func run(controller: RunController, config: GameConfig) -> void:
 	_test_catalog_and_seeded_selection(controller.catalog, config)
 	_test_template_example_angles(controller.catalog, config)
 	_test_failed_run(controller.catalog, config)
-	_test_controller_four_room_flow(controller)
+	_test_controller_four_room_flow(controller, config)
 
 
 static func _test_mine_registry_normalizes_order() -> void:
@@ -38,7 +40,7 @@ static func _test_mine_registry_normalizes_order() -> void:
 
 static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: GameConfig) -> void:
 	assert(catalog != null)
-	assert(catalog.templates.size() == 98)
+	assert(catalog.templates.size() == 112)
 	var mine_counts: Dictionary[StringName, int] = {}
 	var block_type_counts: Dictionary[int, int] = {}
 	var mine_block_type_counts: Dictionary[StringName, Dictionary] = {}
@@ -49,8 +51,10 @@ static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: Gam
 	for template: RoomTemplate in catalog.templates:
 		assert(template.is_valid())
 		assert(template.create_board().core_count() == 1)
-		var mine_order := str(template.mine_id).trim_prefix("mine_").to_int()
-		assert(mine_order >= 1 and mine_order <= 7)
+		var is_daily := template.mine_id == DailyRooms.DAILY_MINE_ID
+		var mine_order := 7 if is_daily \
+			else str(template.mine_id).trim_prefix("mine_").to_int()
+		assert(is_daily or (mine_order >= 1 and mine_order <= 7))
 		if not layout_signatures.has(template.mine_id):
 			layout_signatures[template.mine_id] = {}
 		var mine_layouts: Dictionary = layout_signatures[template.mine_id]
@@ -83,6 +87,21 @@ static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: Gam
 		else:
 			assert(template.multiplier_bps == config.bonus_multiplier_bps)
 			assert(template.passage_columns.size() == 1)
+		if is_daily:
+			assert(template.blocks.size() == DailyRooms.TARGET_BLOCK_COUNT)
+			var daily_types: Dictionary[int, bool] = {}
+			for definition: RoomBlockDefinition in template.blocks:
+				daily_types[definition.block_type] = true
+			for required_type: int in [
+				BlockState.BlockType.NORMAL,
+				BlockState.BlockType.ORE,
+				BlockState.BlockType.ROCK,
+				BlockState.BlockType.CORE,
+				BlockState.BlockType.EXPLOSIVE,
+				BlockState.BlockType.CRACKED,
+				BlockState.BlockType.ARMORED,
+			]:
+				assert(daily_types.has(required_type))
 	var previous_classic_average := 0.0
 	for mine_order in range(1, 8):
 		var mine_id := StringName("mine_%02d" % mine_order)
@@ -108,6 +127,11 @@ static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: Gam
 			assert(mine_types.get(BlockState.BlockType.EXPLOSIVE, 0) > 0)
 			assert(mine_types.get(BlockState.BlockType.CRACKED, 0) > 0)
 			assert(mine_types.get(BlockState.BlockType.ARMORED, 0) > 0)
+	assert(mine_counts.get(DailyRooms.DAILY_MINE_ID, 0) == 14)
+	var daily_roles: Dictionary = role_counts[DailyRooms.DAILY_MINE_ID]
+	assert(daily_roles.get(RoomTemplate.Role.START, 0) == 2)
+	assert(daily_roles.get(RoomTemplate.Role.WIDE, 0) == 6)
+	assert(daily_roles.get(RoomTemplate.Role.NARROW, 0) == 6)
 
 	assert(block_type_counts.get(BlockState.BlockType.EXPLOSIVE, 0) > 0)
 	assert(block_type_counts.get(BlockState.BlockType.CRACKED, 0) > 0)
@@ -155,7 +179,12 @@ static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: Gam
 	var second_rng := RandomNumberGenerator.new()
 	second_rng.seed = 4444
 	assert(catalog.pick_first_room(first_rng, &"mine_07").room_id == catalog.pick_first_room(second_rng, &"mine_07").room_id)
-	for mine_id: StringName in [&"mine_01", &"mine_04", &"mine_07"]:
+	for mine_id: StringName in [
+		&"mine_01",
+		&"mine_04",
+		&"mine_07",
+		DailyRooms.DAILY_MINE_ID,
+	]:
 		for seed in [1, 4444, 98_765]:
 			var first_signature := _seeded_route_signature(catalog, config, seed, mine_id)
 			var second_signature := _seeded_route_signature(catalog, config, seed, mine_id)
@@ -279,7 +308,10 @@ static func _test_failed_run(catalog: RoomCatalog, config: GameConfig) -> void:
 	assert(not session.resolve_room(failure))
 
 
-static func _test_controller_four_room_flow(controller: RunController) -> void:
+static func _test_controller_four_room_flow(
+	controller: RunController,
+	config: GameConfig,
+) -> void:
 	controller.test_event_service = TestEventService.new(CONTROLLER_EVENT_PATH, 200)
 	assert(controller.test_event_service.clear_all())
 	assert(controller.start_new_run(777))
@@ -331,13 +363,28 @@ static func _test_controller_four_room_flow(controller: RunController) -> void:
 	assert(not controller.flow_view.visible)
 	var daily_key := "2026-11-11"
 	var daily_seed := controller.daily_seed_for_key(daily_key)
-	assert(controller.start_new_run(daily_seed, &"mine_01", RunSession.RunKind.DAILY, daily_key))
+	assert(daily_seed == controller.daily_seed_for_key(daily_key))
+	assert(daily_seed != controller.daily_seed_for_key("2026-11-12"))
+	assert(controller.start_new_run(
+		daily_seed,
+		&"mine_01",
+		RunSession.RunKind.DAILY,
+		daily_key,
+	))
 	assert(controller.run_session.run_kind == RunSession.RunKind.DAILY)
 	assert(controller.run_session.daily_key == daily_key)
+	assert(controller.run_session.mine_id == DailyRooms.DAILY_MINE_ID)
+	assert(controller.gameplay_room.room.shots_remaining == config.daily_shots_per_room)
+	assert(controller.gameplay_room.shots_per_room == config.daily_shots_per_room)
 	var daily_snapshot := controller.create_snapshot()
-	assert(daily_snapshot.mine_id == &"mine_01")
+	assert(daily_snapshot.mine_id == DailyRooms.DAILY_MINE_ID)
 	assert(daily_snapshot.run_kind == RunSession.RunKind.DAILY)
 	assert(daily_snapshot.daily_key == daily_key)
+	assert(daily_snapshot.validation_errors(controller.catalog, config).is_empty())
+	assert(controller.start_new_run(778))
+	assert(controller.restore_snapshot(daily_snapshot))
+	assert(controller.run_session.mine_id == DailyRooms.DAILY_MINE_ID)
+	assert(controller.gameplay_room.room.shots_remaining == config.daily_shots_per_room)
 	assert(controller.start_new_run(778))
 	assert(controller.run_session.banked_score == 0)
 	assert(controller.run_session.room_number == 1)

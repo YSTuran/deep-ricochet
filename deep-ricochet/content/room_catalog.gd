@@ -1,6 +1,8 @@
 class_name RoomCatalog
 extends RefCounted
 
+const DailyRooms := preload("res://content/daily_room_factory.gd")
+
 const DEFAULT_MANIFEST_PATH := "res://content/mines/catalog.json"
 const SUPPORTED_SCHEMA_VERSION := 1
 
@@ -48,6 +50,8 @@ static func load_from_manifest(path: String) -> RoomCatalog:
 				"Oda şablonu doğrulanamadı; doğrulanmış yedek kullanılıyor: %s" % template_path
 			)
 		catalog.templates.append(template)
+	if not DailyRooms.append_daily_templates(catalog.templates, catalog.content_version):
+		return null
 
 	var errors := catalog.validation_errors()
 	if not errors.is_empty():

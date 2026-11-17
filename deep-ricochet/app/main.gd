@@ -1,6 +1,8 @@
 class_name RunController
 extends Node
 
+const DailyRooms := preload("res://content/daily_room_factory.gd")
+
 @export var persistence_enabled := true
 @export var save_path := SaveService.DEFAULT_SAVE_PATH
 @export var profile_path := ProfileService.DEFAULT_PATH
@@ -218,17 +220,26 @@ func start_new_run(
 	run_kind: int = RunSession.RunKind.NORMAL,
 	daily_key: String = "",
 ) -> bool:
-	if catalog == null or mine_registry == null or mine_registry.get_mine(requested_mine_id) == null:
+	if catalog == null or mine_registry == null:
 		return false
-	if run_kind == RunSession.RunKind.NORMAL and profile != null \
-		and not profile.is_mine_unlocked(requested_mine_id):
-		return false
+	var effective_mine_id := requested_mine_id
+	if run_kind == RunSession.RunKind.DAILY:
+		if daily_key.is_empty():
+			return false
+		effective_mine_id = DailyRooms.DAILY_MINE_ID
+	else:
+		if mine_registry.get_mine(effective_mine_id) == null:
+			return false
+		if profile != null and not profile.is_mine_unlocked(effective_mine_id):
+			return false
 	var run_seed := requested_seed
-	if run_seed == 0:
+	if run_kind == RunSession.RunKind.DAILY:
+		run_seed = daily_seed_for_key(daily_key)
+	elif run_seed == 0:
 		run_seed = int(Time.get_unix_time_from_system() * 1000.0) ^ Time.get_ticks_usec()
 	var candidate_rng := RandomNumberGenerator.new()
 	candidate_rng.seed = run_seed
-	var first_template := catalog.pick_first_room(candidate_rng, requested_mine_id)
+	var first_template := catalog.pick_first_room(candidate_rng, effective_mine_id)
 	if first_template == null:
 		push_error("İlk güvenli oda seçilemedi.")
 		return false
@@ -240,7 +251,7 @@ func start_new_run(
 		config.room_count,
 		first_template,
 		_create_run_id(run_seed),
-		requested_mine_id,
+		effective_mine_id,
 		run_kind,
 		daily_key,
 	):
@@ -337,7 +348,12 @@ func request_mine_run(mine_id: StringName) -> bool:
 
 func request_daily_run() -> void:
 	var key := current_daily_key()
-	_prepare_new_run(&"mine_01", RunSession.RunKind.DAILY, daily_seed_for_key(key), key)
+	_prepare_new_run(
+		DailyRooms.DAILY_MINE_ID,
+		RunSession.RunKind.DAILY,
+		daily_seed_for_key(key),
+		key,
+	)
 	if pending_continue_snapshot != null or continue_in_memory:
 		request_new_game_confirmation(true)
 	else:
@@ -350,8 +366,10 @@ func current_daily_key() -> String:
 
 
 func daily_seed_for_key(key: String) -> int:
-	var digits := key.replace("-", "").to_int()
-	return maxi(1, digits * 97 + 31)
+	var seed_value := 0x2D28_16FE
+	for character: int in key.to_utf8_buffer():
+		seed_value = ((seed_value * 16_777_619) ^ character) & 0x7FFF_FFFF
+	return maxi(1, seed_value)
 
 
 func _prepare_new_run(mine_id: StringName, kind: int, seed: int, daily_key: String) -> void:
@@ -969,6 +987,10 @@ func _on_block_destroyed(block_type: int) -> void:
 
 
 func _load_current_room(template: RoomTemplate) -> bool:
+	if run_session == null or not gameplay_room.set_shots_per_room(
+		RunSession.shots_per_room_for_kind(config, run_session.run_kind)
+	):
+		return false
 	if not gameplay_room.load_room(template):
 		return false
 	gameplay_room.set_run_context(
@@ -989,6 +1011,10 @@ func _restore_snapshot(snapshot: RunSnapshot) -> bool:
 	var restored_session := snapshot.create_session(catalog)
 	var template := catalog.get_template(snapshot.current_template_id)
 	if restored_session == null or template == null:
+		return false
+	if not gameplay_room.set_shots_per_room(
+		RunSession.shots_per_room_for_kind(config, restored_session.run_kind)
+	):
 		return false
 	if not gameplay_room.restore_room(template, snapshot.active_room):
 		return false
@@ -1043,7 +1069,7 @@ func _restore_tutorial_coach() -> void:
 		tutorial_coach_step = 2
 	elif run_session.phase == RunSession.Phase.PLAYING and run_session.room_number == 1:
 		tutorial_coach_step = 0 if gameplay_room.room.break_score == 0 \
-			and gameplay_room.room.shots_remaining == config.shots_per_room else 1
+			and gameplay_room.room.shots_remaining == gameplay_room.shots_per_room else 1
 	else:
 		tutorial_coach_step = -1
 	if tutorial_coach_step >= 0:

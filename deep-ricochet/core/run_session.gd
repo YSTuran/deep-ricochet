@@ -12,6 +12,12 @@ enum RunKind {
 	DAILY,
 }
 
+
+static func shots_per_room_for_kind(config: GameConfig, kind: int) -> int:
+	if config == null:
+		return 0
+	return config.daily_shots_per_room if kind == RunKind.DAILY else config.shots_per_room
+
 var run_id: String
 var seed: int
 var content_version: String

@@ -5,6 +5,7 @@ const DEFAULT_PATH := "res://content/config/game_config.json"
 const INTEGER_FIELDS := [
 	"roomCount",
 	"shotsPerRoom",
+	"dailyShotsPerRoom",
 	"ballCount",
 	"previewMaxSolidBounces",
 	"safeMultiplierBps",
@@ -30,6 +31,7 @@ const NUMBER_FIELDS := [
 var config_version: String = "prototype-1"
 var room_count: int = 4
 var shots_per_room: int = 3
+var daily_shots_per_room: int = 5
 var ball_count: int = 8
 var ball_speed: float = 18.0
 var ball_radius: float = 0.07
@@ -69,6 +71,10 @@ static func load_from_file(path: String = DEFAULT_PATH) -> GameConfig:
 	config.config_version = str(data.get("configVersion", config.config_version))
 	config.room_count = int(data.get("roomCount", config.room_count))
 	config.shots_per_room = int(data.get("shotsPerRoom", config.shots_per_room))
+	config.daily_shots_per_room = int(data.get(
+		"dailyShotsPerRoom",
+		config.daily_shots_per_room,
+	))
 	config.ball_count = int(data.get("ballCount", config.ball_count))
 	config.ball_speed = float(data.get("ballSpeed", config.ball_speed))
 	config.ball_radius = float(data.get("ballRadius", config.ball_radius))
@@ -102,6 +108,8 @@ func validation_errors() -> PackedStringArray:
 		errors.append("Oda sayısı pozitif olmalıdır.")
 	if shots_per_room <= 0:
 		errors.append("Oda başına atış sayısı pozitif olmalıdır.")
+	if daily_shots_per_room < shots_per_room:
+		errors.append("Günlük maden atış sayısı normal atış sayısından az olamaz.")
 	if ball_count <= 0 or ball_count > 64:
 		errors.append("Top sayısı 1 ile 64 arasında olmalıdır.")
 	if not _is_positive_finite(ball_speed):

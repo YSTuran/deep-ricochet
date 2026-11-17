@@ -129,7 +129,7 @@ func _draw() -> void:
 	DeepUI.draw_chip(
 		self,
 		Rect2(30.0, 92.0, 116.0, 28.0),
-		tr("HUD_SHOTS_CHIP") % [room.room.shots_remaining, room.config.shots_per_room],
+		tr("HUD_SHOTS_CHIP") % [room.room.shots_remaining, room.shots_per_room],
 		DeepUI.GOLD,
 		12,
 	)

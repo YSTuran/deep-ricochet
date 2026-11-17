@@ -9,7 +9,7 @@ Deep Ricochet, dikey ekranda oynanan nişan alma ve sekme odaklı bir mobil oyun
 - `deep-ricochet/assets/images/icons/`: Uygulama, adaptive launcher ve proje ikonları.
 - `deep-ricochet/assets/audio/sfx/`: Oyunda kullanılan kısa ses efektleri.
 
-Etkin oda içerikleri `deep-ricochet/content/mines/rooms/` altındaki JSON şablonlarında, yedi madenin sırası ve kilit koşulları ise `deep-ricochet/content/mines/mines.json` içinde tutulur. Oynanış sahnesi bu şablonlardan blok dizilimini, blok canlarını, zırhlı blokların açık kenarlarını ve oda çarpanını yükler; kaynak şablonu değiştirmeden her başlangıçta yeni bir tahta üretir. Şablon paketi `deep-ricochet/tools/generate_mine_rooms.gd` ile deterministik olarak yeniden üretilebilir.
+Etkin oda içerikleri `deep-ricochet/content/mines/rooms/` altındaki JSON şablonlarında, yedi madenin sırası ve kilit koşulları ise `deep-ricochet/content/mines/mines.json` içinde tutulur. Oynanış sahnesi bu şablonlardan blok dizilimini, blok canlarını, zırhlı blokların açık kenarlarını ve oda çarpanını yükler; kaynak şablonu değiştirmeden her başlangıçta yeni bir tahta üretir. Günlük madenin 14 yoğun şablonu en zor normal maden düzenlerinden deterministik olarak türetilir. Şablon paketi `deep-ricochet/tools/generate_mine_rooms.gd` ile deterministik olarak yeniden üretilebilir.
 
 Godot'ta açılması gereken dosya `deep-ricochet/project.godot` dosyasıdır. Çalışma zamanı assetlerinin tamamı Godot'un `res://assets/` kökü altında tutulur; kullanılmayan üretim notları ve yinelenen kaynak kopyaları depoya eklenmez.
 
@@ -96,7 +96,8 @@ Oyun alanında fareyle ya da dokunmatik ekranla basılı tutup yön seçilir; b�
 - Yedi madenin her biri için dört odalık koşu; ilk oda başlangıç havuzundan, sonraki üç oda geniş geçit/dar damar rota çiftlerinden seçilir
 - Her maden için yedi temel düzenin yatay aynalarıyla oluşturulan 14 şablon; toplam 98 seed tabanlı şablon
 - Bir madeni başarıyla bitirince sıradakini açan seviye ilerlemesi, maden bazında en iyi skor ve tamamlanma sayısı
-- Her gün aynı yerel tarih için aynı seed'i kullanan, ilerleme kilitlerini etkilemeyen günlük maden
+- Her yerel tarih için farklı, aynı gün içinde tekrarlanabilir seed kullanan ve ilerleme kilitlerini etkilemeyen günlük maden
+- Her odasında yedi blok türünün tamamını ve toplam 14 bloğu kullanan özel günlük oda havuzu; günlük odalarda 3 yerine 5 atış hakkı
 - Düşük maliyetli efekt sınırı ve azaltılmış sarsıntı kullanan **Performans** modu ile daha yoğun görsel cila sunan **Grafik** modu
 
 2× seçeneği topların fizik hızını veya çarpışma sonuçlarını değiştirmez; her çizim karesinde iki sabit simülasyon adımı çalıştırır. Yeni koşu ve aynı seed tekrarı 1× hızda başlar. Titreşim yalnızca Android özelliği algılandığında çağrılır; masaüstü testleri ve diğer platformlarda devre dışı kalır.
@@ -150,6 +151,6 @@ Godot komut satırından proje kökünde şu sahne çalıştırılır:
 
 Bu kapı yalnız işlem koduna güvenmez; `[PASS]` işaretini zorunlu tutar ve GDScript ayrıştırma, derleme veya assertion hatası görürse başarısız olur. Android build betiği APK üretmeden önce aynı kapıyı otomatik çalıştırır ve çıktıdaki yerel kütüphanelerin yalnız ARMv7 olduğunu doğrular.
 
-Test; profil ve ayar geçişlerini, yedi madenin kilitleri ile günlük maden istatistiklerini, grafik/performans tercihini, titreşim ayarı ile eski ayar şeması göçünü, efekt/müzik bus'larını, melodik çarpışma hız sınırını, sessiz modu, profil yedeğinden kurtarmayı, iki dili, üç aşamalı ilk-oyun öğreticisini, tüm veri silme hata davranışını, ayrıntılı oda sonuç geçmişini, aynı seed tekrarını, 1×/2× sabit adımlı simülasyonu ve iki hızın aynı blok/puan/top sonucunu üretmesini, ana menü ve devam durumunu, nişan sırasında duraklatmayı, canlı yaylımın donmasını, odak kaybını, yedi madendeki 98 oda şablonunu, özel blokların seviye eşiklerini, zırh yönlerini, 3×3 ve zincirleme patlama davranışını, örnek açı geçişlerini, maden başına 100 seed seçimini, aynı seed'in tüm rota tekliflerini, dört oda/üç rota akışını, P1 test olaylarının izin listesi ile JSON dışa aktarımını, atış ortası kurtarmayı, bozuk kayıt reddini, fiziği ve puanı doğrular. Ayrıca 98 odanın örnek açı simülasyon süresini test çıktısında `[PERF]` satırıyla raporlar.
+Test; profil ve ayar geçişlerini, yedi madenin kilitleri ile günlük maden istatistiklerini, grafik/performans tercihini, titreşim ayarı ile eski ayar şeması göçünü, efekt/müzik bus'larını, melodik çarpışma hız sınırını, sessiz modu, profil yedeğinden kurtarmayı, iki dili, üç aşamalı ilk-oyun öğreticisini, tüm veri silme hata davranışını, ayrıntılı oda sonuç geçmişini, aynı seed tekrarını, 1×/2× sabit adımlı simülasyonu ve iki hızın aynı blok/puan/top sonucunu üretmesini, ana menü ve devam durumunu, nişan sırasında duraklatmayı, canlı yaylımın donmasını, odak kaybını, 98 normal ve 14 günlük oda şablonunu, günlük 5 atış kuralını, özel blokların seviye eşiklerini, zırh yönlerini, 3×3 ve zincirleme patlama davranışını, örnek açı geçişlerini, maden başına 100 seed seçimini, aynı seed'in tüm rota tekliflerini, dört oda/üç rota akışını, P1 test olaylarının izin listesi ile JSON dışa aktarımını, atış ortası kurtarmayı, bozuk kayıt reddini, fiziği ve puanı doğrular. Ayrıca 112 odanın örnek açı simülasyon süresini test çıktısında `[PERF]` satırıyla raporlar.
 
 Gerçek cihazda kalan kabul adımları [P1 kabul kontrol listesinde](P1_ACCEPTANCE.md) tutulur.

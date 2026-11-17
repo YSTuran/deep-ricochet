@@ -2,6 +2,7 @@
   "configVersion": "prototype-1",
   "roomCount": 4,
   "shotsPerRoom": 3,
+  "dailyShotsPerRoom": 5,
   "ballCount": 8,
   "ballSpeed": 18.0,
   "ballRadius": 0.07,

@@ -152,6 +152,7 @@ func to_dictionary() -> Dictionary:
 
 func validation_errors(catalog: RoomCatalog, config: GameConfig) -> PackedStringArray:
 	var errors := PackedStringArray()
+	var run_shots_per_room := RunSession.shots_per_room_for_kind(config, run_kind)
 	if schema_version not in [SCHEMA_VERSION, LEGACY_SCHEMA_VERSION, OLDEST_SUPPORTED_SCHEMA_VERSION]:
 		errors.append("Desteklenmeyen koşu snapshot sürümü.")
 	if run_id.strip_edges().is_empty() or seed == 0:
@@ -164,6 +165,8 @@ func validation_errors(catalog: RoomCatalog, config: GameConfig) -> PackedString
 		errors.append("Koşu türü geçersiz.")
 	if run_kind == RunSession.RunKind.DAILY and daily_key.is_empty():
 		errors.append("Günlük koşu anahtarı eksik.")
+	elif run_kind == RunSession.RunKind.DAILY and mine_id != &"daily":
+		errors.append("Günlük koşu özel günlük maden havuzunu kullanmalıdır.")
 	elif run_kind == RunSession.RunKind.NORMAL and not daily_key.is_empty():
 		errors.append("Normal koşuda günlük anahtarı bulunamaz.")
 	if room_count != config.room_count or room_number < 1 or room_number > room_count:
@@ -198,7 +201,7 @@ func validation_errors(catalog: RoomCatalog, config: GameConfig) -> PackedString
 	_validate_rng_history(catalog, errors)
 	if not selected_template_ids.has(current_template_id):
 		errors.append("Etkin şablon seçilmiş şablonlar arasında değil.")
-	_validate_room_results(catalog, config, errors)
+	_validate_room_results(catalog, config, run_shots_per_room, errors)
 
 	var current_template := catalog.get_template(current_template_id) if catalog != null else null
 	if current_template == null:
@@ -210,7 +213,11 @@ func validation_errors(catalog: RoomCatalog, config: GameConfig) -> PackedString
 	if active_room == null:
 		errors.append("Etkin oda snapshot eksik.")
 	elif current_template != null:
-		errors.append_array(active_room.validation_errors(current_template, config))
+		errors.append_array(active_room.validation_errors(
+			current_template,
+			config,
+			run_shots_per_room,
+		))
 		if active_room.template_id != current_template_id:
 			errors.append("Etkin oda ile koşu şablon kimliği uyuşmuyor.")
 		if phase == RunSession.Phase.PLAYING and active_room.room_finished:
@@ -285,6 +292,7 @@ func rng_state_for_restore(catalog: RoomCatalog) -> int:
 func _validate_room_results(
 	catalog: RoomCatalog,
 	config: GameConfig,
+	allowed_shots_per_room: int,
 	errors: PackedStringArray,
 ) -> void:
 	var expected_count := room_number if phase != RunSession.Phase.PLAYING else room_number - 1
@@ -298,7 +306,11 @@ func _validate_room_results(
 		if result == null:
 			errors.append("Oda sonucu geçmişinde boş kayıt var.")
 			continue
-		errors.append_array(result.validation_errors(catalog, config))
+		errors.append_array(result.validation_errors(
+			catalog,
+			config,
+			allowed_shots_per_room,
+		))
 		if result.room_number != result_index + 1:
 			errors.append("Oda sonucu sıralaması geçersiz.")
 		if result_index >= selected_template_ids.size() \

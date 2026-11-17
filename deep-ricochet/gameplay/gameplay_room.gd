@@ -41,10 +41,12 @@ var banked_score: int = 0
 var simulation_enabled := true
 var simulation_speed := 1
 var quality_mode: int = AppSettings.QualityMode.PERFORMANCE
+var shots_per_room := 3
 
 
 func _ready() -> void:
 	config = GameConfig.load_from_file()
+	shots_per_room = config.shots_per_room
 	view.bind(self)
 	status_text = tr("STATUS_AIM")
 	if current_template == null:
@@ -100,7 +102,7 @@ func capture_snapshot() -> RoomSnapshot:
 func restore_room(template: RoomTemplate, snapshot: RoomSnapshot) -> bool:
 	if template == null or snapshot == null or config == null:
 		return false
-	var errors := snapshot.validation_errors(template, config)
+	var errors := snapshot.validation_errors(template, config, shots_per_room)
 	if not errors.is_empty():
 		push_error("Oda snapshot geri yüklenemedi:\n- %s" % "\n- ".join(errors))
 		return false
@@ -137,6 +139,13 @@ func set_run_context(room_number: int, room_count: int, confirmed_score: int) ->
 	run_room_count = room_count
 	banked_score = confirmed_score
 	_refresh_view()
+
+
+func set_shots_per_room(value: int) -> bool:
+	if value <= 0:
+		return false
+	shots_per_room = value
+	return true
 
 
 func show_status(message: String) -> void:
@@ -386,7 +395,7 @@ func _commit_loaded_room(template: RoomTemplate, loaded_board: BoardModel) -> bo
 	board = loaded_board
 	volley = ShotVolley.new()
 	room = RoomSession.new()
-	room.start(config.shots_per_room, current_template.multiplier_bps)
+	room.start(shots_per_room, current_template.multiplier_bps)
 	_reset_transient_state()
 	status_text = tr("STATUS_AIM")
 	set_process_unhandled_input(simulation_enabled)

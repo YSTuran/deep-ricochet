@@ -1,6 +1,8 @@
 class_name MineRegistry
 extends RefCounted
 
+const DailyRooms := preload("res://content/daily_room_factory.gd")
+
 const DEFAULT_PATH := "res://content/mines/mines.json"
 const SUPPORTED_SCHEMA_VERSION := 1
 
@@ -86,8 +88,15 @@ func validation_errors() -> PackedStringArray:
 		if mine.order > 1 and mine.unlock_after != mine_id_for_order(mine.order - 1):
 			errors.append("%s madeninin kilit ön koşulu bir önceki maden olmalıdır." % mine.mine_id)
 	for template: RoomTemplate in catalog.templates:
+		if template.mine_id == DailyRooms.DAILY_MINE_ID:
+			continue
 		if not ids.has(template.mine_id):
 			errors.append("Oda şablonu bilinmeyen madene bağlı: %s." % template.room_id)
+	var daily_counts := catalog.role_counts(DailyRooms.DAILY_MINE_ID)
+	if int(daily_counts.get(RoomTemplate.Role.START, 0)) != 2 \
+		or int(daily_counts.get(RoomTemplate.Role.WIDE, 0)) != 6 \
+		or int(daily_counts.get(RoomTemplate.Role.NARROW, 0)) != 6:
+		errors.append("Günlük maden 2 başlangıç, 6 geniş ve 6 dar şablon içermelidir.")
 	return errors
 
 

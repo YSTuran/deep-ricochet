@@ -82,8 +82,14 @@ func to_dictionary() -> Dictionary:
 	}
 
 
-func validation_errors(template: RoomTemplate, config: GameConfig) -> PackedStringArray:
+func validation_errors(
+	template: RoomTemplate,
+	config: GameConfig,
+	allowed_shots_per_room: int = -1,
+) -> PackedStringArray:
 	var errors := PackedStringArray()
+	var maximum_shots := allowed_shots_per_room \
+		if allowed_shots_per_room > 0 else config.shots_per_room
 	if schema_version != SCHEMA_VERSION:
 		errors.append("Desteklenmeyen oda snapshot sürümü.")
 	if template == null or template.room_id != template_id:
@@ -91,7 +97,7 @@ func validation_errors(template: RoomTemplate, config: GameConfig) -> PackedStri
 		return errors
 	if multiplier_bps != template.multiplier_bps:
 		errors.append("Oda snapshot çarpanı şablonla uyuşmuyor.")
-	if shots_remaining < 0 or shots_remaining > config.shots_per_room:
+	if shots_remaining < 0 or shots_remaining > maximum_shots:
 		errors.append("Kalan atış sayısı geçersiz.")
 	if break_score < 0 or final_reward < 0:
 		errors.append("Oda puanı veya ödülü negatif olamaz.")

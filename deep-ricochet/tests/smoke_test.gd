@@ -12,6 +12,7 @@ func _ready() -> void:
 	assert(is_equal_approx(config.ball_speed, 18.0))
 	assert(config.explosive_break_points == 10)
 	assert(config.cracked_break_points == 6)
+	assert(config.daily_shots_per_room == 5)
 	assert(config.validation_errors().is_empty())
 	var invalid_config := GameConfig.new()
 	invalid_config.ball_count = 0
@@ -36,7 +37,7 @@ func _ready() -> void:
 	assert(run_controller.catalog != null)
 	assert(run_controller.mine_registry != null)
 	assert(run_controller.mine_registry.mines.size() == 7)
-	assert(run_controller.catalog.templates.size() == 98)
+	assert(run_controller.catalog.templates.size() == 112)
 	assert(run_controller.catalog.route_capacity_errors(config.room_count).is_empty())
 	assert(not run_controller.catalog.route_capacity_errors(8).is_empty())
 	assert(run_controller.run_session == null)

@@ -72,8 +72,14 @@ func to_dictionary() -> Dictionary:
 	}
 
 
-func validation_errors(catalog: RoomCatalog, config: GameConfig) -> PackedStringArray:
+func validation_errors(
+	catalog: RoomCatalog,
+	config: GameConfig,
+	allowed_shots_per_room: int = -1,
+) -> PackedStringArray:
 	var errors := PackedStringArray()
+	var maximum_shots := allowed_shots_per_room \
+		if allowed_shots_per_room > 0 else config.shots_per_room
 	if schema_version != SCHEMA_VERSION and schema_version != LEGACY_SCHEMA_VERSION:
 		errors.append("Desteklenmeyen oda sonucu sürümü.")
 	if room_number < 1 or room_number > config.room_count:
@@ -88,7 +94,7 @@ func validation_errors(catalog: RoomCatalog, config: GameConfig) -> PackedString
 			_validate_scored_blocks(template, config, errors)
 		elif schema_version == LEGACY_SCHEMA_VERSION:
 			_validate_legacy_break_score(template, config, errors)
-	if break_score < 0 or remaining_shots < 0 or remaining_shots > config.shots_per_room:
+	if break_score < 0 or remaining_shots < 0 or remaining_shots > maximum_shots:
 		errors.append("Oda sonucu puanı veya kalan atışı geçersiz.")
 	if not succeeded and remaining_shots != 0:
 		errors.append("Başarısız oda sonucunda kalan atış sıfır olmalıdır.")
