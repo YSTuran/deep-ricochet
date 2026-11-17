@@ -30,6 +30,12 @@ static func load_from_file(path: String) -> MineRegistry:
 	var registry := MineRegistry.new()
 	registry.content_version = str(data.get("contentVersion", ""))
 	registry.catalog = RoomCatalog.load_from_manifest(str(data.get("roomCatalog", "")))
+	if registry.catalog == null or not DailyRooms.append_daily_templates(
+		registry.catalog.templates,
+		registry.catalog.content_version,
+	):
+		return null
+	registry.catalog.daily_content_version = DailyRooms.CONTENT_VERSION
 	var raw_mines: Variant = data.get("mines", [])
 	if typeof(raw_mines) != TYPE_ARRAY:
 		return null

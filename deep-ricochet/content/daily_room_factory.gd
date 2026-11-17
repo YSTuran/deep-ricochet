@@ -3,7 +3,24 @@ extends RefCounted
 
 const DAILY_MINE_ID := &"daily"
 const SOURCE_MINE_ID := &"mine_07"
+const CONTENT_VERSION := "daily-1"
 const TARGET_BLOCK_COUNT := 14
+const SOURCE_ROOM_IDS: Array[StringName] = [
+	&"m7_start_a",
+	&"m7_start_b",
+	&"m7_wide_01_a",
+	&"m7_wide_01_b",
+	&"m7_wide_02_a",
+	&"m7_wide_02_b",
+	&"m7_wide_03_a",
+	&"m7_wide_03_b",
+	&"m7_narrow_01_a",
+	&"m7_narrow_01_b",
+	&"m7_narrow_02_a",
+	&"m7_narrow_02_b",
+	&"m7_narrow_03_a",
+	&"m7_narrow_03_b",
+]
 const DENSITY_TYPES: Array[int] = [
 	BlockState.BlockType.NORMAL,
 	BlockState.BlockType.ORE,
@@ -18,17 +35,21 @@ static func append_daily_templates(
 	templates: Array[RoomTemplate],
 	content_version: String,
 ) -> bool:
-	var sources: Array[RoomTemplate] = []
+	var sources_by_id: Dictionary[StringName, RoomTemplate] = {}
 	for template: RoomTemplate in templates:
 		if template.mine_id == SOURCE_MINE_ID:
-			sources.append(template)
-	if sources.size() != 14:
+			sources_by_id[template.room_id] = template
+	if sources_by_id.size() != SOURCE_ROOM_IDS.size():
 		push_error("Günlük oda üretimi tam 14 adet seviye 7 şablonu gerektirir.")
 		return false
 
-	for source_index in range(sources.size()):
+	for source_index in range(SOURCE_ROOM_IDS.size()):
+		var source: RoomTemplate = sources_by_id.get(SOURCE_ROOM_IDS[source_index])
+		if source == null:
+			push_error("Günlük oda kaynağı eksik: %s" % SOURCE_ROOM_IDS[source_index])
+			return false
 		var daily_template := _create_daily_template(
-			sources[source_index],
+			source,
 			source_index,
 			content_version,
 		)

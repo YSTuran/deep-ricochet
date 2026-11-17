@@ -123,6 +123,17 @@ func clear_all() -> bool:
 	return succeeded
 
 
+func discard_primary() -> bool:
+	last_error = ""
+	if not FileAccess.file_exists(primary_path):
+		return true
+	var remove_error := _remove(primary_path)
+	if remove_error == OK:
+		return true
+	last_error = "Etkin veri dosyası kaldırılamadı: %s (%s)" % [primary_path, remove_error]
+	return false
+
+
 func quarantine_invalid() -> void:
 	loaded_from_backup = false
 	var suffix := ".corrupt.%d" % int(Time.get_unix_time_from_system())

@@ -52,7 +52,7 @@ try {
         throw "Godot smoke tests exited with code $($process.ExitCode)."
     }
 
-    $failurePattern = '(?im)(SCRIPT ERROR:|Parse Error:|Compile Error:|Assertion failed|Failed to load script|Invalid call\.)'
+    $failurePattern = '(?im)(^ERROR:|SCRIPT ERROR:|Parse Error:|Compile Error:|Assertion failed|Failed to load script|Invalid call\.)'
     if ($combinedOutput -match $failurePattern) {
         throw "Godot smoke tests reported a script or assertion error."
     }

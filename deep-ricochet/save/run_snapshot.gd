@@ -1,7 +1,8 @@
 class_name RunSnapshot
 extends RefCounted
 
-const SCHEMA_VERSION := 4
+const SCHEMA_VERSION := 5
+const PREVIOUS_SCHEMA_VERSION := 4
 const LEGACY_SCHEMA_VERSION := 3
 const OLDEST_SUPPORTED_SCHEMA_VERSION := 2
 
@@ -10,6 +11,8 @@ var run_id: String
 var seed: int
 var rng_state: int
 var content_version: String
+var config_version: String
+var daily_content_version: String
 var mine_id: StringName = &"mine_01"
 var run_kind: int = RunSession.RunKind.NORMAL
 var daily_key: String
@@ -37,6 +40,8 @@ static func capture(
 	session: RunSession,
 	room_snapshot: RoomSnapshot,
 	current_rng_state: int,
+	current_config_version: String = "",
+	current_daily_content_version: String = "",
 ) -> RunSnapshot:
 	if session == null or room_snapshot == null:
 		return null
@@ -45,6 +50,8 @@ static func capture(
 	snapshot.seed = session.seed
 	snapshot.rng_state = current_rng_state
 	snapshot.content_version = session.content_version
+	snapshot.config_version = current_config_version
+	snapshot.daily_content_version = current_daily_content_version
 	snapshot.mine_id = session.mine_id
 	snapshot.run_kind = session.run_kind
 	snapshot.daily_key = session.daily_key
@@ -80,6 +87,8 @@ static func from_dictionary(data: Dictionary) -> RunSnapshot:
 	snapshot.seed = int(data.get("seed", 0))
 	snapshot.rng_state = int(str(data.get("rngState", "0")))
 	snapshot.content_version = str(data.get("contentVersion", ""))
+	snapshot.config_version = str(data.get("configVersion", ""))
+	snapshot.daily_content_version = str(data.get("dailyContentVersion", ""))
 	snapshot.mine_id = StringName(str(data.get("mineId", "mine_01")))
 	snapshot.run_kind = int(data.get("runKind", RunSession.RunKind.NORMAL))
 	snapshot.daily_key = str(data.get("dailyKey", ""))
@@ -126,6 +135,8 @@ func to_dictionary() -> Dictionary:
 		"seed": seed,
 		"rngState": str(rng_state),
 		"contentVersion": content_version,
+		"configVersion": config_version,
+		"dailyContentVersion": daily_content_version,
 		"mineId": str(mine_id),
 		"runKind": run_kind,
 		"dailyKey": daily_key,
@@ -153,12 +164,23 @@ func to_dictionary() -> Dictionary:
 func validation_errors(catalog: RoomCatalog, config: GameConfig) -> PackedStringArray:
 	var errors := PackedStringArray()
 	var run_shots_per_room := RunSession.shots_per_room_for_kind(config, run_kind)
-	if schema_version not in [SCHEMA_VERSION, LEGACY_SCHEMA_VERSION, OLDEST_SUPPORTED_SCHEMA_VERSION]:
+	if schema_version not in [
+		SCHEMA_VERSION,
+		PREVIOUS_SCHEMA_VERSION,
+		LEGACY_SCHEMA_VERSION,
+		OLDEST_SUPPORTED_SCHEMA_VERSION,
+	]:
 		errors.append("Desteklenmeyen koşu snapshot sürümü.")
 	if run_id.strip_edges().is_empty() or seed == 0:
 		errors.append("Koşu kimliği veya seed geçersiz.")
 	if catalog == null or content_version != catalog.content_version:
 		errors.append("Kayıt içerik sürümü mevcut katalogla uyuşmuyor.")
+	if schema_version == SCHEMA_VERSION:
+		if config == null or config_version != config.config_version:
+			errors.append("Kayıt oyun ayarı sürümüyle uyuşmuyor.")
+		if run_kind == RunSession.RunKind.DAILY \
+			and (catalog == null or daily_content_version != catalog.daily_content_version):
+			errors.append("Kayıt günlük maden içerik sürümüyle uyuşmuyor.")
 	if mine_id.is_empty():
 		errors.append("Koşu maden kimliği eksik.")
 	if run_kind < RunSession.RunKind.NORMAL or run_kind > RunSession.RunKind.DAILY:
@@ -272,7 +294,7 @@ func create_session(catalog: RoomCatalog) -> RunSession:
 
 
 func rng_state_for_restore(catalog: RoomCatalog) -> int:
-	if schema_version == SCHEMA_VERSION:
+	if schema_version >= PREVIOUS_SCHEMA_VERSION:
 		return rng_state
 	var history_rng := RandomNumberGenerator.new()
 	history_rng.seed = seed
@@ -396,7 +418,7 @@ func _validate_rng_history(catalog: RoomCatalog, errors: PackedStringArray) -> v
 			if selected_id != options[0].template.room_id \
 				and selected_id != options[1].template.room_id:
 				errors.append("Seçilen oda, o adımda sunulan rotalardan biri değil.")
-	if schema_version == SCHEMA_VERSION and rng_state != history_rng.state:
+	if schema_version >= PREVIOUS_SCHEMA_VERSION and rng_state != history_rng.state:
 		errors.append("Koşu RNG durumu seed ve rota geçmişiyle uyuşmuyor.")
 
 

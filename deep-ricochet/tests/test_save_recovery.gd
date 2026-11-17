@@ -16,6 +16,7 @@ static func run(controller: RunController, config: GameConfig, parent: Node) -> 
 	_test_snapshot_integrity(controller, config)
 	_test_backup_and_invalid_save(controller, service, config)
 	await _test_startup_restore(controller, service, parent)
+	await _test_daily_startup_restore(controller, service, config, parent)
 	assert(service.clear_all())
 
 
@@ -242,6 +243,8 @@ static func _test_snapshot_integrity(controller: RunController, config: GameConf
 	var snapshot := controller.create_snapshot()
 	assert(snapshot != null)
 	assert(snapshot.schema_version == RunSnapshot.SCHEMA_VERSION)
+	assert(snapshot.config_version == config.config_version)
+	assert(snapshot.daily_content_version == controller.catalog.daily_content_version)
 	assert(snapshot.mine_id == &"mine_01")
 	assert(snapshot.run_kind == RunSession.RunKind.NORMAL)
 	assert(snapshot.validation_errors(controller.catalog, config).is_empty())
@@ -307,6 +310,48 @@ static func _test_startup_restore(
 	assert(restored_controller.run_session.seed == 61_616)
 	assert(restored_controller.run_session.current_template_id == expected_template_id)
 	assert(restored_controller.gameplay_room.current_template.room_id == expected_template_id)
+	assert(restored_controller.test_event_service.clear_all())
+	restored_controller.queue_free()
+	await parent.get_tree().process_frame
+
+
+static func _test_daily_startup_restore(
+	controller: RunController,
+	service: SaveService,
+	config: GameConfig,
+	parent: Node,
+) -> void:
+	assert(service.clear_all())
+	var daily_key := "2026-11-15"
+	assert(controller.start_new_run(
+		controller.daily_seed_for_key(daily_key),
+		&"mine_01",
+		RunSession.RunKind.DAILY,
+		daily_key,
+	))
+	var expected_seed := controller.run_session.seed
+	var expected_template_id := controller.run_session.current_template_id
+	assert(controller.gameplay_room.room.shots_remaining == config.daily_shots_per_room)
+	assert(service.save_stable(controller.create_snapshot()))
+
+	var main_scene: PackedScene = load("res://app/main.tscn")
+	var restored_controller: RunController = main_scene.instantiate()
+	restored_controller.persistence_enabled = true
+	restored_controller.save_path = TEST_SAVE_PATH
+	restored_controller.profile_path = "user://tests/deep_ricochet_daily_restore_profile_test.json"
+	restored_controller.settings_path = "user://tests/deep_ricochet_daily_restore_settings_test.json"
+	restored_controller.test_event_path = "user://tests/deep_ricochet_daily_restore_events_test.json"
+	restored_controller.tutorial_enabled = false
+	parent.add_child(restored_controller)
+	await parent.get_tree().process_frame
+	assert(restored_controller.main_menu_view.continue_available)
+	assert(restored_controller.continue_saved_run())
+	assert(restored_controller.run_session.run_kind == RunSession.RunKind.DAILY)
+	assert(restored_controller.run_session.daily_key == daily_key)
+	assert(restored_controller.run_session.seed == expected_seed)
+	assert(restored_controller.run_session.current_template_id == expected_template_id)
+	assert(restored_controller.gameplay_room.shots_per_room == config.daily_shots_per_room)
+	assert(restored_controller.gameplay_room.room.shots_remaining == config.daily_shots_per_room)
 	assert(restored_controller.test_event_service.clear_all())
 	restored_controller.queue_free()
 	await parent.get_tree().process_frame

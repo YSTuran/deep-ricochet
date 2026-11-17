@@ -1,7 +1,14 @@
 class_name RunController
 extends Node
 
-const DailyRooms := preload("res://content/daily_room_factory.gd")
+const RunFactory := preload("res://app/run_session_factory.gd")
+const EventReporter := preload("res://app/run_event_reporter.gd")
+const RunSettingsController := preload("res://app/run_settings_controller.gd")
+const TutorialController := preload("res://app/tutorial_controller.gd")
+const UserDataController := preload("res://app/user_data_controller.gd")
+const StorageCoordinator := preload("res://app/storage_coordinator.gd")
+const RunPersistenceController := preload("res://app/run_persistence_controller.gd")
+const RunNavigationController := preload("res://app/run_navigation_controller.gd")
 
 @export var persistence_enabled := true
 @export var save_path := SaveService.DEFAULT_SAVE_PATH
@@ -39,6 +46,14 @@ var settings_service: SettingsService
 var test_event_service: TestEventService
 var profile: PlayerProfile
 var app_settings: AppSettings
+var session_factory = RunFactory.new()
+var event_reporter = EventReporter.new()
+var settings_controller = RunSettingsController.new()
+var tutorial_controller = TutorialController.new()
+var user_data_controller = UserDataController.new()
+var storage_coordinator = StorageCoordinator.new()
+var persistence_controller = RunPersistenceController.new()
+var navigation_controller = RunNavigationController.new()
 var last_save_error: String
 var last_recovery_message: String
 var last_result_new_best := false
@@ -55,13 +70,11 @@ var confirmation_from_main_menu := false
 var settings_context: SettingsContext = SettingsContext.MAIN_MENU
 var tutorial_return_to_settings := false
 var tutorial_coach_step := -1
-var run_id_sequence := 0
 var last_haptic_tick_msec := -HAPTIC_COOLDOWN_MSEC
 var pending_new_mine_id: StringName = &"mine_01"
 var pending_new_run_kind: int = RunSession.RunKind.NORMAL
 var pending_new_seed := 0
 var pending_new_daily_key: String
-var test_event_write_warning_shown := false
 
 
 func _ready() -> void:
@@ -78,6 +91,7 @@ func _ready() -> void:
 			push_error("%s koşu ayarını karşılamıyor:\n- %s" % [mine.mine_id, "\n- ".join(route_capacity_errors)])
 			catalog = null
 			return
+	session_factory.configure(config, catalog, mine_registry)
 	gameplay_room.room_finished.connect(_on_room_finished)
 	gameplay_room.shot_will_start.connect(_on_shot_will_start)
 	gameplay_room.shot_started.connect(_on_shot_started)
@@ -137,17 +151,7 @@ func _exit_tree() -> void:
 
 
 func _initialize_user_data() -> void:
-	profile = PlayerProfile.new()
-	app_settings = AppSettings.new()
-	if persistence_enabled:
-		profile_service = ProfileService.new(profile_path)
-		settings_service = SettingsService.new(settings_path)
-		test_event_service = TestEventService.new(test_event_path)
-		profile = profile_service.load_profile()
-		app_settings = settings_service.load_settings()
-	TranslationServer.set_locale(str(app_settings.language))
-	AudioManager.apply_settings(app_settings)
-	_apply_quality_mode()
+	persistence_controller.initialize_user_data(self)
 
 
 func _handle_back_request() -> void:
@@ -173,45 +177,7 @@ func _handle_back_request() -> void:
 
 
 func _boot_from_save() -> void:
-	if not persistence_enabled:
-		_show_main_menu(false)
-		return
-	save_service = SaveService.new(save_path)
-	var load_result := save_service.load_active(catalog, config)
-	if load_result.has_valid_save():
-		var snapshot := load_result.snapshot_for_restore()
-		if load_result.status == SaveLoadResult.Status.RECOVERED_BACKUP \
-			or load_result.interrupted_shot():
-			_record_snapshot_test_event(&"save_recovered", snapshot, {
-				"source": "startup",
-				"recoveredBackup": load_result.status == SaveLoadResult.Status.RECOVERED_BACKUP,
-				"interruptedShot": load_result.interrupted_shot(),
-			})
-		if snapshot.ended:
-			if _restore_snapshot(snapshot):
-				if load_result.status == SaveLoadResult.Status.RECOVERED_BACKUP:
-					last_recovery_message = load_result.message
-					save_service.discard_primary()
-				_save_stable()
-				return
-		else:
-			pending_continue_snapshot = snapshot
-			pending_continue_interrupted = load_result.interrupted_shot()
-			pending_continue_recovered_backup = (
-				load_result.status == SaveLoadResult.Status.RECOVERED_BACKUP
-			)
-			if pending_continue_interrupted:
-				pending_continue_notice = tr("NOTICE_INTERRUPTED")
-			elif pending_continue_recovered_backup:
-				pending_continue_notice = tr("NOTICE_BACKUP")
-			_show_main_menu(true, pending_continue_notice)
-			return
-	if load_result.status == SaveLoadResult.Status.INVALID:
-		last_recovery_message = tr("NOTICE_SAVE_INVALID")
-		save_service.quarantine_invalid()
-		_show_main_menu(false, last_recovery_message)
-		return
-	_show_main_menu(false)
+	persistence_controller.boot_from_save(self)
 
 
 func start_new_run(
@@ -220,50 +186,27 @@ func start_new_run(
 	run_kind: int = RunSession.RunKind.NORMAL,
 	daily_key: String = "",
 ) -> bool:
-	if catalog == null or mine_registry == null:
-		return false
-	var effective_mine_id := requested_mine_id
-	if run_kind == RunSession.RunKind.DAILY:
-		if daily_key.is_empty():
-			return false
-		effective_mine_id = DailyRooms.DAILY_MINE_ID
-	else:
-		if mine_registry.get_mine(effective_mine_id) == null:
-			return false
-		if profile != null and not profile.is_mine_unlocked(effective_mine_id):
-			return false
-	var run_seed := requested_seed
-	if run_kind == RunSession.RunKind.DAILY:
-		run_seed = daily_seed_for_key(daily_key)
-	elif run_seed == 0:
-		run_seed = int(Time.get_unix_time_from_system() * 1000.0) ^ Time.get_ticks_usec()
-	var candidate_rng := RandomNumberGenerator.new()
-	candidate_rng.seed = run_seed
-	var first_template := catalog.pick_first_room(candidate_rng, effective_mine_id)
-	if first_template == null:
-		push_error("İlk güvenli oda seçilemedi.")
-		return false
-
-	var new_session := RunSession.new()
-	if not new_session.start_run(
-		run_seed,
-		catalog.content_version,
-		config.room_count,
-		first_template,
-		_create_run_id(run_seed),
-		effective_mine_id,
+	var prepared: Dictionary = session_factory.create_run(
+		requested_seed,
+		requested_mine_id,
 		run_kind,
 		daily_key,
-	):
-		push_error("Koşu oturumu başlatılamadı.")
+		profile,
+	)
+	if prepared.is_empty():
+		if not session_factory.last_error.is_empty():
+			push_error(session_factory.last_error)
 		return false
+	var new_session: RunSession = prepared["session"]
+	var first_template: RoomTemplate = prepared["first_template"]
+	var run_seed := int(prepared["seed"])
 	var previous_session := run_session
 	run_session = new_session
 	if not _load_current_room(first_template):
 		run_session = previous_session
 		return false
 	rng.seed = run_seed
-	rng.state = candidate_rng.state
+	rng.state = int(prepared["rng_state"])
 	_leave_pause_state()
 	_clear_pending_continue()
 	main_menu_view.hide_menu()
@@ -286,35 +229,7 @@ func start_new_run(
 
 
 func continue_saved_run() -> bool:
-	if continue_in_memory and run_session != null:
-		continue_in_memory = false
-		main_menu_view.hide_menu()
-		_restore_active_screen()
-		_record_test_event(&"session_resumed", {"source": "memory"})
-		return true
-	if pending_continue_snapshot == null:
-		return false
-
-	var snapshot := pending_continue_snapshot
-	var recovery_message := pending_continue_notice
-	var recovered_backup := pending_continue_recovered_backup
-	var interrupted_shot := pending_continue_interrupted
-	if not _restore_snapshot(snapshot):
-		_show_main_menu(true, tr("NOTICE_LOAD_FAILED"))
-		return false
-	if recovered_backup and save_service != null:
-		save_service.discard_primary()
-	_clear_pending_continue()
-	last_recovery_message = recovery_message
-	if not recovery_message.is_empty():
-		gameplay_room.show_status(recovery_message)
-	_save_stable()
-	_record_test_event(&"session_resumed", {
-		"source": "saved_run",
-		"recoveredBackup": recovered_backup,
-		"interruptedShot": interrupted_shot,
-	})
-	return true
+	return persistence_controller.continue_saved_run(self)
 
 
 func request_new_game_from_menu() -> void:
@@ -322,416 +237,147 @@ func request_new_game_from_menu() -> void:
 
 
 func open_mine_selection() -> void:
-	main_menu_view.hide_menu()
-	mine_select_view.show_selector()
+	navigation_controller.open_mine_selection(self)
 
 
 func close_mine_selection() -> void:
-	mine_select_view.hide_selector()
-	main_menu_view.show_menu(
-		pending_continue_snapshot != null or continue_in_memory,
-		pending_continue_notice,
-	)
+	navigation_controller.close_mine_selection(self)
 
 
 func request_mine_run(mine_id: StringName) -> bool:
-	if mine_registry == null or mine_registry.get_mine(mine_id) == null \
-		or profile == null or not profile.is_mine_unlocked(mine_id):
-		return false
-	_prepare_new_run(mine_id, RunSession.RunKind.NORMAL, 0, "")
-	if pending_continue_snapshot != null or continue_in_memory:
-		request_new_game_confirmation(true)
-	else:
-		start_new_run(0, mine_id)
-	return true
+	return navigation_controller.request_mine_run(self, mine_id)
 
 
 func request_daily_run() -> void:
-	var key := current_daily_key()
-	_prepare_new_run(
-		DailyRooms.DAILY_MINE_ID,
-		RunSession.RunKind.DAILY,
-		daily_seed_for_key(key),
-		key,
-	)
-	if pending_continue_snapshot != null or continue_in_memory:
-		request_new_game_confirmation(true)
-	else:
-		start_new_run(pending_new_seed, pending_new_mine_id, pending_new_run_kind, key)
+	navigation_controller.request_daily_run(self)
 
 
 func current_daily_key() -> String:
-	var date := Time.get_date_dict_from_system()
-	return "%04d-%02d-%02d" % [int(date["year"]), int(date["month"]), int(date["day"])]
+	return RunFactory.current_daily_key()
 
 
 func daily_seed_for_key(key: String) -> int:
-	var seed_value := 0x2D28_16FE
-	for character: int in key.to_utf8_buffer():
-		seed_value = ((seed_value * 16_777_619) ^ character) & 0x7FFF_FFFF
-	return maxi(1, seed_value)
+	return RunFactory.daily_seed_for_key(key)
 
 
 func _prepare_new_run(mine_id: StringName, kind: int, seed: int, daily_key: String) -> void:
-	pending_new_mine_id = mine_id
-	pending_new_run_kind = kind
-	pending_new_seed = seed
-	pending_new_daily_key = daily_key
+	navigation_controller.prepare_new_run(self, mine_id, kind, seed, daily_key)
 
 
 func request_new_game_confirmation(from_main_menu: bool) -> void:
-	if not from_main_menu:
-		var current_mine := run_session.mine_id if run_session != null else &"mine_01"
-		_prepare_new_run(current_mine, RunSession.RunKind.NORMAL, 0, "")
-	confirmation_from_main_menu = from_main_menu
-	pause_overlay.show_new_game_confirmation()
-	if not from_main_menu:
-		pause_active = true
-		get_tree().paused = true
+	navigation_controller.request_new_game_confirmation(self, from_main_menu)
 
 
 func cancel_new_game_confirmation() -> void:
-	if confirmation_from_main_menu:
-		pause_overlay.hide_overlay()
-	else:
-		pause_overlay.show_pause()
+	navigation_controller.cancel_new_game_confirmation(self)
 
 
 func confirm_new_game() -> void:
-	confirmation_from_main_menu = false
-	_leave_pause_state()
-	start_new_run(
-		pending_new_seed,
-		pending_new_mine_id,
-		pending_new_run_kind,
-		pending_new_daily_key,
-	)
+	navigation_controller.confirm_new_game(self)
 
 
 func restart_same_seed() -> bool:
-	if run_session == null or not run_session.ended or catalog == null:
-		return false
-	if run_session.content_version != catalog.content_version:
-		return false
-	var retry_seed := run_session.seed
-	var previous_run_id := run_session.run_id
-	var restarted := start_new_run(
-		retry_seed,
-		run_session.mine_id,
-		run_session.run_kind,
-		run_session.daily_key,
-	)
-	if restarted:
-		_record_test_event(&"run_restarted", {
-			"previousRunId": previous_run_id,
-			"sameSeed": true,
-		})
-	return restarted
+	return navigation_controller.restart_same_seed(self)
 
 
 func restart_current_mine() -> bool:
-	if run_session == null or not run_session.ended:
-		return false
-	if run_session.run_kind == RunSession.RunKind.DAILY:
-		return restart_same_seed()
-	var previous_run_id := run_session.run_id
-	var restarted := start_new_run(0, run_session.mine_id, RunSession.RunKind.NORMAL)
-	if restarted:
-		_record_test_event(&"run_restarted", {
-			"previousRunId": previous_run_id,
-			"sameSeed": false,
-		})
-	return restarted
+	return navigation_controller.restart_current_mine(self)
 
 
 func next_mine_id_from_result() -> StringName:
-	if run_session == null or not run_session.ended or not run_session.succeeded \
-		or run_session.run_kind != RunSession.RunKind.NORMAL or mine_registry == null:
-		return &""
-	var current_mine := mine_registry.get_mine(run_session.mine_id)
-	if current_mine == null:
-		return &""
-	return mine_registry.mine_id_for_order(current_mine.order + 1)
+	return navigation_controller.next_mine_id_from_result(self)
 
 
 func start_next_mine_from_result() -> bool:
-	if run_session == null or not run_session.ended or not run_session.succeeded \
-		or run_session.run_kind != RunSession.RunKind.NORMAL or mine_registry == null:
-		return false
-	var next_mine_id := next_mine_id_from_result()
-	if not next_mine_id.is_empty():
-		return start_new_run(0, next_mine_id, RunSession.RunKind.NORMAL)
-	if not show_main_menu_from_result():
-		return false
-	open_mine_selection()
-	return true
+	return navigation_controller.start_next_mine_from_result(self)
 
 
 func toggle_simulation_speed() -> void:
-	if main_menu_view.visible or pause_active or run_session == null or run_session.ended:
-		return
-	if flow_view.screen != RunFlowView.Screen.GAMEPLAY:
-		return
-	gameplay_room.set_simulation_speed(2 if gameplay_room.simulation_speed == 1 else 1)
-	AudioManager.play_ui_click()
-	_refresh_speed_button()
+	navigation_controller.toggle_simulation_speed(self)
 
 
 func request_main_menu_confirmation() -> void:
-	if not pause_active or run_session == null or run_session.ended:
-		return
-	confirmation_from_main_menu = false
-	pause_overlay.show_main_menu_confirmation()
+	navigation_controller.request_main_menu_confirmation(self)
 
 
 func confirm_main_menu_return() -> void:
-	if not pause_active or pause_overlay.mode != PauseOverlay.Mode.CONFIRM_MAIN_MENU:
-		return
-	pause_overlay.hide_overlay()
-	return_to_main_menu()
+	navigation_controller.confirm_main_menu_return(self)
 
 
 func open_settings_from_main_menu() -> void:
-	settings_context = SettingsContext.MAIN_MENU
-	settings_overlay.show_settings()
+	settings_controller.open_from_main_menu(self)
 
 
 func open_settings_from_pause() -> void:
-	if not pause_active:
-		return
-	settings_context = SettingsContext.PAUSE
-	pause_overlay.hide_overlay()
-	settings_overlay.show_settings()
+	settings_controller.open_from_pause(self)
 
 
 func close_settings() -> void:
-	settings_overlay.hide_overlay()
-	if settings_context == SettingsContext.PAUSE and pause_active:
-		pause_overlay.show_pause()
+	settings_controller.close(self)
 
 
 func set_language(language: StringName) -> bool:
-	if app_settings == null or not AppSettings.SUPPORTED_LANGUAGES.has(language):
-		return false
-	app_settings.language = language
-	TranslationServer.set_locale(str(language))
-	_save_app_settings()
-	_refresh_localized_views()
-	return true
+	return settings_controller.set_language(self, language)
 
 
 func toggle_sfx() -> void:
-	if app_settings == null:
-		return
-	app_settings.sfx_enabled = not app_settings.sfx_enabled
-	AudioManager.apply_settings(app_settings)
-	_save_app_settings()
-	settings_overlay.queue_redraw()
-	if app_settings.sfx_enabled:
-		AudioManager.play_ui_confirm()
+	settings_controller.toggle_sfx(self)
 
 
 func set_sfx_volume(volume: float) -> void:
-	if app_settings == null:
-		return
-	app_settings.sfx_volume = clampf(volume, 0.0, 1.0)
-	AudioManager.apply_settings(app_settings)
-	_save_app_settings()
-	settings_overlay.queue_redraw()
+	settings_controller.set_sfx_volume(self, volume)
 
 
 func toggle_music() -> void:
-	if app_settings == null:
-		return
-	app_settings.music_enabled = not app_settings.music_enabled
-	AudioManager.apply_settings(app_settings)
-	_save_app_settings()
-	settings_overlay.queue_redraw()
+	settings_controller.toggle_music(self)
 
 
 func set_music_volume(volume: float) -> void:
-	if app_settings == null:
-		return
-	app_settings.music_volume = clampf(volume, 0.0, 1.0)
-	AudioManager.apply_settings(app_settings)
-	_save_app_settings()
-	settings_overlay.queue_redraw()
+	settings_controller.set_music_volume(self, volume)
 
 
 func toggle_screen_shake() -> void:
-	if app_settings == null:
-		return
-	app_settings.shake_enabled = not app_settings.shake_enabled
-	_save_app_settings()
-	settings_overlay.queue_redraw()
+	settings_controller.toggle_screen_shake(self)
 
 
 func toggle_haptics() -> void:
-	if app_settings == null:
-		return
-	app_settings.haptics_enabled = not app_settings.haptics_enabled
-	_save_app_settings()
-	settings_overlay.queue_redraw()
-	if app_settings.haptics_enabled:
-		_try_haptic(25)
+	settings_controller.toggle_haptics(self)
 
 
 func set_quality_mode(mode: int) -> void:
-	if app_settings == null or mode < AppSettings.QualityMode.PERFORMANCE \
-		or mode > AppSettings.QualityMode.GRAPHICS:
-		return
-	app_settings.quality_mode = mode
-	_apply_quality_mode()
-	_save_app_settings()
-	settings_overlay.queue_redraw()
+	settings_controller.set_quality_mode(self, mode)
 
 
 func show_tutorial_from_settings() -> void:
-	tutorial_return_to_settings = true
-	settings_overlay.hide_overlay()
-	_show_tutorial()
+	settings_controller.show_tutorial(self)
 
 
 func export_test_events_to_clipboard() -> bool:
-	if test_event_service == null or test_event_service.event_count() <= 0:
-		settings_overlay.show_settings(
-			tr("NOTICE_TEST_EVENTS_EMPTY"),
-			SettingsOverlay.Page.GENERAL,
-		)
-		return false
-	var exported_json := test_event_service.export_json()
-	if exported_json.is_empty():
-		settings_overlay.show_settings(
-			tr("NOTICE_TEST_EVENTS_FAILED"),
-			SettingsOverlay.Page.GENERAL,
-		)
-		return false
-	DisplayServer.clipboard_set(exported_json)
-	AudioManager.play_ui_confirm()
-	settings_overlay.show_settings(
-		tr("NOTICE_TEST_EVENTS_COPIED") % test_event_service.event_count(),
-		SettingsOverlay.Page.GENERAL,
-	)
-	return true
+	return settings_controller.export_test_events_to_clipboard(self)
 
 
 func complete_tutorial() -> void:
-	if not tutorial_overlay.is_modal():
-		return
-	tutorial_overlay.hide_overlay()
-	tutorial_coach_step = -1
-	if profile != null:
-		profile.tutorial_completed = true
-		_save_profile()
-	if tutorial_return_to_settings:
-		tutorial_return_to_settings = false
-		settings_overlay.show_settings("", SettingsOverlay.Page.GENERAL)
-	elif run_session != null:
-		_restore_active_screen()
+	tutorial_controller.complete(self)
 
 
 func confirm_reset_progress() -> bool:
-	var replacement_profile := PlayerProfile.new()
-	var errors := PackedStringArray()
-	if save_service != null and not save_service.clear_all():
-		errors.append(save_service.last_error)
-	if profile_service != null:
-		if not profile_service.clear_all():
-			errors.append(profile_service.last_error)
-		elif not profile_service.save_profile(replacement_profile):
-			errors.append(profile_service.last_error)
-
-	if not errors.is_empty():
-		last_save_error = "; ".join(errors)
-		push_warning("İlerleme sıfırlanamadı: %s" % last_save_error)
-		_save_profile()
-		if run_session != null:
-			_save_stable()
-		settings_overlay.show_settings(
-			tr("NOTICE_STORAGE_FAILED"),
-			SettingsOverlay.Page.GENERAL,
-		)
-		return false
-
-	profile = replacement_profile
-	run_session = null
-	last_result_new_best = false
-	tutorial_coach_step = -1
-	_clear_storage_failure_state()
-	_clear_pending_continue()
-	settings_overlay.hide_overlay()
-	tutorial_overlay.hide_overlay()
-	pause_overlay.hide_overlay()
-	_leave_pause_state()
-	_show_main_menu(false, tr("NOTICE_PROGRESS_RESET"))
-	return true
+	return user_data_controller.reset_progress(self)
 
 
 func confirm_delete_all_data() -> bool:
-	var errors := PackedStringArray()
-	if save_service != null and not save_service.clear_all():
-		errors.append(save_service.last_error)
-	if profile_service != null and not profile_service.clear_all():
-		errors.append(profile_service.last_error)
-	if settings_service != null and not settings_service.clear_all():
-		errors.append(settings_service.last_error)
-	if test_event_service != null and not test_event_service.clear_all():
-		errors.append(test_event_service.last_error)
-	if not errors.is_empty():
-		last_save_error = "; ".join(errors)
-		push_warning("Tüm veriler silinemedi: %s" % last_save_error)
-		_save_profile()
-		_save_app_settings()
-		if run_session != null:
-			_save_stable()
-		settings_overlay.show_settings(
-			tr("NOTICE_STORAGE_FAILED"),
-			SettingsOverlay.Page.GENERAL,
-		)
-		return false
-
-	profile = PlayerProfile.new()
-	app_settings = AppSettings.new()
-	run_session = null
-	last_result_new_best = false
-	tutorial_coach_step = -1
-	_clear_storage_failure_state()
-	_clear_pending_continue()
-	TranslationServer.set_locale(str(app_settings.language))
-	AudioManager.apply_settings(app_settings)
-	_apply_quality_mode()
-	settings_overlay.hide_overlay()
-	tutorial_overlay.hide_overlay()
-	pause_overlay.hide_overlay()
-	_leave_pause_state()
-	_refresh_localized_views()
-	_show_main_menu(false, tr("NOTICE_ALL_DATA_DELETED"))
-	return true
+	return user_data_controller.delete_all(self)
 
 
 func _maybe_show_first_tutorial() -> void:
-	if tutorial_enabled and profile != null and not profile.tutorial_completed:
-		tutorial_return_to_settings = false
-		tutorial_coach_step = 0
-		tutorial_overlay.show_coach(tutorial_coach_step)
+	tutorial_controller.maybe_show_first(self)
 
 
 func _show_tutorial() -> void:
-	tutorial_coach_step = -1
-	gameplay_room.set_simulation_enabled(false)
-	pause_button.visible = false
-	speed_button.visible = false
-	tutorial_overlay.show_tutorial()
+	tutorial_controller.show(self)
 
 
 func _finish_interactive_tutorial() -> void:
-	if tutorial_coach_step < 0:
-		return
-	tutorial_coach_step = -1
-	tutorial_overlay.hide_overlay()
-	if profile != null and not profile.tutorial_completed:
-		profile.tutorial_completed = true
-		_save_profile()
+	tutorial_controller.finish_interactive(self)
 
 
 func _refresh_localized_views() -> void:
@@ -744,81 +390,19 @@ func _refresh_localized_views() -> void:
 
 
 func pause_game() -> void:
-	if pause_active or main_menu_view.visible or run_session == null or run_session.ended:
-		return
-	if flow_view.screen != RunFlowView.Screen.GAMEPLAY \
-		and flow_view.screen != RunFlowView.Screen.ROUTE_SELECTION:
-		return
-	gameplay_room.cancel_aim_for_pause()
-	if tutorial_overlay.mode == TutorialOverlay.Mode.COACH:
-		tutorial_overlay.hide_overlay()
-	if not gameplay_room.room.shot_in_progress:
-		_save_stable()
-	pause_origin_screen = flow_view.screen
-	pause_active = true
-	pause_button.visible = false
-	speed_button.visible = false
-	pause_overlay.show_pause()
-	get_tree().paused = true
+	navigation_controller.pause_game(self)
 
 
 func resume_game() -> void:
-	if not pause_active:
-		return
-	_leave_pause_state()
-	pause_overlay.hide_overlay()
-	_restore_active_screen()
-	_record_test_event(&"session_resumed", {"source": "pause"})
+	navigation_controller.resume_game(self)
 
 
 func return_to_main_menu() -> void:
-	if run_session == null or run_session.ended:
-		return
-	var notice := tr("NOTICE_RUN_SAVED")
-	continue_in_memory = false
-	pending_continue_snapshot = null
-	pending_continue_interrupted = false
-	pending_continue_recovered_backup = false
-
-	if gameplay_room.room.shot_in_progress:
-		if persistence_enabled and save_service != null:
-			var load_result := save_service.load_active(catalog, config)
-			if load_result.has_valid_save():
-				pending_continue_snapshot = load_result.snapshot_for_restore()
-				pending_continue_interrupted = true
-				pending_continue_recovered_backup = (
-					load_result.status == SaveLoadResult.Status.RECOVERED_BACKUP
-				)
-				notice = tr("NOTICE_SHOT_RETRY")
-			else:
-				continue_in_memory = true
-				notice = tr("NOTICE_MEMORY_ONLY")
-		else:
-			continue_in_memory = true
-			notice = tr("NOTICE_MEMORY_ONLY")
-	else:
-		pending_continue_snapshot = create_snapshot()
-		_save_stable()
-
-	pending_continue_notice = notice
-	gameplay_room.set_simulation_enabled(false)
-	_leave_pause_state()
-	_show_main_menu(pending_continue_snapshot != null or continue_in_memory, notice)
+	navigation_controller.return_to_main_menu(self)
 
 
 func show_main_menu_from_result() -> bool:
-	if save_service != null and not save_service.clear_all():
-		last_save_error = save_service.last_error
-		push_warning("Tamamlanan koşu kaydı kaldırılamadı: %s" % last_save_error)
-		_clear_pending_continue()
-		continue_in_memory = true
-		_show_main_menu(true, tr("NOTICE_STORAGE_FAILED"))
-		return false
-	_mark_storage_write_succeeded(&"run")
-	run_session = null
-	_clear_pending_continue()
-	_show_main_menu(false)
-	return true
+	return navigation_controller.show_main_menu_from_result(self)
 
 
 func select_route(option_id: StringName) -> bool:
@@ -916,19 +500,11 @@ func _on_room_finished(resolution: RoomResolution) -> void:
 
 
 func create_snapshot() -> RunSnapshot:
-	if run_session == null:
-		return null
-	var room_snapshot := gameplay_room.capture_snapshot()
-	return RunSnapshot.capture(run_session, room_snapshot, rng.state)
+	return persistence_controller.create_snapshot(self)
 
 
 func restore_snapshot(snapshot: RunSnapshot, recovery_message: String = "") -> bool:
-	if not _restore_snapshot(snapshot):
-		return false
-	last_recovery_message = recovery_message
-	if not recovery_message.is_empty():
-		gameplay_room.show_status(recovery_message)
-	return true
+	return persistence_controller.restore_snapshot(self, snapshot, recovery_message)
 
 
 func _on_shot_will_start() -> void:
@@ -1002,38 +578,7 @@ func _load_current_room(template: RoomTemplate) -> bool:
 
 
 func _restore_snapshot(snapshot: RunSnapshot) -> bool:
-	if snapshot == null:
-		return false
-	var errors := snapshot.validation_errors(catalog, config)
-	if not errors.is_empty():
-		push_error("Koşu snapshot geri yüklenemedi:\n- %s" % "\n- ".join(errors))
-		return false
-	var restored_session := snapshot.create_session(catalog)
-	var template := catalog.get_template(snapshot.current_template_id)
-	if restored_session == null or template == null:
-		return false
-	if not gameplay_room.set_shots_per_room(
-		RunSession.shots_per_room_for_kind(config, restored_session.run_kind)
-	):
-		return false
-	if not gameplay_room.restore_room(template, snapshot.active_room):
-		return false
-	run_session = restored_session
-	gameplay_room.set_run_context(
-		restored_session.room_number,
-		restored_session.room_count,
-		restored_session.banked_score,
-	)
-	rng.seed = snapshot.seed
-	rng.state = snapshot.rng_state_for_restore(catalog)
-	if run_session.ended:
-		_record_run_result_if_needed()
-	main_menu_view.hide_menu()
-	mine_select_view.hide_selector()
-	pause_overlay.hide_overlay()
-	_leave_pause_state()
-	_restore_active_screen()
-	return true
+	return persistence_controller.restore_internal(self, snapshot)
 
 
 func _restore_active_screen() -> void:
@@ -1060,22 +605,7 @@ func _restore_active_screen() -> void:
 
 
 func _restore_tutorial_coach() -> void:
-	if not tutorial_enabled or profile == null or profile.tutorial_completed or run_session == null:
-		tutorial_coach_step = -1
-		if tutorial_overlay.mode == TutorialOverlay.Mode.COACH:
-			tutorial_overlay.hide_overlay()
-		return
-	if run_session.phase == RunSession.Phase.ROUTE_SELECTION and run_session.room_number == 1:
-		tutorial_coach_step = 2
-	elif run_session.phase == RunSession.Phase.PLAYING and run_session.room_number == 1:
-		tutorial_coach_step = 0 if gameplay_room.room.break_score == 0 \
-			and gameplay_room.room.shots_remaining == gameplay_room.shots_per_room else 1
-	else:
-		tutorial_coach_step = -1
-	if tutorial_coach_step >= 0:
-		tutorial_overlay.show_coach(tutorial_coach_step)
-	elif tutorial_overlay.mode == TutorialOverlay.Mode.COACH:
-		tutorial_overlay.hide_overlay()
+	tutorial_controller.restore_coach(self)
 
 
 func _show_main_menu(can_continue: bool, notice: String = "") -> void:
@@ -1126,63 +656,27 @@ func _record_run_result_if_needed() -> void:
 
 
 func _save_profile() -> void:
-	if profile_service == null:
-		return
-	if profile_service.save_profile(profile):
-		_mark_storage_write_succeeded(&"profile")
-	else:
-		_report_save_error(profile_service.last_error, &"profile")
+	storage_coordinator.save_profile(self)
 
 
 func _save_app_settings() -> void:
-	if settings_service == null:
-		return
-	if settings_service.save_settings(app_settings):
-		_mark_storage_write_succeeded(&"settings")
-	else:
-		_report_save_error(settings_service.last_error, &"settings")
+	storage_coordinator.save_settings(self)
 
 
 func _save_stable() -> void:
-	if not persistence_enabled or save_service == null:
-		return
-	var snapshot := create_snapshot()
-	if save_service.save_stable(snapshot):
-		_mark_storage_write_succeeded(&"run")
-	else:
-		_report_save_error(save_service.last_error, &"run")
+	storage_coordinator.save_stable(self)
 
 
 func _report_save_error(error_message: String = "", channel: StringName = &"run") -> void:
-	last_save_error = error_message
-	if last_save_error.is_empty():
-		last_save_error = save_service.last_error if save_service != null else "Kayıt servisi hazır değil."
-	push_warning("Yerel veri yazılamadı: %s" % last_save_error)
-	var failure_episode_active := not failed_storage_channels.is_empty()
-	failed_storage_channels[channel] = true
-	if failure_episode_active:
-		return
-	if is_instance_valid(storage_notice):
-		storage_notice.show_notice(tr("NOTICE_STORAGE_FAILED"))
+	storage_coordinator.report_error(self, error_message, channel)
 
 
 func _mark_storage_write_succeeded(channel: StringName) -> void:
-	failed_storage_channels.erase(channel)
+	storage_coordinator.mark_write_succeeded(self, channel)
 
 
 func _clear_storage_failure_state() -> void:
-	failed_storage_channels.clear()
-	if is_instance_valid(storage_notice):
-		storage_notice.hide_notice()
-
-
-func _create_run_id(run_seed: int) -> String:
-	run_id_sequence += 1
-	return "run_%d_%d_%d" % [
-		abs(run_seed),
-		int(Time.get_unix_time_from_system() * 1_000_000.0),
-		run_id_sequence,
-	]
+	storage_coordinator.clear_failure_state(self)
 
 
 func _refresh_speed_button() -> void:
@@ -1208,34 +702,17 @@ func _record_test_event(
 	data: Dictionary = {},
 	persist_immediately := true,
 ) -> void:
-	if test_event_service == null:
-		return
-	var context := {}
-	if run_session != null:
-		context = {
-			"runId": run_session.run_id,
-			"mineId": str(run_session.mine_id),
-			"room": run_session.room_number,
-			"seed": run_session.seed,
-			"contentVersion": run_session.content_version,
-		}
-	if test_event_service.record_event(event_name, context, data, persist_immediately):
-		test_event_write_warning_shown = false
-		return
-	if not test_event_write_warning_shown:
-		test_event_write_warning_shown = true
-		push_warning("Test olayı kaydedilemedi: %s" % test_event_service.last_error)
+	event_reporter.record(
+		test_event_service,
+		run_session,
+		event_name,
+		data,
+		persist_immediately,
+	)
 
 
 func _flush_test_events() -> void:
-	if test_event_service == null:
-		return
-	if test_event_service.flush():
-		test_event_write_warning_shown = false
-		return
-	if not test_event_write_warning_shown:
-		test_event_write_warning_shown = true
-		push_warning("Test olayları diske yazılamadı: %s" % test_event_service.last_error)
+	event_reporter.flush(test_event_service)
 
 
 func _record_snapshot_test_event(
@@ -1243,19 +720,7 @@ func _record_snapshot_test_event(
 	snapshot: RunSnapshot,
 	data: Dictionary = {},
 ) -> void:
-	if test_event_service == null or snapshot == null:
-		return
-	var context := {
-		"runId": snapshot.run_id,
-		"mineId": str(snapshot.mine_id),
-		"room": snapshot.room_number,
-		"seed": snapshot.seed,
-		"contentVersion": snapshot.content_version,
-	}
-	if not test_event_service.record_event(event_name, context, data) \
-		and not test_event_write_warning_shown:
-		test_event_write_warning_shown = true
-		push_warning("Test olayı kaydedilemedi: %s" % test_event_service.last_error)
+	event_reporter.record_snapshot(test_event_service, event_name, snapshot, data)
 
 
 func _try_haptic(duration_msec: int) -> void:

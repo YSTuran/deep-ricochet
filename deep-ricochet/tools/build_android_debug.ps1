@@ -64,7 +64,7 @@ function Assert-NoGodotScriptErrors {
         [string]$Stage
     )
 
-    $failurePattern = '(?im)(SCRIPT ERROR:|Parse Error:|Compile Error:|Failed to load script|Invalid call\.)'
+    $failurePattern = '(?im)(^ERROR:|SCRIPT ERROR:|Parse Error:|Compile Error:|Failed to load script|Invalid call\.)'
     if ($Output -match $failurePattern) {
         throw "$Stage reported a GDScript error."
     }

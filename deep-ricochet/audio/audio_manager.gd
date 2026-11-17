@@ -38,10 +38,12 @@ var _ui_players: Array[AudioStreamPlayer] = []
 var _music_player: AudioStreamPlayer
 var _sfx_cursor := 0
 var _ui_cursor := 0
+var _playback_enabled := true
 
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	_playback_enabled = DisplayServer.get_name() != "headless"
 	_ensure_bus(&"SFX")
 	_ensure_bus(&"UI")
 	_ensure_bus(&"Music")
@@ -53,7 +55,8 @@ func _ready() -> void:
 	_music_player.process_mode = Node.PROCESS_MODE_ALWAYS
 	_music_player.stream = _create_ambient_loop()
 	add_child(_music_player)
-	_music_player.play()
+	if _playback_enabled:
+		_music_player.play()
 	_apply_bus_settings()
 
 
@@ -192,6 +195,9 @@ func _configure_and_play(
 	volume_db: float,
 	pitch: float,
 ) -> void:
+	if not _playback_enabled:
+		played_event_count += 1
+		return
 	player.stop()
 	player.stream = stream
 	player.volume_db = volume_db

@@ -13,6 +13,8 @@ Etkin oda içerikleri `deep-ricochet/content/mines/rooms/` altındaki JSON şabl
 
 Godot'ta açılması gereken dosya `deep-ricochet/project.godot` dosyasıdır. Çalışma zamanı assetlerinin tamamı Godot'un `res://assets/` kökü altında tutulur; kullanılmayan üretim notları ve yinelenen kaynak kopyaları depoya eklenmez.
 
+Uygulama girişindeki `app/main.gd` yalnız sahneleri ve oyun akışını bir araya getirir. Koşu oluşturma, menü/duraklatma gezinmesi, aktif kayıt kurtarma, ayarlar, öğretici, kullanıcı verisi ve test olayı yazımı `app/` altındaki ayrı denetleyicilere bölünmüştür. Profil, ayarlar, test günlüğü ve aktif koşu kaydı aynı `storage/atomic_json_store.gd` atomik yazma/yedekleme altyapısını kullanır.
+
 ## Teknolojiler
 
 - Godot 4.7.2
@@ -104,7 +106,7 @@ Oyun alanında fareyle ya da dokunmatik ekranla basılı tutup yön seçilir; b�
 
 P1 test günlüğü `user://deep_ricochet_test_events.json` konumunda en fazla son 500 olayı saklar. `run_started`, `shot_started`, `shot_resolved`, `room_completed`, `route_offered`, `route_selected`, `run_ended`, `run_restarted`, `session_resumed` ve `save_recovered` olayları UTC zaman damgası, yerel koşu kimliği, maden/oda, seed, içerik sürümü ve olayla ilgili sayısal sonuçlarla kaydedilir. İsim, e-posta, reklam kimliği veya kalıcı cihaz kimliği alınmaz; bilinmeyen alanlar izin listesi dışında bırakılır. Aynı oyun geçişine ait olaylar toplu yazılarak düşük hızlı depolamadaki gereksiz tekrarlar azaltılır; uygulama arka plana geçerken bekleyen olaylar diske aktarılır. **Ayarlar → Genel → Test Verisini Kopyala** işlemi günlüğü açık kullanıcı eylemiyle JSON olarak panoya kopyalar. **Tüm Verileri Sil** bu günlüğü de temizler.
 
-Aktif koşu `user://deep_ricochet_active_run.json` konumuna yazılır; önceki geçerli kayıt `.bak` uzantısıyla korunur. Geçerli ve bitmemiş bir kayıt uygulama açılışında ana menüde `Devam` düğmesini etkinleştirir. Kesilmiş atışta canlı top konumları yüklenmez; atış öncesindeki kararlı oda geri gelir. Maden kimliği, normal/günlük koşu türü ve günlük tarih anahtarını taşıyan aktif snapshot şeması sürüm 4'tür. İçerik sürümüyle uyuşmayan eski geliştirme koşuları güvenli biçimde reddedilir; profil ve ayarlar kendi şema geçişleriyle korunur.
+Aktif koşu `user://deep_ricochet_active_run.json` konumuna yazılır; önceki geçerli kayıt `.bak` uzantısıyla korunur. Geçerli ve bitmemiş bir kayıt uygulama açılışında ana menüde `Devam` düğmesini etkinleştirir. Kesilmiş atışta canlı top konumları yüklenmez; atış öncesindeki kararlı oda geri gelir. Maden kimliği, normal/günlük koşu türü, günlük tarih anahtarı, oyun ayarı sürümü ve günlük içerik sürümünü taşıyan aktif snapshot şeması sürüm 5'tir. İçerik veya oyun kuralı sürümüyle uyuşmayan eski geliştirme koşuları güvenli biçimde reddedilir; profil ve ayarlar kendi şema geçişleriyle korunur.
 
 Duraklatma menüsünden ana menüye dönüldüğünde kararlı koşu korunur. Bir yaylım sürüyorsa diskteki atış öncesi snapshot kullanılır; böylece yarım simülasyon kaydedilmez. Uygulama arka plana geçtiğinde oyun otomatik durur, fakat öne döndüğünde kendiliğinden devam etmez.
 
