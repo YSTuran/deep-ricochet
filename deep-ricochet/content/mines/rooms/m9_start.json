@@ -3,7 +3,7 @@
     {
       "cell": [
         0,
-        1
+        2
       ],
       "hitPoints": 6,
       "id": 90001,
@@ -12,7 +12,7 @@
     {
       "cell": [
         6,
-        1
+        2
       ],
       "hitPoints": 7,
       "id": 90002,
@@ -82,7 +82,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-5",
+  "contentVersion": "p2-mines-6",
   "displayName": "Çatlak Kapı",
   "displayNameKey": "MINE_9_START",
   "exampleAngles": [

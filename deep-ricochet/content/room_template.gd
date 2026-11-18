@@ -9,6 +9,7 @@ const MAX_STANDARD_BLOCK_HP := 8
 const MAX_SPECIAL_BLOCK_HP := 8
 const MIN_CORE_HP := 6
 const MAX_CORE_HP := 8
+const MIN_BLOCK_ROW := 2
 
 enum Family {
 	SAFE,
@@ -118,8 +119,15 @@ func validation_errors() -> PackedStringArray:
 			core_cell = definition.cell
 			if definition.cell.y != BoardGeometry.CORE_ROW:
 				errors.append("%s çekirdek satırında olmalıdır." % label)
-		elif definition.cell.y < 0 or definition.cell.y >= BoardGeometry.BLOCK_GRID_SIZE.y:
-			errors.append("%s 8x8 oda alanının dışında." % label)
+		elif definition.cell.y < MIN_BLOCK_ROW \
+			or definition.cell.y >= BoardGeometry.BLOCK_GRID_SIZE.y:
+			errors.append(
+				"%s alt iki satır boş kalacak biçimde %d-%d satırları arasında olmalıdır." % [
+					label,
+					MIN_BLOCK_ROW,
+					BoardGeometry.BLOCK_GRID_SIZE.y - 1,
+				]
+			)
 
 		if definition.cell.x < 0 or definition.cell.x >= BoardGeometry.BLOCK_GRID_SIZE.x:
 			errors.append("%s yatay oda sınırlarının dışında." % label)

@@ -1,6 +1,7 @@
 extends SceneTree
 
-const CONTENT_VERSION := "p2-mines-5"
+const CONTENT_VERSION := "p2-mines-6"
+const NARROW_DURABILITY_BONUS := 1
 const OUTPUT_DIR := "res://content/mines/rooms"
 const CATALOG_PATH := "res://content/mines/catalog.json"
 
@@ -8,17 +9,17 @@ const ARCHETYPES := [
 	{
 		"slug": "start", "role": "start", "family": "safe", "key": "START",
 		"passage": [3, 4], "core_x": 3,
-		"blocks": [[0, 1, "normal", 2], [6, 1, "ore", 3], [1, 3, "rock", 0], [5, 3, "normal", 3], [2, 5, "ore", 4], [6, 5, "normal", 4], [0, 7, "normal", 5], [5, 7, "ore", 5]],
+		"blocks": [[0, 2, "normal", 2], [6, 2, "ore", 3], [1, 3, "rock", 0], [5, 3, "normal", 3], [2, 5, "ore", 4], [6, 5, "normal", 4], [0, 7, "normal", 5], [5, 7, "ore", 5]],
 	},
 	{
 		"slug": "wide_01", "role": "wide", "family": "safe", "key": "WIDE_01",
 		"passage": [3, 4], "core_x": 3,
-		"blocks": [[1, 1, "normal", 2], [7, 2, "ore", 3], [0, 3, "rock", 0], [5, 4, "normal", 3], [2, 5, "ore", 4], [6, 5, "rock", 0], [1, 6, "normal", 5], [5, 7, "ore", 5]],
+		"blocks": [[1, 2, "normal", 2], [7, 2, "ore", 3], [0, 3, "rock", 0], [5, 4, "normal", 3], [2, 5, "ore", 4], [6, 5, "rock", 0], [1, 6, "normal", 5], [5, 7, "ore", 5]],
 	},
 	{
 		"slug": "wide_02", "role": "wide", "family": "safe", "key": "WIDE_02",
 		"passage": [3, 4], "core_x": 3,
-		"blocks": [[2, 1, "normal", 2], [6, 2, "rock", 0], [2, 3, "rock", 0], [0, 4, "ore", 3], [5, 4, "normal", 3], [1, 5, "normal", 4], [7, 6, "ore", 4], [6, 7, "normal", 5]],
+		"blocks": [[2, 2, "normal", 2], [6, 2, "rock", 0], [2, 3, "rock", 0], [0, 4, "ore", 3], [5, 4, "normal", 3], [1, 5, "normal", 4], [7, 6, "ore", 4], [6, 7, "normal", 5]],
 	},
 	{
 		"slug": "wide_03", "role": "wide", "family": "safe", "key": "WIDE_03",
@@ -28,17 +29,17 @@ const ARCHETYPES := [
 	{
 		"slug": "narrow_01", "role": "narrow", "family": "bonus", "key": "NARROW_01",
 		"passage": [3], "core_x": 3,
-		"blocks": [[0, 1, "normal", 3], [5, 1, "ore", 3], [2, 3, "normal", 3], [4, 3, "rock", 0], [1, 5, "ore", 4], [6, 5, "normal", 4], [2, 7, "ore", 5], [4, 7, "normal", 5]],
+		"blocks": [[0, 2, "normal", 3], [5, 2, "ore", 3], [2, 3, "normal", 3], [4, 3, "rock", 0], [1, 5, "ore", 4], [6, 5, "normal", 4], [2, 7, "ore", 5], [4, 7, "normal", 5]],
 	},
 	{
 		"slug": "narrow_02", "role": "narrow", "family": "bonus", "key": "NARROW_02",
 		"passage": [3], "core_x": 3,
-		"blocks": [[2, 1, "rock", 0], [6, 2, "normal", 3], [2, 2, "normal", 5], [0, 3, "ore", 3], [4, 4, "normal", 4], [1, 5, "rock", 0], [5, 6, "ore", 5], [6, 7, "ore", 6]],
+		"blocks": [[1, 2, "rock", 0], [6, 2, "normal", 3], [2, 2, "normal", 5], [0, 3, "ore", 3], [4, 4, "normal", 4], [1, 5, "rock", 0], [5, 6, "ore", 5], [6, 7, "ore", 6]],
 	},
 	{
 		"slug": "narrow_03", "role": "narrow", "family": "bonus", "key": "NARROW_03",
 		"passage": [3], "core_x": 3,
-		"blocks": [[1, 1, "ore", 3], [5, 2, "normal", 3], [2, 3, "rock", 0], [7, 4, "ore", 4], [0, 5, "normal", 4], [4, 5, "rock", 0], [1, 7, "normal", 5], [5, 7, "ore", 6]],
+		"blocks": [[1, 2, "ore", 3], [5, 2, "normal", 3], [2, 3, "rock", 0], [7, 4, "ore", 4], [0, 5, "normal", 4], [4, 5, "rock", 0], [1, 7, "normal", 5], [5, 7, "ore", 6]],
 	},
 ]
 
@@ -151,11 +152,14 @@ func _room_data(mine_index: int, archetype_index: int) -> Dictionary:
 			)
 		blocks.append(block_data)
 	var core_x := int(archetype["core_x"])
+	var core_hit_points := mini(8, 6 + floori(float(mine_index) / 5.0))
+	if archetype["role"] == "narrow":
+		core_hit_points = mini(8, core_hit_points + NARROW_DURABILITY_BONUS)
 	blocks.append({
 		"id": mine_number * 10_000 + archetype_index * 100 + 99,
 		"type": "core",
 		"cell": [core_x, 8],
-		"hitPoints": mini(8, 6 + floori(float(mine_index) / 5.0)),
+		"hitPoints": core_hit_points,
 	})
 	var passage: Array = []
 	for raw_column: Variant in archetype["passage"]:
@@ -235,15 +239,17 @@ func _hit_points(
 		return 0
 	if type_name == "cracked":
 		return 1
+	var role_bonus := NARROW_DURABILITY_BONUS \
+		if ARCHETYPES[archetype_index]["role"] == "narrow" else 0
 	if type_name == "explosive":
-		return clampi(base_hp + floori(float(mine_index - 6) / 3.0), 2, 7)
+		return clampi(base_hp + floori(float(mine_index - 6) / 3.0) + role_bonus, 2, 8)
 	if type_name == "armored":
-		return clampi(base_hp + 1 + floori(float(mine_index - 10) / 2.0), 3, 8)
+		return clampi(base_hp + 1 + floori(float(mine_index - 10) / 2.0) + role_bonus, 3, 8)
 	var minimum := 3 if type_name == "ore" else 2
 	var difficulty_bonus := floori(float(mine_index) / 2.0)
 	if mine_index % 2 == 1 and (archetype_index + block_index) % 2 == 0:
 		difficulty_bonus += 1
-	return clampi(base_hp + difficulty_bonus, minimum, 8)
+	return clampi(base_hp + difficulty_bonus + role_bonus, minimum, 8)
 
 
 func _vulnerable_sides(

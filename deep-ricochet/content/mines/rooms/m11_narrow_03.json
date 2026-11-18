@@ -3,7 +3,7 @@
     {
       "cell": [
         1,
-        1
+        2
       ],
       "hitPoints": 8,
       "id": 110601,
@@ -32,7 +32,7 @@
         7,
         4
       ],
-      "hitPoints": 5,
+      "hitPoints": 6,
       "id": 110604,
       "type": "armored",
       "vulnerableSides": [
@@ -86,7 +86,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-5",
+  "contentVersion": "p2-mines-6",
   "displayName": "Kalkan Boğazı",
   "displayNameKey": "MINE_11_NARROW_03",
   "exampleAngles": [

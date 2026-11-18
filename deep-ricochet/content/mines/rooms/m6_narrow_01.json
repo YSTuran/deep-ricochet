@@ -3,18 +3,18 @@
     {
       "cell": [
         0,
-        1
+        2
       ],
-      "hitPoints": 6,
+      "hitPoints": 7,
       "id": 60401,
       "type": "normal"
     },
     {
       "cell": [
         5,
-        1
+        2
       ],
-      "hitPoints": 5,
+      "hitPoints": 6,
       "id": 60402,
       "type": "ore"
     },
@@ -23,7 +23,7 @@
         2,
         3
       ],
-      "hitPoints": 6,
+      "hitPoints": 7,
       "id": 60403,
       "type": "normal"
     },
@@ -41,7 +41,7 @@
         1,
         5
       ],
-      "hitPoints": 7,
+      "hitPoints": 8,
       "id": 60405,
       "type": "ore"
     },
@@ -50,7 +50,7 @@
         6,
         5
       ],
-      "hitPoints": 6,
+      "hitPoints": 7,
       "id": 60406,
       "type": "normal"
     },
@@ -68,7 +68,7 @@
         4,
         7
       ],
-      "hitPoints": 7,
+      "hitPoints": 8,
       "id": 60408,
       "type": "normal"
     },
@@ -77,12 +77,12 @@
         3,
         8
       ],
-      "hitPoints": 7,
+      "hitPoints": 8,
       "id": 60499,
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-5",
+  "contentVersion": "p2-mines-6",
   "displayName": "Titan Yarığı",
   "displayNameKey": "MINE_6_NARROW_01",
   "exampleAngles": [

@@ -3,9 +3,9 @@
     {
       "cell": [
         1,
-        1
+        2
       ],
-      "hitPoints": 7,
+      "hitPoints": 8,
       "id": 80601,
       "type": "ore"
     },
@@ -14,7 +14,7 @@
         5,
         2
       ],
-      "hitPoints": 6,
+      "hitPoints": 7,
       "id": 80602,
       "type": "normal"
     },
@@ -32,7 +32,7 @@
         7,
         4
       ],
-      "hitPoints": 7,
+      "hitPoints": 8,
       "id": 80604,
       "type": "ore"
     },
@@ -59,7 +59,7 @@
         1,
         7
       ],
-      "hitPoints": 5,
+      "hitPoints": 6,
       "id": 80607,
       "type": "explosive"
     },
@@ -77,12 +77,12 @@
         3,
         8
       ],
-      "hitPoints": 7,
+      "hitPoints": 8,
       "id": 80699,
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-5",
+  "contentVersion": "p2-mines-6",
   "displayName": "Ateş Boğazı",
   "displayNameKey": "MINE_8_NARROW_03",
   "exampleAngles": [

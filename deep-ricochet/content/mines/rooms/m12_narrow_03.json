@@ -3,9 +3,9 @@
     {
       "cell": [
         1,
-        1
+        2
       ],
-      "hitPoints": 4,
+      "hitPoints": 5,
       "id": 120601,
       "type": "explosive"
     },
@@ -59,7 +59,7 @@
         1,
         7
       ],
-      "hitPoints": 6,
+      "hitPoints": 7,
       "id": 120607,
       "type": "armored",
       "vulnerableSides": [
@@ -86,7 +86,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-5",
+  "contentVersion": "p2-mines-6",
   "displayName": "Derin Karakol",
   "displayNameKey": "MINE_12_NARROW_03",
   "exampleAngles": [

@@ -3,7 +3,7 @@
     {
       "cell": [
         0,
-        1
+        2
       ],
       "hitPoints": 4,
       "id": 140001,
@@ -15,7 +15,7 @@
     {
       "cell": [
         6,
-        1
+        2
       ],
       "hitPoints": 8,
       "id": 140002,
@@ -88,7 +88,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-5",
+  "contentVersion": "p2-mines-6",
   "displayName": "Son Derinlik",
   "displayNameKey": "MINE_14_START",
   "exampleAngles": [

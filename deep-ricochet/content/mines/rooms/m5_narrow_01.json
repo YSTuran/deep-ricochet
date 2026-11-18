@@ -3,18 +3,18 @@
     {
       "cell": [
         0,
-        1
+        2
       ],
-      "hitPoints": 5,
+      "hitPoints": 6,
       "id": 50401,
       "type": "normal"
     },
     {
       "cell": [
         5,
-        1
+        2
       ],
-      "hitPoints": 5,
+      "hitPoints": 6,
       "id": 50402,
       "type": "ore"
     },
@@ -23,7 +23,7 @@
         2,
         3
       ],
-      "hitPoints": 5,
+      "hitPoints": 6,
       "id": 50403,
       "type": "normal"
     },
@@ -41,7 +41,7 @@
         1,
         5
       ],
-      "hitPoints": 6,
+      "hitPoints": 7,
       "id": 50405,
       "type": "ore"
     },
@@ -50,7 +50,7 @@
         6,
         5
       ],
-      "hitPoints": 6,
+      "hitPoints": 7,
       "id": 50406,
       "type": "normal"
     },
@@ -59,7 +59,7 @@
         2,
         7
       ],
-      "hitPoints": 7,
+      "hitPoints": 8,
       "id": 50407,
       "type": "ore"
     },
@@ -68,7 +68,7 @@
         4,
         7
       ],
-      "hitPoints": 7,
+      "hitPoints": 8,
       "id": 50408,
       "type": "normal"
     },
@@ -77,12 +77,12 @@
         3,
         8
       ],
-      "hitPoints": 6,
+      "hitPoints": 7,
       "id": 50499,
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-5",
+  "contentVersion": "p2-mines-6",
   "displayName": "Zırhlı Yarık",
   "displayNameKey": "MINE_5_NARROW_01",
   "exampleAngles": [

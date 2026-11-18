@@ -3,7 +3,7 @@ extends RefCounted
 
 const DAILY_MINE_ID := &"daily"
 const SOURCE_MINE_ID := &"mine_14"
-const CONTENT_VERSION := "daily-3"
+const CONTENT_VERSION := "daily-4"
 const TARGET_BLOCK_COUNT := 14
 const SOURCE_ROOM_IDS: Array[StringName] = [
 	&"m14_start",
@@ -130,22 +130,24 @@ static func _candidate_cells(
 	occupied: Dictionary[Vector2i, bool],
 	variant: int,
 ) -> Array[Vector2i]:
-	var upper_candidates: Array[Vector2i] = []
-	var lower_candidates: Array[Vector2i] = []
+	var central_candidates: Array[Vector2i] = []
+	var top_candidates: Array[Vector2i] = []
 	for offset in range(BoardGeometry.BLOCK_GRID_SIZE.x * BoardGeometry.BLOCK_GRID_SIZE.y):
 		var x := (offset % BoardGeometry.BLOCK_GRID_SIZE.x + variant * 3) \
 			% BoardGeometry.BLOCK_GRID_SIZE.x
 		var y := (floori(float(offset) / float(BoardGeometry.BLOCK_GRID_SIZE.x)) + variant) \
 			% BoardGeometry.BLOCK_GRID_SIZE.y
 		var cell := Vector2i(x, y)
-		if template.passage_columns.has(x) or occupied.has(cell):
+		if y < RoomTemplate.MIN_BLOCK_ROW \
+			or template.passage_columns.has(x) \
+			or occupied.has(cell):
 			continue
 		if y >= BoardGeometry.BLOCK_GRID_SIZE.y - 2:
-			lower_candidates.append(cell)
+			top_candidates.append(cell)
 		else:
-			upper_candidates.append(cell)
-	upper_candidates.append_array(lower_candidates)
-	return upper_candidates
+			central_candidates.append(cell)
+	central_candidates.append_array(top_candidates)
+	return central_candidates
 
 
 static func _mirrored_columns(columns: PackedInt32Array) -> PackedInt32Array:
@@ -273,7 +275,7 @@ static func _example_angles_for(room_id: StringName) -> PackedFloat32Array:
 		"daily_m14_wide_01_a":
 			return PackedFloat32Array([20.0, 20.5, 21.0])
 		"daily_m14_wide_01_b":
-			return PackedFloat32Array([15.0, 16.0, 20.0])
+			return PackedFloat32Array([17.5])
 		"daily_m14_wide_02_a":
 			return PackedFloat32Array([18.0, 18.5, 19.5])
 		"daily_m14_wide_02_b":
@@ -281,9 +283,9 @@ static func _example_angles_for(room_id: StringName) -> PackedFloat32Array:
 		"daily_m14_wide_03_a":
 			return PackedFloat32Array([15.5, 16.0, 18.5])
 		"daily_m14_wide_03_b":
-			return PackedFloat32Array([15.0, 15.5, 16.0])
+			return PackedFloat32Array([62.0])
 		"daily_m14_narrow_01_a":
-			return PackedFloat32Array([160.0])
+			return PackedFloat32Array([16.0])
 		"daily_m14_narrow_01_b":
 			return PackedFloat32Array([15.0, 15.5, 16.0])
 		"daily_m14_narrow_02_a":
