@@ -28,7 +28,7 @@ const NUMBER_FIELDS := [
 	"aimMinDistance",
 ]
 
-var config_version: String = "prototype-2"
+var config_version: String = "prototype-3"
 var room_count: int = 4
 var shots_per_room: int = 3
 var daily_shots_per_room: int = 5

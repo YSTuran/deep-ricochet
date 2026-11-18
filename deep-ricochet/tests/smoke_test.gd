@@ -7,7 +7,7 @@ const LocalEventTests := preload("res://tests/test_event_service.gd")
 
 func _ready() -> void:
 	var config := GameConfig.load_from_file()
-	assert(config.config_version == "prototype-2")
+	assert(config.config_version == "prototype-3")
 	assert(config.ball_count == 8)
 	assert(is_equal_approx(config.ball_speed, 18.0))
 	assert(config.explosive_break_points == 10)

@@ -21,7 +21,7 @@ Uygulama girişindeki `app/main.gd` yalnız sahneleri ve oyun akışını bir ar
 - Typed GDScript
 - Compatibility renderer
 - Dikey ekran: 540 × 960
-- Hedef platform: Android 9 ve üzeri
+- Hedef platform: Android 10 ve üzeri
 
 ## Çalıştırma
 
@@ -52,7 +52,7 @@ Oyun alanında fareyle ya da dokunmatik ekranla basılı tutup yön seçilir; b�
 - Her madende 1 başlangıç, 3 geniş geçit ve 3 dar damar olmak üzere 7; toplam 98 doğrulanan oda şablonu
 - İlk altı madende klasik bloklar; yedinci madenden itibaren çatlak ve patlayıcı, on birinci madenden itibaren zırhlı bloklar
 - Her normal odada alt iki satıra en fazla iki blok yerleştiren dengeli dikey dağılım
-- Kırıldığında 10 puan veren ve 3×3 alana 3 hasar uygulayan zincirleme patlayıcı blok
+- Kırıldığında 10 puan veren ve 5×5 alana 3 hasar uygulayan zincirleme patlayıcı blok
 - Tek canla kırılan ve 6 puan veren çatlak kaya
 - Oda şablonunda tanımlanan 1 veya 2 parlak kenardan doğrudan hasar alan zırhlı blok
 - Patlama hasarının zırhı aşması; sert kayanın patlamada da kırılmaz kalması
@@ -76,7 +76,7 @@ Oyun alanında fareyle ya da dokunmatik ekranla basılı tutup yön seçilir; b�
 - Ayarlardan tekrar açılabilen üç sayfalı öğretici özeti
 - Genel, ses ve görüntü/geri bildirim sayfalarına ayrılan; dil, ayrı efekt/müzik seviyeleri, titreşim, ekran sarsıntısı, grafik/performans modu ve onaylı tüm veri silme seçeneklerini içeren ayarlar ekranı
 - Android geri tuşunun menü, ayarlar, öğretici, sonuç ve duraklatma katmanlarına uygun davranması
-- Android 9 (API 28) alt sınırı ve API 35 hedefi için ARMv7 Gradle export preseti
+- Android 10 (API 29) alt sınırı ve API 35 hedefi için ARMv7, ARM64, x86 ve x86_64 Gradle export preseti
 - Assetlerle uyumlu prosedürel hasar halkası ve blok kırılma parçacıkları
 - Brief paletine uyumlu ortak maden arka planı, yuvarlatılmış panel ve düğme sistemi
 - Ana menü, oyun HUD'ı, rota, sonuç, duraklatma, ayarlar ve öğreticide tutarlı UI dili
@@ -121,7 +121,7 @@ UI renkleri, panel biçimleri, düğme türleri ve prosedürel maden arka planı
 
 ## Android dışa aktarma
 
-`deep-ricochet/export_presets.cfg` içindeki **Android** preseti Android 9 ve üzerini, API 35 hedefini ve Galaxy A10 için ARMv7 mimarisini kullanır. Çevrimdışı çalışan uygulamanın tek ek Android izni titreşim geri bildirimi için `VIBRATE` iznidir; kullanıcıdan çalışma anında izin penceresi istemez. P0/P1 dağıtım hedefi Google Play değil, cihaza doğrudan yüklenen debug APK prototipidir. Paket kimliği şimdilik `com.ysturan.deepricochet` değeridir.
+`deep-ricochet/export_presets.cfg` içindeki **Android** preseti Android 10 ve üzerini, API 35 hedefini ve Godot'un desteklediği ARMv7, ARM64, x86 ile x86_64 mimarilerini tek APK içinde kullanır. Bu paket yaygın fiziksel telefon/tabletlerin yanı sıra Intel tabanlı Android cihaz ve emülatörleri de kapsar. Çevrimdışı çalışan uygulamanın tek ek Android izni titreşim geri bildirimi için `VIBRATE` iznidir; kullanıcıdan çalışma anında izin penceresi istemez. P0/P1 dağıtım hedefi Google Play değil, cihaza doğrudan yüklenen debug APK prototipidir. Paket kimliği şimdilik `com.ysturan.deepricochet` değeridir.
 
 Godot 4.7.2 ile ilk APK'yı üretmeden önce:
 
@@ -134,7 +134,7 @@ Godot 4.7.2 ile ilk APK'yı üretmeden önce:
 godot --headless --path deep-ricochet --export-debug Android build/android/deep-ricochet-debug.apk
 ```
 
-Temiz bir checkout'ta aynı akışı doğrulayan PowerShell betiği de kullanılabilir. Betik Godot sürümünü denetler, eksikse Android Gradle build şablonunu kurar, kaynakları içe aktarır ve ARMv7 debug APK'yı üretir:
+Temiz bir checkout'ta aynı akışı doğrulayan PowerShell betiği de kullanılabilir. Betik Godot sürümünü denetler, eksikse Android Gradle build şablonunu kurar, kaynakları içe aktarır ve dört Android ABI'sini içeren genel debug APK'yı üretir:
 
 ```powershell
 .\deep-ricochet\tools\build_android_debug.ps1 `
@@ -152,8 +152,8 @@ Godot komut satırından proje kökünde şu sahne çalıştırılır:
   -GodotPath "C:\path\to\Godot_v4.7.2-stable_win64.exe"
 ```
 
-Bu kapı yalnız işlem koduna güvenmez; `[PASS]` işaretini zorunlu tutar ve GDScript ayrıştırma, derleme veya assertion hatası görürse başarısız olur. Android build betiği APK üretmeden önce aynı kapıyı otomatik çalıştırır ve çıktıdaki yerel kütüphanelerin yalnız ARMv7 olduğunu doğrular.
+Bu kapı yalnız işlem koduna güvenmez; `[PASS]` işaretini zorunlu tutar ve GDScript ayrıştırma, derleme veya assertion hatası görürse başarısız olur. Android build betiği APK üretmeden önce aynı kapıyı otomatik çalıştırır ve çıktıda ARMv7, ARM64, x86 ile x86_64 yerel kütüphanelerinin bulunduğunu doğrular.
 
-Test; profil ve ayar geçişlerini, on dört madenin kilitleri ile günlük maden istatistiklerini, iki sayfalı maden seçimini, grafik/performans tercihini, titreşim ayarı ile eski ayar şeması göçünü, efekt/müzik bus'larını, melodik çarpışma hız sınırını, sessiz modu, profil yedeğinden kurtarmayı, iki dili, üç aşamalı ilk-oyun öğreticisini, tüm veri silme hata davranışını, ayrıntılı oda sonuç geçmişini, aynı seed tekrarını, 1×/2× sabit adımlı simülasyonu ve iki hızın aynı blok/puan/top sonucunu üretmesini, ana menü ve devam durumunu, nişan sırasında duraklatmayı, canlı yaylımın donmasını, odak kaybını, 98 normal ve 14 günlük oda şablonunu, alt satır yoğunluk sınırını, günlük 5 atış kuralını, özel blokların seviye eşiklerini, zırh yönlerini, 3×3 ve zincirleme patlama davranışını, örnek açı geçişlerini, maden başına 100 seed seçimini, aynı seed'in tüm rota tekliflerini, dört oda/üç rota akışını, P1 test olaylarının izin listesi ile JSON dışa aktarımını, atış ortası kurtarmayı, bozuk kayıt reddini, fiziği ve puanı doğrular. Ayrıca 112 odanın örnek açı simülasyon süresini test çıktısında `[PERF]` satırıyla raporlar.
+Test; profil ve ayar geçişlerini, on dört madenin kilitleri ile günlük maden istatistiklerini, iki sayfalı maden seçimini, grafik/performans tercihini, titreşim ayarı ile eski ayar şeması göçünü, efekt/müzik bus'larını, melodik çarpışma hız sınırını, sessiz modu, profil yedeğinden kurtarmayı, iki dili, üç aşamalı ilk-oyun öğreticisini, tüm veri silme hata davranışını, ayrıntılı oda sonuç geçmişini, aynı seed tekrarını, 1×/2× sabit adımlı simülasyonu ve iki hızın aynı blok/puan/top sonucunu üretmesini, ana menü ve devam durumunu, nişan sırasında duraklatmayı, canlı yaylımın donmasını, odak kaybını, 98 normal ve 14 günlük oda şablonunu, alt satır yoğunluk sınırını, günlük 5 atış kuralını, özel blokların seviye eşiklerini, erişilebilir zırh yönlerini, 5×5 ve zincirleme patlama davranışını, örnek açı geçişlerini, maden başına 100 seed seçimini, aynı seed'in tüm rota tekliflerini, dört oda/üç rota akışını, P1 test olaylarının izin listesi ile JSON dışa aktarımını, atış ortası kurtarmayı, bozuk kayıt reddini, fiziği ve puanı doğrular. Ayrıca 112 odanın örnek açı simülasyon süresini test çıktısında `[PERF]` satırıyla raporlar.
 
 Gerçek cihazda kalan kabul adımları [P1 kabul kontrol listesinde](P1_ACCEPTANCE.md) tutulur.

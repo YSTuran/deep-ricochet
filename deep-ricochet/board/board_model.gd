@@ -3,6 +3,7 @@ extends RefCounted
 
 const ROOM_GRID_SIZE := BoardGeometry.BLOCK_GRID_SIZE
 const CORE_TARGET_ROW := BoardGeometry.CORE_ROW
+const EXPLOSION_RADIUS_CELLS := 2
 
 var blocks: Array[BlockState] = []
 
@@ -83,7 +84,8 @@ func resolve_explosion(source_block_id: int, damage: int = 3) -> Array[BlockDama
 			if target.is_destroyed() or target.id == explosive_id:
 				continue
 			var offset := target.cell - explosive.cell
-			if absi(offset.x) > 1 or absi(offset.y) > 1:
+			if absi(offset.x) > EXPLOSION_RADIUS_CELLS \
+				or absi(offset.y) > EXPLOSION_RADIUS_CELLS:
 				continue
 			var result := _resolve_damage(target, damage, Vector2.ZERO, true)
 			if result.damage_applied:

@@ -154,6 +154,23 @@ func validation_errors() -> PackedStringArray:
 		errors.append("Bir oda tam olarak bir çekirdek içermelidir; bulunan: %d." % core_count)
 	elif not passage_columns.has(core_cell.x):
 		errors.append("Çekirdek ana geçit sütunlarından biriyle hizalanmalıdır.")
+	for definition: RoomBlockDefinition in blocks:
+		if definition == null or definition.block_type != BlockState.BlockType.ARMORED:
+			continue
+		for side: int in [
+			BlockState.VulnerableSide.LEFT,
+			BlockState.VulnerableSide.RIGHT,
+			BlockState.VulnerableSide.TOP,
+			BlockState.VulnerableSide.BOTTOM,
+		]:
+			if (definition.vulnerable_sides & side) == 0:
+				continue
+			var neighbor := _neighbor_for_side(definition.cell, side)
+			if not _is_accessible_neighbor(neighbor, known_cells):
+				errors.append(
+					"%d kimlikli zırhlı bloğun zayıf kenarı duvar veya blokla kapalıdır." \
+						% definition.id
+				)
 	if rock_count > MAX_ROCK_COUNT:
 		errors.append("Sert kaya sayısı %d sınırını aşıyor: %d." % [MAX_ROCK_COUNT, rock_count])
 	for definition: RoomBlockDefinition in blocks:
@@ -213,6 +230,28 @@ func _vulnerable_side_count(mask: int) -> int:
 		if (mask & side) != 0:
 			count += 1
 	return count
+
+
+static func _neighbor_for_side(cell: Vector2i, side: int) -> Vector2i:
+	match side:
+		BlockState.VulnerableSide.LEFT:
+			return cell + Vector2i.LEFT
+		BlockState.VulnerableSide.RIGHT:
+			return cell + Vector2i.RIGHT
+		BlockState.VulnerableSide.TOP:
+			return cell + Vector2i.DOWN
+		BlockState.VulnerableSide.BOTTOM:
+			return cell + Vector2i.UP
+	return cell
+
+
+static func _is_accessible_neighbor(
+	cell: Vector2i,
+	occupied_cells: Dictionary[Vector2i, bool],
+) -> bool:
+	return cell.x >= 0 and cell.x < BoardGeometry.WORLD_GRID_SIZE.x \
+		and cell.y >= 0 and cell.y < BoardGeometry.WORLD_GRID_SIZE.y \
+		and not occupied_cells.has(cell)
 
 
 func _validate_passage(errors: PackedStringArray) -> void:

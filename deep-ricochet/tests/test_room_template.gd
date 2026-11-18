@@ -7,6 +7,7 @@ const SAFE_ROOM_PATH := "res://content/rooms/safe_01.json"
 static func run(gameplay_room: GameplayRoom, config: GameConfig) -> void:
 	_test_template_load_and_board_isolation()
 	_test_invalid_template_rejected()
+	_test_blocked_armor_weak_sides_rejected()
 	_test_gameplay_room_recovers_invalid_template(gameplay_room)
 	_test_gameplay_room_accepts_external_template(gameplay_room, config)
 
@@ -61,6 +62,57 @@ static func _test_invalid_template_rejected() -> void:
 		],
 	})
 	assert(not unknown_type.is_valid())
+
+
+static func _test_blocked_armor_weak_sides_rejected() -> void:
+	var wall_blocked := RoomTemplateLoader.from_dictionary({
+		"schemaVersion": 1,
+		"id": "wall_blocked_armor",
+		"displayName": "Duvar Zırh Testi",
+		"family": "safe",
+		"contentVersion": "test",
+		"width": 8,
+		"height": 8,
+		"multiplierBps": 10_000,
+		"passageColumns": [3, 4],
+		"exampleAngles": [90.0],
+		"blocks": [
+			{
+				"id": 1,
+				"type": "armored",
+				"cell": [0, 1],
+				"hitPoints": 4,
+				"vulnerableSides": ["left"],
+			},
+			{"id": 2, "type": "core", "cell": [4, 8], "hitPoints": 6},
+		],
+	})
+	assert(not wall_blocked.is_valid())
+
+	var block_blocked := RoomTemplateLoader.from_dictionary({
+		"schemaVersion": 1,
+		"id": "neighbor_blocked_armor",
+		"displayName": "Komşu Zırh Testi",
+		"family": "safe",
+		"contentVersion": "test",
+		"width": 8,
+		"height": 8,
+		"multiplierBps": 10_000,
+		"passageColumns": [3, 4],
+		"exampleAngles": [90.0],
+		"blocks": [
+			{"id": 1, "type": "normal", "cell": [1, 2], "hitPoints": 2},
+			{
+				"id": 2,
+				"type": "armored",
+				"cell": [2, 2],
+				"hitPoints": 4,
+				"vulnerableSides": ["left"],
+			},
+			{"id": 3, "type": "core", "cell": [4, 8], "hitPoints": 6},
+		],
+	})
+	assert(not block_blocked.is_valid())
 
 
 static func _test_gameplay_room_accepts_external_template(

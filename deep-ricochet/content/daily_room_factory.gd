@@ -3,7 +3,7 @@ extends RefCounted
 
 const DAILY_MINE_ID := &"daily"
 const SOURCE_MINE_ID := &"mine_14"
-const CONTENT_VERSION := "daily-2"
+const CONTENT_VERSION := "daily-3"
 const TARGET_BLOCK_COUNT := 14
 const SOURCE_ROOM_IDS: Array[StringName] = [
 	&"m14_start",
@@ -98,6 +98,7 @@ static func _create_daily_template(
 		present_types[definition.block_type] = true
 
 	var candidates := _candidate_cells(template, occupied, source_index)
+	_reserve_existing_armor_access(template, candidates)
 	for block_type: int in DENSITY_TYPES:
 		if present_types.has(block_type):
 			continue
@@ -174,12 +175,23 @@ static func _append_block(
 	if candidates.is_empty():
 		push_error("Günlük oda yoğunluğu için boş hücre kalmadı: %s" % template.room_id)
 		return false
-	var cell: Vector2i = candidates.pop_front()
+	var candidate_index := 0
+	if block_type == BlockState.BlockType.ARMORED:
+		candidate_index = _first_armored_candidate_index(template, candidates)
+		if candidate_index < 0:
+			push_error("Günlük zırh için erişilebilir zayıf kenar bulunamadı: %s" % template.room_id)
+			return false
+	var cell: Vector2i = candidates.pop_at(candidate_index)
 	var vulnerable_sides := BlockState.ALL_VULNERABLE_SIDES
 	if block_type == BlockState.BlockType.ARMORED:
 		vulnerable_sides = BlockState.VulnerableSide.BOTTOM
-		if variant % 2 == 1:
-			vulnerable_sides |= BlockState.VulnerableSide.LEFT
+		_reserve_candidate(candidates, cell + Vector2i.UP)
+		var preferred_side := BlockState.VulnerableSide.LEFT \
+			if variant % 2 == 1 else BlockState.VulnerableSide.RIGHT
+		var side_neighbor := RoomTemplate._neighbor_for_side(cell, preferred_side)
+		if _cell_is_open(template, side_neighbor):
+			vulnerable_sides |= preferred_side
+			_reserve_candidate(candidates, side_neighbor)
 	template.blocks.append(RoomBlockDefinition.new(
 		block_id,
 		block_type,
@@ -188,6 +200,51 @@ static func _append_block(
 		vulnerable_sides,
 	))
 	return true
+
+
+static func _reserve_existing_armor_access(
+	template: RoomTemplate,
+	candidates: Array[Vector2i],
+) -> void:
+	for definition: RoomBlockDefinition in template.blocks:
+		if definition.block_type != BlockState.BlockType.ARMORED:
+			continue
+		for side: int in [
+			BlockState.VulnerableSide.LEFT,
+			BlockState.VulnerableSide.RIGHT,
+			BlockState.VulnerableSide.TOP,
+			BlockState.VulnerableSide.BOTTOM,
+		]:
+			if (definition.vulnerable_sides & side) != 0:
+				_reserve_candidate(
+					candidates,
+					RoomTemplate._neighbor_for_side(definition.cell, side),
+				)
+
+
+static func _first_armored_candidate_index(
+	template: RoomTemplate,
+	candidates: Array[Vector2i],
+) -> int:
+	for index in range(candidates.size()):
+		var cell := candidates[index]
+		if _cell_is_open(template, cell + Vector2i.UP):
+			return index
+	return -1
+
+
+static func _cell_is_open(template: RoomTemplate, cell: Vector2i) -> bool:
+	if cell.x < 0 or cell.x >= BoardGeometry.WORLD_GRID_SIZE.x \
+		or cell.y < 0 or cell.y >= BoardGeometry.WORLD_GRID_SIZE.y:
+		return false
+	for definition: RoomBlockDefinition in template.blocks:
+		if definition.cell == cell:
+			return false
+	return true
+
+
+static func _reserve_candidate(candidates: Array[Vector2i], cell: Vector2i) -> void:
+	candidates.erase(cell)
 
 
 static func _hit_points_for(block_type: int) -> int:
@@ -225,7 +282,9 @@ static func _example_angles_for(room_id: StringName) -> PackedFloat32Array:
 			return PackedFloat32Array([15.5, 16.0, 18.5])
 		"daily_m14_wide_03_b":
 			return PackedFloat32Array([15.0, 15.5, 16.0])
-		"daily_m14_narrow_01_a", "daily_m14_narrow_01_b":
+		"daily_m14_narrow_01_a":
+			return PackedFloat32Array([160.0])
+		"daily_m14_narrow_01_b":
 			return PackedFloat32Array([15.0, 15.5, 16.0])
 		"daily_m14_narrow_02_a":
 			return PackedFloat32Array([17.5, 18.0, 19.5])

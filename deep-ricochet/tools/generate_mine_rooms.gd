@@ -1,6 +1,6 @@
 extends SceneTree
 
-const CONTENT_VERSION := "p2-mines-4"
+const CONTENT_VERSION := "p2-mines-5"
 const OUTPUT_DIR := "res://content/mines/rooms"
 const CATALOG_PATH := "res://content/mines/catalog.json"
 
@@ -111,15 +111,23 @@ func _room_data(mine_index: int, archetype_index: int) -> Dictionary:
 	var room_id := "m%d_%s" % [mine_number, archetype["slug"]]
 	var blocks: Array[Dictionary] = []
 	var raw_blocks: Array = archetype["blocks"]
+	var occupied_cells: Dictionary[Vector2i, bool] = {}
+	for raw_block: Array in raw_blocks:
+		occupied_cells[Vector2i(int(raw_block[0]), int(raw_block[1]))] = true
+	occupied_cells[Vector2i(int(archetype["core_x"]), BoardGeometry.CORE_ROW)] = true
 	for block_index in range(raw_blocks.size()):
 		var source: Array = raw_blocks[block_index]
 		var x := int(source[0])
+		var cell := Vector2i(x, int(source[1]))
 		var type_name := _type_for_mine(
 			str(source[2]),
 			mine_index,
 			archetype_index,
 			block_index,
 		)
+		if type_name == "armored" \
+			and not _is_side_accessible(cell, "bottom", occupied_cells):
+			type_name = str(source[2])
 		var hp := _hit_points(
 			type_name,
 			int(source[3]),
@@ -138,6 +146,8 @@ func _room_data(mine_index: int, archetype_index: int) -> Dictionary:
 				mine_index,
 				archetype_index,
 				block_index,
+				cell,
+				occupied_cells,
 			)
 		blocks.append(block_data)
 	var core_x := int(archetype["core_x"])
@@ -240,11 +250,40 @@ func _vulnerable_sides(
 	mine_index: int,
 	archetype_index: int,
 	block_index: int,
+	cell: Vector2i,
+	occupied_cells: Dictionary[Vector2i, bool],
 ) -> Array[String]:
 	var sides: Array[String] = ["bottom"]
 	var single_side := mine_index >= 12 and (archetype_index + block_index) % 2 == 0
 	if single_side:
 		return sides
 	var side := "left" if (archetype_index + block_index) % 2 == 0 else "right"
-	sides.append(side)
+	if _is_side_accessible(cell, side, occupied_cells):
+		sides.append(side)
+	else:
+		var alternate := "right" if side == "left" else "left"
+		if _is_side_accessible(cell, alternate, occupied_cells):
+			sides.append(alternate)
 	return sides
+
+
+func _is_side_accessible(
+	cell: Vector2i,
+	side: String,
+	occupied_cells: Dictionary[Vector2i, bool],
+) -> bool:
+	var neighbor := cell
+	match side:
+		"left":
+			neighbor += Vector2i.LEFT
+		"right":
+			neighbor += Vector2i.RIGHT
+		"top":
+			neighbor += Vector2i.DOWN
+		"bottom":
+			neighbor += Vector2i.UP
+		_:
+			return false
+	return neighbor.x >= 0 and neighbor.x < BoardGeometry.WORLD_GRID_SIZE.x \
+		and neighbor.y >= 0 and neighbor.y < BoardGeometry.WORLD_GRID_SIZE.y \
+		and not occupied_cells.has(neighbor)

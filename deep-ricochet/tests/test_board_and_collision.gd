@@ -291,6 +291,8 @@ static func _test_special_blocks() -> void:
 	var overlap_target := BlockState.new(74, BlockState.BlockType.NORMAL, Vector2i(3, 4), 5)
 	var chain_only_target := BlockState.new(75, BlockState.BlockType.NORMAL, Vector2i(5, 3), 5)
 	var hard_rock := BlockState.new(76, BlockState.BlockType.ROCK, Vector2i(3, 2), 0)
+	var radius_two_target := BlockState.new(77, BlockState.BlockType.NORMAL, Vector2i(1, 1), 5)
+	var outside_target := BlockState.new(78, BlockState.BlockType.NORMAL, Vector2i(0, 0), 5)
 	for block: BlockState in [
 		source,
 		chain,
@@ -299,6 +301,8 @@ static func _test_special_blocks() -> void:
 		overlap_target,
 		chain_only_target,
 		hard_rock,
+		radius_two_target,
+		outside_target,
 	]:
 		assert(board.add_block(block))
 	var source_damage := board.resolve_contact(source.id, 1, Vector2.LEFT)
@@ -310,7 +314,9 @@ static func _test_special_blocks() -> void:
 		assert(result.is_explosion)
 	assert(chain.is_destroyed())
 	assert(cracked.is_destroyed())
-	assert(blast_armor.hit_points == 2)
+	assert(blast_armor.is_destroyed())
 	assert(overlap_target.is_destroyed())
-	assert(chain_only_target.hit_points == 2)
+	assert(chain_only_target.is_destroyed())
 	assert(hard_rock.hit_points == 0)
+	assert(radius_two_target.hit_points == 2)
+	assert(outside_target.hit_points == 5)
