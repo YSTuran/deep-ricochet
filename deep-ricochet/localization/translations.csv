@@ -22,6 +22,8 @@ CONFIRM_MENU_BODY,Your run will be saved and can be continued.,Koşun kaydedilec
 CONFIRM_MENU_ACTION,RETURN TO MENU,MENÜYE DÖN
 COMMON_CANCEL,CANCEL,VAZGEÇ
 COMMON_BACK,BACK,GERİ
+COMMON_PREVIOUS,PREV,ÖNCEKİ
+COMMON_NEXT,NEXT,SONRAKİ
 SETTINGS_TITLE,SETTINGS,AYARLAR
 SETTINGS_CATEGORY_HINT,Choose a settings category.,Düzenlemek istediğin ayar grubunu seç.
 SETTINGS_GENERAL,GENERAL,GENEL
@@ -93,24 +95,11 @@ HUD_SHOTS_CHIP,SHOT %d/%d,ATIŞ %d/%d
 HUD_STATS,Room %d/%d • Total %d • Room %d • Shots %d/%d • ×%.1f,Oda %d/%d • Toplam %d • Oda %d • Atış %d/%d • ×%.1f
 HUD_VOLLEY_HINT,Each valid shot launches 8 balls at 0.08 s intervals.,Her geçerli atışta 8 top 0.08 sn arayla çıkar.
 HUD_AIM_HINT,The yellow marker shows the first breakable contact.,Sarı işaret ilk kırılabilir temas noktasını gösterir.
-STATUS_AIM,Hold aim and release.,Basılı tut yönü seç ve bırak.
 STATUS_TEMPLATE_FAILED,Room template could not be loaded.,Oda şablonu yüklenemedi.
-STATUS_RESTORED,Saved room restored.,Kayıtlı oda geri yüklendi.
-STATUS_AIM_CANCELLED,Aim cancelled.,Nişan iptal edildi.
-STATUS_ROCK_RICOCHET,Hard rock reflected the ball without taking damage.,Sert kaya topu hasar almadan yansıttı.
-STATUS_ARMOR_RICOCHET,The armored face reflected the ball. Aim for a glowing edge.,Zırhlı yüz topu yansıttı. Parlayan açık kenarı hedefle.
-STATUS_ROOM_ENDED,The room has ended. Use the result screen.,Oda sona erdi. Sonuç ekranını kullan.
 STATUS_VOLLEY_ACTIVE,Wait for the current volley to finish.,Yaylım sürerken yeni atış yapılamaz.
 STATUS_AIM_FAR,Aim a little farther from the launcher.,Nişan için fırlatıcıdan biraz uzaklaş.
-STATUS_ANGLE,Angle: %.1f°,Açı: %.1f°
 STATUS_UP_ONLY,You can only aim upward.,Yalnızca yukarı doğru nişan alınabilir.
-STATUS_VOLLEY_STARTED,8-ball volley started.,8 topluk yaylım başladı.
 STATUS_SHOT_FAILED,Shot could not start. Check the settings.,Atış başlatılamadı; ayarları kontrol et.
-STATUS_BLOCK_BROKE,%s broke. +%d points,%s kırıldı. +%d puan
-STATUS_BLOCK_DAMAGED,%s took damage. HP: %d,%s hasar aldı. Kalan can: %d
-STATUS_VOLLEY_ENDED,Volley ended. Shots left: %d,Yaylım bitti. Kalan atış: %d
-STATUS_ROOM_COMPLETE,Room complete! Reward: %d,Oda tamamlandı! Ödül: %d
-STATUS_SHOTS_OVER,No shots left. Reward: %d,Atışlar bitti. Ödül: %d
 BLOCK_NORMAL,Normal block,Normal blok
 BLOCK_ORE,Ore block,Cevher bloğu
 BLOCK_ROCK,Hard rock,Sert kaya
@@ -131,6 +120,7 @@ NOTICE_ALL_DATA_DELETED,All local data deleted.,Tüm yerel veriler silindi.
 NOTICE_STORAGE_FAILED,Progress could not be updated. Please try again.,İlerleme güncellenemedi. Lütfen yeniden dene.
 MINE_SELECT_TITLE,CHOOSE A MINE,MADEN SEÇ
 MINE_SELECT_HINT,Each mine is a four-room expedition.,Her maden dört odalık bir kazıdır.
+MINE_SELECT_PAGE,Page %d/%d,Sayfa %d/%d
 MINE_UNLOCKED,OPEN,AÇIK
 MINE_LOCKED,LOCKED,KİLİTLİ
 MINE_STATS,Best %d • Clears %d,En iyi %d • Tamamlama %d
@@ -139,10 +129,17 @@ MINE_COMPLETE_PREVIOUS,COMPLETE PREVIOUS,ÖNCEKİNİ TAMAMLA
 MINE_01_NAME,COAST MINE,KIYI MADENİ
 MINE_02_NAME,DEEP MINE,DERİN MADEN
 MINE_03_NAME,CORE MINE,ÇEKİRDEK MADENİ
-MINE_04_NAME,BLAST MINE,PATLAMA MADENİ
-MINE_05_NAME,ANCIENT MINE,KADİM MADEN
-MINE_06_NAME,OBSIDIAN MINE,OBSİDYEN MADENİ
-MINE_07_NAME,ABYSS MINE,UÇURUM MADENİ
+MINE_04_NAME,ANCIENT MINE,KADİM MADEN
+MINE_05_NAME,OBSIDIAN MINE,OBSİDYEN MADENİ
+MINE_06_NAME,ABYSS MINE,UÇURUM MADENİ
+MINE_07_NAME,POWDER MINE,BARUT MADENİ
+MINE_08_NAME,SPARK MINE,KIVILCIM MADENİ
+MINE_09_NAME,FRACTURE MINE,ÇATLAK MADENİ
+MINE_10_NAME,BLAST MINE,PATLAMA MADENİ
+MINE_11_NAME,ARMORED MINE,ZIRHLI MADEN
+MINE_12_NAME,GUARDIAN MINE,MUHAFIZ MADENİ
+MINE_13_NAME,TITAN MINE,TİTAN MADENİ
+MINE_14_NAME,FINAL DEPTH,SON DERİNLİK
 MINE_1_START,Coastal Gallery,Kıyı Galerisi
 MINE_1_WIDE_01,Open Steps,Açık Basamak
 MINE_1_WIDE_02,Blue Corridor,Mavi Koridor
@@ -164,34 +161,83 @@ MINE_3_WIDE_03,Deep Arch,Derin Kemer
 MINE_3_NARROW_01,Molten Fissure,Erimiş Yarık
 MINE_3_NARROW_02,Sharp Vein,Keskin Damar
 MINE_3_NARROW_03,Final Shaft,Son Şaft
-MINE_4_START,Powder Entrance,Barut Girişi
-MINE_4_WIDE_01,Spark Gallery,Kıvılcım Galerisi
-MINE_4_WIDE_02,Powder Corridor,Barut Koridoru
-MINE_4_WIDE_03,Cracked Arch,Çatlak Kemer
-MINE_4_NARROW_01,Blast Fissure,Patlama Yarığı
-MINE_4_NARROW_02,Steel Vein,Çelik Damar
-MINE_4_NARROW_03,Crimson Gorge,Kızıl Boğaz
-MINE_5_START,Ancient Gate,Kadim Kapı
-MINE_5_WIDE_01,Guardian Tunnel,Muhafız Tüneli
-MINE_5_WIDE_02,Volcanic Hall,Volkan Salonu
-MINE_5_WIDE_03,Iron Arch,Demir Kemer
-MINE_5_NARROW_01,Final Fissure,Son Yarık
-MINE_5_NARROW_02,Single Opening,Tek Açık Damar
-MINE_5_NARROW_03,Deep Core,Derin Çekirdek
-MINE_6_START,Obsidian Threshold,Obsidyen Eşiği
-MINE_6_WIDE_01,Crystal Bastion,Kristal Burç
-MINE_6_WIDE_02,Black Anvil,Kara Örs
-MINE_6_WIDE_03,Guarded Arch,Muhafız Kemeri
-MINE_6_NARROW_01,Armored Rift,Zırhlı Yarık
-MINE_6_NARROW_02,Sentinel Vein,Nöbetçi Damar
-MINE_6_NARROW_03,Deep Vault,Derin Mahzen
-MINE_7_START,Abyss Gate,Uçurum Kapısı
-MINE_7_WIDE_01,Final Descent,Son İniş
-MINE_7_WIDE_02,Core Citadel,Çekirdek Hisarı
-MINE_7_WIDE_03,Last Arch,Son Kemer
-MINE_7_NARROW_01,Titan Rift,Titan Yarığı
-MINE_7_NARROW_02,Sealed Vein,Mühürlü Damar
-MINE_7_NARROW_03,Heart of the Deep,Derinlik Kalbi
+MINE_4_START,Ancient Gate,Kadim Kapı
+MINE_4_WIDE_01,Guardian Tunnel,Muhafız Tüneli
+MINE_4_WIDE_02,Volcanic Hall,Volkan Salonu
+MINE_4_WIDE_03,Iron Arch,Demir Kemer
+MINE_4_NARROW_01,Final Fissure,Son Yarık
+MINE_4_NARROW_02,Single Opening,Tek Açık Damar
+MINE_4_NARROW_03,Deep Core,Derin Çekirdek
+MINE_5_START,Obsidian Threshold,Obsidyen Eşiği
+MINE_5_WIDE_01,Crystal Bastion,Kristal Burç
+MINE_5_WIDE_02,Black Anvil,Kara Örs
+MINE_5_WIDE_03,Guarded Arch,Muhafız Kemeri
+MINE_5_NARROW_01,Dark Rift,Kara Yarık
+MINE_5_NARROW_02,Sentinel Vein,Nöbetçi Damar
+MINE_5_NARROW_03,Deep Vault,Derin Mahzen
+MINE_6_START,Abyss Gate,Uçurum Kapısı
+MINE_6_WIDE_01,Final Descent,Son İniş
+MINE_6_WIDE_02,Core Citadel,Çekirdek Hisarı
+MINE_6_WIDE_03,Last Arch,Son Kemer
+MINE_6_NARROW_01,Titan Rift,Titan Yarığı
+MINE_6_NARROW_02,Sealed Vein,Mühürlü Damar
+MINE_6_NARROW_03,Heart of the Deep,Derinlik Kalbi
+MINE_7_START,Powder Entrance,Barut Girişi
+MINE_7_WIDE_01,Spark Gallery,Kıvılcım Galerisi
+MINE_7_WIDE_02,Powder Corridor,Barut Koridoru
+MINE_7_WIDE_03,Cracked Arch,Çatlak Kemer
+MINE_7_NARROW_01,Blast Fissure,Patlama Yarığı
+MINE_7_NARROW_02,Steel Vein,Çelik Damar
+MINE_7_NARROW_03,Crimson Gorge,Kızıl Boğaz
+MINE_8_START,Spark Threshold,Kıvılcım Eşiği
+MINE_8_WIDE_01,Fire Gallery,Ateş Galerisi
+MINE_8_WIDE_02,Bright Corridor,Parlak Koridor
+MINE_8_WIDE_03,Ember Arch,Köz Kemeri
+MINE_8_NARROW_01,Ember Rift,Kor Yarığı
+MINE_8_NARROW_02,Hot Vein,Sıcak Damar
+MINE_8_NARROW_03,Fire Gorge,Ateş Boğazı
+MINE_9_START,Fracture Gate,Çatlak Kapı
+MINE_9_WIDE_01,Broken Steps,Kırık Basamak
+MINE_9_WIDE_02,Rift Hall,Yarık Salonu
+MINE_9_WIDE_03,Tremor Arch,Sarsıntı Kemeri
+MINE_9_NARROW_01,Rock Fracture,Kaya Çatlağı
+MINE_9_NARROW_02,Fragile Vein,Kırılgan Damar
+MINE_9_NARROW_03,Dusty Shaft,Tozlu Şaft
+MINE_10_START,Blast Threshold,Patlama Eşiği
+MINE_10_WIDE_01,Unfused Hall,Fitilsiz Salon
+MINE_10_WIDE_02,Powder Vault,Barut Mahzeni
+MINE_10_WIDE_03,Crimson Arch,Kızıl Kemer
+MINE_10_NARROW_01,Deep Blast,Derin Patlak
+MINE_10_NARROW_02,Dangerous Vein,Tehlikeli Damar
+MINE_10_NARROW_03,Ember Pit,Köz Çukuru
+MINE_11_START,Armor Gate,Zırh Kapısı
+MINE_11_WIDE_01,Iron Gallery,Demir Galeri
+MINE_11_WIDE_02,Steel Corridor,Çelik Koridor
+MINE_11_WIDE_03,Guardian Arch,Muhafız Kemeri
+MINE_11_NARROW_01,Pink Rift,Pembe Yarık
+MINE_11_NARROW_02,Armored Vein,Zırhlı Damar
+MINE_11_NARROW_03,Shield Gorge,Kalkan Boğazı
+MINE_12_START,Guardian Threshold,Muhafız Eşiği
+MINE_12_WIDE_01,Sentinel Hall,Nöbetçi Salonu
+MINE_12_WIDE_02,Black Bastion,Kara Burç
+MINE_12_WIDE_03,Watcher Arch,Bekçi Kemeri
+MINE_12_NARROW_01,Closed Rift,Kapalı Yarık
+MINE_12_NARROW_02,Hard Vein,Sert Damar
+MINE_12_NARROW_03,Deep Outpost,Derin Karakol
+MINE_13_START,Titan Gate,Titan Kapısı
+MINE_13_WIDE_01,Heavy Steps,Ağır Basamak
+MINE_13_WIDE_02,Giant Hall,Dev Salonu
+MINE_13_WIDE_03,Titan Arch,Titan Kemeri
+MINE_13_NARROW_01,Great Rift,Büyük Yarık
+MINE_13_NARROW_02,Sealed Vein,Mühürlü Damar
+MINE_13_NARROW_03,Stone Citadel,Taş Hisar
+MINE_14_START,Final Depth,Son Derinlik
+MINE_14_WIDE_01,Bottom Gallery,Dip Galerisi
+MINE_14_WIDE_02,Core Citadel,Çekirdek Hisarı
+MINE_14_WIDE_03,Final Arch,Son Kemer
+MINE_14_NARROW_01,Ultimate Rift,Nihai Yarık
+MINE_14_NARROW_02,Deep Vein,Derin Damar
+MINE_14_NARROW_03,Heart of the Mine,Maden Kalbi
 ROOM_SAFE_01,Wide Gallery,Geniş Galeri
 ROOM_SAFE_02,Twin Corridor,Çift Koridor
 ROOM_SAFE_03,Open Shaft,Açık Şaft

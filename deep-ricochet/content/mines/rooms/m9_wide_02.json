@@ -1,0 +1,103 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        2,
+        1
+      ],
+      "hitPoints": 6,
+      "id": 90201,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        6,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 90202,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        2,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 90203,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        4
+      ],
+      "hitPoints": 7,
+      "id": 90204,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        5,
+        4
+      ],
+      "hitPoints": 7,
+      "id": 90205,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        1,
+        5
+      ],
+      "hitPoints": 1,
+      "id": 90206,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        7,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 90207,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        6,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 90208,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        3,
+        8
+      ],
+      "hitPoints": 7,
+      "id": 90299,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-4",
+  "displayName": "Yarık Salonu",
+  "displayNameKey": "MINE_9_WIDE_02",
+  "exampleAngles": [
+    93.5
+  ],
+  "family": "safe",
+  "height": 8,
+  "id": "m9_wide_02",
+  "mineId": "mine_09",
+  "multiplierBps": 10000,
+  "passageColumns": [
+    3,
+    4
+  ],
+  "role": "wide",
+  "schemaVersion": 1,
+  "width": 8
+}

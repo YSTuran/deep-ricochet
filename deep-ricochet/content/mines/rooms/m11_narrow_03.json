@@ -1,0 +1,106 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        1,
+        1
+      ],
+      "hitPoints": 8,
+      "id": 110601,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        5,
+        2
+      ],
+      "hitPoints": 1,
+      "id": 110602,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        2,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 110603,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        4
+      ],
+      "hitPoints": 5,
+      "id": 110604,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom",
+        "right"
+      ]
+    },
+    {
+      "cell": [
+        0,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 110605,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        4,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 110606,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        1,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 110607,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        5,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 110608,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        3,
+        8
+      ],
+      "hitPoints": 8,
+      "id": 110699,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-4",
+  "displayName": "Kalkan Boğazı",
+  "displayNameKey": "MINE_11_NARROW_03",
+  "exampleAngles": [
+    93.5
+  ],
+  "family": "bonus",
+  "height": 8,
+  "id": "m11_narrow_03",
+  "mineId": "mine_11",
+  "multiplierBps": 15000,
+  "passageColumns": [
+    3
+  ],
+  "role": "narrow",
+  "schemaVersion": 1,
+  "width": 8
+}

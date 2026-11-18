@@ -36,7 +36,7 @@ func _ready() -> void:
 	var gameplay_room: GameplayRoom = run_controller.gameplay_room
 	assert(run_controller.catalog != null)
 	assert(run_controller.mine_registry != null)
-	assert(run_controller.mine_registry.mines.size() == 7)
+	assert(run_controller.mine_registry.mines.size() == 14)
 	assert(run_controller.catalog.templates.size() == 112)
 	assert(run_controller.catalog.route_capacity_errors(config.room_count).is_empty())
 	assert(not run_controller.catalog.route_capacity_errors(8).is_empty())

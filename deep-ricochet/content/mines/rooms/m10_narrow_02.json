@@ -1,0 +1,102 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        2,
+        1
+      ],
+      "hitPoints": 0,
+      "id": 100501,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        6,
+        2
+      ],
+      "hitPoints": 4,
+      "id": 100502,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        2,
+        2
+      ],
+      "hitPoints": 8,
+      "id": 100503,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        0,
+        3
+      ],
+      "hitPoints": 8,
+      "id": 100504,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        4,
+        4
+      ],
+      "hitPoints": 1,
+      "id": 100505,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        1,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 100506,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        5,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 100507,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        6,
+        7
+      ],
+      "hitPoints": 7,
+      "id": 100508,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        3,
+        8
+      ],
+      "hitPoints": 7,
+      "id": 100599,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-4",
+  "displayName": "Tehlikeli Damar",
+  "displayNameKey": "MINE_10_NARROW_02",
+  "exampleAngles": [
+    93.5
+  ],
+  "family": "bonus",
+  "height": 8,
+  "id": "m10_narrow_02",
+  "mineId": "mine_10",
+  "multiplierBps": 15000,
+  "passageColumns": [
+    3
+  ],
+  "role": "narrow",
+  "schemaVersion": 1,
+  "width": 8
+}

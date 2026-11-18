@@ -1,0 +1,106 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        0,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 140301,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        5,
+        2
+      ],
+      "hitPoints": 1,
+      "id": 140302,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        2,
+        3
+      ],
+      "hitPoints": 8,
+      "id": 140303,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        7,
+        4
+      ],
+      "hitPoints": 5,
+      "id": 140304,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        1,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 140305,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        6,
+        5
+      ],
+      "hitPoints": 6,
+      "id": 140306,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        0,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 140307,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        5,
+        7
+      ],
+      "hitPoints": 1,
+      "id": 140308,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        3,
+        8
+      ],
+      "hitPoints": 8,
+      "id": 140399,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-4",
+  "displayName": "Son Kemer",
+  "displayNameKey": "MINE_14_WIDE_03",
+  "exampleAngles": [
+    93.5
+  ],
+  "family": "safe",
+  "height": 8,
+  "id": "m14_wide_03",
+  "mineId": "mine_14",
+  "multiplierBps": 10000,
+  "passageColumns": [
+    3,
+    4
+  ],
+  "role": "wide",
+  "schemaVersion": 1,
+  "width": 8
+}

@@ -10,7 +10,7 @@ Bu belge P1 kod gereksinimlerinin otomatik doğrulaması ile Galaxy A10 üzerind
 - [x] Titreşim yalnız Android'de çalışır, açılıp kapatılabilir ve çağrılar hız sınırına sahiptir.
 - [x] On P1 test olayı kişisel veri içermeyen izin listesiyle yerelde tutulur.
 - [x] Test günlüğü en fazla 500 olay saklar, atomik yazılır ve JSON olarak panoya kopyalanabilir.
-- [x] Yedi madende toplam 98 doğrulanan şablon ve dört oda/üç rota akışı bulunur.
+- [x] On dört madende toplam 98 doğrulanan şablon ve dört oda/üç rota akışı bulunur.
 
 ## Galaxy A10 cihaz testi
 

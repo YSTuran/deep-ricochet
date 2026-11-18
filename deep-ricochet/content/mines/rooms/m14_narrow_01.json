@@ -1,0 +1,105 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        0,
+        1
+      ],
+      "hitPoints": 1,
+      "id": 140401,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        5,
+        1
+      ],
+      "hitPoints": 8,
+      "id": 140402,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        2,
+        3
+      ],
+      "hitPoints": 5,
+      "id": 140403,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        4,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 140404,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        1,
+        5
+      ],
+      "hitPoints": 6,
+      "id": 140405,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        6,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 140406,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        2,
+        7
+      ],
+      "hitPoints": 1,
+      "id": 140407,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        4,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 140408,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        3,
+        8
+      ],
+      "hitPoints": 8,
+      "id": 140499,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-4",
+  "displayName": "Nihai Yarık",
+  "displayNameKey": "MINE_14_NARROW_01",
+  "exampleAngles": [
+    93.5
+  ],
+  "family": "bonus",
+  "height": 8,
+  "id": "m14_narrow_01",
+  "mineId": "mine_14",
+  "multiplierBps": 15000,
+  "passageColumns": [
+    3
+  ],
+  "role": "narrow",
+  "schemaVersion": 1,
+  "width": 8
+}

@@ -1,0 +1,110 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        1,
+        1
+      ],
+      "hitPoints": 4,
+      "id": 130101,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom",
+        "right"
+      ]
+    },
+    {
+      "cell": [
+        7,
+        2
+      ],
+      "hitPoints": 8,
+      "id": 130102,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        0,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 130103,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        5,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 130104,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        2,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 130105,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        6,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 130106,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        1,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 130107,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        5,
+        7
+      ],
+      "hitPoints": 7,
+      "id": 130108,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        3,
+        8
+      ],
+      "hitPoints": 8,
+      "id": 130199,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-4",
+  "displayName": "Ağır Basamak",
+  "displayNameKey": "MINE_13_WIDE_01",
+  "exampleAngles": [
+    93.5
+  ],
+  "family": "safe",
+  "height": 8,
+  "id": "m13_wide_01",
+  "mineId": "mine_13",
+  "multiplierBps": 10000,
+  "passageColumns": [
+    3,
+    4
+  ],
+  "role": "wide",
+  "schemaVersion": 1,
+  "width": 8
+}

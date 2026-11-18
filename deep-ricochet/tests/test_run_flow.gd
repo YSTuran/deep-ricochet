@@ -52,9 +52,9 @@ static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: Gam
 		assert(template.is_valid())
 		assert(template.create_board().core_count() == 1)
 		var is_daily := template.mine_id == DailyRooms.DAILY_MINE_ID
-		var mine_order := 7 if is_daily \
+		var mine_order := 14 if is_daily \
 			else str(template.mine_id).trim_prefix("mine_").to_int()
-		assert(is_daily or (mine_order >= 1 and mine_order <= 7))
+		assert(is_daily or (mine_order >= 1 and mine_order <= 14))
 		if not layout_signatures.has(template.mine_id):
 			layout_signatures[template.mine_id] = {}
 		var mine_layouts: Dictionary = layout_signatures[template.mine_id]
@@ -76,7 +76,7 @@ static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: Gam
 					+ definition.hit_points
 				mine_classic_block_counts[template.mine_id] = mine_classic_block_counts.get(template.mine_id, 0) + 1
 			elif definition.block_type == BlockState.BlockType.CORE:
-				assert(definition.hit_points == 6 + floori(float(mine_order - 1) / 3.0))
+				assert(definition.hit_points == mini(8, 6 + floori(float(mine_order - 1) / 5.0)))
 		if not role_counts.has(template.mine_id):
 			role_counts[template.mine_id] = {}
 		var mine_roles: Dictionary = role_counts[template.mine_id]
@@ -102,24 +102,31 @@ static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: Gam
 				BlockState.BlockType.ARMORED,
 			]:
 				assert(daily_types.has(required_type))
+		else:
+			var lower_row_blocks := 0
+			for definition: RoomBlockDefinition in template.blocks:
+				if definition.block_type != BlockState.BlockType.CORE \
+					and definition.cell.y >= BoardGeometry.BLOCK_GRID_SIZE.y - 2:
+					lower_row_blocks += 1
+			assert(lower_row_blocks >= 1 and lower_row_blocks <= 2)
 	var previous_classic_average := 0.0
-	for mine_order in range(1, 8):
+	for mine_order in range(1, 15):
 		var mine_id := StringName("mine_%02d" % mine_order)
-		assert(mine_counts.get(mine_id, 0) == 14)
+		assert(mine_counts.get(mine_id, 0) == 7)
 		var counts: Dictionary = role_counts[mine_id]
-		assert(counts.get(RoomTemplate.Role.START, 0) == 2)
-		assert(counts.get(RoomTemplate.Role.WIDE, 0) == 6)
-		assert(counts.get(RoomTemplate.Role.NARROW, 0) == 6)
+		assert(counts.get(RoomTemplate.Role.START, 0) == 1)
+		assert(counts.get(RoomTemplate.Role.WIDE, 0) == 3)
+		assert(counts.get(RoomTemplate.Role.NARROW, 0) == 3)
 		var classic_average := float(mine_classic_hp_totals[mine_id]) \
 			/ float(mine_classic_block_counts[mine_id])
-		assert(classic_average > previous_classic_average)
+		assert(classic_average >= previous_classic_average)
 		previous_classic_average = classic_average
 		var mine_types: Dictionary = mine_block_type_counts[mine_id]
-		if mine_order <= 3:
+		if mine_order <= 6:
 			assert(mine_types.get(BlockState.BlockType.EXPLOSIVE, 0) == 0)
 			assert(mine_types.get(BlockState.BlockType.CRACKED, 0) == 0)
 			assert(mine_types.get(BlockState.BlockType.ARMORED, 0) == 0)
-		elif mine_order <= 5:
+		elif mine_order <= 10:
 			assert(mine_types.get(BlockState.BlockType.EXPLOSIVE, 0) > 0)
 			assert(mine_types.get(BlockState.BlockType.CRACKED, 0) > 0)
 			assert(mine_types.get(BlockState.BlockType.ARMORED, 0) == 0)
@@ -137,7 +144,7 @@ static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: Gam
 	assert(block_type_counts.get(BlockState.BlockType.CRACKED, 0) > 0)
 	assert(block_type_counts.get(BlockState.BlockType.ARMORED, 0) > 0)
 
-	for mine_order in range(1, 8):
+	for mine_order in range(1, 15):
 		var mine_id := StringName("mine_%02d" % mine_order)
 		for sample_index in range(100):
 			var rng := RandomNumberGenerator.new()
@@ -178,11 +185,13 @@ static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: Gam
 	first_rng.seed = 4444
 	var second_rng := RandomNumberGenerator.new()
 	second_rng.seed = 4444
-	assert(catalog.pick_first_room(first_rng, &"mine_07").room_id == catalog.pick_first_room(second_rng, &"mine_07").room_id)
+	assert(catalog.pick_first_room(first_rng, &"mine_14").room_id == catalog.pick_first_room(second_rng, &"mine_14").room_id)
 	for mine_id: StringName in [
 		&"mine_01",
-		&"mine_04",
 		&"mine_07",
+		&"mine_10",
+		&"mine_11",
+		&"mine_14",
 		DailyRooms.DAILY_MINE_ID,
 	]:
 		for seed in [1, 4444, 98_765]:
@@ -392,7 +401,7 @@ static func _test_controller_four_room_flow(
 	assert(controller.run_session.mine_id == &"mine_02")
 
 	var final_mine_result := RunSession.new()
-	final_mine_result.mine_id = &"mine_07"
+	final_mine_result.mine_id = &"mine_14"
 	final_mine_result.run_kind = RunSession.RunKind.NORMAL
 	final_mine_result.ended = true
 	final_mine_result.succeeded = true

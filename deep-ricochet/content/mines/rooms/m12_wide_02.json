@@ -1,0 +1,103 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        2,
+        1
+      ],
+      "hitPoints": 1,
+      "id": 120201,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        6,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 120202,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        2,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 120203,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 120204,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        5,
+        4
+      ],
+      "hitPoints": 4,
+      "id": 120205,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        1,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 120206,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        7,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 120207,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        6,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 120208,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        3,
+        8
+      ],
+      "hitPoints": 8,
+      "id": 120299,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-4",
+  "displayName": "Kara Burç",
+  "displayNameKey": "MINE_12_WIDE_02",
+  "exampleAngles": [
+    93.5
+  ],
+  "family": "safe",
+  "height": 8,
+  "id": "m12_wide_02",
+  "mineId": "mine_12",
+  "multiplierBps": 10000,
+  "passageColumns": [
+    3,
+    4
+  ],
+  "role": "wide",
+  "schemaVersion": 1,
+  "width": 8
+}

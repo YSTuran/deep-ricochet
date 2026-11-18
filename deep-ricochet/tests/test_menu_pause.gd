@@ -22,6 +22,18 @@ static func run(controller: RunController, parent: Node) -> void:
 		if card_index > 0:
 			assert(not MineSelectView.CARD_RECTS[card_index - 1].intersects(card_rect))
 	assert(MineSelectView.CARD_RECTS[-1].end.y < MineSelectView.BACK_BUTTON.position.y)
+	assert(controller.mine_select_view._page_count() == 2)
+	assert(controller.mine_select_view.page_index == 0)
+	var next_page_touch := InputEventScreenTouch.new()
+	next_page_touch.position = MineSelectView.NEXT_BUTTON.get_center()
+	next_page_touch.pressed = false
+	controller.mine_select_view._gui_input(next_page_touch)
+	assert(controller.mine_select_view.page_index == 1)
+	var previous_page_touch := InputEventScreenTouch.new()
+	previous_page_touch.position = MineSelectView.PREVIOUS_BUTTON.get_center()
+	previous_page_touch.pressed = false
+	controller.mine_select_view._gui_input(previous_page_touch)
+	assert(controller.mine_select_view.page_index == 0)
 	assert(not controller.main_menu_view.visible)
 	controller.close_mine_selection()
 	assert(controller.main_menu_view.visible)

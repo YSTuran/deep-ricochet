@@ -1,0 +1,107 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        1,
+        1
+      ],
+      "hitPoints": 7,
+      "id": 120101,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        7,
+        2
+      ],
+      "hitPoints": 4,
+      "id": 120102,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom",
+        "left"
+      ]
+    },
+    {
+      "cell": [
+        0,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 120103,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        5,
+        4
+      ],
+      "hitPoints": 4,
+      "id": 120104,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        2,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 120105,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        6,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 120106,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        1,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 120107,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        5,
+        7
+      ],
+      "hitPoints": 1,
+      "id": 120108,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        3,
+        8
+      ],
+      "hitPoints": 8,
+      "id": 120199,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-4",
+  "displayName": "Nöbetçi Salonu",
+  "displayNameKey": "MINE_12_WIDE_01",
+  "exampleAngles": [
+    93.5
+  ],
+  "family": "safe",
+  "height": 8,
+  "id": "m12_wide_01",
+  "mineId": "mine_12",
+  "multiplierBps": 10000,
+  "passageColumns": [
+    3,
+    4
+  ],
+  "role": "wide",
+  "schemaVersion": 1,
+  "width": 8
+}

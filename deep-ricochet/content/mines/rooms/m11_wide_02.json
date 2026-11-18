@@ -1,0 +1,107 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        2,
+        1
+      ],
+      "hitPoints": 7,
+      "id": 110201,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        6,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 110202,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        2,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 110203,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 110204,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        5,
+        4
+      ],
+      "hitPoints": 4,
+      "id": 110205,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom",
+        "left"
+      ]
+    },
+    {
+      "cell": [
+        1,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 110206,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        7,
+        6
+      ],
+      "hitPoints": 5,
+      "id": 110207,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        6,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 110208,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        3,
+        8
+      ],
+      "hitPoints": 8,
+      "id": 110299,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-4",
+  "displayName": "Çelik Koridor",
+  "displayNameKey": "MINE_11_WIDE_02",
+  "exampleAngles": [
+    93.5
+  ],
+  "family": "safe",
+  "height": 8,
+  "id": "m11_wide_02",
+  "mineId": "mine_11",
+  "multiplierBps": 10000,
+  "passageColumns": [
+    3,
+    4
+  ],
+  "role": "wide",
+  "schemaVersion": 1,
+  "width": 8
+}

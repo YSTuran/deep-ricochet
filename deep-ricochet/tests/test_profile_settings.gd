@@ -85,20 +85,16 @@ static func _test_profile_round_trip() -> void:
 	assert(not daily.record_run("daily_2", 180, false, 1, &"mine_01", true, "2026-11-11"))
 	assert(daily.daily_best_score == 220)
 	assert(daily.daily_attempts == 2)
-	assert(daily.record_run("mine_1_clear", 300, true, 4, &"mine_01"))
-	assert(daily.highest_unlocked_mine == 2)
-	assert(daily.record_run("mine_2_clear", 360, true, 4, &"mine_02"))
-	assert(daily.highest_unlocked_mine == 3)
-	assert(daily.record_run("mine_3_clear", 420, true, 4, &"mine_03"))
-	assert(daily.highest_unlocked_mine == 4)
-	assert(daily.record_run("mine_4_clear", 480, true, 4, &"mine_04"))
-	assert(daily.highest_unlocked_mine == 5)
-	assert(daily.record_run("mine_5_clear", 540, true, 4, &"mine_05"))
-	assert(daily.highest_unlocked_mine == 6)
-	assert(daily.record_run("mine_6_clear", 600, true, 4, &"mine_06"))
-	assert(daily.highest_unlocked_mine == 7)
-	assert(daily.record_run("mine_7_clear", 660, true, 4, &"mine_07"))
-	assert(daily.highest_unlocked_mine == 7)
+	for mine_order in range(1, PlayerProfile.MINE_COUNT + 1):
+		var mine_id := StringName("mine_%02d" % mine_order)
+		assert(daily.record_run(
+			"mine_%d_clear" % mine_order,
+			240 + mine_order * 60,
+			true,
+			4,
+			mine_id,
+		))
+		assert(daily.highest_unlocked_mine == mini(mine_order + 1, PlayerProfile.MINE_COUNT))
 	assert(service.clear_all())
 
 
@@ -251,8 +247,9 @@ static func _test_controller_profile_tutorial_and_locale(controller: RunControll
 	assert(controller.settings_overlay.page == SettingsOverlay.Page.GENERAL)
 	assert(controller.set_language(&"en"))
 	assert(TranslationServer.translate("MENU_NEW_GAME") == "NEW GAME")
-	assert(TranslationServer.translate("MINE_06_NAME") == "OBSIDIAN MINE")
-	assert(TranslationServer.translate("MINE_07_NAME") == "ABYSS MINE")
+	assert(TranslationServer.translate("MINE_06_NAME") == "ABYSS MINE")
+	assert(TranslationServer.translate("MINE_07_NAME") == "POWDER MINE")
+	assert(TranslationServer.translate("MINE_14_NAME") == "FINAL DEPTH")
 	controller.set_sfx_volume(0.42)
 	assert(is_equal_approx(controller.app_settings.sfx_volume, 0.42))
 	controller.set_music_volume(0.24)

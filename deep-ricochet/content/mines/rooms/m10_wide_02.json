@@ -1,0 +1,103 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        2,
+        1
+      ],
+      "hitPoints": 7,
+      "id": 100201,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        6,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 100202,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        2,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 100203,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        4
+      ],
+      "hitPoints": 7,
+      "id": 100204,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        5,
+        4
+      ],
+      "hitPoints": 4,
+      "id": 100205,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        1,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 100206,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        7,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 100207,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        6,
+        7
+      ],
+      "hitPoints": 1,
+      "id": 100208,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        3,
+        8
+      ],
+      "hitPoints": 7,
+      "id": 100299,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-4",
+  "displayName": "Barut Mahzeni",
+  "displayNameKey": "MINE_10_WIDE_02",
+  "exampleAngles": [
+    93.5
+  ],
+  "family": "safe",
+  "height": 8,
+  "id": "m10_wide_02",
+  "mineId": "mine_10",
+  "multiplierBps": 10000,
+  "passageColumns": [
+    3,
+    4
+  ],
+  "role": "wide",
+  "schemaVersion": 1,
+  "width": 8
+}

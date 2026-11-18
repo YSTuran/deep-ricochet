@@ -1,0 +1,103 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        0,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 90301,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        5,
+        2
+      ],
+      "hitPoints": 6,
+      "id": 90302,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        2,
+        3
+      ],
+      "hitPoints": 3,
+      "id": 90303,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        7,
+        4
+      ],
+      "hitPoints": 7,
+      "id": 90304,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        1,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 90305,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        6,
+        5
+      ],
+      "hitPoints": 1,
+      "id": 90306,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        0,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 90307,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        5,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 90308,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        3,
+        8
+      ],
+      "hitPoints": 7,
+      "id": 90399,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-4",
+  "displayName": "Sarsıntı Kemeri",
+  "displayNameKey": "MINE_9_WIDE_03",
+  "exampleAngles": [
+    93.5
+  ],
+  "family": "safe",
+  "height": 8,
+  "id": "m9_wide_03",
+  "mineId": "mine_09",
+  "multiplierBps": 10000,
+  "passageColumns": [
+    3,
+    4
+  ],
+  "role": "wide",
+  "schemaVersion": 1,
+  "width": 8
+}

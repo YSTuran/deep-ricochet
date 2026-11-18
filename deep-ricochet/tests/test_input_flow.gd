@@ -19,6 +19,7 @@ static func run(gameplay_room: GameplayRoom, config: GameConfig) -> void:
 	_test_outside_board_does_not_start_aim(gameplay_room, config)
 	_test_emulated_mouse_is_ignored(gameplay_room, config)
 	_test_cancelled_touch(gameplay_room, config)
+	_test_routine_hud_status_stays_empty(gameplay_room)
 	_test_typed_impact_effect(gameplay_room)
 	_test_screen_shake_resets(gameplay_room)
 	_test_finished_room_does_not_restart(gameplay_room, config)
@@ -84,6 +85,17 @@ static func _test_cancelled_touch(gameplay_room: GameplayRoom, config: GameConfi
 	assert(gameplay_room.room.shots_remaining == config.shots_per_room)
 
 
+static func _test_routine_hud_status_stays_empty(gameplay_room: GameplayRoom) -> void:
+	assert(gameplay_room.restart_current_room())
+	gameplay_room._begin_aim(VALID_AIM_SCREEN_POSITION)
+	assert(gameplay_room.aim_valid)
+	assert(gameplay_room.status_text.is_empty())
+	gameplay_room._release_aim()
+	assert(gameplay_room.volley.active)
+	assert(gameplay_room.status_text.is_empty())
+	assert(gameplay_room.restart_current_room())
+
+
 static func _test_finished_room_does_not_restart(gameplay_room: GameplayRoom, config: GameConfig) -> void:
 	assert(gameplay_room.restart_current_room())
 	var finished_board := gameplay_room.board
@@ -124,6 +136,7 @@ static func _test_typed_impact_effect(gameplay_room: GameplayRoom) -> void:
 	var effect: Dictionary = gameplay_room.impact_effects.back()
 	assert(int(effect["block_type"]) == BlockState.BlockType.NORMAL)
 	assert(effect.has("points"))
+	assert(gameplay_room.status_text.is_empty())
 
 
 static func _test_screen_shake_resets(gameplay_room: GameplayRoom) -> void:
@@ -153,4 +166,5 @@ static func _test_room_finished_signal(gameplay_room: GameplayRoom) -> void:
 	gameplay_room._handle_room_resolution(resolution)
 	assert(probe.emission_count == 1)
 	assert(probe.last_resolution == resolution)
+	assert(gameplay_room.status_text.is_empty())
 	gameplay_room.room_finished.disconnect(probe.capture)

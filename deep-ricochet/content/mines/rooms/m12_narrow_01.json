@@ -1,0 +1,106 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        0,
+        1
+      ],
+      "hitPoints": 8,
+      "id": 120401,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        5,
+        1
+      ],
+      "hitPoints": 8,
+      "id": 120402,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        2,
+        3
+      ],
+      "hitPoints": 1,
+      "id": 120403,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        4,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 120404,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        1,
+        5
+      ],
+      "hitPoints": 5,
+      "id": 120405,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom",
+        "left"
+      ]
+    },
+    {
+      "cell": [
+        6,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 120406,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        2,
+        7
+      ],
+      "hitPoints": 6,
+      "id": 120407,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        4,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 120408,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        3,
+        8
+      ],
+      "hitPoints": 8,
+      "id": 120499,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-4",
+  "displayName": "Kapalı Yarık",
+  "displayNameKey": "MINE_12_NARROW_01",
+  "exampleAngles": [
+    93.5
+  ],
+  "family": "bonus",
+  "height": 8,
+  "id": "m12_narrow_01",
+  "mineId": "mine_12",
+  "multiplierBps": 15000,
+  "passageColumns": [
+    3
+  ],
+  "role": "narrow",
+  "schemaVersion": 1,
+  "width": 8
+}

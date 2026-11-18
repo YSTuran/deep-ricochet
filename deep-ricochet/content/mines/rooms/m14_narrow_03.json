@@ -1,0 +1,108 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        1,
+        1
+      ],
+      "hitPoints": 5,
+      "id": 140601,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        5,
+        2
+      ],
+      "hitPoints": 8,
+      "id": 140602,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        2,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 140603,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 140604,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        0,
+        5
+      ],
+      "hitPoints": 1,
+      "id": 140605,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        4,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 140606,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        1,
+        7
+      ],
+      "hitPoints": 7,
+      "id": 140607,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        5,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 140608,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        3,
+        8
+      ],
+      "hitPoints": 8,
+      "id": 140699,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-4",
+  "displayName": "Maden Kalbi",
+  "displayNameKey": "MINE_14_NARROW_03",
+  "exampleAngles": [
+    93.5
+  ],
+  "family": "bonus",
+  "height": 8,
+  "id": "m14_narrow_03",
+  "mineId": "mine_14",
+  "multiplierBps": 15000,
+  "passageColumns": [
+    3
+  ],
+  "role": "narrow",
+  "schemaVersion": 1,
+  "width": 8
+}

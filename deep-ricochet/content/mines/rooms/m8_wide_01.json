@@ -1,0 +1,103 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        1,
+        1
+      ],
+      "hitPoints": 5,
+      "id": 80101,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        7,
+        2
+      ],
+      "hitPoints": 3,
+      "id": 80102,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        0,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 80103,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        5,
+        4
+      ],
+      "hitPoints": 7,
+      "id": 80104,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        2,
+        5
+      ],
+      "hitPoints": 7,
+      "id": 80105,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        6,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 80106,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        1,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 80107,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        5,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 80108,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        3,
+        8
+      ],
+      "hitPoints": 7,
+      "id": 80199,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-4",
+  "displayName": "Ateş Galerisi",
+  "displayNameKey": "MINE_8_WIDE_01",
+  "exampleAngles": [
+    93.5
+  ],
+  "family": "safe",
+  "height": 8,
+  "id": "m8_wide_01",
+  "mineId": "mine_08",
+  "multiplierBps": 10000,
+  "passageColumns": [
+    3,
+    4
+  ],
+  "role": "wide",
+  "schemaVersion": 1,
+  "width": 8
+}

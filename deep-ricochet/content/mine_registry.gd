@@ -69,8 +69,8 @@ func validation_errors() -> PackedStringArray:
 		return errors
 	if catalog.content_version != content_version:
 		errors.append("Maden ve oda kataloğu içerik sürümleri uyuşmuyor.")
-	if mines.size() != 7:
-		errors.append("Seviye paketi tam yedi maden içermelidir.")
+	if mines.size() != 14:
+		errors.append("Seviye paketi tam on dört maden içermelidir.")
 	var ids: Dictionary[StringName, bool] = {}
 	var orders: Dictionary[int, bool] = {}
 	for mine: MineDefinition in mines:
@@ -86,10 +86,10 @@ func validation_errors() -> PackedStringArray:
 		if mine.order > 1 and mine.unlock_after.is_empty():
 			errors.append("Kilitli madenin ön koşulu eksik: %s." % mine.mine_id)
 		var counts := catalog.role_counts(mine.mine_id)
-		if int(counts.get(RoomTemplate.Role.START, 0)) != 2 \
-			or int(counts.get(RoomTemplate.Role.WIDE, 0)) != 6 \
-			or int(counts.get(RoomTemplate.Role.NARROW, 0)) != 6:
-			errors.append("%s madeni 2 başlangıç, 6 geniş ve 6 dar şablon içermelidir." % mine.mine_id)
+		if int(counts.get(RoomTemplate.Role.START, 0)) != 1 \
+			or int(counts.get(RoomTemplate.Role.WIDE, 0)) != 3 \
+			or int(counts.get(RoomTemplate.Role.NARROW, 0)) != 3:
+			errors.append("%s madeni 1 başlangıç, 3 geniş ve 3 dar şablon içermelidir." % mine.mine_id)
 	for mine: MineDefinition in mines:
 		if mine.order > 1 and mine.unlock_after != mine_id_for_order(mine.order - 1):
 			errors.append("%s madeninin kilit ön koşulu bir önceki maden olmalıdır." % mine.mine_id)

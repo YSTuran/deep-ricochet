@@ -1,0 +1,102 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        1,
+        1
+      ],
+      "hitPoints": 4,
+      "id": 100601,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        5,
+        2
+      ],
+      "hitPoints": 7,
+      "id": 100602,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        2,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 100603,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        4
+      ],
+      "hitPoints": 1,
+      "id": 100604,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        0,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 100605,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        4,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 100606,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        1,
+        7
+      ],
+      "hitPoints": 6,
+      "id": 100607,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        5,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 100608,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        3,
+        8
+      ],
+      "hitPoints": 7,
+      "id": 100699,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-4",
+  "displayName": "Köz Çukuru",
+  "displayNameKey": "MINE_10_NARROW_03",
+  "exampleAngles": [
+    93.5
+  ],
+  "family": "bonus",
+  "height": 8,
+  "id": "m10_narrow_03",
+  "mineId": "mine_10",
+  "multiplierBps": 15000,
+  "passageColumns": [
+    3
+  ],
+  "role": "narrow",
+  "schemaVersion": 1,
+  "width": 8
+}

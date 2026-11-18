@@ -1,0 +1,102 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        0,
+        1
+      ],
+      "hitPoints": 8,
+      "id": 110401,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        5,
+        1
+      ],
+      "hitPoints": 4,
+      "id": 110402,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        2,
+        3
+      ],
+      "hitPoints": 8,
+      "id": 110403,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        4,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 110404,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        1,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 110405,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        6,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 110406,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        2,
+        7
+      ],
+      "hitPoints": 1,
+      "id": 110407,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        4,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 110408,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        3,
+        8
+      ],
+      "hitPoints": 8,
+      "id": 110499,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-4",
+  "displayName": "Pembe Yarık",
+  "displayNameKey": "MINE_11_NARROW_01",
+  "exampleAngles": [
+    93.5
+  ],
+  "family": "bonus",
+  "height": 8,
+  "id": "m11_narrow_01",
+  "mineId": "mine_11",
+  "multiplierBps": 15000,
+  "passageColumns": [
+    3
+  ],
+  "role": "narrow",
+  "schemaVersion": 1,
+  "width": 8
+}

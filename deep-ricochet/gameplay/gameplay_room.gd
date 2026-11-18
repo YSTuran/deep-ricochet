@@ -48,7 +48,7 @@ func _ready() -> void:
 	config = GameConfig.load_from_file()
 	shots_per_room = config.shots_per_room
 	view.bind(self)
-	status_text = tr("STATUS_AIM")
+	status_text = ""
 	if current_template == null:
 		current_template = RoomTemplateLoader.load_from_file(initial_room_template_path)
 		if current_template == null:
@@ -128,7 +128,7 @@ func restore_room(template: RoomTemplate, snapshot: RoomSnapshot) -> bool:
 	room = restored_room
 	volley = ShotVolley.new()
 	_reset_transient_state()
-	status_text = tr("STATUS_RESTORED")
+	status_text = ""
 	set_process_unhandled_input(simulation_enabled and not room.room_finished)
 	_refresh_view()
 	return true
@@ -198,7 +198,7 @@ func cancel_aim_for_pause() -> void:
 	aim_preview_dirty = false
 	aim_preview = AimPreviewResult.new(LAUNCHER_WORLD)
 	active_touch_id = -1
-	status_text = tr("STATUS_AIM_CANCELLED")
+	status_text = ""
 	_refresh_view()
 
 
@@ -233,14 +233,6 @@ func _advance_volley(delta: float) -> bool:
 				collision.block_type if collision.contact_started else -1,
 				collision.position_world.x,
 			)
-		if collision.contact_started and collision.block_type == BlockState.BlockType.ROCK:
-			status_text = tr("STATUS_ROCK_RICOCHET")
-			static_view_changed = true
-		elif collision.contact_started and collision.block_type == BlockState.BlockType.ARMORED:
-			var armored_block := board.get_block_by_id(collision.block_id)
-			if armored_block != null and not armored_block.accepts_contact(collision.normal):
-				status_text = tr("STATUS_ARMOR_RICOCHET")
-				static_view_changed = true
 	if not step_result.forced_collection_positions.is_empty():
 		forced_collection_positions = step_result.forced_collection_positions
 		forced_collection_effect_elapsed = 0.0
@@ -304,8 +296,6 @@ func _begin_aim(screen_position: Vector2) -> void:
 	if not BOARD_SCREEN_RECT.has_point(screen_position):
 		return
 	if room.room_finished:
-		status_text = tr("STATUS_ROOM_ENDED")
-		_refresh_view()
 		return
 	if volley.active or room.shot_in_progress:
 		status_text = tr("STATUS_VOLLEY_ACTIVE")
@@ -333,7 +323,7 @@ func _update_aim(screen_position: Vector2) -> void:
 	var clamped_angle := clampf(raw_angle, config.aim_min_degrees, config.aim_max_degrees)
 	aim_direction = Vector2.from_angle(deg_to_rad(clamped_angle)).normalized()
 	aim_valid = raw_direction.y > 0.0
-	status_text = tr("STATUS_ANGLE") % clamped_angle if aim_valid else tr("STATUS_UP_ONLY")
+	status_text = "" if aim_valid else tr("STATUS_UP_ONLY")
 	if aim_valid:
 		aim_preview_dirty = true
 	else:
@@ -360,7 +350,7 @@ func _release_aim() -> void:
 			shot_started.emit()
 			AudioManager.begin_volley()
 			AudioManager.play_launch()
-			status_text = tr("STATUS_VOLLEY_STARTED")
+			status_text = ""
 		else:
 			volley.reset()
 			status_text = tr("STATUS_SHOT_FAILED")
@@ -375,7 +365,7 @@ func _cancel_aim() -> void:
 	aim_valid = false
 	aim_preview_dirty = false
 	aim_preview = AimPreviewResult.new(LAUNCHER_WORLD)
-	status_text = tr("STATUS_AIM_CANCELLED")
+	status_text = ""
 	_refresh_view()
 
 
@@ -397,7 +387,7 @@ func _commit_loaded_room(template: RoomTemplate, loaded_board: BoardModel) -> bo
 	room = RoomSession.new()
 	room.start(shots_per_room, current_template.multiplier_bps)
 	_reset_transient_state()
-	status_text = tr("STATUS_AIM")
+	status_text = ""
 	set_process_unhandled_input(simulation_enabled)
 	_refresh_view()
 	return true
@@ -454,12 +444,6 @@ func _handle_damage_result(result: BlockDamageResult) -> bool:
 	if result.destroyed:
 		AudioManager.play_break(block.type)
 		block_destroyed.emit(block.type)
-		status_text = tr("STATUS_BLOCK_BROKE") % [_block_name(block), awarded_points]
-	else:
-		status_text = tr("STATUS_BLOCK_DAMAGED") % [
-			_block_name(block),
-			result.remaining_hit_points,
-		]
 	return true
 
 
@@ -468,39 +452,16 @@ func _handle_room_resolution(resolution: RoomResolution) -> void:
 		return
 	shot_resolved.emit(resolution)
 	if not resolution.room_finished:
-		status_text = tr("STATUS_VOLLEY_ENDED") % resolution.remaining_shots
+		status_text = ""
 		return
 
-	if resolution.succeeded:
-		status_text = tr("STATUS_ROOM_COMPLETE") % resolution.reward
-	else:
-		status_text = tr("STATUS_SHOTS_OVER") % resolution.reward
+	status_text = ""
 	AudioManager.play_room_result(resolution.succeeded)
 	room_finished.emit(resolution)
 
 
-func _block_name(block: BlockState) -> String:
-	match block.type:
-		BlockState.BlockType.NORMAL:
-			return tr("BLOCK_NORMAL")
-		BlockState.BlockType.ORE:
-			return tr("BLOCK_ORE")
-		BlockState.BlockType.ROCK:
-			return tr("BLOCK_ROCK")
-		BlockState.BlockType.CORE:
-			return tr("BLOCK_CORE")
-		BlockState.BlockType.EXPLOSIVE:
-			return tr("BLOCK_EXPLOSIVE")
-		BlockState.BlockType.CRACKED:
-			return tr("BLOCK_CRACKED")
-		BlockState.BlockType.ARMORED:
-			return tr("BLOCK_ARMORED")
-	return tr("BLOCK_GENERIC")
-
-
 func refresh_locale() -> void:
-	if not volley.active and not room.room_finished:
-		status_text = tr("STATUS_AIM")
+	status_text = ""
 	if is_instance_valid(view):
 		view.refresh_background()
 	_refresh_view()

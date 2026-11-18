@@ -1,0 +1,102 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        2,
+        1
+      ],
+      "hitPoints": 0,
+      "id": 90501,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        6,
+        2
+      ],
+      "hitPoints": 7,
+      "id": 90502,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        2,
+        2
+      ],
+      "hitPoints": 5,
+      "id": 90503,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        0,
+        3
+      ],
+      "hitPoints": 7,
+      "id": 90504,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        4,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 90505,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        1,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 90506,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        5,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 90507,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        6,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 90508,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        3,
+        8
+      ],
+      "hitPoints": 7,
+      "id": 90599,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-4",
+  "displayName": "Kırılgan Damar",
+  "displayNameKey": "MINE_9_NARROW_02",
+  "exampleAngles": [
+    93.5
+  ],
+  "family": "bonus",
+  "height": 8,
+  "id": "m9_narrow_02",
+  "mineId": "mine_09",
+  "multiplierBps": 15000,
+  "passageColumns": [
+    3
+  ],
+  "role": "narrow",
+  "schemaVersion": 1,
+  "width": 8
+}

@@ -158,7 +158,7 @@ static func _test_scoring_and_room_resolution(config: GameConfig) -> void:
 
 static func _test_speed_grouping_equivalence(config: GameConfig) -> void:
 	var template := RoomTemplateLoader.load_from_file(
-		"res://content/mines/rooms/m1_start_a.json"
+		"res://content/mines/rooms/m1_start.json"
 	)
 	assert(template != null)
 	var normal_result := _simulate_grouped_volley(template, config, 1)

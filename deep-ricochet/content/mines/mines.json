@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "contentVersion": "p2-mines-3",
+  "contentVersion": "p2-mines-4",
   "roomCatalog": "res://content/mines/catalog.json",
   "mines": [
     { "id": "mine_01", "displayNameKey": "MINE_01_NAME", "order": 1, "unlockAfter": "" },
@@ -9,6 +9,13 @@
     { "id": "mine_04", "displayNameKey": "MINE_04_NAME", "order": 4, "unlockAfter": "mine_03" },
     { "id": "mine_05", "displayNameKey": "MINE_05_NAME", "order": 5, "unlockAfter": "mine_04" },
     { "id": "mine_06", "displayNameKey": "MINE_06_NAME", "order": 6, "unlockAfter": "mine_05" },
-    { "id": "mine_07", "displayNameKey": "MINE_07_NAME", "order": 7, "unlockAfter": "mine_06" }
+    { "id": "mine_07", "displayNameKey": "MINE_07_NAME", "order": 7, "unlockAfter": "mine_06" },
+    { "id": "mine_08", "displayNameKey": "MINE_08_NAME", "order": 8, "unlockAfter": "mine_07" },
+    { "id": "mine_09", "displayNameKey": "MINE_09_NAME", "order": 9, "unlockAfter": "mine_08" },
+    { "id": "mine_10", "displayNameKey": "MINE_10_NAME", "order": 10, "unlockAfter": "mine_09" },
+    { "id": "mine_11", "displayNameKey": "MINE_11_NAME", "order": 11, "unlockAfter": "mine_10" },
+    { "id": "mine_12", "displayNameKey": "MINE_12_NAME", "order": 12, "unlockAfter": "mine_11" },
+    { "id": "mine_13", "displayNameKey": "MINE_13_NAME", "order": 13, "unlockAfter": "mine_12" },
+    { "id": "mine_14", "displayNameKey": "MINE_14_NAME", "order": 14, "unlockAfter": "mine_13" }
   ]
 }
