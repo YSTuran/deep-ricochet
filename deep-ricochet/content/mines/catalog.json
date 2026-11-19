@@ -1,5 +1,5 @@
 {
-  "contentVersion": "p2-mines-6",
+  "contentVersion": "p2-mines-7",
   "schemaVersion": 1,
   "templates": [
     "res://content/mines/rooms/m1_start.json",

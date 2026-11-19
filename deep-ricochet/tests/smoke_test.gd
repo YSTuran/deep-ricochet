@@ -12,6 +12,7 @@ func _ready() -> void:
 	assert(is_equal_approx(config.ball_speed, 18.0))
 	assert(config.explosive_break_points == 10)
 	assert(config.cracked_break_points == 6)
+	assert(config.armored_break_points == 40)
 	assert(config.daily_shots_per_room == 5)
 	assert(config.validation_errors().is_empty())
 	var invalid_config := GameConfig.new()

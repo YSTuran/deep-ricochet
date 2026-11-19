@@ -3,7 +3,8 @@ extends RefCounted
 
 const DAILY_MINE_ID := &"daily"
 const SOURCE_MINE_ID := &"mine_14"
-const CONTENT_VERSION := "daily-4"
+const CONTENT_VERSION := "daily-5"
+const CRACKED_HIT_POINTS := 8
 const TARGET_BLOCK_COUNT := 14
 const SOURCE_ROOM_IDS: Array[StringName] = [
 	&"m14_start",
@@ -260,7 +261,7 @@ static func _hit_points_for(block_type: int) -> int:
 		BlockState.BlockType.EXPLOSIVE:
 			return 5
 		BlockState.BlockType.CRACKED:
-			return 1
+			return CRACKED_HIT_POINTS
 		BlockState.BlockType.ARMORED:
 			return 6
 	return 1
@@ -283,15 +284,15 @@ static func _example_angles_for(room_id: StringName) -> PackedFloat32Array:
 		"daily_m14_wide_03_a":
 			return PackedFloat32Array([15.5, 16.0, 18.5])
 		"daily_m14_wide_03_b":
-			return PackedFloat32Array([62.0])
+			return PackedFloat32Array([37.5, 37.5, 37.5])
 		"daily_m14_narrow_01_a":
-			return PackedFloat32Array([16.0])
+			return PackedFloat32Array([15.0, 15.0, 15.0])
 		"daily_m14_narrow_01_b":
-			return PackedFloat32Array([15.0, 15.5, 16.0])
+			return PackedFloat32Array([15.0, 15.0, 15.0])
 		"daily_m14_narrow_02_a":
 			return PackedFloat32Array([17.5, 18.0, 19.5])
 		"daily_m14_narrow_02_b":
-			return PackedFloat32Array([54.5, 55.0, 55.5])
+			return PackedFloat32Array([17.5, 17.5, 17.5])
 		"daily_m14_narrow_03_a":
 			return PackedFloat32Array([15.0, 15.5, 16.0])
 		"daily_m14_narrow_03_b":

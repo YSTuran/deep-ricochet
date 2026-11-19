@@ -32,7 +32,7 @@
         0,
         3
       ],
-      "hitPoints": 1,
+      "hitPoints": 8,
       "id": 120504,
       "type": "cracked"
     },
@@ -82,7 +82,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-6",
+  "contentVersion": "p2-mines-7",
   "displayName": "Sert Damar",
   "displayNameKey": "MINE_12_NARROW_02",
   "exampleAngles": [

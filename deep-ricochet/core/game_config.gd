@@ -48,7 +48,7 @@ var ore_break_points: int = 25
 var core_break_points: int = 100
 var explosive_break_points: int = 10
 var cracked_break_points: int = 6
-var armored_break_points: int = 10
+var armored_break_points: int = 40
 var unused_shot_bonus: int = 20
 
 
@@ -143,7 +143,7 @@ func validation_errors() -> PackedStringArray:
 		errors.append("Rota çarpanları pozitif olmalı ve bonus güvenli rotadan düşük olmamalıdır.")
 	if normal_break_points < 0 or ore_break_points < 0 or core_break_points <= 0 \
 		or explosive_break_points != 10 or cracked_break_points != 6 \
-		or armored_break_points < 0:
+		or armored_break_points != 40:
 		errors.append("Blok puanları negatif olamaz; çekirdek puanı pozitif olmalıdır.")
 	if unused_shot_bonus < 0:
 		errors.append("Kullanılmayan atış bonusu negatif olamaz.")

@@ -50,7 +50,7 @@
         6,
         5
       ],
-      "hitPoints": 1,
+      "hitPoints": 8,
       "id": 130306,
       "type": "cracked"
     },
@@ -85,7 +85,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-6",
+  "contentVersion": "p2-mines-7",
   "displayName": "Titan Kemeri",
   "displayNameKey": "MINE_13_WIDE_03",
   "exampleAngles": [

@@ -146,8 +146,11 @@ func validation_errors() -> PackedStringArray:
 			if definition.hit_points < 1 or definition.hit_points > MAX_SPECIAL_BLOCK_HP:
 				errors.append("%s patlayıcı blok olduğu için 1-%d cana sahip olmalıdır." % [label, MAX_SPECIAL_BLOCK_HP])
 		elif definition.block_type == BlockState.BlockType.CRACKED:
-			if definition.hit_points != 1:
-				errors.append("%s çatlak kaya olduğu için 1 cana sahip olmalıdır." % label)
+			if definition.hit_points != MAX_SPECIAL_BLOCK_HP:
+				errors.append(
+					"%s çatlak kaya olduğu için %d cana sahip olmalıdır." \
+						% [label, MAX_SPECIAL_BLOCK_HP]
+				)
 		elif definition.block_type == BlockState.BlockType.ARMORED:
 			if definition.hit_points < 3 or definition.hit_points > MAX_SPECIAL_BLOCK_HP:
 				errors.append("%s zırhlı blok olduğu için 3-%d cana sahip olmalıdır." % [label, MAX_SPECIAL_BLOCK_HP])

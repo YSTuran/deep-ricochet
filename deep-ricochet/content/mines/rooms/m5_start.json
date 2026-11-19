@@ -82,7 +82,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-6",
+  "contentVersion": "p2-mines-7",
   "displayName": "Obsidyen Eşiği",
   "displayNameKey": "MINE_5_START",
   "exampleAngles": [

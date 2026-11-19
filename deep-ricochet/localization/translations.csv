@@ -65,11 +65,11 @@ TUTORIAL_BODY_1,Hold the board and drag upward to aim. Releasing launches 8 ball
 TUTORIAL_TITLE_2,STANDARD BLOCKS,STANDART BLOKLAR
 TUTORIAL_BODY_2,Blue blocks give points and gold ore gives more. Break the mint core before your shots run out.,Mavi bloklar puan verir ve altın cevher daha değerlidir. Atışların bitmeden mint çekirdeği kır.
 TUTORIAL_TITLE_3,ROCK TYPES,KAYA TÜRLERİ
-TUTORIAL_BODY_3,Solid rock cannot be broken and reflects balls. Cracked rock can be broken and awards 6 points.,Sert kaya kırılamaz ve topları sektirir. Çatlak kaya kırılabilir ve 6 puan kazandırır.
+TUTORIAL_BODY_3,Solid rock cannot be broken and reflects balls. Cracked rock always has 8 health and awards 6 points.,Sert kaya kırılamaz ve topları sektirir. Çatlak kaya her zaman 8 cana sahiptir ve 6 puan kazandırır.
 TUTORIAL_TITLE_4,EXPLOSIVE BLOCK,PATLAYICI BLOK
 TUTORIAL_BODY_4,Breaking an explosive awards 10 points and deals 3 damage to every block in its 5 by 5 blast area.,Patlayıcıyı kırmak 10 puan verir ve 5 çarpı 5 patlama alanındaki her bloğa 3 hasar verir.
 TUTORIAL_TITLE_5,ARMORED BLOCK,ZIRHLI BLOK
-TUTORIAL_BODY_5,Armored blocks only take damage from their pink weak side or sides. Aim for the exposed opening.,Zırhlı bloklar yalnızca pembe zayıf kenarlarından hasar alır. Açık bırakılan bölgeyi hedefle.
+TUTORIAL_BODY_5,Armored blocks award 40 points and only take direct damage from their pink weak side or sides.,Zırhlı bloklar 40 puan verir ve yalnızca pembe zayıf kenarlarından doğrudan hasar alır.
 TUTORIAL_TITLE_6,CHOOSE YOUR ROUTE,ROTANI SEÇ
 TUTORIAL_BODY_6,Wide passages are safer. Narrow veins contain denser layouts but provide a higher score multiplier.,Geniş geçitler daha güvenlidir. Dar damarlar daha yoğundur ancak daha yüksek puan çarpanı verir.
 ROUTE_SELECT,CHOOSE A ROUTE,ROTA SEÇ

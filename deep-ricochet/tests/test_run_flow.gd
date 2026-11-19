@@ -88,6 +88,8 @@ static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: Gam
 				mine_classic_hp_totals[template.mine_id] = mine_classic_hp_totals.get(template.mine_id, 0) \
 					+ definition.hit_points
 				mine_classic_block_counts[template.mine_id] = mine_classic_block_counts.get(template.mine_id, 0) + 1
+			elif definition.block_type == BlockState.BlockType.CRACKED:
+				assert(definition.hit_points == 8)
 			elif definition.block_type == BlockState.BlockType.CORE:
 				var expected_core_hp := mini(8, 6 + floori(float(mine_order - 1) / 5.0))
 				if template.role == RoomTemplate.Role.NARROW:

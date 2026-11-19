@@ -32,7 +32,7 @@
         7,
         4
       ],
-      "hitPoints": 1,
+      "hitPoints": 8,
       "id": 100604,
       "type": "cracked"
     },
@@ -82,7 +82,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-6",
+  "contentVersion": "p2-mines-7",
   "displayName": "Köz Çukuru",
   "displayNameKey": "MINE_10_NARROW_03",
   "exampleAngles": [

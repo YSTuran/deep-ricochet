@@ -1,6 +1,7 @@
 extends SceneTree
 
-const CONTENT_VERSION := "p2-mines-6"
+const CONTENT_VERSION := "p2-mines-7"
+const CRACKED_HIT_POINTS := 8
 const NARROW_DURABILITY_BONUS := 1
 const OUTPUT_DIR := "res://content/mines/rooms"
 const CATALOG_PATH := "res://content/mines/catalog.json"
@@ -238,7 +239,7 @@ func _hit_points(
 	if type_name == "rock":
 		return 0
 	if type_name == "cracked":
-		return 1
+		return CRACKED_HIT_POINTS
 	var role_bonus := NARROW_DURABILITY_BONUS \
 		if ARCHETYPES[archetype_index]["role"] == "narrow" else 0
 	if type_name == "explosive":

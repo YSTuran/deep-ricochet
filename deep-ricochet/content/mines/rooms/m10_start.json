@@ -32,7 +32,7 @@
         5,
         3
       ],
-      "hitPoints": 1,
+      "hitPoints": 8,
       "id": 100004,
       "type": "cracked"
     },
@@ -82,7 +82,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-6",
+  "contentVersion": "p2-mines-7",
   "displayName": "Patlama Eşiği",
   "displayNameKey": "MINE_10_START",
   "exampleAngles": [

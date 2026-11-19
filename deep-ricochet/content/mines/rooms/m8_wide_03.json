@@ -68,7 +68,7 @@
         5,
         7
       ],
-      "hitPoints": 1,
+      "hitPoints": 8,
       "id": 80308,
       "type": "cracked"
     },
@@ -82,7 +82,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-6",
+  "contentVersion": "p2-mines-7",
   "displayName": "Köz Kemeri",
   "displayNameKey": "MINE_8_WIDE_03",
   "exampleAngles": [

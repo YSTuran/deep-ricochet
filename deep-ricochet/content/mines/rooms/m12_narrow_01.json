@@ -23,7 +23,7 @@
         2,
         3
       ],
-      "hitPoints": 1,
+      "hitPoints": 8,
       "id": 120403,
       "type": "cracked"
     },
@@ -86,7 +86,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-6",
+  "contentVersion": "p2-mines-7",
   "displayName": "Kapalı Yarık",
   "displayNameKey": "MINE_12_NARROW_01",
   "exampleAngles": [

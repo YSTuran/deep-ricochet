@@ -50,7 +50,7 @@
         1,
         5
       ],
-      "hitPoints": 1,
+      "hitPoints": 8,
       "id": 90206,
       "type": "cracked"
     },
@@ -82,7 +82,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-6",
+  "contentVersion": "p2-mines-7",
   "displayName": "Yarık Salonu",
   "displayNameKey": "MINE_9_WIDE_02",
   "exampleAngles": [

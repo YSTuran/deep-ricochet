@@ -54,8 +54,8 @@ Oyun alanında fareyle ya da dokunmatik ekranla basılı tutup yön seçilir; b�
 - Normal ve günlük odalarda fırlatıcı çevresini açık tutmak için tamamen boş bırakılan alt iki satır
 - Tek hücrelik geçide ek olarak kırılabilir blokları ve çekirdeği daha dayanıklı olan, 1,5× ödüllü dar damar dengesi
 - Kırıldığında 10 puan veren ve 5×5 alana 3 hasar uygulayan zincirleme patlayıcı blok
-- Tek canla kırılan ve 6 puan veren çatlak kaya
-- Oda şablonunda tanımlanan 1 veya 2 parlak kenardan doğrudan hasar alan zırhlı blok
+- Her madende sabit 8 cana sahip olan ve kırıldığında 6 puan veren çatlak kaya
+- Oda şablonunda tanımlanan 1 veya 2 parlak kenardan doğrudan hasar alan, kırıldığında 40 puan veren zırhlı blok
 - Patlama hasarının zırhı aşması; sert kayanın patlamada da kırılmaz kalması
 - Sürümlendirilmiş `RunSnapshot`, `RoomSnapshot` ve JSON kayıt zarfı
 - Atomik geçici dosya yazımı, son geçerli yedek ve bozuk kayıt doğrulaması

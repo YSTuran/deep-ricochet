@@ -14,7 +14,7 @@
         6,
         2
       ],
-      "hitPoints": 1,
+      "hitPoints": 8,
       "id": 80502,
       "type": "cracked"
     },
@@ -82,7 +82,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-6",
+  "contentVersion": "p2-mines-7",
   "displayName": "Sıcak Damar",
   "displayNameKey": "MINE_8_NARROW_02",
   "exampleAngles": [

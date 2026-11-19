@@ -50,7 +50,7 @@
         6,
         5
       ],
-      "hitPoints": 1,
+      "hitPoints": 8,
       "id": 90306,
       "type": "cracked"
     },
@@ -82,7 +82,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-6",
+  "contentVersion": "p2-mines-7",
   "displayName": "Sarsıntı Kemeri",
   "displayNameKey": "MINE_9_WIDE_03",
   "exampleAngles": [

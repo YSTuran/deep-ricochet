@@ -178,7 +178,7 @@ func _draw_illustration() -> void:
 			DeepUI.draw_centered(self, "6", Rect2(335.0, 290.0, 105.0, 55.0), 25, DeepUI.TEXT)
 		2:
 			_draw_hard_rock(Rect2(125.0, 230.0, 120.0, 120.0))
-			_draw_asset_block(CRACKED_TEXTURE, CRACKED_SOURCE_RECT, Rect2(295.0, 230.0, 120.0, 120.0), "4")
+			_draw_asset_block(CRACKED_TEXTURE, CRACKED_SOURCE_RECT, Rect2(295.0, 230.0, 120.0, 120.0), "8")
 		3:
 			var blast_origin := Vector2(175.0, 155.0)
 			var blast_cell := 38.0

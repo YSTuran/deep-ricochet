@@ -72,7 +72,7 @@
         5,
         7
       ],
-      "hitPoints": 1,
+      "hitPoints": 8,
       "id": 110008,
       "type": "cracked"
     },
@@ -86,7 +86,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-6",
+  "contentVersion": "p2-mines-7",
   "displayName": "Zırh Kapısı",
   "displayNameKey": "MINE_11_START",
   "exampleAngles": [

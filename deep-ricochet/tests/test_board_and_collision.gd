@@ -280,7 +280,7 @@ static func _test_special_blocks() -> void:
 	var board := BoardModel.new()
 	var source := BlockState.new(70, BlockState.BlockType.EXPLOSIVE, Vector2i(3, 3), 1)
 	var chain := BlockState.new(71, BlockState.BlockType.EXPLOSIVE, Vector2i(4, 3), 2)
-	var cracked := BlockState.new(72, BlockState.BlockType.CRACKED, Vector2i(2, 2), 1)
+	var cracked := BlockState.new(72, BlockState.BlockType.CRACKED, Vector2i(2, 2), 8)
 	var blast_armor := BlockState.new(
 		73,
 		BlockState.BlockType.ARMORED,
@@ -313,7 +313,8 @@ static func _test_special_blocks() -> void:
 	for result: BlockDamageResult in explosion_results:
 		assert(result.is_explosion)
 	assert(chain.is_destroyed())
-	assert(cracked.is_destroyed())
+	assert(not cracked.is_destroyed())
+	assert(cracked.hit_points == 2)
 	assert(blast_armor.is_destroyed())
 	assert(overlap_target.is_destroyed())
 	assert(chain_only_target.is_destroyed())

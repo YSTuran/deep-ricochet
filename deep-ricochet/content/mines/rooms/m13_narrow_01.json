@@ -53,7 +53,7 @@
         6,
         5
       ],
-      "hitPoints": 1,
+      "hitPoints": 8,
       "id": 130406,
       "type": "cracked"
     },
@@ -89,7 +89,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-6",
+  "contentVersion": "p2-mines-7",
   "displayName": "Büyük Yarık",
   "displayNameKey": "MINE_13_NARROW_01",
   "exampleAngles": [
