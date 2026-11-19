@@ -2,30 +2,26 @@
   "blocks": [
     {
       "cell": [
-        1,
-        2
+        5,
+        4
       ],
-      "hitPoints": 4,
+      "hitPoints": 8,
       "id": 130101,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom",
-        "right"
-      ]
+      "type": "normal"
+    },
+    {
+      "cell": [
+        6,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 130102,
+      "type": "normal"
     },
     {
       "cell": [
         7,
-        2
-      ],
-      "hitPoints": 8,
-      "id": 130102,
-      "type": "ore"
-    },
-    {
-      "cell": [
-        0,
-        3
+        6
       ],
       "hitPoints": 0,
       "id": 130103,
@@ -33,11 +29,92 @@
     },
     {
       "cell": [
-        5,
+        0,
+        4
+      ],
+      "hitPoints": 0,
+      "id": 130104,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 130105,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        7
+      ],
+      "hitPoints": 0,
+      "id": 130106,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        7
+      ],
+      "hitPoints": 0,
+      "id": 130107,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        4,
+        6
+      ],
+      "hitPoints": 7,
+      "id": 130108,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        1,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 130109,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        6,
         4
       ],
       "hitPoints": 8,
-      "id": 130104,
+      "id": 130110,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        3,
+        4
+      ],
+      "hitPoints": 6,
+      "id": 130111,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        4,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 130112,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        2,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 130113,
       "type": "normal"
     },
     {
@@ -46,54 +123,95 @@
         5
       ],
       "hitPoints": 8,
-      "id": 130105,
+      "id": 130114,
       "type": "ore"
     },
     {
       "cell": [
-        6,
-        5
+        1,
+        2
       ],
-      "hitPoints": 0,
-      "id": 130106,
-      "type": "rock"
+      "hitPoints": 6,
+      "id": 130115,
+      "type": "explosive"
     },
     {
       "cell": [
-        1,
-        6
+        2,
+        3
       ],
       "hitPoints": 8,
-      "id": 130107,
-      "type": "normal"
-    },
-    {
-      "cell": [
-        5,
-        7
-      ],
-      "hitPoints": 7,
-      "id": 130108,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "id": 130116,
+      "type": "ore"
     },
     {
       "cell": [
         3,
-        8
+        2
+      ],
+      "hitPoints": 4,
+      "id": 130117,
+      "type": "armored",
+      "vulnerableSides": [
+        "right"
+      ]
+    },
+    {
+      "cell": [
+        1,
+        7
+      ],
+      "hitPoints": 7,
+      "id": 130118,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        6,
+        2
+      ],
+      "hitPoints": 8,
+      "id": 130119,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        3,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 130120,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        6,
+        3
+      ],
+      "hitPoints": 6,
+      "id": 130121,
+      "type": "armored",
+      "vulnerableSides": [
+        "left"
+      ]
+    },
+    {
+      "cell": [
+        6,
+        7
       ],
       "hitPoints": 8,
       "id": 130199,
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-7",
+  "contentVersion": "p2-mines-8",
   "displayName": "Ağır Basamak",
   "displayNameKey": "MINE_13_WIDE_01",
   "exampleAngles": [
-    93.5
+    70.5,
+    70.5,
+    70.5
   ],
   "family": "safe",
   "height": 8,
@@ -101,8 +219,8 @@
   "mineId": "mine_13",
   "multiplierBps": 10000,
   "passageColumns": [
-    3,
-    4
+    4,
+    5
   ],
   "role": "wide",
   "schemaVersion": 1,

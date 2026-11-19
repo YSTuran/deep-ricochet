@@ -3,24 +3,24 @@
     {
       "cell": [
         2,
-        2
+        4
       ],
-      "hitPoints": 7,
+      "hitPoints": 8,
       "id": 100201,
       "type": "normal"
     },
     {
       "cell": [
-        6,
-        2
+        2,
+        5
       ],
-      "hitPoints": 0,
+      "hitPoints": 8,
       "id": 100202,
-      "type": "rock"
+      "type": "ore"
     },
     {
       "cell": [
-        2,
+        0,
         3
       ],
       "hitPoints": 0,
@@ -29,38 +29,92 @@
     },
     {
       "cell": [
-        0,
-        4
+        7,
+        2
       ],
-      "hitPoints": 7,
+      "hitPoints": 0,
       "id": 100204,
-      "type": "ore"
-    },
-    {
-      "cell": [
-        5,
-        4
-      ],
-      "hitPoints": 4,
-      "id": 100205,
-      "type": "explosive"
-    },
-    {
-      "cell": [
-        1,
-        5
-      ],
-      "hitPoints": 8,
-      "id": 100206,
-      "type": "normal"
+      "type": "rock"
     },
     {
       "cell": [
         7,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 100205,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        6,
         6
       ],
       "hitPoints": 8,
+      "id": 100206,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        3,
+        6
+      ],
+      "hitPoints": 7,
       "id": 100207,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        0,
+        6
+      ],
+      "hitPoints": 6,
+      "id": 100208,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        3,
+        5
+      ],
+      "hitPoints": 7,
+      "id": 100209,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        4,
+        6
+      ],
+      "hitPoints": 6,
+      "id": 100210,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        6,
+        3
+      ],
+      "hitPoints": 8,
+      "id": 100211,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        3,
+        4
+      ],
+      "hitPoints": 6,
+      "id": 100212,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        7,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 100213,
       "type": "ore"
     },
     {
@@ -69,24 +123,80 @@
         7
       ],
       "hitPoints": 8,
-      "id": 100208,
+      "id": 100214,
       "type": "cracked"
     },
     {
       "cell": [
-        3,
-        8
+        4,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 100215,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        5,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 100216,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        1,
+        4
+      ],
+      "hitPoints": 7,
+      "id": 100217,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        0,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 100218,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        6,
+        4
+      ],
+      "hitPoints": 7,
+      "id": 100219,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        5,
+        2
+      ],
+      "hitPoints": 8,
+      "id": 100220,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        2,
+        6
       ],
       "hitPoints": 7,
       "id": 100299,
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-7",
+  "contentVersion": "p2-mines-8",
   "displayName": "Barut Mahzeni",
   "displayNameKey": "MINE_10_WIDE_02",
   "exampleAngles": [
-    93.5
+    104.0,
+    104.0,
+    104.0
   ],
   "family": "safe",
   "height": 8,

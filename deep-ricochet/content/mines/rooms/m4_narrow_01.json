@@ -2,8 +2,8 @@
   "blocks": [
     {
       "cell": [
-        0,
-        2
+        5,
+        5
       ],
       "hitPoints": 6,
       "id": 40401,
@@ -11,25 +11,25 @@
     },
     {
       "cell": [
-        5,
-        2
+        6,
+        7
       ],
-      "hitPoints": 5,
+      "hitPoints": 7,
       "id": 40402,
-      "type": "ore"
-    },
-    {
-      "cell": [
-        2,
-        3
-      ],
-      "hitPoints": 6,
-      "id": 40403,
       "type": "normal"
     },
     {
       "cell": [
-        4,
+        0,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 40403,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
         3
       ],
       "hitPoints": 0,
@@ -38,20 +38,56 @@
     },
     {
       "cell": [
-        1,
-        5
+        6,
+        3
       ],
-      "hitPoints": 7,
+      "hitPoints": 0,
       "id": 40405,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        4
+      ],
+      "hitPoints": 0,
+      "id": 40406,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        4
+      ],
+      "hitPoints": 0,
+      "id": 40407,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        1,
+        4
+      ],
+      "hitPoints": 0,
+      "id": 40408,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        7
+      ],
+      "hitPoints": 5,
+      "id": 40409,
       "type": "ore"
     },
     {
       "cell": [
-        6,
-        5
+        0,
+        7
       ],
-      "hitPoints": 6,
-      "id": 40406,
+      "hitPoints": 8,
+      "id": 40410,
       "type": "normal"
     },
     {
@@ -59,8 +95,44 @@
         2,
         7
       ],
-      "hitPoints": 8,
-      "id": 40407,
+      "hitPoints": 5,
+      "id": 40411,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        3,
+        7
+      ],
+      "hitPoints": 4,
+      "id": 40412,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        2,
+        6
+      ],
+      "hitPoints": 5,
+      "id": 40413,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        5,
+        7
+      ],
+      "hitPoints": 6,
+      "id": 40414,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        6,
+        6
+      ],
+      "hitPoints": 5,
+      "id": 40415,
       "type": "ore"
     },
     {
@@ -68,13 +140,31 @@
         4,
         7
       ],
-      "hitPoints": 7,
-      "id": 40408,
+      "hitPoints": 8,
+      "id": 40416,
       "type": "normal"
     },
     {
       "cell": [
-        3,
+        1,
+        5
+      ],
+      "hitPoints": 5,
+      "id": 40417,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        7,
+        5
+      ],
+      "hitPoints": 6,
+      "id": 40418,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        6,
         8
       ],
       "hitPoints": 7,
@@ -82,11 +172,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-7",
+  "contentVersion": "p2-mines-8",
   "displayName": "Son Yarık",
   "displayNameKey": "MINE_4_NARROW_01",
   "exampleAngles": [
-    93.5
+    72.5,
+    72.5,
+    72.5
   ],
   "family": "bonus",
   "height": 8,
@@ -94,7 +186,7 @@
   "mineId": "mine_04",
   "multiplierBps": 15000,
   "passageColumns": [
-    3
+    4
   ],
   "role": "narrow",
   "schemaVersion": 1,

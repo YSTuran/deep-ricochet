@@ -2,26 +2,26 @@
   "blocks": [
     {
       "cell": [
-        1,
-        2
+        5,
+        5
       ],
-      "hitPoints": 5,
+      "hitPoints": 6,
       "id": 70101,
       "type": "normal"
     },
     {
       "cell": [
-        7,
-        2
+        6,
+        7
       ],
-      "hitPoints": 6,
+      "hitPoints": 7,
       "id": 70102,
-      "type": "ore"
+      "type": "normal"
     },
     {
       "cell": [
-        0,
-        3
+        7,
+        4
       ],
       "hitPoints": 0,
       "id": 70103,
@@ -29,26 +29,26 @@
     },
     {
       "cell": [
-        5,
-        4
+        0,
+        2
       ],
-      "hitPoints": 3,
+      "hitPoints": 0,
       "id": 70104,
-      "type": "explosive"
+      "type": "rock"
     },
     {
       "cell": [
-        2,
-        5
+        0,
+        6
       ],
-      "hitPoints": 7,
+      "hitPoints": 0,
       "id": 70105,
-      "type": "ore"
+      "type": "rock"
     },
     {
       "cell": [
-        6,
-        5
+        7,
+        6
       ],
       "hitPoints": 0,
       "id": 70106,
@@ -56,25 +56,115 @@
     },
     {
       "cell": [
-        1,
-        6
+        6,
+        5
       ],
       "hitPoints": 8,
       "id": 70107,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        6,
+        6
+      ],
+      "hitPoints": 6,
+      "id": 70108,
       "type": "normal"
     },
     {
       "cell": [
-        5,
-        7
+        0,
+        5
       ],
-      "hitPoints": 8,
-      "id": 70108,
-      "type": "ore"
+      "hitPoints": 7,
+      "id": 70109,
+      "type": "normal"
     },
     {
       "cell": [
         3,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 70110,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        2,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 70111,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        2,
+        2
+      ],
+      "hitPoints": 3,
+      "id": 70112,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        7,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 70113,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        7,
+        2
+      ],
+      "hitPoints": 5,
+      "id": 70114,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        3,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 70115,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        4,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 70116,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        1,
+        4
+      ],
+      "hitPoints": 2,
+      "id": 70117,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        6,
+        4
+      ],
+      "hitPoints": 5,
+      "id": 70118,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        6,
         8
       ],
       "hitPoints": 7,
@@ -82,11 +172,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-7",
+  "contentVersion": "p2-mines-8",
   "displayName": "Kıvılcım Galerisi",
   "displayNameKey": "MINE_7_WIDE_01",
   "exampleAngles": [
-    93.5
+    72.5,
+    72.5,
+    72.5
   ],
   "family": "safe",
   "height": 8,
@@ -94,8 +186,8 @@
   "mineId": "mine_07",
   "multiplierBps": 10000,
   "passageColumns": [
-    3,
-    4
+    4,
+    5
   ],
   "role": "wide",
   "schemaVersion": 1,

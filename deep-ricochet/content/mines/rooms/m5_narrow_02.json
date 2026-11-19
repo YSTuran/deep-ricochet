@@ -2,47 +2,20 @@
   "blocks": [
     {
       "cell": [
-        1,
-        2
+        4,
+        4
       ],
-      "hitPoints": 0,
+      "hitPoints": 6,
       "id": 50501,
-      "type": "rock"
-    },
-    {
-      "cell": [
-        6,
-        2
-      ],
-      "hitPoints": 6,
-      "id": 50502,
-      "type": "normal"
-    },
-    {
-      "cell": [
-        2,
-        2
-      ],
-      "hitPoints": 8,
-      "id": 50503,
-      "type": "normal"
-    },
-    {
-      "cell": [
-        0,
-        3
-      ],
-      "hitPoints": 6,
-      "id": 50504,
       "type": "ore"
     },
     {
       "cell": [
         4,
-        4
+        5
       ],
       "hitPoints": 7,
-      "id": 50505,
+      "id": 50502,
       "type": "normal"
     },
     {
@@ -51,16 +24,115 @@
         5
       ],
       "hitPoints": 0,
+      "id": 50503,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        6,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 50504,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 50505,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        5
+      ],
+      "hitPoints": 0,
       "id": 50506,
       "type": "rock"
     },
     {
       "cell": [
-        5,
+        1,
         6
       ],
-      "hitPoints": 8,
+      "hitPoints": 0,
       "id": 50507,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        6,
+        6
+      ],
+      "hitPoints": 0,
+      "id": 50508,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        7
+      ],
+      "hitPoints": 6,
+      "id": 50509,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        7,
+        6
+      ],
+      "hitPoints": 5,
+      "id": 50510,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        5,
+        5
+      ],
+      "hitPoints": 6,
+      "id": 50511,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        5,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 50512,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        2,
+        5
+      ],
+      "hitPoints": 5,
+      "id": 50513,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        3,
+        7
+      ],
+      "hitPoints": 6,
+      "id": 50514,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        4,
+        7
+      ],
+      "hitPoints": 5,
+      "id": 50515,
       "type": "ore"
     },
     {
@@ -68,25 +140,45 @@
         6,
         7
       ],
-      "hitPoints": 8,
-      "id": 50508,
+      "hitPoints": 7,
+      "id": 50516,
       "type": "ore"
     },
     {
       "cell": [
-        3,
-        8
+        1,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 50517,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        7,
+        4
+      ],
+      "hitPoints": 7,
+      "id": 50518,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        4,
+        6
       ],
       "hitPoints": 7,
       "id": 50599,
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-7",
+  "contentVersion": "p2-mines-8",
   "displayName": "Nöbetçi Damar",
   "displayNameKey": "MINE_5_NARROW_02",
   "exampleAngles": [
-    93.5
+    85.5,
+    85.5,
+    85.5
   ],
   "family": "bonus",
   "height": 8,
@@ -94,7 +186,7 @@
   "mineId": "mine_05",
   "multiplierBps": 15000,
   "passageColumns": [
-    3
+    4
   ],
   "role": "narrow",
   "schemaVersion": 1,

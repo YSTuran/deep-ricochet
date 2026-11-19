@@ -2,26 +2,26 @@
   "blocks": [
     {
       "cell": [
-        2,
-        2
+        4,
+        4
       ],
-      "hitPoints": 6,
+      "hitPoints": 7,
       "id": 80201,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        4,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 80202,
       "type": "normal"
     },
     {
       "cell": [
-        6,
-        2
-      ],
-      "hitPoints": 0,
-      "id": 80202,
-      "type": "rock"
-    },
-    {
-      "cell": [
-        2,
-        3
+        0,
+        7
       ],
       "hitPoints": 0,
       "id": 80203,
@@ -29,20 +29,92 @@
     },
     {
       "cell": [
+        7,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 80204,
+      "type": "rock"
+    },
+    {
+      "cell": [
         0,
-        4
+        5
+      ],
+      "hitPoints": 0,
+      "id": 80205,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        6,
+        7
+      ],
+      "hitPoints": 5,
+      "id": 80206,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        4,
+        7
       ],
       "hitPoints": 6,
-      "id": 80204,
+      "id": 80207,
       "type": "ore"
     },
     {
       "cell": [
+        2,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 80208,
+      "type": "cracked"
+    },
+    {
+      "cell": [
         5,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 80209,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        2,
+        7
+      ],
+      "hitPoints": 5,
+      "id": 80210,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        1,
         4
       ],
+      "hitPoints": 6,
+      "id": 80211,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        2,
+        6
+      ],
       "hitPoints": 7,
-      "id": 80205,
+      "id": 80212,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        2,
+        2
+      ],
+      "hitPoints": 8,
+      "id": 80213,
       "type": "normal"
     },
     {
@@ -51,42 +123,62 @@
         5
       ],
       "hitPoints": 7,
-      "id": 80206,
+      "id": 80214,
       "type": "normal"
     },
     {
       "cell": [
-        7,
+        1,
+        2
+      ],
+      "hitPoints": 8,
+      "id": 80215,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        1,
         6
       ],
       "hitPoints": 8,
-      "id": 80207,
-      "type": "cracked"
+      "id": 80216,
+      "type": "normal"
     },
     {
       "cell": [
         6,
-        7
+        6
       ],
       "hitPoints": 8,
-      "id": 80208,
+      "id": 80217,
       "type": "normal"
     },
     {
       "cell": [
-        3,
-        8
+        6,
+        5
+      ],
+      "hitPoints": 7,
+      "id": 80218,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        4,
+        6
       ],
       "hitPoints": 7,
       "id": 80299,
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-7",
+  "contentVersion": "p2-mines-8",
   "displayName": "Parlak Koridor",
   "displayNameKey": "MINE_8_WIDE_02",
   "exampleAngles": [
-    93.5
+    85.5,
+    85.5,
+    85.5
   ],
   "family": "safe",
   "height": 8,
@@ -94,8 +186,8 @@
   "mineId": "mine_08",
   "multiplierBps": 10000,
   "passageColumns": [
-    3,
-    4
+    4,
+    5
   ],
   "role": "wide",
   "schemaVersion": 1,

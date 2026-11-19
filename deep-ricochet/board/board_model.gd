@@ -3,6 +3,7 @@ extends RefCounted
 
 const ROOM_GRID_SIZE := BoardGeometry.BLOCK_GRID_SIZE
 const CORE_TARGET_ROW := BoardGeometry.CORE_ROW
+const CORE_MIN_TARGET_ROW := BoardGeometry.CORE_MIN_ROW
 const EXPLOSION_RADIUS_CELLS := 2
 
 var blocks: Array[BlockState] = []
@@ -126,5 +127,5 @@ func _is_valid_cell_for_type(cell: Vector2i, block_type: BlockState.BlockType) -
 	if cell.x < 0 or cell.x >= ROOM_GRID_SIZE.x:
 		return false
 	if block_type == BlockState.BlockType.CORE:
-		return cell.y == CORE_TARGET_ROW
+		return BoardGeometry.is_core_row(cell.y)
 	return cell.y >= 0 and cell.y < ROOM_GRID_SIZE.y

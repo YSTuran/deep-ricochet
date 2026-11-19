@@ -2,53 +2,53 @@
   "blocks": [
     {
       "cell": [
-        1,
-        2
+        4,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 100501,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        5,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 100502,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        0,
+        4
       ],
       "hitPoints": 0,
-      "id": 100501,
+      "id": 100503,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        4
+      ],
+      "hitPoints": 0,
+      "id": 100504,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        1,
+        4
+      ],
+      "hitPoints": 0,
+      "id": 100505,
       "type": "rock"
     },
     {
       "cell": [
         6,
-        2
-      ],
-      "hitPoints": 5,
-      "id": 100502,
-      "type": "explosive"
-    },
-    {
-      "cell": [
-        2,
-        2
-      ],
-      "hitPoints": 8,
-      "id": 100503,
-      "type": "normal"
-    },
-    {
-      "cell": [
-        0,
-        3
-      ],
-      "hitPoints": 8,
-      "id": 100504,
-      "type": "ore"
-    },
-    {
-      "cell": [
-        4,
         4
-      ],
-      "hitPoints": 8,
-      "id": 100505,
-      "type": "cracked"
-    },
-    {
-      "cell": [
-        1,
-        5
       ],
       "hitPoints": 0,
       "id": 100506,
@@ -56,12 +56,57 @@
     },
     {
       "cell": [
-        5,
+        0,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 100507,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 100508,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        1,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 100509,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        0,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 100510,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        7,
+        6
+      ],
+      "hitPoints": 7,
+      "id": 100511,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        3,
         6
       ],
       "hitPoints": 8,
-      "id": 100507,
-      "type": "ore"
+      "id": 100512,
+      "type": "cracked"
     },
     {
       "cell": [
@@ -69,12 +114,84 @@
         7
       ],
       "hitPoints": 8,
-      "id": 100508,
-      "type": "explosive"
+      "id": 100513,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        2,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 100514,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        1,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 100515,
+      "type": "ore"
     },
     {
       "cell": [
         3,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 100516,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        2,
+        6
+      ],
+      "hitPoints": 5,
+      "id": 100517,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        4,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 100518,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        5,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 100519,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        2,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 100520,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        6,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 100521,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        5,
         8
       ],
       "hitPoints": 8,
@@ -82,11 +199,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-7",
+  "contentVersion": "p2-mines-8",
   "displayName": "Tehlikeli Damar",
   "displayNameKey": "MINE_10_NARROW_02",
   "exampleAngles": [
-    93.5
+    82.0,
+    82.0,
+    82.0
   ],
   "family": "bonus",
   "height": 8,

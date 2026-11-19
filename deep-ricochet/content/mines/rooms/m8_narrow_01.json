@@ -2,35 +2,35 @@
   "blocks": [
     {
       "cell": [
-        0,
-        2
+        3,
+        5
       ],
       "hitPoints": 8,
       "id": 80401,
-      "type": "cracked"
+      "type": "normal"
     },
     {
       "cell": [
-        5,
-        2
+        2,
+        7
       ],
-      "hitPoints": 7,
+      "hitPoints": 8,
       "id": 80402,
       "type": "ore"
     },
     {
       "cell": [
-        2,
-        3
+        1,
+        7
       ],
-      "hitPoints": 8,
+      "hitPoints": 0,
       "id": 80403,
-      "type": "normal"
+      "type": "rock"
     },
     {
       "cell": [
-        4,
-        3
+        6,
+        7
       ],
       "hitPoints": 0,
       "id": 80404,
@@ -38,30 +38,48 @@
     },
     {
       "cell": [
-        1,
-        5
+        0,
+        7
       ],
-      "hitPoints": 5,
+      "hitPoints": 0,
       "id": 80405,
-      "type": "explosive"
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 80406,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 80407,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        1,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 80408,
+      "type": "rock"
     },
     {
       "cell": [
         6,
-        5
+        2
       ],
-      "hitPoints": 8,
-      "id": 80406,
-      "type": "normal"
-    },
-    {
-      "cell": [
-        2,
-        7
-      ],
-      "hitPoints": 8,
-      "id": 80407,
-      "type": "ore"
+      "hitPoints": 0,
+      "id": 80409,
+      "type": "rock"
     },
     {
       "cell": [
@@ -69,12 +87,102 @@
         7
       ],
       "hitPoints": 8,
-      "id": 80408,
+      "id": 80410,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        5,
+        6
+      ],
+      "hitPoints": 7,
+      "id": 80411,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        0,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 80412,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        2,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 80413,
       "type": "normal"
     },
     {
       "cell": [
+        7,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 80414,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        5,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 80415,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        4,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 80416,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        0,
+        5
+      ],
+      "hitPoints": 7,
+      "id": 80417,
+      "type": "ore"
+    },
+    {
+      "cell": [
         3,
+        7
+      ],
+      "hitPoints": 6,
+      "id": 80418,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        0,
+        3
+      ],
+      "hitPoints": 8,
+      "id": 80419,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        6,
+        4
+      ],
+      "hitPoints": 5,
+      "id": 80420,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        2,
         8
       ],
       "hitPoints": 8,
@@ -82,11 +190,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-7",
+  "contentVersion": "p2-mines-8",
   "displayName": "Kor Yarığı",
   "displayNameKey": "MINE_8_NARROW_01",
   "exampleAngles": [
-    93.5
+    101.5,
+    101.5,
+    101.5
   ],
   "family": "bonus",
   "height": 8,
@@ -94,7 +204,7 @@
   "mineId": "mine_08",
   "multiplierBps": 15000,
   "passageColumns": [
-    3
+    4
   ],
   "role": "narrow",
   "schemaVersion": 1,

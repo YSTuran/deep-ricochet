@@ -3,25 +3,25 @@
     {
       "cell": [
         2,
-        2
+        4
       ],
-      "hitPoints": 4,
+      "hitPoints": 5,
       "id": 50201,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        1,
+        6
+      ],
+      "hitPoints": 6,
+      "id": 50202,
       "type": "normal"
     },
     {
       "cell": [
-        6,
-        2
-      ],
-      "hitPoints": 0,
-      "id": 50202,
-      "type": "rock"
-    },
-    {
-      "cell": [
-        2,
-        3
+        0,
+        4
       ],
       "hitPoints": 0,
       "id": 50203,
@@ -30,19 +30,37 @@
     {
       "cell": [
         0,
-        4
+        2
       ],
-      "hitPoints": 5,
+      "hitPoints": 0,
       "id": 50204,
-      "type": "ore"
+      "type": "rock"
     },
     {
       "cell": [
-        5,
-        4
+        6,
+        6
+      ],
+      "hitPoints": 6,
+      "id": 50205,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        4,
+        7
       ],
       "hitPoints": 5,
-      "id": 50205,
+      "id": 50206,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        3,
+        5
+      ],
+      "hitPoints": 4,
+      "id": 50207,
       "type": "normal"
     },
     {
@@ -51,16 +69,7 @@
         5
       ],
       "hitPoints": 6,
-      "id": 50206,
-      "type": "normal"
-    },
-    {
-      "cell": [
-        7,
-        6
-      ],
-      "hitPoints": 6,
-      "id": 50207,
+      "id": 50208,
       "type": "ore"
     },
     {
@@ -69,24 +78,80 @@
         7
       ],
       "hitPoints": 7,
-      "id": 50208,
+      "id": 50209,
       "type": "normal"
     },
     {
       "cell": [
-        3,
-        8
+        4,
+        6
+      ],
+      "hitPoints": 4,
+      "id": 50210,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        5,
+        5
+      ],
+      "hitPoints": 6,
+      "id": 50211,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        5,
+        7
+      ],
+      "hitPoints": 4,
+      "id": 50212,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        6,
+        3
+      ],
+      "hitPoints": 7,
+      "id": 50213,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        1,
+        4
+      ],
+      "hitPoints": 5,
+      "id": 50214,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        6,
+        5
+      ],
+      "hitPoints": 5,
+      "id": 50215,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        1,
+        7
       ],
       "hitPoints": 6,
       "id": 50299,
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-7",
+  "contentVersion": "p2-mines-8",
   "displayName": "Kara Örs",
   "displayNameKey": "MINE_5_WIDE_02",
   "exampleAngles": [
-    93.5
+    109.5,
+    109.5,
+    109.5
   ],
   "family": "safe",
   "height": 8,
@@ -94,8 +159,8 @@
   "mineId": "mine_05",
   "multiplierBps": 10000,
   "passageColumns": [
-    3,
-    4
+    4,
+    5
   ],
   "role": "wide",
   "schemaVersion": 1,

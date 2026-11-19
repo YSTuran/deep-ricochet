@@ -17,9 +17,11 @@ static func run(config: GameConfig) -> void:
 static func _test_shared_geometry() -> void:
 	assert(BoardModel.ROOM_GRID_SIZE == BoardGeometry.BLOCK_GRID_SIZE)
 	assert(BoardModel.CORE_TARGET_ROW == BoardGeometry.CORE_ROW)
+	assert(BoardModel.CORE_MIN_TARGET_ROW == BoardGeometry.CORE_MIN_ROW)
 	assert(BoardGeometry.WORLD_GRID_SIZE.x == BoardGeometry.BLOCK_GRID_SIZE.x)
 	assert(BoardGeometry.WORLD_GRID_SIZE.y == BoardGeometry.BLOCK_GRID_SIZE.y + 2)
 	assert(BoardGeometry.CORE_ROW == BoardGeometry.BLOCK_GRID_SIZE.y)
+	assert(BoardGeometry.CORE_MIN_ROW == BoardGeometry.BLOCK_GRID_SIZE.y - 2)
 	assert(BoardGeometry.preview_row_for_cell(0) == BoardGeometry.WORLD_GRID_SIZE.y - 1)
 	assert(BoardGeometry.preview_row_for_cell(BoardGeometry.CORE_ROW) == 1)
 	var sample_world := Vector2(3.25, 7.5)
@@ -35,6 +37,9 @@ static func _test_board_contract() -> void:
 	assert(not board.add_block(BlockState.new(2, BlockState.BlockType.NORMAL, Vector2i(2, 8), 2)))
 	assert(board.add_block(BlockState.new(3, BlockState.BlockType.CORE, Vector2i(4, 8), 6)))
 	assert(not board.add_block(BlockState.new(4, BlockState.BlockType.CORE, Vector2i(6, 8), 6)))
+	var lower_core_board := BoardModel.new()
+	assert(lower_core_board.add_block(BlockState.new(5, BlockState.BlockType.CORE, Vector2i(1, 6), 6)))
+	assert(not BoardModel.new().add_block(BlockState.new(6, BlockState.BlockType.CORE, Vector2i(1, 5), 6)))
 	assert(board.core_count() == 1)
 	assert(not board.is_core_destroyed())
 

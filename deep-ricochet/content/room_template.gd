@@ -10,6 +10,7 @@ const MAX_SPECIAL_BLOCK_HP := 8
 const MIN_CORE_HP := 6
 const MAX_CORE_HP := 8
 const MIN_BLOCK_ROW := 2
+const PASSAGE_CLEAR_MAX_ROW := 3
 
 enum Family {
 	SAFE,
@@ -117,8 +118,14 @@ func validation_errors() -> PackedStringArray:
 		if definition.block_type == BlockState.BlockType.CORE:
 			core_count += 1
 			core_cell = definition.cell
-			if definition.cell.y != BoardGeometry.CORE_ROW:
-				errors.append("%s çekirdek satırında olmalıdır." % label)
+			if not BoardGeometry.is_core_row(definition.cell.y):
+				errors.append(
+					"%s çekirdeği üst bölgede %d-%d satırları arasında olmalıdır." % [
+						label,
+						BoardGeometry.CORE_MIN_ROW,
+						BoardGeometry.CORE_ROW,
+					]
+				)
 		elif definition.cell.y < MIN_BLOCK_ROW \
 			or definition.cell.y >= BoardGeometry.BLOCK_GRID_SIZE.y:
 			errors.append(
@@ -163,8 +170,6 @@ func validation_errors() -> PackedStringArray:
 
 	if core_count != 1:
 		errors.append("Bir oda tam olarak bir çekirdek içermelidir; bulunan: %d." % core_count)
-	elif not passage_columns.has(core_cell.x):
-		errors.append("Çekirdek ana geçit sütunlarından biriyle hizalanmalıdır.")
 	for definition: RoomBlockDefinition in blocks:
 		if definition == null or definition.block_type != BlockState.BlockType.ARMORED:
 			continue
@@ -187,11 +192,13 @@ func validation_errors() -> PackedStringArray:
 	for definition: RoomBlockDefinition in blocks:
 		if definition != null \
 			and definition.block_type != BlockState.BlockType.CORE \
-			and passage_columns.has(definition.cell.x):
+			and passage_columns.has(definition.cell.x) \
+			and definition.cell.y <= PASSAGE_CLEAR_MAX_ROW:
 			errors.append(
-				"%d kimlikli blok ana geçit sütununu kapatıyor: x=%d." % [
+				"%d kimlikli blok ana geçidin alt girişini kapatıyor: x=%d, y=%d." % [
 					definition.id,
 					definition.cell.x,
+					definition.cell.y,
 				]
 			)
 	return errors

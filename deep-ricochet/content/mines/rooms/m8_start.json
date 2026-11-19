@@ -2,25 +2,25 @@
   "blocks": [
     {
       "cell": [
-        0,
-        2
+        5,
+        4
       ],
-      "hitPoints": 2,
+      "hitPoints": 6,
       "id": 80001,
-      "type": "explosive"
+      "type": "normal"
     },
     {
       "cell": [
         6,
-        2
+        6
       ],
-      "hitPoints": 6,
+      "hitPoints": 7,
       "id": 80002,
-      "type": "ore"
+      "type": "normal"
     },
     {
       "cell": [
-        1,
+        0,
         3
       ],
       "hitPoints": 0,
@@ -29,12 +29,21 @@
     },
     {
       "cell": [
-        5,
+        7,
         3
       ],
-      "hitPoints": 6,
+      "hitPoints": 0,
       "id": 80004,
-      "type": "normal"
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 80005,
+      "type": "rock"
     },
     {
       "cell": [
@@ -42,51 +51,134 @@
         5
       ],
       "hitPoints": 8,
-      "id": 80005,
+      "id": 80006,
       "type": "cracked"
+    },
+    {
+      "cell": [
+        1,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 80007,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        1,
+        2
+      ],
+      "hitPoints": 3,
+      "id": 80008,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        2,
+        3
+      ],
+      "hitPoints": 6,
+      "id": 80009,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        6,
+        4
+      ],
+      "hitPoints": 7,
+      "id": 80010,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        1,
+        3
+      ],
+      "hitPoints": 8,
+      "id": 80011,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        6,
+        2
+      ],
+      "hitPoints": 5,
+      "id": 80012,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        1,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 80013,
+      "type": "normal"
     },
     {
       "cell": [
         6,
         5
       ],
-      "hitPoints": 7,
-      "id": 80006,
-      "type": "normal"
+      "hitPoints": 8,
+      "id": 80014,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        2,
+        2
+      ],
+      "hitPoints": 8,
+      "id": 80015,
+      "type": "cracked"
     },
     {
       "cell": [
         0,
-        7
+        5
       ],
-      "hitPoints": 8,
-      "id": 80007,
+      "hitPoints": 7,
+      "id": 80016,
       "type": "normal"
     },
     {
       "cell": [
-        5,
-        7
+        4,
+        4
       ],
       "hitPoints": 8,
-      "id": 80008,
+      "id": 80017,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        1,
+        7
+      ],
+      "hitPoints": 7,
+      "id": 80018,
       "type": "ore"
     },
     {
       "cell": [
-        3,
-        8
+        6,
+        7
       ],
       "hitPoints": 7,
       "id": 80099,
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-7",
+  "contentVersion": "p2-mines-8",
   "displayName": "Kıvılcım Eşiği",
   "displayNameKey": "MINE_8_START",
   "exampleAngles": [
-    93.5
+    70.5,
+    70.5,
+    70.5
   ],
   "family": "safe",
   "height": 8,

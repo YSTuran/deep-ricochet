@@ -2,26 +2,26 @@
   "blocks": [
     {
       "cell": [
-        1,
-        2
-      ],
-      "hitPoints": 5,
-      "id": 120601,
-      "type": "explosive"
-    },
-    {
-      "cell": [
-        5,
-        2
+        2,
+        4
       ],
       "hitPoints": 8,
-      "id": 120602,
+      "id": 120601,
       "type": "normal"
     },
     {
       "cell": [
         2,
-        3
+        5
+      ],
+      "hitPoints": 8,
+      "id": 120602,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        1,
+        7
       ],
       "hitPoints": 0,
       "id": 120603,
@@ -29,26 +29,26 @@
     },
     {
       "cell": [
-        7,
-        4
+        6,
+        7
       ],
-      "hitPoints": 8,
+      "hitPoints": 0,
       "id": 120604,
-      "type": "ore"
+      "type": "rock"
     },
     {
       "cell": [
         0,
-        5
+        7
       ],
-      "hitPoints": 8,
+      "hitPoints": 0,
       "id": 120605,
-      "type": "cracked"
+      "type": "rock"
     },
     {
       "cell": [
-        4,
-        5
+        7,
+        7
       ],
       "hitPoints": 0,
       "id": 120606,
@@ -57,14 +57,119 @@
     {
       "cell": [
         1,
-        7
+        2
       ],
-      "hitPoints": 7,
+      "hitPoints": 0,
       "id": 120607,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 120608,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 120609,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        6,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 120610,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        6,
+        6
+      ],
+      "hitPoints": 6,
+      "id": 120611,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        7,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 120612,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        3,
+        6
+      ],
+      "hitPoints": 5,
+      "id": 120613,
       "type": "armored",
       "vulnerableSides": [
-        "bottom",
-        "left"
+        "right"
+      ]
+    },
+    {
+      "cell": [
+        5,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 120614,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        3,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 120615,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        4,
+        7
+      ],
+      "hitPoints": 5,
+      "id": 120616,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        1,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 120617,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        4,
+        5
+      ],
+      "hitPoints": 7,
+      "id": 120618,
+      "type": "armored",
+      "vulnerableSides": [
+        "right",
+        "bottom"
       ]
     },
     {
@@ -72,25 +177,54 @@
         5,
         7
       ],
-      "hitPoints": 8,
-      "id": 120608,
-      "type": "ore"
+      "hitPoints": 4,
+      "id": 120619,
+      "type": "explosive"
     },
     {
       "cell": [
         3,
-        8
+        5
+      ],
+      "hitPoints": 8,
+      "id": 120620,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        2,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 120621,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        6,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 120622,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        2,
+        6
       ],
       "hitPoints": 8,
       "id": 120699,
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-7",
+  "contentVersion": "p2-mines-8",
   "displayName": "Derin Karakol",
   "displayNameKey": "MINE_12_NARROW_03",
   "exampleAngles": [
-    93.5
+    104.0,
+    104.0,
+    104.0
   ],
   "family": "bonus",
   "height": 8,
@@ -98,7 +232,7 @@
   "mineId": "mine_12",
   "multiplierBps": 15000,
   "passageColumns": [
-    3
+    4
   ],
   "role": "narrow",
   "schemaVersion": 1,

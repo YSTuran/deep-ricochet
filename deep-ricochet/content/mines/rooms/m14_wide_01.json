@@ -2,8 +2,8 @@
   "blocks": [
     {
       "cell": [
-        1,
-        2
+        4,
+        4
       ],
       "hitPoints": 8,
       "id": 140101,
@@ -11,17 +11,17 @@
     },
     {
       "cell": [
-        7,
-        2
+        5,
+        6
       ],
-      "hitPoints": 5,
+      "hitPoints": 8,
       "id": 140102,
-      "type": "explosive"
+      "type": "ore"
     },
     {
       "cell": [
         0,
-        3
+        6
       ],
       "hitPoints": 0,
       "id": 140103,
@@ -29,26 +29,26 @@
     },
     {
       "cell": [
-        5,
-        4
+        0,
+        5
       ],
-      "hitPoints": 8,
+      "hitPoints": 0,
       "id": 140104,
-      "type": "cracked"
+      "type": "rock"
     },
     {
       "cell": [
-        2,
-        5
+        7,
+        3
       ],
-      "hitPoints": 8,
+      "hitPoints": 0,
       "id": 140105,
-      "type": "ore"
+      "type": "rock"
     },
     {
       "cell": [
-        6,
-        5
+        0,
+        2
       ],
       "hitPoints": 0,
       "id": 140106,
@@ -56,37 +56,171 @@
     },
     {
       "cell": [
+        7,
+        4
+      ],
+      "hitPoints": 0,
+      "id": 140107,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        4,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 140108,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        6,
+        3
+      ],
+      "hitPoints": 8,
+      "id": 140109,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        4,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 140110,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        2,
+        6
+      ],
+      "hitPoints": 5,
+      "id": 140111,
+      "type": "armored",
+      "vulnerableSides": [
+        "right"
+      ]
+    },
+    {
+      "cell": [
+        2,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 140112,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        2,
+        7
+      ],
+      "hitPoints": 6,
+      "id": 140113,
+      "type": "armored",
+      "vulnerableSides": [
+        "right"
+      ]
+    },
+    {
+      "cell": [
+        3,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 140114,
+      "type": "ore"
+    },
+    {
+      "cell": [
         1,
         6
       ],
       "hitPoints": 8,
-      "id": 140107,
+      "id": 140115,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        1,
+        5
+      ],
+      "hitPoints": 5,
+      "id": 140116,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        2,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 140117,
       "type": "normal"
+    },
+    {
+      "cell": [
+        5,
+        4
+      ],
+      "hitPoints": 4,
+      "id": 140118,
+      "type": "armored",
+      "vulnerableSides": [
+        "right"
+      ]
+    },
+    {
+      "cell": [
+        5,
+        3
+      ],
+      "hitPoints": 7,
+      "id": 140119,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        7,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 140120,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        7,
+        6
+      ],
+      "hitPoints": 4,
+      "id": 140121,
+      "type": "explosive"
     },
     {
       "cell": [
         5,
         7
       ],
-      "hitPoints": 7,
-      "id": 140108,
-      "type": "explosive"
-    },
-    {
-      "cell": [
-        3,
-        8
-      ],
       "hitPoints": 8,
       "id": 140199,
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-7",
+  "contentVersion": "p2-mines-8",
   "displayName": "Dip Galerisi",
   "displayNameKey": "MINE_14_WIDE_01",
   "exampleAngles": [
-    93.5
+    79.0,
+    79.0,
+    79.0
   ],
   "family": "safe",
   "height": 8,
@@ -94,8 +228,8 @@
   "mineId": "mine_14",
   "multiplierBps": 10000,
   "passageColumns": [
-    3,
-    4
+    2,
+    3
   ],
   "role": "wide",
   "schemaVersion": 1,

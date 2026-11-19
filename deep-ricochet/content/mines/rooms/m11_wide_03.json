@@ -2,48 +2,12 @@
   "blocks": [
     {
       "cell": [
-        0,
-        2
-      ],
-      "hitPoints": 0,
-      "id": 110301,
-      "type": "rock"
-    },
-    {
-      "cell": [
         5,
-        2
-      ],
-      "hitPoints": 7,
-      "id": 110302,
-      "type": "normal"
-    },
-    {
-      "cell": [
-        2,
-        3
-      ],
-      "hitPoints": 8,
-      "id": 110303,
-      "type": "ore"
-    },
-    {
-      "cell": [
-        7,
         4
       ],
       "hitPoints": 8,
-      "id": 110304,
+      "id": 110301,
       "type": "normal"
-    },
-    {
-      "cell": [
-        1,
-        5
-      ],
-      "hitPoints": 0,
-      "id": 110305,
-      "type": "rock"
     },
     {
       "cell": [
@@ -51,46 +15,203 @@
         5
       ],
       "hitPoints": 8,
-      "id": 110306,
-      "type": "ore"
+      "id": 110302,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        0,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 110303,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 110304,
+      "type": "rock"
     },
     {
       "cell": [
         0,
         7
       ],
-      "hitPoints": 6,
+      "hitPoints": 0,
+      "id": 110305,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        6
+      ],
+      "hitPoints": 0,
+      "id": 110306,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        7
+      ],
+      "hitPoints": 0,
       "id": 110307,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        3,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 110308,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        4,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 110309,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        4,
+        5
+      ],
+      "hitPoints": 7,
+      "id": 110310,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        2,
+        5
+      ],
+      "hitPoints": 5,
+      "id": 110311,
       "type": "armored",
       "vulnerableSides": [
         "bottom",
-        "right"
+        "left"
       ]
     },
     {
       "cell": [
-        5,
+        3,
+        7
+      ],
+      "hitPoints": 6,
+      "id": 110312,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        2,
+        7
+      ],
+      "hitPoints": 3,
+      "id": 110313,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        6,
+        7
+      ],
+      "hitPoints": 7,
+      "id": 110314,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        6,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 110315,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        4,
         7
       ],
       "hitPoints": 8,
-      "id": 110308,
+      "id": 110316,
       "type": "normal"
     },
     {
       "cell": [
         3,
-        8
+        6
+      ],
+      "hitPoints": 5,
+      "id": 110317,
+      "type": "armored",
+      "vulnerableSides": [
+        "left"
+      ]
+    },
+    {
+      "cell": [
+        6,
+        2
+      ],
+      "hitPoints": 6,
+      "id": 110318,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom",
+        "left"
+      ]
+    },
+    {
+      "cell": [
+        1,
+        6
+      ],
+      "hitPoints": 3,
+      "id": 110319,
+      "type": "armored",
+      "vulnerableSides": [
+        "right",
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        3,
+        4
+      ],
+      "hitPoints": 7,
+      "id": 110320,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        6,
+        6
       ],
       "hitPoints": 8,
       "id": 110399,
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-7",
+  "contentVersion": "p2-mines-8",
   "displayName": "Muhafız Kemeri",
   "displayNameKey": "MINE_11_WIDE_03",
   "exampleAngles": [
-    93.5
+    67.5,
+    67.5,
+    67.5
   ],
   "family": "safe",
   "height": 8,

@@ -2,26 +2,26 @@
   "blocks": [
     {
       "cell": [
-        1,
-        2
+        2,
+        4
       ],
-      "hitPoints": 4,
+      "hitPoints": 6,
       "id": 60101,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        1,
+        5
+      ],
+      "hitPoints": 6,
+      "id": 60102,
       "type": "normal"
     },
     {
       "cell": [
         7,
-        2
-      ],
-      "hitPoints": 6,
-      "id": 60102,
-      "type": "ore"
-    },
-    {
-      "cell": [
-        0,
-        3
+        4
       ],
       "hitPoints": 0,
       "id": 60103,
@@ -29,26 +29,26 @@
     },
     {
       "cell": [
-        5,
-        4
+        0,
+        7
       ],
-      "hitPoints": 6,
+      "hitPoints": 0,
       "id": 60104,
-      "type": "normal"
+      "type": "rock"
     },
     {
       "cell": [
-        2,
-        5
+        0,
+        6
       ],
-      "hitPoints": 6,
+      "hitPoints": 0,
       "id": 60105,
-      "type": "ore"
+      "type": "rock"
     },
     {
       "cell": [
-        6,
-        5
+        7,
+        2
       ],
       "hitPoints": 0,
       "id": 60106,
@@ -56,37 +56,102 @@
     },
     {
       "cell": [
-        1,
-        6
+        6,
+        5
       ],
-      "hitPoints": 7,
+      "hitPoints": 4,
       "id": 60107,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        4,
+        4
+      ],
+      "hitPoints": 5,
+      "id": 60108,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        6,
+        7
+      ],
+      "hitPoints": 6,
+      "id": 60109,
       "type": "normal"
     },
     {
       "cell": [
         5,
-        7
+        3
       ],
-      "hitPoints": 8,
-      "id": 60108,
+      "hitPoints": 7,
+      "id": 60110,
       "type": "ore"
     },
     {
       "cell": [
-        3,
-        8
+        6,
+        3
+      ],
+      "hitPoints": 6,
+      "id": 60111,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        2,
+        6
+      ],
+      "hitPoints": 5,
+      "id": 60112,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        5,
+        6
+      ],
+      "hitPoints": 6,
+      "id": 60113,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        5,
+        2
+      ],
+      "hitPoints": 7,
+      "id": 60114,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        6,
+        6
+      ],
+      "hitPoints": 6,
+      "id": 60115,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        1,
+        6
       ],
       "hitPoints": 7,
       "id": 60199,
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-7",
+  "contentVersion": "p2-mines-8",
   "displayName": "Son İniş",
   "displayNameKey": "MINE_6_WIDE_01",
   "exampleAngles": [
-    93.5
+    112.5,
+    112.5,
+    112.5
   ],
   "family": "safe",
   "height": 8,

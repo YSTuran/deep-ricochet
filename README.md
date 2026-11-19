@@ -49,10 +49,12 @@ Oyun alanında fareyle ya da dokunmatik ekranla basılı tutup yön seçilir; b�
 - Seed tabanlı, aynı koşuda daha önce sunulan şablonu yeniden kullanmayan içerik seçimi
 - Gerçek şablondan çizilen güvenli/bonus rota önizlemeleri ve ayrıntılı sonuç ekranı
 - Birbirinin ardından açılan on dört maden/seviye ve iki sayfalı maden seçim ekranı
-- Her madende 1 başlangıç, 3 geniş geçit ve 3 dar damar olmak üzere 7; toplam 98 doğrulanan oda şablonu
+- Her madende 1 başlangıç, 3 geniş geçit ve 3 dar damar olmak üzere 7; toplam 98 özgün ve otomatik çözülebilirlik denetimli oda şablonu
 - İlk altı madende klasik bloklar; yedinci madenden itibaren çatlak ve patlayıcı, on birinci madenden itibaren zırhlı bloklar
 - Normal ve günlük odalarda fırlatıcı çevresini açık tutmak için tamamen boş bırakılan alt iki satır
-- Tek hücrelik geçide ek olarak kırılabilir blokları ve çekirdeği daha dayanıklı olan, 1,5× ödüllü dar damar dengesi
+- Üst üç satırda sol, orta ve sağ bölgelere dağılan; kırılabilir kapılarla korunan değişken çekirdek konumları
+- Kenarlarda sert kaya yığınları, üstte zengin blok odaları ve tek hücrelik giriş kullanan, 1,5× ödüllü dar damar dengesi
+- Seviyeye göre 14-24 arasında artan oda blok yoğunluğu
 - Kırıldığında 10 puan veren ve 5×5 alana 3 hasar uygulayan zincirleme patlayıcı blok
 - Her madende sabit 8 cana sahip olan ve kırıldığında 6 puan veren çatlak kaya
 - Oda şablonunda tanımlanan 1 veya 2 parlak kenardan doğrudan hasar alan, kırıldığında 40 puan veren zırhlı blok

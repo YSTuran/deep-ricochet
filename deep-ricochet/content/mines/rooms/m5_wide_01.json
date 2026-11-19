@@ -2,38 +2,11 @@
   "blocks": [
     {
       "cell": [
-        1,
-        2
-      ],
-      "hitPoints": 4,
-      "id": 50101,
-      "type": "normal"
-    },
-    {
-      "cell": [
-        7,
-        2
-      ],
-      "hitPoints": 5,
-      "id": 50102,
-      "type": "ore"
-    },
-    {
-      "cell": [
-        0,
-        3
-      ],
-      "hitPoints": 0,
-      "id": 50103,
-      "type": "rock"
-    },
-    {
-      "cell": [
-        5,
+        2,
         4
       ],
       "hitPoints": 5,
-      "id": 50104,
+      "id": 50101,
       "type": "normal"
     },
     {
@@ -42,51 +15,152 @@
         5
       ],
       "hitPoints": 6,
-      "id": 50105,
+      "id": 50102,
       "type": "ore"
     },
     {
       "cell": [
-        6,
-        5
+        7,
+        6
       ],
       "hitPoints": 0,
-      "id": 50106,
+      "id": 50103,
       "type": "rock"
     },
     {
       "cell": [
-        1,
-        6
+        7,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 50104,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        7
+      ],
+      "hitPoints": 0,
+      "id": 50105,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        3,
+        5
       ],
       "hitPoints": 7,
+      "id": 50106,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        3,
+        4
+      ],
+      "hitPoints": 6,
       "id": 50107,
       "type": "normal"
     },
     {
       "cell": [
         5,
-        7
+        4
       ],
-      "hitPoints": 7,
+      "hitPoints": 4,
       "id": 50108,
       "type": "ore"
     },
     {
       "cell": [
+        5,
+        2
+      ],
+      "hitPoints": 6,
+      "id": 50109,
+      "type": "normal"
+    },
+    {
+      "cell": [
         3,
-        8
+        6
+      ],
+      "hitPoints": 4,
+      "id": 50110,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        0,
+        6
+      ],
+      "hitPoints": 7,
+      "id": 50111,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        1,
+        5
+      ],
+      "hitPoints": 5,
+      "id": 50112,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        5,
+        5
+      ],
+      "hitPoints": 5,
+      "id": 50113,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        3,
+        7
+      ],
+      "hitPoints": 5,
+      "id": 50114,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        4,
+        5
+      ],
+      "hitPoints": 6,
+      "id": 50115,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        4,
+        3
+      ],
+      "hitPoints": 4,
+      "id": 50116,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        2,
+        6
       ],
       "hitPoints": 6,
       "id": 50199,
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-7",
+  "contentVersion": "p2-mines-8",
   "displayName": "Kristal Burç",
   "displayNameKey": "MINE_5_WIDE_01",
   "exampleAngles": [
-    93.5
+    104.0,
+    104.0,
+    104.0
   ],
   "family": "safe",
   "height": 8,
@@ -94,8 +168,8 @@
   "mineId": "mine_05",
   "multiplierBps": 10000,
   "passageColumns": [
-    3,
-    4
+    2,
+    3
   ],
   "role": "wide",
   "schemaVersion": 1,

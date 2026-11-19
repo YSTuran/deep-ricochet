@@ -2,17 +2,17 @@
   "blocks": [
     {
       "cell": [
-        1,
-        2
+        3,
+        5
       ],
       "hitPoints": 8,
       "id": 110101,
-      "type": "cracked"
+      "type": "normal"
     },
     {
       "cell": [
-        7,
-        2
+        2,
+        7
       ],
       "hitPoints": 8,
       "id": 110102,
@@ -21,7 +21,7 @@
     {
       "cell": [
         0,
-        3
+        6
       ],
       "hitPoints": 0,
       "id": 110103,
@@ -29,26 +29,26 @@
     },
     {
       "cell": [
-        5,
-        4
+        0,
+        7
       ],
-      "hitPoints": 8,
+      "hitPoints": 0,
       "id": 110104,
-      "type": "normal"
+      "type": "rock"
     },
     {
       "cell": [
-        2,
-        5
+        7,
+        2
       ],
-      "hitPoints": 5,
+      "hitPoints": 0,
       "id": 110105,
-      "type": "explosive"
+      "type": "rock"
     },
     {
       "cell": [
-        6,
-        5
+        0,
+        4
       ],
       "hitPoints": 0,
       "id": 110106,
@@ -56,25 +56,140 @@
     },
     {
       "cell": [
+        7,
+        6
+      ],
+      "hitPoints": 0,
+      "id": 110107,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        6,
+        6
+      ],
+      "hitPoints": 4,
+      "id": 110108,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        2,
+        5
+      ],
+      "hitPoints": 3,
+      "id": 110109,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        6,
+        7
+      ],
+      "hitPoints": 5,
+      "id": 110110,
+      "type": "armored",
+      "vulnerableSides": [
+        "right",
+        "left"
+      ]
+    },
+    {
+      "cell": [
+        3,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 110111,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        4,
+        2
+      ],
+      "hitPoints": 8,
+      "id": 110112,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        2,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 110113,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        5,
+        5
+      ],
+      "hitPoints": 4,
+      "id": 110114,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        7,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 110115,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        5,
+        3
+      ],
+      "hitPoints": 6,
+      "id": 110116,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        6,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 110117,
+      "type": "ore"
+    },
+    {
+      "cell": [
         1,
+        5
+      ],
+      "hitPoints": 4,
+      "id": 110118,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        4,
         6
       ],
       "hitPoints": 8,
-      "id": 110107,
+      "id": 110119,
       "type": "normal"
     },
     {
       "cell": [
         5,
-        7
+        6
       ],
       "hitPoints": 8,
-      "id": 110108,
+      "id": 110120,
       "type": "ore"
     },
     {
       "cell": [
-        3,
+        2,
         8
       ],
       "hitPoints": 8,
@@ -82,11 +197,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-7",
+  "contentVersion": "p2-mines-8",
   "displayName": "Demir Galeri",
   "displayNameKey": "MINE_11_WIDE_01",
   "exampleAngles": [
-    93.5
+    100.5,
+    100.5,
+    100.5
   ],
   "family": "safe",
   "height": 8,
@@ -94,8 +211,8 @@
   "mineId": "mine_11",
   "multiplierBps": 10000,
   "passageColumns": [
-    3,
-    4
+    2,
+    3
   ],
   "role": "wide",
   "schemaVersion": 1,

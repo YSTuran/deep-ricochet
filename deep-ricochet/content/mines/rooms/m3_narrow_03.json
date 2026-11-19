@@ -2,26 +2,26 @@
   "blocks": [
     {
       "cell": [
-        1,
-        2
+        4,
+        4
       ],
       "hitPoints": 5,
       "id": 30601,
-      "type": "ore"
-    },
-    {
-      "cell": [
-        5,
-        2
-      ],
-      "hitPoints": 5,
-      "id": 30602,
       "type": "normal"
     },
     {
       "cell": [
-        2,
-        3
+        5,
+        6
+      ],
+      "hitPoints": 6,
+      "id": 30602,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        0,
+        4
       ],
       "hitPoints": 0,
       "id": 30603,
@@ -32,23 +32,23 @@
         7,
         4
       ],
-      "hitPoints": 6,
+      "hitPoints": 0,
       "id": 30604,
-      "type": "ore"
+      "type": "rock"
     },
     {
       "cell": [
-        0,
-        5
+        1,
+        4
       ],
-      "hitPoints": 6,
+      "hitPoints": 0,
       "id": 30605,
-      "type": "normal"
+      "type": "rock"
     },
     {
       "cell": [
-        4,
-        5
+        6,
+        4
       ],
       "hitPoints": 0,
       "id": 30606,
@@ -56,11 +56,83 @@
     },
     {
       "cell": [
-        1,
+        0,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 30607,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        6,
         7
       ],
       "hitPoints": 7,
-      "id": 30607,
+      "id": 30608,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        4,
+        7
+      ],
+      "hitPoints": 5,
+      "id": 30609,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        3,
+        7
+      ],
+      "hitPoints": 6,
+      "id": 30610,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        7,
+        6
+      ],
+      "hitPoints": 5,
+      "id": 30611,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        2,
+        7
+      ],
+      "hitPoints": 7,
+      "id": 30612,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        1,
+        7
+      ],
+      "hitPoints": 4,
+      "id": 30613,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        7,
+        7
+      ],
+      "hitPoints": 6,
+      "id": 30614,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        0,
+        7
+      ],
+      "hitPoints": 5,
+      "id": 30615,
       "type": "normal"
     },
     {
@@ -68,25 +140,18 @@
         5,
         7
       ],
-      "hitPoints": 8,
-      "id": 30608,
-      "type": "ore"
-    },
-    {
-      "cell": [
-        3,
-        8
-      ],
       "hitPoints": 7,
       "id": 30699,
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-7",
+  "contentVersion": "p2-mines-8",
   "displayName": "Son Şaft",
   "displayNameKey": "MINE_3_NARROW_03",
   "exampleAngles": [
-    93.5
+    78.0,
+    78.0,
+    78.0
   ],
   "family": "bonus",
   "height": 8,

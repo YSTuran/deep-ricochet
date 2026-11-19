@@ -2,11 +2,38 @@
   "blocks": [
     {
       "cell": [
+        2,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 140501,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        1,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 140502,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        7,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 140503,
+      "type": "rock"
+    },
+    {
+      "cell": [
         1,
         2
       ],
       "hitPoints": 0,
-      "id": 140501,
+      "id": 140504,
       "type": "rock"
     },
     {
@@ -14,44 +41,14 @@
         6,
         2
       ],
-      "hitPoints": 6,
-      "id": 140502,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
-    },
-    {
-      "cell": [
-        2,
-        2
-      ],
-      "hitPoints": 8,
-      "id": 140503,
-      "type": "normal"
+      "hitPoints": 0,
+      "id": 140505,
+      "type": "rock"
     },
     {
       "cell": [
         0,
         3
-      ],
-      "hitPoints": 6,
-      "id": 140504,
-      "type": "explosive"
-    },
-    {
-      "cell": [
-        4,
-        4
-      ],
-      "hitPoints": 8,
-      "id": 140505,
-      "type": "normal"
-    },
-    {
-      "cell": [
-        1,
-        5
       ],
       "hitPoints": 0,
       "id": 140506,
@@ -59,11 +56,38 @@
     },
     {
       "cell": [
-        5,
-        6
+        7,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 140507,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        1,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 140508,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        6,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 140509,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        7
       ],
       "hitPoints": 8,
-      "id": 140507,
+      "id": 140510,
       "type": "ore"
     },
     {
@@ -72,7 +96,25 @@
         7
       ],
       "hitPoints": 8,
-      "id": 140508,
+      "id": 140511,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        4,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 140512,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        6,
+        6
+      ],
+      "hitPoints": 6,
+      "id": 140513,
       "type": "armored",
       "vulnerableSides": [
         "bottom"
@@ -80,7 +122,106 @@
     },
     {
       "cell": [
+        5,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 140514,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        7,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 140515,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        4,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 140516,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        5,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 140517,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        5,
+        5
+      ],
+      "hitPoints": 6,
+      "id": 140518,
+      "type": "armored",
+      "vulnerableSides": [
+        "right"
+      ]
+    },
+    {
+      "cell": [
+        0,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 140519,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        2,
+        7
+      ],
+      "hitPoints": 7,
+      "id": 140520,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        4,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 140521,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        1,
+        6
+      ],
+      "hitPoints": 7,
+      "id": 140522,
+      "type": "explosive"
+    },
+    {
+      "cell": [
         3,
+        7
+      ],
+      "hitPoints": 6,
+      "id": 140523,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        1,
         8
       ],
       "hitPoints": 8,
@@ -88,11 +229,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-7",
+  "contentVersion": "p2-mines-8",
   "displayName": "Derin Damar",
   "displayNameKey": "MINE_14_NARROW_02",
   "exampleAngles": [
-    93.5
+    107.5,
+    107.5,
+    107.5
   ],
   "family": "bonus",
   "height": 8,

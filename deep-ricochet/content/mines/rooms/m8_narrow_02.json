@@ -2,53 +2,53 @@
   "blocks": [
     {
       "cell": [
+        2,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 80501,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        1,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 80502,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        0,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 80503,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 80504,
+      "type": "rock"
+    },
+    {
+      "cell": [
         1,
         2
       ],
       "hitPoints": 0,
-      "id": 80501,
+      "id": 80505,
       "type": "rock"
     },
     {
       "cell": [
         6,
         2
-      ],
-      "hitPoints": 8,
-      "id": 80502,
-      "type": "cracked"
-    },
-    {
-      "cell": [
-        2,
-        2
-      ],
-      "hitPoints": 8,
-      "id": 80503,
-      "type": "normal"
-    },
-    {
-      "cell": [
-        0,
-        3
-      ],
-      "hitPoints": 8,
-      "id": 80504,
-      "type": "ore"
-    },
-    {
-      "cell": [
-        4,
-        4
-      ],
-      "hitPoints": 8,
-      "id": 80505,
-      "type": "normal"
-    },
-    {
-      "cell": [
-        1,
-        5
       ],
       "hitPoints": 0,
       "id": 80506,
@@ -56,12 +56,21 @@
     },
     {
       "cell": [
-        5,
-        6
+        1,
+        3
       ],
-      "hitPoints": 8,
+      "hitPoints": 0,
       "id": 80507,
-      "type": "ore"
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 80508,
+      "type": "rock"
     },
     {
       "cell": [
@@ -69,24 +78,116 @@
         7
       ],
       "hitPoints": 8,
-      "id": 80508,
+      "id": 80509,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        2,
+        7
+      ],
+      "hitPoints": 5,
+      "id": 80510,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        1,
+        7
+      ],
+      "hitPoints": 6,
+      "id": 80511,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        0,
+        7
+      ],
+      "hitPoints": 3,
+      "id": 80512,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        6,
+        6
+      ],
+      "hitPoints": 4,
+      "id": 80513,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        7,
+        7
+      ],
+      "hitPoints": 7,
+      "id": 80514,
       "type": "ore"
     },
     {
       "cell": [
         3,
-        8
+        6
+      ],
+      "hitPoints": 6,
+      "id": 80515,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        4,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 80516,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        0,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 80517,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        2,
+        6
+      ],
+      "hitPoints": 7,
+      "id": 80518,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        5,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 80519,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        1,
+        6
       ],
       "hitPoints": 8,
       "id": 80599,
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-7",
+  "contentVersion": "p2-mines-8",
   "displayName": "Sıcak Damar",
   "displayNameKey": "MINE_8_NARROW_02",
   "exampleAngles": [
-    93.5
+    112.5,
+    112.5,
+    112.5
   ],
   "family": "bonus",
   "height": 8,

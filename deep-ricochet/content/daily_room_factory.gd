@@ -3,9 +3,9 @@ extends RefCounted
 
 const DAILY_MINE_ID := &"daily"
 const SOURCE_MINE_ID := &"mine_14"
-const CONTENT_VERSION := "daily-5"
+const CONTENT_VERSION := "daily-6"
 const CRACKED_HIT_POINTS := 8
-const TARGET_BLOCK_COUNT := 14
+const TARGET_BLOCK_COUNT := 24
 const SOURCE_ROOM_IDS: Array[StringName] = [
 	&"m14_start",
 	&"m14_wide_01",
@@ -76,7 +76,8 @@ static func _create_daily_template(
 	template.multiplier_bps = source.multiplier_bps
 	template.passage_columns = _mirrored_columns(source.passage_columns) \
 		if mirrored else source.passage_columns.duplicate()
-	template.example_angles = _example_angles_for(template.room_id)
+	template.example_angles = _mirrored_angles(source.example_angles) \
+		if mirrored else source.example_angles.duplicate()
 
 	var occupied: Dictionary[Vector2i, bool] = {}
 	var present_types: Dictionary[int, bool] = {}
@@ -100,12 +101,24 @@ static func _create_daily_template(
 
 	var candidates := _candidate_cells(template, occupied, source_index)
 	_reserve_existing_armor_access(template, candidates)
+	var type_counts := _type_counts(template)
 	for block_type: int in DENSITY_TYPES:
 		if present_types.has(block_type):
 			continue
-		if not _append_block(template, candidates, block_type, next_id + 1, source_index):
-			return null
-		next_id += 1
+		if template.blocks.size() < TARGET_BLOCK_COUNT:
+			if not _append_block(template, candidates, block_type, next_id + 1, source_index):
+				return null
+			next_id += 1
+		else:
+			if not _replace_redundant_block(
+				template,
+				candidates,
+				type_counts,
+				block_type,
+				source_index,
+			):
+				return null
+		type_counts[block_type] = type_counts.get(block_type, 0) + 1
 		present_types[block_type] = true
 
 	var density_index := source_index
@@ -133,6 +146,7 @@ static func _candidate_cells(
 ) -> Array[Vector2i]:
 	var central_candidates: Array[Vector2i] = []
 	var top_candidates: Array[Vector2i] = []
+	var solution_cells := _solution_cells(template)
 	for offset in range(BoardGeometry.BLOCK_GRID_SIZE.x * BoardGeometry.BLOCK_GRID_SIZE.y):
 		var x := (offset % BoardGeometry.BLOCK_GRID_SIZE.x + variant * 3) \
 			% BoardGeometry.BLOCK_GRID_SIZE.x
@@ -140,7 +154,8 @@ static func _candidate_cells(
 			% BoardGeometry.BLOCK_GRID_SIZE.y
 		var cell := Vector2i(x, y)
 		if y < RoomTemplate.MIN_BLOCK_ROW \
-			or template.passage_columns.has(x) \
+			or (template.passage_columns.has(x) and y <= RoomTemplate.PASSAGE_CLEAR_MAX_ROW) \
+			or solution_cells.has(cell) \
 			or occupied.has(cell):
 			continue
 		if y >= BoardGeometry.BLOCK_GRID_SIZE.y - 2:
@@ -157,6 +172,32 @@ static func _mirrored_columns(columns: PackedInt32Array) -> PackedInt32Array:
 		mirrored.append(BoardGeometry.BLOCK_GRID_SIZE.x - 1 - column)
 	mirrored.sort()
 	return mirrored
+
+
+static func _mirrored_angles(angles: PackedFloat32Array) -> PackedFloat32Array:
+	var mirrored := PackedFloat32Array()
+	for angle: float in angles:
+		mirrored.append(180.0 - angle)
+	return mirrored
+
+
+static func _solution_cells(template: RoomTemplate) -> Dictionary[Vector2i, bool]:
+	var cells: Dictionary[Vector2i, bool] = {}
+	var core_cell := Vector2i(-1, -1)
+	for definition: RoomBlockDefinition in template.blocks:
+		if definition.block_type == BlockState.BlockType.CORE:
+			core_cell = definition.cell
+			break
+	if core_cell.x < 0:
+		return cells
+	var launcher := BoardGeometry.LAUNCHER_WORLD
+	var core_center := Vector2(core_cell) + Vector2.ONE * 0.5
+	for y in range(RoomTemplate.MIN_BLOCK_ROW, core_cell.y):
+		var sample_y := float(y) + 0.5
+		var progress := (sample_y - launcher.y) / (core_center.y - launcher.y)
+		var sample_x := launcher.x + (core_center.x - launcher.x) * progress
+		cells[Vector2i(clampi(floori(sample_x), 0, 7), y)] = true
+	return cells
 
 
 static func _mirrored_vulnerable_sides(sides: int) -> int:
@@ -203,6 +244,46 @@ static func _append_block(
 		vulnerable_sides,
 	))
 	return true
+
+
+static func _replace_redundant_block(
+	template: RoomTemplate,
+	candidates: Array[Vector2i],
+	type_counts: Dictionary,
+	new_type: int,
+	variant: int,
+) -> bool:
+	for definition: RoomBlockDefinition in template.blocks:
+		if definition.block_type in [BlockState.BlockType.CORE, BlockState.BlockType.ROCK] \
+			or int(type_counts.get(definition.block_type, 0)) <= 1:
+			continue
+		if new_type == BlockState.BlockType.ARMORED \
+			and not _cell_is_open(template, definition.cell + Vector2i.UP):
+			continue
+		var previous_type := definition.block_type
+		definition.block_type = new_type
+		definition.hit_points = _hit_points_for(new_type)
+		definition.vulnerable_sides = BlockState.ALL_VULNERABLE_SIDES
+		if new_type == BlockState.BlockType.ARMORED:
+			definition.vulnerable_sides = BlockState.VulnerableSide.BOTTOM
+			_reserve_candidate(candidates, definition.cell + Vector2i.UP)
+			var preferred_side := BlockState.VulnerableSide.LEFT \
+				if variant % 2 == 1 else BlockState.VulnerableSide.RIGHT
+			var side_neighbor := RoomTemplate._neighbor_for_side(definition.cell, preferred_side)
+			if _cell_is_open(template, side_neighbor):
+				definition.vulnerable_sides |= preferred_side
+				_reserve_candidate(candidates, side_neighbor)
+		type_counts[previous_type] = int(type_counts[previous_type]) - 1
+		return true
+	push_error("Günlük oda için dönüştürülebilir blok bulunamadı: %s" % template.room_id)
+	return false
+
+
+static func _type_counts(template: RoomTemplate) -> Dictionary:
+	var counts: Dictionary = {}
+	for definition: RoomBlockDefinition in template.blocks:
+		counts[definition.block_type] = counts.get(definition.block_type, 0) + 1
+	return counts
 
 
 static func _reserve_existing_armor_access(
@@ -265,36 +346,3 @@ static func _hit_points_for(block_type: int) -> int:
 		BlockState.BlockType.ARMORED:
 			return 6
 	return 1
-
-
-static func _example_angles_for(room_id: StringName) -> PackedFloat32Array:
-	match str(room_id):
-		"daily_m14_start_a":
-			return PackedFloat32Array([15.0, 16.0, 17.0])
-		"daily_m14_start_b":
-			return PackedFloat32Array([15.0, 15.5, 16.5])
-		"daily_m14_wide_01_a":
-			return PackedFloat32Array([20.0, 20.5, 21.0])
-		"daily_m14_wide_01_b":
-			return PackedFloat32Array([17.5])
-		"daily_m14_wide_02_a":
-			return PackedFloat32Array([18.0, 18.5, 19.5])
-		"daily_m14_wide_02_b":
-			return PackedFloat32Array([160.5, 161.5, 162.0])
-		"daily_m14_wide_03_a":
-			return PackedFloat32Array([15.5, 16.0, 18.5])
-		"daily_m14_wide_03_b":
-			return PackedFloat32Array([37.5, 37.5, 37.5])
-		"daily_m14_narrow_01_a":
-			return PackedFloat32Array([15.0, 15.0, 15.0])
-		"daily_m14_narrow_01_b":
-			return PackedFloat32Array([15.0, 15.0, 15.0])
-		"daily_m14_narrow_02_a":
-			return PackedFloat32Array([17.5, 18.0, 19.5])
-		"daily_m14_narrow_02_b":
-			return PackedFloat32Array([17.5, 17.5, 17.5])
-		"daily_m14_narrow_03_a":
-			return PackedFloat32Array([15.0, 15.5, 16.0])
-		"daily_m14_narrow_03_b":
-			return PackedFloat32Array([17.5, 20.0, 25.0])
-	return PackedFloat32Array([90.0])

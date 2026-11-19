@@ -2,35 +2,35 @@
   "blocks": [
     {
       "cell": [
-        0,
-        2
+        2,
+        5
       ],
       "hitPoints": 8,
       "id": 90401,
-      "type": "normal"
-    },
-    {
-      "cell": [
-        5,
-        2
-      ],
-      "hitPoints": 8,
-      "id": 90402,
       "type": "ore"
     },
     {
       "cell": [
-        2,
-        3
+        1,
+        7
       ],
-      "hitPoints": 4,
-      "id": 90403,
-      "type": "explosive"
+      "hitPoints": 8,
+      "id": 90402,
+      "type": "normal"
     },
     {
       "cell": [
-        4,
-        3
+        0,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 90403,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        2
       ],
       "hitPoints": 0,
       "id": 90404,
@@ -39,20 +39,56 @@
     {
       "cell": [
         1,
-        5
+        2
       ],
-      "hitPoints": 8,
+      "hitPoints": 0,
       "id": 90405,
-      "type": "ore"
+      "type": "rock"
     },
     {
       "cell": [
         6,
-        5
+        2
+      ],
+      "hitPoints": 0,
+      "id": 90406,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 90407,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 90408,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        7
       ],
       "hitPoints": 8,
-      "id": 90406,
-      "type": "cracked"
+      "id": 90409,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        5,
+        6
+      ],
+      "hitPoints": 4,
+      "id": 90410,
+      "type": "explosive"
     },
     {
       "cell": [
@@ -60,7 +96,7 @@
         7
       ],
       "hitPoints": 8,
-      "id": 90407,
+      "id": 90411,
       "type": "ore"
     },
     {
@@ -69,12 +105,75 @@
         7
       ],
       "hitPoints": 8,
-      "id": 90408,
+      "id": 90412,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        1,
+        5
+      ],
+      "hitPoints": 7,
+      "id": 90413,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        7,
+        7
+      ],
+      "hitPoints": 7,
+      "id": 90414,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        5,
+        7
+      ],
+      "hitPoints": 5,
+      "id": 90415,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        6,
+        6
+      ],
+      "hitPoints": 7,
+      "id": 90416,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        6,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 90417,
       "type": "normal"
     },
     {
       "cell": [
         3,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 90418,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        5,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 90419,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        1,
         8
       ],
       "hitPoints": 8,
@@ -82,11 +181,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-7",
+  "contentVersion": "p2-mines-8",
   "displayName": "Kaya Çatlağı",
   "displayNameKey": "MINE_9_NARROW_01",
   "exampleAngles": [
-    93.5
+    107.5,
+    107.5,
+    107.5
   ],
   "family": "bonus",
   "height": 8,

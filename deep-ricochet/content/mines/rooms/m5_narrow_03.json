@@ -2,26 +2,26 @@
   "blocks": [
     {
       "cell": [
-        1,
-        2
+        3,
+        4
       ],
       "hitPoints": 6,
       "id": 50601,
-      "type": "ore"
+      "type": "normal"
     },
     {
       "cell": [
-        5,
-        2
+        3,
+        6
       ],
-      "hitPoints": 6,
+      "hitPoints": 7,
       "id": 50602,
       "type": "normal"
     },
     {
       "cell": [
-        2,
-        3
+        1,
+        6
       ],
       "hitPoints": 0,
       "id": 50603,
@@ -30,25 +30,25 @@
     {
       "cell": [
         7,
-        4
+        6
       ],
-      "hitPoints": 7,
+      "hitPoints": 0,
       "id": 50604,
-      "type": "ore"
+      "type": "rock"
     },
     {
       "cell": [
         0,
-        5
+        6
       ],
-      "hitPoints": 7,
+      "hitPoints": 0,
       "id": 50605,
-      "type": "normal"
+      "type": "rock"
     },
     {
       "cell": [
-        4,
-        5
+        6,
+        6
       ],
       "hitPoints": 0,
       "id": 50606,
@@ -56,37 +56,120 @@
     },
     {
       "cell": [
-        1,
+        0,
+        7
+      ],
+      "hitPoints": 0,
+      "id": 50607,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        6,
         7
       ],
       "hitPoints": 8,
-      "id": 50607,
+      "id": 50608,
       "type": "normal"
+    },
+    {
+      "cell": [
+        5,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 50609,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        4,
+        7
+      ],
+      "hitPoints": 6,
+      "id": 50610,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        7,
+        7
+      ],
+      "hitPoints": 7,
+      "id": 50611,
+      "type": "ore"
     },
     {
       "cell": [
         5,
         7
       ],
-      "hitPoints": 8,
-      "id": 50608,
+      "hitPoints": 5,
+      "id": 50612,
       "type": "ore"
     },
     {
       "cell": [
+        2,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 50613,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        0,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 50614,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        7,
+        5
+      ],
+      "hitPoints": 5,
+      "id": 50615,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        1,
+        7
+      ],
+      "hitPoints": 5,
+      "id": 50616,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        2,
+        4
+      ],
+      "hitPoints": 5,
+      "id": 50617,
+      "type": "normal"
+    },
+    {
+      "cell": [
         3,
-        8
+        7
       ],
       "hitPoints": 7,
       "id": 50699,
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-7",
+  "contentVersion": "p2-mines-8",
   "displayName": "Derin Mahzen",
   "displayNameKey": "MINE_5_NARROW_03",
   "exampleAngles": [
-    93.5
+    94.0,
+    94.0,
+    94.0
   ],
   "family": "bonus",
   "height": 8,

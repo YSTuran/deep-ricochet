@@ -4,6 +4,7 @@ extends RefCounted
 const BLOCK_GRID_SIZE := Vector2i(8, 8)
 const WORLD_GRID_SIZE := Vector2i(8, 10)
 const CORE_ROW := 8
+const CORE_MIN_ROW := 6
 const SCREEN_ORIGIN := Vector2(30.0, 150.0)
 const WORLD_SCALE := 60.0
 const LAUNCHER_WORLD := Vector2(4.0, 0.45)
@@ -30,3 +31,7 @@ static func world_rect_to_screen(world_rect: Rect2, margin: float = 4.0) -> Rect
 
 static func preview_row_for_cell(cell_y: int) -> int:
 	return clampi(WORLD_GRID_SIZE.y - 1 - cell_y, 0, WORLD_GRID_SIZE.y - 1)
+
+
+static func is_core_row(cell_y: int) -> bool:
+	return cell_y >= CORE_MIN_ROW and cell_y <= CORE_ROW

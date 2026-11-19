@@ -2,8 +2,8 @@
   "blocks": [
     {
       "cell": [
-        0,
-        2
+        3,
+        5
       ],
       "hitPoints": 7,
       "id": 70401,
@@ -11,26 +11,26 @@
     },
     {
       "cell": [
-        5,
-        2
+        3,
+        7
       ],
-      "hitPoints": 7,
+      "hitPoints": 8,
       "id": 70402,
-      "type": "ore"
+      "type": "normal"
     },
     {
       "cell": [
-        2,
-        3
+        1,
+        6
       ],
-      "hitPoints": 4,
+      "hitPoints": 0,
       "id": 70403,
-      "type": "explosive"
+      "type": "rock"
     },
     {
       "cell": [
-        4,
-        3
+        7,
+        6
       ],
       "hitPoints": 0,
       "id": 70404,
@@ -38,30 +38,75 @@
     },
     {
       "cell": [
-        1,
-        5
+        0,
+        6
       ],
-      "hitPoints": 8,
+      "hitPoints": 0,
       "id": 70405,
-      "type": "ore"
+      "type": "rock"
     },
     {
       "cell": [
         6,
-        5
+        6
       ],
-      "hitPoints": 8,
+      "hitPoints": 0,
       "id": 70406,
-      "type": "normal"
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        7
+      ],
+      "hitPoints": 0,
+      "id": 70407,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        7
+      ],
+      "hitPoints": 0,
+      "id": 70408,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        5,
+        7
+      ],
+      "hitPoints": 5,
+      "id": 70409,
+      "type": "explosive"
     },
     {
       "cell": [
         2,
         7
       ],
+      "hitPoints": 7,
+      "id": 70410,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        1,
+        7
+      ],
       "hitPoints": 8,
-      "id": 70407,
+      "id": 70411,
       "type": "ore"
+    },
+    {
+      "cell": [
+        5,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 70412,
+      "type": "cracked"
     },
     {
       "cell": [
@@ -69,8 +114,62 @@
         7
       ],
       "hitPoints": 8,
-      "id": 70408,
-      "type": "cracked"
+      "id": 70413,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        1,
+        5
+      ],
+      "hitPoints": 6,
+      "id": 70414,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        6,
+        7
+      ],
+      "hitPoints": 7,
+      "id": 70415,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        2,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 70416,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        7,
+        4
+      ],
+      "hitPoints": 7,
+      "id": 70417,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        2,
+        6
+      ],
+      "hitPoints": 6,
+      "id": 70418,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        4,
+        4
+      ],
+      "hitPoints": 3,
+      "id": 70419,
+      "type": "explosive"
     },
     {
       "cell": [
@@ -82,10 +181,12 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-7",
+  "contentVersion": "p2-mines-8",
   "displayName": "Patlama Yarığı",
   "displayNameKey": "MINE_7_NARROW_01",
   "exampleAngles": [
+    93.5,
+    93.5,
     93.5
   ],
   "family": "bonus",

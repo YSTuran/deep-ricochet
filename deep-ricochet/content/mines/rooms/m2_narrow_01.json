@@ -2,8 +2,8 @@
   "blocks": [
     {
       "cell": [
-        0,
-        2
+        2,
+        4
       ],
       "hitPoints": 5,
       "id": 20401,
@@ -11,26 +11,26 @@
     },
     {
       "cell": [
-        5,
-        2
+        2,
+        5
       ],
-      "hitPoints": 4,
+      "hitPoints": 6,
       "id": 20402,
       "type": "ore"
     },
     {
       "cell": [
-        2,
-        3
+        1,
+        7
       ],
-      "hitPoints": 5,
+      "hitPoints": 0,
       "id": 20403,
-      "type": "normal"
+      "type": "rock"
     },
     {
       "cell": [
-        4,
-        3
+        7,
+        7
       ],
       "hitPoints": 0,
       "id": 20404,
@@ -38,30 +38,75 @@
     },
     {
       "cell": [
-        1,
-        5
+        0,
+        7
       ],
-      "hitPoints": 6,
+      "hitPoints": 0,
       "id": 20405,
-      "type": "ore"
+      "type": "rock"
     },
     {
       "cell": [
         6,
-        5
+        7
       ],
-      "hitPoints": 5,
+      "hitPoints": 0,
       "id": 20406,
-      "type": "normal"
+      "type": "rock"
     },
     {
       "cell": [
-        2,
+        0,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 20407,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        6,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 20408,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        3,
         7
       ],
-      "hitPoints": 7,
-      "id": 20407,
+      "hitPoints": 4,
+      "id": 20409,
       "type": "ore"
+    },
+    {
+      "cell": [
+        0,
+        6
+      ],
+      "hitPoints": 5,
+      "id": 20410,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        7,
+        5
+      ],
+      "hitPoints": 6,
+      "id": 20411,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        7,
+        6
+      ],
+      "hitPoints": 7,
+      "id": 20412,
+      "type": "normal"
     },
     {
       "cell": [
@@ -69,24 +114,53 @@
         7
       ],
       "hitPoints": 6,
-      "id": 20408,
+      "id": 20413,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        7,
+        4
+      ],
+      "hitPoints": 5,
+      "id": 20414,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        5,
+        6
+      ],
+      "hitPoints": 4,
+      "id": 20415,
       "type": "normal"
     },
     {
       "cell": [
         3,
-        8
+        5
+      ],
+      "hitPoints": 5,
+      "id": 20416,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        2,
+        6
       ],
       "hitPoints": 7,
       "id": 20499,
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-7",
+  "contentVersion": "p2-mines-8",
   "displayName": "Karanlık Oluk",
   "displayNameKey": "MINE_2_NARROW_01",
   "exampleAngles": [
-    93.5
+    104.0,
+    104.0,
+    104.0
   ],
   "family": "bonus",
   "height": 8,
@@ -94,7 +168,7 @@
   "mineId": "mine_02",
   "multiplierBps": 15000,
   "passageColumns": [
-    3
+    4
   ],
   "role": "narrow",
   "schemaVersion": 1,

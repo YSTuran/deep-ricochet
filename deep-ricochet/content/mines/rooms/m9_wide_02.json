@@ -2,25 +2,25 @@
   "blocks": [
     {
       "cell": [
-        2,
-        2
+        3,
+        4
       ],
-      "hitPoints": 6,
+      "hitPoints": 7,
       "id": 90201,
       "type": "normal"
     },
     {
       "cell": [
-        6,
-        2
+        3,
+        5
       ],
-      "hitPoints": 0,
+      "hitPoints": 8,
       "id": 90202,
-      "type": "rock"
+      "type": "normal"
     },
     {
       "cell": [
-        2,
+        7,
         3
       ],
       "hitPoints": 0,
@@ -29,26 +29,26 @@
     },
     {
       "cell": [
-        0,
-        4
+        7,
+        7
       ],
-      "hitPoints": 7,
+      "hitPoints": 0,
       "id": 90204,
-      "type": "ore"
+      "type": "rock"
     },
     {
       "cell": [
-        5,
-        4
-      ],
-      "hitPoints": 7,
-      "id": 90205,
-      "type": "normal"
-    },
-    {
-      "cell": [
-        1,
+        7,
         5
+      ],
+      "hitPoints": 0,
+      "id": 90205,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        6,
+        6
       ],
       "hitPoints": 8,
       "id": 90206,
@@ -56,16 +56,16 @@
     },
     {
       "cell": [
-        7,
-        6
+        3,
+        7
       ],
       "hitPoints": 8,
       "id": 90207,
-      "type": "ore"
+      "type": "normal"
     },
     {
       "cell": [
-        6,
+        2,
         7
       ],
       "hitPoints": 8,
@@ -74,19 +74,102 @@
     },
     {
       "cell": [
+        4,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 90209,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        5,
+        7
+      ],
+      "hitPoints": 2,
+      "id": 90210,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        4,
+        7
+      ],
+      "hitPoints": 3,
+      "id": 90211,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        6,
+        4
+      ],
+      "hitPoints": 2,
+      "id": 90212,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        5,
+        2
+      ],
+      "hitPoints": 8,
+      "id": 90213,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        5,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 90214,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        6,
+        7
+      ],
+      "hitPoints": 5,
+      "id": 90215,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        0,
+        7
+      ],
+      "hitPoints": 7,
+      "id": 90216,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        6,
+        2
+      ],
+      "hitPoints": 8,
+      "id": 90217,
+      "type": "ore"
+    },
+    {
+      "cell": [
         3,
-        8
+        6
       ],
       "hitPoints": 7,
       "id": 90299,
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-7",
+  "contentVersion": "p2-mines-8",
   "displayName": "Yarık Salonu",
   "displayNameKey": "MINE_9_WIDE_02",
   "exampleAngles": [
-    93.5
+    94.5,
+    94.5,
+    94.5
   ],
   "family": "safe",
   "height": 8,
@@ -94,8 +177,8 @@
   "mineId": "mine_09",
   "multiplierBps": 10000,
   "passageColumns": [
-    3,
-    4
+    2,
+    3
   ],
   "role": "wide",
   "schemaVersion": 1,

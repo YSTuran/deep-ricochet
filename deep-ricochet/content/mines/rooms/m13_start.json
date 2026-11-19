@@ -2,29 +2,26 @@
   "blocks": [
     {
       "cell": [
-        0,
-        2
-      ],
-      "hitPoints": 4,
-      "id": 130001,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
-    },
-    {
-      "cell": [
-        6,
-        2
+        2,
+        4
       ],
       "hitPoints": 8,
-      "id": 130002,
+      "id": 130001,
       "type": "ore"
     },
     {
       "cell": [
         1,
-        3
+        6
+      ],
+      "hitPoints": 8,
+      "id": 130002,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        0,
+        7
       ],
       "hitPoints": 0,
       "id": 130003,
@@ -32,35 +29,35 @@
     },
     {
       "cell": [
-        5,
-        3
+        0,
+        4
       ],
-      "hitPoints": 8,
+      "hitPoints": 0,
       "id": 130004,
-      "type": "normal"
-    },
-    {
-      "cell": [
-        2,
-        5
-      ],
-      "hitPoints": 8,
-      "id": 130005,
-      "type": "ore"
-    },
-    {
-      "cell": [
-        6,
-        5
-      ],
-      "hitPoints": 8,
-      "id": 130006,
-      "type": "cracked"
+      "type": "rock"
     },
     {
       "cell": [
         0,
-        7
+        3
+      ],
+      "hitPoints": 0,
+      "id": 130005,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 130006,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        4,
+        4
       ],
       "hitPoints": 8,
       "id": 130007,
@@ -68,32 +65,150 @@
     },
     {
       "cell": [
-        5,
-        7
+        4,
+        3
       ],
-      "hitPoints": 7,
+      "hitPoints": 8,
       "id": 130008,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom",
-        "right"
-      ]
+      "type": "normal"
+    },
+    {
+      "cell": [
+        6,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 130009,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        1,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 130010,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        1,
+        2
+      ],
+      "hitPoints": 5,
+      "id": 130011,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        1,
+        3
+      ],
+      "hitPoints": 8,
+      "id": 130012,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        6,
+        3
+      ],
+      "hitPoints": 5,
+      "id": 130013,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        4,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 130014,
+      "type": "cracked"
     },
     {
       "cell": [
         3,
-        8
+        7
+      ],
+      "hitPoints": 8,
+      "id": 130015,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        1,
+        5
+      ],
+      "hitPoints": 4,
+      "id": 130016,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        4,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 130017,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        6,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 130018,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        5,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 130019,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        3,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 130020,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        3,
+        4
+      ],
+      "hitPoints": 5,
+      "id": 130021,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        1,
+        7
       ],
       "hitPoints": 8,
       "id": 130099,
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-7",
+  "contentVersion": "p2-mines-8",
   "displayName": "Titan Kapısı",
   "displayNameKey": "MINE_13_START",
   "exampleAngles": [
-    93.5
+    109.5,
+    109.5,
+    109.5
   ],
   "family": "safe",
   "height": 8,
@@ -101,8 +216,8 @@
   "mineId": "mine_13",
   "multiplierBps": 10000,
   "passageColumns": [
-    3,
-    4
+    2,
+    3
   ],
   "role": "start",
   "schemaVersion": 1,

@@ -2,26 +2,26 @@
   "blocks": [
     {
       "cell": [
-        1,
-        2
-      ],
-      "hitPoints": 7,
-      "id": 60601,
-      "type": "ore"
-    },
-    {
-      "cell": [
-        5,
-        2
+        3,
+        4
       ],
       "hitPoints": 6,
-      "id": 60602,
+      "id": 60601,
       "type": "normal"
     },
     {
       "cell": [
         2,
-        3
+        6
+      ],
+      "hitPoints": 7,
+      "id": 60602,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        1,
+        7
       ],
       "hitPoints": 0,
       "id": 60603,
@@ -29,26 +29,26 @@
     },
     {
       "cell": [
-        7,
-        4
+        6,
+        7
       ],
-      "hitPoints": 7,
+      "hitPoints": 0,
       "id": 60604,
-      "type": "ore"
+      "type": "rock"
     },
     {
       "cell": [
         0,
-        5
+        7
       ],
-      "hitPoints": 8,
+      "hitPoints": 0,
       "id": 60605,
-      "type": "normal"
+      "type": "rock"
     },
     {
       "cell": [
-        4,
-        5
+        7,
+        7
       ],
       "hitPoints": 0,
       "id": 60606,
@@ -56,11 +56,47 @@
     },
     {
       "cell": [
+        0,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 60607,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 60608,
+      "type": "rock"
+    },
+    {
+      "cell": [
         1,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 60609,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        3,
         7
       ],
+      "hitPoints": 7,
+      "id": 60610,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        5,
+        6
+      ],
       "hitPoints": 8,
-      "id": 60607,
+      "id": 60611,
       "type": "normal"
     },
     {
@@ -68,25 +104,81 @@
         5,
         7
       ],
-      "hitPoints": 8,
-      "id": 60608,
+      "hitPoints": 5,
+      "id": 60612,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        7,
+        5
+      ],
+      "hitPoints": 6,
+      "id": 60613,
       "type": "ore"
     },
     {
       "cell": [
         3,
-        8
+        6
+      ],
+      "hitPoints": 7,
+      "id": 60614,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        3,
+        5
+      ],
+      "hitPoints": 6,
+      "id": 60615,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        7,
+        6
+      ],
+      "hitPoints": 7,
+      "id": 60616,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        6,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 60617,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        0,
+        4
+      ],
+      "hitPoints": 7,
+      "id": 60618,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        2,
+        7
       ],
       "hitPoints": 8,
       "id": 60699,
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-7",
+  "contentVersion": "p2-mines-8",
   "displayName": "Derinlik Kalbi",
   "displayNameKey": "MINE_6_NARROW_03",
   "exampleAngles": [
-    93.5
+    103.0,
+    103.0,
+    103.0
   ],
   "family": "bonus",
   "height": 8,
@@ -94,7 +186,7 @@
   "mineId": "mine_06",
   "multiplierBps": 15000,
   "passageColumns": [
-    3
+    4
   ],
   "role": "narrow",
   "schemaVersion": 1,

@@ -2,26 +2,26 @@
   "blocks": [
     {
       "cell": [
-        1,
-        2
+        3,
+        4
       ],
       "hitPoints": 8,
       "id": 110601,
-      "type": "ore"
+      "type": "normal"
     },
     {
       "cell": [
-        5,
-        2
+        3,
+        5
       ],
       "hitPoints": 8,
       "id": 110602,
-      "type": "cracked"
+      "type": "normal"
     },
     {
       "cell": [
-        2,
-        3
+        0,
+        6
       ],
       "hitPoints": 0,
       "id": 110603,
@@ -30,29 +30,25 @@
     {
       "cell": [
         7,
-        4
+        6
       ],
-      "hitPoints": 6,
+      "hitPoints": 0,
       "id": 110604,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom",
-        "left"
-      ]
+      "type": "rock"
     },
     {
       "cell": [
-        0,
-        5
+        1,
+        6
       ],
-      "hitPoints": 8,
+      "hitPoints": 0,
       "id": 110605,
-      "type": "normal"
+      "type": "rock"
     },
     {
       "cell": [
-        4,
-        5
+        6,
+        6
       ],
       "hitPoints": 0,
       "id": 110606,
@@ -60,12 +56,102 @@
     },
     {
       "cell": [
+        0,
+        7
+      ],
+      "hitPoints": 0,
+      "id": 110607,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        7
+      ],
+      "hitPoints": 0,
+      "id": 110608,
+      "type": "rock"
+    },
+    {
+      "cell": [
         1,
         7
       ],
+      "hitPoints": 0,
+      "id": 110609,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        6,
+        7
+      ],
       "hitPoints": 8,
-      "id": 110607,
+      "id": 110610,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        4,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 110611,
       "type": "normal"
+    },
+    {
+      "cell": [
+        3,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 110612,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        7,
+        5
+      ],
+      "hitPoints": 4,
+      "id": 110613,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        6,
+        5
+      ],
+      "hitPoints": 5,
+      "id": 110614,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        4,
+        6
+      ],
+      "hitPoints": 4,
+      "id": 110615,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        1,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 110616,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        5,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 110617,
+      "type": "ore"
     },
     {
       "cell": [
@@ -73,24 +159,56 @@
         7
       ],
       "hitPoints": 8,
-      "id": 110608,
+      "id": 110618,
       "type": "ore"
     },
     {
       "cell": [
+        0,
+        5
+      ],
+      "hitPoints": 7,
+      "id": 110619,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        2,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 110620,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        2,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 110621,
+      "type": "cracked"
+    },
+    {
+      "cell": [
         3,
-        8
+        6
       ],
       "hitPoints": 8,
       "id": 110699,
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-7",
+  "contentVersion": "p2-mines-8",
   "displayName": "Kalkan Boğazı",
   "displayNameKey": "MINE_11_NARROW_03",
   "exampleAngles": [
-    93.5
+    94.5,
+    94.5,
+    94.5
   ],
   "family": "bonus",
   "height": 8,

@@ -2,26 +2,26 @@
   "blocks": [
     {
       "cell": [
-        0,
-        2
+        4,
+        5
       ],
-      "hitPoints": 3,
+      "hitPoints": 4,
       "id": 30001,
       "type": "normal"
     },
     {
       "cell": [
-        6,
-        2
+        5,
+        7
       ],
-      "hitPoints": 4,
+      "hitPoints": 5,
       "id": 30002,
       "type": "ore"
     },
     {
       "cell": [
-        1,
-        3
+        7,
+        6
       ],
       "hitPoints": 0,
       "id": 30003,
@@ -29,52 +29,97 @@
     },
     {
       "cell": [
-        5,
-        3
+        0,
+        4
       ],
-      "hitPoints": 4,
+      "hitPoints": 0,
       "id": 30004,
-      "type": "normal"
+      "type": "rock"
     },
     {
       "cell": [
         2,
-        5
+        2
       ],
-      "hitPoints": 5,
+      "hitPoints": 3,
       "id": 30005,
-      "type": "ore"
+      "type": "normal"
     },
     {
       "cell": [
         6,
-        5
+        7
       ],
-      "hitPoints": 5,
+      "hitPoints": 4,
       "id": 30006,
       "type": "normal"
     },
     {
       "cell": [
-        0,
-        7
+        4,
+        6
       ],
-      "hitPoints": 6,
+      "hitPoints": 5,
       "id": 30007,
-      "type": "normal"
-    },
-    {
-      "cell": [
-        5,
-        7
-      ],
-      "hitPoints": 6,
-      "id": 30008,
       "type": "ore"
     },
     {
       "cell": [
         3,
+        3
+      ],
+      "hitPoints": 3,
+      "id": 30008,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        3,
+        6
+      ],
+      "hitPoints": 6,
+      "id": 30009,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        4,
+        7
+      ],
+      "hitPoints": 6,
+      "id": 30010,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        3,
+        4
+      ],
+      "hitPoints": 4,
+      "id": 30011,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        2,
+        6
+      ],
+      "hitPoints": 3,
+      "id": 30012,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        7,
+        5
+      ],
+      "hitPoints": 5,
+      "id": 30013,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        5,
         8
       ],
       "hitPoints": 6,
@@ -82,11 +127,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-7",
+  "contentVersion": "p2-mines-8",
   "displayName": "Çekirdek Kapısı",
   "displayNameKey": "MINE_3_START",
   "exampleAngles": [
-    93.5
+    79.5,
+    79.5,
+    79.5
   ],
   "family": "safe",
   "height": 8,
@@ -94,8 +141,8 @@
   "mineId": "mine_03",
   "multiplierBps": 10000,
   "passageColumns": [
-    3,
-    4
+    4,
+    5
   ],
   "role": "start",
   "schemaVersion": 1,

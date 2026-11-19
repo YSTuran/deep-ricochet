@@ -3,51 +3,11 @@
     {
       "cell": [
         2,
-        2
-      ],
-      "hitPoints": 7,
-      "id": 110201,
-      "type": "normal"
-    },
-    {
-      "cell": [
-        6,
-        2
-      ],
-      "hitPoints": 0,
-      "id": 110202,
-      "type": "rock"
-    },
-    {
-      "cell": [
-        2,
-        3
-      ],
-      "hitPoints": 0,
-      "id": 110203,
-      "type": "rock"
-    },
-    {
-      "cell": [
-        0,
         4
       ],
       "hitPoints": 8,
-      "id": 110204,
+      "id": 110201,
       "type": "ore"
-    },
-    {
-      "cell": [
-        5,
-        4
-      ],
-      "hitPoints": 4,
-      "id": 110205,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom",
-        "left"
-      ]
     },
     {
       "cell": [
@@ -55,21 +15,57 @@
         5
       ],
       "hitPoints": 8,
-      "id": 110206,
+      "id": 110202,
       "type": "normal"
+    },
+    {
+      "cell": [
+        0,
+        6
+      ],
+      "hitPoints": 0,
+      "id": 110203,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        4
+      ],
+      "hitPoints": 0,
+      "id": 110204,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        4
+      ],
+      "hitPoints": 0,
+      "id": 110205,
+      "type": "rock"
     },
     {
       "cell": [
         7,
         6
       ],
-      "hitPoints": 5,
-      "id": 110207,
-      "type": "explosive"
+      "hitPoints": 0,
+      "id": 110206,
+      "type": "rock"
     },
     {
       "cell": [
-        6,
+        3,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 110207,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        4,
         7
       ],
       "hitPoints": 8,
@@ -78,19 +74,120 @@
     },
     {
       "cell": [
+        1,
+        3
+      ],
+      "hitPoints": 7,
+      "id": 110209,
+      "type": "ore"
+    },
+    {
+      "cell": [
         3,
-        8
+        3
+      ],
+      "hitPoints": 8,
+      "id": 110210,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        4,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 110211,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        2,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 110212,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        4,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 110213,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        2,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 110214,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        3,
+        5
+      ],
+      "hitPoints": 7,
+      "id": 110215,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        6,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 110216,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        2,
+        2
+      ],
+      "hitPoints": 8,
+      "id": 110217,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        6,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 110218,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        3,
+        6
+      ],
+      "hitPoints": 4,
+      "id": 110219,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        1,
+        6
       ],
       "hitPoints": 8,
       "id": 110299,
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-7",
+  "contentVersion": "p2-mines-8",
   "displayName": "Çelik Koridor",
   "displayNameKey": "MINE_11_WIDE_02",
   "exampleAngles": [
-    93.5
+    20.0,
+    20.0,
+    20.0
   ],
   "family": "safe",
   "height": 8,
@@ -98,8 +195,8 @@
   "mineId": "mine_11",
   "multiplierBps": 10000,
   "passageColumns": [
-    3,
-    4
+    4,
+    5
   ],
   "role": "wide",
   "schemaVersion": 1,

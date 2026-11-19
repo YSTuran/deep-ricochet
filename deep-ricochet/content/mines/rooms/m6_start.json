@@ -2,25 +2,25 @@
   "blocks": [
     {
       "cell": [
-        0,
-        2
+        3,
+        5
       ],
-      "hitPoints": 5,
+      "hitPoints": 6,
       "id": 60001,
       "type": "normal"
     },
     {
       "cell": [
-        6,
-        2
+        2,
+        7
       ],
-      "hitPoints": 5,
+      "hitPoints": 7,
       "id": 60002,
       "type": "ore"
     },
     {
       "cell": [
-        1,
+        7,
         3
       ],
       "hitPoints": 0,
@@ -29,12 +29,84 @@
     },
     {
       "cell": [
+        0,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 60004,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        4
+      ],
+      "hitPoints": 0,
+      "id": 60005,
+      "type": "rock"
+    },
+    {
+      "cell": [
         5,
-        3
+        4
+      ],
+      "hitPoints": 8,
+      "id": 60006,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        1,
+        4
+      ],
+      "hitPoints": 7,
+      "id": 60007,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        1,
+        2
+      ],
+      "hitPoints": 6,
+      "id": 60008,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        1,
+        7
+      ],
+      "hitPoints": 7,
+      "id": 60009,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        2,
+        4
+      ],
+      "hitPoints": 6,
+      "id": 60010,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        4,
+        4
       ],
       "hitPoints": 5,
-      "id": 60004,
-      "type": "normal"
+      "id": 60011,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        6,
+        6
+      ],
+      "hitPoints": 4,
+      "id": 60012,
+      "type": "ore"
     },
     {
       "cell": [
@@ -42,39 +114,39 @@
         5
       ],
       "hitPoints": 7,
-      "id": 60005,
-      "type": "ore"
-    },
-    {
-      "cell": [
-        6,
-        5
-      ],
-      "hitPoints": 6,
-      "id": 60006,
-      "type": "normal"
-    },
-    {
-      "cell": [
-        0,
-        7
-      ],
-      "hitPoints": 8,
-      "id": 60007,
+      "id": 60013,
       "type": "normal"
     },
     {
       "cell": [
         5,
-        7
+        5
       ],
-      "hitPoints": 7,
-      "id": 60008,
+      "hitPoints": 4,
+      "id": 60014,
       "type": "ore"
     },
     {
       "cell": [
-        3,
+        5,
+        6
+      ],
+      "hitPoints": 5,
+      "id": 60015,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        6,
+        7
+      ],
+      "hitPoints": 6,
+      "id": 60016,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        2,
         8
       ],
       "hitPoints": 7,
@@ -82,11 +154,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-7",
+  "contentVersion": "p2-mines-8",
   "displayName": "Uçurum Kapısı",
   "displayNameKey": "MINE_6_START",
   "exampleAngles": [
-    93.5
+    99.5,
+    99.5,
+    99.5
   ],
   "family": "safe",
   "height": 8,
@@ -94,8 +168,8 @@
   "mineId": "mine_06",
   "multiplierBps": 10000,
   "passageColumns": [
-    3,
-    4
+    4,
+    5
   ],
   "role": "start",
   "schemaVersion": 1,

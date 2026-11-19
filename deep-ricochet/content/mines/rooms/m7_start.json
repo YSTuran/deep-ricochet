@@ -2,25 +2,25 @@
   "blocks": [
     {
       "cell": [
-        0,
-        2
-      ],
-      "hitPoints": 2,
-      "id": 70001,
-      "type": "explosive"
-    },
-    {
-      "cell": [
-        6,
-        2
+        2,
+        5
       ],
       "hitPoints": 6,
-      "id": 70002,
+      "id": 70001,
       "type": "ore"
     },
     {
       "cell": [
         1,
+        7
+      ],
+      "hitPoints": 7,
+      "id": 70002,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        7,
         3
       ],
       "hitPoints": 0,
@@ -29,26 +29,26 @@
     },
     {
       "cell": [
-        5,
-        3
+        7,
+        2
       ],
-      "hitPoints": 6,
+      "hitPoints": 0,
       "id": 70004,
-      "type": "normal"
+      "type": "rock"
     },
     {
       "cell": [
-        2,
-        5
+        7,
+        4
       ],
-      "hitPoints": 7,
+      "hitPoints": 0,
       "id": 70005,
-      "type": "ore"
+      "type": "rock"
     },
     {
       "cell": [
         6,
-        5
+        4
       ],
       "hitPoints": 8,
       "id": 70006,
@@ -56,25 +56,106 @@
     },
     {
       "cell": [
-        0,
-        7
+        3,
+        4
+      ],
+      "hitPoints": 3,
+      "id": 70007,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        5,
+        2
+      ],
+      "hitPoints": 6,
+      "id": 70008,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        4,
+        4
+      ],
+      "hitPoints": 5,
+      "id": 70009,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        4,
+        6
+      ],
+      "hitPoints": 4,
+      "id": 70010,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        6,
+        2
+      ],
+      "hitPoints": 5,
+      "id": 70011,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        5,
+        4
       ],
       "hitPoints": 8,
-      "id": 70007,
+      "id": 70012,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        3,
+        5
+      ],
+      "hitPoints": 7,
+      "id": 70013,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        3,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 70014,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        6,
+        3
+      ],
+      "hitPoints": 6,
+      "id": 70015,
       "type": "normal"
     },
     {
       "cell": [
         5,
-        7
+        5
       ],
-      "hitPoints": 8,
-      "id": 70008,
+      "hitPoints": 2,
+      "id": 70016,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        4,
+        2
+      ],
+      "hitPoints": 7,
+      "id": 70017,
       "type": "ore"
     },
     {
       "cell": [
-        3,
+        1,
         8
       ],
       "hitPoints": 7,
@@ -82,11 +163,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-7",
+  "contentVersion": "p2-mines-8",
   "displayName": "Barut Girişi",
   "displayNameKey": "MINE_7_START",
   "exampleAngles": [
-    93.5
+    107.5,
+    107.5,
+    107.5
   ],
   "family": "safe",
   "height": 8,
@@ -94,8 +177,8 @@
   "mineId": "mine_07",
   "multiplierBps": 10000,
   "passageColumns": [
-    3,
-    4
+    2,
+    3
   ],
   "role": "start",
   "schemaVersion": 1,

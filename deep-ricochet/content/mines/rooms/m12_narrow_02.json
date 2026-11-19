@@ -2,17 +2,17 @@
   "blocks": [
     {
       "cell": [
-        1,
-        2
+        3,
+        5
       ],
-      "hitPoints": 0,
+      "hitPoints": 8,
       "id": 120501,
-      "type": "rock"
+      "type": "normal"
     },
     {
       "cell": [
-        6,
-        2
+        3,
+        7
       ],
       "hitPoints": 8,
       "id": 120502,
@@ -20,35 +20,35 @@
     },
     {
       "cell": [
-        2,
-        2
-      ],
-      "hitPoints": 8,
-      "id": 120503,
-      "type": "normal"
-    },
-    {
-      "cell": [
         0,
-        3
+        6
       ],
-      "hitPoints": 8,
-      "id": 120504,
-      "type": "cracked"
+      "hitPoints": 0,
+      "id": 120503,
+      "type": "rock"
     },
     {
       "cell": [
-        4,
-        4
+        7,
+        6
       ],
-      "hitPoints": 8,
-      "id": 120505,
-      "type": "normal"
+      "hitPoints": 0,
+      "id": 120504,
+      "type": "rock"
     },
     {
       "cell": [
         1,
-        5
+        6
+      ],
+      "hitPoints": 0,
+      "id": 120505,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        6,
+        6
       ],
       "hitPoints": 0,
       "id": 120506,
@@ -56,11 +56,47 @@
     },
     {
       "cell": [
-        5,
-        6
+        1,
+        7
+      ],
+      "hitPoints": 0,
+      "id": 120507,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        7
+      ],
+      "hitPoints": 0,
+      "id": 120508,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        7
+      ],
+      "hitPoints": 0,
+      "id": 120509,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        4,
+        7
       ],
       "hitPoints": 8,
-      "id": 120507,
+      "id": 120510,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        6,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 120511,
       "type": "ore"
     },
     {
@@ -69,8 +105,93 @@
         7
       ],
       "hitPoints": 8,
-      "id": 120508,
+      "id": 120512,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        2,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 120513,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        1,
+        4
+      ],
+      "hitPoints": 4,
+      "id": 120514,
       "type": "explosive"
+    },
+    {
+      "cell": [
+        1,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 120515,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        5,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 120516,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        7,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 120517,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        5,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 120518,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        4,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 120519,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        7,
+        3
+      ],
+      "hitPoints": 5,
+      "id": 120520,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom",
+        "left"
+      ]
+    },
+    {
+      "cell": [
+        7,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 120521,
+      "type": "ore"
     },
     {
       "cell": [
@@ -82,10 +203,12 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-7",
+  "contentVersion": "p2-mines-8",
   "displayName": "Sert Damar",
   "displayNameKey": "MINE_12_NARROW_02",
   "exampleAngles": [
+    93.5,
+    93.5,
     93.5
   ],
   "family": "bonus",

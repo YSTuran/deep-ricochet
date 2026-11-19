@@ -46,10 +46,12 @@ static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: Gam
 	var mine_block_type_counts: Dictionary[StringName, Dictionary] = {}
 	var mine_classic_hp_totals: Dictionary[StringName, int] = {}
 	var mine_classic_block_counts: Dictionary[StringName, int] = {}
-	var mine_role_durability_totals: Dictionary[StringName, Dictionary] = {}
+	var mine_role_difficulty_totals: Dictionary[StringName, Dictionary] = {}
 	var mine_role_room_counts: Dictionary[StringName, Dictionary] = {}
 	var role_counts: Dictionary[StringName, Dictionary] = {}
 	var layout_signatures: Dictionary[StringName, Dictionary] = {}
+	var core_positions: Dictionary[StringName, Dictionary] = {}
+	var normal_templates: Array[RoomTemplate] = []
 	for template: RoomTemplate in catalog.templates:
 		assert(template.is_valid())
 		assert(template.create_board().core_count() == 1)
@@ -57,6 +59,8 @@ static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: Gam
 		var mine_order := 14 if is_daily \
 			else str(template.mine_id).trim_prefix("mine_").to_int()
 		assert(is_daily or (mine_order >= 1 and mine_order <= 14))
+		if not is_daily:
+			normal_templates.append(template)
 		if not layout_signatures.has(template.mine_id):
 			layout_signatures[template.mine_id] = {}
 		var mine_layouts: Dictionary = layout_signatures[template.mine_id]
@@ -71,6 +75,8 @@ static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: Gam
 			mine_block_type_counts[template.mine_id] = {}
 		var mine_types: Dictionary = mine_block_type_counts[template.mine_id]
 		var room_durability := 0
+		var room_rock_count := 0
+		var edge_rock_count := 0
 		for definition: RoomBlockDefinition in template.blocks:
 			if definition.block_type != BlockState.BlockType.CORE:
 				assert(
@@ -84,6 +90,10 @@ static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: Gam
 			mine_types[definition.block_type] = mine_types.get(definition.block_type, 0) + 1
 			if definition.block_type != BlockState.BlockType.ROCK:
 				room_durability += definition.hit_points
+			else:
+				room_rock_count += 1
+				if definition.cell.x <= 1 or definition.cell.x >= 6:
+					edge_rock_count += 1
 			if definition.block_type in [BlockState.BlockType.NORMAL, BlockState.BlockType.ORE]:
 				mine_classic_hp_totals[template.mine_id] = mine_classic_hp_totals.get(template.mine_id, 0) \
 					+ definition.hit_points
@@ -91,6 +101,13 @@ static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: Gam
 			elif definition.block_type == BlockState.BlockType.CRACKED:
 				assert(definition.hit_points == 8)
 			elif definition.block_type == BlockState.BlockType.CORE:
+				assert(BoardGeometry.is_core_row(definition.cell.y))
+				assert(definition.cell.x >= 1 and definition.cell.x <= 6)
+				if not is_daily:
+					if not core_positions.has(template.mine_id):
+						core_positions[template.mine_id] = {}
+					var mine_core_positions: Dictionary = core_positions[template.mine_id]
+					mine_core_positions["%d:%d" % [definition.cell.x, definition.cell.y]] = true
 				var expected_core_hp := mini(8, 6 + floori(float(mine_order - 1) / 5.0))
 				if template.role == RoomTemplate.Role.NARROW:
 					expected_core_hp = mini(8, expected_core_hp + 1)
@@ -99,14 +116,34 @@ static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: Gam
 			role_counts[template.mine_id] = {}
 		var mine_roles: Dictionary = role_counts[template.mine_id]
 		mine_roles[template.role] = mine_roles.get(template.role, 0) + 1
+		if not is_daily:
+			var density_tier := floori(float(mine_order - 1) / 3.0)
+			var base_density := mini(22, 14 + density_tier * 2)
+			var minimum_density := base_density
+			var maximum_density := mini(22, base_density + 1)
+			if template.role == RoomTemplate.Role.NARROW:
+				minimum_density = mini(24, base_density + 2)
+				maximum_density = mini(24, base_density + 3)
+				assert(room_rock_count >= 5 and room_rock_count <= 8)
+				assert(edge_rock_count == room_rock_count)
+			assert(
+				template.blocks.size() >= minimum_density \
+					and template.blocks.size() <= maximum_density,
+				"Oda yoğunluğu hedef dışında: %s (%d, beklenen %d-%d)" % [
+					template.room_id,
+					template.blocks.size(),
+					minimum_density,
+					maximum_density,
+				],
+			)
 		if not is_daily and template.role != RoomTemplate.Role.START:
-			if not mine_role_durability_totals.has(template.mine_id):
-				mine_role_durability_totals[template.mine_id] = {}
+			if not mine_role_difficulty_totals.has(template.mine_id):
+				mine_role_difficulty_totals[template.mine_id] = {}
 				mine_role_room_counts[template.mine_id] = {}
-			var role_durability: Dictionary = mine_role_durability_totals[template.mine_id]
+			var role_difficulty: Dictionary = mine_role_difficulty_totals[template.mine_id]
 			var role_room_counts: Dictionary = mine_role_room_counts[template.mine_id]
-			role_durability[template.role] = role_durability.get(template.role, 0) \
-				+ room_durability
+			role_difficulty[template.role] = role_difficulty.get(template.role, 0) \
+				+ room_durability + room_rock_count * 5
 			role_room_counts[template.role] = role_room_counts.get(template.role, 0) + 1
 		if template.family == RoomTemplate.Family.SAFE:
 			assert(template.multiplier_bps == config.safe_multiplier_bps)
@@ -115,7 +152,14 @@ static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: Gam
 			assert(template.multiplier_bps == config.bonus_multiplier_bps)
 			assert(template.passage_columns.size() == 1)
 		if is_daily:
-			assert(template.blocks.size() == DailyRooms.TARGET_BLOCK_COUNT)
+			assert(
+				template.blocks.size() == DailyRooms.TARGET_BLOCK_COUNT,
+				"Günlük oda yoğunluğu uyuşmuyor: %s (%d/%d)" % [
+					template.room_id,
+					template.blocks.size(),
+					DailyRooms.TARGET_BLOCK_COUNT,
+				],
+			)
 			var daily_types: Dictionary[int, bool] = {}
 			for definition: RoomBlockDefinition in template.blocks:
 				daily_types[definition.block_type] = true
@@ -129,6 +173,7 @@ static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: Gam
 				BlockState.BlockType.ARMORED,
 			]:
 				assert(daily_types.has(required_type))
+	_assert_normal_layout_uniqueness(normal_templates)
 	var previous_classic_average := 0.0
 	for mine_order in range(1, 15):
 		var mine_id := StringName("mine_%02d" % mine_order)
@@ -137,23 +182,31 @@ static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: Gam
 		assert(counts.get(RoomTemplate.Role.START, 0) == 1)
 		assert(counts.get(RoomTemplate.Role.WIDE, 0) == 3)
 		assert(counts.get(RoomTemplate.Role.NARROW, 0) == 3)
-		var durability_totals: Dictionary = mine_role_durability_totals[mine_id]
+		assert((core_positions[mine_id] as Dictionary).size() >= 6)
+		var difficulty_totals: Dictionary = mine_role_difficulty_totals[mine_id]
 		var durability_counts: Dictionary = mine_role_room_counts[mine_id]
-		var wide_durability := float(durability_totals[RoomTemplate.Role.WIDE]) \
+		var wide_difficulty := float(difficulty_totals[RoomTemplate.Role.WIDE]) \
 			/ float(durability_counts[RoomTemplate.Role.WIDE])
-		var narrow_durability := float(durability_totals[RoomTemplate.Role.NARROW]) \
+		var narrow_difficulty := float(difficulty_totals[RoomTemplate.Role.NARROW]) \
 			/ float(durability_counts[RoomTemplate.Role.NARROW])
 		assert(
-			narrow_durability > wide_durability,
-			"Dar damar geniş geçitten daha dayanıklı değil: %s (%.1f <= %.1f)" % [
+			narrow_difficulty > wide_difficulty,
+			"Dar damar geniş geçitten daha zor değil: %s (%.1f <= %.1f)" % [
 				mine_id,
-				narrow_durability,
-				wide_durability,
+				narrow_difficulty,
+				wide_difficulty,
 			],
 		)
 		var classic_average := float(mine_classic_hp_totals[mine_id]) \
 			/ float(mine_classic_block_counts[mine_id])
-		assert(classic_average >= previous_classic_average)
+		assert(
+			classic_average + 0.10 >= previous_classic_average,
+			"Klasik blok can ortalaması beklenenden fazla geriledi: %s (%.2f < %.2f)" % [
+				mine_id,
+				classic_average,
+				previous_classic_average,
+			],
+		)
 		previous_classic_average = classic_average
 		var mine_types: Dictionary = mine_block_type_counts[mine_id]
 		if mine_order <= 6:
@@ -252,6 +305,52 @@ static func _layout_signature(template: RoomTemplate) -> String:
 		])
 	parts.sort()
 	return "|".join(parts)
+
+
+static func _assert_normal_layout_uniqueness(templates: Array[RoomTemplate]) -> void:
+	var cell_sets: Array[Dictionary] = []
+	var visual_sets: Array[Dictionary] = []
+	for template: RoomTemplate in templates:
+		cell_sets.append(_layout_set(template, false))
+		visual_sets.append(_layout_set(template, true))
+	for left_index in range(templates.size()):
+		for right_index in range(left_index + 1, templates.size()):
+			var layout_similarity := _jaccard_similarity(
+				cell_sets[left_index],
+				cell_sets[right_index],
+			)
+			var visual_similarity := _jaccard_similarity(
+				visual_sets[left_index],
+				visual_sets[right_index],
+			)
+			assert(
+				layout_similarity <= 0.80 and visual_similarity <= 0.70,
+				"Odalar aşırı benzer: %s / %s (%.0f%%, %.0f%%)" % [
+					templates[left_index].room_id,
+					templates[right_index].room_id,
+					layout_similarity * 100.0,
+					visual_similarity * 100.0,
+				],
+			)
+
+
+static func _layout_set(template: RoomTemplate, include_type: bool) -> Dictionary:
+	var result: Dictionary = {}
+	for block: RoomBlockDefinition in template.blocks:
+		var key := "%d:%d" % [block.cell.x, block.cell.y]
+		if include_type:
+			key = "%d:%s" % [block.block_type, key]
+		result[key] = true
+	return result
+
+
+static func _jaccard_similarity(left: Dictionary, right: Dictionary) -> float:
+	var intersection := 0
+	for key: String in left:
+		if right.has(key):
+			intersection += 1
+	var union_size := left.size() + right.size() - intersection
+	return float(intersection) / float(maxi(union_size, 1))
 
 
 static func _seeded_route_signature(

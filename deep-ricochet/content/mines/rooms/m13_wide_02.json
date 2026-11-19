@@ -2,29 +2,26 @@
   "blocks": [
     {
       "cell": [
-        2,
-        2
+        4,
+        5
       ],
-      "hitPoints": 4,
+      "hitPoints": 8,
       "id": 130201,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "normal"
     },
     {
       "cell": [
-        6,
-        2
+        5,
+        7
       ],
-      "hitPoints": 0,
+      "hitPoints": 8,
       "id": 130202,
-      "type": "rock"
+      "type": "ore"
     },
     {
       "cell": [
-        2,
-        3
+        0,
+        6
       ],
       "hitPoints": 0,
       "id": 130203,
@@ -33,11 +30,101 @@
     {
       "cell": [
         0,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 130204,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        6
+      ],
+      "hitPoints": 0,
+      "id": 130205,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 130206,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        3,
+        6
+      ],
+      "hitPoints": 5,
+      "id": 130207,
+      "type": "armored",
+      "vulnerableSides": [
+        "right"
+      ]
+    },
+    {
+      "cell": [
+        6,
+        3
+      ],
+      "hitPoints": 8,
+      "id": 130208,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        1,
+        3
+      ],
+      "hitPoints": 8,
+      "id": 130209,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        2,
+        4
+      ],
+      "hitPoints": 4,
+      "id": 130210,
+      "type": "armored",
+      "vulnerableSides": [
+        "left"
+      ]
+    },
+    {
+      "cell": [
+        3,
         4
       ],
       "hitPoints": 8,
-      "id": 130204,
+      "id": 130211,
       "type": "ore"
+    },
+    {
+      "cell": [
+        2,
+        6
+      ],
+      "hitPoints": 6,
+      "id": 130212,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        1,
+        5
+      ],
+      "hitPoints": 6,
+      "id": 130213,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
     },
     {
       "cell": [
@@ -45,43 +132,87 @@
         4
       ],
       "hitPoints": 8,
-      "id": 130205,
-      "type": "normal"
-    },
-    {
-      "cell": [
-        1,
-        5
-      ],
-      "hitPoints": 8,
-      "id": 130206,
-      "type": "cracked"
-    },
-    {
-      "cell": [
-        7,
-        6
-      ],
-      "hitPoints": 8,
-      "id": 130207,
+      "id": 130214,
       "type": "ore"
     },
     {
       "cell": [
-        6,
-        7
+        2,
+        3
       ],
       "hitPoints": 7,
-      "id": 130208,
+      "id": 130215,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        3,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 130216,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        2,
+        5
+      ],
+      "hitPoints": 5,
+      "id": 130217,
       "type": "armored",
       "vulnerableSides": [
-        "bottom",
         "right"
       ]
     },
     {
       "cell": [
-        3,
+        2,
+        7
+      ],
+      "hitPoints": 7,
+      "id": 130218,
+      "type": "armored",
+      "vulnerableSides": [
+        "left"
+      ]
+    },
+    {
+      "cell": [
+        5,
+        3
+      ],
+      "hitPoints": 4,
+      "id": 130219,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        6,
+        6
+      ],
+      "hitPoints": 6,
+      "id": 130220,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        0,
+        3
+      ],
+      "hitPoints": 8,
+      "id": 130221,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        5,
         8
       ],
       "hitPoints": 8,
@@ -89,11 +220,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-7",
+  "contentVersion": "p2-mines-8",
   "displayName": "Dev Salonu",
   "displayNameKey": "MINE_13_WIDE_02",
   "exampleAngles": [
-    93.5
+    79.5,
+    79.5,
+    79.5
   ],
   "family": "safe",
   "height": 8,

@@ -2,44 +2,44 @@
   "blocks": [
     {
       "cell": [
-        0,
-        2
+        3,
+        4
       ],
-      "hitPoints": 0,
+      "hitPoints": 6,
       "id": 80301,
-      "type": "rock"
+      "type": "normal"
     },
     {
       "cell": [
-        5,
-        2
+        3,
+        6
       ],
-      "hitPoints": 6,
+      "hitPoints": 8,
       "id": 80302,
       "type": "normal"
     },
     {
       "cell": [
-        2,
+        7,
         3
       ],
-      "hitPoints": 6,
+      "hitPoints": 0,
       "id": 80303,
-      "type": "ore"
+      "type": "rock"
     },
     {
       "cell": [
         7,
-        4
+        6
       ],
-      "hitPoints": 3,
+      "hitPoints": 0,
       "id": 80304,
-      "type": "explosive"
+      "type": "rock"
     },
     {
       "cell": [
-        1,
-        5
+        0,
+        2
       ],
       "hitPoints": 0,
       "id": 80305,
@@ -47,46 +47,129 @@
     },
     {
       "cell": [
-        6,
-        5
+        0,
+        4
       ],
-      "hitPoints": 8,
+      "hitPoints": 0,
       "id": 80306,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        2,
+        3
+      ],
+      "hitPoints": 5,
+      "id": 80307,
       "type": "ore"
     },
     {
       "cell": [
-        0,
-        7
+        6,
+        4
+      ],
+      "hitPoints": 6,
+      "id": 80308,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        2,
+        2
       ],
       "hitPoints": 8,
-      "id": 80307,
+      "id": 80309,
       "type": "normal"
     },
     {
       "cell": [
+        2,
+        4
+      ],
+      "hitPoints": 6,
+      "id": 80310,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        1,
+        6
+      ],
+      "hitPoints": 5,
+      "id": 80311,
+      "type": "ore"
+    },
+    {
+      "cell": [
         5,
+        2
+      ],
+      "hitPoints": 6,
+      "id": 80312,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        2,
+        6
+      ],
+      "hitPoints": 5,
+      "id": 80313,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        2,
         7
       ],
       "hitPoints": 8,
-      "id": 80308,
+      "id": 80314,
       "type": "cracked"
     },
     {
       "cell": [
+        4,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 80315,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        0,
+        3
+      ],
+      "hitPoints": 8,
+      "id": 80316,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        6,
+        3
+      ],
+      "hitPoints": 5,
+      "id": 80317,
+      "type": "ore"
+    },
+    {
+      "cell": [
         3,
-        8
+        7
       ],
       "hitPoints": 7,
       "id": 80399,
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-7",
+  "contentVersion": "p2-mines-8",
   "displayName": "Köz Kemeri",
   "displayNameKey": "MINE_8_WIDE_03",
   "exampleAngles": [
-    93.5
+    94.0,
+    94.0,
+    94.0
   ],
   "family": "safe",
   "height": 8,

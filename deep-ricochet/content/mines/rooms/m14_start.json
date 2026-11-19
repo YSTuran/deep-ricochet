@@ -2,29 +2,26 @@
   "blocks": [
     {
       "cell": [
-        0,
-        2
+        5,
+        4
       ],
-      "hitPoints": 4,
+      "hitPoints": 8,
       "id": 140001,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "normal"
     },
     {
       "cell": [
         6,
-        2
+        5
       ],
       "hitPoints": 8,
       "id": 140002,
-      "type": "ore"
+      "type": "normal"
     },
     {
       "cell": [
-        1,
-        3
+        0,
+        2
       ],
       "hitPoints": 0,
       "id": 140003,
@@ -32,47 +29,44 @@
     },
     {
       "cell": [
-        5,
-        3
+        0,
+        7
       ],
-      "hitPoints": 8,
+      "hitPoints": 0,
       "id": 140004,
-      "type": "normal"
+      "type": "rock"
     },
     {
       "cell": [
-        2,
-        5
+        7,
+        6
       ],
-      "hitPoints": 8,
+      "hitPoints": 0,
       "id": 140005,
-      "type": "cracked"
-    },
-    {
-      "cell": [
-        6,
-        5
-      ],
-      "hitPoints": 8,
-      "id": 140006,
-      "type": "normal"
+      "type": "rock"
     },
     {
       "cell": [
         0,
-        7
+        6
       ],
-      "hitPoints": 7,
-      "id": 140007,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "hitPoints": 0,
+      "id": 140006,
+      "type": "rock"
     },
     {
       "cell": [
         5,
-        7
+        5
+      ],
+      "hitPoints": 8,
+      "id": 140007,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        3,
+        6
       ],
       "hitPoints": 8,
       "id": 140008,
@@ -80,19 +74,153 @@
     },
     {
       "cell": [
-        3,
-        8
+        5,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 140009,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        4,
+        4
+      ],
+      "hitPoints": 4,
+      "id": 140010,
+      "type": "armored",
+      "vulnerableSides": [
+        "left"
+      ]
+    },
+    {
+      "cell": [
+        1,
+        6
+      ],
+      "hitPoints": 5,
+      "id": 140011,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        2,
+        2
+      ],
+      "hitPoints": 8,
+      "id": 140012,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        5,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 140013,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        1,
+        3
+      ],
+      "hitPoints": 8,
+      "id": 140014,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        1,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 140015,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        0,
+        3
+      ],
+      "hitPoints": 7,
+      "id": 140016,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        2,
+        7
+      ],
+      "hitPoints": 5,
+      "id": 140017,
+      "type": "armored",
+      "vulnerableSides": [
+        "right"
+      ]
+    },
+    {
+      "cell": [
+        2,
+        3
+      ],
+      "hitPoints": 5,
+      "id": 140018,
+      "type": "armored",
+      "vulnerableSides": [
+        "right"
+      ]
+    },
+    {
+      "cell": [
+        2,
+        6
+      ],
+      "hitPoints": 4,
+      "id": 140019,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        1,
+        2
+      ],
+      "hitPoints": 5,
+      "id": 140020,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        4,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 140021,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        6,
+        6
       ],
       "hitPoints": 8,
       "id": 140099,
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-7",
+  "contentVersion": "p2-mines-8",
   "displayName": "Son Derinlik",
   "displayNameKey": "MINE_14_START",
   "exampleAngles": [
-    93.5
+    65.0,
+    65.0,
+    65.0
   ],
   "family": "safe",
   "height": 8,

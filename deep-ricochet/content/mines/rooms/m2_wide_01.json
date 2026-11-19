@@ -2,17 +2,17 @@
   "blocks": [
     {
       "cell": [
-        1,
-        2
+        5,
+        4
       ],
-      "hitPoints": 2,
+      "hitPoints": 3,
       "id": 20101,
       "type": "normal"
     },
     {
       "cell": [
-        7,
-        2
+        5,
+        5
       ],
       "hitPoints": 4,
       "id": 20102,
@@ -21,7 +21,7 @@
     {
       "cell": [
         0,
-        3
+        6
       ],
       "hitPoints": 0,
       "id": 20103,
@@ -29,64 +29,111 @@
     },
     {
       "cell": [
-        5,
+        7,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 20104,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 20105,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        3,
         4
       ],
-      "hitPoints": 4,
-      "id": 20104,
+      "hitPoints": 5,
+      "id": 20106,
       "type": "normal"
     },
     {
       "cell": [
-        2,
+        4,
+        6
+      ],
+      "hitPoints": 6,
+      "id": 20107,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        1,
         5
       ],
-      "hitPoints": 4,
-      "id": 20105,
+      "hitPoints": 3,
+      "id": 20108,
       "type": "ore"
     },
     {
       "cell": [
-        6,
-        5
+        1,
+        7
       ],
-      "hitPoints": 0,
-      "id": 20106,
-      "type": "rock"
+      "hitPoints": 6,
+      "id": 20109,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        3,
+        7
+      ],
+      "hitPoints": 3,
+      "id": 20110,
+      "type": "normal"
     },
     {
       "cell": [
         1,
         6
       ],
-      "hitPoints": 5,
-      "id": 20107,
+      "hitPoints": 4,
+      "id": 20111,
       "type": "normal"
     },
     {
       "cell": [
         5,
-        7
+        2
       ],
-      "hitPoints": 6,
-      "id": 20108,
+      "hitPoints": 5,
+      "id": 20112,
       "type": "ore"
     },
     {
       "cell": [
-        3,
-        8
+        6,
+        3
+      ],
+      "hitPoints": 4,
+      "id": 20113,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        5,
+        6
       ],
       "hitPoints": 6,
       "id": 20199,
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-7",
+  "contentVersion": "p2-mines-8",
   "displayName": "Kömür Salonu",
   "displayNameKey": "MINE_2_WIDE_01",
   "exampleAngles": [
-    93.5
+    76.0,
+    76.0,
+    76.0
   ],
   "family": "safe",
   "height": 8,
@@ -94,8 +141,8 @@
   "mineId": "mine_02",
   "multiplierBps": 10000,
   "passageColumns": [
-    3,
-    4
+    2,
+    3
   ],
   "role": "wide",
   "schemaVersion": 1,
