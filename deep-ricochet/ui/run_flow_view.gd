@@ -1,6 +1,8 @@
 class_name RunFlowView
 extends Control
 
+const TouchControlsScript := preload("res://ui/touch_controls.gd")
+
 enum Screen {
 	GAMEPLAY,
 	ROUTE_SELECTION,
@@ -25,12 +27,17 @@ const ARMORED_BOTTOM_SOURCE := Rect2(5.0, 6.0, 502.0, 502.0)
 const ARMORED_LEFT_BOTTOM_SOURCE := Rect2(5.0, 5.0, 503.0, 503.0)
 const ARMORED_RIGHT_BOTTOM_SOURCE := Rect2(4.0, 5.0, 503.0, 503.0)
 const PREVIEW_CELL_SIZE := 15.5
+const ACTION_ROUTE_PREFIX := "route_"
+const ACTION_PRIMARY := &"primary"
+const ACTION_RESTART := &"restart"
+const ACTION_MENU := &"menu"
 
 var controller: RunController
 var run_session: RunSession
 var profile: PlayerProfile
 var new_best := false
 var screen: Screen = Screen.GAMEPLAY
+var touch_controls = TouchControlsScript.new()
 
 
 func bind(run_controller: RunController) -> void:
@@ -38,6 +45,7 @@ func bind(run_controller: RunController) -> void:
 
 
 func show_gameplay() -> void:
+	touch_controls.reset()
 	screen = Screen.GAMEPLAY
 	run_session = null
 	profile = null
@@ -69,44 +77,34 @@ func show_run_result(
 
 
 func _gui_input(event: InputEvent) -> void:
-	if DeepUI.is_emulated_mouse_event(event):
+	if not TouchControlsScript.handles(event) or DeepUI.is_emulated_mouse_event(event):
 		return
-	var released := false
-	var event_position := Vector2.ZERO
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		accept_event()
-		released = not event.pressed
-		event_position = event.position
-	elif event is InputEventScreenTouch:
-		accept_event()
-		released = not event.pressed and not event.canceled
-		event_position = event.position
-	if not released or controller == null or run_session == null:
+	accept_event()
+	var action: StringName = touch_controls.process(event, _touch_targets())
+	if touch_controls.changed:
+		queue_redraw()
+	if action.is_empty() or controller == null or run_session == null:
 		return
 
 	if screen == Screen.ROUTE_SELECTION:
-		var card_rects := [SAFE_CARD, BONUS_CARD]
-		for option_index in range(mini(card_rects.size(), run_session.pending_routes.size())):
-			if card_rects[option_index].has_point(event_position):
-				controller.select_route(run_session.pending_routes[option_index].option_id)
-				return
+		var option_index := String(action).trim_prefix(ACTION_ROUTE_PREFIX).to_int()
+		if option_index >= 0 and option_index < run_session.pending_routes.size():
+			controller.select_route(run_session.pending_routes[option_index].option_id)
 	elif screen == Screen.RUN_RESULT:
-		if SAME_SEED_BUTTON.has_point(event_position):
-			AudioManager.play_ui_click()
+		AudioManager.play_ui_click()
+		if action == ACTION_PRIMARY:
 			if _shows_mine_progression_actions():
 				controller.start_next_mine_from_result()
 			else:
 				controller.restart_same_seed()
-		elif RESTART_BUTTON.has_point(event_position):
-			AudioManager.play_ui_click()
+		elif action == ACTION_RESTART:
 			if _shows_mine_progression_actions():
 				controller.restart_same_seed()
 			elif run_session.run_kind == RunSession.RunKind.NORMAL:
 				controller.restart_current_mine()
 			else:
 				controller.start_new_run()
-		elif RESULT_MENU_BUTTON.has_point(event_position):
-			AudioManager.play_ui_click()
+		elif action == ACTION_MENU:
 			controller.show_main_menu_from_result()
 
 
@@ -139,6 +137,7 @@ func _draw_route_selection() -> void:
 		_draw_route_card(
 			card_rects[option_index],
 			run_session.pending_routes[option_index],
+			option_index,
 		)
 	_draw_centered(
 		tr("ROUTE_HINT"),
@@ -148,11 +147,15 @@ func _draw_route_selection() -> void:
 	)
 
 
-func _draw_route_card(rect: Rect2, option: RouteOption) -> void:
+func _draw_route_card(rect: Rect2, option: RouteOption, option_index: int) -> void:
 	var is_safe := option.template.family == RoomTemplate.Family.SAFE
 	var accent := DeepUI.BLUE if is_safe else DeepUI.GOLD
 	var fill := Color("102a40") if is_safe else Color("382c1d")
-	DeepUI.draw_panel(self, rect, fill, accent, 18, 3, true)
+	var action := StringName("%s%d" % [ACTION_ROUTE_PREFIX, option_index])
+	var pressed: bool = touch_controls.is_pressed(action)
+	var card_rect := Rect2(rect.position + (Vector2(0.0, 3.0) if pressed else Vector2.ZERO), rect.size)
+	DeepUI.draw_panel(self, card_rect, fill.darkened(0.1) if pressed else fill, accent, 18, 3, not pressed)
+	rect = card_rect
 	_draw_text(option.title(), rect.position + Vector2(18.0, 34.0), 23, DeepUI.TEXT)
 	DeepUI.draw_chip(
 		self,
@@ -179,6 +182,8 @@ func _draw_route_card(rect: Rect2, option: RouteOption) -> void:
 		tr("ROUTE_TAP"),
 		&"safe" if is_safe else &"primary",
 		15,
+		true,
+		pressed,
 	)
 
 
@@ -283,20 +288,7 @@ func _draw_run_result() -> void:
 		46,
 		accent,
 	)
-	for result_index in range(run_session.room_results.size()):
-		var result := run_session.room_results[result_index]
-		_draw_centered(
-			tr("RESULT_ROOM_BREAKDOWN") % [
-				result.room_number,
-				result.break_score,
-				result.unused_shot_bonus,
-				float(result.multiplier_bps) / 10_000.0,
-				result.reward,
-			],
-			Rect2(65.0, 420.0 + float(result_index) * 32.0, 410.0, 28.0),
-			14,
-			DeepUI.MUTED,
-		)
+	_draw_result_table()
 	if profile != null:
 		var best_label := tr("RESULT_NEW_BEST") if new_best else tr("RESULT_BEST") % profile.best_score
 		DeepUI.draw_chip(self, Rect2(135.0, 580.0, 270.0, 38.0), best_label, accent, 17)
@@ -307,9 +299,57 @@ func _draw_run_result() -> void:
 			if not controller.next_mine_id_from_result().is_empty() \
 			else tr("RESULT_CHOOSE_MINE")
 		restart_label = tr("RESULT_RESTART")
-	DeepUI.draw_button(self, SAME_SEED_BUTTON, primary_label, &"core" if run_session.succeeded else &"primary", 21)
-	DeepUI.draw_button(self, RESTART_BUTTON, restart_label, &"secondary", 21)
-	DeepUI.draw_button(self, RESULT_MENU_BUTTON, tr("RESULT_MAIN_MENU"), &"secondary", 22)
+	DeepUI.draw_button(
+		self, SAME_SEED_BUTTON, primary_label,
+		&"core" if run_session.succeeded else &"primary", 21, true,
+		touch_controls.is_pressed(ACTION_PRIMARY),
+	)
+	DeepUI.draw_button(
+		self, RESTART_BUTTON, restart_label, &"secondary", 21, true,
+		touch_controls.is_pressed(ACTION_RESTART),
+	)
+	DeepUI.draw_button(
+		self, RESULT_MENU_BUTTON, tr("RESULT_MAIN_MENU"), &"secondary", 22, true,
+		touch_controls.is_pressed(ACTION_MENU),
+	)
+
+
+func _draw_result_table() -> void:
+	var table_rect := Rect2(65.0, 414.0, 410.0, 160.0)
+	DeepUI.draw_panel(self, table_rect, Color(DeepUI.BACKGROUND_DEEP, 0.55), DeepUI.BORDER_SOFT, 10, 1, false)
+	var columns := [
+		Rect2(68.0, 420.0, 48.0, 24.0),
+		Rect2(116.0, 420.0, 78.0, 24.0),
+		Rect2(194.0, 420.0, 78.0, 24.0),
+		Rect2(272.0, 420.0, 82.0, 24.0),
+		Rect2(354.0, 420.0, 116.0, 24.0),
+	]
+	var headers := [
+		tr("RESULT_TABLE_ROOM"),
+		tr("RESULT_TABLE_BREAK"),
+		tr("RESULT_TABLE_BONUS"),
+		tr("RESULT_TABLE_MULTIPLIER"),
+		tr("RESULT_TABLE_TOTAL"),
+	]
+	for column_index in range(columns.size()):
+		_draw_centered(headers[column_index], columns[column_index], 11, DeepUI.GOLD)
+	for result_index in range(mini(run_session.room_results.size(), 4)):
+		var result := run_session.room_results[result_index]
+		var row_y := 447.0 + float(result_index) * 30.0
+		if result_index % 2 == 0:
+			draw_rect(Rect2(69.0, row_y, 402.0, 28.0), Color(DeepUI.PANEL_RAISED, 0.45), true)
+		var values := [
+			str(result.room_number),
+			str(result.break_score),
+			str(result.unused_shot_bonus),
+			"×%.1f" % (float(result.multiplier_bps) / 10_000.0),
+			str(result.reward),
+		]
+		for column_index in range(columns.size()):
+			var value_rect: Rect2 = columns[column_index]
+			value_rect.position.y = row_y
+			value_rect.size.y = 28.0
+			_draw_centered(values[column_index], value_rect, 12, DeepUI.TEXT)
 
 
 func _shows_mine_progression_actions() -> bool:
@@ -338,3 +378,19 @@ func _draw_mini_value(center: Vector2, value: String, cell_size: float, color: C
 		12,
 		color,
 	)
+
+
+func _touch_targets() -> Dictionary:
+	if screen == Screen.RUN_RESULT:
+		return {
+			ACTION_PRIMARY: SAME_SEED_BUTTON,
+			ACTION_RESTART: RESTART_BUTTON,
+			ACTION_MENU: RESULT_MENU_BUTTON,
+		}
+	if screen != Screen.ROUTE_SELECTION or run_session == null:
+		return {}
+	var targets := {}
+	var card_rects := [SAFE_CARD, BONUS_CARD]
+	for option_index in range(mini(card_rects.size(), run_session.pending_routes.size())):
+		targets[StringName("%s%d" % [ACTION_ROUTE_PREFIX, option_index])] = card_rects[option_index]
+	return targets

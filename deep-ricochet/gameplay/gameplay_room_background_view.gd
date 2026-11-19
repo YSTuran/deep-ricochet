@@ -71,26 +71,3 @@ func _draw() -> void:
 	DeepUI.draw_glow(self, launcher_screen, 12.0, DeepUI.GOLD)
 	draw_circle(launcher_screen, 12.0, Color("fff1cf"))
 	draw_arc(launcher_screen, 12.0, 0.0, TAU, 32, Color("c9a86a"), 2.0, true)
-	DeepUI.draw_panel(
-		self,
-		Rect2(24.0, 778.0, 492.0, 72.0),
-		Color(DeepUI.PANEL_SOFT, 0.94),
-		DeepUI.BORDER_SOFT,
-		13,
-		1,
-		false,
-	)
-	DeepUI.draw_centered(
-		self,
-		tr("HUD_VOLLEY_HINT"),
-		Rect2(34.0, 787.0, 472.0, 26.0),
-		15,
-		Color("c6d6e4"),
-	)
-	DeepUI.draw_centered(
-		self,
-		tr("HUD_AIM_HINT"),
-		Rect2(34.0, 817.0, 472.0, 24.0),
-		13,
-		DeepUI.MUTED_DARK,
-	)

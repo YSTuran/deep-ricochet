@@ -100,40 +100,32 @@ func _draw() -> void:
 	)
 	DeepUI.draw_chip(
 		self,
-		Rect2(30.0, 58.0, 94.0, 28.0),
+		Rect2(30.0, 58.0, 104.0, 28.0),
 		tr("HUD_ROOM_CHIP") % [room.run_room_number, room.run_room_count],
 		DeepUI.BLUE,
 		12,
 	)
 	DeepUI.draw_chip(
 		self,
-		Rect2(130.0, 58.0, 116.0, 28.0),
-		tr("HUD_SCORE_CHIP") % room.banked_score,
-		DeepUI.BORDER,
+		Rect2(140.0, 58.0, 104.0, 28.0),
+		tr("HUD_SHOTS_CHIP") % [room.room.shots_remaining, room.shots_per_room],
+		DeepUI.GOLD,
 		12,
 	)
 	DeepUI.draw_chip(
 		self,
-		Rect2(252.0, 58.0, 116.0, 28.0),
-		tr("HUD_ROOM_SCORE_CHIP") % room.room.break_score,
-		DeepUI.BLUE,
-		12,
-	)
-	DeepUI.draw_chip(
-		self,
-		Rect2(374.0, 58.0, 74.0, 28.0),
+		Rect2(250.0, 58.0, 78.0, 28.0),
 		"×%.1f" % (float(room.room.multiplier_bps) / 10_000.0),
 		DeepUI.GOLD,
 		13,
 	)
 	DeepUI.draw_chip(
 		self,
-		Rect2(30.0, 92.0, 116.0, 28.0),
-		tr("HUD_SHOTS_CHIP") % [room.room.shots_remaining, room.shots_per_room],
-		DeepUI.GOLD,
+		Rect2(30.0, 92.0, 418.0, 28.0),
+		tr("HUD_SCORE_SUMMARY") % [room.banked_score, room.room.break_score],
+		DeepUI.BORDER,
 		12,
 	)
-	DeepUI.draw_centered(self, room.status_text, Rect2(152.0, 92.0, 296.0, 28.0), 12, DeepUI.MUTED)
 
 	for block: BlockState in room.board.blocks:
 		if block.is_destroyed():

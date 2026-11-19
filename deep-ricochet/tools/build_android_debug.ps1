@@ -89,7 +89,7 @@ Write-Host "Running mandatory smoke-test gate..."
 $smokeTestScript = Join-Path $PSScriptRoot "run_smoke_tests.ps1"
 & $smokeTestScript -GodotPath $godotExecutable
 
-Write-Host "Building universal Android 10+ debug APK..."
+Write-Host "Building ARM Android 10+ debug APK..."
 $exportArguments = @(
     "--headless",
     "--path", $projectPath
@@ -121,16 +121,14 @@ try {
     )
     $requiredLibraries = @(
         "lib/armeabi-v7a/libgodot_android.so",
-        "lib/arm64-v8a/libgodot_android.so",
-        "lib/x86/libgodot_android.so",
-        "lib/x86_64/libgodot_android.so"
+        "lib/arm64-v8a/libgodot_android.so"
     )
     foreach ($requiredLibrary in $requiredLibraries) {
         if ($nativeLibraries -notcontains $requiredLibrary) {
-            throw "The universal APK is missing a required Godot library: $requiredLibrary"
+            throw "The ARM APK is missing a required Godot library: $requiredLibrary"
         }
     }
-    $supportedAbis = @("armeabi-v7a", "arm64-v8a", "x86", "x86_64")
+    $supportedAbis = @("armeabi-v7a", "arm64-v8a")
     $unexpectedLibraries = @(
         $nativeLibraries | Where-Object {
             $abi = ($_.Split('/'))[1]
@@ -138,7 +136,7 @@ try {
         }
     )
     if ($unexpectedLibraries.Count -gt 0) {
-        throw "The universal APK contains unexpected ABIs: $($unexpectedLibraries -join ', ')"
+        throw "The ARM APK contains unexpected ABIs: $($unexpectedLibraries -join ', ')"
     }
 } finally {
     $archive.Dispose()

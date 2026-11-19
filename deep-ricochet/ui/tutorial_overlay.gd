@@ -1,6 +1,8 @@
 class_name TutorialOverlay
 extends Control
 
+const TouchControlsScript := preload("res://ui/touch_controls.gd")
+
 enum Mode {
 	WALKTHROUGH,
 	COACH,
@@ -9,16 +11,30 @@ enum Mode {
 const VIEW_SIZE := Vector2(540.0, 960.0)
 const SKIP_BUTTON := Rect2(35.0, 845.0, 170.0, 65.0)
 const NEXT_BUTTON := Rect2(275.0, 845.0, 230.0, 65.0)
-const PAGE_COUNT := 3
+const PAGE_COUNT := 6
+const COACH_PAGE_BY_STEP := [0, 1, 5]
 const NORMAL_TEXTURE: Texture2D = preload("res://assets/images/blocks/blok_normal.png")
 const ORE_TEXTURE: Texture2D = preload("res://assets/images/blocks/blok_cevher.png")
 const CORE_TEXTURE: Texture2D = preload("res://assets/images/blocks/cekirdek.png")
+const CRACKED_TEXTURE: Texture2D = preload("res://assets/images/blocks/blok_catlak.png")
+const EXPLOSIVE_TEXTURE: Texture2D = preload("res://assets/images/blocks/blok_patlayici.png")
+const ARMORED_BOTTOM_TEXTURE: Texture2D = preload("res://assets/images/blocks/blok_zirhli_alt.png")
+const ARMORED_LEFT_TEXTURE: Texture2D = preload("res://assets/images/blocks/blok_zirhli_sol_alt.png")
+const ARMORED_RIGHT_TEXTURE: Texture2D = preload("res://assets/images/blocks/blok_zirhli_sag_alt.png")
 const NORMAL_SOURCE_RECT := Rect2(139.0, 159.0, 976.0, 939.0)
 const ORE_SOURCE_RECT := Rect2(209.0, 220.0, 837.0, 831.0)
+const CRACKED_SOURCE_RECT := Rect2(32.0, 36.0, 447.0, 454.0)
+const EXPLOSIVE_SOURCE_RECT := Rect2(54.0, 65.0, 404.0, 407.0)
+const ARMORED_SOURCE_RECT := Rect2(5.0, 6.0, 502.0, 502.0)
+const ARMORED_LEFT_SOURCE_RECT := Rect2(5.0, 5.0, 503.0, 503.0)
+const ARMORED_RIGHT_SOURCE_RECT := Rect2(4.0, 5.0, 503.0, 503.0)
+const ACTION_SKIP := &"skip"
+const ACTION_NEXT := &"next"
 
 var controller: RunController
 var page_index := 0
 var mode: Mode = Mode.WALKTHROUGH
+var touch_controls = TouchControlsScript.new()
 
 
 func _ready() -> void:
@@ -39,7 +55,8 @@ func show_tutorial() -> void:
 
 func show_coach(step: int) -> void:
 	mode = Mode.COACH
-	page_index = clampi(step, 0, PAGE_COUNT - 1)
+	var coach_step := clampi(step, 0, COACH_PAGE_BY_STEP.size() - 1)
+	page_index = COACH_PAGE_BY_STEP[coach_step]
 	visible = true
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	queue_redraw()
@@ -50,6 +67,7 @@ func is_modal() -> bool:
 
 
 func hide_overlay() -> void:
+	touch_controls.reset()
 	visible = false
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 
@@ -61,24 +79,21 @@ func refresh_locale() -> void:
 func _gui_input(event: InputEvent) -> void:
 	if mode == Mode.COACH:
 		return
-	if DeepUI.is_emulated_mouse_event(event):
+	if not TouchControlsScript.handles(event) or DeepUI.is_emulated_mouse_event(event):
 		return
-	var released := false
-	var event_position := Vector2.ZERO
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		accept_event()
-		released = not event.pressed
-		event_position = event.position
-	elif event is InputEventScreenTouch:
-		accept_event()
-		released = not event.pressed and not event.canceled
-		event_position = event.position
-	if not released or controller == null:
+	accept_event()
+	var action: StringName = touch_controls.process(event, {
+		ACTION_SKIP: SKIP_BUTTON,
+		ACTION_NEXT: NEXT_BUTTON,
+	})
+	if touch_controls.changed:
+		queue_redraw()
+	if action.is_empty() or controller == null:
 		return
-	if SKIP_BUTTON.has_point(event_position):
+	if action == ACTION_SKIP:
 		AudioManager.play_ui_click()
 		controller.complete_tutorial()
-	elif NEXT_BUTTON.has_point(event_position):
+	elif action == ACTION_NEXT:
 		AudioManager.play_ui_click()
 		if page_index >= PAGE_COUNT - 1:
 			controller.complete_tutorial()
@@ -101,7 +116,8 @@ func _draw() -> void:
 		27,
 		DeepUI.GOLD,
 	)
-	_draw_wrapped(
+	DeepUI.draw_wrapped(
+		self,
 		tr("TUTORIAL_BODY_%d" % (page_index + 1)),
 		Rect2(55.0, 585.0, 430.0, 125.0),
 		18,
@@ -110,9 +126,15 @@ func _draw() -> void:
 	for dot_index in range(PAGE_COUNT):
 		var dot_color := DeepUI.GOLD if dot_index == page_index else DeepUI.BORDER
 		draw_circle(Vector2(240.0 + float(dot_index) * 20.0, 775.0), 5.0, dot_color)
-	DeepUI.draw_button(self, SKIP_BUTTON, tr("TUTORIAL_SKIP"), &"ghost", 19)
+	DeepUI.draw_button(
+		self, SKIP_BUTTON, tr("TUTORIAL_SKIP"), &"ghost", 19, true,
+		touch_controls.is_pressed(ACTION_SKIP),
+	)
 	var next_label := tr("TUTORIAL_START") if page_index == PAGE_COUNT - 1 else tr("TUTORIAL_NEXT")
-	DeepUI.draw_button(self, NEXT_BUTTON, next_label, &"primary", 19)
+	DeepUI.draw_button(
+		self, NEXT_BUTTON, next_label, &"primary", 19, true,
+		touch_controls.is_pressed(ACTION_NEXT),
+	)
 
 
 func _draw_coach() -> void:
@@ -132,7 +154,8 @@ func _draw_coach() -> void:
 		16,
 		DeepUI.GOLD_LIGHT,
 	)
-	_draw_wrapped(
+	DeepUI.draw_wrapped(
+		self,
 		tr("TUTORIAL_BODY_%d" % (page_index + 1)),
 		Rect2(38.0, 892.0, 464.0, 38.0),
 		13,
@@ -149,21 +172,35 @@ func _draw_illustration() -> void:
 			draw_dashed_line(launcher, Vector2(175.0, 180.0), DeepUI.GOLD_LIGHT, 4.0, 12.0)
 			draw_circle(Vector2(175.0, 180.0), 9.0, DeepUI.GOLD)
 		1:
-			draw_texture_rect_region(
-				NORMAL_TEXTURE,
-				Rect2(100.0, 270.0, 105.0, 105.0),
-				NORMAL_SOURCE_RECT,
-			)
-			draw_texture_rect_region(
-				ORE_TEXTURE,
-				Rect2(218.0, 270.0, 105.0, 105.0),
-				ORE_SOURCE_RECT,
-			)
+			_draw_asset_block(NORMAL_TEXTURE, NORMAL_SOURCE_RECT, Rect2(100.0, 270.0, 105.0, 105.0), "3")
+			_draw_asset_block(ORE_TEXTURE, ORE_SOURCE_RECT, Rect2(218.0, 270.0, 105.0, 105.0), "5")
 			draw_texture_rect(CORE_TEXTURE, Rect2(335.0, 269.0, 106.0, 106.0), false)
-			DeepUI.draw_centered(self, "3", Rect2(100.0, 290.0, 105.0, 55.0), 25, DeepUI.TEXT)
-			DeepUI.draw_centered(self, "5", Rect2(218.0, 290.0, 105.0, 55.0), 25, DeepUI.TEXT)
 			DeepUI.draw_centered(self, "6", Rect2(335.0, 290.0, 105.0, 55.0), 25, DeepUI.TEXT)
 		2:
+			_draw_hard_rock(Rect2(125.0, 230.0, 120.0, 120.0))
+			_draw_asset_block(CRACKED_TEXTURE, CRACKED_SOURCE_RECT, Rect2(295.0, 230.0, 120.0, 120.0), "4")
+		3:
+			var blast_origin := Vector2(175.0, 155.0)
+			var blast_cell := 38.0
+			for blast_y in range(5):
+				for blast_x in range(5):
+					var blast_rect := Rect2(
+						blast_origin + Vector2(blast_x, blast_y) * blast_cell,
+						Vector2.ONE * (blast_cell - 2.0),
+					)
+					draw_rect(blast_rect, Color(DeepUI.DANGER, 0.16), true)
+					draw_rect(blast_rect, Color(DeepUI.GOLD, 0.28), false, 1.0)
+			_draw_asset_block(
+				EXPLOSIVE_TEXTURE,
+				EXPLOSIVE_SOURCE_RECT,
+				Rect2(222.0, 202.0, 96.0, 96.0),
+				"5",
+			)
+		4:
+			_draw_asset_block(ARMORED_LEFT_TEXTURE, ARMORED_LEFT_SOURCE_RECT, Rect2(100.0, 255.0, 105.0, 105.0), "6")
+			_draw_asset_block(ARMORED_BOTTOM_TEXTURE, ARMORED_SOURCE_RECT, Rect2(218.0, 255.0, 105.0, 105.0), "6")
+			_draw_asset_block(ARMORED_RIGHT_TEXTURE, ARMORED_RIGHT_SOURCE_RECT, Rect2(335.0, 255.0, 105.0, 105.0), "6")
+		5:
 			DeepUI.draw_panel(self, Rect2(80.0, 155.0, 175.0, 225.0), Color("173550"), DeepUI.BLUE, 15, 2, true)
 			DeepUI.draw_panel(self, Rect2(285.0, 155.0, 175.0, 225.0), Color("4a3923"), DeepUI.GOLD, 15, 2, true)
 			DeepUI.draw_centered(self, "×1.0", Rect2(90.0, 195.0, 155.0, 50.0), 25, DeepUI.BLUE_LIGHT)
@@ -172,28 +209,37 @@ func _draw_illustration() -> void:
 			DeepUI.draw_centered(self, tr("ROUTE_BONUS"), Rect2(295.0, 300.0, 155.0, 45.0), 17, DeepUI.TEXT)
 
 
-func _draw_wrapped(text: String, rect: Rect2, size: int, color: Color) -> void:
-	var font := ThemeDB.fallback_font
-	var lines: Array[String] = []
-	var current := ""
-	for word: String in text.split(" "):
-		var candidate := word if current.is_empty() else "%s %s" % [current, word]
-		if font.get_string_size(candidate, HORIZONTAL_ALIGNMENT_LEFT, -1.0, size).x > rect.size.x:
-			lines.append(current)
-			current = word
-		else:
-			current = candidate
-	if not current.is_empty():
-		lines.append(current)
-	var line_height := float(size) * 1.45
-	var start_y := rect.position.y + (rect.size.y - line_height * float(lines.size())) * 0.5
-	for line_index in range(lines.size()):
-		draw_string(
-			font,
-			Vector2(rect.position.x, start_y + line_height * float(line_index + 1)),
-			lines[line_index],
-			HORIZONTAL_ALIGNMENT_CENTER,
-			rect.size.x,
-			size,
-			color,
-		)
+func _draw_asset_block(
+	texture: Texture2D,
+	source_rect: Rect2,
+	destination: Rect2,
+	value: String,
+) -> void:
+	draw_texture_rect_region(texture, destination, source_rect)
+	if not value.is_empty():
+		DeepUI.draw_centered(self, value, destination, 25, DeepUI.TEXT, 0.66)
+
+
+func _draw_hard_rock(rect: Rect2) -> void:
+	var cut := 12.0
+	var points := PackedVector2Array([
+		rect.position + Vector2(cut, 0.0),
+		rect.position + Vector2(rect.size.x - cut, 0.0),
+		rect.position + Vector2(rect.size.x, cut),
+		rect.end - Vector2(0.0, cut),
+		rect.end - Vector2(cut, 0.0),
+		rect.position + Vector2(cut, rect.size.y),
+		rect.position + Vector2(0.0, rect.size.y - cut),
+		rect.position + Vector2(0.0, cut),
+	])
+	draw_colored_polygon(points, Color("35414b"))
+	draw_polyline(points + PackedVector2Array([points[0]]), Color("202a33"), 5.0, true)
+	var inset := 25.0
+	draw_line(rect.position + Vector2.ONE * inset, rect.end - Vector2.ONE * inset, Color("c5cbd0"), 8.0, true)
+	draw_line(
+		Vector2(rect.end.x - inset, rect.position.y + inset),
+		Vector2(rect.position.x + inset, rect.end.y - inset),
+		Color("c5cbd0"),
+		8.0,
+		true,
+	)

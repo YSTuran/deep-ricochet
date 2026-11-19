@@ -45,4 +45,4 @@ func _draw() -> void:
 		2,
 		true,
 	)
-	DeepUI.draw_centered(self, message, NOTICE_RECT.grow(-10.0), 14, DeepUI.TEXT)
+	DeepUI.draw_wrapped(self, message, NOTICE_RECT.grow(-10.0), 14, DeepUI.TEXT)

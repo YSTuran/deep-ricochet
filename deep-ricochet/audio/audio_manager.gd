@@ -264,7 +264,9 @@ func _create_ambient_loop() -> AudioStreamWAV:
 	stream.loop_begin = 0
 	stream.loop_end = frame_count
 	var data := PackedByteArray()
-	data.resize(frame_count * 4)
+	# Godot 4.7.2's WAV forward-loop mixer reads the loop-end frame once before
+	# wrapping. Keep one duplicate guard frame so that read stays in bounds.
+	data.resize((frame_count + 1) * 4)
 	for frame_index in range(frame_count):
 		var time := float(frame_index) / float(AMBIENT_MIX_RATE)
 		var cycle := time / float(AMBIENT_DURATION_SECONDS)
@@ -276,5 +278,7 @@ func _create_ambient_loop() -> AudioStreamWAV:
 		var right_sample := clampf((base + fifth - shimmer) * breath, -1.0, 1.0)
 		data.encode_s16(frame_index * 4, int(left_sample * 32767.0))
 		data.encode_s16(frame_index * 4 + 2, int(right_sample * 32767.0))
+	for byte_offset in range(4):
+		data[frame_count * 4 + byte_offset] = data[byte_offset]
 	stream.data = data
 	return stream

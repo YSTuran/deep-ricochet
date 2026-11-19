@@ -1,6 +1,8 @@
 class_name GameplayRoom
 extends Node2D
 
+const UiLayoutScript := preload("res://ui/ui_layout.gd")
+
 signal shot_resolved(resolution: RoomResolution)
 signal room_finished(resolution: RoomResolution)
 signal shot_will_start
@@ -274,7 +276,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventScreenTouch:
 		if event.pressed and active_touch_id == -1:
 			active_touch_id = event.index
-			_begin_aim(event.position)
+			_begin_aim(UiLayoutScript.viewport_to_base(event.position))
 		elif not event.pressed and event.index == active_touch_id:
 			active_touch_id = -1
 			if event.canceled:
@@ -282,14 +284,14 @@ func _unhandled_input(event: InputEvent) -> void:
 			else:
 				_release_aim()
 	elif event is InputEventScreenDrag and event.index == active_touch_id:
-		_update_aim(event.position)
+		_update_aim(UiLayoutScript.viewport_to_base(event.position))
 	elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
-			_begin_aim(event.position)
+			_begin_aim(UiLayoutScript.viewport_to_base(event.position))
 		else:
 			_release_aim()
 	elif event is InputEventMouseMotion and aiming:
-		_update_aim(event.position)
+		_update_aim(UiLayoutScript.viewport_to_base(event.position))
 
 
 func _begin_aim(screen_position: Vector2) -> void:

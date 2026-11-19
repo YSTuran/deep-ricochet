@@ -1,9 +1,11 @@
 extends RefCounted
 
 const VALID_AIM_SCREEN_POSITION := Vector2(270.0, 300.0)
+const TouchControlsScript := preload("res://ui/touch_controls.gd")
 
 
 static func run(controller: RunController, parent: Node) -> void:
+	_test_touch_control_drag_safety()
 	assert(controller.main_menu_view.visible)
 	assert(not controller.main_menu_view.continue_available)
 	assert(controller.run_session == null)
@@ -159,4 +161,40 @@ static func _assert_blank_release_is_silent(control: Control) -> void:
 	release.pressed = false
 	control._gui_input(release)
 	assert(AudioManager.played_event_count == event_count)
+
+
+static func _test_touch_control_drag_safety() -> void:
+	var controls = TouchControlsScript.new()
+	var targets := {
+		&"first": Rect2(20.0, 20.0, 100.0, 60.0),
+		&"second": Rect2(180.0, 20.0, 100.0, 60.0),
+	}
+	var press := InputEventScreenTouch.new()
+	press.index = 0
+	press.position = Vector2(70.0, 50.0)
+	press.pressed = true
+	assert(controls.process(press, targets).is_empty())
+	assert(controls.is_pressed(&"first"))
+	var drag := InputEventScreenDrag.new()
+	drag.index = 0
+	drag.position = Vector2(230.0, 50.0)
+	assert(controls.process(drag, targets).is_empty())
+	assert(not controls.is_pressed(&"first"))
+	var release := InputEventScreenTouch.new()
+	release.index = 0
+	release.position = drag.position
+	release.pressed = false
+	assert(controls.process(release, targets).is_empty())
+	assert(controls.active_action.is_empty())
+	var outside_press := InputEventScreenTouch.new()
+	outside_press.index = 0
+	outside_press.position = Vector2(12.0, 12.0)
+	outside_press.pressed = true
+	assert(controls.process(outside_press, targets).is_empty())
+	var inside_release := InputEventScreenTouch.new()
+	inside_release.index = 0
+	inside_release.position = Vector2(70.0, 50.0)
+	inside_release.pressed = false
+	assert(controls.process(inside_release, targets).is_empty())
+	assert(controls.active_pointer_id == -1)
 

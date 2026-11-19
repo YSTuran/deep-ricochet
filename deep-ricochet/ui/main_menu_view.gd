@@ -1,16 +1,23 @@
 class_name MainMenuView
 extends Control
 
+const TouchControlsScript := preload("res://ui/touch_controls.gd")
+
 const VIEW_SIZE := Vector2(540.0, 960.0)
 const CONTINUE_BUTTON := Rect2(80.0, 500.0, 380.0, 66.0)
 const NEW_GAME_BUTTON := Rect2(80.0, 580.0, 380.0, 66.0)
 const DAILY_BUTTON := Rect2(80.0, 660.0, 380.0, 66.0)
 const SETTINGS_BUTTON := Rect2(80.0, 740.0, 380.0, 62.0)
 const CORE_TEXTURE: Texture2D = preload("res://assets/images/blocks/cekirdek.png")
+const ACTION_CONTINUE := &"continue"
+const ACTION_NEW_GAME := &"new_game"
+const ACTION_DAILY := &"daily"
+const ACTION_SETTINGS := &"settings"
 
 var controller: RunController
 var continue_available := false
 var notice: String
+var touch_controls = TouchControlsScript.new()
 
 
 func _ready() -> void:
@@ -30,37 +37,30 @@ func show_menu(can_continue: bool, message: String = "") -> void:
 
 
 func hide_menu() -> void:
+	touch_controls.reset()
 	visible = false
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 
 func _gui_input(event: InputEvent) -> void:
-	if DeepUI.is_emulated_mouse_event(event):
+	if not TouchControlsScript.handles(event) or DeepUI.is_emulated_mouse_event(event):
 		return
-	var released := false
-	var event_position := Vector2.ZERO
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		accept_event()
-		released = not event.pressed
-		event_position = event.position
-	elif event is InputEventScreenTouch:
-		accept_event()
-		released = not event.pressed and not event.canceled
-		event_position = event.position
-	if not released or controller == null:
+	accept_event()
+	var action: StringName = touch_controls.process(event, _touch_targets())
+	if touch_controls.changed:
+		queue_redraw()
+	if action.is_empty() or controller == null:
 		return
-	if continue_available and CONTINUE_BUTTON.has_point(event_position):
-		AudioManager.play_ui_click()
-		controller.continue_saved_run()
-	elif _new_game_button_rect().has_point(event_position):
-		AudioManager.play_ui_click()
-		controller.request_new_game_from_menu()
-	elif _daily_button_rect().has_point(event_position):
-		AudioManager.play_ui_click()
-		controller.request_daily_run()
-	elif _settings_button_rect().has_point(event_position):
-		AudioManager.play_ui_click()
-		controller.open_settings_from_main_menu()
+	AudioManager.play_ui_click()
+	match action:
+		ACTION_CONTINUE:
+			controller.continue_saved_run()
+		ACTION_NEW_GAME:
+			controller.request_new_game_from_menu()
+		ACTION_DAILY:
+			controller.request_daily_run()
+		ACTION_SETTINGS:
+			controller.open_settings_from_main_menu()
 
 
 func _draw() -> void:
@@ -110,20 +110,31 @@ func _draw() -> void:
 			DeepUI.MUTED,
 		)
 	if continue_available:
-		DeepUI.draw_button(self, CONTINUE_BUTTON, tr("MENU_CONTINUE"), &"primary", 24)
+		DeepUI.draw_button(
+			self, CONTINUE_BUTTON, tr("MENU_CONTINUE"), &"primary", 24, true,
+			touch_controls.is_pressed(ACTION_CONTINUE),
+		)
 	DeepUI.draw_button(
 		self,
 		_new_game_button_rect(),
 		tr("MENU_NEW_GAME"),
 		&"secondary" if continue_available else &"primary",
 		22,
+		true,
+		touch_controls.is_pressed(ACTION_NEW_GAME),
 	)
 	var daily_label := tr("MENU_DAILY_MINE")
 	if controller != null and controller.profile != null \
 		and controller.profile.daily_key == controller.current_daily_key():
 		daily_label = tr("MENU_DAILY_SCORE") % controller.profile.daily_best_score
-	DeepUI.draw_button(self, _daily_button_rect(), daily_label, &"core", 19)
-	DeepUI.draw_button(self, _settings_button_rect(), tr("MENU_SETTINGS"), &"ghost", 19)
+	DeepUI.draw_button(
+		self, _daily_button_rect(), daily_label, &"core", 19, true,
+		touch_controls.is_pressed(ACTION_DAILY),
+	)
+	DeepUI.draw_button(
+		self, _settings_button_rect(), tr("MENU_SETTINGS"), &"ghost", 19, true,
+		touch_controls.is_pressed(ACTION_SETTINGS),
+	)
 	if not notice.is_empty():
 		DeepUI.draw_centered(self, notice, Rect2(45.0, 818.0, 450.0, 52.0), 14, DeepUI.MUTED)
 	DeepUI.draw_centered(
@@ -145,3 +156,14 @@ func _settings_button_rect() -> Rect2:
 
 func _daily_button_rect() -> Rect2:
 	return DAILY_BUTTON if continue_available else NEW_GAME_BUTTON
+
+
+func _touch_targets() -> Dictionary:
+	var targets := {
+		ACTION_NEW_GAME: _new_game_button_rect(),
+		ACTION_DAILY: _daily_button_rect(),
+		ACTION_SETTINGS: _settings_button_rect(),
+	}
+	if continue_available:
+		targets[ACTION_CONTINUE] = CONTINUE_BUTTON
+	return targets

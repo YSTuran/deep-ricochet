@@ -9,6 +9,7 @@ const UserDataController := preload("res://app/user_data_controller.gd")
 const StorageCoordinator := preload("res://app/storage_coordinator.gd")
 const RunPersistenceController := preload("res://app/run_persistence_controller.gd")
 const RunNavigationController := preload("res://app/run_navigation_controller.gd")
+const UiLayoutScript := preload("res://ui/ui_layout.gd")
 
 @export var persistence_enabled := true
 @export var save_path := SaveService.DEFAULT_SAVE_PATH
@@ -18,6 +19,7 @@ const RunNavigationController := preload("res://app/run_navigation_controller.gd
 @export var tutorial_enabled := true
 
 @onready var gameplay_room: GameplayRoom = $GameplayRoom
+@onready var interface_layer: CanvasLayer = $Interface
 @onready var flow_view: RunFlowView = $Interface/RunFlowView
 @onready var main_menu_view: MainMenuView = $Interface/MainMenuView
 @onready var mine_select_view: MineSelectView = $Interface/MineSelectView
@@ -78,6 +80,8 @@ var pending_new_daily_key: String
 
 
 func _ready() -> void:
+	_apply_safe_layout()
+	get_viewport().size_changed.connect(_apply_safe_layout)
 	config = GameConfig.load_from_file()
 	_initialize_user_data()
 	mine_registry = MineRegistry.load_default()
@@ -110,6 +114,12 @@ func _ready() -> void:
 	speed_button.visible = false
 	_boot_from_save()
 	print("Deep Ricochet hazır. Madenler: %d, içerik: %s" % [mine_registry.mines.size(), catalog.content_version])
+
+
+func _apply_safe_layout() -> void:
+	UiLayoutScript.refresh()
+	gameplay_room.transform = UiLayoutScript.content_transform
+	interface_layer.transform = UiLayoutScript.content_transform
 
 
 func _notification(what: int) -> void:

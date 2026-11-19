@@ -127,6 +127,7 @@ static func draw_button(
 	variant: StringName = &"secondary",
 	font_size: int = 20,
 	enabled: bool = true,
+	pressed: bool = false,
 ) -> void:
 	var fill := PANEL_RAISED
 	var border := BORDER
@@ -153,7 +154,11 @@ static func draw_button(
 		fill = Color(PANEL_SOFT, 0.76)
 		border = Color(BORDER_SOFT, 0.7)
 		text_color = Color(MUTED_DARK, 0.72)
-	draw_panel(canvas, rect, fill, border, 13, 2, true)
+	if enabled and pressed:
+		rect = Rect2(rect.position + Vector2(0.0, 3.0), rect.size)
+		fill = fill.darkened(0.12)
+		border = border.lightened(0.08)
+	draw_panel(canvas, rect, fill, border, 13, 2, not pressed)
 	if enabled and variant == &"primary":
 		canvas.draw_line(
 			rect.position + Vector2(14.0, 4.0),
@@ -209,15 +214,59 @@ static func draw_centered(
 	color: Color = TEXT,
 	baseline_ratio: float = 0.70,
 ) -> void:
+	var fitted_size := fit_font_size(text, rect.size.x - 8.0, size)
 	canvas.draw_string(
 		ThemeDB.fallback_font,
 		rect.position + Vector2(0.0, rect.size.y * baseline_ratio),
 		text,
 		HORIZONTAL_ALIGNMENT_CENTER,
 		rect.size.x,
-		size,
+		fitted_size,
 		color,
 	)
+
+
+static func fit_font_size(text: String, available_width: float, requested_size: int) -> int:
+	var fitted_size := maxi(requested_size, 10)
+	var font := ThemeDB.fallback_font
+	while fitted_size > 10 \
+		and font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1.0, fitted_size).x > available_width:
+		fitted_size -= 1
+	return fitted_size
+
+
+static func draw_wrapped(
+	canvas: CanvasItem,
+	text: String,
+	rect: Rect2,
+	size: int,
+	color: Color = TEXT,
+) -> void:
+	var font := ThemeDB.fallback_font
+	var lines: Array[String] = []
+	var current := ""
+	for word: String in text.split(" "):
+		var candidate := word if current.is_empty() else "%s %s" % [current, word]
+		if not current.is_empty() \
+			and font.get_string_size(candidate, HORIZONTAL_ALIGNMENT_LEFT, -1.0, size).x > rect.size.x:
+			lines.append(current)
+			current = word
+		else:
+			current = candidate
+	if not current.is_empty():
+		lines.append(current)
+	var line_height := float(size) * 1.4
+	var start_y := rect.position.y + (rect.size.y - line_height * float(lines.size())) * 0.5
+	for line_index in range(lines.size()):
+		canvas.draw_string(
+			font,
+			Vector2(rect.position.x, start_y + line_height * float(line_index + 1)),
+			lines[line_index],
+			HORIZONTAL_ALIGNMENT_CENTER,
+			rect.size.x,
+			size,
+			color,
+		)
 
 
 static func draw_text(

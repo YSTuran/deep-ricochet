@@ -2,6 +2,7 @@ extends RefCounted
 
 const PROFILE_PATH := "user://tests/deep_ricochet_profile_test.json"
 const SETTINGS_PATH := "user://tests/deep_ricochet_settings_test.json"
+const UiLayoutScript := preload("res://ui/ui_layout.gd")
 
 
 class FailingSaveService:
@@ -28,6 +29,7 @@ static func run(controller: RunController) -> void:
 	_test_profile_round_trip()
 	_test_settings_round_trip()
 	_test_audio_manager()
+	_test_safe_area_layout()
 	_test_controller_profile_tutorial_and_locale(controller)
 
 
@@ -176,6 +178,11 @@ static func _test_audio_manager() -> void:
 	assert(is_equal_approx(AudioManager.sfx_volume, 0.5))
 	assert(is_equal_approx(AudioManager.music_volume, 0.25))
 	assert(AudioManager._music_player.stream is AudioStreamWAV)
+	var ambient_stream := AudioManager._music_player.stream as AudioStreamWAV
+	var ambient_frame_count := AudioManager.AMBIENT_MIX_RATE * AudioManager.AMBIENT_DURATION_SECONDS
+	assert(ambient_stream.loop_end == ambient_frame_count)
+	assert(ambient_stream.data.size() == (ambient_frame_count + 1) * 4)
+	assert(ambient_stream.data.slice(ambient_frame_count * 4) == ambient_stream.data.slice(0, 4))
 	AudioManager.begin_volley()
 	var event_count := AudioManager.played_event_count
 	assert(AudioManager.play_collision(-1, 4.0))
@@ -188,6 +195,20 @@ static func _test_audio_manager() -> void:
 	AudioManager.play_ui_click()
 	assert(AudioManager.played_event_count == event_count)
 	AudioManager.apply_settings(AppSettings.new())
+
+
+static func _test_safe_area_layout() -> void:
+	var layout: Transform2D = UiLayoutScript.calculate_content_transform(
+		Vector2(540.0, 960.0),
+		Vector2(1080.0, 1920.0),
+		Rect2(0.0, 100.0, 1080.0, 1820.0),
+	)
+	assert(layout.x.x < 1.0)
+	assert(is_equal_approx(layout.x.x, layout.y.y))
+	assert(layout.origin.y >= 50.0)
+	var safe_canvas := Rect2(Vector2(0.0, 50.0), Vector2(540.0, 910.0))
+	var fitted_canvas := Rect2(layout.origin, Vector2(540.0, 960.0) * layout.x.x)
+	assert(safe_canvas.encloses(fitted_canvas))
 
 
 static func _test_controller_profile_tutorial_and_locale(controller: RunController) -> void:
@@ -245,6 +266,30 @@ static func _test_controller_profile_tutorial_and_locale(controller: RunControll
 	category_touch.pressed = false
 	controller.settings_overlay._gui_input(category_touch)
 	assert(controller.settings_overlay.page == SettingsOverlay.Page.GENERAL)
+	controller.settings_overlay.show_settings("", SettingsOverlay.Page.AUDIO)
+	var slider_press := InputEventScreenTouch.new()
+	slider_press.index = 0
+	slider_press.position = Vector2(
+		SettingsOverlay.SFX_SLIDER.position.x + SettingsOverlay.SFX_SLIDER.size.x * 0.2,
+		SettingsOverlay.SFX_SLIDER.get_center().y,
+	)
+	slider_press.pressed = true
+	controller.settings_overlay._gui_input(slider_press)
+	var slider_drag := InputEventScreenDrag.new()
+	slider_drag.index = 0
+	slider_drag.position = Vector2(
+		SettingsOverlay.SFX_SLIDER.position.x + SettingsOverlay.SFX_SLIDER.size.x * 0.7,
+		SettingsOverlay.SFX_SLIDER.get_center().y,
+	)
+	controller.settings_overlay._gui_input(slider_drag)
+	assert(is_equal_approx(controller.app_settings.sfx_volume, 0.7))
+	var slider_release := InputEventScreenTouch.new()
+	slider_release.index = 0
+	slider_release.position = slider_drag.position
+	slider_release.pressed = false
+	controller.settings_overlay._gui_input(slider_release)
+	assert(controller.settings_overlay.touch_controls.active_action.is_empty())
+	controller.settings_overlay.show_settings("", SettingsOverlay.Page.GENERAL)
 	assert(controller.set_language(&"en"))
 	assert(TranslationServer.translate("MENU_NEW_GAME") == "NEW GAME")
 	assert(TranslationServer.translate("MINE_06_NAME") == "ABYSS MINE")
@@ -286,7 +331,8 @@ static func _test_controller_profile_tutorial_and_locale(controller: RunControll
 	controller.show_tutorial_from_settings()
 	assert(controller.tutorial_overlay.visible)
 	assert(controller.tutorial_overlay.is_modal())
-	assert(TutorialOverlay.PAGE_COUNT == 3)
+	assert(TutorialOverlay.PAGE_COUNT == 6)
+	assert(TutorialOverlay.COACH_PAGE_BY_STEP == [0, 1, 5])
 	controller.complete_tutorial()
 	assert(controller.settings_overlay.visible)
 	assert(controller.settings_overlay.page == SettingsOverlay.Page.GENERAL)

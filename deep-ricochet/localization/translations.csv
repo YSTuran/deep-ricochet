@@ -60,12 +60,18 @@ CONFIRM_DELETE_ACTION,DELETE,SİL
 TUTORIAL_SKIP,SKIP,ATLA
 TUTORIAL_NEXT,NEXT,İLERİ
 TUTORIAL_START,START,BAŞLA
-TUTORIAL_TITLE_1,AIM AND RELEASE,NİŞAN AL VE BIRAK
-TUTORIAL_BODY_1,Hold anywhere on the board. Drag upward to choose an angle and release to launch.,Tahtaya basılı tut. Açıyı seçmek için yukarı sürükle ve fırlatmak için bırak.
-TUTORIAL_TITLE_2,BREAK THE CORE,ÇEKİRDEĞİ KIR
-TUTORIAL_BODY_2,Blue blocks give points. Ore gives more. Break the mint core before shots run out.,Mavi bloklar puan verir. Cevher daha değerlidir. Atışlar bitmeden mint çekirdeği kır.
-TUTORIAL_TITLE_3,CHOOSE YOUR ROUTE,ROTANI SEÇ
-TUTORIAL_BODY_3,Wide passages are safer. Narrow veins have a higher score multiplier.,Geniş geçitler daha güvenlidir. Dar damarların puan çarpanı daha yüksektir.
+TUTORIAL_TITLE_1,AIM AND LAUNCH,NİŞAN AL VE FIRLAT
+TUTORIAL_BODY_1,Hold the board and drag upward to aim. Releasing launches 8 balls at 0.08 second intervals.,Tahtaya basılı tutup yukarı sürükleyerek nişan al. Bıraktığında 8 top 0.08 saniye arayla fırlatılır.
+TUTORIAL_TITLE_2,STANDARD BLOCKS,STANDART BLOKLAR
+TUTORIAL_BODY_2,Blue blocks give points and gold ore gives more. Break the mint core before your shots run out.,Mavi bloklar puan verir ve altın cevher daha değerlidir. Atışların bitmeden mint çekirdeği kır.
+TUTORIAL_TITLE_3,ROCK TYPES,KAYA TÜRLERİ
+TUTORIAL_BODY_3,Solid rock cannot be broken and reflects balls. Cracked rock can be broken and awards 6 points.,Sert kaya kırılamaz ve topları sektirir. Çatlak kaya kırılabilir ve 6 puan kazandırır.
+TUTORIAL_TITLE_4,EXPLOSIVE BLOCK,PATLAYICI BLOK
+TUTORIAL_BODY_4,Breaking an explosive awards 10 points and deals 3 damage to every block in its 5 by 5 blast area.,Patlayıcıyı kırmak 10 puan verir ve 5 çarpı 5 patlama alanındaki her bloğa 3 hasar verir.
+TUTORIAL_TITLE_5,ARMORED BLOCK,ZIRHLI BLOK
+TUTORIAL_BODY_5,Armored blocks only take damage from their pink weak side or sides. Aim for the exposed opening.,Zırhlı bloklar yalnızca pembe zayıf kenarlarından hasar alır. Açık bırakılan bölgeyi hedefle.
+TUTORIAL_TITLE_6,CHOOSE YOUR ROUTE,ROTANI SEÇ
+TUTORIAL_BODY_6,Wide passages are safer. Narrow veins contain denser layouts but provide a higher score multiplier.,Geniş geçitler daha güvenlidir. Dar damarlar daha yoğundur ancak daha yüksek puan çarpanı verir.
 ROUTE_SELECT,CHOOSE A ROUTE,ROTA SEÇ
 ROUTE_SUMMARY,Room %d complete • +%d • Total %d • Next %d/%d,Oda %d tamamlandı • +%d • Toplam %d • Sıradaki %d/%d
 ROUTE_HINT,The mini board is the exact room that will be loaded.,Karttaki küçük tahta seçildiğinde yüklenecek gerçek odadır.
@@ -79,6 +85,11 @@ RESULT_REACHED,Reached room %d • Cores %d,Ulaşılan oda %d • Çekirdek %d
 RESULT_TOTAL_SCORE,Total score,Toplam puan
 RESULT_SUMMARY,%d route choices • Last room reward %d,%d rota tercihi • Son oda ödülü %d
 RESULT_ROOM_BREAKDOWN,Room %d  %d + %d  ×%.1f = %d,Oda %d  %d + %d  ×%.1f = %d
+RESULT_TABLE_ROOM,ROOM,ODA
+RESULT_TABLE_BREAK,BREAK,KIRMA
+RESULT_TABLE_BONUS,BONUS,BONUS
+RESULT_TABLE_MULTIPLIER,MULT.,ÇARP.
+RESULT_TABLE_TOTAL,TOTAL,TOPLAM
 RESULT_NEW_BEST,NEW BEST!,YENİ REKOR!
 RESULT_BEST,Best %d,En iyi %d
 RESULT_RETRY_SEED,RETRY SAME MINE,AYNI MADENİ DENE
@@ -92,9 +103,8 @@ HUD_ROOM_CHIP,ROOM %d/%d,ODA %d/%d
 HUD_SCORE_CHIP,TOTAL %d,TOPLAM %d
 HUD_ROOM_SCORE_CHIP,ROOM %d,ODA %d
 HUD_SHOTS_CHIP,SHOT %d/%d,ATIŞ %d/%d
+HUD_SCORE_SUMMARY,TOTAL %d  •  ROOM %d,TOPLAM %d  •  ODA %d
 HUD_STATS,Room %d/%d • Total %d • Room %d • Shots %d/%d • ×%.1f,Oda %d/%d • Toplam %d • Oda %d • Atış %d/%d • ×%.1f
-HUD_VOLLEY_HINT,Each valid shot launches 8 balls at 0.08 s intervals.,Her geçerli atışta 8 top 0.08 sn arayla çıkar.
-HUD_AIM_HINT,The yellow marker shows the first breakable contact.,Sarı işaret ilk kırılabilir temas noktasını gösterir.
 STATUS_TEMPLATE_FAILED,Room template could not be loaded.,Oda şablonu yüklenemedi.
 STATUS_VOLLEY_ACTIVE,Wait for the current volley to finish.,Yaylım sürerken yeni atış yapılamaz.
 STATUS_AIM_FAR,Aim a little farther from the launcher.,Nişan için fırlatıcıdan biraz uzaklaş.
@@ -126,6 +136,9 @@ MINE_LOCKED,LOCKED,KİLİTLİ
 MINE_STATS,Best %d • Clears %d,En iyi %d • Tamamlama %d
 MINE_SELECT,ENTER MINE,MADENE GİR
 MINE_COMPLETE_PREVIOUS,COMPLETE PREVIOUS,ÖNCEKİNİ TAMAMLA
+MINE_BLOCKS_CLASSIC,CLASSIC BLOCKS,KLASİK BLOKLAR
+MINE_BLOCKS_SPECIAL,EXPLOSIVE + CRACKED,PATLAYICI + ÇATLAK
+MINE_BLOCKS_ARMORED,ARMORED BLOCKS,ZIRHLI BLOKLAR
 MINE_01_NAME,COAST MINE,KIYI MADENİ
 MINE_02_NAME,DEEP MINE,DERİN MADEN
 MINE_03_NAME,CORE MINE,ÇEKİRDEK MADENİ

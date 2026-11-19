@@ -77,7 +77,7 @@ Oyun alanında fareyle ya da dokunmatik ekranla basılı tutup yön seçilir; b�
 - Ayarlardan tekrar açılabilen üç sayfalı öğretici özeti
 - Genel, ses ve görüntü/geri bildirim sayfalarına ayrılan; dil, ayrı efekt/müzik seviyeleri, titreşim, ekran sarsıntısı, grafik/performans modu ve onaylı tüm veri silme seçeneklerini içeren ayarlar ekranı
 - Android geri tuşunun menü, ayarlar, öğretici, sonuç ve duraklatma katmanlarına uygun davranması
-- Android 10 (API 29) alt sınırı ve API 35 hedefi için ARMv7, ARM64, x86 ve x86_64 Gradle export preseti
+- Android 10 (API 29) alt sınırı ve API 35 hedefi için ARMv7 ile ARM64 Gradle export preseti
 - Assetlerle uyumlu prosedürel hasar halkası ve blok kırılma parçacıkları
 - Brief paletine uyumlu ortak maden arka planı, yuvarlatılmış panel ve düğme sistemi
 - Ana menü, oyun HUD'ı, rota, sonuç, duraklatma, ayarlar ve öğreticide tutarlı UI dili
@@ -122,7 +122,7 @@ UI renkleri, panel biçimleri, düğme türleri ve prosedürel maden arka planı
 
 ## Android dışa aktarma
 
-`deep-ricochet/export_presets.cfg` içindeki **Android** preseti Android 10 ve üzerini, API 35 hedefini ve Godot'un desteklediği ARMv7, ARM64, x86 ile x86_64 mimarilerini tek APK içinde kullanır. Bu paket yaygın fiziksel telefon/tabletlerin yanı sıra Intel tabanlı Android cihaz ve emülatörleri de kapsar. Çevrimdışı çalışan uygulamanın tek ek Android izni titreşim geri bildirimi için `VIBRATE` iznidir; kullanıcıdan çalışma anında izin penceresi istemez. P0/P1 dağıtım hedefi Google Play değil, cihaza doğrudan yüklenen debug APK prototipidir. Paket kimliği şimdilik `com.ysturan.deepricochet` değeridir.
+`deep-ricochet/export_presets.cfg` içindeki **Android** preseti Android 10 ve üzerini, API 35 hedefini ve fiziksel Android telefonlarda kullanılan ARMv7 ile ARM64 mimarilerini tek APK içinde kullanır. Boyutu gereksiz yere büyüten x86 ve x86_64 emülatör mimarileri pakete eklenmez. Çevrimdışı çalışan uygulamanın tek ek Android izni titreşim geri bildirimi için `VIBRATE` iznidir; kullanıcıdan çalışma anında izin penceresi istemez. P0/P1 dağıtım hedefi Google Play değil, cihaza doğrudan yüklenen debug APK prototipidir. Paket kimliği şimdilik `com.ysturan.deepricochet` değeridir.
 
 Godot 4.7.2 ile ilk APK'yı üretmeden önce:
 
@@ -153,7 +153,7 @@ Godot komut satırından proje kökünde şu sahne çalıştırılır:
   -GodotPath "C:\path\to\Godot_v4.7.2-stable_win64.exe"
 ```
 
-Bu kapı yalnız işlem koduna güvenmez; `[PASS]` işaretini zorunlu tutar ve GDScript ayrıştırma, derleme veya assertion hatası görürse başarısız olur. Android build betiği APK üretmeden önce aynı kapıyı otomatik çalıştırır ve çıktıda ARMv7, ARM64, x86 ile x86_64 yerel kütüphanelerinin bulunduğunu doğrular.
+Bu kapı yalnız işlem koduna güvenmez; `[PASS]` işaretini zorunlu tutar ve GDScript ayrıştırma, derleme veya assertion hatası görürse başarısız olur. Android build betiği APK üretmeden önce aynı kapıyı otomatik çalıştırır; çıktıda ARMv7 ile ARM64 yerel kütüphanelerinin bulunduğunu ve başka bir mimarinin eklenmediğini doğrular.
 
 Test; profil ve ayar geçişlerini, on dört madenin kilitleri ile günlük maden istatistiklerini, iki sayfalı maden seçimini, grafik/performans tercihini, titreşim ayarı ile eski ayar şeması göçünü, efekt/müzik bus'larını, melodik çarpışma hız sınırını, sessiz modu, profil yedeğinden kurtarmayı, iki dili, üç aşamalı ilk-oyun öğreticisini, tüm veri silme hata davranışını, ayrıntılı oda sonuç geçmişini, aynı seed tekrarını, 1×/2× sabit adımlı simülasyonu ve iki hızın aynı blok/puan/top sonucunu üretmesini, ana menü ve devam durumunu, nişan sırasında duraklatmayı, canlı yaylımın donmasını, odak kaybını, 98 normal ve 14 günlük oda şablonunu, bütün odalarda boş alt iki satırı, dar damarların geniş geçitlerden yüksek ortalama dayanıklılığını, günlük 5 atış kuralını, özel blokların seviye eşiklerini, erişilebilir zırh yönlerini, 5×5 ve zincirleme patlama davranışını, örnek açı geçişlerini, maden başına 100 seed seçimini, aynı seed'in tüm rota tekliflerini, dört oda/üç rota akışını, P1 test olaylarının izin listesi ile JSON dışa aktarımını, atış ortası kurtarmayı, bozuk kayıt reddini, fiziği ve puanı doğrular. Ayrıca 112 odanın örnek açı simülasyon süresini test çıktısında `[PERF]` satırıyla raporlar.
 
