@@ -1,163 +1,252 @@
 # Deep Ricochet
 
-Deep Ricochet, dikey ekranda oynanan nişan alma ve sekme odaklı bir mobil oyun prototipidir. Oyuncu topları fırlatır; normal blokları, cevher bloklarını ve çekirdeği kırmaya çalışırken sert kayalardan ve duvarlardan yararlanır.
+Deep Ricochet, dikey ekranda oynanan; nişan alma, sekme fiziği ve rota seçimi üzerine kurulu bir maden oyunudur. Oyuncu sekiz topluk yaylımları duvarlardan ve bloklardan sektirerek odanın çekirdeğini kırmaya çalışır. Her atış sınırlı olduğu için doğru açı, blokların kırılma sırası ve riskli rota tercihleri doğrudan sonucu belirler.
+
+Proje tek oyunculu ve çevrimdışı çalışır. Türkçe ve İngilizce arayüz, on dört maden, günlük mücadele, ilerleme kaydı, iki kalite modu ve beş mağara renk teması içerir.
+
+## Oynanış
+
+Bir normal maden koşusu dört odadan oluşur. İlk oda doğrudan başlar; başarılı olunan her odadan sonra sıradaki oda için iki rota sunulur:
+
+- **Geniş Geçit:** Daha açık yerleşime ve `×1,0` puan çarpanına sahip güvenli rota.
+- **Dar Damar:** Daha sıkışık kaya duvarları ve zengin blok yerleşimi karşılığında `×1,5` puan çarpanı sunan riskli rota.
+
+Oyuncu ekrana basılı tutup sürükleyerek atış yönünü belirler. Kesikli nişan önizlemesi, gerçek atışla aynı çarpışma simülatörünü kullanır ve ilk sekmeleri gösterir. Parmak bırakıldığında sekiz top aynı noktadan `0,08` saniye aralıklarla çıkar. Toplar duvarlardan ve sert kayalardan seker, kırılabilir bloklara hasar verir ve alt sınıra ulaştığında toplanır.
+
+Normal odalarda üç atış hakkı vardır. Çekirdek bu haklar bitmeden kırılırsa oda tamamlanır; aksi durumda koşu sona erer. Başarılı bir madenin sonuç ekranından sonraki madene geçilebilir, aynı maden yeniden başlatılabilir veya ana menüye dönülebilir. **Aynı Madeni Dene** seçeneği aynı seed'i koruyarak aynı başlangıç ve rota dizilimini tekrar üretir.
+
+Oyun sırasında simülasyon `1×` ve `2×` arasında değiştirilebilir. `2×` modu fizik kurallarını değiştirmez; her görüntü karesinde iki sabit simülasyon adımı çalıştırır. Böylece sonuçlar hız seçiminden bağımsız kalır.
+
+## Madenler ve zorluk
+
+Oyunda sırayla açılan on dört maden bulunur. Her madende bir başlangıç, üç geniş geçit ve üç dar damar olmak üzere yedi şablon; toplamda 98 normal oda vardır. Bir koşu bu havuzdan seed tabanlı ve tekrar etmeyen dört oda seçer.
+
+- **Maden 1–6:** Normal blok, cevher, sert kaya ve çekirdek kullanır.
+- **Maden 7–10:** Çatlak kaya ve patlayıcı bloklar devreye girer.
+- **Maden 11–14:** Zırhlı bloklar da yerleşimlere eklenir.
+
+Maden seviyesi yükseldikçe blok yoğunluğu, ortalama dayanıklılık ve çekirdeğe ulaşma zorluğu artar. Çekirdek yalnızca merkezde bulunmaz; üst bölgenin sol, orta veya sağ tarafında, kırılabilir blokların arkasında yer alabilir. Atıcının çevresini açık tutmak için 8×10 oyun ızgarasının en alt iki satırına blok yerleştirilmez.
+
+Dar damarlar geniş geçitlerden yalnızca sayı bakımından değil, geometri bakımından da ayrılır. Yanlardaki sert kaya yığınları yolu tek hücrelik bir geçide kadar daraltabilir; değerli bloklar üst bölgede toplanır ve çekirdeğe doğrudan erişim zorlaştırılır.
+
+## Bloklar
+
+Blokların ortasındaki sayı kalan canı gösterir. Topla doğrudan temas çoğu bloğa bir hasar verir. Aşağıdaki görseller oyunda kullanılan temel assetlerdir; seçilen renk teması bu görselleri çalışma anında yeniden renklendirir.
+
+<table>
+  <thead>
+    <tr>
+      <th>Görsel</th>
+      <th>Blok</th>
+      <th>Can</th>
+      <th>Puan</th>
+      <th>Davranış</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><img src="deep-ricochet/assets/images/blocks/blok_normal.png" width="82" alt="Normal blok"></td>
+      <td><strong>Normal blok</strong></td>
+      <td>2–8</td>
+      <td>10</td>
+      <td>Temel kırılabilir bloktur. İlerleyen madenlerde dayanıklılığı yükselir.</td>
+    </tr>
+    <tr>
+      <td><img src="deep-ricochet/assets/images/blocks/blok_cevher.png" width="82" alt="Cevher bloğu"></td>
+      <td><strong>Cevher</strong></td>
+      <td>3–8</td>
+      <td>25</td>
+      <td>Normal bloktan daha değerlidir ve kendine özgü vuruş sesi kullanır.</td>
+    </tr>
+    <tr>
+      <td>Prosedürel</td>
+      <td><strong>Sert kaya</strong></td>
+      <td>Kırılamaz</td>
+      <td>0</td>
+      <td>Topu yansıtır. Patlamadan da hasar almaz ve özellikle dar damarlarda yolu biçimlendirir.</td>
+    </tr>
+    <tr>
+      <td><img src="deep-ricochet/assets/images/blocks/cekirdek.png" width="82" alt="Maden çekirdeği"></td>
+      <td><strong>Çekirdek</strong></td>
+      <td>6–8</td>
+      <td>100</td>
+      <td>Odanın ana hedefidir. Görseli yuvarlak olsa da fizik alanı diğer hücreler gibi karedir.</td>
+    </tr>
+    <tr>
+      <td><img src="deep-ricochet/assets/images/blocks/blok_patlayici.png" width="82" alt="Patlayıcı blok"></td>
+      <td><strong>Patlayıcı</strong></td>
+      <td>2–8</td>
+      <td>10</td>
+      <td>Kırılınca merkezinin çevresindeki 5×5 alana üç hasar verir. Başka bir patlayıcıyı kırarsa zincirleme patlama başlatır.</td>
+    </tr>
+    <tr>
+      <td><img src="deep-ricochet/assets/images/blocks/blok_catlak.png" width="82" alt="Çatlak kaya"></td>
+      <td><strong>Çatlak kaya</strong></td>
+      <td>8</td>
+      <td>6</td>
+      <td>Her madende aynı dayanıklılığa sahip, düşük puanlı bir engeldir.</td>
+    </tr>
+    <tr>
+      <td>
+        <img src="deep-ricochet/assets/images/blocks/blok_zirhli_alt.png" width="54" alt="Tek zayıf noktalı zırhlı blok">
+        <img src="deep-ricochet/assets/images/blocks/blok_zirhli_sol_alt.png" width="54" alt="Sol ve alt zayıf noktalı zırhlı blok">
+        <img src="deep-ricochet/assets/images/blocks/blok_zirhli_sag_alt.png" width="54" alt="Sağ ve alt zayıf noktalı zırhlı blok">
+      </td>
+      <td><strong>Zırhlı blok</strong></td>
+      <td>3–8</td>
+      <td>40</td>
+      <td>Yalnız pembe gösterilen bir veya iki açık kenardan doğrudan hasar alır. Yerleşim doğrulaması bu kenarların duvarla ya da başka blokla kapanmasını engeller.</td>
+    </tr>
+  </tbody>
+</table>
+
+Patlama hasarı zırhlı bloğun kapalı kenarlarını aşar; sert kayayı ise etkileyemez. Patlamayla kırılan bütün puanlı bloklar normal kırılma puanlarını verir.
+
+## Puanlama
+
+Oda puanı, kırılan blokların toplamı ve başarı durumunda kullanılmayan her atış için verilen 20 puan üzerinden hesaplanır. Son değer rota çarpanıyla çarpılır:
+
+```text
+oda ödülü = (kırılma puanı + kalan atış × 20) × rota çarpanı
+```
+
+Başarısız olunan odada kullanılmayan atış bonusu verilmez. Her odanın kırılma puanı, kalan atış bonusu, çarpanı ve toplam ödülü sonuç geçmişinde ayrı ayrı gösterilir. Profilde genel en iyi skorun yanında her madenin en iyi skoru ve tamamlanma sayısı da saklanır.
+
+## Günlük maden
+
+Günlük maden normal ilerleme zincirinden bağımsız, daha yoğun bir mücadeledir. Yerel takvim tarihinden deterministik bir seed üretilir; aynı gün içindeki tekrarlar aynı oda ve rota dizilimini verir, gün değiştiğinde seed de değişir.
+
+- Her oda 24 blok içerir.
+- Yedi blok türünün tamamı kullanılır.
+- Normal madenlerdeki üç atış yerine beş atış hakkı verilir.
+- Seviye 14 düzenlerinden türetilen ve aynalanmış eşleriyle birlikte 14 günlük oda bulunur.
+- Günlük sonuç profilde ayrıca saklanır ve normal maden kilitlerini değiştirmez.
+
+## Renk temaları
+
+Renk teması yalnız arka planı değil; ızgarayı, normal ve özel blokları, sert kayayı, çekirdeği, zırhı ve zırhın zayıf noktalarını birlikte değiştirir. Tema değişimi fizik veya puan değerlerine dokunmaz. Ayrı tema sprite'ları yerine yukarıdaki özgün assetler çalışma anında palete göre renklendirildiği için bütün görseller aynı doku ve biçimi korur.
+
+| Tema | Mağara görünümü | Blok vurguları |
+| --- | --- | --- |
+| **Derin Safir** | Lacivert ve koyu mavi mağara | Mavi normal blok, kehribar cevher, turkuaz çekirdek |
+| **Ametist Damar** | Koyu mor ve ametist tonları | Mor normal blok, pembe cevher, lavanta çekirdek, camgöbeği zayıf nokta |
+| **Volkanik Ocak** | Kömür, sıcak kahve ve kızıl kaya | Tuğla kırmızısı bloklar, turuncu cevher ve çekirdek, sarı zayıf nokta |
+| **Yosunlu Mağara** | Orman yeşili ve nemli taş tonları | Yosun yeşili blok, toprak sarısı cevher, nane yeşili çekirdek |
+| **Buzul Madeni** | Buz mavisi ve koyu camgöbeği mağara | Soğuk mavi bloklar, açık buz cevheri, turkuaz çekirdek, mor zayıf nokta |
+
+Seçilen tema ayarlara kaydedilir ve menü, rota önizlemeleri, öğretici ile oyun alanında ortak olarak uygulanır.
+
+## Ses ve geri bildirim
+
+Çarpışma sesleri her yaylımda sıfırlanan Re minör pentatonik bir dizi kullanır. Normal blok, cevher, sert kaya ve çekirdek farklı ses katmanlarına sahiptir. Çok toplu yaylımlarda seslerin üst üste binmesini önlemek için çarpışmalar 45 milisaniyelik hız sınırıyla oynatılır.
+
+Blok kırılması, çekirdek, patlama, rota seçimi, başarı ve başarısızlık için ayrı efektler bulunur. Arka plan maden atmosferi kodla düşük maliyetli olarak üretilir. Android cihazlarda blok ve çekirdek olayları kısa titreşimlerle desteklenebilir; titreşim çağrıları da cihazı gereksiz yere yormamak için sınırlandırılır.
+
+Ses efektleri Kenney'nin CC0 paketlerinden seçilmiştir. Kaynak eşleştirmeleri [THIRD_PARTY_AUDIO.md](deep-ricochet/audio/THIRD_PARTY_AUDIO.md) dosyasında tutulur.
+
+## Ayarlar
+
+Ayar ekranı seçenekleri tek bir uzun sayfada toplamak yerine dört kategoriye ayırır:
+
+- **Genel:** Türkçe/İngilizce dil seçimi, öğreticiyi yeniden açma ve onaylı tüm veri silme işlemi.
+- **Ses:** Efekt ve müziği ayrı açma/kapama, iki kanal için bağımsız seviye ayarı.
+- **Görüntü ve geri bildirim:** Ekran sarsıntısı, Android titreşimi ve kalite modu.
+- **Renk temaları:** Beş mağara paletinden birini seçme.
+
+**Performans** modu daha az parçacık ve daha hafif sarsıntı kullanarak düşük donanımlı telefonları hedefler. **Grafik** modu daha yoğun kırılma parçacıkları ve görsel geri bildirim sunar. Oynanış kuralları ve fizik iki modda da aynıdır.
+
+## Kayıt ve devam etme
+
+Aktif koşu; oda tamamlandığında, rota seçildiğinde ve kararlı oyun durumlarında otomatik kaydedilir. Uygulama bir yaylım sırasında kapanırsa canlı top konumları yerine atıştan hemen önceki güvenli durum geri yüklenir; böylece atış hakkı veya puan kaybı oluşmaz.
+
+Profil, ayarlar, aktif koşu ve yerel test olayları ayrı JSON dosyalarında tutulur. Bütün kalıcı veriler geçici dosyaya yazma, doğrulama, atomik değiştirme ve son geçerli `.bak` yedeği mekanizmasını paylaşır. Geçersiz dosyalar çökme yerine karantinaya alınır. Ana menüde geçerli bir koşu bulunduğunda **Devam** seçeneği görünür.
+
+Uygulama arka plana geçtiğinde ya da masaüstünde odağını kaybettiğinde oyun otomatik duraklar. Öne dönüldüğünde oyuncu **Devam** demeden simülasyon başlamaz.
 
 ## Dizin yapısı
 
-- `deep-ricochet/`: Godot projesi ve çalıştırılabilir oyun kaynakları.
-- `deep-ricochet/assets/images/blocks/`: Oyunda kullanılan blok ve çekirdek görselleri.
-- `deep-ricochet/assets/images/icons/`: Uygulama, adaptive launcher ve proje ikonları.
-- `deep-ricochet/assets/audio/sfx/`: Oyunda kullanılan kısa ses efektleri.
+```text
+DeepRicochet/
+├── README.md
+└── deep-ricochet/
+    ├── app/            # Uygulama akışı ve ekran denetleyicileri
+    ├── assets/         # Blok, ikon ve ses kaynakları
+    ├── audio/          # Ses yöneticisi ve üçüncü taraf lisans notları
+    ├── board/          # Blok durumu, hasar ve tahta modeli
+    ├── content/        # Maden tanımları, oda JSON'ları ve günlük oda üretimi
+    ├── core/           # Koşu, oda sonucu, yapılandırma ve puan kuralları
+    ├── diagnostics/    # Yerel ve kişisel veri içermeyen test olayları
+    ├── gameplay/       # Oynanış sahnesi ve çizim katmanları
+    ├── localization/   # Türkçe ve İngilizce çeviriler
+    ├── profile/        # İlerleme ve istatistik profili
+    ├── save/           # Aktif koşu snapshot modelleri
+    ├── settings/       # Kalıcı kullanıcı tercihleri
+    ├── simulation/     # Sabit adımlı top, yaylım ve nişan simülasyonu
+    ├── storage/        # Atomik JSON saklama altyapısı
+    ├── tests/          # Smoke, davranış ve performans testleri
+    ├── tools/          # Test ve içerik üretim betikleri
+    ├── ui/             # Menü, HUD, ayarlar, öğretici ve ortak tema
+    ├── export_presets.cfg
+    └── project.godot
+```
 
-Etkin oda içerikleri `deep-ricochet/content/mines/rooms/` altındaki JSON şablonlarında, on dört madenin sırası ve kilit koşulları ise `deep-ricochet/content/mines/mines.json` içinde tutulur. Oynanış sahnesi bu şablonlardan blok dizilimini, blok canlarını, zırhlı blokların açık kenarlarını ve oda çarpanını yükler; kaynak şablonu değiştirmeden her başlangıçta yeni bir tahta üretir. Günlük madenin 14 yoğun şablonu en zor normal maden düzenlerinden deterministik olarak türetilir. Şablon paketi `deep-ricochet/tools/generate_mine_rooms.gd` ile deterministik olarak yeniden üretilebilir.
+Oda içeriğinin tek kaynağı `content/mines/rooms/` altındaki JSON dosyalarıdır. On dört madenin sırası ve açılma koşulları `content/mines/mines.json`, ortak oyun değerleri ise `content/config/game_config.json` içinde bulunur. `tools/generate_mine_rooms.gd` aynı oda paketini deterministik olarak yeniden üretebilir.
 
-Godot'ta açılması gereken dosya `deep-ricochet/project.godot` dosyasıdır. Çalışma zamanı assetlerinin tamamı Godot'un `res://assets/` kökü altında tutulur; kullanılmayan üretim notları ve yinelenen kaynak kopyaları depoya eklenmez.
-
-Uygulama girişindeki `app/main.gd` yalnız sahneleri ve oyun akışını bir araya getirir. Koşu oluşturma, menü/duraklatma gezinmesi, aktif kayıt kurtarma, ayarlar, öğretici, kullanıcı verisi ve test olayı yazımı `app/` altındaki ayrı denetleyicilere bölünmüştür. Profil, ayarlar, test günlüğü ve aktif koşu kaydı aynı `storage/atomic_json_store.gd` atomik yazma/yedekleme altyapısını kullanır.
+`app/main.gd` sahneleri ve servisleri bir araya getirir. Koşu oluşturma, oda/rota akışı, geri bildirim, gezinme, kayıt kurtarma, ayarlar, öğretici ve kullanıcı verisi işlemleri `app/` altındaki ayrı denetleyicilere bölünmüştür. Fizik ve oyun kuralları görsel katmandan bağımsız tutulduğu için nişan önizlemesi, gerçek atış ve otomatik testler aynı simülasyon kodunu kullanır.
 
 ## Teknolojiler
 
-- Godot 4.7.2
-- Typed GDScript
-- Compatibility renderer
-- Dikey ekran: 540 × 960
-- Hedef platform: Android 10 ve üzeri
+- **Godot 4.7.2 Stable**
+- **Typed GDScript**
+- **GL Compatibility** renderer
+- 60 Hz sabit fizik adımı kullanan özel 2D çarpışma simülasyonu
+- JSON tabanlı, sürümlendirilmiş oda ve kayıt modelleri
+- 540×960 temel çözünürlük ve dikey `canvas_items` ölçekleme
+- Türkçe ve İngilizce Godot çeviri kaynakları
+- Android 10 ve üzeri; ARMv7 ve ARM64 cihaz desteği
+- PowerShell tabanlı doğrulama araçları
 
-## Çalıştırma
+Proje çalışma zamanında harici bir oyun kütüphanesine ihtiyaç duymaz. Duvar, blok ve top çarpışmaları Godot'un genel fizik gövdeleri yerine deterministik proje simülatöründe çözülür. Bu yaklaşım aynı seed'in, nişan önizlemesinin ve `1×`/`2×` sonuçlarının tekrarlanabilir kalmasını sağlar.
+
+## Projeyi çalıştırma
 
 1. Godot Project Manager içinde **Import** seçeneğini açın.
 2. `deep-ricochet/project.godot` dosyasını seçin.
-3. Projeyi açıp **F5** ile dört odalık ana oyun akışını çalıştırın.
+3. Projeyi Godot 4.7.2 ile açın.
+4. **F5** tuşuyla ana sahneyi çalıştırın.
 
-Oyun alanında fareyle ya da dokunmatik ekranla basılı tutup yön seçilir; bırakıldığında top fırlatılır. Kesikli nişan çizgisi gerçek atışla aynı fizik simülatörünü kullanır. İlk üç başarılı odadan sonra gerçek oda şablonlarını gösteren güvenli ve bonus rota kartlarından biri seçilir.
-
-## P0 mevcut durum
-
-- Sabit zaman adımlı top hareketi ve duvar sekmesi
-- Alt sınırda top toplama
-- Normal, cevher, sert kaya ve çekirdek için kare hücre çarpışmaları; çekirdekte yuvarlak görsel
-- Normal, cevher ve çekirdek için can/hasar sistemi
-- Aynı temas sırasında yinelenen hasarı engelleme
-- Kırılabilir nesnede duran ve temas noktasını gösteren simülasyon tabanlı nişan önizlemesi
-- Aynı noktadan 0,08 saniye arayla çıkan 8 topluk yaylım
-- 10 saniyelik yaylım üst sınırı ve tek seferlik atış sonucu
-- Kırılma puanları, kalan atış bonusu ve oda çarpanı hesabı
-- Başarı, son atışta başarı önceliği ve başarısız oda sonucu
-- JSON tabanlı, doğrulanan ve yeniden kullanılabilir oda şablonları
-- Dışarıdan oda yükleyebilen ve sonucu sinyalle bildiren `GameplayRoom`
-- Dört oda, üç rota tercihi ve tek seferlik sonuç işleyen `RunSession` / `RunController`
-- Seed tabanlı, aynı koşuda daha önce sunulan şablonu yeniden kullanmayan içerik seçimi
-- Gerçek şablondan çizilen güvenli/bonus rota önizlemeleri ve ayrıntılı sonuç ekranı
-- Birbirinin ardından açılan on dört maden/seviye ve iki sayfalı maden seçim ekranı
-- Her madende 1 başlangıç, 3 geniş geçit ve 3 dar damar olmak üzere 7; toplam 98 özgün ve otomatik çözülebilirlik denetimli oda şablonu
-- İlk altı madende klasik bloklar; yedinci madenden itibaren çatlak ve patlayıcı, on birinci madenden itibaren zırhlı bloklar
-- Normal ve günlük odalarda fırlatıcı çevresini açık tutmak için tamamen boş bırakılan alt iki satır
-- Üst üç satırda sol, orta ve sağ bölgelere dağılan; kırılabilir kapılarla korunan değişken çekirdek konumları
-- Kenarlarda sert kaya yığınları, üstte zengin blok odaları ve tek hücrelik giriş kullanan, 1,5× ödüllü dar damar dengesi
-- Seviyeye göre 14-24 arasında artan oda blok yoğunluğu
-- Kırıldığında 10 puan veren ve 5×5 alana 3 hasar uygulayan zincirleme patlayıcı blok
-- Her madende sabit 8 cana sahip olan ve kırıldığında 6 puan veren çatlak kaya
-- Oda şablonunda tanımlanan 1 veya 2 parlak kenardan doğrudan hasar alan, kırıldığında 40 puan veren zırhlı blok
-- Patlama hasarının zırhı aşması; sert kayanın patlamada da kırılmaz kalması
-- Sürümlendirilmiş `RunSnapshot`, `RoomSnapshot` ve JSON kayıt zarfı
-- Atomik geçici dosya yazımı, son geçerli yedek ve bozuk kayıt doğrulaması
-- Atış öncesi snapshot; yarıda kesilen yaylımda hak/puan kaybetmeden geri dönüş
-- Oda, rota adayları ve sonuç ekranı için otomatik kararlı durum kaydı
-- Açılışta `Devam` ve `Yeni Oyun` seçeneklerini sunan ana menü
-- Devam eden koşuyu yanlışlıkla silmemek için yeni oyun onayı
-- Oynanış ve rota ekranında simülasyonu tamamen donduran duraklatma menüsü
-- Android arka plana geçişinde ve masaüstü odak kaybında otomatik duraklatma
-- Uygulama yeniden öne geldiğinde yalnızca oyuncu `Devam` dediğinde çalışma
-- Aktif koşudan ayrı ve atomik yazılan profil/istatistik kaydı
-- En iyi skor, koşu, başarı ve kırılan toplam çekirdek takibi
-- Ana menüde profil özeti ve sonuç ekranında yeni rekor bildirimi
-- Her oda için ham puan, kalan atış bonusu, çarpan ve ödülü saklayan sonuç geçmişi
-- Sonuç ekranında dört odaya kadar ayrıntılı puan dökümü
-- Başarılı sonuç ekranında sonraki maden, mevcut madeni yeniden başlatma ve ana menü seçenekleri
-- Kalıcı dil tercihiyle eksiksiz Türkçe–İngilizce arayüz
-- İlk yeni oyunda atış, çekirdek ve rota aşamalarına bağlanan üç adımlı etkileşimli öğretici
-- Ayarlardan tekrar açılabilen üç sayfalı öğretici özeti
-- Genel, ses, görüntü/geri bildirim ve renk teması sayfalarına ayrılan; dil, ayrı efekt/müzik seviyeleri, titreşim, ekran sarsıntısı, grafik/performans modu ve onaylı tüm veri silme seçeneklerini içeren ayarlar ekranı
-- Mağara arka planı ile normal, cevher, çekirdek, kırılmaz kaya, çatlak kaya, patlayıcı ve zırhlı blokları birlikte dönüştüren Derin Safir, Ametist Damar, Volkanik Ocak, Yosunlu Mağara ve Buzul Madeni renk temaları
-- Android geri tuşunun menü, ayarlar, öğretici, sonuç ve duraklatma katmanlarına uygun davranması
-- Android 10 (API 29) alt sınırı ve API 35 hedefi için ARMv7 ile ARM64 Gradle export preseti
-- Assetlerle uyumlu prosedürel hasar halkası ve blok kırılma parçacıkları
-- Brief paletine uyumlu ortak maden arka planı, yuvarlatılmış panel ve düğme sistemi
-- Ana menü, oyun HUD'ı, rota, sonuç, duraklatma, ayarlar ve öğreticide tutarlı UI dili
-- CC0 lisanslı darbe, kırılma, arayüz ve sonuç sesleri
-- Her yaylımda sıfırlanan Re minör pentatonik melodik çarpışma dizisi
-- Normal blok, cevher, sert kaya ve çekirdek için ayrı ses katmanları
-- Kodla üretilen düşük seviyeli döngüsel maden atmosferi
-- Kalıcı ve birbirinden bağımsız efekt/müzik açma-kapama ve seviye ayarları
-
-## P1 ilk aşama
-
-- Sonuç ekranında biten koşunun seed'i ve ilk oda seçimi korunarak **Aynı Madeni Dene** seçeneği
-- Aynı seed tekrarında istatistik kaydının yeni koşu olarak işlenmesini sağlayan benzersiz koşu kimliği
-- Oynanış sırasında 1× ve 2× arasında değiştirilebilen, sabit fizik adımını koruyan simülasyon hızı
-- Normal blok, cevher ve çekirdek için renk ve şiddeti ayrışan; aynı anda en fazla 16 darbe animasyonu tutan hafif görsel efektler
-- Cevher ve çekirdek vuruşlarında ayrışan ses tonu; mevcut ses yığılma sınırı korunarak düşük maliyetli ses cilası
-- Android'de blok kırılması ve çekirdeğin kırılması için kısa, farklı şiddette ve 90 ms aralıkla sınırlanan titreşim
-- Ayarlar ekranında kalıcı titreşim açma-kapama seçeneği ve eski ayar kayıtları için şema geçişi
-- Kişisel veri toplamayan, yalnızca izin verilen P1 test olaylarını yerelde tutan ve ayarlardan JSON olarak panoya kopyalanabilen test günlüğü
-- On dört madenin her biri için dört odalık koşu; ilk oda başlangıç şablonundan, sonraki üç oda geniş geçit/dar damar rota çiftlerinden seçilir
-- On dört madenin her biri için 1 başlangıç, 3 geniş ve 3 dar olmak üzere 7 şablon; toplam 98 seed tabanlı şablon
-- Bir madeni başarıyla bitirince sıradakini açan seviye ilerlemesi, maden bazında en iyi skor ve tamamlanma sayısı
-- Her yerel tarih için farklı, aynı gün içinde tekrarlanabilir seed kullanan ve ilerleme kilitlerini etkilemeyen günlük maden
-- Her odasında yedi blok türünün tamamını ve toplam 14 bloğu kullanan özel günlük oda havuzu; günlük odalarda 3 yerine 5 atış hakkı
-- Düşük maliyetli efekt sınırı ve azaltılmış sarsıntı kullanan **Performans** modu ile daha yoğun görsel cila sunan **Grafik** modu
-
-2× seçeneği topların fizik hızını veya çarpışma sonuçlarını değiştirmez; her çizim karesinde iki sabit simülasyon adımı çalıştırır. Yeni koşu ve aynı seed tekrarı 1× hızda başlar. Titreşim yalnızca Android özelliği algılandığında çağrılır; masaüstü testleri ve diğer platformlarda devre dışı kalır.
-
-P1 test günlüğü `user://deep_ricochet_test_events.json` konumunda en fazla son 500 olayı saklar. `run_started`, `shot_started`, `shot_resolved`, `room_completed`, `route_offered`, `route_selected`, `run_ended`, `run_restarted`, `session_resumed` ve `save_recovered` olayları UTC zaman damgası, yerel koşu kimliği, maden/oda, seed, içerik sürümü ve olayla ilgili sayısal sonuçlarla kaydedilir. İsim, e-posta, reklam kimliği veya kalıcı cihaz kimliği alınmaz; bilinmeyen alanlar izin listesi dışında bırakılır. Aynı oyun geçişine ait olaylar toplu yazılarak düşük hızlı depolamadaki gereksiz tekrarlar azaltılır; uygulama arka plana geçerken bekleyen olaylar diske aktarılır. **Ayarlar → Genel → Test Verisini Kopyala** işlemi günlüğü açık kullanıcı eylemiyle JSON olarak panoya kopyalar. **Tüm Verileri Sil** bu günlüğü de temizler.
-
-Aktif koşu `user://deep_ricochet_active_run.json` konumuna yazılır; önceki geçerli kayıt `.bak` uzantısıyla korunur. Geçerli ve bitmemiş bir kayıt uygulama açılışında ana menüde `Devam` düğmesini etkinleştirir. Kesilmiş atışta canlı top konumları yüklenmez; atış öncesindeki kararlı oda geri gelir. Maden kimliği, normal/günlük koşu türü, günlük tarih anahtarı, oyun ayarı sürümü ve günlük içerik sürümünü taşıyan aktif snapshot şeması sürüm 5'tir. İçerik veya oyun kuralı sürümüyle uyuşmayan eski geliştirme koşuları güvenli biçimde reddedilir; profil ve ayarlar kendi şema geçişleriyle korunur.
-
-Duraklatma menüsünden ana menüye dönüldüğünde kararlı koşu korunur. Bir yaylım sürüyorsa diskteki atış öncesi snapshot kullanılır; böylece yarım simülasyon kaydedilmez. Uygulama arka plana geçtiğinde oyun otomatik durur, fakat öne döndüğünde kendiliğinden devam etmez.
-
-Profil `user://deep_ricochet_profile.json`; dil, ses, titreşim, ekran sarsıntısı ve kalite modu tercihleri `user://deep_ricochet_settings.json` konumunda aktif koşudan bağımsız tutulur. Profil şeması maden kilitlerini, maden bazındaki istatistikleri ve o günün günlük maden sonucunu da saklar. Her iki dosya geçici dosya ve son geçerli yedek kullanır. Yeni oyun aktif koşuyu değiştirirken rekor ve ayarları korur; ayarlardaki açık onaylı `Tüm Verileri Sil` işlemi aktif koşuyu, profili ve ayarları birlikte temizler.
-
-Ses sistemi `deep-ricochet/audio/audio_manager.gd` otomatik yüklemesi üzerinden çalışır; ses dosyaları `deep-ricochet/assets/audio/sfx/` altında tutulur. Aynı anda gelen çarpışmalar 45 ms aralıkla sınırlandırılır; böylece sekiz topluk yaylımda sesler üst üste yığılıp bozulmaz. Arka plan atmosferi çalışma anında kodla üretilir; kullanılan Kenney efektlerinin kaynak ve lisans bilgileri `deep-ricochet/audio/THIRD_PARTY_AUDIO.md` dosyasındadır.
-
-UI renkleri, panel biçimleri, düğme türleri ve prosedürel maden arka planı `deep-ricochet/ui/ui_theme.gd` içinde ortaklaştırılmıştır. Hareketli oyun ekranında yeniden kullanılan stil kaynakları önbelleğe alınır; menü ekranları aynı dokunma alanlarını korurken ortak görsel dili paylaşır.
-
-Şablonlardaki örnek açı dizileri otomatik simülasyonda çekirdeği kırmaktadır; gerçek Android cihaz arka plan/geri dönüş, dokunmatik geçişleri ve hoparlör ses dengesi ayrıca doğrulanacaktır.
-
-## Android dışa aktarma
-
-`deep-ricochet/export_presets.cfg` içindeki **Android** preseti Android 10 ve üzerini, API 35 hedefini ve fiziksel Android telefonlarda kullanılan ARMv7 ile ARM64 mimarilerini tek APK içinde kullanır. Boyutu gereksiz yere büyüten x86 ve x86_64 emülatör mimarileri pakete eklenmez. Çevrimdışı çalışan uygulamanın tek ek Android izni titreşim geri bildirimi için `VIBRATE` iznidir; kullanıcıdan çalışma anında izin penceresi istemez. P0/P1 dağıtım hedefi Google Play değil, cihaza doğrudan yüklenen debug APK prototipidir. Paket kimliği şimdilik `com.ysturan.deepricochet` değeridir.
-
-Godot 4.7.2 ile ilk APK'yı üretmeden önce:
-
-1. **Editor → Manage Export Templates** içinden tam olarak `4.7.2.stable` Android export şablonunu kurun.
-2. **Editor Settings → Export → Android** altında Java SDK yolunu Android Studio'nun `jbr` klasörüne, Android SDK yolunu içinde `platform-tools/adb` bulunan SDK klasörüne ayarlayın.
-3. **Project → Install Android Build Template** ile Gradle şablonunu projeye kurun. Oluşan `deep-ricochet/android/` dizini makine üretimi olduğu için Git'e alınmaz.
-4. Debug APK için Godot'un Export ekranındaki **Export Project** düğmesini veya aşağıdaki komutu kullanın:
-
-```text
-godot --headless --path deep-ricochet --export-debug Android build/android/deep-ricochet-debug.apk
-```
-
-Temiz bir checkout'ta aynı akışı doğrulayan PowerShell betiği de kullanılabilir. Betik Godot sürümünü denetler, eksikse Android Gradle build şablonunu kurar, kaynakları içe aktarır ve dört Android ABI'sini içeren genel debug APK'yı üretir:
+Komut satırından editörü açmak için depo kökünde şu komut kullanılabilir:
 
 ```powershell
-.\deep-ricochet\tools\build_android_debug.ps1 `
-  -GodotPath "C:\path\to\Godot_v4.7.2-stable_win64.exe"
+& "C:\path\to\Godot_v4.7.2-stable_win64.exe" `
+  --editor `
+  --path .\deep-ricochet
 ```
 
-Google Play sürümü P0 kapsamı dışındadır. İleride mağaza dağıtımına geçilirse AAB, güncel hedef API, ARM64 ve depoya eklenmeyen özel bir release keystore ayrıca yapılandırılmalıdır.
+Godot ilk açılışta `.godot/` içe aktarma önbelleğini yeniden üretir. Bu klasör makineye özgüdür ve Git tarafından izlenmez.
 
-## Otomatik test
+## Otomatik testler
 
-Godot komut satırından proje kökünde şu sahne çalıştırılır:
+Tüm temel doğrulamalar depo kökünden tek PowerShell betiğiyle çalıştırılır:
 
 ```powershell
 .\deep-ricochet\tools\run_smoke_tests.ps1 `
   -GodotPath "C:\path\to\Godot_v4.7.2-stable_win64.exe"
 ```
 
-Bu kapı yalnız işlem koduna güvenmez; `[PASS]` işaretini zorunlu tutar ve GDScript ayrıştırma, derleme veya assertion hatası görürse başarısız olur. Android build betiği APK üretmeden önce aynı kapıyı otomatik çalıştırır; çıktıda ARMv7 ile ARM64 yerel kütüphanelerinin bulunduğunu ve başka bir mimarinin eklenmediğini doğrular.
+Betik yalnızca işlem çıkış koduna bakmaz. Çıktıda `[PASS]` işaretini zorunlu tutar; GDScript ayrıştırma/derleme hatası, geçersiz kaynak veya başarısız assertion görürse işlemi durdurur.
 
-Test; profil ve ayar geçişlerini, on dört madenin kilitleri ile günlük maden istatistiklerini, iki sayfalı maden seçimini, grafik/performans tercihini, titreşim ayarı ile eski ayar şeması göçünü, efekt/müzik bus'larını, melodik çarpışma hız sınırını, sessiz modu, profil yedeğinden kurtarmayı, iki dili, üç aşamalı ilk-oyun öğreticisini, tüm veri silme hata davranışını, ayrıntılı oda sonuç geçmişini, aynı seed tekrarını, 1×/2× sabit adımlı simülasyonu ve iki hızın aynı blok/puan/top sonucunu üretmesini, ana menü ve devam durumunu, nişan sırasında duraklatmayı, canlı yaylımın donmasını, odak kaybını, 98 normal ve 14 günlük oda şablonunu, bütün odalarda boş alt iki satırı, dar damarların geniş geçitlerden yüksek ortalama dayanıklılığını, günlük 5 atış kuralını, özel blokların seviye eşiklerini, erişilebilir zırh yönlerini, 5×5 ve zincirleme patlama davranışını, örnek açı geçişlerini, maden başına 100 seed seçimini, aynı seed'in tüm rota tekliflerini, dört oda/üç rota akışını, P1 test olaylarının izin listesi ile JSON dışa aktarımını, atış ortası kurtarmayı, bozuk kayıt reddini, fiziği ve puanı doğrular. Ayrıca 112 odanın örnek açı simülasyon süresini test çıktısında `[PERF]` satırıyla raporlar.
+Test paketi başlıca şu alanları kapsar:
 
-Gerçek cihazda kalan kabul adımları [P1 kabul kontrol listesinde](P1_ACCEPTANCE.md) tutulur.
+- Top hareketi, duvar ve kare blok çarpışmaları, temas başına tek hasar.
+- Nişan önizlemesi ile gerçek atışın aynı sonuçları üretmesi.
+- Yaylım zamanlaması, `1×`/`2×` eşdeğerliği ve oda sonuçları.
+- Yedi blok türü, erişilebilir zırh kenarları, 5×5 ve zincirleme patlama.
+- Puan, kalan atış bonusu, geniş/dar rota çarpanları.
+- 98 normal ve 14 günlük oda; şablon şeması, alt iki satır ve örnek çözüm açıları.
+- Maden kilitleri, günlük seed, aynı seed ile tekrar ve dört odalık koşu akışı.
+- Profil, ayarlar, veri göçleri, atomik kayıt, yedek ve bozuk dosya karantinası.
+- Ana menü, sonuç, duraklatma, Android geri davranışı ve arka plan dönüşü.
+- Türkçe/İngilizce çeviriler, ses sınırları, titreşim, kalite modu ve renk temaları.
+
+Test sonunda 112 oda için örnek açı simülasyon süresi `[PERF]` satırıyla ayrıca raporlanır.

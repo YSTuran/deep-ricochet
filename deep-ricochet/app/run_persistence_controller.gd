@@ -55,8 +55,11 @@ func boot_from_save(controller) -> void:
 			return
 	if load_result.status == SaveLoadResult.Status.INVALID:
 		controller.last_recovery_message = controller.tr("NOTICE_SAVE_INVALID")
-		controller.save_service.quarantine_invalid()
-		controller._show_main_menu(false, controller.last_recovery_message)
+		if controller.save_service.quarantine_invalid():
+			controller._show_main_menu(false, controller.last_recovery_message)
+		else:
+			controller._report_save_error(controller.save_service.last_error, &"run")
+			controller._show_main_menu(false, controller.tr("NOTICE_STORAGE_FAILED"))
 		return
 	controller._show_main_menu(false)
 

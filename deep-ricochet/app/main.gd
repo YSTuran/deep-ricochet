@@ -9,6 +9,8 @@ const UserDataController := preload("res://app/user_data_controller.gd")
 const StorageCoordinator := preload("res://app/storage_coordinator.gd")
 const RunPersistenceController := preload("res://app/run_persistence_controller.gd")
 const RunNavigationController := preload("res://app/run_navigation_controller.gd")
+const RunRoomFlowController := preload("res://app/run_room_flow_controller.gd")
+const RunFeedbackController := preload("res://app/run_feedback_controller.gd")
 const UiLayoutScript := preload("res://ui/ui_layout.gd")
 
 @export var persistence_enabled := true
@@ -35,8 +37,6 @@ enum SettingsContext {
 	PAUSE,
 }
 
-const HAPTIC_COOLDOWN_MSEC := 90
-
 var config: GameConfig
 var mine_registry: MineRegistry
 var catalog: RoomCatalog
@@ -56,6 +56,8 @@ var user_data_controller = UserDataController.new()
 var storage_coordinator = StorageCoordinator.new()
 var persistence_controller = RunPersistenceController.new()
 var navigation_controller = RunNavigationController.new()
+var room_flow_controller = RunRoomFlowController.new()
+var feedback_controller = RunFeedbackController.new()
 var last_save_error: String
 var last_recovery_message: String
 var last_result_new_best := false
@@ -72,7 +74,6 @@ var confirmation_from_main_menu := false
 var settings_context: SettingsContext = SettingsContext.MAIN_MENU
 var tutorial_return_to_settings := false
 var tutorial_coach_step := -1
-var last_haptic_tick_msec := -HAPTIC_COOLDOWN_MSEC
 var pending_new_mine_id: StringName = &"mine_01"
 var pending_new_run_kind: int = RunSession.RunKind.NORMAL
 var pending_new_seed := 0
@@ -420,97 +421,11 @@ func show_main_menu_from_result() -> bool:
 
 
 func select_route(option_id: StringName) -> bool:
-	if run_session == null:
-		return false
-	var selected_template := run_session.route_template(option_id)
-	if selected_template == null:
-		return false
-	var previous_template := gameplay_room.current_template
-	var previous_room_snapshot := gameplay_room.capture_snapshot()
-	if not gameplay_room.load_room(selected_template):
-		return false
-	if run_session.select_route(option_id) == null:
-		if previous_template != null and previous_room_snapshot != null:
-			gameplay_room.restore_room(previous_template, previous_room_snapshot)
-		return false
-	_record_test_event(&"route_selected", {
-		"optionId": str(option_id),
-		"templateId": str(selected_template.room_id),
-	})
-	gameplay_room.set_run_context(
-		run_session.room_number,
-		run_session.room_count,
-		run_session.banked_score,
-	)
-	AudioManager.play_route_select()
-	flow_view.show_gameplay()
-	gameplay_room.set_simulation_enabled(true)
-	pause_button.visible = true
-	speed_button.visible = true
-	_refresh_speed_button()
-	if tutorial_coach_step == 2:
-		_finish_interactive_tutorial()
-	_save_stable()
-	return true
+	return room_flow_controller.select_route(self, option_id)
 
 
 func _on_room_finished(resolution: RoomResolution) -> void:
-	if run_session == null or not run_session.resolve_room(resolution):
-		return
-	_record_test_event(&"room_completed", {
-		"templateId": str(run_session.current_template_id),
-		"shotsRemaining": resolution.remaining_shots,
-		"breakScore": resolution.break_score,
-		"reward": resolution.reward,
-		"multiplierBps": resolution.multiplier_bps,
-		"succeeded": resolution.succeeded,
-	}, false)
-	gameplay_room.set_simulation_enabled(false)
-	if run_session.ended:
-		_record_test_event(&"run_ended", {
-			"succeeded": run_session.succeeded,
-			"coresBroken": run_session.cores_broken,
-			"routeChoices": run_session.route_choices_made,
-			"totalScore": run_session.banked_score,
-		})
-		if tutorial_overlay.mode == TutorialOverlay.Mode.COACH:
-			tutorial_overlay.hide_overlay()
-			tutorial_coach_step = -1
-		_record_run_result_if_needed()
-		_save_stable()
-		pause_button.visible = false
-		speed_button.visible = false
-		flow_view.show_run_result(run_session, profile, last_result_new_best)
-		return
-
-	var options := catalog.create_route_options(
-		run_session.room_number + 1,
-		rng,
-		run_session.used_template_ids(),
-		run_session.mine_id,
-	)
-	if not run_session.set_route_options(options):
-		push_error("Sonraki oda için rota seçenekleri üretilemedi.")
-		return
-	var option_ids: Array[String] = []
-	var template_ids: Array[String] = []
-	var multipliers_bps: Array[int] = []
-	for option: RouteOption in options:
-		option_ids.append(str(option.option_id))
-		template_ids.append(str(option.template.room_id))
-		multipliers_bps.append(option.template.multiplier_bps)
-	_record_test_event(&"route_offered", {
-		"optionIds": option_ids,
-		"templateIds": template_ids,
-		"multipliersBps": multipliers_bps,
-	})
-	_save_stable()
-	pause_button.visible = true
-	speed_button.visible = false
-	flow_view.show_route_selection(run_session)
-	if tutorial_coach_step == 1 and run_session.room_number == 1:
-		tutorial_coach_step = 2
-		tutorial_overlay.show_coach(tutorial_coach_step)
+	room_flow_controller.on_room_finished(self, resolution)
 
 
 func create_snapshot() -> RunSnapshot:
@@ -522,58 +437,19 @@ func restore_snapshot(snapshot: RunSnapshot, recovery_message: String = "") -> b
 
 
 func _on_shot_will_start() -> void:
-	if tutorial_coach_step == 0:
-		tutorial_coach_step = 1
-		tutorial_overlay.show_coach(tutorial_coach_step)
-	if not persistence_enabled or save_service == null:
-		return
-	var snapshot := create_snapshot()
-	if save_service.save_pre_shot(snapshot):
-		_mark_storage_write_succeeded(&"run")
-	else:
-		_report_save_error(save_service.last_error, &"run")
+	room_flow_controller.on_shot_will_start(self)
 
 
 func _on_shot_started() -> void:
-	_record_test_event(&"shot_started", {
-		"templateId": str(run_session.current_template_id) if run_session != null else "",
-		"shotsRemaining": gameplay_room.room.shots_remaining,
-		"ballsLaunched": gameplay_room.volley.launched_count,
-	}, false)
+	room_flow_controller.on_shot_started(self)
 
 
 func _on_shot_resolved(resolution: RoomResolution) -> void:
-	_record_test_event(&"shot_resolved", {
-		"templateId": str(run_session.current_template_id) if run_session != null else "",
-		"shotsRemaining": resolution.remaining_shots,
-		"ballsLaunched": gameplay_room.volley.launched_count,
-		"ballsCollected": gameplay_room.volley.collected_count,
-		"ballsForcedCollected": gameplay_room.volley.forced_collection_count,
-		"breakScore": resolution.break_score,
-		"reward": resolution.reward,
-		"multiplierBps": resolution.multiplier_bps,
-		"succeeded": resolution.succeeded,
-		"roomFinished": resolution.room_finished,
-	}, not resolution.room_finished)
-	if resolution.room_finished:
-		return
-	_save_stable()
+	room_flow_controller.on_shot_resolved(self, resolution)
 
 
 func _on_block_destroyed(block_type: int) -> void:
-	if app_settings == null:
-		return
-	var is_core := block_type == BlockState.BlockType.CORE
-	var is_explosive := block_type == BlockState.BlockType.EXPLOSIVE
-	if app_settings.haptics_enabled:
-		_try_haptic(70 if is_core else (45 if is_explosive else 20))
-	if not app_settings.shake_enabled:
-		return
-	var quality_scale := 1.0 if app_settings.quality_mode == AppSettings.QualityMode.GRAPHICS else 0.55
-	gameplay_room.trigger_screen_shake(
-		(7.0 if is_core else (5.0 if is_explosive else 3.0)) * quality_scale,
-		(0.26 if is_core else (0.2 if is_explosive else 0.14)) * quality_scale,
-	)
+	feedback_controller.on_block_destroyed(self, block_type)
 
 
 func _load_current_room(template: RoomTemplate) -> bool:
@@ -700,32 +576,11 @@ func _refresh_speed_button() -> void:
 
 
 func _apply_quality_mode() -> void:
-	if app_settings == null:
-		return
-	DeepUI.set_high_quality(app_settings.quality_mode == AppSettings.QualityMode.GRAPHICS)
-	if is_instance_valid(gameplay_room):
-		gameplay_room.set_quality_mode(app_settings.quality_mode)
-	if is_instance_valid(main_menu_view):
-		main_menu_view.queue_redraw()
-	if is_instance_valid(flow_view):
-		flow_view.queue_redraw()
+	feedback_controller.apply_quality_mode(self)
 
 
 func _apply_color_theme() -> void:
-	if app_settings == null or not CaveTheme.set_current_theme(app_settings.color_theme):
-		return
-	if is_instance_valid(gameplay_room):
-		gameplay_room.refresh_locale()
-	for view: CanvasItem in [
-		main_menu_view,
-		mine_select_view,
-		pause_overlay,
-		settings_overlay,
-		tutorial_overlay,
-		flow_view,
-	]:
-		if is_instance_valid(view):
-			view.queue_redraw()
+	feedback_controller.apply_color_theme(self)
 
 
 func _record_test_event(
@@ -755,10 +610,4 @@ func _record_snapshot_test_event(
 
 
 func _try_haptic(duration_msec: int) -> void:
-	if not OS.has_feature("android"):
-		return
-	var now_msec := Time.get_ticks_msec()
-	if now_msec - last_haptic_tick_msec < HAPTIC_COOLDOWN_MSEC:
-		return
-	last_haptic_tick_msec = now_msec
-	Input.vibrate_handheld(duration_msec)
+	feedback_controller.try_haptic(duration_msec)

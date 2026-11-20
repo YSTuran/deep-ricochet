@@ -125,11 +125,14 @@ func _load() -> void:
 	last_error = ""
 	var raw: Variant = store.load_dictionary(_is_valid_envelope_data)
 	if raw == null:
-		if store.load_had_invalid_data:
-			store.quarantine_invalid()
+		if store.load_had_invalid_data and not store.quarantine_invalid():
+			last_error = store.last_error
 		return
 	if not _load_envelope(raw):
-		store.quarantine_invalid()
+		if not store.quarantine_invalid():
+			last_error = store.last_error
+			events.clear()
+			return
 		events.clear()
 		last_error = "Geçersiz test olay dosyası karantinaya alındı."
 		return

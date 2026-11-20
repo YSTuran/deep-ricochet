@@ -80,12 +80,6 @@ func create_run(
 		"seed": run_seed,
 		"rng_state": candidate_rng.state,
 	}
-	return {
-		"session": session,
-		"firstTemplate": first_template,
-		"seed": run_seed,
-		"rngState": candidate_rng.state,
-	}
 
 
 static func current_daily_key() -> String:

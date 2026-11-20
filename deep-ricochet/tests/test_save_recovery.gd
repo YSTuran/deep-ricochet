@@ -216,6 +216,12 @@ static func _test_backup_and_invalid_save(
 	_write_text(service.primary_path, "{hala-bozuk")
 	loaded = service.load_active(controller.catalog, config)
 	assert(loaded.status == SaveLoadResult.Status.INVALID)
+	assert(service.quarantine_invalid())
+	assert(not FileAccess.file_exists(service.primary_path))
+	_write_text(service.primary_path, "{ayni-saniyede-yeniden-bozuk")
+	assert(service.quarantine_invalid())
+	assert(not FileAccess.file_exists(service.primary_path))
+	_remove_quarantined_files(service.primary_path)
 
 	assert(service.clear_all())
 	var legacy_envelope := SaveEnvelope.create(controller.create_snapshot()).to_dictionary()
@@ -391,3 +397,14 @@ static func _write_text(path: String, content: String) -> void:
 	assert(file != null)
 	file.store_string(content)
 	file.close()
+
+
+static func _remove_quarantined_files(path: String) -> void:
+	var absolute_path := ProjectSettings.globalize_path(path)
+	var directory_path := absolute_path.get_base_dir()
+	var file_prefix := "%s.corrupt." % absolute_path.get_file()
+	var directory := DirAccess.open(directory_path)
+	assert(directory != null)
+	for file_name: String in directory.get_files():
+		if file_name.begins_with(file_prefix):
+			assert(DirAccess.remove_absolute(directory_path.path_join(file_name)) == OK)

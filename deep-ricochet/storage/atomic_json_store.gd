@@ -134,12 +134,29 @@ func discard_primary() -> bool:
 	return false
 
 
-func quarantine_invalid() -> void:
+func quarantine_invalid() -> bool:
+	last_error = ""
 	loaded_from_backup = false
 	var suffix := ".corrupt.%d" % int(Time.get_unix_time_from_system())
+	var succeeded := true
 	for path: String in [primary_path, backup_path]:
-		if FileAccess.file_exists(path):
-			DirAccess.rename_absolute(_absolute(path), _absolute("%s%s" % [path, suffix]))
+		if not FileAccess.file_exists(path):
+			continue
+		var destination := "%s%s" % [path, suffix]
+		var collision_index := 1
+		while FileAccess.file_exists(destination):
+			destination = "%s%s.%d" % [path, suffix, collision_index]
+			collision_index += 1
+		var rename_error := DirAccess.rename_absolute(
+			_absolute(path),
+			_absolute(destination),
+		)
+		if rename_error == OK:
+			continue
+		succeeded = false
+		var detail := "Bozuk veri karantinaya taşınamadı: %s (%s)" % [path, rename_error]
+		last_error = detail if last_error.is_empty() else "%s; %s" % [last_error, detail]
+	return succeeded
 
 
 func _read_dictionary(path: String) -> Variant:

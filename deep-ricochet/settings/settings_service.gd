@@ -15,8 +15,11 @@ func load_settings() -> AppSettings:
 	var data: Variant = store.load_dictionary(_is_valid_settings_data)
 	if data == null:
 		if store.load_had_invalid_data:
-			store.quarantine_invalid()
-			last_error = "Ayar dosyası okunamadı; varsayılanlar kullanılıyor."
+			if store.quarantine_invalid():
+				last_error = "Ayar dosyası okunamadı; varsayılanlar kullanılıyor."
+			else:
+				last_error = "Ayar dosyası okunamadı ve karantinaya alınamadı: %s" \
+					% store.last_error
 		return AppSettings.new()
 	var settings := AppSettings.from_dictionary(data)
 	if settings.is_valid():
@@ -25,8 +28,10 @@ func load_settings() -> AppSettings:
 		else:
 			last_error = ""
 		return settings
-	store.quarantine_invalid()
-	last_error = "Ayarlar doğrulanamadı; varsayılanlar kullanılıyor."
+	if store.quarantine_invalid():
+		last_error = "Ayarlar doğrulanamadı; varsayılanlar kullanılıyor."
+	else:
+		last_error = "Ayarlar doğrulanamadı ve karantinaya alınamadı: %s" % store.last_error
 	return AppSettings.new()
 
 

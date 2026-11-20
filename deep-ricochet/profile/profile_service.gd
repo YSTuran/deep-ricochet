@@ -15,8 +15,11 @@ func load_profile() -> PlayerProfile:
 	var data: Variant = store.load_dictionary(_is_valid_profile_data)
 	if data == null:
 		if store.load_had_invalid_data:
-			store.quarantine_invalid()
-			last_error = "Profil dosyası okunamadı; varsayılan profil oluşturuldu."
+			if store.quarantine_invalid():
+				last_error = "Profil dosyası okunamadı; varsayılan profil oluşturuldu."
+			else:
+				last_error = "Profil dosyası okunamadı ve karantinaya alınamadı: %s" \
+					% store.last_error
 		return PlayerProfile.new()
 	var profile := PlayerProfile.from_dictionary(data)
 	if profile.is_valid():
@@ -25,8 +28,10 @@ func load_profile() -> PlayerProfile:
 		else:
 			last_error = ""
 		return profile
-	store.quarantine_invalid()
-	last_error = "Profil doğrulanamadı; varsayılan profil oluşturuldu."
+	if store.quarantine_invalid():
+		last_error = "Profil doğrulanamadı; varsayılan profil oluşturuldu."
+	else:
+		last_error = "Profil doğrulanamadı ve karantinaya alınamadı: %s" % store.last_error
 	return PlayerProfile.new()
 
 

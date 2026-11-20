@@ -65,8 +65,10 @@ func discard_primary() -> bool:
 	return discarded
 
 
-func quarantine_invalid() -> void:
-	store.quarantine_invalid()
+func quarantine_invalid() -> bool:
+	var quarantined := store.quarantine_invalid()
+	last_error = store.last_error
+	return quarantined
 
 
 func _write_envelope(envelope: SaveEnvelope) -> bool:
