@@ -8,19 +8,19 @@
 
 config_version=5
 
-[autoload]
-
-AudioManager="*res://audio/audio_manager.gd"
-
 [application]
 
 config/name="Deep Ricochet"
 config/description="Aim, ricochet, break the core, and choose your route."
 config/version="0.1.0"
 run/main_scene="res://app/main.tscn"
+config/quit_on_go_back=false
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://assets/images/icons/icon.svg"
-config/quit_on_go_back=false
+
+[autoload]
+
+AudioManager="*res://audio/audio_manager.gd"
 
 [display]
 
@@ -29,22 +29,14 @@ window/size/viewport_height=960
 window/size/window_width_override=540
 window/size/window_height_override=960
 window/stretch/mode="canvas_items"
-window/stretch/aspect="keep"
 window/handheld/orientation=1
-
-[input_devices]
-
-pointing/emulate_mouse_from_touch=true
-pointing/emulate_touch_from_mouse=false
 
 [internationalization]
 
-locale/fallback="en"
 locale/translations=PackedStringArray("res://localization/translations.en.translation", "res://localization/translations.tr.translation")
 
 [physics]
 
-common/physics_ticks_per_second=60
 3d/physics_engine="Jolt Physics"
 2d/default_gravity=0.0
 
