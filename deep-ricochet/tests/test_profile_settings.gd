@@ -3,6 +3,8 @@ extends RefCounted
 const PROFILE_PATH := "user://tests/deep_ricochet_profile_test.json"
 const SETTINGS_PATH := "user://tests/deep_ricochet_settings_test.json"
 const UiLayoutScript := preload("res://ui/ui_layout.gd")
+const THEME_TEST_TEXTURE: Texture2D = preload("res://assets/images/blocks/blok_normal.png")
+const THEME_TEST_SOURCE := Rect2(139.0, 159.0, 976.0, 939.0)
 
 
 class FailingSaveService:
@@ -113,6 +115,7 @@ static func _test_settings_round_trip() -> void:
 	settings.shake_enabled = false
 	settings.haptics_enabled = false
 	settings.quality_mode = AppSettings.QualityMode.GRAPHICS
+	settings.color_theme = AppSettings.ColorTheme.GLACIAL
 	assert(service.save_settings(settings))
 	var restored := service.load_settings()
 	assert(restored.language == &"en")
@@ -123,6 +126,7 @@ static func _test_settings_round_trip() -> void:
 	assert(not restored.shake_enabled)
 	assert(not restored.haptics_enabled)
 	assert(restored.quality_mode == AppSettings.QualityMode.GRAPHICS)
+	assert(restored.color_theme == AppSettings.ColorTheme.GLACIAL)
 	assert(service.save_settings(settings))
 	settings.sfx_volume = 0.4
 	assert(service.save_settings(settings))
@@ -147,6 +151,7 @@ static func _test_settings_round_trip() -> void:
 	assert(restored.schema_version == AppSettings.SCHEMA_VERSION)
 	assert(restored.haptics_enabled)
 	assert(restored.quality_mode == AppSettings.QualityMode.PERFORMANCE)
+	assert(restored.color_theme == AppSettings.ColorTheme.DEEP_SAPPHIRE)
 
 	_write_text(SETTINGS_PATH, JSON.stringify({
 		"schemaVersion": 1,
@@ -162,6 +167,23 @@ static func _test_settings_round_trip() -> void:
 	assert(restored.shake_enabled)
 	assert(restored.haptics_enabled)
 	assert(restored.quality_mode == AppSettings.QualityMode.PERFORMANCE)
+	assert(restored.color_theme == AppSettings.ColorTheme.DEEP_SAPPHIRE)
+	for theme_id in range(CaveTheme.THEME_COUNT):
+		assert(CaveTheme.is_supported(theme_id))
+		assert(not CaveTheme.name_key(theme_id).is_empty())
+		assert(CaveTheme.swatch_colors(theme_id).size() == 5)
+		assert(CaveTheme.color_for_theme(theme_id, &"rock") != Color.WHITE)
+	assert(not CaveTheme.is_supported(-1))
+	assert(not CaveTheme.is_supported(CaveTheme.THEME_COUNT))
+	assert(CaveTheme.set_current_theme(CaveTheme.AMETHYST))
+	var themed_texture := CaveTheme._themed_texture(
+		THEME_TEST_TEXTURE,
+		THEME_TEST_SOURCE,
+		BlockState.BlockType.NORMAL,
+	)
+	assert(themed_texture != null)
+	assert(themed_texture.get_size() == Vector2.ONE * CaveTheme.GENERATED_TEXTURE_SIZE)
+	assert(CaveTheme.set_current_theme(CaveTheme.DEEP_SAPPHIRE))
 	assert(service.clear_all())
 
 
@@ -319,6 +341,18 @@ static func _test_controller_profile_tutorial_and_locale(controller: RunControll
 	controller.set_quality_mode(AppSettings.QualityMode.PERFORMANCE)
 	assert(controller.gameplay_room.quality_mode == AppSettings.QualityMode.PERFORMANCE)
 	assert(not DeepUI.high_quality_enabled)
+	controller.settings_overlay.show_settings("", SettingsOverlay.Page.COLOR_THEME)
+	assert(controller.settings_overlay._touch_targets().size() == CaveTheme.THEME_COUNT + 1)
+	controller.set_color_theme(AppSettings.ColorTheme.AMETHYST)
+	assert(controller.app_settings.color_theme == AppSettings.ColorTheme.AMETHYST)
+	assert(CaveTheme.current_theme == CaveTheme.AMETHYST)
+	assert(CaveTheme.block_color(BlockState.BlockType.ROCK) == Color("3a3445"))
+	controller.set_color_theme(AppSettings.ColorTheme.VOLCANIC)
+	assert(CaveTheme.current_theme == CaveTheme.VOLCANIC)
+	controller.set_color_theme(AppSettings.ColorTheme.MOSSY)
+	assert(CaveTheme.current_theme == CaveTheme.MOSSY)
+	controller.set_color_theme(AppSettings.ColorTheme.GLACIAL)
+	assert(CaveTheme.current_theme == CaveTheme.GLACIAL)
 	if not controller.app_settings.shake_enabled:
 		controller.toggle_screen_shake()
 	controller.gameplay_room.view.shake_remaining = 0.0
@@ -355,6 +389,8 @@ static func _test_controller_profile_tutorial_and_locale(controller: RunControll
 	assert(is_equal_approx(controller.app_settings.music_volume, 0.28))
 	assert(controller.app_settings.haptics_enabled)
 	assert(controller.app_settings.quality_mode == AppSettings.QualityMode.PERFORMANCE)
+	assert(controller.app_settings.color_theme == AppSettings.ColorTheme.DEEP_SAPPHIRE)
+	assert(CaveTheme.current_theme == CaveTheme.DEEP_SAPPHIRE)
 	assert(controller.failed_storage_channels.is_empty())
 	assert(not controller.storage_notice.visible)
 	assert(controller.main_menu_view.visible)

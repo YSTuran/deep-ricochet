@@ -358,6 +358,10 @@ func set_quality_mode(mode: int) -> void:
 	settings_controller.set_quality_mode(self, mode)
 
 
+func set_color_theme(theme_id: int) -> void:
+	settings_controller.set_color_theme(self, theme_id)
+
+
 func show_tutorial_from_settings() -> void:
 	settings_controller.show_tutorial(self)
 
@@ -705,6 +709,23 @@ func _apply_quality_mode() -> void:
 		main_menu_view.queue_redraw()
 	if is_instance_valid(flow_view):
 		flow_view.queue_redraw()
+
+
+func _apply_color_theme() -> void:
+	if app_settings == null or not CaveTheme.set_current_theme(app_settings.color_theme):
+		return
+	if is_instance_valid(gameplay_room):
+		gameplay_room.refresh_locale()
+	for view: CanvasItem in [
+		main_menu_view,
+		mine_select_view,
+		pause_overlay,
+		settings_overlay,
+		tutorial_overlay,
+		flow_view,
+	]:
+		if is_instance_valid(view):
+			view.queue_redraw()
 
 
 func _record_test_event(

@@ -75,7 +75,11 @@ func _draw_impact_effects() -> void:
 		var is_core := block_type == BlockState.BlockType.CORE
 		var end_radius := 72.0 if is_explosion else (38.0 if is_core else (30.0 if destroyed else 20.0))
 		var radius := lerpf(8.0, end_radius, progress)
-		var color := Color(Color("ff8a3d") if is_explosion else _impact_color(block_type), 1.0 - progress)
+		var color := Color(
+			CaveTheme.block_color(BlockState.BlockType.EXPLOSIVE) \
+				if is_explosion else _impact_color(block_type),
+			1.0 - progress,
+		)
 		draw_arc(center, radius, 0.0, TAU, 16, color, 3.0, true)
 		if destroyed:
 			var high_quality := room.quality_mode == AppSettings.QualityMode.GRAPHICS
@@ -100,15 +104,4 @@ func _draw_impact_effects() -> void:
 
 
 func _impact_color(block_type: int) -> Color:
-	match block_type:
-		BlockState.BlockType.ORE:
-			return DeepUI.GOLD
-		BlockState.BlockType.CORE:
-			return DeepUI.CORE
-		BlockState.BlockType.EXPLOSIVE:
-			return Color("ff6b35")
-		BlockState.BlockType.CRACKED:
-			return Color("b7a58b")
-		BlockState.BlockType.ARMORED:
-			return Color("8ca6b8")
-	return DeepUI.BLUE
+	return CaveTheme.block_color(block_type)

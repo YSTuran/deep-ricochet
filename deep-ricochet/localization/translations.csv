@@ -32,6 +32,14 @@ SETTINGS_AUDIO,AUDIO,SES
 SETTINGS_AUDIO_HINT,Effects and music,Efektler ve müzik
 SETTINGS_DISPLAY_FEEDBACK,DISPLAY & FEEDBACK,GÖRÜNTÜ VE GERİ BİLDİRİM
 SETTINGS_DISPLAY_HINT,Graphics • shake • vibration,Grafik • sarsıntı • titreşim
+SETTINGS_COLOR_THEME,COLOR THEMES,RENK TEMALARI
+SETTINGS_THEME_HINT,Cave background and every block,Mağara arka planı ve tüm bloklar
+SETTINGS_THEME_DESCRIPTION,Choose a cave palette.,Bir mağara renk paleti seç.
+THEME_DEEP_SAPPHIRE,DEEP SAPPHIRE,DERİN SAFİR
+THEME_AMETHYST,AMETHYST VEIN,AMETİST DAMAR
+THEME_VOLCANIC,VOLCANIC SHAFT,VOLKANİK OCAK
+THEME_MOSSY,MOSSY CAVERN,YOSUNLU MAĞARA
+THEME_GLACIAL,GLACIAL MINE,BUZUL MADENİ
 SETTINGS_LANGUAGE,LANGUAGE,DİL
 SETTINGS_TURKISH,TÜRKÇE,TÜRKÇE
 SETTINGS_ENGLISH,ENGLISH,İNGİLİZCE
@@ -69,7 +77,7 @@ TUTORIAL_BODY_3,Solid rock cannot be broken and reflects balls. Cracked rock alw
 TUTORIAL_TITLE_4,EXPLOSIVE BLOCK,PATLAYICI BLOK
 TUTORIAL_BODY_4,Breaking an explosive awards 10 points and deals 3 damage to every block in its 5 by 5 blast area.,Patlayıcıyı kırmak 10 puan verir ve 5 çarpı 5 patlama alanındaki her bloğa 3 hasar verir.
 TUTORIAL_TITLE_5,ARMORED BLOCK,ZIRHLI BLOK
-TUTORIAL_BODY_5,Armored blocks award 40 points and only take direct damage from their pink weak side or sides.,Zırhlı bloklar 40 puan verir ve yalnızca pembe zayıf kenarlarından doğrudan hasar alır.
+TUTORIAL_BODY_5,Armored blocks award 40 points and only take direct damage from their weak side or sides.,Zırhlı bloklar 40 puan verir ve yalnızca zayıf kenarlarından doğrudan hasar alır.
 TUTORIAL_TITLE_6,CHOOSE YOUR ROUTE,ROTANI SEÇ
 TUTORIAL_BODY_6,Wide passages are safer. Narrow veins contain denser layouts but provide a higher score multiplier.,Geniş geçitler daha güvenlidir. Dar damarlar daha yoğundur ancak daha yüksek puan çarpanı verir.
 ROUTE_SELECT,CHOOSE A ROUTE,ROTA SEÇ

@@ -65,14 +65,20 @@ func _gui_input(event: InputEvent) -> void:
 
 func _draw() -> void:
 	DeepUI.draw_cave_background(self, VIEW_SIZE)
-	DeepUI.draw_glow(self, Vector2(270.0, 208.0), 70.0, DeepUI.CORE)
-	draw_texture_rect(CORE_TEXTURE, Rect2(190.0, 128.0, 160.0, 160.0), false)
+	var core_color := CaveTheme.block_color(BlockState.BlockType.CORE)
+	DeepUI.draw_glow(self, Vector2(270.0, 208.0), 70.0, core_color)
+	CaveTheme.draw_texture(
+		self,
+		CORE_TEXTURE,
+		Rect2(190.0, 128.0, 160.0, 160.0),
+		BlockState.BlockType.CORE,
+	)
 	DeepUI.draw_title_plate(
 		self,
 		"DEEP RICOCHET",
 		Rect2(70.0, 310.0, 400.0, 68.0),
 		36,
-		DeepUI.CORE,
+		core_color,
 	)
 	DeepUI.draw_centered(
 		self,

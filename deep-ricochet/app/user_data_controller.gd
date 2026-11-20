@@ -71,6 +71,7 @@ func delete_all(controller) -> bool:
 	TranslationServer.set_locale(str(controller.app_settings.language))
 	AudioManager.apply_settings(controller.app_settings)
 	controller._apply_quality_mode()
+	controller._apply_color_theme()
 	controller.settings_overlay.hide_overlay()
 	controller.tutorial_overlay.hide_overlay()
 	controller.pause_overlay.hide_overlay()

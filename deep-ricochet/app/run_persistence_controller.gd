@@ -13,6 +13,7 @@ func initialize_user_data(controller) -> void:
 	TranslationServer.set_locale(str(controller.app_settings.language))
 	AudioManager.apply_settings(controller.app_settings)
 	controller._apply_quality_mode()
+	controller._apply_color_theme()
 
 
 func boot_from_save(controller) -> void:

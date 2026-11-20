@@ -13,12 +13,14 @@ enum Page {
 	GENERAL,
 	AUDIO,
 	DISPLAY_FEEDBACK,
+	COLOR_THEME,
 }
 
 const VIEW_SIZE := Vector2(540.0, 960.0)
-const GENERAL_CATEGORY_BUTTON := Rect2(80.0, 220.0, 380.0, 64.0)
-const AUDIO_CATEGORY_BUTTON := Rect2(80.0, 365.0, 380.0, 64.0)
-const DISPLAY_CATEGORY_BUTTON := Rect2(80.0, 510.0, 380.0, 64.0)
+const GENERAL_CATEGORY_BUTTON := Rect2(80.0, 190.0, 380.0, 58.0)
+const AUDIO_CATEGORY_BUTTON := Rect2(80.0, 325.0, 380.0, 58.0)
+const DISPLAY_CATEGORY_BUTTON := Rect2(80.0, 460.0, 380.0, 58.0)
+const THEME_CATEGORY_BUTTON := Rect2(80.0, 595.0, 380.0, 58.0)
 const TURKISH_BUTTON := Rect2(55.0, 245.0, 210.0, 58.0)
 const ENGLISH_BUTTON := Rect2(275.0, 245.0, 210.0, 58.0)
 const TUTORIAL_BUTTON := Rect2(80.0, 390.0, 380.0, 58.0)
@@ -34,10 +36,18 @@ const HAPTICS_BUTTON := Rect2(80.0, 495.0, 380.0, 58.0)
 const BACK_BUTTON := Rect2(80.0, 835.0, 380.0, 58.0)
 const CANCEL_BUTTON := Rect2(55.0, 570.0, 200.0, 70.0)
 const CONFIRM_BUTTON := Rect2(285.0, 570.0, 200.0, 70.0)
+const THEME_BUTTON_RECTS := [
+	Rect2(55.0, 190.0, 430.0, 72.0),
+	Rect2(55.0, 285.0, 430.0, 72.0),
+	Rect2(55.0, 380.0, 430.0, 72.0),
+	Rect2(55.0, 475.0, 430.0, 72.0),
+	Rect2(55.0, 570.0, 430.0, 72.0),
+]
 
 const ACTION_GENERAL := &"general"
 const ACTION_AUDIO := &"audio"
 const ACTION_DISPLAY := &"display"
+const ACTION_THEME := &"theme"
 const ACTION_TURKISH := &"turkish"
 const ACTION_ENGLISH := &"english"
 const ACTION_TUTORIAL := &"tutorial"
@@ -53,6 +63,7 @@ const ACTION_HAPTICS := &"haptics"
 const ACTION_BACK := &"back"
 const ACTION_CANCEL := &"cancel"
 const ACTION_CONFIRM := &"confirm"
+const ACTION_THEME_PREFIX := "color_theme_"
 
 var controller: RunController
 var mode: Mode = Mode.SETTINGS
@@ -127,6 +138,9 @@ func _gui_input(event: InputEvent) -> void:
 
 
 func _activate_action(action: StringName) -> void:
+	if String(action).begins_with(ACTION_THEME_PREFIX):
+		controller.set_color_theme(String(action).trim_prefix(ACTION_THEME_PREFIX).to_int())
+		return
 	match action:
 		ACTION_GENERAL:
 			_open_page(Page.GENERAL, false)
@@ -134,6 +148,8 @@ func _activate_action(action: StringName) -> void:
 			_open_page(Page.AUDIO, false)
 		ACTION_DISPLAY:
 			_open_page(Page.DISPLAY_FEEDBACK, false)
+		ACTION_THEME:
+			_open_page(Page.COLOR_THEME, false)
 		ACTION_TURKISH:
 			controller.set_language(&"tr")
 		ACTION_ENGLISH:
@@ -214,6 +230,8 @@ func _draw() -> void:
 			_draw_audio_page()
 		Page.DISPLAY_FEEDBACK:
 			_draw_display_page()
+		Page.COLOR_THEME:
+			_draw_theme_page()
 
 
 func _draw_root_page() -> void:
@@ -229,17 +247,22 @@ func _draw_root_page() -> void:
 		self, GENERAL_CATEGORY_BUTTON, tr("SETTINGS_GENERAL"), &"secondary", 22, true,
 		touch_controls.is_pressed(ACTION_GENERAL),
 	)
-	DeepUI.draw_centered(self, tr("SETTINGS_GENERAL_HINT"), Rect2(60.0, 290.0, 420.0, 32.0), 14, DeepUI.MUTED)
+	DeepUI.draw_centered(self, tr("SETTINGS_GENERAL_HINT"), Rect2(60.0, 252.0, 420.0, 32.0), 14, DeepUI.MUTED)
 	DeepUI.draw_button(
 		self, AUDIO_CATEGORY_BUTTON, tr("SETTINGS_AUDIO"), &"secondary", 22, true,
 		touch_controls.is_pressed(ACTION_AUDIO),
 	)
-	DeepUI.draw_centered(self, tr("SETTINGS_AUDIO_HINT"), Rect2(60.0, 435.0, 420.0, 32.0), 14, DeepUI.MUTED)
+	DeepUI.draw_centered(self, tr("SETTINGS_AUDIO_HINT"), Rect2(60.0, 387.0, 420.0, 32.0), 14, DeepUI.MUTED)
 	DeepUI.draw_button(
 		self, DISPLAY_CATEGORY_BUTTON, tr("SETTINGS_DISPLAY_FEEDBACK"), &"secondary", 20, true,
 		touch_controls.is_pressed(ACTION_DISPLAY),
 	)
-	DeepUI.draw_centered(self, tr("SETTINGS_DISPLAY_HINT"), Rect2(60.0, 580.0, 420.0, 40.0), 14, DeepUI.MUTED)
+	DeepUI.draw_centered(self, tr("SETTINGS_DISPLAY_HINT"), Rect2(60.0, 522.0, 420.0, 40.0), 14, DeepUI.MUTED)
+	DeepUI.draw_button(
+		self, THEME_CATEGORY_BUTTON, tr("SETTINGS_COLOR_THEME"), &"secondary", 20, true,
+		touch_controls.is_pressed(ACTION_THEME),
+	)
+	DeepUI.draw_centered(self, tr("SETTINGS_THEME_HINT"), Rect2(60.0, 657.0, 420.0, 40.0), 14, DeepUI.MUTED)
 	if not notice.is_empty():
 		DeepUI.draw_centered(self, notice, Rect2(55.0, 750.0, 430.0, 40.0), 12, DeepUI.DANGER)
 	_draw_back_button()
@@ -337,6 +360,44 @@ func _draw_display_page() -> void:
 	_draw_back_button()
 
 
+func _draw_theme_page() -> void:
+	_draw_page_title(tr("SETTINGS_COLOR_THEME"))
+	DeepUI.draw_centered(
+		self,
+		tr("SETTINGS_THEME_DESCRIPTION"),
+		Rect2(55.0, 145.0, 430.0, 32.0),
+		14,
+		DeepUI.MUTED,
+	)
+	var selected_theme := AppSettings.ColorTheme.DEEP_SAPPHIRE
+	if controller != null and controller.app_settings != null:
+		selected_theme = controller.app_settings.color_theme
+	for theme_id in range(CaveTheme.THEME_COUNT):
+		var action := StringName("%s%d" % [ACTION_THEME_PREFIX, theme_id])
+		var pressed := touch_controls.is_pressed(action)
+		var rect: Rect2 = THEME_BUTTON_RECTS[theme_id]
+		if pressed:
+			rect.position.y += 3.0
+		var selected := theme_id == selected_theme
+		var fill := CaveTheme.color_for_theme(theme_id, &"background").lightened(0.08)
+		var border := DeepUI.GOLD if selected \
+			else CaveTheme.color_for_theme(theme_id, &"cave_light")
+		DeepUI.draw_panel(self, rect, fill.darkened(0.1) if pressed else fill, border, 14, 3 if selected else 2, not pressed)
+		DeepUI.draw_centered(
+			self,
+			tr(CaveTheme.name_key(theme_id)),
+			Rect2(rect.position + Vector2(12.0, 8.0), Vector2(205.0, 56.0)),
+			17,
+			DeepUI.TEXT,
+		)
+		var swatches := CaveTheme.swatch_colors(theme_id)
+		for swatch_index in range(swatches.size()):
+			var center := rect.position + Vector2(244.0 + float(swatch_index) * 34.0, 36.0)
+			draw_circle(center, 11.0, swatches[swatch_index])
+			draw_arc(center, 11.0, 0.0, TAU, 20, Color(DeepUI.TEXT, 0.58), 1.0, true)
+	_draw_back_button()
+
+
 func _draw_page_title(title: String) -> void:
 	DeepUI.draw_title_plate(self, title, Rect2(72.0, 72.0, 396.0, 60.0), 28, DeepUI.GOLD)
 
@@ -399,6 +460,7 @@ func _touch_targets() -> Dictionary:
 				ACTION_GENERAL: GENERAL_CATEGORY_BUTTON,
 				ACTION_AUDIO: AUDIO_CATEGORY_BUTTON,
 				ACTION_DISPLAY: DISPLAY_CATEGORY_BUTTON,
+				ACTION_THEME: THEME_CATEGORY_BUTTON,
 				ACTION_BACK: BACK_BUTTON,
 			}
 		Page.GENERAL:
@@ -425,4 +487,9 @@ func _touch_targets() -> Dictionary:
 				ACTION_HAPTICS: HAPTICS_BUTTON,
 				ACTION_BACK: BACK_BUTTON,
 			}
+		Page.COLOR_THEME:
+			var targets := {ACTION_BACK: BACK_BUTTON}
+			for theme_id in range(CaveTheme.THEME_COUNT):
+				targets[StringName("%s%d" % [ACTION_THEME_PREFIX, theme_id])] = THEME_BUTTON_RECTS[theme_id]
+			return targets
 	return {}

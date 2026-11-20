@@ -2,9 +2,6 @@ class_name GameplayRoomBackgroundView
 extends Node2D
 
 const VIEW_SIZE := Vector2(540.0, 960.0)
-const COLOR_GRID := Color("20364a")
-
-
 func refresh() -> void:
 	queue_redraw()
 
@@ -43,19 +40,19 @@ func _draw() -> void:
 	DeepUI.draw_panel(
 		self,
 		board_rect.grow(6.0),
-		DeepUI.BACKGROUND_DEEP,
-		DeepUI.BORDER,
+		CaveTheme.color(&"background_deep"),
+		CaveTheme.color(&"board_border"),
 		8,
 		3,
 		true,
 	)
-	draw_rect(board_rect, Color("0a1724"), true)
+	draw_rect(board_rect, CaveTheme.color(&"board"), true)
 	for x in range(1, BoardGeometry.WORLD_GRID_SIZE.x):
 		var screen_x := BoardGeometry.SCREEN_ORIGIN.x + float(x) * BoardGeometry.WORLD_SCALE
 		draw_line(
 			Vector2(screen_x, BoardGeometry.SCREEN_ORIGIN.y),
 			Vector2(screen_x, BoardGeometry.SCREEN_ORIGIN.y + board_rect.size.y),
-			COLOR_GRID,
+			CaveTheme.color(&"grid"),
 			1.0,
 		)
 	for y in range(1, BoardGeometry.WORLD_GRID_SIZE.y):
@@ -63,7 +60,7 @@ func _draw() -> void:
 		draw_line(
 			Vector2(BoardGeometry.SCREEN_ORIGIN.x, screen_y),
 			Vector2(BoardGeometry.SCREEN_ORIGIN.x + board_rect.size.x, screen_y),
-			COLOR_GRID,
+			CaveTheme.color(&"grid"),
 			1.0,
 		)
 

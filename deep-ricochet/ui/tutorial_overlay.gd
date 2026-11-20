@@ -172,13 +172,36 @@ func _draw_illustration() -> void:
 			draw_dashed_line(launcher, Vector2(175.0, 180.0), DeepUI.GOLD_LIGHT, 4.0, 12.0)
 			draw_circle(Vector2(175.0, 180.0), 9.0, DeepUI.GOLD)
 		1:
-			_draw_asset_block(NORMAL_TEXTURE, NORMAL_SOURCE_RECT, Rect2(100.0, 270.0, 105.0, 105.0), "3")
-			_draw_asset_block(ORE_TEXTURE, ORE_SOURCE_RECT, Rect2(218.0, 270.0, 105.0, 105.0), "5")
-			draw_texture_rect(CORE_TEXTURE, Rect2(335.0, 269.0, 106.0, 106.0), false)
+			_draw_asset_block(
+				NORMAL_TEXTURE,
+				NORMAL_SOURCE_RECT,
+				Rect2(100.0, 270.0, 105.0, 105.0),
+				"3",
+				BlockState.BlockType.NORMAL,
+			)
+			_draw_asset_block(
+				ORE_TEXTURE,
+				ORE_SOURCE_RECT,
+				Rect2(218.0, 270.0, 105.0, 105.0),
+				"5",
+				BlockState.BlockType.ORE,
+			)
+			CaveTheme.draw_texture(
+				self,
+				CORE_TEXTURE,
+				Rect2(335.0, 269.0, 106.0, 106.0),
+				BlockState.BlockType.CORE,
+			)
 			DeepUI.draw_centered(self, "6", Rect2(335.0, 290.0, 105.0, 55.0), 25, DeepUI.TEXT)
 		2:
 			_draw_hard_rock(Rect2(125.0, 230.0, 120.0, 120.0))
-			_draw_asset_block(CRACKED_TEXTURE, CRACKED_SOURCE_RECT, Rect2(295.0, 230.0, 120.0, 120.0), "8")
+			_draw_asset_block(
+				CRACKED_TEXTURE,
+				CRACKED_SOURCE_RECT,
+				Rect2(295.0, 230.0, 120.0, 120.0),
+				"8",
+				BlockState.BlockType.CRACKED,
+			)
 		3:
 			var blast_origin := Vector2(175.0, 155.0)
 			var blast_cell := 38.0
@@ -195,11 +218,30 @@ func _draw_illustration() -> void:
 				EXPLOSIVE_SOURCE_RECT,
 				Rect2(222.0, 202.0, 96.0, 96.0),
 				"5",
+				BlockState.BlockType.EXPLOSIVE,
 			)
 		4:
-			_draw_asset_block(ARMORED_LEFT_TEXTURE, ARMORED_LEFT_SOURCE_RECT, Rect2(100.0, 255.0, 105.0, 105.0), "6")
-			_draw_asset_block(ARMORED_BOTTOM_TEXTURE, ARMORED_SOURCE_RECT, Rect2(218.0, 255.0, 105.0, 105.0), "6")
-			_draw_asset_block(ARMORED_RIGHT_TEXTURE, ARMORED_RIGHT_SOURCE_RECT, Rect2(335.0, 255.0, 105.0, 105.0), "6")
+			_draw_asset_block(
+				ARMORED_LEFT_TEXTURE,
+				ARMORED_LEFT_SOURCE_RECT,
+				Rect2(100.0, 255.0, 105.0, 105.0),
+				"6",
+				BlockState.BlockType.ARMORED,
+			)
+			_draw_asset_block(
+				ARMORED_BOTTOM_TEXTURE,
+				ARMORED_SOURCE_RECT,
+				Rect2(218.0, 255.0, 105.0, 105.0),
+				"6",
+				BlockState.BlockType.ARMORED,
+			)
+			_draw_asset_block(
+				ARMORED_RIGHT_TEXTURE,
+				ARMORED_RIGHT_SOURCE_RECT,
+				Rect2(335.0, 255.0, 105.0, 105.0),
+				"6",
+				BlockState.BlockType.ARMORED,
+			)
 		5:
 			DeepUI.draw_panel(self, Rect2(80.0, 155.0, 175.0, 225.0), Color("173550"), DeepUI.BLUE, 15, 2, true)
 			DeepUI.draw_panel(self, Rect2(285.0, 155.0, 175.0, 225.0), Color("4a3923"), DeepUI.GOLD, 15, 2, true)
@@ -214,8 +256,9 @@ func _draw_asset_block(
 	source_rect: Rect2,
 	destination: Rect2,
 	value: String,
+	block_type: int,
 ) -> void:
-	draw_texture_rect_region(texture, destination, source_rect)
+	CaveTheme.draw_texture_region(self, texture, destination, source_rect, block_type)
 	if not value.is_empty():
 		DeepUI.draw_centered(self, value, destination, 25, DeepUI.TEXT, 0.66)
 
@@ -232,14 +275,25 @@ func _draw_hard_rock(rect: Rect2) -> void:
 		rect.position + Vector2(0.0, rect.size.y - cut),
 		rect.position + Vector2(0.0, cut),
 	])
-	draw_colored_polygon(points, Color("35414b"))
-	draw_polyline(points + PackedVector2Array([points[0]]), Color("202a33"), 5.0, true)
+	draw_colored_polygon(points, CaveTheme.color(&"rock"))
+	draw_polyline(
+		points + PackedVector2Array([points[0]]),
+		CaveTheme.color(&"rock_dark"),
+		5.0,
+		true,
+	)
 	var inset := 25.0
-	draw_line(rect.position + Vector2.ONE * inset, rect.end - Vector2.ONE * inset, Color("c5cbd0"), 8.0, true)
+	draw_line(
+		rect.position + Vector2.ONE * inset,
+		rect.end - Vector2.ONE * inset,
+		CaveTheme.color(&"rock_mark"),
+		8.0,
+		true,
+	)
 	draw_line(
 		Vector2(rect.end.x - inset, rect.position.y + inset),
 		Vector2(rect.position.x + inset, rect.end.y - inset),
-		Color("c5cbd0"),
+		CaveTheme.color(&"rock_mark"),
 		8.0,
 		true,
 	)

@@ -161,24 +161,6 @@ func _draw_mine_card(rect: Rect2, mine: MineDefinition, card_index: int) -> void
 		11,
 		DeepUI.MUTED,
 	)
-	var block_label := tr("MINE_BLOCKS_CLASSIC")
-	if mine.order >= 11:
-		block_label = tr("MINE_BLOCKS_ARMORED")
-	elif mine.order >= 7:
-		block_label = tr("MINE_BLOCKS_SPECIAL")
-	DeepUI.draw_centered(
-		self,
-		block_label if unlocked else tr("MINE_COMPLETE_PREVIOUS"),
-		Rect2(card_rect.end.x - 190.0, card_rect.position.y + 37.0, 172.0, 18.0),
-		10,
-		DeepUI.CORE if unlocked else DeepUI.MUTED_DARK,
-	)
-	var difficulty := clampi(ceili(float(mine.order) / 3.0), 1, 5)
-	for dot_index in range(5):
-		var color := DeepUI.GOLD if dot_index < difficulty else DeepUI.BORDER_SOFT
-		draw_circle(card_rect.position + Vector2(382.0 + float(dot_index) * 14.0, 66.0), 4.0, color)
-
-
 func _page_count() -> int:
 	if controller == null or controller.mine_registry == null:
 		return 0

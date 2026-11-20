@@ -77,7 +77,8 @@ Oyun alanında fareyle ya da dokunmatik ekranla basılı tutup yön seçilir; b�
 - Kalıcı dil tercihiyle eksiksiz Türkçe–İngilizce arayüz
 - İlk yeni oyunda atış, çekirdek ve rota aşamalarına bağlanan üç adımlı etkileşimli öğretici
 - Ayarlardan tekrar açılabilen üç sayfalı öğretici özeti
-- Genel, ses ve görüntü/geri bildirim sayfalarına ayrılan; dil, ayrı efekt/müzik seviyeleri, titreşim, ekran sarsıntısı, grafik/performans modu ve onaylı tüm veri silme seçeneklerini içeren ayarlar ekranı
+- Genel, ses, görüntü/geri bildirim ve renk teması sayfalarına ayrılan; dil, ayrı efekt/müzik seviyeleri, titreşim, ekran sarsıntısı, grafik/performans modu ve onaylı tüm veri silme seçeneklerini içeren ayarlar ekranı
+- Mağara arka planı ile normal, cevher, çekirdek, kırılmaz kaya, çatlak kaya, patlayıcı ve zırhlı blokları birlikte dönüştüren Derin Safir, Ametist Damar, Volkanik Ocak, Yosunlu Mağara ve Buzul Madeni renk temaları
 - Android geri tuşunun menü, ayarlar, öğretici, sonuç ve duraklatma katmanlarına uygun davranması
 - Android 10 (API 29) alt sınırı ve API 35 hedefi için ARMv7 ile ARM64 Gradle export preseti
 - Assetlerle uyumlu prosedürel hasar halkası ve blok kırılma parçacıkları

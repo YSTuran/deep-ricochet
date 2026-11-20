@@ -1,10 +1,6 @@
 class_name GameplayRoomView
 extends Node2D
 
-const COLOR_ROCK := Color("35414b")
-const COLOR_ROCK_LIGHT := Color("52606b")
-const COLOR_ROCK_DARK := Color("202a33")
-
 const NORMAL_TEXTURE: Texture2D = preload("res://assets/images/blocks/blok_normal.png")
 const ORE_TEXTURE: Texture2D = preload("res://assets/images/blocks/blok_cevher.png")
 const CORE_TEXTURE: Texture2D = preload("res://assets/images/blocks/cekirdek.png")
@@ -137,6 +133,7 @@ func _draw() -> void:
 					NORMAL_TEXTURE,
 					Rect2(139.0, 159.0, 976.0, 939.0),
 					str(block.hit_points),
+					BlockState.BlockType.NORMAL,
 				)
 			BlockState.BlockType.ORE:
 				_draw_texture_block(
@@ -144,6 +141,7 @@ func _draw() -> void:
 					ORE_TEXTURE,
 					Rect2(209.0, 220.0, 837.0, 831.0),
 					str(block.hit_points),
+					BlockState.BlockType.ORE,
 				)
 			BlockState.BlockType.ROCK:
 				_draw_hard_rock(block.world_rect())
@@ -155,6 +153,7 @@ func _draw() -> void:
 					EXPLOSIVE_TEXTURE,
 					EXPLOSIVE_SOURCE,
 					str(block.hit_points),
+					BlockState.BlockType.EXPLOSIVE,
 				)
 			BlockState.BlockType.CRACKED:
 				_draw_illustrated_block(
@@ -162,6 +161,7 @@ func _draw() -> void:
 					CRACKED_TEXTURE,
 					CRACKED_SOURCE,
 					str(block.hit_points),
+					BlockState.BlockType.CRACKED,
 				)
 			BlockState.BlockType.ARMORED:
 				_draw_armored(block)
@@ -177,16 +177,23 @@ func _draw_texture_block(
 	texture: Texture2D,
 	source_rect: Rect2,
 	hp_text: String,
+	block_type: int,
 ) -> void:
 	var destination := _world_rect_to_screen(world_rect, 4.0)
-	draw_texture_rect_region(texture, destination, source_rect)
+	CaveTheme.draw_texture_region(
+		self,
+		texture,
+		destination,
+		source_rect,
+		block_type,
+	)
 	_draw_centered_text(destination, hp_text, 26, DeepUI.TEXT, 0.66)
 
 
 func _draw_core(center_world: Vector2, hp_text: String) -> void:
 	var center_screen := BoardGeometry.world_to_screen(center_world)
 	var destination := Rect2(center_screen - Vector2.ONE * 39.0, Vector2.ONE * 78.0)
-	draw_texture_rect(CORE_TEXTURE, destination, false)
+	CaveTheme.draw_texture(self, CORE_TEXTURE, destination, BlockState.BlockType.CORE)
 	_draw_centered_text(destination, hp_text, 26, DeepUI.TEXT, 0.64)
 
 
@@ -203,23 +210,28 @@ func _draw_hard_rock(world_rect: Rect2) -> void:
 		rect.position + Vector2(0.0, rect.size.y - cut),
 		rect.position + Vector2(0.0, cut),
 	])
-	draw_colored_polygon(points, COLOR_ROCK)
-	draw_polyline(points + PackedVector2Array([points[0]]), COLOR_ROCK_DARK, 4.0, true)
+	draw_colored_polygon(points, CaveTheme.color(&"rock"))
+	draw_polyline(
+		points + PackedVector2Array([points[0]]),
+		CaveTheme.color(&"rock_dark"),
+		4.0,
+		true,
+	)
 	draw_colored_polygon(PackedVector2Array([
 		points[0], points[1], rect.position + Vector2(rect.size.x * 0.62, rect.size.y * 0.34),
-	]), COLOR_ROCK_LIGHT)
+	]), CaveTheme.color(&"rock_light"))
 	draw_colored_polygon(PackedVector2Array([
 		points[4], points[5], rect.position + Vector2(rect.size.x * 0.42, rect.size.y * 0.66),
-	]), COLOR_ROCK_DARK)
+	]), CaveTheme.color(&"rock_dark"))
 	var inset := 15.0
 	var a := rect.position + Vector2(inset, inset)
 	var b := rect.end - Vector2(inset, inset)
 	var c := Vector2(rect.end.x - inset, rect.position.y + inset)
 	var d := Vector2(rect.position.x + inset, rect.end.y - inset)
-	draw_line(a, b, Color("111820"), 10.0, true)
-	draw_line(c, d, Color("111820"), 10.0, true)
-	draw_line(a, b, Color("c5cbd0"), 5.0, true)
-	draw_line(c, d, Color("c5cbd0"), 5.0, true)
+	draw_line(a, b, CaveTheme.color(&"rock_dark").darkened(0.35), 10.0, true)
+	draw_line(c, d, CaveTheme.color(&"rock_dark").darkened(0.35), 10.0, true)
+	draw_line(a, b, CaveTheme.color(&"rock_mark"), 5.0, true)
+	draw_line(c, d, CaveTheme.color(&"rock_mark"), 5.0, true)
 
 
 func _draw_illustrated_block(
@@ -227,9 +239,10 @@ func _draw_illustrated_block(
 	texture: Texture2D,
 	source_rect: Rect2,
 	hp_text: String,
+	block_type: int,
 ) -> void:
 	var rect := _world_rect_to_screen(world_rect, 4.0)
-	draw_texture_rect_region(texture, rect, source_rect)
+	CaveTheme.draw_texture_region(self, texture, rect, source_rect, block_type)
 	_draw_centered_text(rect, hp_text, 26, DeepUI.TEXT, 0.66)
 
 
@@ -242,7 +255,13 @@ func _draw_armored(block: BlockState) -> void:
 	elif (block.vulnerable_sides & BlockState.VulnerableSide.RIGHT) != 0:
 		texture = ARMORED_RIGHT_BOTTOM_TEXTURE
 		source_rect = ARMORED_RIGHT_BOTTOM_SOURCE
-	_draw_illustrated_block(block.world_rect(), texture, source_rect, str(block.hit_points))
+	_draw_illustrated_block(
+		block.world_rect(),
+		texture,
+		source_rect,
+		str(block.hit_points),
+		BlockState.BlockType.ARMORED,
+	)
 
 
 func _draw_text(position: Vector2, text: String, size: int, color: Color) -> void:

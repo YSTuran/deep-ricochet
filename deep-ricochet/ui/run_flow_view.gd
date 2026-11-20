@@ -192,13 +192,29 @@ func _draw_template_preview(template: RoomTemplate, origin: Vector2, cell_size: 
 		origin,
 		Vector2(BoardGeometry.WORLD_GRID_SIZE) * cell_size,
 	)
-	DeepUI.draw_panel(self, grid_rect.grow(6.0), DeepUI.BACKGROUND_DEEP, DeepUI.BORDER_SOFT, 10, 2, false)
+	DeepUI.draw_panel(
+		self,
+		grid_rect.grow(6.0),
+		CaveTheme.color(&"board"),
+		CaveTheme.color(&"board_border"),
+		10,
+		2,
+		false,
+	)
 	for column in range(1, BoardGeometry.WORLD_GRID_SIZE.x):
 		var offset_x := float(column) * cell_size
-		draw_line(origin + Vector2(offset_x, 0.0), origin + Vector2(offset_x, grid_rect.size.y), DeepUI.BORDER_SOFT)
+		draw_line(
+			origin + Vector2(offset_x, 0.0),
+			origin + Vector2(offset_x, grid_rect.size.y),
+			CaveTheme.color(&"grid"),
+		)
 	for row in range(1, BoardGeometry.WORLD_GRID_SIZE.y):
 		var offset_y := float(row) * cell_size
-		draw_line(origin + Vector2(0.0, offset_y), origin + Vector2(grid_rect.size.x, offset_y), DeepUI.BORDER_SOFT)
+		draw_line(
+			origin + Vector2(0.0, offset_y),
+			origin + Vector2(grid_rect.size.x, offset_y),
+			CaveTheme.color(&"grid"),
+		)
 	for definition: RoomBlockDefinition in template.blocks:
 		var preview_row := BoardGeometry.preview_row_for_cell(definition.cell.y)
 		var center := origin + Vector2(
@@ -206,17 +222,18 @@ func _draw_template_preview(template: RoomTemplate, origin: Vector2, cell_size: 
 			(float(preview_row) + 0.5) * cell_size,
 		)
 		if definition.block_type == BlockState.BlockType.CORE:
-			DeepUI.draw_glow(self, center, cell_size * 0.32, DeepUI.CORE)
-			draw_circle(center, cell_size * 0.36, DeepUI.CORE)
-			_draw_mini_value(center, str(definition.hit_points), cell_size, DeepUI.BACKGROUND_DEEP)
+			var core_color := CaveTheme.block_color(BlockState.BlockType.CORE)
+			DeepUI.draw_glow(self, center, cell_size * 0.32, core_color)
+			draw_circle(center, cell_size * 0.36, core_color)
+			_draw_mini_value(center, str(definition.hit_points), cell_size, CaveTheme.color(&"board"))
 			continue
 		var block_rect := Rect2(center - Vector2.ONE * cell_size * 0.4, Vector2.ONE * cell_size * 0.8)
-		var color := DeepUI.BLUE
+		var color := CaveTheme.block_color(BlockState.BlockType.NORMAL)
 		var value := str(definition.hit_points)
 		if definition.block_type == BlockState.BlockType.ORE:
-			color = DeepUI.GOLD
+			color = CaveTheme.block_color(BlockState.BlockType.ORE)
 		elif definition.block_type == BlockState.BlockType.ROCK:
-			color = Color("35414b")
+			color = CaveTheme.block_color(BlockState.BlockType.ROCK)
 			value = "×"
 		elif definition.block_type == BlockState.BlockType.EXPLOSIVE:
 			_draw_preview_illustrated_block(
@@ -224,6 +241,7 @@ func _draw_template_preview(template: RoomTemplate, origin: Vector2, cell_size: 
 				EXPLOSIVE_TEXTURE,
 				EXPLOSIVE_SOURCE,
 				value,
+				BlockState.BlockType.EXPLOSIVE,
 			)
 			continue
 		elif definition.block_type == BlockState.BlockType.CRACKED:
@@ -232,6 +250,7 @@ func _draw_template_preview(template: RoomTemplate, origin: Vector2, cell_size: 
 				CRACKED_TEXTURE,
 				CRACKED_SOURCE,
 				value,
+				BlockState.BlockType.CRACKED,
 			)
 			continue
 		elif definition.block_type == BlockState.BlockType.ARMORED:
@@ -246,8 +265,9 @@ func _draw_preview_illustrated_block(
 	texture: Texture2D,
 	source_rect: Rect2,
 	hp_text: String,
+	block_type: int,
 ) -> void:
-	draw_texture_rect_region(texture, rect, source_rect)
+	CaveTheme.draw_texture_region(self, texture, rect, source_rect, block_type)
 	_draw_mini_value(rect.get_center(), hp_text, rect.size.x / 0.8, DeepUI.TEXT)
 
 
@@ -260,14 +280,26 @@ func _draw_preview_armored_block(rect: Rect2, vulnerable_sides: int, hp_text: St
 	elif (vulnerable_sides & BlockState.VulnerableSide.RIGHT) != 0:
 		texture = ARMORED_RIGHT_BOTTOM_TEXTURE
 		source_rect = ARMORED_RIGHT_BOTTOM_SOURCE
-	_draw_preview_illustrated_block(rect, texture, source_rect, hp_text)
+	_draw_preview_illustrated_block(
+		rect,
+		texture,
+		source_rect,
+		hp_text,
+		BlockState.BlockType.ARMORED,
+	)
 
 
 func _draw_run_result() -> void:
 	var heading := tr("RESULT_SUCCESS") if run_session.succeeded else tr("RESULT_FAILURE")
 	var accent := DeepUI.CORE if run_session.succeeded else DeepUI.GOLD
 	DeepUI.draw_glow(self, Vector2(270.0, 108.0), 48.0, accent)
-	draw_texture_rect(CORE_TEXTURE, Rect2(216.0, 54.0, 108.0, 108.0), false, Color.WHITE if run_session.succeeded else Color(0.72, 0.72, 0.72, 0.7))
+	CaveTheme.draw_texture(
+		self,
+		CORE_TEXTURE,
+		Rect2(216.0, 54.0, 108.0, 108.0),
+		BlockState.BlockType.CORE,
+		Color.WHITE if run_session.succeeded else Color(0.72, 0.72, 0.72, 0.7),
+	)
 	DeepUI.draw_title_plate(self, heading, Rect2(58.0, 170.0, 424.0, 68.0), 31, accent)
 	DeepUI.draw_panel(self, Rect2(45.0, 250.0, 450.0, 385.0), DeepUI.PANEL_SOFT, Color(accent, 0.72), 18, 2, true)
 	_draw_centered(

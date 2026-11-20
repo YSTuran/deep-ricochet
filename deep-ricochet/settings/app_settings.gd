@@ -1,12 +1,20 @@
 class_name AppSettings
 extends RefCounted
 
-const SCHEMA_VERSION := 4
+const SCHEMA_VERSION := 5
 const SUPPORTED_LANGUAGES := [&"tr", &"en"]
 
 enum QualityMode {
 	PERFORMANCE,
 	GRAPHICS,
+}
+
+enum ColorTheme {
+	DEEP_SAPPHIRE,
+	AMETHYST,
+	VOLCANIC,
+	MOSSY,
+	GLACIAL,
 }
 
 var schema_version := SCHEMA_VERSION
@@ -18,6 +26,7 @@ var music_volume := 0.28
 var shake_enabled := true
 var haptics_enabled := true
 var quality_mode: int = QualityMode.PERFORMANCE
+var color_theme: int = ColorTheme.DEEP_SAPPHIRE
 
 
 func to_dictionary() -> Dictionary:
@@ -31,13 +40,14 @@ func to_dictionary() -> Dictionary:
 		"shakeEnabled": shake_enabled,
 		"hapticsEnabled": haptics_enabled,
 		"qualityMode": quality_mode,
+		"colorTheme": color_theme,
 	}
 
 
 static func from_dictionary(data: Dictionary) -> AppSettings:
 	var settings := AppSettings.new()
 	var source_schema := int(data.get("schemaVersion", 0))
-	if source_schema not in [1, 2, 3, SCHEMA_VERSION]:
+	if source_schema not in [1, 2, 3, 4, SCHEMA_VERSION]:
 		settings.schema_version = source_schema
 		return settings
 	settings.schema_version = SCHEMA_VERSION
@@ -53,6 +63,7 @@ static func from_dictionary(data: Dictionary) -> AppSettings:
 	settings.shake_enabled = bool(data.get("shakeEnabled", true))
 	settings.haptics_enabled = bool(data.get("hapticsEnabled", true))
 	settings.quality_mode = int(data.get("qualityMode", QualityMode.PERFORMANCE))
+	settings.color_theme = int(data.get("colorTheme", ColorTheme.DEEP_SAPPHIRE))
 	return settings
 
 
@@ -64,4 +75,6 @@ func is_valid() -> bool:
 		and music_volume >= 0.0 \
 		and music_volume <= 1.0 \
 		and quality_mode >= QualityMode.PERFORMANCE \
-		and quality_mode <= QualityMode.GRAPHICS
+		and quality_mode <= QualityMode.GRAPHICS \
+		and color_theme >= ColorTheme.DEEP_SAPPHIRE \
+		and color_theme <= ColorTheme.GLACIAL

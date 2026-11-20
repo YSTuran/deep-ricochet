@@ -99,6 +99,15 @@ func set_quality_mode(controller, mode: int) -> void:
 	controller.settings_overlay.queue_redraw()
 
 
+func set_color_theme(controller, theme_id: int) -> void:
+	if controller.app_settings == null or not CaveTheme.is_supported(theme_id):
+		return
+	controller.app_settings.color_theme = theme_id
+	controller._apply_color_theme()
+	controller._save_app_settings()
+	controller.settings_overlay.queue_redraw()
+
+
 func show_tutorial(controller) -> void:
 	controller.tutorial_return_to_settings = true
 	controller.settings_overlay.hide_overlay()
