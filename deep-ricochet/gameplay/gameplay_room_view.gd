@@ -199,39 +199,7 @@ func _draw_core(center_world: Vector2, hp_text: String) -> void:
 
 func _draw_hard_rock(world_rect: Rect2) -> void:
 	var rect := _world_rect_to_screen(world_rect, 5.0)
-	var cut := 7.0
-	var points := PackedVector2Array([
-		rect.position + Vector2(cut, 0.0),
-		rect.position + Vector2(rect.size.x - cut, 0.0),
-		rect.position + Vector2(rect.size.x, cut),
-		rect.end - Vector2(0.0, cut),
-		rect.end - Vector2(cut, 0.0),
-		rect.position + Vector2(cut, rect.size.y),
-		rect.position + Vector2(0.0, rect.size.y - cut),
-		rect.position + Vector2(0.0, cut),
-	])
-	draw_colored_polygon(points, CaveTheme.color(&"rock"))
-	draw_polyline(
-		points + PackedVector2Array([points[0]]),
-		CaveTheme.color(&"rock_dark"),
-		4.0,
-		true,
-	)
-	draw_colored_polygon(PackedVector2Array([
-		points[0], points[1], rect.position + Vector2(rect.size.x * 0.62, rect.size.y * 0.34),
-	]), CaveTheme.color(&"rock_light"))
-	draw_colored_polygon(PackedVector2Array([
-		points[4], points[5], rect.position + Vector2(rect.size.x * 0.42, rect.size.y * 0.66),
-	]), CaveTheme.color(&"rock_dark"))
-	var inset := 15.0
-	var a := rect.position + Vector2(inset, inset)
-	var b := rect.end - Vector2(inset, inset)
-	var c := Vector2(rect.end.x - inset, rect.position.y + inset)
-	var d := Vector2(rect.position.x + inset, rect.end.y - inset)
-	draw_line(a, b, CaveTheme.color(&"rock_dark").darkened(0.35), 10.0, true)
-	draw_line(c, d, CaveTheme.color(&"rock_dark").darkened(0.35), 10.0, true)
-	draw_line(a, b, CaveTheme.color(&"rock_mark"), 5.0, true)
-	draw_line(c, d, CaveTheme.color(&"rock_mark"), 5.0, true)
+	CaveTheme.draw_hard_rock(self, rect)
 
 
 func _draw_illustrated_block(

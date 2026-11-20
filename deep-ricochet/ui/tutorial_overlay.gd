@@ -264,36 +264,4 @@ func _draw_asset_block(
 
 
 func _draw_hard_rock(rect: Rect2) -> void:
-	var cut := 12.0
-	var points := PackedVector2Array([
-		rect.position + Vector2(cut, 0.0),
-		rect.position + Vector2(rect.size.x - cut, 0.0),
-		rect.position + Vector2(rect.size.x, cut),
-		rect.end - Vector2(0.0, cut),
-		rect.end - Vector2(cut, 0.0),
-		rect.position + Vector2(cut, rect.size.y),
-		rect.position + Vector2(0.0, rect.size.y - cut),
-		rect.position + Vector2(0.0, cut),
-	])
-	draw_colored_polygon(points, CaveTheme.color(&"rock"))
-	draw_polyline(
-		points + PackedVector2Array([points[0]]),
-		CaveTheme.color(&"rock_dark"),
-		5.0,
-		true,
-	)
-	var inset := 25.0
-	draw_line(
-		rect.position + Vector2.ONE * inset,
-		rect.end - Vector2.ONE * inset,
-		CaveTheme.color(&"rock_mark"),
-		8.0,
-		true,
-	)
-	draw_line(
-		Vector2(rect.end.x - inset, rect.position.y + inset),
-		Vector2(rect.position.x + inset, rect.end.y - inset),
-		CaveTheme.color(&"rock_mark"),
-		8.0,
-		true,
-	)
+	CaveTheme.draw_hard_rock(self, rect)

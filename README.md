@@ -1,8 +1,22 @@
 # Deep Ricochet
 
+<p align="center">
+  <img src="deep-ricochet/assets/images/icons/deep_ricochet_main.png" width="180" alt="Deep Ricochet uygulama ikonu">
+</p>
+
 Deep Ricochet, dikey ekranda oynanan; nişan alma, sekme fiziği ve rota seçimi üzerine kurulu bir maden oyunudur. Oyuncu sekiz topluk yaylımları duvarlardan ve bloklardan sektirerek odanın çekirdeğini kırmaya çalışır. Her atış sınırlı olduğu için doğru açı, blokların kırılma sırası ve riskli rota tercihleri doğrudan sonucu belirler.
 
 Proje tek oyunculu ve çevrimdışı çalışır. Türkçe ve İngilizce arayüz, on dört maden, günlük mücadele, ilerleme kaydı, iki kalite modu ve beş mağara renk teması içerir.
+
+<table>
+  <tr>
+    <td align="center"><strong>14</strong><br>Maden</td>
+    <td align="center"><strong>112</strong><br>Doğrulanan oda</td>
+    <td align="center"><strong>7</strong><br>Blok türü</td>
+    <td align="center"><strong>5</strong><br>Renk teması</td>
+    <td align="center"><strong>TR / EN</strong><br>Arayüz</td>
+  </tr>
+</table>
 
 ## Oynanış
 
@@ -59,7 +73,7 @@ Blokların ortasındaki sayı kalan canı gösterir. Topla doğrudan temas çoğ
       <td>Normal bloktan daha değerlidir ve kendine özgü vuruş sesi kullanır.</td>
     </tr>
     <tr>
-      <td>Prosedürel</td>
+      <td><img src="deep-ricochet/assets/images/blocks/blok_kaya.png" width="82" alt="Sert kaya bloğu"></td>
       <td><strong>Sert kaya</strong></td>
       <td>Kırılamaz</td>
       <td>0</td>
@@ -126,13 +140,42 @@ Günlük maden normal ilerleme zincirinden bağımsız, daha yoğun bir mücadel
 
 Renk teması yalnız arka planı değil; ızgarayı, normal ve özel blokları, sert kayayı, çekirdeği, zırhı ve zırhın zayıf noktalarını birlikte değiştirir. Tema değişimi fizik veya puan değerlerine dokunmaz. Ayrı tema sprite'ları yerine yukarıdaki özgün assetler çalışma anında palete göre renklendirildiği için bütün görseller aynı doku ve biçimi korur.
 
-| Tema | Mağara görünümü | Blok vurguları |
-| --- | --- | --- |
-| **Derin Safir** | Lacivert ve koyu mavi mağara | Mavi normal blok, kehribar cevher, turkuaz çekirdek |
-| **Ametist Damar** | Koyu mor ve ametist tonları | Mor normal blok, pembe cevher, lavanta çekirdek, camgöbeği zayıf nokta |
-| **Volkanik Ocak** | Kömür, sıcak kahve ve kızıl kaya | Tuğla kırmızısı bloklar, turuncu cevher ve çekirdek, sarı zayıf nokta |
-| **Yosunlu Mağara** | Orman yeşili ve nemli taş tonları | Yosun yeşili blok, toprak sarısı cevher, nane yeşili çekirdek |
-| **Buzul Madeni** | Buz mavisi ve koyu camgöbeği mağara | Soğuk mavi bloklar, açık buz cevheri, turkuaz çekirdek, mor zayıf nokta |
+<table>
+  <thead>
+    <tr>
+      <th>Tema</th>
+      <th>Oyundaki blok paleti</th>
+      <th>Karakter</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Derin Safir</strong></td>
+      <td><img src="deep-ricochet/assets/images/themes/deep_sapphire.png" width="520" alt="Derin Safir temasındaki bloklar"></td>
+      <td>Lacivert mağara, mavi normal blok, kehribar cevher ve turkuaz çekirdek.</td>
+    </tr>
+    <tr>
+      <td><strong>Ametist Damar</strong></td>
+      <td><img src="deep-ricochet/assets/images/themes/amethyst_vein.png" width="520" alt="Ametist Damar temasındaki bloklar"></td>
+      <td>Koyu mor mağara, pembe cevher, lavanta çekirdek ve camgöbeği zırh açıklığı.</td>
+    </tr>
+    <tr>
+      <td><strong>Volkanik Ocak</strong></td>
+      <td><img src="deep-ricochet/assets/images/themes/volcanic_shaft.png" width="520" alt="Volkanik Ocak temasındaki bloklar"></td>
+      <td>Kömür tonları, tuğla kırmızısı bloklar, sıcak turuncu çekirdek ve sarı zırh açıklığı.</td>
+    </tr>
+    <tr>
+      <td><strong>Yosunlu Mağara</strong></td>
+      <td><img src="deep-ricochet/assets/images/themes/mossy_cavern.png" width="520" alt="Yosunlu Mağara temasındaki bloklar"></td>
+      <td>Orman yeşili taşlar, toprak sarısı cevher, nane yeşili çekirdek ve mercan zırh açıklığı.</td>
+    </tr>
+    <tr>
+      <td><strong>Buzul Madeni</strong></td>
+      <td><img src="deep-ricochet/assets/images/themes/glacial_mine.png" width="520" alt="Buzul Madeni temasındaki bloklar"></td>
+      <td>Buz mavisi mağara, açık cevher, turkuaz çekirdek ve mor zırh açıklığı.</td>
+    </tr>
+  </tbody>
+</table>
 
 Seçilen tema ayarlara kaydedilir ve menü, rota önizlemeleri, öğretici ile oyun alanında ortak olarak uygulanır.
 
@@ -170,7 +213,7 @@ DeepRicochet/
 ├── README.md
 └── deep-ricochet/
     ├── app/            # Uygulama akışı ve ekran denetleyicileri
-    ├── assets/         # Blok, ikon ve ses kaynakları
+    ├── assets/         # Blok, ikon, ses ve README tema görselleri
     ├── audio/          # Ses yöneticisi ve üçüncü taraf lisans notları
     ├── board/          # Blok durumu, hasar ve tahta modeli
     ├── content/        # Maden tanımları, oda JSON'ları ve günlük oda üretimi
@@ -190,7 +233,7 @@ DeepRicochet/
     └── project.godot
 ```
 
-Oda içeriğinin tek kaynağı `content/mines/rooms/` altındaki JSON dosyalarıdır. On dört madenin sırası ve açılma koşulları `content/mines/mines.json`, ortak oyun değerleri ise `content/config/game_config.json` içinde bulunur. `tools/generate_mine_rooms.gd` aynı oda paketini deterministik olarak yeniden üretebilir.
+Oda içeriğinin tek kaynağı `content/mines/rooms/` altındaki JSON dosyalarıdır. On dört madenin sırası ve açılma koşulları `content/mines/mines.json`, ortak oyun değerleri ise `content/config/game_config.json` içinde bulunur. `tools/generate_mine_rooms.gd` aynı oda paketini deterministik olarak yeniden üretebilir. `tools/generate_readme_visuals.gd` ise oyunun gerçek çizim ve tema kodundan sert kaya assetini ve README tema önizlemelerini üretir.
 
 `app/main.gd` sahneleri ve servisleri bir araya getirir. Koşu oluşturma, oda/rota akışı, geri bildirim, gezinme, kayıt kurtarma, ayarlar, öğretici ve kullanıcı verisi işlemleri `app/` altındaki ayrı denetleyicilere bölünmüştür. Fizik ve oyun kuralları görsel katmandan bağımsız tutulduğu için nişan önizlemesi, gerçek atış ve otomatik testler aynı simülasyon kodunu kullanır.
 

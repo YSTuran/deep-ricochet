@@ -171,6 +171,47 @@ static func swatch_colors(theme_id: int) -> PackedColorArray:
 	])
 
 
+static func draw_hard_rock(canvas: CanvasItem, rect: Rect2) -> void:
+	var scale := minf(rect.size.x, rect.size.y) / 50.0
+	var cut := 7.0 * scale
+	var points := PackedVector2Array([
+		rect.position + Vector2(cut, 0.0),
+		rect.position + Vector2(rect.size.x - cut, 0.0),
+		rect.position + Vector2(rect.size.x, cut),
+		rect.end - Vector2(0.0, cut),
+		rect.end - Vector2(cut, 0.0),
+		rect.position + Vector2(cut, rect.size.y),
+		rect.position + Vector2(0.0, rect.size.y - cut),
+		rect.position + Vector2(0.0, cut),
+	])
+	canvas.draw_colored_polygon(points, color(&"rock"))
+	canvas.draw_polyline(
+		points + PackedVector2Array([points[0]]),
+		color(&"rock_dark"),
+		4.0 * scale,
+		true,
+	)
+	canvas.draw_colored_polygon(PackedVector2Array([
+		points[0],
+		points[1],
+		rect.position + Vector2(rect.size.x * 0.62, rect.size.y * 0.34),
+	]), color(&"rock_light"))
+	canvas.draw_colored_polygon(PackedVector2Array([
+		points[4],
+		points[5],
+		rect.position + Vector2(rect.size.x * 0.42, rect.size.y * 0.66),
+	]), color(&"rock_dark"))
+	var inset := 15.0 * scale
+	var a := rect.position + Vector2(inset, inset)
+	var b := rect.end - Vector2(inset, inset)
+	var c := Vector2(rect.end.x - inset, rect.position.y + inset)
+	var d := Vector2(rect.position.x + inset, rect.end.y - inset)
+	canvas.draw_line(a, b, color(&"rock_dark").darkened(0.35), 10.0 * scale, true)
+	canvas.draw_line(c, d, color(&"rock_dark").darkened(0.35), 10.0 * scale, true)
+	canvas.draw_line(a, b, color(&"rock_mark"), 5.0 * scale, true)
+	canvas.draw_line(c, d, color(&"rock_mark"), 5.0 * scale, true)
+
+
 static func draw_texture_region(
 	canvas: CanvasItem,
 	texture: Texture2D,
