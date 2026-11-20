@@ -145,7 +145,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-8",
+  "contentVersion": "p2-mines-9",
   "displayName": "Muhafız Tüneli",
   "displayNameKey": "MINE_4_WIDE_01",
   "exampleAngles": [

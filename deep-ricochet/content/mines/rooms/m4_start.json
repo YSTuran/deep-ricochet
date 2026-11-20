@@ -154,7 +154,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-8",
+  "contentVersion": "p2-mines-9",
   "displayName": "Kadim Kapı",
   "displayNameKey": "MINE_4_START",
   "exampleAngles": [

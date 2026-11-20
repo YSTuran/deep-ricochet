@@ -181,7 +181,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-8",
+  "contentVersion": "p2-mines-9",
   "displayName": "Sıcak Damar",
   "displayNameKey": "MINE_8_NARROW_02",
   "exampleAngles": [

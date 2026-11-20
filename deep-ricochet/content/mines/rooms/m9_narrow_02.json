@@ -190,7 +190,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-8",
+  "contentVersion": "p2-mines-9",
   "displayName": "Kırılgan Damar",
   "displayNameKey": "MINE_9_NARROW_02",
   "exampleAngles": [

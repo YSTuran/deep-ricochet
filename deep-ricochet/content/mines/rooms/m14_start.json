@@ -90,7 +90,7 @@
       "id": 140010,
       "type": "armored",
       "vulnerableSides": [
-        "left"
+        "bottom"
       ]
     },
     {
@@ -155,24 +155,18 @@
         2,
         7
       ],
-      "hitPoints": 5,
+      "hitPoints": 8,
       "id": 140017,
-      "type": "armored",
-      "vulnerableSides": [
-        "right"
-      ]
+      "type": "ore"
     },
     {
       "cell": [
         2,
         3
       ],
-      "hitPoints": 5,
+      "hitPoints": 8,
       "id": 140018,
-      "type": "armored",
-      "vulnerableSides": [
-        "right"
-      ]
+      "type": "ore"
     },
     {
       "cell": [
@@ -214,7 +208,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-8",
+  "contentVersion": "p2-mines-9",
   "displayName": "Son Derinlik",
   "displayNameKey": "MINE_14_START",
   "exampleAngles": [

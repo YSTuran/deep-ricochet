@@ -1,6 +1,6 @@
 extends SceneTree
 
-const CONTENT_VERSION := "p2-mines-8"
+const CONTENT_VERSION := "p2-mines-9"
 const CRACKED_HIT_POINTS := 8
 const NARROW_DURABILITY_BONUS := 1
 const MAX_ROOM_BLOCKS := 24
@@ -516,15 +516,20 @@ func _accessible_armor_sides(
 	slot_index: int,
 	entry_index: int,
 ) -> Array[String]:
-	var ordered_sides: Array[String] = ["bottom", "left", "right"]
-	var rotation := posmod(mine_index + slot_index + entry_index, ordered_sides.size())
-	var sides: Array[String] = []
-	for side_offset in range(ordered_sides.size()):
-		var side := ordered_sides[posmod(side_offset + rotation, ordered_sides.size())]
+	# Mevcut zırhlı blok görsellerinin üçü de alt zayıf noktayı gösterir.
+	# Bu kenar kapalıysa blok üretmeyerek görsel ile hasar maskesinin ayrışmasını önleriz.
+	if not _is_side_accessible(cell, "bottom", occupied):
+		return []
+	var sides: Array[String] = ["bottom"]
+	if mine_index >= 12:
+		return sides
+	var side_candidates: Array[String] = ["left", "right"]
+	var rotation := posmod(mine_index + slot_index + entry_index, side_candidates.size())
+	for side_offset in range(side_candidates.size()):
+		var side := side_candidates[posmod(side_offset + rotation, side_candidates.size())]
 		if _is_side_accessible(cell, side, occupied):
 			sides.append(side)
-			if sides.size() >= (1 if mine_index >= 12 else 2):
-				break
+			break
 	return sides
 
 

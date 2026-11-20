@@ -144,7 +144,7 @@
       "id": 140316,
       "type": "armored",
       "vulnerableSides": [
-        "left"
+        "bottom"
       ]
     },
     {
@@ -152,12 +152,9 @@
         6,
         5
       ],
-      "hitPoints": 6,
+      "hitPoints": 8,
       "id": 140317,
-      "type": "armored",
-      "vulnerableSides": [
-        "right"
-      ]
+      "type": "ore"
     },
     {
       "cell": [
@@ -186,7 +183,7 @@
       "id": 140320,
       "type": "armored",
       "vulnerableSides": [
-        "right"
+        "bottom"
       ]
     },
     {
@@ -208,7 +205,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-8",
+  "contentVersion": "p2-mines-9",
   "displayName": "Son Kemer",
   "displayNameKey": "MINE_14_WIDE_03",
   "exampleAngles": [

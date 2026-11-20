@@ -95,12 +95,9 @@
         2,
         6
       ],
-      "hitPoints": 5,
+      "hitPoints": 8,
       "id": 140111,
-      "type": "armored",
-      "vulnerableSides": [
-        "right"
-      ]
+      "type": "ore"
     },
     {
       "cell": [
@@ -116,12 +113,9 @@
         2,
         7
       ],
-      "hitPoints": 6,
+      "hitPoints": 8,
       "id": 140113,
-      "type": "armored",
-      "vulnerableSides": [
-        "right"
-      ]
+      "type": "ore"
     },
     {
       "cell": [
@@ -167,12 +161,9 @@
         5,
         4
       ],
-      "hitPoints": 4,
+      "hitPoints": 8,
       "id": 140118,
-      "type": "armored",
-      "vulnerableSides": [
-        "right"
-      ]
+      "type": "ore"
     },
     {
       "cell": [
@@ -214,13 +205,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-8",
+  "contentVersion": "p2-mines-9",
   "displayName": "Dip Galerisi",
   "displayNameKey": "MINE_14_WIDE_01",
   "exampleAngles": [
-    79.0,
-    79.0,
-    79.0
+    78.0,
+    78.0,
+    78.0
   ],
   "family": "safe",
   "height": 8,

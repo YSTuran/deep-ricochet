@@ -99,8 +99,8 @@
       "id": 120111,
       "type": "armored",
       "vulnerableSides": [
-        "left",
-        "right"
+        "bottom",
+        "left"
       ]
     },
     {
@@ -112,8 +112,8 @@
       "id": 120112,
       "type": "armored",
       "vulnerableSides": [
-        "right",
-        "bottom"
+        "bottom",
+        "right"
       ]
     },
     {
@@ -134,7 +134,7 @@
       "id": 120114,
       "type": "armored",
       "vulnerableSides": [
-        "left",
+        "bottom",
         "right"
       ]
     },
@@ -152,12 +152,9 @@
         3,
         6
       ],
-      "hitPoints": 3,
+      "hitPoints": 8,
       "id": 120116,
-      "type": "armored",
-      "vulnerableSides": [
-        "left"
-      ]
+      "type": "ore"
     },
     {
       "cell": [
@@ -199,7 +196,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-8",
+  "contentVersion": "p2-mines-9",
   "displayName": "Nöbetçi Salonu",
   "displayNameKey": "MINE_12_WIDE_01",
   "exampleAngles": [

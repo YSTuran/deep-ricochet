@@ -192,7 +192,7 @@
       "id": 140421,
       "type": "armored",
       "vulnerableSides": [
-        "left"
+        "bottom"
       ]
     },
     {
@@ -223,7 +223,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-8",
+  "contentVersion": "p2-mines-9",
   "displayName": "Nihai Yarık",
   "displayNameKey": "MINE_14_NARROW_01",
   "exampleAngles": [

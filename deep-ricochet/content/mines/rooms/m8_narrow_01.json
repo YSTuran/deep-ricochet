@@ -190,7 +190,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-8",
+  "contentVersion": "p2-mines-9",
   "displayName": "Kor Yarığı",
   "displayNameKey": "MINE_8_NARROW_01",
   "exampleAngles": [

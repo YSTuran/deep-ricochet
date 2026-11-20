@@ -89,13 +89,9 @@
         6,
         7
       ],
-      "hitPoints": 5,
+      "hitPoints": 8,
       "id": 110110,
-      "type": "armored",
-      "vulnerableSides": [
-        "right",
-        "left"
-      ]
+      "type": "ore"
     },
     {
       "cell": [
@@ -197,7 +193,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-8",
+  "contentVersion": "p2-mines-9",
   "displayName": "Demir Galeri",
   "displayNameKey": "MINE_11_WIDE_01",
   "exampleAngles": [

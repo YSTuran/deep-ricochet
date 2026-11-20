@@ -172,7 +172,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-8",
+  "contentVersion": "p2-mines-9",
   "displayName": "Kıvılcım Eşiği",
   "displayNameKey": "MINE_8_START",
   "exampleAngles": [

@@ -165,7 +165,7 @@
       "id": 110418,
       "type": "armored",
       "vulnerableSides": [
-        "left",
+        "bottom",
         "right"
       ]
     },
@@ -183,12 +183,9 @@
         6,
         5
       ],
-      "hitPoints": 7,
+      "hitPoints": 8,
       "id": 110420,
-      "type": "armored",
-      "vulnerableSides": [
-        "left"
-      ]
+      "type": "ore"
     },
     {
       "cell": [
@@ -209,7 +206,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-8",
+  "contentVersion": "p2-mines-9",
   "displayName": "Pembe Yarık",
   "displayNameKey": "MINE_11_NARROW_01",
   "exampleAngles": [

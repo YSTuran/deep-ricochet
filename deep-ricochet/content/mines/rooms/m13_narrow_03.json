@@ -106,10 +106,7 @@
       ],
       "hitPoints": 8,
       "id": 130612,
-      "type": "armored",
-      "vulnerableSides": [
-        "right"
-      ]
+      "type": "ore"
     },
     {
       "cell": [
@@ -164,12 +161,9 @@
         1,
         4
       ],
-      "hitPoints": 6,
+      "hitPoints": 8,
       "id": 130618,
-      "type": "armored",
-      "vulnerableSides": [
-        "left"
-      ]
+      "type": "ore"
     },
     {
       "cell": [
@@ -222,7 +216,7 @@
       "id": 130623,
       "type": "armored",
       "vulnerableSides": [
-        "left"
+        "bottom"
       ]
     },
     {
@@ -235,7 +229,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-8",
+  "contentVersion": "p2-mines-9",
   "displayName": "Taş Hisar",
   "displayNameKey": "MINE_13_NARROW_03",
   "exampleAngles": [

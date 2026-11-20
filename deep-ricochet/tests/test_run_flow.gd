@@ -100,6 +100,14 @@ static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: Gam
 				mine_classic_block_counts[template.mine_id] = mine_classic_block_counts.get(template.mine_id, 0) + 1
 			elif definition.block_type == BlockState.BlockType.CRACKED:
 				assert(definition.hit_points == 8)
+			elif definition.block_type == BlockState.BlockType.ARMORED:
+				assert(
+					(definition.vulnerable_sides & BlockState.VulnerableSide.BOTTOM) != 0,
+					"Zırhlı blok görselindeki alt zayıf nokta hasar maskesinde yok: %s / %d" % [
+						template.room_id,
+						definition.id,
+					],
+				)
 			elif definition.block_type == BlockState.BlockType.CORE:
 				assert(BoardGeometry.is_core_row(definition.cell.y))
 				assert(definition.cell.x >= 1 and definition.cell.x <= 6)

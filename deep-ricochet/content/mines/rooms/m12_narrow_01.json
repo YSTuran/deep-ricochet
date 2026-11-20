@@ -95,12 +95,9 @@
         6,
         7
       ],
-      "hitPoints": 5,
+      "hitPoints": 8,
       "id": 120411,
-      "type": "armored",
-      "vulnerableSides": [
-        "right"
-      ]
+      "type": "ore"
     },
     {
       "cell": [
@@ -214,7 +211,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-8",
+  "contentVersion": "p2-mines-9",
   "displayName": "Kapalı Yarık",
   "displayNameKey": "MINE_12_NARROW_01",
   "exampleAngles": [

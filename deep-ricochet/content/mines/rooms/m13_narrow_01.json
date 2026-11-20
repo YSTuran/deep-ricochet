@@ -117,7 +117,7 @@
       "id": 130413,
       "type": "armored",
       "vulnerableSides": [
-        "right"
+        "bottom"
       ]
     },
     {
@@ -220,7 +220,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-8",
+  "contentVersion": "p2-mines-9",
   "displayName": "Büyük Yarık",
   "displayNameKey": "MINE_13_NARROW_01",
   "exampleAngles": [

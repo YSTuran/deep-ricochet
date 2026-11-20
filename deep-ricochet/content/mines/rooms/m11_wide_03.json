@@ -153,12 +153,9 @@
         3,
         6
       ],
-      "hitPoints": 5,
+      "hitPoints": 8,
       "id": 110317,
-      "type": "armored",
-      "vulnerableSides": [
-        "left"
-      ]
+      "type": "ore"
     },
     {
       "cell": [
@@ -182,8 +179,8 @@
       "id": 110319,
       "type": "armored",
       "vulnerableSides": [
-        "right",
-        "bottom"
+        "bottom",
+        "right"
       ]
     },
     {
@@ -205,7 +202,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-8",
+  "contentVersion": "p2-mines-9",
   "displayName": "Muhafız Kemeri",
   "displayNameKey": "MINE_11_WIDE_03",
   "exampleAngles": [

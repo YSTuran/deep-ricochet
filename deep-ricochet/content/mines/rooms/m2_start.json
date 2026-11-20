@@ -136,7 +136,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-8",
+  "contentVersion": "p2-mines-9",
   "displayName": "Derin Giriş",
   "displayNameKey": "MINE_2_START",
   "exampleAngles": [

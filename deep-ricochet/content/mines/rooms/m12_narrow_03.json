@@ -113,12 +113,9 @@
         3,
         6
       ],
-      "hitPoints": 5,
+      "hitPoints": 8,
       "id": 120613,
-      "type": "armored",
-      "vulnerableSides": [
-        "right"
-      ]
+      "type": "ore"
     },
     {
       "cell": [
@@ -168,8 +165,8 @@
       "id": 120618,
       "type": "armored",
       "vulnerableSides": [
-        "right",
-        "bottom"
+        "bottom",
+        "right"
       ]
     },
     {
@@ -218,7 +215,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-8",
+  "contentVersion": "p2-mines-9",
   "displayName": "Derin Karakol",
   "displayNameKey": "MINE_12_NARROW_03",
   "exampleAngles": [

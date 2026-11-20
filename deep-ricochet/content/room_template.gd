@@ -164,6 +164,18 @@ func validation_errors() -> PackedStringArray:
 			var vulnerable_count := _vulnerable_side_count(definition.vulnerable_sides)
 			if vulnerable_count < 1 or vulnerable_count > 2:
 				errors.append("%s zırhlı blok olduğu için 1 veya 2 açık kenara sahip olmalıdır." % label)
+			var supported_visual_mask := definition.vulnerable_sides \
+				== BlockState.VulnerableSide.BOTTOM \
+				or definition.vulnerable_sides == (
+					BlockState.VulnerableSide.BOTTOM | BlockState.VulnerableSide.LEFT
+				) \
+				or definition.vulnerable_sides == (
+					BlockState.VulnerableSide.BOTTOM | BlockState.VulnerableSide.RIGHT
+				)
+			if not supported_visual_mask:
+				errors.append(
+					"%s zırhlı bloğun zayıf kenarları mevcut görsellerle eşleşmiyor." % label
+				)
 		elif definition.block_type == BlockState.BlockType.CORE \
 			and (definition.hit_points < MIN_CORE_HP or definition.hit_points > MAX_CORE_HP):
 			errors.append("%s çekirdek olduğu için %d-%d cana sahip olmalıdır." % [label, MIN_CORE_HP, MAX_CORE_HP])

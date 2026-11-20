@@ -139,7 +139,7 @@
       "id": 120015,
       "type": "armored",
       "vulnerableSides": [
-        "left",
+        "bottom",
         "right"
       ]
     },
@@ -166,24 +166,18 @@
         4,
         7
       ],
-      "hitPoints": 6,
+      "hitPoints": 8,
       "id": 120018,
-      "type": "armored",
-      "vulnerableSides": [
-        "right"
-      ]
+      "type": "ore"
     },
     {
       "cell": [
         7,
         6
       ],
-      "hitPoints": 6,
+      "hitPoints": 8,
       "id": 120019,
-      "type": "armored",
-      "vulnerableSides": [
-        "left"
-      ]
+      "type": "ore"
     },
     {
       "cell": [
@@ -204,7 +198,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-8",
+  "contentVersion": "p2-mines-9",
   "displayName": "Muhafız Eşiği",
   "displayNameKey": "MINE_12_START",
   "exampleAngles": [

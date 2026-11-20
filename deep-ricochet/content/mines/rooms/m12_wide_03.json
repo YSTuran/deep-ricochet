@@ -81,8 +81,8 @@
       "id": 120309,
       "type": "armored",
       "vulnerableSides": [
-        "left",
-        "bottom"
+        "bottom",
+        "left"
       ]
     },
     {
@@ -112,8 +112,8 @@
       "id": 120312,
       "type": "armored",
       "vulnerableSides": [
-        "right",
-        "bottom"
+        "bottom",
+        "right"
       ]
     },
     {
@@ -179,8 +179,8 @@
       "id": 120319,
       "type": "armored",
       "vulnerableSides": [
-        "right",
-        "bottom"
+        "bottom",
+        "left"
       ]
     },
     {
@@ -193,7 +193,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-8",
+  "contentVersion": "p2-mines-9",
   "displayName": "Bekçi Kemeri",
   "displayNameKey": "MINE_12_WIDE_03",
   "exampleAngles": [

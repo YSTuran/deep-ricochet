@@ -104,13 +104,9 @@
         2,
         5
       ],
-      "hitPoints": 6,
+      "hitPoints": 8,
       "id": 110012,
-      "type": "armored",
-      "vulnerableSides": [
-        "left",
-        "right"
-      ]
+      "type": "ore"
     },
     {
       "cell": [
@@ -152,8 +148,8 @@
       "id": 110016,
       "type": "armored",
       "vulnerableSides": [
-        "left",
-        "bottom"
+        "bottom",
+        "left"
       ]
     },
     {
@@ -193,7 +189,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-8",
+  "contentVersion": "p2-mines-9",
   "displayName": "Zırh Kapısı",
   "displayNameKey": "MINE_11_START",
   "exampleAngles": [

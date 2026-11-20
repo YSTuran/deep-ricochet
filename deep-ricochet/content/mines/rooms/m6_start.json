@@ -154,7 +154,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-8",
+  "contentVersion": "p2-mines-9",
   "displayName": "Uçurum Kapısı",
   "displayNameKey": "MINE_6_START",
   "exampleAngles": [

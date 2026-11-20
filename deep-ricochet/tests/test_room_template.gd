@@ -8,6 +8,7 @@ static func run(gameplay_room: GameplayRoom, config: GameConfig) -> void:
 	_test_template_load_and_board_isolation()
 	_test_invalid_template_rejected()
 	_test_blocked_armor_weak_sides_rejected()
+	_test_armored_visual_mask_rejected()
 	_test_gameplay_room_recovers_invalid_template(gameplay_room)
 	_test_gameplay_room_accepts_external_template(gameplay_room, config)
 
@@ -113,6 +114,38 @@ static func _test_blocked_armor_weak_sides_rejected() -> void:
 		],
 	})
 	assert(not block_blocked.is_valid())
+
+
+static func _test_armored_visual_mask_rejected() -> void:
+	var left_only := RoomTemplateLoader.from_dictionary({
+		"schemaVersion": 1,
+		"id": "left_only_armor",
+		"displayName": "Zırh Görsel Testi",
+		"family": "safe",
+		"contentVersion": "test",
+		"width": 8,
+		"height": 8,
+		"multiplierBps": 10_000,
+		"passageColumns": [3, 4],
+		"exampleAngles": [90.0],
+		"blocks": [
+			{
+				"id": 1,
+				"type": "armored",
+				"cell": [2, 4],
+				"hitPoints": 4,
+				"vulnerableSides": ["left"],
+			},
+			{"id": 2, "type": "core", "cell": [4, 8], "hitPoints": 6},
+		],
+	})
+	assert(not left_only.is_valid())
+	var visual_mask_error_found := false
+	for error: String in left_only.validation_errors():
+		if error.contains("mevcut görsellerle eşleşmiyor"):
+			visual_mask_error_found = true
+			break
+	assert(visual_mask_error_found)
 
 
 static func _test_gameplay_room_accepts_external_template(
