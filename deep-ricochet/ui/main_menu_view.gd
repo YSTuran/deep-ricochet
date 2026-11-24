@@ -8,11 +8,13 @@ const CONTINUE_BUTTON := Rect2(80.0, 500.0, 380.0, 66.0)
 const NEW_GAME_BUTTON := Rect2(80.0, 580.0, 380.0, 66.0)
 const DAILY_BUTTON := Rect2(80.0, 660.0, 380.0, 66.0)
 const SETTINGS_BUTTON := Rect2(80.0, 740.0, 380.0, 62.0)
+const CREDITS_LINK := Rect2(145.0, 867.0, 250.0, 36.0)
 const CORE_TEXTURE: Texture2D = preload("res://assets/images/blocks/cekirdek.png")
 const ACTION_CONTINUE := &"continue"
 const ACTION_NEW_GAME := &"new_game"
 const ACTION_DAILY := &"daily"
 const ACTION_SETTINGS := &"settings"
+const ACTION_CREDITS := &"credits"
 
 var controller: RunController
 var continue_available := false
@@ -61,6 +63,8 @@ func _gui_input(event: InputEvent) -> void:
 			controller.request_daily_run()
 		ACTION_SETTINGS:
 			controller.open_settings_from_main_menu()
+		ACTION_CREDITS:
+			controller.open_credits()
 
 
 func _draw() -> void:
@@ -143,11 +147,26 @@ func _draw() -> void:
 	)
 	if not notice.is_empty():
 		DeepUI.draw_centered(self, notice, Rect2(45.0, 818.0, 450.0, 52.0), 14, DeepUI.MUTED)
+	var credits_color := DeepUI.GOLD_LIGHT \
+		if touch_controls.is_pressed(ACTION_CREDITS) else DeepUI.MUTED
+	DeepUI.draw_centered(
+		self,
+		tr("MENU_CREDITS"),
+		CREDITS_LINK,
+		13,
+		credits_color,
+	)
+	draw_line(
+		Vector2(CREDITS_LINK.position.x + 58.0, CREDITS_LINK.end.y - 5.0),
+		Vector2(CREDITS_LINK.end.x - 58.0, CREDITS_LINK.end.y - 5.0),
+		Color(credits_color, 0.7),
+		1.0,
+	)
 	DeepUI.draw_centered(
 		self,
 		tr("MENU_OFFLINE"),
-		Rect2(30.0, 895.0, 480.0, 30.0),
-		14,
+		Rect2(30.0, 914.0, 480.0, 26.0),
+		12,
 		Color(DeepUI.MUTED, 0.7),
 	)
 
@@ -169,6 +188,7 @@ func _touch_targets() -> Dictionary:
 		ACTION_NEW_GAME: _new_game_button_rect(),
 		ACTION_DAILY: _daily_button_rect(),
 		ACTION_SETTINGS: _settings_button_rect(),
+		ACTION_CREDITS: CREDITS_LINK,
 	}
 	if continue_available:
 		targets[ACTION_CONTINUE] = CONTINUE_BUTTON

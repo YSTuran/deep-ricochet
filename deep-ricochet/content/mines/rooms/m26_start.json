@@ -1,0 +1,228 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        5,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 260001,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        6,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 260002,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        5,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 260003,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        7,
+        4
+      ],
+      "hitPoints": 0,
+      "id": 260004,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 260005,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        6
+      ],
+      "hitPoints": 0,
+      "id": 260006,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 260007,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        6
+      ],
+      "hitPoints": 0,
+      "id": 260008,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        3,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 260009,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        2,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 260010,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        5,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 260011,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        1,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 260012,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        4,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 260013,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        4,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 260014,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        4,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 260015,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        1,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 260016,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        5,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 260017,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        1,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 260018,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        2,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 260019,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        2,
+        3
+      ],
+      "hitPoints": 8,
+      "id": 260020,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        3,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 260021,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        6,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 260099,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-10",
+  "displayName": "Kadim Derinlik",
+  "displayNameKey": "MINE_26_START",
+  "exampleAngles": [
+    20.0,
+    20.0,
+    20.0
+  ],
+  "family": "safe",
+  "height": 8,
+  "id": "m26_start",
+  "mineId": "mine_26",
+  "multiplierBps": 10000,
+  "passageColumns": [
+    3,
+    4
+  ],
+  "role": "start",
+  "schemaVersion": 1,
+  "width": 8
+}

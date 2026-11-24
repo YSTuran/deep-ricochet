@@ -1,0 +1,245 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        3,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 260401,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        2,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 260402,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        2,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 260403,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        1,
+        7
+      ],
+      "hitPoints": 0,
+      "id": 260404,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        7
+      ],
+      "hitPoints": 0,
+      "id": 260405,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        7
+      ],
+      "hitPoints": 0,
+      "id": 260406,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        6,
+        7
+      ],
+      "hitPoints": 0,
+      "id": 260407,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        6,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 260408,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        1,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 260409,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 260410,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        1,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 260411,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 260412,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        4,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 260413,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        5,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 260414,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        7,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 260415,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        6,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 260416,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        1,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 260417,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        7,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 260418,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        6,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 260419,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        6,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 260420,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        0,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 260421,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        1,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 260422,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        5,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 260423,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        2,
+        8
+      ],
+      "hitPoints": 8,
+      "id": 260499,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-10",
+  "displayName": "Kayıp Yarık",
+  "displayNameKey": "MINE_26_NARROW_01",
+  "exampleAngles": [
+    95.5,
+    95.5,
+    95.5
+  ],
+  "family": "bonus",
+  "height": 8,
+  "id": "m26_narrow_01",
+  "mineId": "mine_26",
+  "multiplierBps": 15000,
+  "passageColumns": [
+    4
+  ],
+  "role": "narrow",
+  "schemaVersion": 1,
+  "width": 8
+}

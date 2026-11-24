@@ -1,0 +1,245 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        4,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 180401,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        4,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 180402,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        0,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 180403,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 180404,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        1,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 180405,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        6,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 180406,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        1,
+        6
+      ],
+      "hitPoints": 0,
+      "id": 180407,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        6
+      ],
+      "hitPoints": 0,
+      "id": 180408,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        6
+      ],
+      "hitPoints": 0,
+      "id": 180409,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        6,
+        6
+      ],
+      "hitPoints": 0,
+      "id": 180410,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        6,
+        7
+      ],
+      "hitPoints": 0,
+      "id": 180411,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 180412,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        5,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 180413,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        2,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 180414,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        4,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 180415,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        3,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 180416,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        7,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 180417,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        5,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 180418,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        6,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 180419,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        2,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 180420,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        3,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 180421,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        5,
+        3
+      ],
+      "hitPoints": 8,
+      "id": 180422,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        3,
+        7
+      ],
+      "hitPoints": 6,
+      "id": 180423,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        4,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 180499,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-10",
+  "displayName": "Nemli Yarık",
+  "displayNameKey": "MINE_18_NARROW_01",
+  "exampleAngles": [
+    85.5,
+    85.5,
+    85.5
+  ],
+  "family": "bonus",
+  "height": 8,
+  "id": "m18_narrow_01",
+  "mineId": "mine_18",
+  "multiplierBps": 15000,
+  "passageColumns": [
+    4
+  ],
+  "role": "narrow",
+  "schemaVersion": 1,
+  "width": 8
+}

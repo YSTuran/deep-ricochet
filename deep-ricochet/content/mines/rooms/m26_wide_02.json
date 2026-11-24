@@ -1,0 +1,231 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        4,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 260201,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        4,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 260202,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        7,
+        4
+      ],
+      "hitPoints": 0,
+      "id": 260203,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        6
+      ],
+      "hitPoints": 0,
+      "id": 260204,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 260205,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 260206,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 260207,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        3,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 260208,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        1,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 260209,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        1,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 260210,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        6,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 260211,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        6,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 260212,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        5,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 260213,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        1,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 260214,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        6,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 260215,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        1,
+        2
+      ],
+      "hitPoints": 8,
+      "id": 260216,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        3,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 260217,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        3,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 260218,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        3,
+        3
+      ],
+      "hitPoints": 8,
+      "id": 260219,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        6,
+        3
+      ],
+      "hitPoints": 8,
+      "id": 260220,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        7,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 260221,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        4,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 260299,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-10",
+  "displayName": "Mühür Koridoru",
+  "displayNameKey": "MINE_26_WIDE_02",
+  "exampleAngles": [
+    85.5,
+    85.5,
+    85.5
+  ],
+  "family": "safe",
+  "height": 8,
+  "id": "m26_wide_02",
+  "mineId": "mine_26",
+  "multiplierBps": 10000,
+  "passageColumns": [
+    4,
+    5
+  ],
+  "role": "wide",
+  "schemaVersion": 1,
+  "width": 8
+}

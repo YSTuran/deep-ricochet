@@ -1,0 +1,225 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        3,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 170101,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        2,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 170102,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        2,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 170103,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        7,
+        6
+      ],
+      "hitPoints": 0,
+      "id": 170104,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        7
+      ],
+      "hitPoints": 0,
+      "id": 170105,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 170106,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 170107,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        4
+      ],
+      "hitPoints": 0,
+      "id": 170108,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        5,
+        2
+      ],
+      "hitPoints": 8,
+      "id": 170109,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        6,
+        2
+      ],
+      "hitPoints": 8,
+      "id": 170110,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        1,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 170111,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        6,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 170112,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        6,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 170113,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        3,
+        6
+      ],
+      "hitPoints": 5,
+      "id": 170114,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        3,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 170115,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        6,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 170116,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        0,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 170117,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        4,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 170118,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        5,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 170119,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        5,
+        4
+      ],
+      "hitPoints": 6,
+      "id": 170120,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        4,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 170121,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        2,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 170199,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-10",
+  "displayName": "Kor Basamağı",
+  "displayNameKey": "MINE_17_WIDE_01",
+  "exampleAngles": [
+    101.0,
+    101.0,
+    101.0
+  ],
+  "family": "safe",
+  "height": 8,
+  "id": "m17_wide_01",
+  "mineId": "mine_17",
+  "multiplierBps": 10000,
+  "passageColumns": [
+    2,
+    3
+  ],
+  "role": "wide",
+  "schemaVersion": 1,
+  "width": 8
+}

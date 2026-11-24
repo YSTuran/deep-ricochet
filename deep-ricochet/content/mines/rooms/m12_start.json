@@ -198,7 +198,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-9",
+  "contentVersion": "p2-mines-10",
   "displayName": "Muhafız Eşiği",
   "displayNameKey": "MINE_12_START",
   "exampleAngles": [

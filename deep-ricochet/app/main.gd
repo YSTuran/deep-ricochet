@@ -30,6 +30,7 @@ const UiLayoutScript := preload("res://ui/ui_layout.gd")
 @onready var pause_overlay: PauseOverlay = $Interface/PauseOverlay
 @onready var settings_overlay: SettingsOverlay = $Interface/SettingsOverlay
 @onready var tutorial_overlay: TutorialOverlay = $Interface/TutorialOverlay
+@onready var credits_view: CreditsView = $Interface/CreditsView
 @onready var storage_notice: Control = $Interface/StorageNotice
 
 enum SettingsContext {
@@ -108,6 +109,7 @@ func _ready() -> void:
 	pause_overlay.bind(self)
 	settings_overlay.bind(self)
 	tutorial_overlay.bind(self)
+	credits_view.bind(self)
 	pause_button.pressed.connect(pause_game)
 	speed_button.pressed.connect(toggle_simulation_speed)
 	gameplay_room.set_simulation_enabled(false)
@@ -140,6 +142,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	get_viewport().set_input_as_handled()
 	if tutorial_overlay.is_modal():
 		complete_tutorial()
+	elif credits_view.visible:
+		close_credits()
 	elif settings_overlay.visible:
 		if settings_overlay.mode == SettingsOverlay.Mode.CONFIRM_DELETE_ALL:
 			settings_overlay.show_settings()
@@ -168,6 +172,8 @@ func _initialize_user_data() -> void:
 func _handle_back_request() -> void:
 	if tutorial_overlay.is_modal():
 		complete_tutorial()
+	elif credits_view.visible:
+		close_credits()
 	elif settings_overlay.visible:
 		if settings_overlay.mode == SettingsOverlay.Mode.CONFIRM_DELETE_ALL:
 			settings_overlay.show_settings()
@@ -253,6 +259,17 @@ func open_mine_selection() -> void:
 
 func close_mine_selection() -> void:
 	navigation_controller.close_mine_selection(self)
+
+
+func open_credits() -> void:
+	if not main_menu_view.visible:
+		return
+	credits_view.show_credits()
+
+
+func close_credits() -> void:
+	credits_view.hide_credits()
+	main_menu_view.queue_redraw()
 
 
 func request_mine_run(mine_id: StringName) -> bool:
@@ -401,6 +418,7 @@ func _refresh_localized_views() -> void:
 	pause_overlay.queue_redraw()
 	settings_overlay.refresh_locale()
 	tutorial_overlay.refresh_locale()
+	credits_view.queue_redraw()
 	flow_view.queue_redraw()
 
 
@@ -506,6 +524,7 @@ func _show_main_menu(can_continue: bool, notice: String = "") -> void:
 	flow_view.show_gameplay()
 	gameplay_room.set_simulation_enabled(false)
 	mine_select_view.hide_selector()
+	credits_view.hide_credits()
 	if tutorial_overlay.mode == TutorialOverlay.Mode.COACH:
 		tutorial_overlay.hide_overlay()
 	main_menu_view.show_menu(can_continue, notice)
@@ -531,6 +550,14 @@ func _record_run_result_if_needed() -> void:
 	if profile.last_recorded_run_id == run_session.run_id:
 		last_result_new_best = false
 		return
+	var awarded_stars := 0
+	if run_session.run_kind == RunSession.RunKind.NORMAL:
+		var mine := mine_registry.get_mine(run_session.mine_id) if mine_registry != null else null
+		if mine != null:
+			awarded_stars = mine.stars_for_score(
+				run_session.banked_score,
+				run_session.succeeded,
+			)
 	last_result_new_best = profile.record_run(
 		run_session.run_id,
 		run_session.banked_score,
@@ -539,6 +566,7 @@ func _record_run_result_if_needed() -> void:
 		run_session.mine_id,
 		run_session.run_kind == RunSession.RunKind.DAILY,
 		run_session.daily_key,
+		awarded_stars,
 	)
 	_save_profile()
 	if last_result_new_best:

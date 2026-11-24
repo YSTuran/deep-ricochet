@@ -1,0 +1,231 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        5,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 170301,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        6,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 170302,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        5,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 170303,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        0,
+        4
+      ],
+      "hitPoints": 0,
+      "id": 170304,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 170305,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        6
+      ],
+      "hitPoints": 0,
+      "id": 170306,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        4
+      ],
+      "hitPoints": 0,
+      "id": 170307,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        7
+      ],
+      "hitPoints": 0,
+      "id": 170308,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        6,
+        4
+      ],
+      "hitPoints": 7,
+      "id": 170309,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        2,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 170310,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        5,
+        3
+      ],
+      "hitPoints": 7,
+      "id": 170311,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        2,
+        2
+      ],
+      "hitPoints": 8,
+      "id": 170312,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        1,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 170313,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        3,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 170314,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        0,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 170315,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        1,
+        4
+      ],
+      "hitPoints": 7,
+      "id": 170316,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        2,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 170317,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        5,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 170318,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        1,
+        2
+      ],
+      "hitPoints": 8,
+      "id": 170319,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        7,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 170320,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        7,
+        3
+      ],
+      "hitPoints": 8,
+      "id": 170321,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        6,
+        8
+      ],
+      "hitPoints": 8,
+      "id": 170399,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-10",
+  "displayName": "Köz Kemeri",
+  "displayNameKey": "MINE_17_WIDE_03",
+  "exampleAngles": [
+    70.0,
+    70.0,
+    70.0
+  ],
+  "family": "safe",
+  "height": 8,
+  "id": "m17_wide_03",
+  "mineId": "mine_17",
+  "multiplierBps": 10000,
+  "passageColumns": [
+    3,
+    4
+  ],
+  "role": "wide",
+  "schemaVersion": 1,
+  "width": 8
+}

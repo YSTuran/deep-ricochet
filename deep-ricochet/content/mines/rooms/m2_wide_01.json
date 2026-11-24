@@ -127,7 +127,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-9",
+  "contentVersion": "p2-mines-10",
   "displayName": "Kömür Salonu",
   "displayNameKey": "MINE_2_WIDE_01",
   "exampleAngles": [

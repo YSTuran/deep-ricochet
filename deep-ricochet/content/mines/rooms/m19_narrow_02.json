@@ -1,0 +1,242 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        3,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 190501,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        2,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 190502,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        2,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 190503,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        7,
+        7
+      ],
+      "hitPoints": 0,
+      "id": 190504,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        1,
+        7
+      ],
+      "hitPoints": 0,
+      "id": 190505,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        6,
+        7
+      ],
+      "hitPoints": 0,
+      "id": 190506,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        1,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 190507,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 190508,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 190509,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        6,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 190510,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        1,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 190511,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        6,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 190512,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        3,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 190513,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        4,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 190514,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        5,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 190515,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        1,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 190516,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        6,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 190517,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        5,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 190518,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        4,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 190519,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        0,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 190520,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        4,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 190521,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        1,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 190522,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        1,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 190523,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        2,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 190599,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-10",
+  "displayName": "Donmuş Damar",
+  "displayNameKey": "MINE_19_NARROW_02",
+  "exampleAngles": [
+    97.0,
+    97.0,
+    97.0
+  ],
+  "family": "bonus",
+  "height": 8,
+  "id": "m19_narrow_02",
+  "mineId": "mine_19",
+  "multiplierBps": 15000,
+  "passageColumns": [
+    4
+  ],
+  "role": "narrow",
+  "schemaVersion": 1,
+  "width": 8
+}

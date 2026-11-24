@@ -6,12 +6,12 @@
 
 Deep Ricochet, dikey ekranda oynanan; nişan alma, sekme fiziği ve rota seçimi üzerine kurulu bir maden oyunudur. Oyuncu sekiz topluk yaylımları duvarlardan ve bloklardan sektirerek odanın çekirdeğini kırmaya çalışır. Her atış sınırlı olduğu için doğru açı, blokların kırılma sırası ve riskli rota tercihleri doğrudan sonucu belirler.
 
-Proje tek oyunculu ve çevrimdışı çalışır. Türkçe ve İngilizce arayüz, on dört maden, günlük mücadele, ilerleme kaydı, iki kalite modu ve beş mağara renk teması içerir.
+Proje tek oyunculu ve çevrimdışı çalışır. Türkçe ve İngilizce arayüz, yirmi sekiz maden, günlük mücadele, puan tabanlı yıldız ilerlemesi, iki kalite modu ve beş mağara renk teması içerir.
 
 <table>
   <tr>
-    <td align="center"><strong>14</strong><br>Maden</td>
-    <td align="center"><strong>112</strong><br>Doğrulanan oda</td>
+    <td align="center"><strong>28</strong><br>Maden</td>
+    <td align="center"><strong>210</strong><br>Doğrulanan oda</td>
     <td align="center"><strong>7</strong><br>Blok türü</td>
     <td align="center"><strong>5</strong><br>Renk teması</td>
     <td align="center"><strong>TR / EN</strong><br>Arayüz</td>
@@ -33,15 +33,22 @@ Oyun sırasında simülasyon `1×` ve `2×` arasında değiştirilebilir. `2×` 
 
 ## Madenler ve zorluk
 
-Oyunda sırayla açılan on dört maden bulunur. Her madende bir başlangıç, üç geniş geçit ve üç dar damar olmak üzere yedi şablon; toplamda 98 normal oda vardır. Bir koşu bu havuzdan seed tabanlı ve tekrar etmeyen dört oda seçer.
+Oyunda sırayla açılan yirmi sekiz maden bulunur. Her madende bir başlangıç, üç geniş geçit ve üç dar damar olmak üzere yedi şablon; toplamda 196 normal oda vardır. Bir koşu bu havuzdan seed tabanlı ve tekrar etmeyen dört oda seçer. Günlük maden için ayrıca on dört yoğun varyant üretilir.
 
 - **Maden 1–6:** Normal blok, cevher, sert kaya ve çekirdek kullanır.
 - **Maden 7–10:** Çatlak kaya ve patlayıcı bloklar devreye girer.
-- **Maden 11–14:** Zırhlı bloklar da yerleşimlere eklenir.
+- **Maden 11–14:** Zırhlı bloklar yerleşimlere eklenir ve zayıf nokta kullanımı öğretilir.
+- **Maden 15–18:** Çekirdek çevresindeki koruma katmanı ve özel blok oranı yükselir.
+- **Maden 19–22:** Zırhlı, çatlak ve patlayıcı blokların birlikte kullanıldığı daha yoğun karışımlar başlar.
+- **Maden 23–28:** Tek zayıf noktalı zırhlılar ve daha kapalı çekirdek yollarıyla ustalık bölümü oluşur.
 
-Maden seviyesi yükseldikçe blok yoğunluğu, ortalama dayanıklılık ve çekirdeğe ulaşma zorluğu artar. Çekirdek yalnızca merkezde bulunmaz; üst bölgenin sol, orta veya sağ tarafında, kırılabilir blokların arkasında yer alabilir. Atıcının çevresini açık tutmak için 8×10 oyun ızgarasının en alt iki satırına blok yerleştirilmez.
+Maden seviyesi yükseldikçe önce blok yoğunluğu ve ortalama dayanıklılık, ilerleyen bölümlerde ise özel blok oranı, zırhlı blok sayısı ve çekirdeğin koruma katmanı artar. Çekirdek yalnızca merkezde bulunmaz; üst bölgenin sol, orta veya sağ tarafında, kırılabilir blokların arkasında yer alabilir. Atıcının çevresini açık tutmak için 8×10 oyun ızgarasının en alt iki satırına blok yerleştirilmez.
 
 Dar damarlar geniş geçitlerden yalnızca sayı bakımından değil, geometri bakımından da ayrılır. Yanlardaki sert kaya yığınları yolu tek hücrelik bir geçide kadar daraltabilir; değerli bloklar üst bölgede toplanır ve çekirdeğe doğrudan erişim zorlaştırılır.
+
+### Yıldız sistemi
+
+Başarıyla bitirilen her normal maden en az bir yıldız verir. Her madenin içerik tanımında ayrı tutulan iki puan eşiği aşıldığında sonuç iki veya üç yıldıza yükselir. Böylece süre ya da cihaz performansı değerlendirmeye katılmaz; kırılan bloklar, kalan atış bonusu ve rota çarpanı doğrudan yıldız sonucunu belirler. Maden seçim ekranı kazanılan en yüksek yıldızı gösterir ve daha düşük puanlı tekrarlar eski yıldız derecesini azaltmaz.
 
 ## Bloklar
 
@@ -183,7 +190,7 @@ Seçilen tema ayarlara kaydedilir ve menü, rota önizlemeleri, öğretici ile o
 
 Çarpışma sesleri her yaylımda sıfırlanan Re minör pentatonik bir dizi kullanır. Normal blok, cevher, sert kaya ve çekirdek farklı ses katmanlarına sahiptir. Çok toplu yaylımlarda seslerin üst üste binmesini önlemek için çarpışmalar 45 milisaniyelik hız sınırıyla oynatılır.
 
-Blok kırılması, çekirdek, patlama, rota seçimi, başarı ve başarısızlık için ayrı efektler bulunur. Arka plan maden atmosferi kodla düşük maliyetli olarak üretilir. Android cihazlarda blok ve çekirdek olayları kısa titreşimlerle desteklenebilir; titreşim çağrıları da cihazı gereksiz yere yormamak için sınırlandırılır.
+Her blok türünün ayrı kırılma dili vardır: normal blokta mavi parçalar, cevherde altın kıvılcımlar, çatlak kayada keskin kırık çizgileri, patlayıcıda çift şok dalgası, zırhlıda metal ve pembe cevher parçaları, çekirdekte ise eş merkezli turkuaz halkalar gösterilir. Kazanılan puan kırılma noktasından yükselen renkli bir etiketle belirtilir; zırha yanlış yönden veya sert kayaya yapılan temas daha kısa bir sekme efekti üretir. Arka plan maden atmosferi kodla düşük maliyetli olarak üretilir. Android cihazlarda blok ve çekirdek olayları kısa titreşimlerle desteklenebilir; titreşim çağrıları da cihazı gereksiz yere yormamak için sınırlandırılır.
 
 Ses efektleri Kenney'nin CC0 paketlerinden seçilmiştir. Kaynak eşleştirmeleri [THIRD_PARTY_AUDIO.md](deep-ricochet/audio/THIRD_PARTY_AUDIO.md) dosyasında tutulur.
 
@@ -196,7 +203,7 @@ Ayar ekranı seçenekleri tek bir uzun sayfada toplamak yerine dört kategoriye 
 - **Görüntü ve geri bildirim:** Ekran sarsıntısı, Android titreşimi ve kalite modu.
 - **Renk temaları:** Beş mağara paletinden birini seçme.
 
-**Performans** modu daha az parçacık ve daha hafif sarsıntı kullanarak düşük donanımlı telefonları hedefler. **Grafik** modu daha yoğun kırılma parçacıkları ve görsel geri bildirim sunar. Oynanış kuralları ve fizik iki modda da aynıdır.
+**Performans** modu aynı blok kimliğini koruyarak daha az parça, tek halka, sade puan etiketi ve en fazla on eş zamanlı darbe efekti kullanır. **Grafik** modu daha parlak renkler, ek ışımalar ve halkalar, daha yoğun parçalar, gölgeli puan etiketleri ve en fazla yirmi eş zamanlı efekt sunar. Oynanış kuralları, skor ve fizik iki modda da aynıdır.
 
 ## Kayıt ve devam etme
 
@@ -205,6 +212,12 @@ Aktif koşu; oda tamamlandığında, rota seçildiğinde ve kararlı oyun duruml
 Profil, ayarlar, aktif koşu ve yerel test olayları ayrı JSON dosyalarında tutulur. Bütün kalıcı veriler geçici dosyaya yazma, doğrulama, atomik değiştirme ve son geçerli `.bak` yedeği mekanizmasını paylaşır. Geçersiz dosyalar çökme yerine karantinaya alınır. Ana menüde geçerli bir koşu bulunduğunda **Devam** seçeneği görünür.
 
 Uygulama arka plana geçtiğinde ya da masaüstünde odağını kaybettiğinde oyun otomatik duraklar. Öne dönüldüğünde oyuncu **Devam** demeden simülasyon başlamaz.
+
+## Emeği geçenler ve lisanslar
+
+Ana menünün altındaki **Emeği Geçenler • Lisanslar** bağlantısı iki sayfalı çevrimdışı credits ekranını açar. Geliştirme ve programlama Yusuf Samet Turan, proje danışmanlığı Mustafa Hakan Bozkurt tarafından yürütülmüştür. Görsel tasarım iki ismin ortak katkısıdır: ilk normal, cevher ve çekirdek blokları Mustafa Hakan Bozkurt; diğer bloklar ve oyun görselleri Yusuf Samet Turan tarafından hazırlanmıştır.
+
+Ses efektlerinde Kenney'nin CC0 1.0 lisanslı Impact Sounds, Interface Sounds ve Digital Audio paketleri kullanılır. Oyun motoru Godot Engine MIT lisansı altındadır. Ekrandaki içerik `content/credits.json` dosyasından yüklenir; Türkçe ve İngilizce etiketler ortak çeviri tablosundan gelir. Ayrıntılı ses dosyası eşleştirmeleri [THIRD_PARTY_AUDIO.md](deep-ricochet/audio/THIRD_PARTY_AUDIO.md) içinde tutulur.
 
 ## Dizin yapısı
 
@@ -233,7 +246,7 @@ DeepRicochet/
     └── project.godot
 ```
 
-Oda içeriğinin tek kaynağı `content/mines/rooms/` altındaki JSON dosyalarıdır. On dört madenin sırası ve açılma koşulları `content/mines/mines.json`, ortak oyun değerleri ise `content/config/game_config.json` içinde bulunur. `tools/generate_mine_rooms.gd` aynı oda paketini deterministik olarak yeniden üretebilir. `tools/generate_readme_visuals.gd` ise oyunun gerçek çizim ve tema kodundan sert kaya assetini ve README tema önizlemelerini üretir.
+Oda içeriğinin tek kaynağı `content/mines/rooms/` altındaki JSON dosyalarıdır. Yirmi sekiz madenin sırası ve açılma koşulları `content/mines/mines.json`, credits içeriği `content/credits.json`, ortak oyun değerleri ise `content/config/game_config.json` içinde bulunur. `tools/generate_mine_rooms.gd` aynı oda paketini deterministik olarak yeniden üretebilir. `tools/generate_readme_visuals.gd` ise oyunun gerçek çizim ve tema kodundan sert kaya assetini ve README tema önizlemelerini üretir.
 
 `app/main.gd` sahneleri ve servisleri bir araya getirir. Koşu oluşturma, oda/rota akışı, geri bildirim, gezinme, kayıt kurtarma, ayarlar, öğretici ve kullanıcı verisi işlemleri `app/` altındaki ayrı denetleyicilere bölünmüştür. Fizik ve oyun kuralları görsel katmandan bağımsız tutulduğu için nişan önizlemesi, gerçek atış ve otomatik testler aynı simülasyon kodunu kullanır.
 
@@ -286,10 +299,10 @@ Test paketi başlıca şu alanları kapsar:
 - Yaylım zamanlaması, `1×`/`2×` eşdeğerliği ve oda sonuçları.
 - Yedi blok türü, erişilebilir zırh kenarları, 5×5 ve zincirleme patlama.
 - Puan, kalan atış bonusu, geniş/dar rota çarpanları.
-- 98 normal ve 14 günlük oda; şablon şeması, alt iki satır ve örnek çözüm açıları.
-- Maden kilitleri, günlük seed, aynı seed ile tekrar ve dört odalık koşu akışı.
+- 196 normal ve 14 günlük oda; şablon şeması, alt iki satır ve örnek çözüm açıları.
+- Maden kilitleri, puan tabanlı yıldızlar, günlük seed, aynı seed ile tekrar ve dört odalık koşu akışı.
 - Profil, ayarlar, veri göçleri, atomik kayıt, yedek ve bozuk dosya karantinası.
 - Ana menü, sonuç, duraklatma, Android geri davranışı ve arka plan dönüşü.
 - Türkçe/İngilizce çeviriler, ses sınırları, titreşim, kalite modu ve renk temaları.
 
-Test sonunda 112 oda için örnek açı simülasyon süresi `[PERF]` satırıyla ayrıca raporlanır.
+Test sonunda 210 oda için örnek açı simülasyon süresi `[PERF]` satırıyla ayrıca raporlanır.

@@ -48,6 +48,7 @@ func apply_color_theme(controller) -> void:
 		controller.pause_overlay,
 		controller.settings_overlay,
 		controller.tutorial_overlay,
+		controller.credits_view,
 		controller.flow_view,
 	]:
 		if is_instance_valid(view):

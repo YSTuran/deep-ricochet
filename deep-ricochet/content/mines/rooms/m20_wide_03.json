@@ -1,0 +1,234 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        3,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 200301,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        3,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 200302,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        3,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 200303,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        7,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 200304,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 200305,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 200306,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        7
+      ],
+      "hitPoints": 0,
+      "id": 200307,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        4
+      ],
+      "hitPoints": 0,
+      "id": 200308,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        1,
+        3
+      ],
+      "hitPoints": 8,
+      "id": 200309,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        2,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 200310,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        6,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 200311,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        1,
+        2
+      ],
+      "hitPoints": 8,
+      "id": 200312,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        5,
+        3
+      ],
+      "hitPoints": 8,
+      "id": 200313,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        6,
+        7
+      ],
+      "hitPoints": 6,
+      "id": 200314,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        4,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 200315,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        6,
+        2
+      ],
+      "hitPoints": 8,
+      "id": 200316,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        4,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 200317,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        4,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 200318,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        0,
+        3
+      ],
+      "hitPoints": 8,
+      "id": 200319,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        2,
+        2
+      ],
+      "hitPoints": 8,
+      "id": 200320,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        5,
+        2
+      ],
+      "hitPoints": 8,
+      "id": 200321,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        3,
+        8
+      ],
+      "hitPoints": 8,
+      "id": 200399,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-10",
+  "displayName": "Ağır Kemer",
+  "displayNameKey": "MINE_20_WIDE_03",
+  "exampleAngles": [
+    98.5,
+    98.5,
+    98.5
+  ],
+  "family": "safe",
+  "height": 8,
+  "id": "m20_wide_03",
+  "mineId": "mine_20",
+  "multiplierBps": 10000,
+  "passageColumns": [
+    3,
+    4
+  ],
+  "role": "wide",
+  "schemaVersion": 1,
+  "width": 8
+}

@@ -1,6 +1,6 @@
 extends SceneTree
 
-const CONTENT_VERSION := "p2-mines-9"
+const CONTENT_VERSION := "p2-mines-10"
 const CRACKED_HIT_POINTS := 8
 const NARROW_DURABILITY_BONUS := 1
 const MAX_ROOM_BLOCKS := 24
@@ -35,6 +35,20 @@ const DISPLAY_NAMES := [
 	["Muhafız Eşiği", "Nöbetçi Salonu", "Kara Burç", "Bekçi Kemeri", "Kapalı Yarık", "Sert Damar", "Derin Karakol"],
 	["Titan Kapısı", "Ağır Basamak", "Dev Salonu", "Titan Kemeri", "Büyük Yarık", "Mühürlü Damar", "Taş Hisar"],
 	["Son Derinlik", "Dip Galerisi", "Çekirdek Hisarı", "Son Kemer", "Nihai Yarık", "Derin Damar", "Maden Kalbi"],
+	["Unutulmuş Kapı", "Gölge Basamağı", "Kayıp Galeri", "Kör Kemer", "Eski Yarık", "Issız Damar", "Sessiz Mahzen"],
+	["Safir Eşiği", "Mavi Sütun", "Derin Koridor", "Kristal Kemer", "Soğuk Yarık", "Safir Damarı", "Parlak Boğaz"],
+	["Kızıl Kapı", "Kor Basamağı", "Ateş Salonu", "Köz Kemeri", "Yanık Yarık", "Sıcak Damar", "Lav Boğazı"],
+	["Zümrüt Eşiği", "Yosun Galerisi", "Yeşil Koridor", "Kök Kemeri", "Nemli Yarık", "Zümrüt Damarı", "Kadim Oyuk"],
+	["Buz Kapısı", "Donuk Basamak", "Ayaz Salonu", "Buz Kemeri", "Kırağı Yarığı", "Donmuş Damar", "Beyaz Şaft"],
+	["Basınç Eşiği", "Sıkı Galeri", "Ezilmiş Koridor", "Ağır Kemer", "Daralan Yarık", "Yoğun Damar", "Basınç Odası"],
+	["Demir Kapı", "Çelik Basamak", "Mıknatıs Salonu", "Metal Kemer", "Paslı Yarık", "Demir Damarı", "Örs Boğazı"],
+	["Ametist Eşiği", "Mor Galeri", "Kristal Koridor", "Işık Kemeri", "Mor Yarık", "Ametist Damarı", "Prizma Şaftı"],
+	["Kara Kapı", "Obsidyen Basamak", "Gece Salonu", "Gölge Kemeri", "Karanlık Yarık", "Kara Damar", "Derin Kuyu"],
+	["Fırtına Eşiği", "Şimşek Galerisi", "Yüklü Koridor", "Gök Kemer", "Çarpan Yarık", "Fırtına Damarı", "Yankı Kuyusu"],
+	["Usta Kapısı", "Keskin Basamak", "Usta Salonu", "Denge Kemeri", "Zorlu Yarık", "Usta Damarı", "Sınav Boğazı"],
+	["Kadim Derinlik", "Harabe Galerisi", "Mühür Koridoru", "Taş Kemer", "Kayıp Yarık", "Kadim Damar", "Unutulmuş Kalp"],
+	["Dip Kapısı", "Son Basamak", "Derin Salon", "Kader Kemeri", "Sonsuz Yarık", "Dip Damarı", "Son Mahzen"],
+	["Nihai Derinlik", "Uç Galeri", "Çekirdek Koridoru", "Nihai Kemer", "Son Sınav", "Efsane Damarı", "Derinlik Tacı"],
 ]
 
 var _config: GameConfig
@@ -265,6 +279,8 @@ func _add_core_gates(
 	slot_index: int,
 ) -> void:
 	var gate_rows := [maxi(4, core_cell.y - 3), core_cell.y - 1]
+	if mine_index >= 14:
+		gate_rows.append(maxi(3, core_cell.y - 2))
 	for gate_index in range(gate_rows.size()):
 		var cell := _solution_cell(core_cell, gate_rows[gate_index])
 		if occupied.has(cell):
@@ -398,10 +414,24 @@ func _cell_hash(mine_index: int, slot_index: int, x: int, y: int) -> int:
 
 
 func _is_identity_gap(cell: Vector2i, mine_index: int, slot_index: int) -> bool:
-	for gap_index in range(4):
-		var gap_x := posmod(_cell_hash(mine_index, slot_index, gap_index, 9), 8)
+	if mine_index < 14:
+		for gap_index in range(4):
+			var legacy_gap_x := posmod(_cell_hash(mine_index, slot_index, gap_index, 9), 8)
+			var legacy_gap_y := RoomTemplate.MIN_BLOCK_ROW \
+				+ posmod(_cell_hash(mine_index, slot_index, 9, gap_index), 6)
+			if cell == Vector2i(legacy_gap_x, legacy_gap_y):
+				return true
+		return false
+	var gap_count := 4
+	gap_count += 1
+	if mine_index >= 21:
+		gap_count += 1
+	var gap_x_seed := _cell_hash(mine_index, slot_index, 17, 19)
+	var gap_y_seed := _cell_hash(mine_index, slot_index, 23, 29)
+	for gap_index in range(gap_count):
+		var gap_x := posmod(gap_x_seed + gap_index * 3, 8)
 		var gap_y := RoomTemplate.MIN_BLOCK_ROW \
-			+ posmod(_cell_hash(mine_index, slot_index, 9, gap_index), 6)
+			+ posmod(gap_y_seed + gap_index * 5, 6)
 		if cell == Vector2i(gap_x, gap_y):
 			return true
 	return false
@@ -430,8 +460,14 @@ func _type_for_cell(
 		cycle = ["normal", "ore", "normal", "ore", "normal"]
 	elif mine_index <= 9:
 		cycle = ["normal", "ore", "explosive", "normal", "cracked", "ore"]
-	else:
+	elif mine_index <= 13:
 		cycle = ["normal", "ore", "armored", "explosive", "normal", "cracked", "ore", "armored"]
+	elif mine_index <= 17:
+		cycle = ["ore", "armored", "normal", "explosive", "cracked", "armored", "ore", "normal"]
+	elif mine_index <= 21:
+		cycle = ["armored", "ore", "explosive", "cracked", "armored", "normal", "ore", "armored"]
+	else:
+		cycle = ["armored", "explosive", "ore", "armored", "cracked", "normal", "armored", "ore"]
 	var offset := posmod(mine_index * 3 + slot_index * 5 + cell.x + cell.y, cycle.size())
 	var type_name := cycle[posmod(fill_index + offset, cycle.size())]
 	if role == "narrow" and cell.y >= 5 and type_name == "normal" \

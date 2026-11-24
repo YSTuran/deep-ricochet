@@ -1,0 +1,248 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        3,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 230601,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        3,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 230602,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        3,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 230603,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        0,
+        6
+      ],
+      "hitPoints": 0,
+      "id": 230604,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        6
+      ],
+      "hitPoints": 0,
+      "id": 230605,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        1,
+        6
+      ],
+      "hitPoints": 0,
+      "id": 230606,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        6,
+        6
+      ],
+      "hitPoints": 0,
+      "id": 230607,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        7
+      ],
+      "hitPoints": 0,
+      "id": 230608,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        1,
+        7
+      ],
+      "hitPoints": 0,
+      "id": 230609,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        6,
+        7
+      ],
+      "hitPoints": 0,
+      "id": 230610,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 230611,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 230612,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        4,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 230613,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        2,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 230614,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        7,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 230615,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        4,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 230616,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        1,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 230617,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        6,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 230618,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        0,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 230619,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        5,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 230620,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        1,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 230621,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        5,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 230622,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        0,
+        3
+      ],
+      "hitPoints": 8,
+      "id": 230623,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        3,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 230699,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-10",
+  "displayName": "Derin Kuyu",
+  "displayNameKey": "MINE_23_NARROW_03",
+  "exampleAngles": [
+    27.5,
+    27.5,
+    27.5
+  ],
+  "family": "bonus",
+  "height": 8,
+  "id": "m23_narrow_03",
+  "mineId": "mine_23",
+  "multiplierBps": 15000,
+  "passageColumns": [
+    3
+  ],
+  "role": "narrow",
+  "schemaVersion": 1,
+  "width": 8
+}

@@ -1,0 +1,231 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        2,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 170201,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        1,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 170202,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        2,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 170203,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        0,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 170204,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        7
+      ],
+      "hitPoints": 0,
+      "id": 170205,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 170206,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 170207,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 170208,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        4,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 170209,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        6,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 170210,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        7,
+        6
+      ],
+      "hitPoints": 7,
+      "id": 170211,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        3,
+        5
+      ],
+      "hitPoints": 6,
+      "id": 170212,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        5,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 170213,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        5,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 170214,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        4,
+        7
+      ],
+      "hitPoints": 6,
+      "id": 170215,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        1,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 170216,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        7,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 170217,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        3,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 170218,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        2,
+        2
+      ],
+      "hitPoints": 8,
+      "id": 170219,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        6,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 170220,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        0,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 170221,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        1,
+        8
+      ],
+      "hitPoints": 8,
+      "id": 170299,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-10",
+  "displayName": "Ateş Salonu",
+  "displayNameKey": "MINE_17_WIDE_02",
+  "exampleAngles": [
+    105.0,
+    105.0,
+    105.0
+  ],
+  "family": "safe",
+  "height": 8,
+  "id": "m17_wide_02",
+  "mineId": "mine_17",
+  "multiplierBps": 10000,
+  "passageColumns": [
+    4,
+    5
+  ],
+  "role": "wide",
+  "schemaVersion": 1,
+  "width": 8
+}

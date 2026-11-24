@@ -1,0 +1,242 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        5,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 280401,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        6,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 280402,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        5,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 280403,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        0,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 280404,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 280405,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        6,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 280406,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        4
+      ],
+      "hitPoints": 0,
+      "id": 280407,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        1,
+        4
+      ],
+      "hitPoints": 0,
+      "id": 280408,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        6,
+        4
+      ],
+      "hitPoints": 0,
+      "id": 280409,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        1,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 280410,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        6,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 280411,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 280412,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 280413,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        5,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 280414,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        2,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 280415,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        5,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 280416,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        4,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 280417,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        3,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 280418,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        3,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 280419,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        7,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 280420,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        4,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 280421,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        0,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 280422,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        2,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 280423,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        6,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 280499,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-10",
+  "displayName": "Son Sınav",
+  "displayNameKey": "MINE_28_NARROW_01",
+  "exampleAngles": [
+    15.0,
+    15.0,
+    15.0
+  ],
+  "family": "bonus",
+  "height": 8,
+  "id": "m28_narrow_01",
+  "mineId": "mine_28",
+  "multiplierBps": 15000,
+  "passageColumns": [
+    4
+  ],
+  "role": "narrow",
+  "schemaVersion": 1,
+  "width": 8
+}

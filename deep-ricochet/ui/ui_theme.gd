@@ -446,6 +446,39 @@ static func draw_glow(canvas: CanvasItem, center: Vector2, radius: float, color:
 	canvas.draw_circle(center, radius * 1.12, Color(color, 0.14))
 
 
+static func draw_rating_stars(
+	canvas: CanvasItem,
+	center: Vector2,
+	filled_count: int,
+	star_count: int = 3,
+	radius: float = 12.0,
+	spacing: float = 30.0,
+) -> void:
+	var count := maxi(star_count, 1)
+	var first_x := center.x - spacing * float(count - 1) * 0.5
+	for star_index in range(count):
+		var star_center := Vector2(first_x + spacing * float(star_index), center.y)
+		var filled := star_index < clampi(filled_count, 0, count)
+		var fill := GOLD_LIGHT if filled else Color(BORDER_SOFT, 0.72)
+		var outline := GOLD if filled else MUTED_DARK
+		if filled and high_quality_enabled:
+			canvas.draw_circle(star_center, radius * 1.25, Color(GOLD_LIGHT, 0.10))
+		var points := PackedVector2Array()
+		for point_index in range(10):
+			var point_radius := radius if point_index % 2 == 0 else radius * 0.46
+			var angle := -PI * 0.5 + float(point_index) * PI / 5.0
+			points.append(star_center + Vector2.from_angle(angle) * point_radius)
+		canvas.draw_colored_polygon(points, fill)
+		for point_index in range(points.size()):
+			canvas.draw_line(
+				points[point_index],
+				points[(point_index + 1) % points.size()],
+				outline,
+				1.4,
+				true,
+			)
+
+
 static func draw_centered(
 	canvas: CanvasItem,
 	text: String,

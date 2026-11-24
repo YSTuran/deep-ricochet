@@ -1,0 +1,228 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        2,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 150301,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        2,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 150302,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        7,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 150303,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        4
+      ],
+      "hitPoints": 0,
+      "id": 150304,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 150305,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        7
+      ],
+      "hitPoints": 0,
+      "id": 150306,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 150307,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        5,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 150308,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        4,
+        5
+      ],
+      "hitPoints": 4,
+      "id": 150309,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        6,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 150310,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        1,
+        6
+      ],
+      "hitPoints": 4,
+      "id": 150311,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        4,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 150312,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        4,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 150313,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        6,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 150314,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        6,
+        2
+      ],
+      "hitPoints": 8,
+      "id": 150315,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        1,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 150316,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        4,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 150317,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        6,
+        3
+      ],
+      "hitPoints": 8,
+      "id": 150318,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        7,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 150319,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        3,
+        5
+      ],
+      "hitPoints": 6,
+      "id": 150320,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        5,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 150321,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        2,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 150399,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-10",
+  "displayName": "Kör Kemer",
+  "displayNameKey": "MINE_15_WIDE_03",
+  "exampleAngles": [
+    104.0,
+    104.0,
+    104.0
+  ],
+  "family": "safe",
+  "height": 8,
+  "id": "m15_wide_03",
+  "mineId": "mine_15",
+  "multiplierBps": 10000,
+  "passageColumns": [
+    4,
+    5
+  ],
+  "role": "wide",
+  "schemaVersion": 1,
+  "width": 8
+}

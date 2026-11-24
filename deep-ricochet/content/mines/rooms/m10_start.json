@@ -190,7 +190,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-9",
+  "contentVersion": "p2-mines-10",
   "displayName": "Patlama Eşiği",
   "displayNameKey": "MINE_10_START",
   "exampleAngles": [

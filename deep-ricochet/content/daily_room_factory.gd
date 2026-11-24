@@ -2,18 +2,18 @@ class_name DailyRoomFactory
 extends RefCounted
 
 const DAILY_MINE_ID := &"daily"
-const SOURCE_MINE_ID := &"mine_14"
-const CONTENT_VERSION := "daily-6"
+const SOURCE_MINE_ID := &"mine_28"
+const CONTENT_VERSION := "daily-7"
 const CRACKED_HIT_POINTS := 8
 const TARGET_BLOCK_COUNT := 24
 const SOURCE_ROOM_IDS: Array[StringName] = [
-	&"m14_start",
-	&"m14_wide_01",
-	&"m14_wide_02",
-	&"m14_wide_03",
-	&"m14_narrow_01",
-	&"m14_narrow_02",
-	&"m14_narrow_03",
+	&"m28_start",
+	&"m28_wide_01",
+	&"m28_wide_02",
+	&"m28_wide_03",
+	&"m28_narrow_01",
+	&"m28_narrow_02",
+	&"m28_narrow_03",
 ]
 const DENSITY_TYPES: Array[int] = [
 	BlockState.BlockType.NORMAL,
@@ -34,7 +34,7 @@ static func append_daily_templates(
 		if template.mine_id == SOURCE_MINE_ID:
 			sources_by_id[template.room_id] = template
 	if sources_by_id.size() != SOURCE_ROOM_IDS.size():
-		push_error("Günlük oda üretimi tam 7 adet seviye 14 şablonu gerektirir.")
+		push_error("Günlük oda üretimi tam 7 adet seviye 28 şablonu gerektirir.")
 		return false
 
 	for source_index in range(SOURCE_ROOM_IDS.size()):

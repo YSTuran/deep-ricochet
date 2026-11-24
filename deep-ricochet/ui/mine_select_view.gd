@@ -151,6 +151,14 @@ func _draw_mine_card(rect: Rect2, mine: MineDefinition, card_index: int) -> void
 	)
 	var state_text := tr("MINE_UNLOCKED") if unlocked else tr("MINE_LOCKED")
 	DeepUI.draw_chip(self, Rect2(card_rect.end.x - 104.0, card_rect.position.y + 7.0, 86.0, 24.0), state_text, accent, 10)
+	DeepUI.draw_rating_stars(
+		self,
+		card_rect.position + Vector2(419.0, 57.0),
+		controller.profile.stars_for_mine(mine.mine_id) if unlocked else 0,
+		3,
+		7.5,
+		19.0,
+	)
 	DeepUI.draw_text(
 		self,
 		tr("MINE_STATS") % [

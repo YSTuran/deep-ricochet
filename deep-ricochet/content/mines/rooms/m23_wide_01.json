@@ -1,0 +1,228 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        2,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 230101,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        2,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 230102,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        7,
+        4
+      ],
+      "hitPoints": 0,
+      "id": 230103,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        6
+      ],
+      "hitPoints": 0,
+      "id": 230104,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 230105,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 230106,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 230107,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        6,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 230108,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        2,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 230109,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        5,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 230110,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        3,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 230111,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        1,
+        2
+      ],
+      "hitPoints": 8,
+      "id": 230112,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        6,
+        3
+      ],
+      "hitPoints": 8,
+      "id": 230113,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        4,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 230114,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        6,
+        5
+      ],
+      "hitPoints": 7,
+      "id": 230115,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        5,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 230116,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        4,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 230117,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        0,
+        3
+      ],
+      "hitPoints": 8,
+      "id": 230118,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        3,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 230119,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        5,
+        3
+      ],
+      "hitPoints": 8,
+      "id": 230120,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        5,
+        2
+      ],
+      "hitPoints": 8,
+      "id": 230121,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        2,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 230199,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-10",
+  "displayName": "Obsidyen Basamak",
+  "displayNameKey": "MINE_23_WIDE_01",
+  "exampleAngles": [
+    104.0,
+    104.0,
+    104.0
+  ],
+  "family": "safe",
+  "height": 8,
+  "id": "m23_wide_01",
+  "mineId": "mine_23",
+  "multiplierBps": 10000,
+  "passageColumns": [
+    2,
+    3
+  ],
+  "role": "wide",
+  "schemaVersion": 1,
+  "width": 8
+}

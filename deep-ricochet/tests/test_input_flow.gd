@@ -136,6 +136,17 @@ static func _test_typed_impact_effect(gameplay_room: GameplayRoom) -> void:
 	var effect: Dictionary = gameplay_room.impact_effects.back()
 	assert(int(effect["block_type"]) == BlockState.BlockType.NORMAL)
 	assert(effect.has("points"))
+	assert(effect.has("seed"))
+	assert(not bool(effect["blocked"]))
+	for effect_index in range(15):
+		gameplay_room.impact_effects.append(effect.duplicate(true))
+	gameplay_room.set_quality_mode(AppSettings.QualityMode.PERFORMANCE)
+	assert(gameplay_room.impact_effects.size() == GameplayRoom.PERFORMANCE_IMPACT_EFFECTS)
+	for effect_index in range(25):
+		gameplay_room.impact_effects.append(effect.duplicate(true))
+	gameplay_room.set_quality_mode(AppSettings.QualityMode.GRAPHICS)
+	assert(gameplay_room.impact_effects.size() == GameplayRoom.GRAPHICS_IMPACT_EFFECTS)
+	gameplay_room.set_quality_mode(AppSettings.QualityMode.PERFORMANCE)
 	assert(gameplay_room.status_text.is_empty())
 
 

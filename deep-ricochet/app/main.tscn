@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3]
+[gd_scene load_steps=11 format=3]
 
 [ext_resource type="Script" path="res://app/main.gd" id="1_main"]
 [ext_resource type="PackedScene" path="res://gameplay/gameplay_room.tscn" id="2_room"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://ui/tutorial_overlay.gd" id="7_tutorial"]
 [ext_resource type="Script" path="res://ui/toast_notice.gd" id="8_notice"]
 [ext_resource type="Script" path="res://ui/mine_select_view.gd" id="9_mines"]
+[ext_resource type="Script" path="res://ui/credits_view.gd" id="10_credits"]
 
 [node name="RunController" type="Node"]
 process_mode = 3
@@ -102,6 +103,16 @@ offset_right = 540.0
 offset_bottom = 960.0
 mouse_filter = 2
 script = ExtResource("7_tutorial")
+
+[node name="CreditsView" type="Control" parent="Interface"]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 540.0
+offset_bottom = 960.0
+mouse_filter = 2
+script = ExtResource("10_credits")
 
 [node name="StorageNotice" type="Control" parent="Interface"]
 process_mode = 3

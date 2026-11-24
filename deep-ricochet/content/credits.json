@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "pages": [
+    {
+      "titleKey": "CREDITS_PAGE_PROJECT",
+      "sections": [
+        {
+          "titleKey": "CREDITS_SECTION_TEAM",
+          "entries": [
+            { "labelKey": "CREDITS_DEVELOPMENT", "value": "Yusuf Samet Turan" },
+            { "labelKey": "CREDITS_ADVISOR", "value": "Mustafa Hakan Bozkurt" },
+            { "labelKey": "CREDITS_VISUAL_DESIGN", "value": "Yusuf Samet Turan • Mustafa Hakan Bozkurt" }
+          ]
+        },
+        {
+          "titleKey": "CREDITS_SECTION_VISUALS",
+          "entries": [
+            { "labelKey": "CREDITS_INITIAL_BLOCKS", "value": "Mustafa Hakan Bozkurt" },
+            { "labelKey": "CREDITS_ADDITIONAL_VISUALS", "value": "Yusuf Samet Turan" }
+          ]
+        },
+        {
+          "titleKey": "CREDITS_SECTION_TECHNOLOGY",
+          "entries": [
+            { "labelKey": "CREDITS_ENGINE", "value": "Godot Engine 4.7.2 • MIT License" },
+            { "labelKey": "CREDITS_LANGUAGE", "value": "GDScript" }
+          ]
+        }
+      ]
+    },
+    {
+      "titleKey": "CREDITS_PAGE_ASSETS",
+      "sections": [
+        {
+          "titleKey": "CREDITS_SECTION_AUDIO",
+          "entries": [
+            { "labelKey": "CREDITS_AUDIO_IMPACT", "value": "Kenney • CC0 1.0 Universal" },
+            { "labelKey": "CREDITS_AUDIO_INTERFACE", "value": "Kenney • CC0 1.0 Universal" },
+            { "labelKey": "CREDITS_AUDIO_DIGITAL", "value": "Kenney • CC0 1.0 Universal" }
+          ]
+        },
+        {
+          "titleKey": "CREDITS_SECTION_LICENSES",
+          "entries": [
+            { "labelKey": "CREDITS_LICENSE_AUDIO", "value": "Creative Commons CC0 1.0 Universal" },
+            { "labelKey": "CREDITS_LICENSE_ENGINE", "value": "Godot Engine • MIT License" }
+          ]
+        },
+        {
+          "titleKey": "CREDITS_SECTION_SOURCES",
+          "entries": [
+            { "labelKey": "CREDITS_SOURCE_KENNEY", "value": "kenney.nl/assets" },
+            { "labelKey": "CREDITS_SOURCE_GODOT", "value": "godotengine.org" }
+          ]
+        }
+      ]
+    }
+  ]
+}

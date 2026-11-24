@@ -6,7 +6,32 @@ MENU_NEW_GAME,NEW GAME,YENİ OYUN
 MENU_DAILY_MINE,DAILY MINE,GÜNLÜK MADEN
 MENU_DAILY_SCORE,DAILY MINE • BEST %d,GÜNLÜK MADEN • EN İYİ %d
 MENU_SETTINGS,SETTINGS,AYARLAR
+MENU_CREDITS,CREDITS • LICENSES,EMEĞİ GEÇENLER • LİSANSLAR
 MENU_OFFLINE,Offline prototype,Çevrimdışı prototip
+CREDITS_TITLE,CREDITS & LICENSES,EMEĞİ GEÇENLER VE LİSANSLAR
+CREDITS_PAGE_COUNT,Page %d/%d,Sayfa %d/%d
+CREDITS_PAGE_PROJECT,PROJECT TEAM,PROJE EKİBİ
+CREDITS_PAGE_ASSETS,ASSETS & LICENSES,ASSETLER VE LİSANSLAR
+CREDITS_SECTION_TEAM,TEAM,EKİP
+CREDITS_DEVELOPMENT,Development & programming,Geliştirme ve programlama
+CREDITS_ADVISOR,Project advisor,Proje danışmanı
+CREDITS_VISUAL_DESIGN,Visual design,Görsel tasarım
+CREDITS_SECTION_VISUALS,VISUAL ASSETS,GÖRSEL ASSETLER
+CREDITS_INITIAL_BLOCKS,Original normal • ore • core blocks,İlk normal • cevher • çekirdek blokları
+CREDITS_ADDITIONAL_VISUALS,Additional blocks & game visuals,Diğer bloklar ve oyun görselleri
+CREDITS_SECTION_TECHNOLOGY,TECHNOLOGY,TEKNOLOJİ
+CREDITS_ENGINE,Game engine,Oyun motoru
+CREDITS_LANGUAGE,Scripting language,Betik dili
+CREDITS_SECTION_AUDIO,AUDIO PACKS,SES PAKETLERİ
+CREDITS_AUDIO_IMPACT,Impact Sounds,Impact Sounds
+CREDITS_AUDIO_INTERFACE,Interface Sounds,Interface Sounds
+CREDITS_AUDIO_DIGITAL,Digital Audio,Digital Audio
+CREDITS_SECTION_LICENSES,LICENSES,LİSANSLAR
+CREDITS_LICENSE_AUDIO,Audio assets,Ses assetleri
+CREDITS_LICENSE_ENGINE,Game engine,Oyun motoru
+CREDITS_SECTION_SOURCES,SOURCES,KAYNAKLAR
+CREDITS_SOURCE_KENNEY,Kenney assets,Kenney assetleri
+CREDITS_SOURCE_GODOT,Godot Engine,Godot Engine
 PROFILE_BEST,BEST SCORE  %d,EN İYİ SKOR  %d
 PROFILE_STATS,Runs %d • Wins %d • Cores %d,Koşu %d • Başarı %d • Çekirdek %d
 PAUSE_TITLE,GAME PAUSED,OYUN DURAKLATILDI
@@ -161,6 +186,20 @@ MINE_11_NAME,ARMORED MINE,ZIRHLI MADEN
 MINE_12_NAME,GUARDIAN MINE,MUHAFIZ MADENİ
 MINE_13_NAME,TITAN MINE,TİTAN MADENİ
 MINE_14_NAME,FINAL DEPTH,SON DERİNLİK
+MINE_15_NAME,FORGOTTEN MINE,UNUTULMUŞ MADEN
+MINE_16_NAME,SAPPHIRE MINE,SAFİR MADENİ
+MINE_17_NAME,CRIMSON MINE,KIZIL MADEN
+MINE_18_NAME,EMERALD MINE,ZÜMRÜT MADENİ
+MINE_19_NAME,FROST MINE,BUZ MADENİ
+MINE_20_NAME,PRESSURE MINE,BASINÇ MADENİ
+MINE_21_NAME,IRON MINE,DEMİR MADENİ
+MINE_22_NAME,AMETHYST MINE,AMETİST MADENİ
+MINE_23_NAME,BLACK MINE,KARA MADEN
+MINE_24_NAME,STORM MINE,FIRTINA MADENİ
+MINE_25_NAME,MASTER MINE,USTA MADENİ
+MINE_26_NAME,ANCIENT DEPTH,KADİM DERİNLİK
+MINE_27_NAME,BOTTOM MINE,DİP MADENİ
+MINE_28_NAME,CROWN DEPTH,TAÇ DERİNLİĞİ
 MINE_1_START,Coastal Gallery,Kıyı Galerisi
 MINE_1_WIDE_01,Open Steps,Açık Basamak
 MINE_1_WIDE_02,Blue Corridor,Mavi Koridor
@@ -259,6 +298,104 @@ MINE_14_WIDE_03,Final Arch,Son Kemer
 MINE_14_NARROW_01,Ultimate Rift,Nihai Yarık
 MINE_14_NARROW_02,Deep Vein,Derin Damar
 MINE_14_NARROW_03,Heart of the Mine,Maden Kalbi
+MINE_15_START,Forgotten Gate,Unutulmuş Kapı
+MINE_15_WIDE_01,Shadow Step,Gölge Basamağı
+MINE_15_WIDE_02,Lost Gallery,Kayıp Galeri
+MINE_15_WIDE_03,Blind Arch,Kör Kemer
+MINE_15_NARROW_01,Old Rift,Eski Yarık
+MINE_15_NARROW_02,Abandoned Vein,Issız Damar
+MINE_15_NARROW_03,Silent Vault,Sessiz Mahzen
+MINE_16_START,Sapphire Threshold,Safir Eşiği
+MINE_16_WIDE_01,Blue Pillar,Mavi Sütun
+MINE_16_WIDE_02,Deep Corridor,Derin Koridor
+MINE_16_WIDE_03,Crystal Arch,Kristal Kemer
+MINE_16_NARROW_01,Cold Rift,Soğuk Yarık
+MINE_16_NARROW_02,Sapphire Vein,Safir Damarı
+MINE_16_NARROW_03,Bright Gorge,Parlak Boğaz
+MINE_17_START,Crimson Gate,Kızıl Kapı
+MINE_17_WIDE_01,Ember Step,Kor Basamağı
+MINE_17_WIDE_02,Fire Hall,Ateş Salonu
+MINE_17_WIDE_03,Ember Arch,Köz Kemeri
+MINE_17_NARROW_01,Scorched Rift,Yanık Yarık
+MINE_17_NARROW_02,Hot Vein,Sıcak Damar
+MINE_17_NARROW_03,Lava Gorge,Lav Boğazı
+MINE_18_START,Emerald Threshold,Zümrüt Eşiği
+MINE_18_WIDE_01,Moss Gallery,Yosun Galerisi
+MINE_18_WIDE_02,Green Corridor,Yeşil Koridor
+MINE_18_WIDE_03,Root Arch,Kök Kemeri
+MINE_18_NARROW_01,Damp Rift,Nemli Yarık
+MINE_18_NARROW_02,Emerald Vein,Zümrüt Damarı
+MINE_18_NARROW_03,Ancient Hollow,Kadim Oyuk
+MINE_19_START,Ice Gate,Buz Kapısı
+MINE_19_WIDE_01,Frozen Step,Donuk Basamak
+MINE_19_WIDE_02,Frost Hall,Ayaz Salonu
+MINE_19_WIDE_03,Ice Arch,Buz Kemeri
+MINE_19_NARROW_01,Rime Rift,Kırağı Yarığı
+MINE_19_NARROW_02,Frozen Vein,Donmuş Damar
+MINE_19_NARROW_03,White Shaft,Beyaz Şaft
+MINE_20_START,Pressure Threshold,Basınç Eşiği
+MINE_20_WIDE_01,Tight Gallery,Sıkı Galeri
+MINE_20_WIDE_02,Crushed Corridor,Ezilmiş Koridor
+MINE_20_WIDE_03,Heavy Arch,Ağır Kemer
+MINE_20_NARROW_01,Narrowing Rift,Daralan Yarık
+MINE_20_NARROW_02,Dense Vein,Yoğun Damar
+MINE_20_NARROW_03,Pressure Chamber,Basınç Odası
+MINE_21_START,Iron Gate,Demir Kapı
+MINE_21_WIDE_01,Steel Step,Çelik Basamak
+MINE_21_WIDE_02,Magnet Hall,Mıknatıs Salonu
+MINE_21_WIDE_03,Metal Arch,Metal Kemer
+MINE_21_NARROW_01,Rust Rift,Paslı Yarık
+MINE_21_NARROW_02,Iron Vein,Demir Damarı
+MINE_21_NARROW_03,Anvil Gorge,Örs Boğazı
+MINE_22_START,Amethyst Threshold,Ametist Eşiği
+MINE_22_WIDE_01,Violet Gallery,Mor Galeri
+MINE_22_WIDE_02,Crystal Corridor,Kristal Koridor
+MINE_22_WIDE_03,Light Arch,Işık Kemeri
+MINE_22_NARROW_01,Violet Rift,Mor Yarık
+MINE_22_NARROW_02,Amethyst Vein,Ametist Damarı
+MINE_22_NARROW_03,Prism Shaft,Prizma Şaftı
+MINE_23_START,Black Gate,Kara Kapı
+MINE_23_WIDE_01,Obsidian Step,Obsidyen Basamak
+MINE_23_WIDE_02,Night Hall,Gece Salonu
+MINE_23_WIDE_03,Shadow Arch,Gölge Kemeri
+MINE_23_NARROW_01,Dark Rift,Karanlık Yarık
+MINE_23_NARROW_02,Black Vein,Kara Damar
+MINE_23_NARROW_03,Deep Well,Derin Kuyu
+MINE_24_START,Storm Threshold,Fırtına Eşiği
+MINE_24_WIDE_01,Lightning Gallery,Şimşek Galerisi
+MINE_24_WIDE_02,Charged Corridor,Yüklü Koridor
+MINE_24_WIDE_03,Sky Arch,Gök Kemer
+MINE_24_NARROW_01,Struck Rift,Çarpan Yarık
+MINE_24_NARROW_02,Storm Vein,Fırtına Damarı
+MINE_24_NARROW_03,Echo Well,Yankı Kuyusu
+MINE_25_START,Master Gate,Usta Kapısı
+MINE_25_WIDE_01,Sharp Step,Keskin Basamak
+MINE_25_WIDE_02,Master Hall,Usta Salonu
+MINE_25_WIDE_03,Balance Arch,Denge Kemeri
+MINE_25_NARROW_01,Trial Rift,Zorlu Yarık
+MINE_25_NARROW_02,Master Vein,Usta Damarı
+MINE_25_NARROW_03,Trial Gorge,Sınav Boğazı
+MINE_26_START,Ancient Depth,Kadim Derinlik
+MINE_26_WIDE_01,Ruin Gallery,Harabe Galerisi
+MINE_26_WIDE_02,Seal Corridor,Mühür Koridoru
+MINE_26_WIDE_03,Stone Arch,Taş Kemer
+MINE_26_NARROW_01,Lost Rift,Kayıp Yarık
+MINE_26_NARROW_02,Ancient Vein,Kadim Damar
+MINE_26_NARROW_03,Forgotten Heart,Unutulmuş Kalp
+MINE_27_START,Bottom Gate,Dip Kapısı
+MINE_27_WIDE_01,Final Step,Son Basamak
+MINE_27_WIDE_02,Deep Hall,Derin Salon
+MINE_27_WIDE_03,Fate Arch,Kader Kemeri
+MINE_27_NARROW_01,Endless Rift,Sonsuz Yarık
+MINE_27_NARROW_02,Bottom Vein,Dip Damarı
+MINE_27_NARROW_03,Final Vault,Son Mahzen
+MINE_28_START,Ultimate Depth,Nihai Derinlik
+MINE_28_WIDE_01,Edge Gallery,Uç Galeri
+MINE_28_WIDE_02,Core Corridor,Çekirdek Koridoru
+MINE_28_WIDE_03,Ultimate Arch,Nihai Kemer
+MINE_28_NARROW_01,Final Trial,Son Sınav
+MINE_28_NARROW_02,Legend Vein,Efsane Damarı
+MINE_28_NARROW_03,Crown of the Deep,Derinlik Tacı
 ROOM_SAFE_01,Wide Gallery,Geniş Galeri
 ROOM_SAFE_02,Twin Corridor,Çift Koridor
 ROOM_SAFE_03,Open Shaft,Açık Şaft

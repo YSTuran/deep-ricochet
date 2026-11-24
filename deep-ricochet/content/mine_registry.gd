@@ -47,6 +47,8 @@ static func load_from_file(path: String) -> MineRegistry:
 		definition.display_name_key = StringName(str(raw_mine.get("displayNameKey", "")))
 		definition.order = int(raw_mine.get("order", 0))
 		definition.unlock_after = StringName(str(raw_mine.get("unlockAfter", "")))
+		definition.two_star_score = int(raw_mine.get("twoStarScore", 0))
+		definition.three_star_score = int(raw_mine.get("threeStarScore", 0))
 		registry.mines.append(definition)
 	registry.mines.sort_custom(_mine_order_less)
 	var errors := registry.validation_errors()
@@ -69,8 +71,8 @@ func validation_errors() -> PackedStringArray:
 		return errors
 	if catalog.content_version != content_version:
 		errors.append("Maden ve oda kataloğu içerik sürümleri uyuşmuyor.")
-	if mines.size() != 14:
-		errors.append("Seviye paketi tam on dört maden içermelidir.")
+	if mines.size() != PlayerProfile.MINE_COUNT:
+		errors.append("Seviye paketi tam %d maden içermelidir." % PlayerProfile.MINE_COUNT)
 	var ids: Dictionary[StringName, bool] = {}
 	var orders: Dictionary[int, bool] = {}
 	for mine: MineDefinition in mines:

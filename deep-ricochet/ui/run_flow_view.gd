@@ -316,10 +316,19 @@ func _draw_run_result() -> void:
 	)
 	_draw_centered(
 		str(run_session.banked_score),
-		Rect2(65.0, 344.0, 410.0, 62.0),
+		Rect2(65.0, 338.0, 410.0, 54.0),
 		46,
 		accent,
 	)
+	if run_session.run_kind == RunSession.RunKind.NORMAL:
+		DeepUI.draw_rating_stars(
+			self,
+			Vector2(270.0, 405.0),
+			_result_stars(),
+			3,
+			15.0,
+			42.0,
+		)
 	_draw_result_table()
 	if profile != null:
 		var best_label := tr("RESULT_NEW_BEST") if new_best else tr("RESULT_BEST") % profile.best_score
@@ -347,14 +356,14 @@ func _draw_run_result() -> void:
 
 
 func _draw_result_table() -> void:
-	var table_rect := Rect2(65.0, 414.0, 410.0, 160.0)
+	var table_rect := Rect2(65.0, 428.0, 410.0, 146.0)
 	DeepUI.draw_panel(self, table_rect, Color(DeepUI.BACKGROUND_DEEP, 0.55), DeepUI.BORDER_SOFT, 10, 1, false)
 	var columns := [
-		Rect2(68.0, 420.0, 48.0, 24.0),
-		Rect2(116.0, 420.0, 78.0, 24.0),
-		Rect2(194.0, 420.0, 78.0, 24.0),
-		Rect2(272.0, 420.0, 82.0, 24.0),
-		Rect2(354.0, 420.0, 116.0, 24.0),
+		Rect2(68.0, 432.0, 48.0, 24.0),
+		Rect2(116.0, 432.0, 78.0, 24.0),
+		Rect2(194.0, 432.0, 78.0, 24.0),
+		Rect2(272.0, 432.0, 82.0, 24.0),
+		Rect2(354.0, 432.0, 116.0, 24.0),
 	]
 	var headers := [
 		tr("RESULT_TABLE_ROOM"),
@@ -367,7 +376,7 @@ func _draw_result_table() -> void:
 		_draw_centered(headers[column_index], columns[column_index], 11, DeepUI.GOLD)
 	for result_index in range(mini(run_session.room_results.size(), 4)):
 		var result := run_session.room_results[result_index]
-		var row_y := 447.0 + float(result_index) * 30.0
+		var row_y := 456.0 + float(result_index) * 28.0
 		if result_index % 2 == 0:
 			draw_rect(Rect2(69.0, row_y, 402.0, 28.0), Color(DeepUI.PANEL_RAISED, 0.45), true)
 		var values := [
@@ -382,6 +391,14 @@ func _draw_result_table() -> void:
 			value_rect.position.y = row_y
 			value_rect.size.y = 28.0
 			_draw_centered(values[column_index], value_rect, 12, DeepUI.TEXT)
+
+
+func _result_stars() -> int:
+	if controller == null or controller.mine_registry == null or run_session == null:
+		return 0
+	var mine := controller.mine_registry.get_mine(run_session.mine_id)
+	return mine.stars_for_score(run_session.banked_score, run_session.succeeded) \
+		if mine != null else 0
 
 
 func _shows_mine_progression_actions() -> bool:

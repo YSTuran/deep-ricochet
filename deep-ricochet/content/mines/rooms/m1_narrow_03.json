@@ -145,7 +145,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-9",
+  "contentVersion": "p2-mines-10",
   "displayName": "Cevher Boğazı",
   "displayNameKey": "MINE_1_NARROW_03",
   "exampleAngles": [

@@ -13,8 +13,8 @@ const BOARD_SIZE_WORLD := Vector2(BoardGeometry.WORLD_GRID_SIZE)
 const BOARD_SCREEN_RECT := BoardGeometry.SCREEN_RECT
 const LAUNCHER_WORLD := BoardGeometry.LAUNCHER_WORLD
 const FORCED_COLLECTION_EFFECT_SECONDS := 0.35
-const PERFORMANCE_IMPACT_EFFECTS := 8
-const GRAPHICS_IMPACT_EFFECTS := 16
+const PERFORMANCE_IMPACT_EFFECTS := 10
+const GRAPHICS_IMPACT_EFFECTS := 20
 
 @export_file("*.json") var initial_room_template_path := "res://content/rooms/safe_01.json"
 
@@ -423,30 +423,44 @@ func _handle_damage_result(result: BlockDamageResult) -> bool:
 	if not result.contact_valid:
 		return false
 	var block := board.get_block_by_id(result.block_id)
-	if block == null or not result.damage_applied:
+	if block == null:
+		return false
+	if not result.damage_applied:
+		if result.blocked_by_armor or block.type == BlockState.BlockType.ROCK:
+			_append_impact_effect(block, result, 0, true)
 		return false
 
 	var awarded_points := room.record_damage_result(result, config)
+	_append_impact_effect(block, result, awarded_points, false)
+	if result.destroyed:
+		AudioManager.play_break(block.type)
+		block_destroyed.emit(block.type)
+	return true
+
+
+func _append_impact_effect(
+	block: BlockState,
+	result: BlockDamageResult,
+	awarded_points: int,
+	blocked: bool,
+) -> void:
 	var effect_limit := GRAPHICS_IMPACT_EFFECTS \
 		if quality_mode == AppSettings.QualityMode.GRAPHICS else PERFORMANCE_IMPACT_EFFECTS
 	if impact_effects.size() >= effect_limit:
 		impact_effects.pop_front()
-	var is_blast := result.is_explosion or (
-		result.destroyed and block.type == BlockState.BlockType.EXPLOSIVE
-	)
+	var is_blast := result.destroyed and block.type == BlockState.BlockType.EXPLOSIVE
 	impact_effects.append({
 		"position": block.collision_center_world(),
 		"block_type": block.type,
 		"destroyed": result.destroyed,
 		"points": awarded_points,
 		"is_explosion": is_blast,
-		"duration": 0.45 if is_blast else 0.32,
+		"from_explosion": result.is_explosion,
+		"blocked": blocked,
+		"seed": block.id * 31 + impact_effects.size() * 17,
+		"duration": 0.52 if is_blast else (0.26 if blocked else 0.38),
 		"elapsed": 0.0,
 	})
-	if result.destroyed:
-		AudioManager.play_break(block.type)
-		block_destroyed.emit(block.type)
-	return true
 
 
 func _handle_room_resolution(resolution: RoomResolution) -> void:

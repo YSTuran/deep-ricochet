@@ -72,35 +72,200 @@ func _draw_impact_effects() -> void:
 		var block_type := int(effect.get("block_type", BlockState.BlockType.NORMAL))
 		var destroyed := bool(effect.get("destroyed", false))
 		var is_explosion := bool(effect.get("is_explosion", false))
-		var is_core := block_type == BlockState.BlockType.CORE
-		var end_radius := 72.0 if is_explosion else (38.0 if is_core else (30.0 if destroyed else 20.0))
-		var radius := lerpf(8.0, end_radius, progress)
-		var color := Color(
-			CaveTheme.block_color(BlockState.BlockType.EXPLOSIVE) \
-				if is_explosion else _impact_color(block_type),
-			1.0 - progress,
+		var blocked := bool(effect.get("blocked", false))
+		var high_quality := room.quality_mode == AppSettings.QualityMode.GRAPHICS
+		var seed := int(effect.get("seed", 0))
+		var color := _impact_color(block_type)
+		if blocked:
+			_draw_blocked_contact(center, progress, block_type, color, seed, high_quality)
+			continue
+
+		var pulse_radius := lerpf(7.0, 24.0 if destroyed else 17.0, progress)
+		draw_arc(
+			center,
+			pulse_radius,
+			0.0,
+			TAU,
+			20 if high_quality else 12,
+			Color(color, (1.0 - progress) * (0.9 if high_quality else 0.62)),
+			2.5 if high_quality else 1.8,
+			true,
 		)
-		draw_arc(center, radius, 0.0, TAU, 16, color, 3.0, true)
-		if destroyed:
-			var high_quality := room.quality_mode == AppSettings.QualityMode.GRAPHICS
-			var ray_count := (8 if is_explosion else (6 if is_core else 4)) if high_quality else 2
-			for ray_index in range(ray_count):
-				var direction := Vector2.from_angle(float(ray_index) * TAU / float(ray_count))
-				draw_line(
-					center + direction * (10.0 + progress * 8.0),
-					center + direction * (18.0 + progress * 28.0),
-					color,
-					2.0,
-				)
-			var points := int(effect.get("points", 0))
-			if points > 0 and high_quality:
-				DeepUI.draw_centered(
-					self,
-					"+%d" % points,
-					Rect2(center + Vector2(-30.0, -30.0 - progress * 16.0), Vector2(60.0, 24.0)),
-					13,
-					color,
-				)
+		if not destroyed:
+			continue
+
+		match block_type:
+			BlockState.BlockType.NORMAL:
+				_draw_normal_fragments(center, progress, color, seed, high_quality)
+			BlockState.BlockType.ORE:
+				_draw_ore_sparks(center, progress, color, seed, high_quality)
+			BlockState.BlockType.CRACKED:
+				_draw_cracked_debris(center, progress, color, seed, high_quality)
+			BlockState.BlockType.EXPLOSIVE:
+				_draw_explosive_burst(center, progress, color, seed, high_quality)
+			BlockState.BlockType.ARMORED:
+				_draw_armored_break(center, progress, color, seed, high_quality)
+			BlockState.BlockType.CORE:
+				_draw_core_burst(center, progress, color, seed, high_quality)
+			_:
+				_draw_normal_fragments(center, progress, color, seed, high_quality)
+		if is_explosion and high_quality:
+			draw_arc(center, lerpf(18.0, 78.0, progress), 0.0, TAU, 28, Color(color, 0.42 * (1.0 - progress)), 4.0, true)
+		_draw_point_popup(center, progress, int(effect.get("points", 0)), color, high_quality)
+
+
+func _draw_blocked_contact(
+	center: Vector2,
+	progress: float,
+	block_type: int,
+	color: Color,
+	seed: int,
+	high_quality: bool,
+) -> void:
+	var count := 6 if high_quality else 2
+	var base_color := Color("b9c4cc") if block_type == BlockState.BlockType.ARMORED else color
+	for index in range(count):
+		var angle := _effect_angle(index, count, seed) - PI * 0.5
+		var direction := Vector2.from_angle(angle)
+		var start := center + direction * (5.0 + progress * 5.0)
+		var finish := center + direction * (12.0 + progress * 21.0)
+		draw_line(start, finish, Color(base_color, 1.0 - progress), 2.2 if high_quality else 1.5, true)
+	if high_quality:
+		draw_circle(center, lerpf(7.0, 3.0, progress), Color(base_color, 0.18 * (1.0 - progress)))
+
+
+func _draw_normal_fragments(
+	center: Vector2, progress: float, color: Color, seed: int, high_quality: bool,
+) -> void:
+	var count := 7 if high_quality else 3
+	for index in range(count):
+		var direction := Vector2.from_angle(_effect_angle(index, count, seed))
+		var fragment_center := center + direction * lerpf(8.0, 38.0, progress)
+		var size := lerpf(5.0, 2.0, progress)
+		draw_rect(Rect2(fragment_center - Vector2.ONE * size * 0.5, Vector2.ONE * size), Color(color.lightened(0.12), 1.0 - progress), true)
+
+
+func _draw_ore_sparks(
+	center: Vector2, progress: float, color: Color, seed: int, high_quality: bool,
+) -> void:
+	var count := 10 if high_quality else 4
+	for index in range(count):
+		var direction := Vector2.from_angle(_effect_angle(index, count, seed))
+		var spark_center := center + direction * lerpf(6.0, 45.0, progress)
+		var radius := lerpf(5.0, 1.5, progress)
+		var diamond := PackedVector2Array([
+			spark_center + Vector2(0.0, -radius),
+			spark_center + Vector2(radius * 0.62, 0.0),
+			spark_center + Vector2(0.0, radius),
+			spark_center + Vector2(-radius * 0.62, 0.0),
+		])
+		draw_colored_polygon(diamond, Color(color.lightened(0.3), 1.0 - progress))
+	if high_quality:
+		draw_circle(center, 15.0 * (1.0 - progress), Color(color, 0.16 * (1.0 - progress)))
+
+
+func _draw_cracked_debris(
+	center: Vector2, progress: float, color: Color, seed: int, high_quality: bool,
+) -> void:
+	var count := 8 if high_quality else 3
+	for index in range(count):
+		var direction := Vector2.from_angle(_effect_angle(index, count, seed))
+		var start := center + direction * lerpf(5.0, 13.0, progress)
+		var sideways := direction.orthogonal() * (3.0 if index % 2 == 0 else -3.0)
+		var end := center + direction * lerpf(14.0, 39.0, progress) + sideways
+		draw_line(start, end, Color(color.lightened(0.18), 1.0 - progress), 2.4 if high_quality else 1.6, true)
+
+
+func _draw_explosive_burst(
+	center: Vector2, progress: float, color: Color, seed: int, high_quality: bool,
+) -> void:
+	var ring_color := Color(color.lightened(0.28), 1.0 - progress)
+	draw_arc(center, lerpf(10.0, 72.0, progress), 0.0, TAU, 28 if high_quality else 16, ring_color, 4.0 if high_quality else 2.5, true)
+	if high_quality:
+		draw_arc(center, lerpf(6.0, 48.0, progress), 0.0, TAU, 24, Color("ff4d2e", 0.72 * (1.0 - progress)), 3.0, true)
+	var count := 12 if high_quality else 4
+	for index in range(count):
+		var direction := Vector2.from_angle(_effect_angle(index, count, seed))
+		draw_line(
+			center + direction * lerpf(8.0, 18.0, progress),
+			center + direction * lerpf(20.0, 62.0, progress),
+			Color(ring_color, 0.9 - progress * 0.7),
+			3.0 if high_quality else 1.8,
+			true,
+		)
+
+
+func _draw_armored_break(
+	center: Vector2, progress: float, color: Color, seed: int, high_quality: bool,
+) -> void:
+	var count := 8 if high_quality else 3
+	for index in range(count):
+		var direction := Vector2.from_angle(_effect_angle(index, count, seed))
+		var shard_center := center + direction * lerpf(8.0, 42.0, progress)
+		var shard_color := Color("7d8b94") if index % 2 == 0 else color.lightened(0.2)
+		draw_line(
+			shard_center - direction * 5.0,
+			shard_center + direction * 5.0,
+			Color(shard_color, 1.0 - progress),
+			4.0 if high_quality else 2.3,
+			true,
+		)
+	if high_quality:
+		draw_arc(center, lerpf(9.0, 34.0, progress), 0.0, TAU, 20, Color("ff7ed8", 0.55 * (1.0 - progress)), 2.5, true)
+
+
+func _draw_core_burst(
+	center: Vector2, progress: float, color: Color, seed: int, high_quality: bool,
+) -> void:
+	var ring_count := 3 if high_quality else 1
+	for ring_index in range(ring_count):
+		var delayed := clampf(progress * 1.25 - float(ring_index) * 0.14, 0.0, 1.0)
+		draw_arc(
+			center,
+			lerpf(10.0, 64.0 + float(ring_index) * 9.0, delayed),
+			0.0,
+			TAU,
+			30 if high_quality else 18,
+			Color(color.lightened(0.25), (1.0 - delayed) * (0.82 - float(ring_index) * 0.16)),
+			3.5 if high_quality else 2.2,
+			true,
+		)
+	var count := 12 if high_quality else 4
+	for index in range(count):
+		var direction := Vector2.from_angle(_effect_angle(index, count, seed))
+		var point := center + direction * lerpf(10.0, 52.0, progress)
+		draw_circle(point, lerpf(4.0, 1.0, progress), Color(color.lightened(0.35), 1.0 - progress))
+
+
+func _draw_point_popup(
+	center: Vector2, progress: float, points: int, color: Color, high_quality: bool,
+) -> void:
+	if points <= 0:
+		return
+	var popup_rect := Rect2(
+		center + Vector2(-38.0, -34.0 - ease(progress, 0.65) * 24.0),
+		Vector2(76.0, 28.0),
+	)
+	if high_quality:
+		DeepUI.draw_centered(
+			self,
+			"+%d" % points,
+			Rect2(popup_rect.position + Vector2(1.5, 2.0), popup_rect.size),
+			17,
+			Color(0.0, 0.0, 0.0, 0.55 * (1.0 - progress)),
+		)
+	DeepUI.draw_centered(
+		self,
+		"+%d" % points,
+		popup_rect,
+		17 if high_quality else 13,
+		Color(color.lightened(0.35 if high_quality else 0.12), 1.0 - progress),
+	)
+
+
+func _effect_angle(index: int, count: int, seed: int) -> float:
+	var offset := float(posmod(seed, 360)) * PI / 180.0
+	return offset + float(index) * TAU / float(maxi(count, 1))
 
 
 func _impact_color(block_type: int) -> Color:

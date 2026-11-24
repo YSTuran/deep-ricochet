@@ -35,12 +35,18 @@ static func _test_mine_registry_normalizes_order() -> void:
 	assert(registry != null)
 	for index in range(registry.mines.size()):
 		assert(registry.mines[index].order == index + 1)
+	var first_mine := registry.get_mine(&"mine_01")
+	assert(first_mine != null)
+	assert(first_mine.stars_for_score(900, false) == 0)
+	assert(first_mine.stars_for_score(549, true) == 1)
+	assert(first_mine.stars_for_score(550, true) == 2)
+	assert(first_mine.stars_for_score(800, true) == 3)
 	DirAccess.remove_absolute(ProjectSettings.globalize_path(MINE_ORDER_PATH))
 
 
 static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: GameConfig) -> void:
 	assert(catalog != null)
-	assert(catalog.templates.size() == 112)
+	assert(catalog.templates.size() == 210)
 	var mine_counts: Dictionary[StringName, int] = {}
 	var block_type_counts: Dictionary[int, int] = {}
 	var mine_block_type_counts: Dictionary[StringName, Dictionary] = {}
@@ -56,9 +62,9 @@ static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: Gam
 		assert(template.is_valid())
 		assert(template.create_board().core_count() == 1)
 		var is_daily := template.mine_id == DailyRooms.DAILY_MINE_ID
-		var mine_order := 14 if is_daily \
+		var mine_order := PlayerProfile.MINE_COUNT if is_daily \
 			else str(template.mine_id).trim_prefix("mine_").to_int()
-		assert(is_daily or (mine_order >= 1 and mine_order <= 14))
+		assert(is_daily or (mine_order >= 1 and mine_order <= PlayerProfile.MINE_COUNT))
 		if not is_daily:
 			normal_templates.append(template)
 		if not layout_signatures.has(template.mine_id):
@@ -132,7 +138,7 @@ static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: Gam
 			if template.role == RoomTemplate.Role.NARROW:
 				minimum_density = mini(24, base_density + 2)
 				maximum_density = mini(24, base_density + 3)
-				assert(room_rock_count >= 5 and room_rock_count <= 8)
+				assert(room_rock_count >= 5 and room_rock_count <= 9)
 				assert(edge_rock_count == room_rock_count)
 			assert(
 				template.blocks.size() >= minimum_density \
@@ -183,7 +189,7 @@ static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: Gam
 				assert(daily_types.has(required_type))
 	_assert_normal_layout_uniqueness(normal_templates)
 	var previous_classic_average := 0.0
-	for mine_order in range(1, 15):
+	for mine_order in range(1, PlayerProfile.MINE_COUNT + 1):
 		var mine_id := StringName("mine_%02d" % mine_order)
 		assert(mine_counts.get(mine_id, 0) == 7)
 		var counts: Dictionary = role_counts[mine_id]
@@ -239,7 +245,7 @@ static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: Gam
 	assert(block_type_counts.get(BlockState.BlockType.CRACKED, 0) > 0)
 	assert(block_type_counts.get(BlockState.BlockType.ARMORED, 0) > 0)
 
-	for mine_order in range(1, 15):
+	for mine_order in range(1, PlayerProfile.MINE_COUNT + 1):
 		var mine_id := StringName("mine_%02d" % mine_order)
 		for sample_index in range(100):
 			var rng := RandomNumberGenerator.new()
@@ -280,13 +286,15 @@ static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: Gam
 	first_rng.seed = 4444
 	var second_rng := RandomNumberGenerator.new()
 	second_rng.seed = 4444
-	assert(catalog.pick_first_room(first_rng, &"mine_14").room_id == catalog.pick_first_room(second_rng, &"mine_14").room_id)
+	assert(catalog.pick_first_room(first_rng, &"mine_28").room_id == catalog.pick_first_room(second_rng, &"mine_28").room_id)
 	for mine_id: StringName in [
 		&"mine_01",
 		&"mine_07",
 		&"mine_10",
 		&"mine_11",
 		&"mine_14",
+		&"mine_21",
+		&"mine_28",
 		DailyRooms.DAILY_MINE_ID,
 	]:
 		for seed in [1, 4444, 98_765]:
@@ -542,7 +550,7 @@ static func _test_controller_four_room_flow(
 	assert(controller.run_session.mine_id == &"mine_02")
 
 	var final_mine_result := RunSession.new()
-	final_mine_result.mine_id = &"mine_14"
+	final_mine_result.mine_id = &"mine_28"
 	final_mine_result.run_kind = RunSession.RunKind.NORMAL
 	final_mine_result.ended = true
 	final_mine_result.succeeded = true
