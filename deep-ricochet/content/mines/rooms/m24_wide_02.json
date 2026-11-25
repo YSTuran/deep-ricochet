@@ -73,13 +73,14 @@
       "type": "ore"
     },
     {
+      "beamDirection": "right",
       "cell": [
         2,
         7
       ],
-      "hitPoints": 8,
+      "hitPoints": 7,
       "id": 240209,
-      "type": "explosive"
+      "type": "piercing"
     },
     {
       "cell": [
@@ -91,13 +92,14 @@
       "type": "ore"
     },
     {
+      "beamDirection": "right",
       "cell": [
         2,
         5
       ],
-      "hitPoints": 8,
+      "hitPoints": 7,
       "id": 240211,
-      "type": "explosive"
+      "type": "piercing"
     },
     {
       "cell": [
@@ -113,12 +115,9 @@
         4,
         3
       ],
-      "hitPoints": 8,
+      "hitPoints": 6,
       "id": 240213,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "echo"
     },
     {
       "cell": [
@@ -160,13 +159,14 @@
       ]
     },
     {
+      "beamDirection": "left",
       "cell": [
         6,
         2
       ],
-      "hitPoints": 8,
+      "hitPoints": 7,
       "id": 240218,
-      "type": "explosive"
+      "type": "piercing"
     },
     {
       "cell": [
@@ -175,25 +175,25 @@
       ],
       "hitPoints": 8,
       "id": 240219,
-      "type": "ore"
+      "type": "explosive"
     },
     {
       "cell": [
         6,
         4
       ],
-      "hitPoints": 8,
+      "hitPoints": 4,
       "id": 240220,
-      "type": "normal"
+      "type": "ball_cache"
     },
     {
       "cell": [
         1,
         2
       ],
-      "hitPoints": 8,
+      "hitPoints": 4,
       "id": 240221,
-      "type": "ore"
+      "type": "ball_cache"
     },
     {
       "cell": [
@@ -205,7 +205,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-10",
+  "contentVersion": "p2-mines-11",
   "displayName": "Yüklü Koridor",
   "displayNameKey": "MINE_24_WIDE_02",
   "exampleAngles": [

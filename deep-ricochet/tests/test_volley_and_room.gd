@@ -8,6 +8,7 @@ static func run(config: GameConfig) -> void:
 	_test_volley_lifecycle(config)
 	_test_full_timeout(config)
 	_test_scoring_and_room_resolution(config)
+	_test_ball_cache_bonus(config)
 	_test_speed_grouping_equivalence(config)
 
 
@@ -75,6 +76,9 @@ static func _test_scoring_and_room_resolution(config: GameConfig) -> void:
 	assert(ScoreCalculator.break_points(BlockState.BlockType.EXPLOSIVE, config) == 10)
 	assert(ScoreCalculator.break_points(BlockState.BlockType.CRACKED, config) == 6)
 	assert(ScoreCalculator.break_points(BlockState.BlockType.ARMORED, config) == 40)
+	assert(ScoreCalculator.break_points(BlockState.BlockType.ECHO, config) == 18)
+	assert(ScoreCalculator.break_points(BlockState.BlockType.BALL_CACHE, config) == 15)
+	assert(ScoreCalculator.break_points(BlockState.BlockType.PIERCING, config) == 30)
 
 	var guard_board := BoardModel.new()
 	var guard_block := BlockState.new(29, BlockState.BlockType.NORMAL, Vector2i(7, 0), 1)
@@ -154,6 +158,33 @@ static func _test_scoring_and_room_resolution(config: GameConfig) -> void:
 	assert(resolution.room_finished)
 	assert(not resolution.succeeded)
 	assert(resolution.reward == config.normal_break_points)
+
+
+static func _test_ball_cache_bonus(config: GameConfig) -> void:
+	var room := RoomSession.new()
+	room.start(config.shots_per_room, config.safe_multiplier_bps)
+	assert(room.ball_count_for_next_shot(config.ball_count) == 8)
+	assert(room.grant_next_shot_ball_bonus() == 2)
+	assert(room.ball_count_for_next_shot(config.ball_count) == 10)
+	assert(room.grant_next_shot_ball_bonus() == 2)
+	assert(room.ball_count_for_next_shot(config.ball_count) == 12)
+	assert(room.grant_next_shot_ball_bonus() == 0)
+	assert(room.next_shot_ball_bonus == RoomSession.MAX_NEXT_SHOT_BALL_BONUS)
+	assert(room.commit_shot())
+	assert(room.next_shot_ball_bonus == 0)
+	assert(room.ball_count_for_next_shot(config.ball_count) == 8)
+	var next_room := RoomSession.new()
+	next_room.start(config.shots_per_room, config.safe_multiplier_bps)
+	assert(next_room.next_shot_ball_bonus == 0)
+	assert(next_room.grant_next_shot_ball_bonus() == 2)
+	var template := RoomTemplateLoader.load_from_file("res://content/mines/rooms/m1_start.json")
+	assert(template != null)
+	var snapshot := RoomSnapshot.capture(template, template.create_board(), next_room)
+	assert(snapshot != null)
+	assert(snapshot.next_shot_ball_bonus == 2)
+	var restored_snapshot := RoomSnapshot.from_dictionary(snapshot.to_dictionary())
+	assert(restored_snapshot.next_shot_ball_bonus == 2)
+	assert(restored_snapshot.validation_errors(template, config).is_empty())
 
 
 static func _test_speed_grouping_equivalence(config: GameConfig) -> void:

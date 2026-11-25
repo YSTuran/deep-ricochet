@@ -16,6 +16,9 @@ const INTEGER_FIELDS := [
 	"explosiveBreakPoints",
 	"crackedBreakPoints",
 	"armoredBreakPoints",
+	"echoBreakPoints",
+	"ballCacheBreakPoints",
+	"piercingBreakPoints",
 	"unusedShotBonus",
 ]
 const NUMBER_FIELDS := [
@@ -28,7 +31,7 @@ const NUMBER_FIELDS := [
 	"aimMinDistance",
 ]
 
-var config_version: String = "prototype-3"
+var config_version: String = "prototype-4"
 var room_count: int = 4
 var shots_per_room: int = 3
 var daily_shots_per_room: int = 5
@@ -49,6 +52,9 @@ var core_break_points: int = 100
 var explosive_break_points: int = 10
 var cracked_break_points: int = 6
 var armored_break_points: int = 40
+var echo_break_points: int = 18
+var ball_cache_break_points: int = 15
+var piercing_break_points: int = 30
 var unused_shot_bonus: int = 20
 
 
@@ -92,6 +98,9 @@ static func load_from_file(path: String = DEFAULT_PATH) -> GameConfig:
 	config.explosive_break_points = int(data.get("explosiveBreakPoints", config.explosive_break_points))
 	config.cracked_break_points = int(data.get("crackedBreakPoints", config.cracked_break_points))
 	config.armored_break_points = int(data.get("armoredBreakPoints", config.armored_break_points))
+	config.echo_break_points = int(data.get("echoBreakPoints", config.echo_break_points))
+	config.ball_cache_break_points = int(data.get("ballCacheBreakPoints", config.ball_cache_break_points))
+	config.piercing_break_points = int(data.get("piercingBreakPoints", config.piercing_break_points))
 	config.unused_shot_bonus = int(data.get("unusedShotBonus", config.unused_shot_bonus))
 	var validation_errors := config.validation_errors()
 	if not validation_errors.is_empty():
@@ -143,7 +152,8 @@ func validation_errors() -> PackedStringArray:
 		errors.append("Rota çarpanları pozitif olmalı ve bonus güvenli rotadan düşük olmamalıdır.")
 	if normal_break_points < 0 or ore_break_points < 0 or core_break_points <= 0 \
 		or explosive_break_points != 10 or cracked_break_points != 6 \
-		or armored_break_points != 40:
+		or armored_break_points != 40 or echo_break_points != 18 \
+		or ball_cache_break_points != 15 or piercing_break_points != 30:
 		errors.append("Blok puanları negatif olamaz; çekirdek puanı pozitif olmalıdır.")
 	if unused_shot_bonus < 0:
 		errors.append("Kullanılmayan atış bonusu negatif olamaz.")

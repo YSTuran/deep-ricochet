@@ -113,9 +113,9 @@
         4,
         7
       ],
-      "hitPoints": 8,
+      "hitPoints": 6,
       "id": 230613,
-      "type": "ore"
+      "type": "echo"
     },
     {
       "cell": [
@@ -133,10 +133,7 @@
       ],
       "hitPoints": 8,
       "id": 230615,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "explosive"
     },
     {
       "cell": [
@@ -173,21 +170,19 @@
         0,
         5
       ],
-      "hitPoints": 8,
+      "hitPoints": 6,
       "id": 230619,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "echo"
     },
     {
+      "beamDirection": "left",
       "cell": [
         5,
         7
       ],
-      "hitPoints": 8,
+      "hitPoints": 7,
       "id": 230620,
-      "type": "ore"
+      "type": "piercing"
     },
     {
       "cell": [
@@ -212,9 +207,9 @@
         0,
         3
       ],
-      "hitPoints": 8,
+      "hitPoints": 4,
       "id": 230623,
-      "type": "explosive"
+      "type": "ball_cache"
     },
     {
       "cell": [
@@ -226,13 +221,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-10",
+  "contentVersion": "p2-mines-11",
   "displayName": "Derin Kuyu",
   "displayNameKey": "MINE_23_NARROW_03",
   "exampleAngles": [
-    27.5,
-    27.5,
-    27.5
+    30.0,
+    30.0,
+    30.0
   ],
   "family": "bonus",
   "height": 8,

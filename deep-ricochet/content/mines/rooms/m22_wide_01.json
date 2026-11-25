@@ -116,12 +116,9 @@
         7,
         4
       ],
-      "hitPoints": 8,
+      "hitPoints": 6,
       "id": 220113,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "echo"
     },
     {
       "cell": [
@@ -137,9 +134,9 @@
         4,
         5
       ],
-      "hitPoints": 8,
+      "hitPoints": 6,
       "id": 220115,
-      "type": "ore"
+      "type": "echo"
     },
     {
       "cell": [
@@ -175,10 +172,7 @@
       ],
       "hitPoints": 8,
       "id": 220119,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "cracked"
     },
     {
       "cell": [
@@ -187,19 +181,16 @@
       ],
       "hitPoints": 8,
       "id": 220120,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "explosive"
     },
     {
       "cell": [
         1,
         7
       ],
-      "hitPoints": 8,
+      "hitPoints": 4,
       "id": 220121,
-      "type": "cracked"
+      "type": "ball_cache"
     },
     {
       "cell": [
@@ -211,7 +202,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-10",
+  "contentVersion": "p2-mines-11",
   "displayName": "Mor Galeri",
   "displayNameKey": "MINE_22_WIDE_01",
   "exampleAngles": [

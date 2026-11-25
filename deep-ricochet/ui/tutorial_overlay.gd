@@ -11,8 +11,8 @@ enum Mode {
 const VIEW_SIZE := Vector2(540.0, 960.0)
 const SKIP_BUTTON := Rect2(35.0, 845.0, 170.0, 65.0)
 const NEXT_BUTTON := Rect2(275.0, 845.0, 230.0, 65.0)
-const PAGE_COUNT := 6
-const COACH_PAGE_BY_STEP := [0, 1, 5]
+const PAGE_COUNT := 9
+const COACH_PAGE_BY_STEP := [0, 1, 8]
 const NORMAL_TEXTURE: Texture2D = preload("res://assets/images/blocks/blok_normal.png")
 const ORE_TEXTURE: Texture2D = preload("res://assets/images/blocks/blok_cevher.png")
 const CORE_TEXTURE: Texture2D = preload("res://assets/images/blocks/cekirdek.png")
@@ -21,6 +21,9 @@ const EXPLOSIVE_TEXTURE: Texture2D = preload("res://assets/images/blocks/blok_pa
 const ARMORED_BOTTOM_TEXTURE: Texture2D = preload("res://assets/images/blocks/blok_zirhli_alt.png")
 const ARMORED_LEFT_TEXTURE: Texture2D = preload("res://assets/images/blocks/blok_zirhli_sol_alt.png")
 const ARMORED_RIGHT_TEXTURE: Texture2D = preload("res://assets/images/blocks/blok_zirhli_sag_alt.png")
+const ECHO_TEXTURE: Texture2D = preload("res://assets/images/blocks/blok_yanki.png")
+const BALL_CACHE_TEXTURE: Texture2D = preload("res://assets/images/blocks/blok_top_haznesi.png")
+const PIERCING_TEXTURE: Texture2D = preload("res://assets/images/blocks/blok_delici_kristal.png")
 const NORMAL_SOURCE_RECT := Rect2(139.0, 159.0, 976.0, 939.0)
 const ORE_SOURCE_RECT := Rect2(209.0, 220.0, 837.0, 831.0)
 const CRACKED_SOURCE_RECT := Rect2(32.0, 36.0, 447.0, 454.0)
@@ -123,9 +126,10 @@ func _draw() -> void:
 		18,
 		DeepUI.MUTED,
 	)
+	var dot_start_x := 270.0 - float(PAGE_COUNT - 1) * 10.0
 	for dot_index in range(PAGE_COUNT):
 		var dot_color := DeepUI.GOLD if dot_index == page_index else DeepUI.BORDER
-		draw_circle(Vector2(240.0 + float(dot_index) * 20.0, 775.0), 5.0, dot_color)
+		draw_circle(Vector2(dot_start_x + float(dot_index) * 20.0, 775.0), 5.0, dot_color)
 	DeepUI.draw_button(
 		self, SKIP_BUTTON, tr("TUTORIAL_SKIP"), &"ghost", 19, true,
 		touch_controls.is_pressed(ACTION_SKIP),
@@ -243,6 +247,64 @@ func _draw_illustration() -> void:
 				BlockState.BlockType.ARMORED,
 			)
 		5:
+			_draw_full_asset_block(
+				ECHO_TEXTURE,
+				Rect2(120.0, 238.0, 118.0, 118.0),
+				"6",
+				BlockState.BlockType.ECHO,
+			)
+			_draw_full_asset_block(
+				ECHO_TEXTURE,
+				Rect2(302.0, 238.0, 118.0, 118.0),
+				"6",
+				BlockState.BlockType.ECHO,
+			)
+			for ring_index in range(3):
+				draw_arc(
+					Vector2(270.0, 297.0),
+					45.0 + float(ring_index) * 20.0,
+					0.0,
+					TAU,
+					28,
+					Color(CaveTheme.block_color(BlockState.BlockType.ECHO), 0.42 - float(ring_index) * 0.1),
+					2.5,
+					true,
+				)
+		6:
+			_draw_full_asset_block(
+				BALL_CACHE_TEXTURE,
+				Rect2(118.0, 220.0, 125.0, 125.0),
+				"4",
+				BlockState.BlockType.BALL_CACHE,
+			)
+			draw_line(Vector2(258.0, 282.0), Vector2(320.0, 282.0), DeepUI.GOLD_LIGHT, 4.0, true)
+			draw_colored_polygon(PackedVector2Array([
+				Vector2(320.0, 270.0), Vector2(340.0, 282.0), Vector2(320.0, 294.0),
+			]), DeepUI.GOLD_LIGHT)
+			for ball_index in range(2):
+				var ball_center := Vector2(370.0 + float(ball_index) * 34.0, 282.0)
+				draw_circle(ball_center, 13.0, DeepUI.TEXT)
+				draw_arc(ball_center, 13.0, 0.0, TAU, 20, CaveTheme.block_color(BlockState.BlockType.ECHO), 2.0, true)
+			DeepUI.draw_centered(self, "+2", Rect2(338.0, 318.0, 100.0, 40.0), 24, DeepUI.GOLD_LIGHT)
+		7:
+			_draw_full_asset_block(
+				PIERCING_TEXTURE,
+				Rect2(211.0, 270.0, 118.0, 118.0),
+				"7",
+				BlockState.BlockType.PIERCING,
+			)
+			var beam_color := CaveTheme.block_color(BlockState.BlockType.PIERCING).lightened(0.3)
+			draw_line(Vector2(270.0, 270.0), Vector2(270.0, 125.0), Color(beam_color, 0.25), 13.0, true)
+			draw_line(Vector2(270.0, 270.0), Vector2(270.0, 125.0), beam_color, 4.0, true)
+			_draw_hard_rock(Rect2(223.0, 138.0, 44.0, 44.0))
+			_draw_asset_block(
+				ORE_TEXTURE,
+				ORE_SOURCE_RECT,
+				Rect2(273.0, 138.0, 44.0, 44.0),
+				"5",
+				BlockState.BlockType.ORE,
+			)
+		8:
 			DeepUI.draw_panel(self, Rect2(80.0, 155.0, 175.0, 225.0), Color("173550"), DeepUI.BLUE, 15, 2, true)
 			DeepUI.draw_panel(self, Rect2(285.0, 155.0, 175.0, 225.0), Color("4a3923"), DeepUI.GOLD, 15, 2, true)
 			DeepUI.draw_centered(self, "×1.0", Rect2(90.0, 195.0, 155.0, 50.0), 25, DeepUI.BLUE_LIGHT)
@@ -265,3 +327,14 @@ func _draw_asset_block(
 
 func _draw_hard_rock(rect: Rect2) -> void:
 	CaveTheme.draw_hard_rock(self, rect)
+
+
+func _draw_full_asset_block(
+	texture: Texture2D,
+	destination: Rect2,
+	value: String,
+	block_type: int,
+) -> void:
+	CaveTheme.draw_texture(self, texture, destination, block_type)
+	if not value.is_empty():
+		DeepUI.draw_centered(self, value, destination, 25, DeepUI.TEXT, 0.69)

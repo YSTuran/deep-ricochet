@@ -9,6 +9,9 @@ const EXPLOSIVE_TEXTURE: Texture2D = preload("res://assets/images/blocks/blok_pa
 const ARMORED_BOTTOM_TEXTURE: Texture2D = preload("res://assets/images/blocks/blok_zirhli_alt.png")
 const ARMORED_LEFT_BOTTOM_TEXTURE: Texture2D = preload("res://assets/images/blocks/blok_zirhli_sol_alt.png")
 const ARMORED_RIGHT_BOTTOM_TEXTURE: Texture2D = preload("res://assets/images/blocks/blok_zirhli_sag_alt.png")
+const ECHO_TEXTURE: Texture2D = preload("res://assets/images/blocks/blok_yanki.png")
+const BALL_CACHE_TEXTURE: Texture2D = preload("res://assets/images/blocks/blok_top_haznesi.png")
+const PIERCING_TEXTURE: Texture2D = preload("res://assets/images/blocks/blok_delici_kristal.png")
 const CRACKED_SOURCE := Rect2(32.0, 36.0, 447.0, 454.0)
 const EXPLOSIVE_SOURCE := Rect2(54.0, 65.0, 404.0, 407.0)
 const ARMORED_BOTTOM_SOURCE := Rect2(5.0, 6.0, 502.0, 502.0)
@@ -115,13 +118,22 @@ func _draw() -> void:
 		DeepUI.GOLD,
 		13,
 	)
+	var score_chip_width := 284.0 if room.room.next_shot_ball_bonus > 0 else 418.0
 	DeepUI.draw_chip(
 		self,
-		Rect2(30.0, 92.0, 418.0, 28.0),
+		Rect2(30.0, 92.0, score_chip_width, 28.0),
 		tr("HUD_SCORE_SUMMARY") % [room.banked_score, room.room.break_score],
 		DeepUI.BORDER,
 		12,
 	)
+	if room.room.next_shot_ball_bonus > 0:
+		DeepUI.draw_chip(
+			self,
+			Rect2(320.0, 92.0, 128.0, 28.0),
+			tr("HUD_NEXT_SHOT_BONUS") % room.room.next_shot_ball_bonus,
+			CaveTheme.block_color(BlockState.BlockType.BALL_CACHE),
+			12,
+		)
 
 	for block: BlockState in room.board.blocks:
 		if block.is_destroyed():
@@ -165,6 +177,12 @@ func _draw() -> void:
 				)
 			BlockState.BlockType.ARMORED:
 				_draw_armored(block)
+			BlockState.BlockType.ECHO:
+				_draw_full_texture_block(block, ECHO_TEXTURE)
+			BlockState.BlockType.BALL_CACHE:
+				_draw_full_texture_block(block, BALL_CACHE_TEXTURE)
+			BlockState.BlockType.PIERCING:
+				_draw_piercing(block)
 
 
 
@@ -230,6 +248,33 @@ func _draw_armored(block: BlockState) -> void:
 		str(block.hit_points),
 		BlockState.BlockType.ARMORED,
 	)
+
+
+func _draw_full_texture_block(block: BlockState, texture: Texture2D) -> void:
+	var rect := _world_rect_to_screen(block.world_rect(), 4.0)
+	CaveTheme.draw_texture(self, texture, rect, block.type)
+	_draw_centered_text(rect, str(block.hit_points), 26, DeepUI.TEXT, 0.66)
+
+
+func _draw_piercing(block: BlockState) -> void:
+	var rect := _world_rect_to_screen(block.world_rect(), 3.0)
+	var angle := _beam_screen_rotation(block.beam_direction)
+	draw_set_transform(rect.get_center(), angle)
+	var local_rect := Rect2(-rect.size * 0.5, rect.size)
+	CaveTheme.draw_texture(self, PIERCING_TEXTURE, local_rect, block.type)
+	draw_set_transform(Vector2.ZERO, 0.0)
+	_draw_centered_text(rect, str(block.hit_points), 26, DeepUI.TEXT, 0.72)
+
+
+func _beam_screen_rotation(direction: int) -> float:
+	match direction:
+		BlockState.BeamDirection.RIGHT:
+			return PI * 0.5
+		BlockState.BeamDirection.DOWN:
+			return PI
+		BlockState.BeamDirection.LEFT:
+			return -PI * 0.5
+	return 0.0
 
 
 func _draw_text(position: Vector2, text: String, size: int, color: Color) -> void:

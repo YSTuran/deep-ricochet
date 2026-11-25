@@ -113,9 +113,9 @@
         2,
         2
       ],
-      "hitPoints": 6,
+      "hitPoints": 4,
       "id": 20313,
-      "type": "normal"
+      "type": "ball_cache"
     },
     {
       "cell": [
@@ -127,7 +127,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-10",
+  "contentVersion": "p2-mines-11",
   "displayName": "Sessiz Kemer",
   "displayNameKey": "MINE_2_WIDE_03",
   "exampleAngles": [

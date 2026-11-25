@@ -79,10 +79,7 @@
       ],
       "hitPoints": 6,
       "id": 150109,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "echo"
     },
     {
       "cell": [
@@ -98,9 +95,9 @@
         5,
         7
       ],
-      "hitPoints": 8,
+      "hitPoints": 6,
       "id": 150111,
-      "type": "ore"
+      "type": "echo"
     },
     {
       "cell": [
@@ -166,37 +163,34 @@
       ],
       "hitPoints": 8,
       "id": 150118,
-      "type": "normal"
+      "type": "cracked"
     },
     {
       "cell": [
         6,
         3
       ],
-      "hitPoints": 8,
+      "hitPoints": 6,
       "id": 150119,
-      "type": "normal"
+      "type": "explosive"
     },
     {
       "cell": [
         0,
         7
       ],
-      "hitPoints": 5,
+      "hitPoints": 4,
       "id": 150120,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "ball_cache"
     },
     {
       "cell": [
         6,
         6
       ],
-      "hitPoints": 8,
+      "hitPoints": 4,
       "id": 150121,
-      "type": "cracked"
+      "type": "ball_cache"
     },
     {
       "cell": [
@@ -208,7 +202,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-10",
+  "contentVersion": "p2-mines-11",
   "displayName": "Gölge Basamağı",
   "displayNameKey": "MINE_15_WIDE_01",
   "exampleAngles": [

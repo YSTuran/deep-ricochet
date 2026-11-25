@@ -91,13 +91,14 @@
       "type": "ore"
     },
     {
+      "beamDirection": "up",
       "cell": [
         1,
         4
       ],
-      "hitPoints": 8,
+      "hitPoints": 7,
       "id": 230011,
-      "type": "explosive"
+      "type": "piercing"
     },
     {
       "cell": [
@@ -113,12 +114,9 @@
         6,
         2
       ],
-      "hitPoints": 8,
+      "hitPoints": 7,
       "id": 230013,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "explosive"
     },
     {
       "cell": [
@@ -130,13 +128,14 @@
       "type": "cracked"
     },
     {
+      "beamDirection": "right",
       "cell": [
         2,
         7
       ],
-      "hitPoints": 8,
+      "hitPoints": 7,
       "id": 230015,
-      "type": "explosive"
+      "type": "piercing"
     },
     {
       "cell": [
@@ -176,12 +175,9 @@
         5,
         2
       ],
-      "hitPoints": 8,
+      "hitPoints": 6,
       "id": 230019,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "echo"
     },
     {
       "cell": [
@@ -197,9 +193,9 @@
         4,
         7
       ],
-      "hitPoints": 8,
+      "hitPoints": 4,
       "id": 230021,
-      "type": "explosive"
+      "type": "ball_cache"
     },
     {
       "cell": [
@@ -211,7 +207,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-10",
+  "contentVersion": "p2-mines-11",
   "displayName": "Kara Kapı",
   "displayNameKey": "MINE_23_START",
   "exampleAngles": [

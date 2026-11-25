@@ -1,6 +1,9 @@
 class_name RoomSession
 extends RefCounted
 
+const BALL_CACHE_BONUS := 2
+const MAX_NEXT_SHOT_BALL_BONUS := 4
+
 var shots_remaining: int = 0
 var break_score: int = 0
 var multiplier_bps: int = 10_000
@@ -8,6 +11,7 @@ var shot_in_progress: bool = false
 var room_finished: bool = false
 var room_succeeded: bool = false
 var final_reward: int = 0
+var next_shot_ball_bonus: int = 0
 
 var _scored_block_ids: Dictionary[int, bool] = {}
 
@@ -20,6 +24,7 @@ func start(initial_shots: int, room_multiplier_bps: int) -> void:
 	room_finished = false
 	room_succeeded = false
 	final_reward = 0
+	next_shot_ball_bonus = 0
 	_scored_block_ids.clear()
 
 
@@ -28,11 +33,27 @@ func commit_shot() -> bool:
 		return false
 	shots_remaining -= 1
 	shot_in_progress = true
+	next_shot_ball_bonus = 0
 	return true
 
 
 func can_commit_shot() -> bool:
 	return not room_finished and not shot_in_progress and shots_remaining > 0
+
+
+func ball_count_for_next_shot(base_ball_count: int) -> int:
+	return maxi(0, base_ball_count) + next_shot_ball_bonus
+
+
+func grant_next_shot_ball_bonus(amount: int = BALL_CACHE_BONUS) -> int:
+	if room_finished or amount <= 0:
+		return 0
+	var previous := next_shot_ball_bonus
+	next_shot_ball_bonus = mini(
+		MAX_NEXT_SHOT_BALL_BONUS,
+		next_shot_ball_bonus + amount,
+	)
+	return next_shot_ball_bonus - previous
 
 
 func scored_block_ids() -> PackedInt32Array:
@@ -51,10 +72,14 @@ func restore_stable_state(
 	succeeded: bool,
 	reward: int,
 	scored_ids: PackedInt32Array,
+	pending_ball_bonus: int = 0,
 ) -> bool:
 	if remaining_shots < 0 or current_break_score < 0 or room_multiplier_bps <= 0 or reward < 0:
 		return false
 	if succeeded and not finished:
+		return false
+	if pending_ball_bonus < 0 or pending_ball_bonus > MAX_NEXT_SHOT_BALL_BONUS \
+		or (finished and pending_ball_bonus != 0):
 		return false
 	shots_remaining = remaining_shots
 	break_score = current_break_score
@@ -63,6 +88,7 @@ func restore_stable_state(
 	room_finished = finished
 	room_succeeded = succeeded
 	final_reward = reward
+	next_shot_ball_bonus = pending_ball_bonus
 	_scored_block_ids.clear()
 	for block_id: int in scored_ids:
 		_scored_block_ids[block_id] = true
@@ -105,6 +131,7 @@ func resolve_shot(board: BoardModel, config: GameConfig) -> RoomResolution:
 		room_finished = true
 
 	if room_finished:
+		next_shot_ball_bonus = 0
 		final_reward = ScoreCalculator.room_reward(
 			break_score,
 			shots_remaining,

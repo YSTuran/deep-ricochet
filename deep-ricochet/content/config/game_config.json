@@ -1,5 +1,5 @@
 {
-  "configVersion": "prototype-3",
+  "configVersion": "prototype-4",
   "roomCount": 4,
   "shotsPerRoom": 3,
   "dailyShotsPerRoom": 5,
@@ -20,5 +20,8 @@
   "explosiveBreakPoints": 10,
   "crackedBreakPoints": 6,
   "armoredBreakPoints": 40,
+  "echoBreakPoints": 18,
+  "ballCacheBreakPoints": 15,
+  "piercingBreakPoints": 30,
   "unusedShotBonus": 20
 }

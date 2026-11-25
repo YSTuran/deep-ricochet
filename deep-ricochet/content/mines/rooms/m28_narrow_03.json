@@ -109,13 +109,14 @@
       "type": "ore"
     },
     {
+      "beamDirection": "left",
       "cell": [
         3,
         6
       ],
-      "hitPoints": 8,
+      "hitPoints": 7,
       "id": 280613,
-      "type": "explosive"
+      "type": "piercing"
     },
     {
       "cell": [
@@ -127,13 +128,14 @@
       "type": "ore"
     },
     {
+      "beamDirection": "right",
       "cell": [
         2,
         5
       ],
-      "hitPoints": 8,
+      "hitPoints": 7,
       "id": 280615,
-      "type": "explosive"
+      "type": "piercing"
     },
     {
       "cell": [
@@ -142,7 +144,7 @@
       ],
       "hitPoints": 8,
       "id": 280616,
-      "type": "ore"
+      "type": "explosive"
     },
     {
       "cell": [
@@ -167,12 +169,9 @@
         1,
         4
       ],
-      "hitPoints": 8,
+      "hitPoints": 6,
       "id": 280619,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "echo"
     },
     {
       "cell": [
@@ -190,25 +189,28 @@
       ],
       "hitPoints": 8,
       "id": 280621,
-      "type": "normal"
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
     },
     {
       "cell": [
         5,
         4
       ],
-      "hitPoints": 8,
+      "hitPoints": 4,
       "id": 280622,
-      "type": "ore"
+      "type": "ball_cache"
     },
     {
       "cell": [
         2,
         7
       ],
-      "hitPoints": 8,
+      "hitPoints": 4,
       "id": 280623,
-      "type": "ore"
+      "type": "ball_cache"
     },
     {
       "cell": [
@@ -220,7 +222,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-10",
+  "contentVersion": "p2-mines-11",
   "displayName": "Derinlik Tacı",
   "displayNameKey": "MINE_28_NARROW_03",
   "exampleAngles": [

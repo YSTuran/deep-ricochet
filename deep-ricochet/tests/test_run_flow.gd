@@ -83,6 +83,7 @@ static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: Gam
 		var room_durability := 0
 		var room_rock_count := 0
 		var edge_rock_count := 0
+		var room_cache_count := 0
 		for definition: RoomBlockDefinition in template.blocks:
 			if definition.block_type != BlockState.BlockType.CORE:
 				assert(
@@ -114,6 +115,14 @@ static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: Gam
 						definition.id,
 					],
 				)
+			elif definition.block_type == BlockState.BlockType.ECHO:
+				assert(definition.hit_points == RoomTemplate.ECHO_HIT_POINTS)
+			elif definition.block_type == BlockState.BlockType.BALL_CACHE:
+				room_cache_count += 1
+				assert(definition.hit_points == RoomTemplate.BALL_CACHE_HIT_POINTS)
+			elif definition.block_type == BlockState.BlockType.PIERCING:
+				assert(definition.hit_points == RoomTemplate.PIERCING_HIT_POINTS)
+				assert(definition.beam_direction != BlockState.BeamDirection.NONE)
 			elif definition.block_type == BlockState.BlockType.CORE:
 				assert(BoardGeometry.is_core_row(definition.cell.y))
 				assert(definition.cell.x >= 1 and definition.cell.x <= 6)
@@ -131,6 +140,7 @@ static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: Gam
 		var mine_roles: Dictionary = role_counts[template.mine_id]
 		mine_roles[template.role] = mine_roles.get(template.role, 0) + 1
 		if not is_daily:
+			assert(room_cache_count >= 1 and room_cache_count <= 2)
 			var density_tier := floori(float(mine_order - 1) / 3.0)
 			var base_density := mini(22, 14 + density_tier * 2)
 			var minimum_density := base_density
@@ -185,6 +195,9 @@ static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: Gam
 				BlockState.BlockType.EXPLOSIVE,
 				BlockState.BlockType.CRACKED,
 				BlockState.BlockType.ARMORED,
+				BlockState.BlockType.ECHO,
+				BlockState.BlockType.BALL_CACHE,
+				BlockState.BlockType.PIERCING,
 			]:
 				assert(daily_types.has(required_type))
 	_assert_normal_layout_uniqueness(normal_templates)
@@ -227,14 +240,28 @@ static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: Gam
 			assert(mine_types.get(BlockState.BlockType.EXPLOSIVE, 0) == 0)
 			assert(mine_types.get(BlockState.BlockType.CRACKED, 0) == 0)
 			assert(mine_types.get(BlockState.BlockType.ARMORED, 0) == 0)
+			assert(mine_types.get(BlockState.BlockType.ECHO, 0) == 0)
+			assert(mine_types.get(BlockState.BlockType.PIERCING, 0) == 0)
 		elif mine_order <= 10:
 			assert(mine_types.get(BlockState.BlockType.EXPLOSIVE, 0) > 0)
 			assert(mine_types.get(BlockState.BlockType.CRACKED, 0) > 0)
 			assert(mine_types.get(BlockState.BlockType.ARMORED, 0) == 0)
+			assert(mine_types.get(BlockState.BlockType.ECHO, 0) == 0)
+			assert(mine_types.get(BlockState.BlockType.PIERCING, 0) == 0)
 		else:
 			assert(mine_types.get(BlockState.BlockType.EXPLOSIVE, 0) > 0)
 			assert(mine_types.get(BlockState.BlockType.CRACKED, 0) > 0)
 			assert(mine_types.get(BlockState.BlockType.ARMORED, 0) > 0)
+			if mine_order <= 14:
+				assert(mine_types.get(BlockState.BlockType.ECHO, 0) == 0)
+			else:
+				assert(mine_types.get(BlockState.BlockType.ECHO, 0) > 0)
+			if mine_order <= 22:
+				assert(mine_types.get(BlockState.BlockType.PIERCING, 0) == 0)
+			else:
+				assert(mine_types.get(BlockState.BlockType.PIERCING, 0) > 0)
+		assert(mine_types.get(BlockState.BlockType.BALL_CACHE, 0) >= 7)
+		assert(mine_types.get(BlockState.BlockType.BALL_CACHE, 0) <= 14)
 	assert(mine_counts.get(DailyRooms.DAILY_MINE_ID, 0) == 14)
 	var daily_roles: Dictionary = role_counts[DailyRooms.DAILY_MINE_ID]
 	assert(daily_roles.get(RoomTemplate.Role.START, 0) == 2)
@@ -244,6 +271,9 @@ static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: Gam
 	assert(block_type_counts.get(BlockState.BlockType.EXPLOSIVE, 0) > 0)
 	assert(block_type_counts.get(BlockState.BlockType.CRACKED, 0) > 0)
 	assert(block_type_counts.get(BlockState.BlockType.ARMORED, 0) > 0)
+	assert(block_type_counts.get(BlockState.BlockType.ECHO, 0) > 0)
+	assert(block_type_counts.get(BlockState.BlockType.BALL_CACHE, 0) > 0)
+	assert(block_type_counts.get(BlockState.BlockType.PIERCING, 0) > 0)
 
 	for mine_order in range(1, PlayerProfile.MINE_COUNT + 1):
 		var mine_id := StringName("mine_%02d" % mine_order)

@@ -68,9 +68,9 @@
         6,
         6
       ],
-      "hitPoints": 8,
+      "hitPoints": 6,
       "id": 230108,
-      "type": "ore"
+      "type": "echo"
     },
     {
       "cell": [
@@ -79,7 +79,7 @@
       ],
       "hitPoints": 8,
       "id": 230109,
-      "type": "explosive"
+      "type": "ore"
     },
     {
       "cell": [
@@ -91,13 +91,14 @@
       "type": "cracked"
     },
     {
+      "beamDirection": "left",
       "cell": [
         3,
         4
       ],
-      "hitPoints": 8,
+      "hitPoints": 7,
       "id": 230111,
-      "type": "explosive"
+      "type": "piercing"
     },
     {
       "cell": [
@@ -106,10 +107,7 @@
       ],
       "hitPoints": 8,
       "id": 230112,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "explosive"
     },
     {
       "cell": [
@@ -130,22 +128,23 @@
       "type": "normal"
     },
     {
+      "beamDirection": "down",
       "cell": [
         6,
         5
       ],
       "hitPoints": 7,
       "id": 230115,
-      "type": "explosive"
+      "type": "piercing"
     },
     {
       "cell": [
         5,
         7
       ],
-      "hitPoints": 8,
+      "hitPoints": 6,
       "id": 230116,
-      "type": "ore"
+      "type": "echo"
     },
     {
       "cell": [
@@ -154,7 +153,7 @@
       ],
       "hitPoints": 8,
       "id": 230117,
-      "type": "explosive"
+      "type": "ore"
     },
     {
       "cell": [
@@ -172,28 +171,28 @@
       ],
       "hitPoints": 8,
       "id": 230119,
-      "type": "cracked"
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
     },
     {
       "cell": [
         5,
         3
       ],
-      "hitPoints": 8,
+      "hitPoints": 4,
       "id": 230120,
-      "type": "ore"
+      "type": "ball_cache"
     },
     {
       "cell": [
         5,
         2
       ],
-      "hitPoints": 8,
+      "hitPoints": 4,
       "id": 230121,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "ball_cache"
     },
     {
       "cell": [
@@ -205,13 +204,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-10",
+  "contentVersion": "p2-mines-11",
   "displayName": "Obsidyen Basamak",
   "displayNameKey": "MINE_23_WIDE_01",
   "exampleAngles": [
-    104.0,
-    104.0,
-    104.0
+    99.0,
+    99.0,
+    99.0
   ],
   "family": "safe",
   "height": 8,

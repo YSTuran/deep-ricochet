@@ -133,10 +133,7 @@
       ],
       "hitPoints": 8,
       "id": 240415,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "explosive"
     },
     {
       "cell": [
@@ -145,16 +142,17 @@
       ],
       "hitPoints": 8,
       "id": 240416,
-      "type": "explosive"
+      "type": "ore"
     },
     {
+      "beamDirection": "left",
       "cell": [
         5,
         7
       ],
-      "hitPoints": 8,
+      "hitPoints": 7,
       "id": 240417,
-      "type": "explosive"
+      "type": "piercing"
     },
     {
       "cell": [
@@ -182,12 +180,9 @@
         0,
         3
       ],
-      "hitPoints": 8,
+      "hitPoints": 6,
       "id": 240420,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "echo"
     },
     {
       "cell": [
@@ -203,18 +198,18 @@
         2,
         5
       ],
-      "hitPoints": 8,
+      "hitPoints": 4,
       "id": 240422,
-      "type": "explosive"
+      "type": "ball_cache"
     },
     {
       "cell": [
         1,
         3
       ],
-      "hitPoints": 8,
+      "hitPoints": 4,
       "id": 240423,
-      "type": "ore"
+      "type": "ball_cache"
     },
     {
       "cell": [
@@ -226,13 +221,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-10",
+  "contentVersion": "p2-mines-11",
   "displayName": "Çarpan Yarık",
   "displayNameKey": "MINE_24_NARROW_01",
   "exampleAngles": [
-    17.5,
-    17.5,
-    17.5
+    67.5,
+    67.5,
+    67.5
   ],
   "family": "bonus",
   "height": 8,

@@ -3,7 +3,7 @@ extends RefCounted
 
 const DAILY_MINE_ID := &"daily"
 const SOURCE_MINE_ID := &"mine_28"
-const CONTENT_VERSION := "daily-7"
+const CONTENT_VERSION := "daily-8"
 const CRACKED_HIT_POINTS := 8
 const TARGET_BLOCK_COUNT := 24
 const SOURCE_ROOM_IDS: Array[StringName] = [
@@ -15,6 +15,22 @@ const SOURCE_ROOM_IDS: Array[StringName] = [
 	&"m28_narrow_02",
 	&"m28_narrow_03",
 ]
+const VERIFIED_EXAMPLE_ANGLES := {
+	"daily_m28_start_a": 35.0,
+	"daily_m28_start_b": 165.0,
+	"daily_m28_wide_01_a": 27.5,
+	"daily_m28_wide_01_b": 152.5,
+	"daily_m28_wide_02_a": 103.0,
+	"daily_m28_wide_02_b": 76.0,
+	"daily_m28_wide_03_a": 110.5,
+	"daily_m28_wide_03_b": 69.5,
+	"daily_m28_narrow_01_a": 15.0,
+	"daily_m28_narrow_01_b": 165.0,
+	"daily_m28_narrow_02_a": 84.5,
+	"daily_m28_narrow_02_b": 95.5,
+	"daily_m28_narrow_03_a": 85.5,
+	"daily_m28_narrow_03_b": 94.5,
+}
 const DENSITY_TYPES: Array[int] = [
 	BlockState.BlockType.NORMAL,
 	BlockState.BlockType.ORE,
@@ -22,6 +38,9 @@ const DENSITY_TYPES: Array[int] = [
 	BlockState.BlockType.EXPLOSIVE,
 	BlockState.BlockType.CRACKED,
 	BlockState.BlockType.ARMORED,
+	BlockState.BlockType.ECHO,
+	BlockState.BlockType.BALL_CACHE,
+	BlockState.BlockType.PIERCING,
 ]
 
 
@@ -76,8 +95,15 @@ static func _create_daily_template(
 	template.multiplier_bps = source.multiplier_bps
 	template.passage_columns = _mirrored_columns(source.passage_columns) \
 		if mirrored else source.passage_columns.duplicate()
-	template.example_angles = _mirrored_angles(source.example_angles) \
-		if mirrored else source.example_angles.duplicate()
+	var verified_angle := float(VERIFIED_EXAMPLE_ANGLES.get(str(template.room_id), -1.0))
+	if verified_angle < 0.0:
+		push_error("Günlük oda için doğrulanmış örnek açı bulunamadı: %s" % template.room_id)
+		return null
+	template.example_angles = PackedFloat32Array([
+		verified_angle,
+		verified_angle,
+		verified_angle,
+	])
 
 	var occupied: Dictionary[Vector2i, bool] = {}
 	var present_types: Dictionary[int, bool] = {}
@@ -86,15 +112,18 @@ static func _create_daily_template(
 		next_id += 1
 		var cell := definition.cell
 		var vulnerable_sides := definition.vulnerable_sides
+		var beam_direction := definition.beam_direction
 		if mirrored:
 			cell = Vector2i(template.width - 1 - cell.x, cell.y)
 			vulnerable_sides = _mirrored_vulnerable_sides(vulnerable_sides)
+			beam_direction = _mirrored_beam_direction(beam_direction)
 		template.blocks.append(RoomBlockDefinition.new(
 			next_id,
 			definition.block_type,
 			cell,
 			definition.hit_points,
 			vulnerable_sides,
+			beam_direction,
 		))
 		occupied[cell] = true
 		present_types[definition.block_type] = true
@@ -174,13 +203,6 @@ static func _mirrored_columns(columns: PackedInt32Array) -> PackedInt32Array:
 	return mirrored
 
 
-static func _mirrored_angles(angles: PackedFloat32Array) -> PackedFloat32Array:
-	var mirrored := PackedFloat32Array()
-	for angle: float in angles:
-		mirrored.append(180.0 - angle)
-	return mirrored
-
-
 static func _solution_cells(template: RoomTemplate) -> Dictionary[Vector2i, bool]:
 	var cells: Dictionary[Vector2i, bool] = {}
 	var core_cell := Vector2i(-1, -1)
@@ -209,6 +231,14 @@ static func _mirrored_vulnerable_sides(sides: int) -> int:
 	return mirrored
 
 
+static func _mirrored_beam_direction(direction: int) -> int:
+	if direction == BlockState.BeamDirection.LEFT:
+		return BlockState.BeamDirection.RIGHT
+	if direction == BlockState.BeamDirection.RIGHT:
+		return BlockState.BeamDirection.LEFT
+	return direction
+
+
 static func _append_block(
 	template: RoomTemplate,
 	candidates: Array[Vector2i],
@@ -225,8 +255,14 @@ static func _append_block(
 		if candidate_index < 0:
 			push_error("Günlük zırh için erişilebilir zayıf kenar bulunamadı: %s" % template.room_id)
 			return false
+	elif block_type == BlockState.BlockType.PIERCING:
+		candidate_index = _first_piercing_candidate_index(template, candidates, variant)
+		if candidate_index < 0:
+			push_error("Günlük delici kristal için destekli ışın hattı bulunamadı: %s" % template.room_id)
+			return false
 	var cell: Vector2i = candidates.pop_at(candidate_index)
 	var vulnerable_sides := BlockState.ALL_VULNERABLE_SIDES
+	var beam_direction := BlockState.BeamDirection.NONE
 	if block_type == BlockState.BlockType.ARMORED:
 		vulnerable_sides = BlockState.VulnerableSide.BOTTOM
 		_reserve_candidate(candidates, cell + Vector2i.UP)
@@ -236,12 +272,15 @@ static func _append_block(
 		if _cell_is_open(template, side_neighbor):
 			vulnerable_sides |= preferred_side
 			_reserve_candidate(candidates, side_neighbor)
+	elif block_type == BlockState.BlockType.PIERCING:
+		beam_direction = _piercing_direction_for_cell(template, cell, variant)
 	template.blocks.append(RoomBlockDefinition.new(
 		block_id,
 		block_type,
 		cell,
 		_hit_points_for(block_type),
 		vulnerable_sides,
+		beam_direction,
 	))
 	return true
 
@@ -260,10 +299,20 @@ static func _replace_redundant_block(
 		if new_type == BlockState.BlockType.ARMORED \
 			and not _cell_is_open(template, definition.cell + Vector2i.UP):
 			continue
+		var piercing_direction := BlockState.BeamDirection.NONE
+		if new_type == BlockState.BlockType.PIERCING:
+			piercing_direction = _piercing_direction_for_cell(
+				template,
+				definition.cell,
+				variant,
+			)
+			if piercing_direction == BlockState.BeamDirection.NONE:
+				continue
 		var previous_type := definition.block_type
 		definition.block_type = new_type
 		definition.hit_points = _hit_points_for(new_type)
 		definition.vulnerable_sides = BlockState.ALL_VULNERABLE_SIDES
+		definition.beam_direction = BlockState.BeamDirection.NONE
 		if new_type == BlockState.BlockType.ARMORED:
 			definition.vulnerable_sides = BlockState.VulnerableSide.BOTTOM
 			_reserve_candidate(candidates, definition.cell + Vector2i.UP)
@@ -273,6 +322,8 @@ static func _replace_redundant_block(
 			if _cell_is_open(template, side_neighbor):
 				definition.vulnerable_sides |= preferred_side
 				_reserve_candidate(candidates, side_neighbor)
+		elif new_type == BlockState.BlockType.PIERCING:
+			definition.beam_direction = piercing_direction
 		type_counts[previous_type] = int(type_counts[previous_type]) - 1
 		return true
 	push_error("Günlük oda için dönüştürülebilir blok bulunamadı: %s" % template.room_id)
@@ -317,6 +368,58 @@ static func _first_armored_candidate_index(
 	return -1
 
 
+static func _first_piercing_candidate_index(
+	template: RoomTemplate,
+	candidates: Array[Vector2i],
+	variant: int,
+) -> int:
+	for index in range(candidates.size()):
+		if _piercing_direction_for_cell(template, candidates[index], variant) \
+			!= BlockState.BeamDirection.NONE:
+			return index
+	return -1
+
+
+static func _piercing_direction_for_cell(
+	template: RoomTemplate,
+	cell: Vector2i,
+	variant: int,
+) -> int:
+	var directions := [
+		BlockState.BeamDirection.UP,
+		BlockState.BeamDirection.RIGHT,
+		BlockState.BeamDirection.DOWN,
+		BlockState.BeamDirection.LEFT,
+	]
+	var rotation := posmod(variant + cell.x + cell.y, directions.size())
+	for offset in range(directions.size()):
+		var direction: int = directions[posmod(rotation + offset, directions.size())]
+		var step := BlockState.beam_vector(direction)
+		var support_cell := cell - step
+		if _cell_is_inside_world(support_cell) and _definition_at(template, support_cell) == null:
+			continue
+		var ray_cell := cell + step
+		while _cell_is_inside_world(ray_cell):
+			var target := _definition_at(template, ray_cell)
+			if target != null and target.cell != cell \
+				and target.block_type != BlockState.BlockType.ROCK:
+				return direction
+			ray_cell += step
+	return BlockState.BeamDirection.NONE
+
+
+static func _definition_at(template: RoomTemplate, cell: Vector2i) -> RoomBlockDefinition:
+	for definition: RoomBlockDefinition in template.blocks:
+		if definition.cell == cell:
+			return definition
+	return null
+
+
+static func _cell_is_inside_world(cell: Vector2i) -> bool:
+	return cell.x >= 0 and cell.x < BoardGeometry.WORLD_GRID_SIZE.x \
+		and cell.y >= 0 and cell.y < BoardGeometry.WORLD_GRID_SIZE.y
+
+
 static func _cell_is_open(template: RoomTemplate, cell: Vector2i) -> bool:
 	if cell.x < 0 or cell.x >= BoardGeometry.WORLD_GRID_SIZE.x \
 		or cell.y < 0 or cell.y >= BoardGeometry.WORLD_GRID_SIZE.y:
@@ -345,4 +448,10 @@ static func _hit_points_for(block_type: int) -> int:
 			return CRACKED_HIT_POINTS
 		BlockState.BlockType.ARMORED:
 			return 6
+		BlockState.BlockType.ECHO:
+			return RoomTemplate.ECHO_HIT_POINTS
+		BlockState.BlockType.BALL_CACHE:
+			return RoomTemplate.BALL_CACHE_HIT_POINTS
+		BlockState.BlockType.PIERCING:
+			return RoomTemplate.PIERCING_HIT_POINTS
 	return 1

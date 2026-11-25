@@ -149,18 +149,18 @@
         1,
         4
       ],
-      "hitPoints": 2,
+      "hitPoints": 4,
       "id": 70117,
-      "type": "explosive"
+      "type": "ball_cache"
     },
     {
       "cell": [
         6,
         4
       ],
-      "hitPoints": 5,
+      "hitPoints": 4,
       "id": 70118,
-      "type": "explosive"
+      "type": "ball_cache"
     },
     {
       "cell": [
@@ -172,7 +172,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-10",
+  "contentVersion": "p2-mines-11",
   "displayName": "Kıvılcım Galerisi",
   "displayNameKey": "MINE_7_WIDE_01",
   "exampleAngles": [

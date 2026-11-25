@@ -140,12 +140,9 @@
         6,
         5
       ],
-      "hitPoints": 8,
+      "hitPoints": 6,
       "id": 170616,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "echo"
     },
     {
       "cell": [
@@ -170,12 +167,9 @@
         2,
         6
       ],
-      "hitPoints": 8,
+      "hitPoints": 6,
       "id": 170619,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "echo"
     },
     {
       "cell": [
@@ -212,12 +206,9 @@
         0,
         4
       ],
-      "hitPoints": 8,
+      "hitPoints": 4,
       "id": 170623,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "ball_cache"
     },
     {
       "cell": [
@@ -229,13 +220,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-10",
+  "contentVersion": "p2-mines-11",
   "displayName": "Lav Boğazı",
   "displayNameKey": "MINE_17_NARROW_03",
   "exampleAngles": [
-    20.0,
-    20.0,
-    20.0
+    102.5,
+    102.5,
+    102.5
   ],
   "family": "bonus",
   "height": 8,

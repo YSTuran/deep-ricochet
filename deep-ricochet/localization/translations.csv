@@ -103,8 +103,14 @@ TUTORIAL_TITLE_4,EXPLOSIVE BLOCK,PATLAYICI BLOK
 TUTORIAL_BODY_4,Breaking an explosive awards 10 points and deals 3 damage to every block in its 5 by 5 blast area.,Patlayıcıyı kırmak 10 puan verir ve 5 çarpı 5 patlama alanındaki her bloğa 3 hasar verir.
 TUTORIAL_TITLE_5,ARMORED BLOCK,ZIRHLI BLOK
 TUTORIAL_BODY_5,Armored blocks award 40 points and only take direct damage from their weak side or sides.,Zırhlı bloklar 40 puan verir ve yalnızca zayıf kenarlarından doğrudan hasar alır.
-TUTORIAL_TITLE_6,CHOOSE YOUR ROUTE,ROTANI SEÇ
-TUTORIAL_BODY_6,Wide passages are safer. Narrow veins contain denser layouts but provide a higher score multiplier.,Geniş geçitler daha güvenlidir. Dar damarlar daha yoğundur ancak daha yüksek puan çarpanı verir.
+TUTORIAL_TITLE_6,ECHO BLOCK,YANKI BLOĞU
+TUTORIAL_BODY_6,A direct ball hit deals 1 damage to every other echo block. Echo damage does not repeat the effect.,Doğrudan top teması diğer bütün yankı bloklarına 1 hasar verir. Yankı hasarı etkiyi tekrar tetiklemez.
+TUTORIAL_TITLE_7,BALL CACHE,TOP HAZNESİ
+TUTORIAL_BODY_7,Breaking a cache adds 2 balls only to the next shot. The room bonus is capped at 4 and never carries onward.,Hazneyi kırmak yalnızca sonraki atışa 2 top ekler. Oda bonusu en fazla 4 olur ve sonraki odaya taşınmaz.
+TUTORIAL_TITLE_8,PIERCING CRYSTAL,DELİCİ KRİSTAL
+TUTORIAL_BODY_8,When broken it fires a beam in its pointed direction and deals 2 damage along that row or column. The beam passes through hard rock without damaging it.,Kırıldığında sivri yönüne ışın gönderip o satır veya sütundaki bloklara 2 hasar verir. Işın sert kayadan ona zarar vermeden geçer.
+TUTORIAL_TITLE_9,CHOOSE YOUR ROUTE,ROTANI SEÇ
+TUTORIAL_BODY_9,Wide passages are safer. Narrow veins contain denser layouts but provide a higher score multiplier.,Geniş geçitler daha güvenlidir. Dar damarlar daha yoğundur ancak daha yüksek puan çarpanı verir.
 ROUTE_SELECT,CHOOSE A ROUTE,ROTA SEÇ
 ROUTE_SUMMARY,Room %d complete • +%d • Total %d • Next %d/%d,Oda %d tamamlandı • +%d • Toplam %d • Sıradaki %d/%d
 ROUTE_HINT,The mini board is the exact room that will be loaded.,Karttaki küçük tahta seçildiğinde yüklenecek gerçek odadır.
@@ -137,6 +143,7 @@ HUD_SCORE_CHIP,TOTAL %d,TOPLAM %d
 HUD_ROOM_SCORE_CHIP,ROOM %d,ODA %d
 HUD_SHOTS_CHIP,SHOT %d/%d,ATIŞ %d/%d
 HUD_SCORE_SUMMARY,TOTAL %d  •  ROOM %d,TOPLAM %d  •  ODA %d
+HUD_NEXT_SHOT_BONUS,NEXT +%d,SONRAKİ +%d
 HUD_STATS,Room %d/%d • Total %d • Room %d • Shots %d/%d • ×%.1f,Oda %d/%d • Toplam %d • Oda %d • Atış %d/%d • ×%.1f
 STATUS_TEMPLATE_FAILED,Room template could not be loaded.,Oda şablonu yüklenemedi.
 STATUS_VOLLEY_ACTIVE,Wait for the current volley to finish.,Yaylım sürerken yeni atış yapılamaz.
@@ -150,6 +157,9 @@ BLOCK_CORE,Core,Çekirdek
 BLOCK_EXPLOSIVE,Explosive block,Patlayıcı blok
 BLOCK_CRACKED,Cracked rock,Çatlak kaya
 BLOCK_ARMORED,Armored block,Zırhlı blok
+BLOCK_ECHO,Echo block,Yankı bloğu
+BLOCK_BALL_CACHE,Ball cache,Top haznesi
+BLOCK_PIERCING,Piercing crystal,Delici kristal
 BLOCK_GENERIC,Block,Blok
 NOTICE_INTERRUPTED,The interrupted shot will restart.,Yarım kalan atış baştan oynanacak.
 NOTICE_BACKUP,The main save failed. The latest valid backup was loaded.,Ana kayıt açılamadı; son geçerli yedek yüklendi.

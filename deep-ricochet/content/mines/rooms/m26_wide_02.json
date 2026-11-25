@@ -70,7 +70,7 @@
       ],
       "hitPoints": 8,
       "id": 260208,
-      "type": "ore"
+      "type": "explosive"
     },
     {
       "cell": [
@@ -79,7 +79,7 @@
       ],
       "hitPoints": 8,
       "id": 260209,
-      "type": "ore"
+      "type": "explosive"
     },
     {
       "cell": [
@@ -88,7 +88,7 @@
       ],
       "hitPoints": 8,
       "id": 260210,
-      "type": "ore"
+      "type": "explosive"
     },
     {
       "cell": [
@@ -106,28 +106,26 @@
       ],
       "hitPoints": 8,
       "id": 260212,
-      "type": "ore"
+      "type": "explosive"
     },
     {
       "cell": [
         5,
         4
       ],
-      "hitPoints": 8,
+      "hitPoints": 6,
       "id": 260213,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "echo"
     },
     {
+      "beamDirection": "down",
       "cell": [
         1,
         5
       ],
-      "hitPoints": 8,
+      "hitPoints": 7,
       "id": 260214,
-      "type": "explosive"
+      "type": "piercing"
     },
     {
       "cell": [
@@ -136,7 +134,7 @@
       ],
       "hitPoints": 8,
       "id": 260215,
-      "type": "ore"
+      "type": "explosive"
     },
     {
       "cell": [
@@ -157,7 +155,7 @@
       ],
       "hitPoints": 8,
       "id": 260217,
-      "type": "ore"
+      "type": "explosive"
     },
     {
       "cell": [
@@ -166,7 +164,7 @@
       ],
       "hitPoints": 8,
       "id": 260218,
-      "type": "ore"
+      "type": "explosive"
     },
     {
       "cell": [
@@ -175,28 +173,25 @@
       ],
       "hitPoints": 8,
       "id": 260219,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "explosive"
     },
     {
       "cell": [
         6,
         3
       ],
-      "hitPoints": 8,
+      "hitPoints": 4,
       "id": 260220,
-      "type": "ore"
+      "type": "ball_cache"
     },
     {
       "cell": [
         7,
         6
       ],
-      "hitPoints": 8,
+      "hitPoints": 4,
       "id": 260221,
-      "type": "ore"
+      "type": "ball_cache"
     },
     {
       "cell": [
@@ -208,7 +203,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-10",
+  "contentVersion": "p2-mines-11",
   "displayName": "Mühür Koridoru",
   "displayNameKey": "MINE_26_WIDE_02",
   "exampleAngles": [

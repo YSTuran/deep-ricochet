@@ -107,12 +107,9 @@
         1,
         7
       ],
-      "hitPoints": 7,
+      "hitPoints": 6,
       "id": 180312,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "echo"
     },
     {
       "cell": [
@@ -121,10 +118,7 @@
       ],
       "hitPoints": 6,
       "id": 180313,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "echo"
     },
     {
       "cell": [
@@ -190,16 +184,16 @@
       ],
       "hitPoints": 8,
       "id": 180320,
-      "type": "ore"
+      "type": "cracked"
     },
     {
       "cell": [
         0,
         4
       ],
-      "hitPoints": 8,
+      "hitPoints": 4,
       "id": 180321,
-      "type": "cracked"
+      "type": "ball_cache"
     },
     {
       "cell": [
@@ -211,7 +205,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-10",
+  "contentVersion": "p2-mines-11",
   "displayName": "Kök Kemeri",
   "displayNameKey": "MINE_18_WIDE_03",
   "exampleAngles": [

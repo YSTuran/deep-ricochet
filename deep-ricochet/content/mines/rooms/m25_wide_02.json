@@ -77,21 +77,18 @@
         1,
         7
       ],
-      "hitPoints": 8,
+      "hitPoints": 6,
       "id": 250209,
-      "type": "ore"
+      "type": "echo"
     },
     {
       "cell": [
         1,
         6
       ],
-      "hitPoints": 8,
+      "hitPoints": 6,
       "id": 250210,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "echo"
     },
     {
       "cell": [
@@ -100,16 +97,17 @@
       ],
       "hitPoints": 8,
       "id": 250211,
-      "type": "ore"
+      "type": "explosive"
     },
     {
+      "beamDirection": "left",
       "cell": [
         6,
         5
       ],
-      "hitPoints": 8,
+      "hitPoints": 7,
       "id": 250212,
-      "type": "explosive"
+      "type": "piercing"
     },
     {
       "cell": [
@@ -125,12 +123,9 @@
         1,
         2
       ],
-      "hitPoints": 8,
+      "hitPoints": 6,
       "id": 250214,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "echo"
     },
     {
       "cell": [
@@ -148,7 +143,7 @@
       ],
       "hitPoints": 8,
       "id": 250216,
-      "type": "ore"
+      "type": "explosive"
     },
     {
       "cell": [
@@ -184,22 +179,16 @@
       ],
       "hitPoints": 8,
       "id": 250220,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "explosive"
     },
     {
       "cell": [
         7,
         2
       ],
-      "hitPoints": 8,
+      "hitPoints": 4,
       "id": 250221,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "ball_cache"
     },
     {
       "cell": [
@@ -211,13 +200,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-10",
+  "contentVersion": "p2-mines-11",
   "displayName": "Usta Salonu",
   "displayNameKey": "MINE_25_WIDE_02",
   "exampleAngles": [
-    71.0,
-    71.0,
-    71.0
+    76.0,
+    76.0,
+    76.0
   ],
   "family": "safe",
   "height": 8,

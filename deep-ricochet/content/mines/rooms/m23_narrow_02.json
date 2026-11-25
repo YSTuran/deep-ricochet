@@ -145,22 +145,23 @@
       "type": "ore"
     },
     {
+      "beamDirection": "right",
       "cell": [
         2,
         7
       ],
-      "hitPoints": 8,
+      "hitPoints": 7,
       "id": 230517,
-      "type": "explosive"
+      "type": "piercing"
     },
     {
       "cell": [
         3,
         5
       ],
-      "hitPoints": 8,
+      "hitPoints": 6,
       "id": 230518,
-      "type": "explosive"
+      "type": "echo"
     },
     {
       "cell": [
@@ -169,7 +170,7 @@
       ],
       "hitPoints": 8,
       "id": 230519,
-      "type": "explosive"
+      "type": "cracked"
     },
     {
       "cell": [
@@ -190,28 +191,25 @@
       ],
       "hitPoints": 8,
       "id": 230521,
-      "type": "normal"
+      "type": "explosive"
     },
     {
       "cell": [
         2,
         4
       ],
-      "hitPoints": 8,
+      "hitPoints": 4,
       "id": 230522,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "ball_cache"
     },
     {
       "cell": [
         6,
         4
       ],
-      "hitPoints": 8,
+      "hitPoints": 4,
       "id": 230523,
-      "type": "cracked"
+      "type": "ball_cache"
     },
     {
       "cell": [
@@ -223,7 +221,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-10",
+  "contentVersion": "p2-mines-11",
   "displayName": "Kara Damar",
   "displayNameKey": "MINE_23_NARROW_02",
   "exampleAngles": [

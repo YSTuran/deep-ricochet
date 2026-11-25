@@ -77,12 +77,9 @@
         5,
         5
       ],
-      "hitPoints": 8,
+      "hitPoints": 6,
       "id": 270209,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "echo"
     },
     {
       "cell": [
@@ -127,7 +124,7 @@
       ],
       "hitPoints": 8,
       "id": 270214,
-      "type": "explosive"
+      "type": "ore"
     },
     {
       "cell": [
@@ -136,10 +133,7 @@
       ],
       "hitPoints": 8,
       "id": 270215,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "explosive"
     },
     {
       "cell": [
@@ -155,9 +149,9 @@
         3,
         7
       ],
-      "hitPoints": 8,
+      "hitPoints": 6,
       "id": 270217,
-      "type": "ore"
+      "type": "echo"
     },
     {
       "cell": [
@@ -176,12 +170,9 @@
         6,
         2
       ],
-      "hitPoints": 8,
+      "hitPoints": 6,
       "id": 270219,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "echo"
     },
     {
       "cell": [
@@ -200,9 +191,9 @@
         0,
         6
       ],
-      "hitPoints": 8,
+      "hitPoints": 4,
       "id": 270221,
-      "type": "ore"
+      "type": "ball_cache"
     },
     {
       "cell": [
@@ -214,7 +205,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-10",
+  "contentVersion": "p2-mines-11",
   "displayName": "Derin Salon",
   "displayNameKey": "MINE_27_WIDE_02",
   "exampleAngles": [

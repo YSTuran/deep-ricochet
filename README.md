@@ -12,7 +12,7 @@ Proje tek oyunculu ve çevrimdışı çalışır. Türkçe ve İngilizce arayüz
   <tr>
     <td align="center"><strong>28</strong><br>Maden</td>
     <td align="center"><strong>210</strong><br>Doğrulanan oda</td>
-    <td align="center"><strong>7</strong><br>Blok türü</td>
+    <td align="center"><strong>10</strong><br>Blok türü</td>
     <td align="center"><strong>5</strong><br>Renk teması</td>
     <td align="center"><strong>TR / EN</strong><br>Arayüz</td>
   </tr>
@@ -35,12 +35,12 @@ Oyun sırasında simülasyon `1×` ve `2×` arasında değiştirilebilir. `2×` 
 
 Oyunda sırayla açılan yirmi sekiz maden bulunur. Her madende bir başlangıç, üç geniş geçit ve üç dar damar olmak üzere yedi şablon; toplamda 196 normal oda vardır. Bir koşu bu havuzdan seed tabanlı ve tekrar etmeyen dört oda seçer. Günlük maden için ayrıca on dört yoğun varyant üretilir.
 
-- **Maden 1–6:** Normal blok, cevher, sert kaya ve çekirdek kullanır.
+- **Maden 1–6:** Normal blok, cevher, sert kaya, çekirdek ve tek atışlık top haznelerini kullanır.
 - **Maden 7–10:** Çatlak kaya ve patlayıcı bloklar devreye girer.
 - **Maden 11–14:** Zırhlı bloklar yerleşimlere eklenir ve zayıf nokta kullanımı öğretilir.
-- **Maden 15–18:** Çekirdek çevresindeki koruma katmanı ve özel blok oranı yükselir.
-- **Maden 19–22:** Zırhlı, çatlak ve patlayıcı blokların birlikte kullanıldığı daha yoğun karışımlar başlar.
-- **Maden 23–28:** Tek zayıf noktalı zırhlılar ve daha kapalı çekirdek yollarıyla ustalık bölümü oluşur.
+- **Maden 15–18:** Yankı blokları devreye girer; uzaktaki eş bloklar aynı doğrudan vuruştan etkilenir.
+- **Maden 19–22:** Zırhlı, yankılı, çatlak ve patlayıcı blokların birlikte kullanıldığı daha yoğun karışımlar başlar.
+- **Maden 23–28:** Delici kristaller, tek zayıf noktalı zırhlılar ve daha kapalı çekirdek yollarıyla ustalık bölümü oluşur.
 
 Maden seviyesi yükseldikçe önce blok yoğunluğu ve ortalama dayanıklılık, ilerleyen bölümlerde ise özel blok oranı, zırhlı blok sayısı ve çekirdeğin koruma katmanı artar. Çekirdek yalnızca merkezde bulunmaz; üst bölgenin sol, orta veya sağ tarafında, kırılabilir blokların arkasında yer alabilir. Atıcının çevresini açık tutmak için 8×10 oyun ızgarasının en alt iki satırına blok yerleştirilmez.
 
@@ -118,10 +118,31 @@ Blokların ortasındaki sayı kalan canı gösterir. Topla doğrudan temas çoğ
       <td>40</td>
       <td>Yalnız pembe gösterilen bir veya iki açık kenardan doğrudan hasar alır. Yerleşim doğrulaması bu kenarların duvarla ya da başka blokla kapanmasını engeller.</td>
     </tr>
+    <tr>
+      <td><img src="deep-ricochet/assets/images/blocks/blok_yanki.png" width="82" alt="Yankı bloğu"></td>
+      <td><strong>Yankı bloğu</strong></td>
+      <td>6</td>
+      <td>18</td>
+      <td>Topun doğrudan temas ettiği her vuruşta odadaki diğer yankı bloklarına bir hasar iletir. İletilen hasar yeni bir yankı başlatmaz.</td>
+    </tr>
+    <tr>
+      <td><img src="deep-ricochet/assets/images/blocks/blok_top_haznesi.png" width="82" alt="Top haznesi"></td>
+      <td><strong>Top haznesi</strong></td>
+      <td>4</td>
+      <td>15</td>
+      <td>Kırıldığında yalnızca sonraki atışa iki top ekler. Aynı odada bonus en fazla dört olur; kullanıldıktan veya oda değiştikten sonra sıfırlanır.</td>
+    </tr>
+    <tr>
+      <td><img src="deep-ricochet/assets/images/blocks/blok_delici_kristal.png" width="82" alt="Delici kristal"></td>
+      <td><strong>Delici kristal</strong></td>
+      <td>7</td>
+      <td>30</td>
+      <td>Kırıldığında sivri ucunun baktığı satır ya da sütuna ışın gönderir ve yolundaki kırılabilir bloklara iki hasar verir. Sert kayadan geçer fakat ona hasar vermez.</td>
+    </tr>
   </tbody>
 </table>
 
-Patlama hasarı zırhlı bloğun kapalı kenarlarını aşar; sert kayayı ise etkileyemez. Patlamayla kırılan bütün puanlı bloklar normal kırılma puanlarını verir.
+Patlama ve delici ışın hasarı zırhlı bloğun kapalı kenarlarını aşar; sert kayayı ise etkileyemez. Patlama, yankı veya ışınla kırılan bütün puanlı bloklar normal kırılma puanlarını verir. Delici kristaller yalnızca arkalarında başka bir blok ya da duvar desteği ve ışın yönlerinde geçerli bir hedef bulunduğunda oda şablonuna yerleştirilir. Her normal odada tam bir veya iki top haznesi bulunur.
 
 ## Puanlama
 
@@ -138,9 +159,9 @@ Başarısız olunan odada kullanılmayan atış bonusu verilmez. Her odanın kı
 Günlük maden normal ilerleme zincirinden bağımsız, daha yoğun bir mücadeledir. Yerel takvim tarihinden deterministik bir seed üretilir; aynı gün içindeki tekrarlar aynı oda ve rota dizilimini verir, gün değiştiğinde seed de değişir.
 
 - Her oda 24 blok içerir.
-- Yedi blok türünün tamamı kullanılır.
+- On blok türünün tamamı kullanılır.
 - Normal madenlerdeki üç atış yerine beş atış hakkı verilir.
-- Seviye 14 düzenlerinden türetilen ve aynalanmış eşleriyle birlikte 14 günlük oda bulunur.
+- Maden 28 düzenlerinden türetilen ve aynalanmış eşleriyle birlikte 14 günlük oda bulunur.
 - Günlük sonuç profilde ayrıca saklanır ve normal maden kilitlerini değiştirmez.
 
 ## Renk temaları
@@ -190,7 +211,7 @@ Seçilen tema ayarlara kaydedilir ve menü, rota önizlemeleri, öğretici ile o
 
 Çarpışma sesleri her yaylımda sıfırlanan Re minör pentatonik bir dizi kullanır. Normal blok, cevher, sert kaya ve çekirdek farklı ses katmanlarına sahiptir. Çok toplu yaylımlarda seslerin üst üste binmesini önlemek için çarpışmalar 45 milisaniyelik hız sınırıyla oynatılır.
 
-Her blok türünün ayrı kırılma dili vardır: normal blokta mavi parçalar, cevherde altın kıvılcımlar, çatlak kayada keskin kırık çizgileri, patlayıcıda çift şok dalgası, zırhlıda metal ve pembe cevher parçaları, çekirdekte ise eş merkezli turkuaz halkalar gösterilir. Kazanılan puan kırılma noktasından yükselen renkli bir etiketle belirtilir; zırha yanlış yönden veya sert kayaya yapılan temas daha kısa bir sekme efekti üretir. Arka plan maden atmosferi kodla düşük maliyetli olarak üretilir. Android cihazlarda blok ve çekirdek olayları kısa titreşimlerle desteklenebilir; titreşim çağrıları da cihazı gereksiz yere yormamak için sınırlandırılır.
+Her blok türünün ayrı kırılma dili vardır: normal blokta mavi parçalar, cevherde altın kıvılcımlar, çatlak kayada keskin kırık çizgileri, patlayıcıda çift şok dalgası, zırhlıda metal ve pembe cevher parçaları, yankı bloğunda genişleyen halkalar, top haznesinde dağılan küçük toplar, delici kristalde mor parçalar ve yönlü ışın, çekirdekte ise eş merkezli turkuaz halkalar gösterilir. Grafik modu ışına ek parıltı katmanları eklerken performans modu tek ve daha ince bir çizgi kullanır. Kazanılan puan kırılma noktasından yükselen renkli bir etiketle belirtilir; zırha yanlış yönden veya sert kayaya yapılan temas daha kısa bir sekme efekti üretir. Arka plan maden atmosferi kodla düşük maliyetli olarak üretilir. Android cihazlarda blok ve çekirdek olayları kısa titreşimlerle desteklenebilir; titreşim çağrıları da cihazı gereksiz yere yormamak için sınırlandırılır.
 
 Ses efektleri Kenney'nin CC0 paketlerinden seçilmiştir. Kaynak eşleştirmeleri [THIRD_PARTY_AUDIO.md](deep-ricochet/audio/THIRD_PARTY_AUDIO.md) dosyasında tutulur.
 
@@ -297,8 +318,8 @@ Test paketi başlıca şu alanları kapsar:
 - Top hareketi, duvar ve kare blok çarpışmaları, temas başına tek hasar.
 - Nişan önizlemesi ile gerçek atışın aynı sonuçları üretmesi.
 - Yaylım zamanlaması, `1×`/`2×` eşdeğerliği ve oda sonuçları.
-- Yedi blok türü, erişilebilir zırh kenarları, 5×5 ve zincirleme patlama.
-- Puan, kalan atış bonusu, geniş/dar rota çarpanları.
+- On blok türü, erişilebilir zırh kenarları, 5×5 ve zincirleme patlama, tekrarsız yankı ile yönlü delici ışın.
+- Puan, kalan atış bonusu, tek atışlık top haznesi, geniş/dar rota çarpanları.
 - 196 normal ve 14 günlük oda; şablon şeması, alt iki satır ve örnek çözüm açıları.
 - Maden kilitleri, puan tabanlı yıldızlar, günlük seed, aynı seed ile tekrar ve dört odalık koşu akışı.
 - Profil, ayarlar, veri göçleri, atomik kayıt, yedek ve bozuk dosya karantinası.

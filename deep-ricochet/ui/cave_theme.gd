@@ -8,6 +8,12 @@ const MOSSY := 3
 const GLACIAL := 4
 const THEME_COUNT := 5
 const GENERATED_TEXTURE_SIZE := 256
+const FULL_TEXTURE_REFERENCE_SIZE := Vector2(1254.0, 1254.0)
+const FULL_TEXTURE_SOURCE_REGIONS := {
+	BlockState.BlockType.ECHO: Rect2(138.0, 156.0, 978.0, 943.0),
+	BlockState.BlockType.BALL_CACHE: Rect2(128.0, 163.0, 998.0, 984.0),
+	BlockState.BlockType.PIERCING: Rect2(100.0, 80.0, 1054.0, 1103.0),
+}
 
 const NAME_KEYS := [
 	&"THEME_DEEP_SAPPHIRE",
@@ -38,6 +44,9 @@ const PALETTES := [
 		&"cracked": Color("b7a58b"),
 		&"armored": Color("35434b"),
 		&"armored_weak": Color("f064a4"),
+		&"echo": Color("36c9c2"),
+		&"ball_cache": Color("70452c"),
+		&"piercing": Color("6e3fa6"),
 	},
 	{
 		&"background_deep": Color("100b18"),
@@ -59,6 +68,9 @@ const PALETTES := [
 		&"cracked": Color("625573"),
 		&"armored": Color("3a3445"),
 		&"armored_weak": Color("55d5d0"),
+		&"echo": Color("5bc6c6"),
+		&"ball_cache": Color("563746"),
+		&"piercing": Color("9b5be8"),
 	},
 	{
 		&"background_deep": Color("0d0c0d"),
@@ -80,6 +92,9 @@ const PALETTES := [
 		&"cracked": Color("514445"),
 		&"armored": Color("343437"),
 		&"armored_weak": Color("ffd45a"),
+		&"echo": Color("e07b45"),
+		&"ball_cache": Color("4d3026"),
+		&"piercing": Color("b64a7e"),
 	},
 	{
 		&"background_deep": Color("0b1713"),
@@ -101,6 +116,9 @@ const PALETTES := [
 		&"cracked": Color("667c6e"),
 		&"armored": Color("35433d"),
 		&"armored_weak": Color("f07e72"),
+		&"echo": Color("62c9aa"),
+		&"ball_cache": Color("624632"),
+		&"piercing": Color("7661a8"),
 	},
 	{
 		&"background_deep": Color("091821"),
@@ -122,6 +140,9 @@ const PALETTES := [
 		&"cracked": Color("708a98"),
 		&"armored": Color("3a4a55"),
 		&"armored_weak": Color("d875e8"),
+		&"echo": Color("73d9e8"),
+		&"ball_cache": Color("665c55"),
+		&"piercing": Color("a665d1"),
 	},
 ]
 
@@ -237,16 +258,25 @@ static func draw_texture(
 	block_type: int,
 	modulate: Color = Color.WHITE,
 ) -> void:
-	if current_theme == DEEP_SAPPHIRE:
-		canvas.draw_texture_rect(texture, destination, false, modulate)
-		return
 	draw_texture_region(
 		canvas,
 		texture,
 		destination,
-		Rect2(Vector2.ZERO, texture.get_size()),
+		block_texture_source_rect(texture, block_type),
 		block_type,
 		modulate,
+	)
+
+
+static func block_texture_source_rect(texture: Texture2D, block_type: int) -> Rect2:
+	var full_rect := Rect2(Vector2.ZERO, texture.get_size())
+	if not FULL_TEXTURE_SOURCE_REGIONS.has(block_type):
+		return full_rect
+	var reference_region: Rect2 = FULL_TEXTURE_SOURCE_REGIONS[block_type]
+	var source_scale := texture.get_size() / FULL_TEXTURE_REFERENCE_SIZE
+	return Rect2(
+		reference_region.position * source_scale,
+		reference_region.size * source_scale,
 	)
 
 
@@ -359,4 +389,10 @@ static func _block_key(block_type: int) -> StringName:
 			return &"cracked"
 		BlockState.BlockType.ARMORED:
 			return &"armored"
+		BlockState.BlockType.ECHO:
+			return &"echo"
+		BlockState.BlockType.BALL_CACHE:
+			return &"ball_cache"
+		BlockState.BlockType.PIERCING:
+			return &"piercing"
 	return &"normal"

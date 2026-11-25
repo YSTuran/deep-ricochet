@@ -73,34 +73,32 @@
       "type": "rock"
     },
     {
+      "beamDirection": "left",
       "cell": [
         4,
         5
       ],
-      "hitPoints": 8,
+      "hitPoints": 7,
       "id": 280309,
-      "type": "explosive"
+      "type": "piercing"
     },
     {
       "cell": [
         3,
         7
       ],
-      "hitPoints": 8,
+      "hitPoints": 6,
       "id": 280310,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "echo"
     },
     {
       "cell": [
         5,
         4
       ],
-      "hitPoints": 8,
+      "hitPoints": 6,
       "id": 280311,
-      "type": "ore"
+      "type": "echo"
     },
     {
       "cell": [
@@ -143,12 +141,9 @@
         1,
         3
       ],
-      "hitPoints": 8,
+      "hitPoints": 6,
       "id": 280316,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "echo"
     },
     {
       "cell": [
@@ -194,9 +189,9 @@
         0,
         4
       ],
-      "hitPoints": 8,
+      "hitPoints": 4,
       "id": 280321,
-      "type": "ore"
+      "type": "ball_cache"
     },
     {
       "cell": [
@@ -208,7 +203,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-10",
+  "contentVersion": "p2-mines-11",
   "displayName": "Nihai Kemer",
   "displayNameKey": "MINE_28_WIDE_03",
   "exampleAngles": [

@@ -95,12 +95,9 @@
         2,
         4
       ],
-      "hitPoints": 5,
+      "hitPoints": 6,
       "id": 150211,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "echo"
     },
     {
       "cell": [
@@ -169,19 +166,16 @@
       ],
       "hitPoints": 6,
       "id": 150218,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "echo"
     },
     {
       "cell": [
         4,
         7
       ],
-      "hitPoints": 8,
+      "hitPoints": 5,
       "id": 150219,
-      "type": "normal"
+      "type": "explosive"
     },
     {
       "cell": [
@@ -197,9 +191,9 @@
         2,
         5
       ],
-      "hitPoints": 5,
+      "hitPoints": 4,
       "id": 150221,
-      "type": "explosive"
+      "type": "ball_cache"
     },
     {
       "cell": [
@@ -211,13 +205,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-10",
+  "contentVersion": "p2-mines-11",
   "displayName": "Kayıp Galeri",
   "displayNameKey": "MINE_15_WIDE_02",
   "exampleAngles": [
-    15.0,
-    15.0,
-    15.0
+    98.5,
+    98.5,
+    98.5
   ],
   "family": "safe",
   "height": 8,

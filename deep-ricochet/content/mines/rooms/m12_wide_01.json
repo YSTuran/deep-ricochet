@@ -182,9 +182,9 @@
         0,
         3
       ],
-      "hitPoints": 7,
+      "hitPoints": 4,
       "id": 120119,
-      "type": "normal"
+      "type": "ball_cache"
     },
     {
       "cell": [
@@ -196,7 +196,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-10",
+  "contentVersion": "p2-mines-11",
   "displayName": "Nöbetçi Salonu",
   "displayNameKey": "MINE_12_WIDE_01",
   "exampleAngles": [

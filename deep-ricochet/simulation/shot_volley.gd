@@ -90,12 +90,12 @@ func advance(
 		)
 		for contact: BlockContactEvent in collision.block_contacts:
 			var damage_result := board.resolve_contact(contact.block_id, 1, contact.normal)
-			step_result.damage_results.append(damage_result)
-			if damage_result.destroyed \
-				and damage_result.block_type == BlockState.BlockType.EXPLOSIVE:
-				step_result.damage_results.append_array(
-					board.resolve_explosion(damage_result.block_id, 3)
-				)
+			var contact_results: Array[BlockDamageResult] = [damage_result]
+			if damage_result.damage_applied \
+				and damage_result.block_type == BlockState.BlockType.ECHO:
+				contact_results.append_array(board.resolve_echo(damage_result.block_id, 1))
+			step_result.damage_results.append_array(contact_results)
+			_append_destroy_effects(board, contact_results, step_result)
 		if collision.happened:
 			step_result.collisions.append(collision)
 		if not balls[index].active:
@@ -166,4 +166,60 @@ func _finish_if_ready() -> void:
 		return
 	active = false
 	_finish_event_pending = true
+
+
+func _append_destroy_effects(
+	board: BoardModel,
+	initial_results: Array[BlockDamageResult],
+	step_result: VolleyStepResult,
+) -> void:
+	var pending: Array[BlockDamageResult] = initial_results.duplicate()
+	var exploded_ids: Dictionary[int, bool] = {}
+	var pierced_ids: Dictionary[int, bool] = {}
+	while not pending.is_empty():
+		var result: BlockDamageResult = pending.pop_front()
+		if not result.damage_applied or not result.destroyed:
+			continue
+		var effect_results: Array[BlockDamageResult] = []
+		if result.block_type == BlockState.BlockType.EXPLOSIVE:
+			if exploded_ids.has(result.block_id):
+				continue
+			exploded_ids[result.block_id] = true
+			effect_results = board.resolve_explosion(result.block_id, 3)
+			# resolve_explosion kendi patlayıcı zincirini tamamlar; bunları yeniden patlatma.
+			for blast_result: BlockDamageResult in effect_results:
+				if blast_result.destroyed \
+					and blast_result.block_type == BlockState.BlockType.EXPLOSIVE:
+					exploded_ids[blast_result.block_id] = true
+		elif result.block_type == BlockState.BlockType.PIERCING:
+			if pierced_ids.has(result.block_id):
+				continue
+			pierced_ids[result.block_id] = true
+			var source := board.get_block_by_id(result.block_id)
+			if source != null:
+				step_result.piercing_beams.append(_piercing_beam_event(source))
+			effect_results = board.resolve_piercing(result.block_id, 2)
+		else:
+			continue
+		step_result.damage_results.append_array(effect_results)
+		pending.append_array(effect_results)
+
+
+func _piercing_beam_event(source: BlockState) -> Dictionary:
+	var beam_step := BlockState.beam_vector(source.beam_direction)
+	var origin := source.collision_center_world()
+	var end := origin
+	if beam_step.x > 0:
+		end.x = float(BoardGeometry.WORLD_GRID_SIZE.x)
+	elif beam_step.x < 0:
+		end.x = 0.0
+	elif beam_step.y > 0:
+		end.y = float(BoardGeometry.WORLD_GRID_SIZE.y)
+	elif beam_step.y < 0:
+		end.y = 0.0
+	return {
+		"origin": origin,
+		"end": end,
+		"direction": source.beam_direction,
+	}
 

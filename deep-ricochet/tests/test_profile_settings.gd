@@ -5,6 +5,9 @@ const SETTINGS_PATH := "user://tests/deep_ricochet_settings_test.json"
 const UiLayoutScript := preload("res://ui/ui_layout.gd")
 const THEME_TEST_TEXTURE: Texture2D = preload("res://assets/images/blocks/blok_normal.png")
 const THEME_TEST_SOURCE := Rect2(139.0, 159.0, 976.0, 939.0)
+const ECHO_TEST_TEXTURE: Texture2D = preload("res://assets/images/blocks/blok_yanki.png")
+const BALL_CACHE_TEST_TEXTURE: Texture2D = preload("res://assets/images/blocks/blok_top_haznesi.png")
+const PIERCING_TEST_TEXTURE: Texture2D = preload("res://assets/images/blocks/blok_delici_kristal.png")
 
 
 class FailingSaveService:
@@ -186,6 +189,22 @@ static func _test_settings_round_trip() -> void:
 	)
 	assert(themed_texture != null)
 	assert(themed_texture.get_size() == Vector2.ONE * CaveTheme.GENERATED_TEXTURE_SIZE)
+	var normal_source := CaveTheme.block_texture_source_rect(
+		THEME_TEST_TEXTURE,
+		BlockState.BlockType.NORMAL,
+	)
+	assert(normal_source == Rect2(Vector2.ZERO, THEME_TEST_TEXTURE.get_size()))
+	for sample: Dictionary in [
+		{"texture": ECHO_TEST_TEXTURE, "type": BlockState.BlockType.ECHO},
+		{"texture": BALL_CACHE_TEST_TEXTURE, "type": BlockState.BlockType.BALL_CACHE},
+		{"texture": PIERCING_TEST_TEXTURE, "type": BlockState.BlockType.PIERCING},
+	]:
+		var texture: Texture2D = sample["texture"]
+		var source_rect := CaveTheme.block_texture_source_rect(texture, sample["type"])
+		assert(source_rect.size.x < texture.get_size().x)
+		assert(source_rect.size.y < texture.get_size().y)
+		assert(source_rect.size.x >= texture.get_size().x * 0.65)
+		assert(source_rect.size.y >= texture.get_size().y * 0.65)
 	assert(CaveTheme.set_current_theme(CaveTheme.DEEP_SAPPHIRE))
 	assert(service.clear_all())
 
@@ -369,8 +388,8 @@ static func _test_controller_profile_tutorial_and_locale(controller: RunControll
 	controller.show_tutorial_from_settings()
 	assert(controller.tutorial_overlay.visible)
 	assert(controller.tutorial_overlay.is_modal())
-	assert(TutorialOverlay.PAGE_COUNT == 6)
-	assert(TutorialOverlay.COACH_PAGE_BY_STEP == [0, 1, 5])
+	assert(TutorialOverlay.PAGE_COUNT == 9)
+	assert(TutorialOverlay.COACH_PAGE_BY_STEP == [0, 1, 8])
 	controller.complete_tutorial()
 	assert(controller.settings_overlay.visible)
 	assert(controller.settings_overlay.page == SettingsOverlay.Page.GENERAL)

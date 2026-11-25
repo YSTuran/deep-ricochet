@@ -113,18 +113,18 @@
         7,
         4
       ],
-      "hitPoints": 3,
+      "hitPoints": 4,
       "id": 20013,
-      "type": "normal"
+      "type": "ball_cache"
     },
     {
       "cell": [
         2,
         6
       ],
-      "hitPoints": 2,
+      "hitPoints": 4,
       "id": 20014,
-      "type": "normal"
+      "type": "ball_cache"
     },
     {
       "cell": [
@@ -136,7 +136,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-10",
+  "contentVersion": "p2-mines-11",
   "displayName": "Derin Giriş",
   "displayNameKey": "MINE_2_START",
   "exampleAngles": [

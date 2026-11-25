@@ -9,6 +9,17 @@ enum BlockType {
 	EXPLOSIVE,
 	CRACKED,
 	ARMORED,
+	ECHO,
+	BALL_CACHE,
+	PIERCING,
+}
+
+enum BeamDirection {
+	NONE,
+	UP,
+	RIGHT,
+	DOWN,
+	LEFT,
 }
 
 enum VulnerableSide {
@@ -28,6 +39,7 @@ var type: BlockType
 var cell: Vector2i
 var hit_points: int
 var vulnerable_sides: int
+var beam_direction: BeamDirection
 
 
 func _init(
@@ -36,12 +48,14 @@ func _init(
 	block_cell: Vector2i = Vector2i.ZERO,
 	initial_hit_points: int = 1,
 	initial_vulnerable_sides: int = ALL_VULNERABLE_SIDES,
+	initial_beam_direction: BeamDirection = BeamDirection.NONE,
 ) -> void:
 	id = block_id
 	type = block_type
 	cell = block_cell
 	hit_points = initial_hit_points
 	vulnerable_sides = initial_vulnerable_sides
+	beam_direction = initial_beam_direction
 
 
 func is_breakable() -> bool:
@@ -88,3 +102,29 @@ func world_rect() -> Rect2:
 func collision_center_world() -> Vector2:
 	# Görsel efektlerin ve çizimin merkezidir. Fizik alanı world_rect() ile karedir.
 	return world_rect().get_center()
+
+
+static func beam_vector(direction: BeamDirection) -> Vector2i:
+	match direction:
+		BeamDirection.UP:
+			return Vector2i.DOWN
+		BeamDirection.RIGHT:
+			return Vector2i.RIGHT
+		BeamDirection.DOWN:
+			return Vector2i.UP
+		BeamDirection.LEFT:
+			return Vector2i.LEFT
+	return Vector2i.ZERO
+
+
+static func opposite_beam_direction(direction: BeamDirection) -> BeamDirection:
+	match direction:
+		BeamDirection.UP:
+			return BeamDirection.DOWN
+		BeamDirection.RIGHT:
+			return BeamDirection.LEFT
+		BeamDirection.DOWN:
+			return BeamDirection.UP
+		BeamDirection.LEFT:
+			return BeamDirection.RIGHT
+	return BeamDirection.NONE

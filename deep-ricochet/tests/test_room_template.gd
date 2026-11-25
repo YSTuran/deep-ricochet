@@ -9,6 +9,7 @@ static func run(gameplay_room: GameplayRoom, config: GameConfig) -> void:
 	_test_invalid_template_rejected()
 	_test_blocked_armor_weak_sides_rejected()
 	_test_armored_visual_mask_rejected()
+	_test_piercing_placement_rules()
 	_test_gameplay_room_recovers_invalid_template(gameplay_room)
 	_test_gameplay_room_accepts_external_template(gameplay_room, config)
 
@@ -146,6 +147,66 @@ static func _test_armored_visual_mask_rejected() -> void:
 			visual_mask_error_found = true
 			break
 	assert(visual_mask_error_found)
+
+
+static func _test_piercing_placement_rules() -> void:
+	var valid := RoomTemplateLoader.from_dictionary({
+		"schemaVersion": 1,
+		"id": "valid_piercing",
+		"displayName": "Geçerli Delici",
+		"family": "safe",
+		"contentVersion": "test",
+		"width": 8,
+		"height": 8,
+		"multiplierBps": 10_000,
+		"passageColumns": [3, 4],
+		"exampleAngles": [90.0],
+		"blocks": [
+			{"id": 1, "type": "piercing", "cell": [0, 4], "hitPoints": 7, "beamDirection": "right"},
+			{"id": 2, "type": "normal", "cell": [2, 4], "hitPoints": 2},
+			{"id": 3, "type": "core", "cell": [4, 8], "hitPoints": 6},
+		],
+	})
+	assert(valid.is_valid())
+	assert(valid.blocks[0].beam_direction == BlockState.BeamDirection.RIGHT)
+
+	var unsupported := RoomTemplateLoader.from_dictionary({
+		"schemaVersion": 1,
+		"id": "unsupported_piercing",
+		"displayName": "Desteksiz Delici",
+		"family": "safe",
+		"contentVersion": "test",
+		"width": 8,
+		"height": 8,
+		"multiplierBps": 10_000,
+		"passageColumns": [3, 4],
+		"exampleAngles": [90.0],
+		"blocks": [
+			{"id": 1, "type": "piercing", "cell": [2, 4], "hitPoints": 7, "beamDirection": "right"},
+			{"id": 2, "type": "normal", "cell": [4, 4], "hitPoints": 2},
+			{"id": 3, "type": "core", "cell": [5, 8], "hitPoints": 6},
+		],
+	})
+	assert(not unsupported.is_valid())
+
+	var no_target := RoomTemplateLoader.from_dictionary({
+		"schemaVersion": 1,
+		"id": "targetless_piercing",
+		"displayName": "Hedefsiz Delici",
+		"family": "safe",
+		"contentVersion": "test",
+		"width": 8,
+		"height": 8,
+		"multiplierBps": 10_000,
+		"passageColumns": [3, 4],
+		"exampleAngles": [90.0],
+		"blocks": [
+			{"id": 1, "type": "piercing", "cell": [0, 4], "hitPoints": 7, "beamDirection": "right"},
+			{"id": 2, "type": "rock", "cell": [3, 4], "hitPoints": 0},
+			{"id": 3, "type": "core", "cell": [4, 8], "hitPoints": 6},
+		],
+	})
+	assert(not no_target.is_valid())
 
 
 static func _test_gameplay_room_accepts_external_template(

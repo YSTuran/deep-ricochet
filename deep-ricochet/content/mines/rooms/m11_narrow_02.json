@@ -188,22 +188,18 @@
         7,
         4
       ],
-      "hitPoints": 8,
+      "hitPoints": 4,
       "id": 110521,
-      "type": "normal"
+      "type": "ball_cache"
     },
     {
       "cell": [
         5,
         3
       ],
-      "hitPoints": 7,
+      "hitPoints": 4,
       "id": 110522,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom",
-        "left"
-      ]
+      "type": "ball_cache"
     },
     {
       "cell": [
@@ -215,7 +211,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-10",
+  "contentVersion": "p2-mines-11",
   "displayName": "Zırhlı Damar",
   "displayNameKey": "MINE_11_NARROW_02",
   "exampleAngles": [

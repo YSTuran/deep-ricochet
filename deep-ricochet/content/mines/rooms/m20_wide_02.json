@@ -113,12 +113,9 @@
         3,
         2
       ],
-      "hitPoints": 8,
+      "hitPoints": 6,
       "id": 200213,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "echo"
     },
     {
       "cell": [
@@ -167,12 +164,9 @@
         3,
         5
       ],
-      "hitPoints": 7,
+      "hitPoints": 6,
       "id": 200218,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "echo"
     },
     {
       "cell": [
@@ -181,25 +175,25 @@
       ],
       "hitPoints": 8,
       "id": 200219,
-      "type": "explosive"
+      "type": "cracked"
     },
     {
       "cell": [
         2,
         2
       ],
-      "hitPoints": 8,
+      "hitPoints": 4,
       "id": 200220,
-      "type": "explosive"
+      "type": "ball_cache"
     },
     {
       "cell": [
         7,
         6
       ],
-      "hitPoints": 8,
+      "hitPoints": 4,
       "id": 200221,
-      "type": "cracked"
+      "type": "ball_cache"
     },
     {
       "cell": [
@@ -211,7 +205,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-10",
+  "contentVersion": "p2-mines-11",
   "displayName": "Ezilmiş Koridor",
   "displayNameKey": "MINE_20_WIDE_02",
   "exampleAngles": [

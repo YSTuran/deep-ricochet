@@ -91,13 +91,14 @@
       "type": "ore"
     },
     {
+      "beamDirection": "right",
       "cell": [
         2,
         2
       ],
-      "hitPoints": 8,
+      "hitPoints": 7,
       "id": 240111,
-      "type": "explosive"
+      "type": "piercing"
     },
     {
       "cell": [
@@ -118,13 +119,14 @@
       "type": "cracked"
     },
     {
+      "beamDirection": "left",
       "cell": [
         3,
         6
       ],
       "hitPoints": 7,
       "id": 240114,
-      "type": "explosive"
+      "type": "piercing"
     },
     {
       "cell": [
@@ -133,10 +135,7 @@
       ],
       "hitPoints": 8,
       "id": 240115,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "explosive"
     },
     {
       "cell": [
@@ -161,9 +160,9 @@
         2,
         5
       ],
-      "hitPoints": 8,
+      "hitPoints": 6,
       "id": 240118,
-      "type": "ore"
+      "type": "echo"
     },
     {
       "cell": [
@@ -194,12 +193,9 @@
         6,
         3
       ],
-      "hitPoints": 8,
+      "hitPoints": 4,
       "id": 240121,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "ball_cache"
     },
     {
       "cell": [
@@ -211,13 +207,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-10",
+  "contentVersion": "p2-mines-11",
   "displayName": "Şimşek Galerisi",
   "displayNameKey": "MINE_24_WIDE_01",
   "exampleAngles": [
-    112.5,
-    112.5,
-    112.5
+    110.0,
+    110.0,
+    110.0
   ],
   "family": "safe",
   "height": 8,

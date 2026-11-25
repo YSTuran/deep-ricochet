@@ -140,30 +140,27 @@
         1,
         7
       ],
-      "hitPoints": 8,
+      "hitPoints": 6,
       "id": 160416,
-      "type": "ore"
+      "type": "echo"
     },
     {
       "cell": [
         1,
         6
       ],
-      "hitPoints": 8,
+      "hitPoints": 6,
       "id": 160417,
-      "type": "ore"
+      "type": "echo"
     },
     {
       "cell": [
         0,
         6
       ],
-      "hitPoints": 8,
+      "hitPoints": 6,
       "id": 160418,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "echo"
     },
     {
       "cell": [
@@ -190,25 +187,25 @@
       ],
       "hitPoints": 8,
       "id": 160421,
-      "type": "ore"
+      "type": "cracked"
     },
     {
       "cell": [
         6,
         7
       ],
-      "hitPoints": 8,
+      "hitPoints": 4,
       "id": 160422,
-      "type": "ore"
+      "type": "ball_cache"
     },
     {
       "cell": [
         5,
         5
       ],
-      "hitPoints": 8,
+      "hitPoints": 4,
       "id": 160423,
-      "type": "cracked"
+      "type": "ball_cache"
     },
     {
       "cell": [
@@ -220,13 +217,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-10",
+  "contentVersion": "p2-mines-11",
   "displayName": "Soğuk Yarık",
   "displayNameKey": "MINE_16_NARROW_01",
   "exampleAngles": [
-    15.0,
-    15.0,
-    15.0
+    67.5,
+    67.5,
+    67.5
   ],
   "family": "bonus",
   "height": 8,

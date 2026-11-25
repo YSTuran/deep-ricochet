@@ -127,13 +127,14 @@
       "type": "cracked"
     },
     {
+      "beamDirection": "left",
       "cell": [
         7,
         6
       ],
-      "hitPoints": 8,
+      "hitPoints": 7,
       "id": 250515,
-      "type": "explosive"
+      "type": "piercing"
     },
     {
       "cell": [
@@ -163,25 +164,26 @@
       ],
       "hitPoints": 8,
       "id": 250518,
-      "type": "explosive"
+      "type": "ore"
     },
     {
+      "beamDirection": "right",
       "cell": [
         3,
         6
       ],
-      "hitPoints": 8,
+      "hitPoints": 7,
       "id": 250519,
-      "type": "explosive"
+      "type": "piercing"
     },
     {
       "cell": [
         1,
         6
       ],
-      "hitPoints": 8,
+      "hitPoints": 6,
       "id": 250520,
-      "type": "ore"
+      "type": "echo"
     },
     {
       "cell": [
@@ -190,28 +192,25 @@
       ],
       "hitPoints": 8,
       "id": 250521,
-      "type": "ore"
+      "type": "explosive"
     },
     {
       "cell": [
         1,
         5
       ],
-      "hitPoints": 8,
+      "hitPoints": 4,
       "id": 250522,
-      "type": "explosive"
+      "type": "ball_cache"
     },
     {
       "cell": [
         7,
         5
       ],
-      "hitPoints": 8,
+      "hitPoints": 4,
       "id": 250523,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "ball_cache"
     },
     {
       "cell": [
@@ -223,7 +222,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-10",
+  "contentVersion": "p2-mines-11",
   "displayName": "Usta Damarı",
   "displayNameKey": "MINE_25_NARROW_02",
   "exampleAngles": [

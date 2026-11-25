@@ -15,6 +15,8 @@ const LAUNCHER_WORLD := BoardGeometry.LAUNCHER_WORLD
 const FORCED_COLLECTION_EFFECT_SECONDS := 0.35
 const PERFORMANCE_IMPACT_EFFECTS := 10
 const GRAPHICS_IMPACT_EFFECTS := 20
+const MAX_PIERCING_BEAM_EFFECTS := 4
+const PIERCING_BEAM_EFFECT_SECONDS := 0.42
 
 @export_file("*.json") var initial_room_template_path := "res://content/rooms/safe_01.json"
 
@@ -37,6 +39,7 @@ var status_text: String
 var forced_collection_positions := PackedVector2Array()
 var forced_collection_effect_elapsed: float = 0.0
 var impact_effects: Array[Dictionary] = []
+var piercing_beam_effects: Array[Dictionary] = []
 var run_room_number: int = 1
 var run_room_count: int = 1
 var banked_score: int = 0
@@ -122,6 +125,7 @@ func restore_room(template: RoomTemplate, snapshot: RoomSnapshot) -> bool:
 		snapshot.room_succeeded,
 		snapshot.final_reward,
 		snapshot.scored_block_ids,
+		snapshot.next_shot_ball_bonus,
 	):
 		return false
 
@@ -229,6 +233,8 @@ func _advance_volley(delta: float) -> bool:
 	var static_view_changed := false
 	for damage_result: BlockDamageResult in step_result.damage_results:
 		static_view_changed = _handle_damage_result(damage_result) or static_view_changed
+	for beam: Dictionary in step_result.piercing_beams:
+		_append_piercing_beam_effect(beam)
 	for collision: CollisionResult in step_result.collisions:
 		if collision.kind == &"wall" or collision.contact_started:
 			AudioManager.play_collision(
@@ -260,12 +266,20 @@ func _process(delta: float) -> void:
 			forced_collection_positions.clear()
 	if not impact_effects.is_empty():
 		view_changed = true
+	if not piercing_beam_effects.is_empty():
+		view_changed = true
 	for effect_index in range(impact_effects.size() - 1, -1, -1):
 		impact_effects[effect_index]["elapsed"] = float(impact_effects[effect_index]["elapsed"]) + delta
 		if float(impact_effects[effect_index]["elapsed"]) >= float(
 			impact_effects[effect_index].get("duration", 0.32)
 		):
 			impact_effects.remove_at(effect_index)
+	for beam_index in range(piercing_beam_effects.size() - 1, -1, -1):
+		piercing_beam_effects[beam_index]["elapsed"] = float(
+			piercing_beam_effects[beam_index].get("elapsed", 0.0)
+		) + delta
+		if float(piercing_beam_effects[beam_index]["elapsed"]) >= PIERCING_BEAM_EFFECT_SECONDS:
+			piercing_beam_effects.remove_at(beam_index)
 	if view_changed:
 		_refresh_dynamic_view()
 
@@ -339,10 +353,11 @@ func _release_aim() -> void:
 		return
 	aiming = false
 	if aim_valid and room.can_commit_shot():
+		var volley_ball_count := room.ball_count_for_next_shot(config.ball_count)
 		var volley_started := volley.start(
 			LAUNCHER_WORLD,
 			aim_direction * config.ball_speed,
-			config.ball_count,
+			volley_ball_count,
 			config.launch_interval_seconds,
 			config.volley_limit_seconds,
 		)
@@ -405,6 +420,7 @@ func _reset_transient_state() -> void:
 	forced_collection_positions.clear()
 	forced_collection_effect_elapsed = 0.0
 	impact_effects.clear()
+	piercing_beam_effects.clear()
 
 
 func _rebuild_aim_preview() -> void:
@@ -433,6 +449,8 @@ func _handle_damage_result(result: BlockDamageResult) -> bool:
 	var awarded_points := room.record_damage_result(result, config)
 	_append_impact_effect(block, result, awarded_points, false)
 	if result.destroyed:
+		if block.type == BlockState.BlockType.BALL_CACHE:
+			room.grant_next_shot_ball_bonus()
 		AudioManager.play_break(block.type)
 		block_destroyed.emit(block.type)
 	return true
@@ -459,6 +477,17 @@ func _append_impact_effect(
 		"blocked": blocked,
 		"seed": block.id * 31 + impact_effects.size() * 17,
 		"duration": 0.52 if is_blast else (0.26 if blocked else 0.38),
+		"elapsed": 0.0,
+	})
+
+
+func _append_piercing_beam_effect(beam: Dictionary) -> void:
+	while piercing_beam_effects.size() >= MAX_PIERCING_BEAM_EFFECTS:
+		piercing_beam_effects.pop_front()
+	piercing_beam_effects.append({
+		"origin": beam.get("origin", Vector2.ZERO),
+		"end": beam.get("end", Vector2.ZERO),
+		"direction": int(beam.get("direction", BlockState.BeamDirection.NONE)),
 		"elapsed": 0.0,
 	})
 

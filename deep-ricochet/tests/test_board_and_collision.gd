@@ -326,3 +326,47 @@ static func _test_special_blocks() -> void:
 	assert(hard_rock.hit_points == 0)
 	assert(radius_two_target.hit_points == 2)
 	assert(outside_target.hit_points == 5)
+
+	var echo_board := BoardModel.new()
+	var echo_source := BlockState.new(80, BlockState.BlockType.ECHO, Vector2i(1, 3), 2)
+	var echo_target := BlockState.new(81, BlockState.BlockType.ECHO, Vector2i(5, 4), 2)
+	assert(echo_board.add_block(echo_source))
+	assert(echo_board.add_block(echo_target))
+	var echo_contact := echo_board.resolve_contact(echo_source.id, 1, Vector2.LEFT)
+	assert(echo_contact.damage_applied)
+	var echo_results := echo_board.resolve_echo(echo_source.id)
+	assert(echo_results.size() == 1)
+	assert(echo_results[0].is_echo)
+	assert(echo_target.hit_points == 1)
+
+	var piercing_board := BoardModel.new()
+	var piercing := BlockState.new(
+		90,
+		BlockState.BlockType.PIERCING,
+		Vector2i(0, 3),
+		1,
+		BlockState.ALL_VULNERABLE_SIDES,
+		BlockState.BeamDirection.RIGHT,
+	)
+	var beam_target := BlockState.new(91, BlockState.BlockType.NORMAL, Vector2i(2, 3), 3)
+	var beam_rock := BlockState.new(92, BlockState.BlockType.ROCK, Vector2i(3, 3), 0)
+	var beam_armor := BlockState.new(
+		93,
+		BlockState.BlockType.ARMORED,
+		Vector2i(4, 3),
+		3,
+		BlockState.VulnerableSide.LEFT,
+	)
+	var outside_beam := BlockState.new(94, BlockState.BlockType.NORMAL, Vector2i(2, 4), 3)
+	for block: BlockState in [piercing, beam_target, beam_rock, beam_armor, outside_beam]:
+		assert(piercing_board.add_block(block))
+	assert(piercing_board.resolve_contact(piercing.id).destroyed)
+	var piercing_results := piercing_board.resolve_piercing(piercing.id)
+	assert(piercing_results.size() == 2)
+	for result: BlockDamageResult in piercing_results:
+		assert(result.is_piercing)
+		assert(result.piercing_direction == BlockState.BeamDirection.RIGHT)
+	assert(beam_target.hit_points == 1)
+	assert(beam_rock.hit_points == 0)
+	assert(beam_armor.hit_points == 1)
+	assert(outside_beam.hit_points == 3)

@@ -16,6 +16,12 @@ static func break_points(block_type: int, config: GameConfig) -> int:
 			return config.cracked_break_points
 		BlockState.BlockType.ARMORED:
 			return config.armored_break_points
+		BlockState.BlockType.ECHO:
+			return config.echo_break_points
+		BlockState.BlockType.BALL_CACHE:
+			return config.ball_cache_break_points
+		BlockState.BlockType.PIERCING:
+			return config.piercing_break_points
 	return 0
 
 

@@ -115,7 +115,7 @@
       ],
       "hitPoints": 8,
       "id": 270613,
-      "type": "ore"
+      "type": "explosive"
     },
     {
       "cell": [
@@ -124,16 +124,17 @@
       ],
       "hitPoints": 8,
       "id": 270614,
-      "type": "ore"
+      "type": "explosive"
     },
     {
+      "beamDirection": "right",
       "cell": [
         3,
         7
       ],
-      "hitPoints": 8,
+      "hitPoints": 7,
       "id": 270615,
-      "type": "explosive"
+      "type": "piercing"
     },
     {
       "cell": [
@@ -145,22 +146,24 @@
       "type": "ore"
     },
     {
+      "beamDirection": "left",
       "cell": [
         1,
         7
       ],
-      "hitPoints": 8,
+      "hitPoints": 7,
       "id": 270617,
-      "type": "explosive"
+      "type": "piercing"
     },
     {
+      "beamDirection": "right",
       "cell": [
         2,
         5
       ],
-      "hitPoints": 8,
+      "hitPoints": 7,
       "id": 270618,
-      "type": "explosive"
+      "type": "piercing"
     },
     {
       "cell": [
@@ -194,18 +197,18 @@
         4,
         7
       ],
-      "hitPoints": 8,
+      "hitPoints": 6,
       "id": 270622,
-      "type": "explosive"
+      "type": "echo"
     },
     {
       "cell": [
         0,
         7
       ],
-      "hitPoints": 8,
+      "hitPoints": 4,
       "id": 270623,
-      "type": "ore"
+      "type": "ball_cache"
     },
     {
       "cell": [
@@ -217,7 +220,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-10",
+  "contentVersion": "p2-mines-11",
   "displayName": "Son Mahzen",
   "displayNameKey": "MINE_27_NARROW_03",
   "exampleAngles": [

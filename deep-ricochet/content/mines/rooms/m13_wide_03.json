@@ -179,18 +179,18 @@
         3,
         7
       ],
-      "hitPoints": 8,
+      "hitPoints": 4,
       "id": 130320,
-      "type": "ore"
+      "type": "ball_cache"
     },
     {
       "cell": [
         1,
         5
       ],
-      "hitPoints": 8,
+      "hitPoints": 4,
       "id": 130321,
-      "type": "ore"
+      "type": "ball_cache"
     },
     {
       "cell": [
@@ -202,7 +202,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-10",
+  "contentVersion": "p2-mines-11",
   "displayName": "Titan Kemeri",
   "displayNameKey": "MINE_13_WIDE_03",
   "exampleAngles": [

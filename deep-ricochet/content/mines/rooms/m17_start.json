@@ -68,12 +68,9 @@
         2,
         3
       ],
-      "hitPoints": 7,
+      "hitPoints": 6,
       "id": 170008,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "echo"
     },
     {
       "cell": [
@@ -98,12 +95,9 @@
         6,
         4
       ],
-      "hitPoints": 8,
+      "hitPoints": 6,
       "id": 170011,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "echo"
     },
     {
       "cell": [
@@ -155,9 +149,9 @@
         5,
         7
       ],
-      "hitPoints": 8,
+      "hitPoints": 6,
       "id": 170017,
-      "type": "ore"
+      "type": "echo"
     },
     {
       "cell": [
@@ -166,7 +160,10 @@
       ],
       "hitPoints": 8,
       "id": 170018,
-      "type": "normal"
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
     },
     {
       "cell": [
@@ -184,16 +181,16 @@
       ],
       "hitPoints": 8,
       "id": 170020,
-      "type": "ore"
+      "type": "cracked"
     },
     {
       "cell": [
         5,
         4
       ],
-      "hitPoints": 8,
+      "hitPoints": 4,
       "id": 170021,
-      "type": "cracked"
+      "type": "ball_cache"
     },
     {
       "cell": [
@@ -205,7 +202,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-10",
+  "contentVersion": "p2-mines-11",
   "displayName": "Kızıl Kapı",
   "displayNameKey": "MINE_17_START",
   "exampleAngles": [

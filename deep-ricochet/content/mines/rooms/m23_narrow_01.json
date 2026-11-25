@@ -115,7 +115,7 @@
       ],
       "hitPoints": 8,
       "id": 230413,
-      "type": "ore"
+      "type": "explosive"
     },
     {
       "cell": [
@@ -133,7 +133,7 @@
       ],
       "hitPoints": 8,
       "id": 230415,
-      "type": "ore"
+      "type": "explosive"
     },
     {
       "cell": [
@@ -169,7 +169,7 @@
       ],
       "hitPoints": 8,
       "id": 230419,
-      "type": "ore"
+      "type": "explosive"
     },
     {
       "cell": [
@@ -184,31 +184,32 @@
       ]
     },
     {
+      "beamDirection": "up",
       "cell": [
         0,
         6
       ],
-      "hitPoints": 8,
+      "hitPoints": 7,
       "id": 230421,
-      "type": "cracked"
+      "type": "piercing"
     },
     {
       "cell": [
         0,
         7
       ],
-      "hitPoints": 8,
+      "hitPoints": 6,
       "id": 230422,
-      "type": "ore"
+      "type": "echo"
     },
     {
       "cell": [
         5,
         4
       ],
-      "hitPoints": 8,
+      "hitPoints": 4,
       "id": 230423,
-      "type": "explosive"
+      "type": "ball_cache"
     },
     {
       "cell": [
@@ -220,7 +221,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-10",
+  "contentVersion": "p2-mines-11",
   "displayName": "Karanlık Yarık",
   "displayNameKey": "MINE_23_NARROW_01",
   "exampleAngles": [

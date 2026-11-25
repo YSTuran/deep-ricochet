@@ -124,16 +124,16 @@
       ],
       "hitPoints": 8,
       "id": 250414,
-      "type": "ore"
+      "type": "explosive"
     },
     {
       "cell": [
         0,
         5
       ],
-      "hitPoints": 8,
+      "hitPoints": 6,
       "id": 250415,
-      "type": "ore"
+      "type": "echo"
     },
     {
       "cell": [
@@ -154,13 +154,14 @@
       "type": "ore"
     },
     {
+      "beamDirection": "right",
       "cell": [
         2,
         6
       ],
-      "hitPoints": 8,
+      "hitPoints": 7,
       "id": 250418,
-      "type": "explosive"
+      "type": "piercing"
     },
     {
       "cell": [
@@ -185,12 +186,9 @@
         2,
         5
       ],
-      "hitPoints": 8,
+      "hitPoints": 6,
       "id": 250421,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "echo"
     },
     {
       "cell": [
@@ -199,16 +197,19 @@
       ],
       "hitPoints": 8,
       "id": 250422,
-      "type": "explosive"
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
     },
     {
       "cell": [
         5,
         4
       ],
-      "hitPoints": 8,
+      "hitPoints": 4,
       "id": 250423,
-      "type": "ore"
+      "type": "ball_cache"
     },
     {
       "cell": [
@@ -220,7 +221,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-10",
+  "contentVersion": "p2-mines-11",
   "displayName": "Zorlu Yarık",
   "displayNameKey": "MINE_25_NARROW_01",
   "exampleAngles": [

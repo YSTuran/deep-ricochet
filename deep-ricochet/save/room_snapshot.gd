@@ -11,6 +11,7 @@ var break_score: int
 var room_finished: bool
 var room_succeeded: bool
 var final_reward: int
+var next_shot_ball_bonus: int
 var block_states: Array[Dictionary] = []
 var scored_block_ids := PackedInt32Array()
 
@@ -30,6 +31,7 @@ static func capture(
 	snapshot.room_finished = room.room_finished
 	snapshot.room_succeeded = room.room_succeeded
 	snapshot.final_reward = room.final_reward
+	snapshot.next_shot_ball_bonus = room.next_shot_ball_bonus
 	for block: BlockState in board.blocks:
 		snapshot.block_states.append({
 			"id": block.id,
@@ -49,6 +51,7 @@ static func from_dictionary(data: Dictionary) -> RoomSnapshot:
 	snapshot.room_finished = bool(data.get("roomFinished", false))
 	snapshot.room_succeeded = bool(data.get("roomSucceeded", false))
 	snapshot.final_reward = int(data.get("finalReward", -1))
+	snapshot.next_shot_ball_bonus = int(data.get("nextShotBallBonus", 0))
 
 	var raw_blocks: Variant = data.get("blocks", [])
 	if typeof(raw_blocks) == TYPE_ARRAY:
@@ -77,6 +80,7 @@ func to_dictionary() -> Dictionary:
 		"roomFinished": room_finished,
 		"roomSucceeded": room_succeeded,
 		"finalReward": final_reward,
+		"nextShotBallBonus": next_shot_ball_bonus,
 		"blocks": block_states.duplicate(true),
 		"scoredBlockIds": scored_ids,
 	}
@@ -101,6 +105,11 @@ func validation_errors(
 		errors.append("Kalan atış sayısı geçersiz.")
 	if break_score < 0 or final_reward < 0:
 		errors.append("Oda puanı veya ödülü negatif olamaz.")
+	if next_shot_ball_bonus < 0 \
+		or next_shot_ball_bonus > RoomSession.MAX_NEXT_SHOT_BALL_BONUS:
+		errors.append("Sonraki atış top bonusu geçersiz.")
+	if room_finished and next_shot_ball_bonus != 0:
+		errors.append("Bitmiş odada sonraki atış top bonusu bulunamaz.")
 	if room_succeeded and not room_finished:
 		errors.append("Başarılı oda bitmiş olmalıdır.")
 

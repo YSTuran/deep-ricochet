@@ -1,6 +1,6 @@
 extends SceneTree
 
-const CONTENT_VERSION := "p2-mines-10"
+const CONTENT_VERSION := "p2-mines-11"
 const CRACKED_HIT_POINTS := 8
 const NARROW_DURABILITY_BONUS := 1
 const MAX_ROOM_BLOCKS := 24
@@ -463,11 +463,11 @@ func _type_for_cell(
 	elif mine_index <= 13:
 		cycle = ["normal", "ore", "armored", "explosive", "normal", "cracked", "ore", "armored"]
 	elif mine_index <= 17:
-		cycle = ["ore", "armored", "normal", "explosive", "cracked", "armored", "ore", "normal"]
+		cycle = ["ore", "armored", "normal", "explosive", "cracked", "echo", "ore", "normal"]
 	elif mine_index <= 21:
-		cycle = ["armored", "ore", "explosive", "cracked", "armored", "normal", "ore", "armored"]
+		cycle = ["armored", "ore", "explosive", "cracked", "echo", "normal", "ore", "armored"]
 	else:
-		cycle = ["armored", "explosive", "ore", "armored", "cracked", "normal", "armored", "ore"]
+		cycle = ["armored", "piercing", "ore", "echo", "cracked", "normal", "explosive", "ore"]
 	var offset := posmod(mine_index * 3 + slot_index * 5 + cell.x + cell.y, cycle.size())
 	var type_name := cycle[posmod(fill_index + offset, cycle.size())]
 	if role == "narrow" and cell.y >= 5 and type_name == "normal" \
@@ -482,20 +482,34 @@ func _ensure_required_types(
 	mine_index: int,
 	slot_index: int,
 ) -> void:
+	_ensure_ball_cache_count(
+		entries,
+		1 + posmod(mine_index + slot_index, 2),
+	)
 	var required: Array[String] = ["normal", "ore"]
 	if mine_index >= 6:
 		required.append_array(["explosive", "cracked"])
 	if mine_index >= 10:
 		required.append("armored")
+	if mine_index >= 14:
+		required.append("echo")
+	if mine_index >= 22:
+		required.append("piercing")
 	for required_type: String in required:
 		if _count_type(entries, required_type) > 0:
 			continue
 		for entry_index in range(entries.size() - 1, -1, -1):
 			var entry: Dictionary = entries[entry_index]
-			if bool(entry.get("gate", false)) or str(entry["type"]) == "rock":
+			var previous_type := str(entry["type"])
+			if bool(entry.get("gate", false)) \
+				or previous_type in ["rock", "ball_cache"] \
+				or (previous_type in required and _count_type(entries, previous_type) <= 1):
 				continue
 			if required_type == "armored" \
 				and _accessible_armor_sides(entry["cell"], occupied, mine_index, slot_index, entry_index).is_empty():
+				continue
+			if required_type == "piercing" \
+				and _piercing_direction_for_cell(entry["cell"], occupied, entries, mine_index, slot_index, entry_index).is_empty():
 				continue
 			entry["type"] = required_type
 			entries[entry_index] = entry
@@ -526,6 +540,18 @@ func _block_data(
 			)
 			if vulnerable_sides.is_empty():
 				type_name = "ore"
+		var beam_direction := ""
+		if type_name == "piercing":
+			beam_direction = _piercing_direction_for_cell(
+				cell,
+				occupied,
+				entries,
+				mine_index,
+				slot_index,
+				entry_index,
+			)
+			if beam_direction.is_empty():
+				type_name = "ore"
 		var block := {
 			"id": mine_number * 10_000 + slot_index * 100 + entry_index + 1,
 			"type": type_name,
@@ -541,6 +567,8 @@ func _block_data(
 		}
 		if type_name == "armored":
 			block["vulnerableSides"] = vulnerable_sides
+		elif type_name == "piercing":
+			block["beamDirection"] = beam_direction
 		blocks.append(block)
 	return blocks
 
@@ -601,6 +629,12 @@ func _hit_points(
 		return 0
 	if type_name == "cracked":
 		return CRACKED_HIT_POINTS
+	if type_name == "echo":
+		return RoomTemplate.ECHO_HIT_POINTS
+	if type_name == "ball_cache":
+		return RoomTemplate.BALL_CACHE_HIT_POINTS
+	if type_name == "piercing":
+		return RoomTemplate.PIERCING_HIT_POINTS
 	var role_bonus := NARROW_DURABILITY_BONUS if role == "narrow" else 0
 	if type_name == "explosive":
 		return clampi(base_hp + floori(float(mine_index - 6) / 3.0) + role_bonus, 2, 8)
@@ -619,6 +653,74 @@ func _count_type(entries: Array[Dictionary], type_name: String) -> int:
 		if str(entry["type"]) == type_name:
 			count += 1
 	return count
+
+
+func _ensure_ball_cache_count(entries: Array[Dictionary], target_count: int) -> void:
+	while _count_type(entries, "ball_cache") < target_count:
+		var replaced := false
+		for entry_index in range(entries.size() - 1, -1, -1):
+			var entry: Dictionary = entries[entry_index]
+			var type_name := str(entry["type"])
+			if bool(entry.get("gate", false)) or type_name == "rock" \
+				or type_name == "ball_cache" \
+				or (type_name in ["normal", "ore"] and _count_type(entries, type_name) <= 1):
+				continue
+			entry["type"] = "ball_cache"
+			entries[entry_index] = entry
+			replaced = true
+			break
+		if not replaced:
+			break
+
+
+func _piercing_direction_for_cell(
+	cell: Vector2i,
+	occupied: Dictionary[Vector2i, bool],
+	entries: Array[Dictionary],
+	mine_index: int,
+	slot_index: int,
+	entry_index: int,
+) -> String:
+	var directions: Array[String] = ["up", "right", "down", "left"]
+	var rotation := posmod(mine_index + slot_index * 2 + entry_index, directions.size())
+	for direction_offset in range(directions.size()):
+		var direction := directions[posmod(rotation + direction_offset, directions.size())]
+		var step := _beam_step_for_name(direction)
+		var support_cell := cell - step
+		if _is_inside_world(support_cell) and not occupied.has(support_cell):
+			continue
+		var ray_cell := cell + step
+		while _is_inside_world(ray_cell):
+			if occupied.has(ray_cell) and _entry_type_at(entries, ray_cell) != "rock":
+				return direction
+			ray_cell += step
+	return ""
+
+
+func _beam_step_for_name(direction: String) -> Vector2i:
+	match direction:
+		"up":
+			return Vector2i.DOWN
+		"right":
+			return Vector2i.RIGHT
+		"down":
+			return Vector2i.UP
+		"left":
+			return Vector2i.LEFT
+	return Vector2i.ZERO
+
+
+func _entry_type_at(entries: Array[Dictionary], cell: Vector2i) -> String:
+	for entry: Dictionary in entries:
+		if entry["cell"] == cell:
+			return str(entry["type"])
+	# Çekirdek occupied içinde yer alır fakat entries listesine sonradan eklenir.
+	return "core"
+
+
+func _is_inside_world(cell: Vector2i) -> bool:
+	return cell.x >= 0 and cell.x < BoardGeometry.WORLD_GRID_SIZE.x \
+		and cell.y >= 0 and cell.y < BoardGeometry.WORLD_GRID_SIZE.y
 
 
 func _direct_angle(core_cell: Vector2i) -> float:

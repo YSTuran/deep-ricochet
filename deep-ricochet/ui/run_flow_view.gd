@@ -21,6 +21,9 @@ const EXPLOSIVE_TEXTURE: Texture2D = preload("res://assets/images/blocks/blok_pa
 const ARMORED_BOTTOM_TEXTURE: Texture2D = preload("res://assets/images/blocks/blok_zirhli_alt.png")
 const ARMORED_LEFT_BOTTOM_TEXTURE: Texture2D = preload("res://assets/images/blocks/blok_zirhli_sol_alt.png")
 const ARMORED_RIGHT_BOTTOM_TEXTURE: Texture2D = preload("res://assets/images/blocks/blok_zirhli_sag_alt.png")
+const ECHO_TEXTURE: Texture2D = preload("res://assets/images/blocks/blok_yanki.png")
+const BALL_CACHE_TEXTURE: Texture2D = preload("res://assets/images/blocks/blok_top_haznesi.png")
+const PIERCING_TEXTURE: Texture2D = preload("res://assets/images/blocks/blok_delici_kristal.png")
 const CRACKED_SOURCE := Rect2(32.0, 36.0, 447.0, 454.0)
 const EXPLOSIVE_SOURCE := Rect2(54.0, 65.0, 404.0, 407.0)
 const ARMORED_BOTTOM_SOURCE := Rect2(5.0, 6.0, 502.0, 502.0)
@@ -256,6 +259,15 @@ func _draw_template_preview(template: RoomTemplate, origin: Vector2, cell_size: 
 		elif definition.block_type == BlockState.BlockType.ARMORED:
 			_draw_preview_armored_block(block_rect, definition.vulnerable_sides, value)
 			continue
+		elif definition.block_type == BlockState.BlockType.ECHO:
+			_draw_preview_full_block(block_rect, ECHO_TEXTURE, value, definition.block_type)
+			continue
+		elif definition.block_type == BlockState.BlockType.BALL_CACHE:
+			_draw_preview_full_block(block_rect, BALL_CACHE_TEXTURE, value, definition.block_type)
+			continue
+		elif definition.block_type == BlockState.BlockType.PIERCING:
+			_draw_preview_piercing(block_rect, definition.beam_direction, value)
+			continue
 		DeepUI.draw_panel(self, block_rect, color, Color(color).lightened(0.18), 4, 1, false)
 		_draw_mini_value(center, value, cell_size, DeepUI.TEXT)
 
@@ -287,6 +299,39 @@ func _draw_preview_armored_block(rect: Rect2, vulnerable_sides: int, hp_text: St
 		hp_text,
 		BlockState.BlockType.ARMORED,
 	)
+
+
+func _draw_preview_full_block(
+	rect: Rect2,
+	texture: Texture2D,
+	hp_text: String,
+	block_type: int,
+) -> void:
+	CaveTheme.draw_texture(self, texture, rect, block_type)
+	_draw_mini_value(rect.get_center(), hp_text, rect.size.x / 0.8, DeepUI.TEXT)
+
+
+func _draw_preview_piercing(rect: Rect2, beam_direction: int, hp_text: String) -> void:
+	draw_set_transform(rect.get_center(), _beam_screen_rotation(beam_direction))
+	CaveTheme.draw_texture(
+		self,
+		PIERCING_TEXTURE,
+		Rect2(-rect.size * 0.5, rect.size),
+		BlockState.BlockType.PIERCING,
+	)
+	draw_set_transform(Vector2.ZERO, 0.0)
+	_draw_mini_value(rect.get_center(), hp_text, rect.size.x / 0.8, DeepUI.TEXT)
+
+
+func _beam_screen_rotation(direction: int) -> float:
+	match direction:
+		BlockState.BeamDirection.RIGHT:
+			return PI * 0.5
+		BlockState.BeamDirection.DOWN:
+			return PI
+		BlockState.BeamDirection.LEFT:
+			return -PI * 0.5
+	return 0.0
 
 
 func _draw_run_result() -> void:

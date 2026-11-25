@@ -197,18 +197,18 @@
         0,
         5
       ],
-      "hitPoints": 8,
+      "hitPoints": 4,
       "id": 130522,
-      "type": "cracked"
+      "type": "ball_cache"
     },
     {
       "cell": [
         4,
         5
       ],
-      "hitPoints": 8,
+      "hitPoints": 4,
       "id": 130523,
-      "type": "ore"
+      "type": "ball_cache"
     },
     {
       "cell": [
@@ -220,7 +220,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-10",
+  "contentVersion": "p2-mines-11",
   "displayName": "Mühürlü Damar",
   "displayNameKey": "MINE_13_NARROW_02",
   "exampleAngles": [

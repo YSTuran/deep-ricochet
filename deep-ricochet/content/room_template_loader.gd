@@ -150,6 +150,7 @@ static func _copy_template(source: RoomTemplate, target: RoomTemplate) -> void:
 			definition.cell,
 			definition.hit_points,
 			definition.vulnerable_sides,
+			definition.beam_direction,
 		))
 
 
@@ -167,6 +168,10 @@ static func _block_from_dictionary(data: Dictionary) -> RoomBlockDefinition:
 		_vulnerable_sides_from_value(
 			data.get("vulnerableSides", []),
 			block_type == BlockState.BlockType.ARMORED,
+		),
+		_beam_direction_from_name(
+			str(data.get("beamDirection", "")),
+			block_type == BlockState.BlockType.PIERCING,
 		),
 	)
 
@@ -187,7 +192,28 @@ static func _block_type_from_name(type_name: String) -> int:
 			return BlockState.BlockType.CRACKED
 		"armored":
 			return BlockState.BlockType.ARMORED
+		"echo":
+			return BlockState.BlockType.ECHO
+		"ball_cache":
+			return BlockState.BlockType.BALL_CACHE
+		"piercing":
+			return BlockState.BlockType.PIERCING
 	return -1
+
+
+static func _beam_direction_from_name(direction_name: String, required: bool) -> int:
+	if not required:
+		return BlockState.BeamDirection.NONE
+	match direction_name.to_lower():
+		"up":
+			return BlockState.BeamDirection.UP
+		"right":
+			return BlockState.BeamDirection.RIGHT
+		"down":
+			return BlockState.BeamDirection.DOWN
+		"left":
+			return BlockState.BeamDirection.LEFT
+	return BlockState.BeamDirection.NONE
 
 
 static func _vulnerable_sides_from_value(value: Variant, required: bool) -> int:

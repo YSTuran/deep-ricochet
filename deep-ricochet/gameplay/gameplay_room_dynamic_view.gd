@@ -17,6 +17,7 @@ func _draw() -> void:
 	_draw_aim_preview()
 	_draw_balls()
 	_draw_forced_collection_effect()
+	_draw_piercing_beams()
 	_draw_impact_effects()
 
 
@@ -107,6 +108,12 @@ func _draw_impact_effects() -> void:
 				_draw_armored_break(center, progress, color, seed, high_quality)
 			BlockState.BlockType.CORE:
 				_draw_core_burst(center, progress, color, seed, high_quality)
+			BlockState.BlockType.ECHO:
+				_draw_echo_break(center, progress, color, high_quality)
+			BlockState.BlockType.BALL_CACHE:
+				_draw_ball_cache_break(center, progress, color, seed, high_quality)
+			BlockState.BlockType.PIERCING:
+				_draw_piercing_break(center, progress, color, seed, high_quality)
 			_:
 				_draw_normal_fragments(center, progress, color, seed, high_quality)
 		if is_explosion and high_quality:
@@ -235,6 +242,78 @@ func _draw_core_burst(
 		var direction := Vector2.from_angle(_effect_angle(index, count, seed))
 		var point := center + direction * lerpf(10.0, 52.0, progress)
 		draw_circle(point, lerpf(4.0, 1.0, progress), Color(color.lightened(0.35), 1.0 - progress))
+
+
+func _draw_echo_break(
+	center: Vector2, progress: float, color: Color, high_quality: bool,
+) -> void:
+	var ring_count := 3 if high_quality else 1
+	for ring_index in range(ring_count):
+		var delayed := clampf(progress * 1.3 - float(ring_index) * 0.16, 0.0, 1.0)
+		draw_arc(
+			center,
+			lerpf(7.0, 54.0 + float(ring_index) * 8.0, delayed),
+			0.0,
+			TAU,
+			28 if high_quality else 14,
+			Color(color.lightened(0.3), (1.0 - delayed) * 0.72),
+			3.0 if high_quality else 1.8,
+			true,
+		)
+
+
+func _draw_ball_cache_break(
+	center: Vector2, progress: float, color: Color, seed: int, high_quality: bool,
+) -> void:
+	var count := 7 if high_quality else 3
+	for index in range(count):
+		var direction := Vector2.from_angle(_effect_angle(index, count, seed) - PI * 0.5)
+		var ball_center := center + direction * lerpf(6.0, 39.0, progress)
+		var radius := lerpf(5.0, 2.0, progress)
+		draw_circle(ball_center, radius, Color(DeepUI.TEXT, 1.0 - progress))
+		draw_arc(
+			ball_center,
+			radius,
+			0.0,
+			TAU,
+			12,
+			Color(color.lightened(0.25), 1.0 - progress),
+			1.4,
+			true,
+		)
+
+
+func _draw_piercing_break(
+	center: Vector2, progress: float, color: Color, seed: int, high_quality: bool,
+) -> void:
+	var count := 9 if high_quality else 3
+	for index in range(count):
+		var direction := Vector2.from_angle(_effect_angle(index, count, seed))
+		var shard_center := center + direction * lerpf(5.0, 43.0, progress)
+		var tangent := direction.orthogonal() * (3.5 if high_quality else 2.0)
+		draw_colored_polygon(PackedVector2Array([
+			shard_center + direction * 6.0,
+			shard_center - direction * 5.0 + tangent,
+			shard_center - direction * 5.0 - tangent,
+		]), Color(color.lightened(0.3), 1.0 - progress))
+
+
+func _draw_piercing_beams() -> void:
+	var high_quality := room.quality_mode == AppSettings.QualityMode.GRAPHICS
+	var beam_color := CaveTheme.block_color(BlockState.BlockType.PIERCING).lightened(0.28)
+	for effect: Dictionary in room.piercing_beam_effects:
+		var progress := clampf(
+			float(effect.get("elapsed", 0.0)) / room.PIERCING_BEAM_EFFECT_SECONDS,
+			0.0,
+			1.0,
+		)
+		var start := BoardGeometry.world_to_screen(effect.get("origin", Vector2.ZERO))
+		var finish := BoardGeometry.world_to_screen(effect.get("end", Vector2.ZERO))
+		var alpha := (1.0 - progress) * (0.92 if high_quality else 0.72)
+		if high_quality:
+			draw_line(start, finish, Color(beam_color, alpha * 0.18), 14.0, true)
+			draw_line(start, finish, Color(beam_color, alpha * 0.42), 7.0, true)
+		draw_line(start, finish, Color(beam_color.lightened(0.42), alpha), 3.0 if high_quality else 2.0, true)
 
 
 func _draw_point_popup(

@@ -149,9 +149,9 @@
         5,
         5
       ],
-      "hitPoints": 5,
+      "hitPoints": 4,
       "id": 50417,
-      "type": "ore"
+      "type": "ball_cache"
     },
     {
       "cell": [
@@ -163,7 +163,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-10",
+  "contentVersion": "p2-mines-11",
   "displayName": "Zırhlı Yarık",
   "displayNameKey": "MINE_5_NARROW_01",
   "exampleAngles": [

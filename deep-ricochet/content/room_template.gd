@@ -7,6 +7,9 @@ const BONUS_MULTIPLIER_BPS := 15_000
 const MAX_ROCK_COUNT := 10
 const MAX_STANDARD_BLOCK_HP := 8
 const MAX_SPECIAL_BLOCK_HP := 8
+const ECHO_HIT_POINTS := 6
+const BALL_CACHE_HIT_POINTS := 4
+const PIERCING_HIT_POINTS := 7
 const MIN_CORE_HP := 6
 const MAX_CORE_HP := 8
 const MIN_BLOCK_ROW := 2
@@ -89,6 +92,7 @@ func validation_errors() -> PackedStringArray:
 
 	var known_ids: Dictionary[int, bool] = {}
 	var known_cells: Dictionary[Vector2i, bool] = {}
+	var definitions_by_cell: Dictionary[Vector2i, RoomBlockDefinition] = {}
 	var core_count := 0
 	var rock_count := 0
 	var core_cell := Vector2i(-1, -1)
@@ -110,6 +114,7 @@ func validation_errors() -> PackedStringArray:
 			errors.append("%s başka bir blokla aynı hücreyi kullanıyor: %s." % [label, definition.cell])
 		else:
 			known_cells[definition.cell] = true
+			definitions_by_cell[definition.cell] = definition
 
 		if not _is_known_block_type(definition.block_type):
 			errors.append("%s bilinmeyen blok türüne sahip." % label)
@@ -176,6 +181,17 @@ func validation_errors() -> PackedStringArray:
 				errors.append(
 					"%s zırhlı bloğun zayıf kenarları mevcut görsellerle eşleşmiyor." % label
 				)
+		elif definition.block_type == BlockState.BlockType.ECHO:
+			if definition.hit_points != ECHO_HIT_POINTS:
+				errors.append("%s yankı bloğu olduğu için %d cana sahip olmalıdır." % [label, ECHO_HIT_POINTS])
+		elif definition.block_type == BlockState.BlockType.BALL_CACHE:
+			if definition.hit_points != BALL_CACHE_HIT_POINTS:
+				errors.append("%s top haznesi olduğu için %d cana sahip olmalıdır." % [label, BALL_CACHE_HIT_POINTS])
+		elif definition.block_type == BlockState.BlockType.PIERCING:
+			if definition.hit_points != PIERCING_HIT_POINTS:
+				errors.append("%s delici kristal olduğu için %d cana sahip olmalıdır." % [label, PIERCING_HIT_POINTS])
+			if not _is_valid_beam_direction(definition.beam_direction):
+				errors.append("%s delici kristalin ışın yönü geçersizdir." % label)
 		elif definition.block_type == BlockState.BlockType.CORE \
 			and (definition.hit_points < MIN_CORE_HP or definition.hit_points > MAX_CORE_HP):
 			errors.append("%s çekirdek olduğu için %d-%d cana sahip olmalıdır." % [label, MIN_CORE_HP, MAX_CORE_HP])
@@ -199,6 +215,30 @@ func validation_errors() -> PackedStringArray:
 					"%d kimlikli zırhlı bloğun zayıf kenarı duvar veya blokla kapalıdır." \
 						% definition.id
 				)
+	for definition: RoomBlockDefinition in blocks:
+		if definition == null or definition.block_type != BlockState.BlockType.PIERCING \
+			or not _is_valid_beam_direction(definition.beam_direction):
+			continue
+		var beam_step := BlockState.beam_vector(definition.beam_direction)
+		var support_cell := definition.cell - beam_step
+		if _is_cell_inside_world(support_cell) and not known_cells.has(support_cell):
+			errors.append(
+				"%d kimlikli delici kristalin arkasında blok veya duvar desteği yoktur." \
+					% definition.id
+			)
+		var ray_cell := definition.cell + beam_step
+		var has_damageable_target := false
+		while _is_cell_inside_world(ray_cell):
+			var ray_target: RoomBlockDefinition = definitions_by_cell.get(ray_cell)
+			if ray_target != null and ray_target.block_type != BlockState.BlockType.ROCK:
+				has_damageable_target = true
+				break
+			ray_cell += beam_step
+		if not has_damageable_target:
+			errors.append(
+				"%d kimlikli delici kristalin ışın yönünde hasar alabilecek blok yoktur." \
+					% definition.id
+			)
 	if rock_count > MAX_ROCK_COUNT:
 		errors.append("Sert kaya sayısı %d sınırını aşıyor: %d." % [MAX_ROCK_COUNT, rock_count])
 	for definition: RoomBlockDefinition in blocks:
@@ -246,7 +286,20 @@ func _is_known_block_type(block_type: int) -> bool:
 		or block_type == BlockState.BlockType.CORE \
 		or block_type == BlockState.BlockType.EXPLOSIVE \
 		or block_type == BlockState.BlockType.CRACKED \
-		or block_type == BlockState.BlockType.ARMORED
+		or block_type == BlockState.BlockType.ARMORED \
+		or block_type == BlockState.BlockType.ECHO \
+		or block_type == BlockState.BlockType.BALL_CACHE \
+		or block_type == BlockState.BlockType.PIERCING
+
+
+static func _is_valid_beam_direction(direction: int) -> bool:
+	return direction >= BlockState.BeamDirection.UP \
+		and direction <= BlockState.BeamDirection.LEFT
+
+
+static func _is_cell_inside_world(cell: Vector2i) -> bool:
+	return cell.x >= 0 and cell.x < BoardGeometry.WORLD_GRID_SIZE.x \
+		and cell.y >= 0 and cell.y < BoardGeometry.WORLD_GRID_SIZE.y
 
 
 func _vulnerable_side_count(mask: int) -> int:

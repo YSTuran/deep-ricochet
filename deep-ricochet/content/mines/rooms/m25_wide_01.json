@@ -95,9 +95,9 @@
         6,
         6
       ],
-      "hitPoints": 8,
+      "hitPoints": 6,
       "id": 250111,
-      "type": "ore"
+      "type": "echo"
     },
     {
       "cell": [
@@ -113,18 +113,18 @@
         3,
         7
       ],
-      "hitPoints": 8,
+      "hitPoints": 6,
       "id": 250113,
-      "type": "ore"
+      "type": "echo"
     },
     {
       "cell": [
         3,
         6
       ],
-      "hitPoints": 8,
+      "hitPoints": 6,
       "id": 250114,
-      "type": "ore"
+      "type": "echo"
     },
     {
       "cell": [
@@ -151,7 +151,7 @@
       ],
       "hitPoints": 8,
       "id": 250117,
-      "type": "explosive"
+      "type": "ore"
     },
     {
       "cell": [
@@ -160,7 +160,7 @@
       ],
       "hitPoints": 8,
       "id": 250118,
-      "type": "ore"
+      "type": "cracked"
     },
     {
       "cell": [
@@ -176,21 +176,18 @@
         4,
         4
       ],
-      "hitPoints": 8,
+      "hitPoints": 4,
       "id": 250120,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "ball_cache"
     },
     {
       "cell": [
         3,
         5
       ],
-      "hitPoints": 8,
+      "hitPoints": 4,
       "id": 250121,
-      "type": "cracked"
+      "type": "ball_cache"
     },
     {
       "cell": [
@@ -202,13 +199,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-10",
+  "contentVersion": "p2-mines-11",
   "displayName": "Keskin Basamak",
   "displayNameKey": "MINE_25_WIDE_01",
   "exampleAngles": [
-    71.5,
-    71.5,
-    71.5
+    67.5,
+    67.5,
+    67.5
   ],
   "family": "safe",
   "height": 8,

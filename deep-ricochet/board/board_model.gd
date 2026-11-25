@@ -60,7 +60,58 @@ func resolve_contact(
 	var block := get_block_by_id(block_id)
 	if block == null or block.is_destroyed():
 		return result
-	return _resolve_damage(block, damage, contact_normal, false)
+	return _resolve_damage(block, damage, contact_normal)
+
+
+func resolve_echo(source_block_id: int, damage: int = 1) -> Array[BlockDamageResult]:
+	var results: Array[BlockDamageResult] = []
+	var source := get_block_by_id(source_block_id)
+	if source == null or source.type != BlockState.BlockType.ECHO or damage <= 0:
+		return results
+	for target: BlockState in blocks:
+		if target.id == source_block_id or target.type != BlockState.BlockType.ECHO \
+			or target.is_destroyed():
+			continue
+		var result := _resolve_damage(
+			target,
+			damage,
+			Vector2.ZERO,
+			false,
+			true,
+		)
+		if result.damage_applied:
+			results.append(result)
+	return results
+
+
+func resolve_piercing(source_block_id: int, damage: int = 2) -> Array[BlockDamageResult]:
+	var results: Array[BlockDamageResult] = []
+	var source := get_block_by_id(source_block_id)
+	if source == null or source.type != BlockState.BlockType.PIERCING \
+		or not source.is_destroyed() or damage <= 0:
+		return results
+	var beam_step := BlockState.beam_vector(source.beam_direction)
+	if beam_step == Vector2i.ZERO:
+		return results
+	var cell := source.cell + beam_step
+	while _is_inside_world(cell):
+		var target := get_block_at(cell)
+		if target != null and not target.is_destroyed() \
+			and target.type != BlockState.BlockType.ROCK:
+			var result := _resolve_damage(
+				target,
+				damage,
+				Vector2.ZERO,
+				false,
+				false,
+				true,
+				source.cell,
+				source.beam_direction,
+			)
+			if result.damage_applied:
+				results.append(result)
+		cell += beam_step
+	return results
 
 
 func resolve_explosion(source_block_id: int, damage: int = 3) -> Array[BlockDamageResult]:
@@ -102,7 +153,11 @@ func _resolve_damage(
 	block: BlockState,
 	damage: int,
 	contact_normal: Vector2,
-	is_explosion: bool,
+	is_explosion: bool = false,
+	is_echo: bool = false,
+	is_piercing: bool = false,
+	piercing_origin_cell: Vector2i = Vector2i(-1, -1),
+	piercing_direction: int = BlockState.BeamDirection.NONE,
 ) -> BlockDamageResult:
 	var result := BlockDamageResult.new()
 
@@ -112,7 +167,11 @@ func _resolve_damage(
 	result.remaining_hit_points = block.hit_points
 	result.damage_amount = maxi(0, damage)
 	result.is_explosion = is_explosion
-	if block.type == BlockState.BlockType.ARMORED and not is_explosion \
+	result.is_echo = is_echo
+	result.is_piercing = is_piercing
+	result.piercing_origin_cell = piercing_origin_cell
+	result.piercing_direction = piercing_direction
+	if block.type == BlockState.BlockType.ARMORED and not is_explosion and not is_piercing \
 		and not block.accepts_contact(contact_normal):
 		result.blocked_by_armor = true
 		return result
@@ -121,6 +180,11 @@ func _resolve_damage(
 		result.destroyed = block.is_destroyed()
 		result.remaining_hit_points = block.hit_points
 	return result
+
+
+func _is_inside_world(cell: Vector2i) -> bool:
+	return cell.x >= 0 and cell.x < BoardGeometry.WORLD_GRID_SIZE.x \
+		and cell.y >= 0 and cell.y < BoardGeometry.WORLD_GRID_SIZE.y
 
 
 func _is_valid_cell_for_type(cell: Vector2i, block_type: BlockState.BlockType) -> bool:
