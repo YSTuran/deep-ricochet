@@ -37,7 +37,8 @@
           "entries": [
             { "labelKey": "CREDITS_AUDIO_IMPACT", "value": "Kenney • CC0 1.0 Universal" },
             { "labelKey": "CREDITS_AUDIO_INTERFACE", "value": "Kenney • CC0 1.0 Universal" },
-            { "labelKey": "CREDITS_AUDIO_DIGITAL", "value": "Kenney • CC0 1.0 Universal" }
+            { "labelKey": "CREDITS_AUDIO_DIGITAL", "value": "Kenney • CC0 1.0 Universal" },
+            { "labelKey": "CREDITS_AUDIO_ACID", "value": "Deep Ricochet • original synthesis" }
           ]
         },
         {

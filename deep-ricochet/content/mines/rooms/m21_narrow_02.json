@@ -223,7 +223,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-11",
+  "contentVersion": "p2-mines-12",
   "displayName": "Demir Damarı",
   "displayNameKey": "MINE_21_NARROW_02",
   "exampleAngles": [

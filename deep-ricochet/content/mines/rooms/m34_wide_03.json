@@ -21,7 +21,7 @@
     {
       "cell": [
         6,
-        3
+        2
       ],
       "hitPoints": 9,
       "id": 340303,
@@ -74,17 +74,17 @@
     },
     {
       "cell": [
-        4,
-        4
+        6,
+        3
       ],
-      "hitPoints": 8,
+      "hitPoints": 6,
       "id": 340309,
-      "type": "ore"
+      "type": "echo"
     },
     {
       "cell": [
-        5,
-        3
+        4,
+        4
       ],
       "hitPoints": 6,
       "id": 340310,
@@ -92,12 +92,21 @@
     },
     {
       "cell": [
+        5,
+        3
+      ],
+      "hitPoints": 8,
+      "id": 340311,
+      "type": "cracked"
+    },
+    {
+      "cell": [
         2,
         5
       ],
-      "hitPoints": 6,
-      "id": 340311,
-      "type": "echo"
+      "hitPoints": 8,
+      "id": 340312,
+      "type": "cracked"
     },
     {
       "cell": [
@@ -105,8 +114,8 @@
         6
       ],
       "hitPoints": 8,
-      "id": 340312,
-      "type": "normal"
+      "id": 340313,
+      "type": "explosive"
     },
     {
       "cell": [
@@ -114,26 +123,27 @@
         2
       ],
       "hitPoints": 8,
-      "id": 340313,
-      "type": "cracked"
+      "id": 340314,
+      "type": "normal"
     },
     {
+      "beamDirection": "down",
       "cell": [
         5,
         4
       ],
-      "hitPoints": 8,
-      "id": 340314,
-      "type": "ore"
+      "hitPoints": 7,
+      "id": 340315,
+      "type": "piercing"
     },
     {
       "cell": [
         3,
         7
       ],
-      "hitPoints": 8,
-      "id": 340315,
-      "type": "ore"
+      "hitPoints": 6,
+      "id": 340316,
+      "type": "echo"
     },
     {
       "cell": [
@@ -141,8 +151,8 @@
         4
       ],
       "hitPoints": 8,
-      "id": 340316,
-      "type": "explosive"
+      "id": 340317,
+      "type": "ore"
     },
     {
       "cell": [
@@ -150,8 +160,8 @@
         5
       ],
       "hitPoints": 8,
-      "id": 340317,
-      "type": "cracked"
+      "id": 340318,
+      "type": "normal"
     },
     {
       "cell": [
@@ -159,8 +169,8 @@
         7
       ],
       "hitPoints": 8,
-      "id": 340318,
-      "type": "explosive"
+      "id": 340319,
+      "type": "ore"
     },
     {
       "cell": [
@@ -168,26 +178,16 @@
         3
       ],
       "hitPoints": 8,
-      "id": 340319,
+      "id": 340320,
       "type": "armored",
       "vulnerableSides": [
         "bottom"
       ]
     },
     {
-      "beamDirection": "left",
       "cell": [
         3,
         4
-      ],
-      "hitPoints": 7,
-      "id": 340320,
-      "type": "piercing"
-    },
-    {
-      "cell": [
-        6,
-        2
       ],
       "hitPoints": 4,
       "id": 340321,
@@ -203,13 +203,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-11",
+  "contentVersion": "p2-mines-12",
   "displayName": "Fıçı Kemeri",
   "displayNameKey": "MINE_34_WIDE_03",
   "exampleAngles": [
-    112.5,
-    112.5,
-    112.5
+    115.0,
+    115.0,
+    115.0
   ],
   "family": "safe",
   "height": 8,

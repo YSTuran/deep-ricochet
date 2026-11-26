@@ -27,3 +27,5 @@ Projede yalnızca kullanılan küçük alt küme tutulur. Dosyalar işlevlerine 
 | `room_success.ogg` | Digital Audio | `threeTone1.ogg` |
 | `room_failure.ogg` | Digital Audio | `lowDown.ogg` |
 | `new_best.ogg` | Digital Audio | `highUp.ogg` |
+
+`acid_hiss.wav` asit varilinin kırılma sesi için proje kapsamında sentezlendi; üçüncü taraf bir kaynaktan alınmadı.

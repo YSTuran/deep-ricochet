@@ -30,10 +30,19 @@
     {
       "cell": [
         0,
-        7
+        5
       ],
       "hitPoints": 9,
       "id": 320604,
+      "type": "acid_barrel"
+    },
+    {
+      "cell": [
+        5,
+        3
+      ],
+      "hitPoints": 9,
+      "id": 320605,
       "type": "acid_barrel"
     },
     {
@@ -42,21 +51,12 @@
         3
       ],
       "hitPoints": 0,
-      "id": 320605,
-      "type": "rock"
-    },
-    {
-      "cell": [
-        7,
-        3
-      ],
-      "hitPoints": 0,
       "id": 320606,
       "type": "rock"
     },
     {
       "cell": [
-        6,
+        7,
         3
       ],
       "hitPoints": 0,
@@ -65,8 +65,8 @@
     },
     {
       "cell": [
-        1,
-        4
+        6,
+        3
       ],
       "hitPoints": 0,
       "id": 320608,
@@ -74,7 +74,7 @@
     },
     {
       "cell": [
-        7,
+        1,
         4
       ],
       "hitPoints": 0,
@@ -83,7 +83,7 @@
     },
     {
       "cell": [
-        0,
+        7,
         4
       ],
       "hitPoints": 0,
@@ -92,8 +92,8 @@
     },
     {
       "cell": [
-        1,
-        5
+        0,
+        4
       ],
       "hitPoints": 0,
       "id": 320611,
@@ -101,7 +101,7 @@
     },
     {
       "cell": [
-        6,
+        1,
         5
       ],
       "hitPoints": 0,
@@ -110,7 +110,7 @@
     },
     {
       "cell": [
-        0,
+        6,
         5
       ],
       "hitPoints": 0,
@@ -118,34 +118,43 @@
       "type": "rock"
     },
     {
-      "beamDirection": "left",
-      "cell": [
-        7,
-        7
-      ],
-      "hitPoints": 7,
-      "id": 320614,
-      "type": "piercing"
-    },
-    {
-      "beamDirection": "down",
-      "cell": [
-        7,
-        6
-      ],
-      "hitPoints": 7,
-      "id": 320615,
-      "type": "piercing"
-    },
-    {
-      "beamDirection": "left",
       "cell": [
         7,
         5
       ],
-      "hitPoints": 7,
+      "hitPoints": 0,
+      "id": 320614,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 320615,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        7,
+        7
+      ],
+      "hitPoints": 8,
       "id": 320616,
-      "type": "piercing"
+      "type": "ore"
+    },
+    {
+      "cell": [
+        7,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 320617,
+      "type": "ore"
     },
     {
       "cell": [
@@ -153,17 +162,18 @@
         7
       ],
       "hitPoints": 8,
-      "id": 320617,
+      "id": 320618,
       "type": "explosive"
     },
     {
+      "beamDirection": "up",
       "cell": [
         1,
         6
       ],
-      "hitPoints": 8,
-      "id": 320618,
-      "type": "explosive"
+      "hitPoints": 7,
+      "id": 320619,
+      "type": "piercing"
     },
     {
       "cell": [
@@ -171,7 +181,7 @@
         6
       ],
       "hitPoints": 8,
-      "id": 320619,
+      "id": 320620,
       "type": "cracked"
     },
     {
@@ -180,25 +190,13 @@
         7
       ],
       "hitPoints": 6,
-      "id": 320620,
+      "id": 320621,
       "type": "echo"
     },
     {
       "cell": [
         4,
         7
-      ],
-      "hitPoints": 8,
-      "id": 320621,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
-    },
-    {
-      "cell": [
-        2,
-        6
       ],
       "hitPoints": 4,
       "id": 320622,
@@ -207,7 +205,7 @@
     {
       "cell": [
         2,
-        3
+        6
       ],
       "hitPoints": 4,
       "id": 320623,
@@ -223,13 +221,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-11",
+  "contentVersion": "p2-mines-12",
   "displayName": "Aşınma Kuyusu",
   "displayNameKey": "MINE_32_NARROW_03",
   "exampleAngles": [
-    73.5,
-    73.5,
-    73.5
+    67.5,
+    67.5,
+    67.5
   ],
   "family": "bonus",
   "height": 8,

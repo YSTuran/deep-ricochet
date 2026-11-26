@@ -29,7 +29,7 @@
     },
     {
       "cell": [
-        6,
+        5,
         6
       ],
       "hitPoints": 9,
@@ -83,8 +83,8 @@
     },
     {
       "cell": [
-        5,
-        7
+        6,
+        6
       ],
       "hitPoints": 8,
       "id": 350210,
@@ -92,24 +92,31 @@
     },
     {
       "cell": [
+        5,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 350211,
+      "type": "normal"
+    },
+    {
+      "cell": [
         6,
         5
       ],
       "hitPoints": 8,
-      "id": 350211,
-      "type": "cracked"
+      "id": 350212,
+      "type": "normal"
     },
     {
+      "beamDirection": "right",
       "cell": [
         1,
         5
       ],
-      "hitPoints": 8,
-      "id": 350212,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "hitPoints": 7,
+      "id": 350213,
+      "type": "piercing"
     },
     {
       "cell": [
@@ -117,8 +124,8 @@
         4
       ],
       "hitPoints": 8,
-      "id": 350213,
-      "type": "normal"
+      "id": 350214,
+      "type": "explosive"
     },
     {
       "cell": [
@@ -126,17 +133,17 @@
         7
       ],
       "hitPoints": 8,
-      "id": 350214,
-      "type": "normal"
+      "id": 350215,
+      "type": "explosive"
     },
     {
       "cell": [
         6,
         7
       ],
-      "hitPoints": 8,
-      "id": 350215,
-      "type": "ore"
+      "hitPoints": 6,
+      "id": 350216,
+      "type": "echo"
     },
     {
       "cell": [
@@ -144,8 +151,11 @@
         5
       ],
       "hitPoints": 8,
-      "id": 350216,
-      "type": "ore"
+      "id": 350217,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
     },
     {
       "cell": [
@@ -153,8 +163,8 @@
         7
       ],
       "hitPoints": 8,
-      "id": 350217,
-      "type": "normal"
+      "id": 350218,
+      "type": "explosive"
     },
     {
       "cell": [
@@ -162,7 +172,7 @@
         3
       ],
       "hitPoints": 8,
-      "id": 350218,
+      "id": 350219,
       "type": "ore"
     },
     {
@@ -170,23 +180,14 @@
         4,
         7
       ],
-      "hitPoints": 6,
-      "id": 350219,
-      "type": "echo"
+      "hitPoints": 8,
+      "id": 350220,
+      "type": "normal"
     },
     {
       "cell": [
         3,
         5
-      ],
-      "hitPoints": 8,
-      "id": 350220,
-      "type": "explosive"
-    },
-    {
-      "cell": [
-        3,
-        7
       ],
       "hitPoints": 4,
       "id": 350221,
@@ -202,13 +203,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-11",
+  "contentVersion": "p2-mines-12",
   "displayName": "Asit Hisarı",
   "displayNameKey": "MINE_35_WIDE_02",
   "exampleAngles": [
-    107.5,
-    107.5,
-    107.5
+    15.0,
+    15.0,
+    15.0
   ],
   "family": "safe",
   "height": 8,

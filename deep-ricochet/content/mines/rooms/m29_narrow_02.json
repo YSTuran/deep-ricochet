@@ -29,11 +29,20 @@
     },
     {
       "cell": [
-        0,
-        7
+        3,
+        2
       ],
       "hitPoints": 9,
       "id": 290504,
+      "type": "acid_barrel"
+    },
+    {
+      "cell": [
+        7,
+        4
+      ],
+      "hitPoints": 9,
+      "id": 290505,
       "type": "acid_barrel"
     },
     {
@@ -42,21 +51,12 @@
         5
       ],
       "hitPoints": 0,
-      "id": 290505,
-      "type": "rock"
-    },
-    {
-      "cell": [
-        6,
-        5
-      ],
-      "hitPoints": 0,
       "id": 290506,
       "type": "rock"
     },
     {
       "cell": [
-        0,
+        6,
         5
       ],
       "hitPoints": 0,
@@ -65,7 +65,7 @@
     },
     {
       "cell": [
-        7,
+        0,
         5
       ],
       "hitPoints": 0,
@@ -74,8 +74,8 @@
     },
     {
       "cell": [
-        1,
-        6
+        7,
+        5
       ],
       "hitPoints": 0,
       "id": 290509,
@@ -83,7 +83,7 @@
     },
     {
       "cell": [
-        6,
+        1,
         6
       ],
       "hitPoints": 0,
@@ -92,7 +92,7 @@
     },
     {
       "cell": [
-        0,
+        6,
         6
       ],
       "hitPoints": 0,
@@ -101,7 +101,7 @@
     },
     {
       "cell": [
-        7,
+        0,
         6
       ],
       "hitPoints": 0,
@@ -110,8 +110,8 @@
     },
     {
       "cell": [
-        1,
-        7
+        7,
+        6
       ],
       "hitPoints": 0,
       "id": 290513,
@@ -119,46 +119,60 @@
     },
     {
       "cell": [
-        5,
-        6
+        1,
+        7
       ],
-      "hitPoints": 8,
+      "hitPoints": 0,
       "id": 290514,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "rock"
     },
     {
       "cell": [
-        3,
+        0,
         7
       ],
       "hitPoints": 8,
       "id": 290515,
-      "type": "ore"
+      "type": "cracked"
     },
     {
+      "beamDirection": "left",
       "cell": [
-        2,
-        7
+        5,
+        6
       ],
-      "hitPoints": 8,
+      "hitPoints": 7,
       "id": 290516,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "piercing"
     },
     {
-      "beamDirection": "down",
+      "beamDirection": "left",
       "cell": [
         3,
-        6
+        7
       ],
       "hitPoints": 7,
       "id": 290517,
       "type": "piercing"
+    },
+    {
+      "beamDirection": "left",
+      "cell": [
+        2,
+        7
+      ],
+      "hitPoints": 7,
+      "id": 290518,
+      "type": "piercing"
+    },
+    {
+      "cell": [
+        3,
+        6
+      ],
+      "hitPoints": 6,
+      "id": 290519,
+      "type": "echo"
     },
     {
       "cell": [
@@ -166,7 +180,7 @@
         4
       ],
       "hitPoints": 8,
-      "id": 290518,
+      "id": 290520,
       "type": "explosive"
     },
     {
@@ -175,7 +189,7 @@
         7
       ],
       "hitPoints": 8,
-      "id": 290519,
+      "id": 290521,
       "type": "ore"
     },
     {
@@ -183,32 +197,14 @@
         3,
         5
       ],
-      "hitPoints": 6,
-      "id": 290520,
-      "type": "echo"
-    },
-    {
-      "cell": [
-        5,
-        7
-      ],
-      "hitPoints": 8,
-      "id": 290521,
-      "type": "cracked"
-    },
-    {
-      "cell": [
-        6,
-        4
-      ],
       "hitPoints": 4,
       "id": 290522,
       "type": "ball_cache"
     },
     {
       "cell": [
-        6,
-        3
+        5,
+        7
       ],
       "hitPoints": 4,
       "id": 290523,
@@ -224,13 +220,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-11",
+  "contentVersion": "p2-mines-12",
   "displayName": "Aşınmış Damar",
   "displayNameKey": "MINE_29_NARROW_02",
   "exampleAngles": [
-    25.0,
-    25.0,
-    25.0
+    15.0,
+    15.0,
+    15.0
   ],
   "family": "bonus",
   "height": 8,

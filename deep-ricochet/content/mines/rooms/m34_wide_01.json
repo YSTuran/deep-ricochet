@@ -29,8 +29,8 @@
     },
     {
       "cell": [
-        0,
-        3
+        1,
+        5
       ],
       "hitPoints": 9,
       "id": 340104,
@@ -38,7 +38,7 @@
     },
     {
       "cell": [
-        7,
+        0,
         3
       ],
       "hitPoints": 0,
@@ -48,7 +48,7 @@
     {
       "cell": [
         7,
-        6
+        3
       ],
       "hitPoints": 0,
       "id": 340106,
@@ -56,8 +56,8 @@
     },
     {
       "cell": [
-        0,
-        7
+        7,
+        6
       ],
       "hitPoints": 0,
       "id": 340107,
@@ -66,7 +66,7 @@
     {
       "cell": [
         0,
-        4
+        7
       ],
       "hitPoints": 0,
       "id": 340108,
@@ -75,7 +75,7 @@
     {
       "cell": [
         0,
-        6
+        4
       ],
       "hitPoints": 0,
       "id": 340109,
@@ -155,22 +155,12 @@
     },
     {
       "cell": [
-        1,
-        5
-      ],
-      "hitPoints": 8,
-      "id": 340118,
-      "type": "explosive"
-    },
-    {
-      "beamDirection": "right",
-      "cell": [
         2,
         6
       ],
-      "hitPoints": 7,
-      "id": 340119,
-      "type": "piercing"
+      "hitPoints": 8,
+      "id": 340118,
+      "type": "ore"
     },
     {
       "cell": [
@@ -178,15 +168,21 @@
         7
       ],
       "hitPoints": 8,
-      "id": 340120,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "id": 340119,
+      "type": "explosive"
     },
     {
       "cell": [
         2,
+        7
+      ],
+      "hitPoints": 6,
+      "id": 340120,
+      "type": "echo"
+    },
+    {
+      "cell": [
+        5,
         7
       ],
       "hitPoints": 4,
@@ -203,7 +199,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-11",
+  "contentVersion": "p2-mines-12",
   "displayName": "Islak Basamak",
   "displayNameKey": "MINE_34_WIDE_01",
   "exampleAngles": [

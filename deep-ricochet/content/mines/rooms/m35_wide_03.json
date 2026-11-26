@@ -30,10 +30,19 @@
     {
       "cell": [
         2,
-        4
+        3
       ],
       "hitPoints": 9,
       "id": 350304,
+      "type": "acid_barrel"
+    },
+    {
+      "cell": [
+        0,
+        7
+      ],
+      "hitPoints": 9,
+      "id": 350305,
       "type": "acid_barrel"
     },
     {
@@ -42,7 +51,7 @@
         4
       ],
       "hitPoints": 0,
-      "id": 350305,
+      "id": 350306,
       "type": "rock"
     },
     {
@@ -51,22 +60,13 @@
         7
       ],
       "hitPoints": 0,
-      "id": 350306,
-      "type": "rock"
-    },
-    {
-      "cell": [
-        0,
-        2
-      ],
-      "hitPoints": 0,
       "id": 350307,
       "type": "rock"
     },
     {
       "cell": [
         0,
-        7
+        2
       ],
       "hitPoints": 0,
       "id": 350308,
@@ -83,12 +83,30 @@
     },
     {
       "cell": [
+        7,
+        6
+      ],
+      "hitPoints": 0,
+      "id": 350310,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        2,
+        4
+      ],
+      "hitPoints": 6,
+      "id": 350311,
+      "type": "echo"
+    },
+    {
+      "cell": [
         1,
         6
       ],
       "hitPoints": 8,
-      "id": 350310,
-      "type": "cracked"
+      "id": 350312,
+      "type": "normal"
     },
     {
       "cell": [
@@ -96,8 +114,8 @@
         5
       ],
       "hitPoints": 8,
-      "id": 350311,
-      "type": "cracked"
+      "id": 350313,
+      "type": "normal"
     },
     {
       "cell": [
@@ -105,7 +123,7 @@
         7
       ],
       "hitPoints": 8,
-      "id": 350312,
+      "id": 350314,
       "type": "ore"
     },
     {
@@ -114,17 +132,18 @@
         3
       ],
       "hitPoints": 8,
-      "id": 350313,
-      "type": "cracked"
+      "id": 350315,
+      "type": "normal"
     },
     {
+      "beamDirection": "right",
       "cell": [
         2,
         5
       ],
-      "hitPoints": 8,
-      "id": 350314,
-      "type": "ore"
+      "hitPoints": 7,
+      "id": 350316,
+      "type": "piercing"
     },
     {
       "cell": [
@@ -132,8 +151,11 @@
         2
       ],
       "hitPoints": 8,
-      "id": 350315,
-      "type": "explosive"
+      "id": 350317,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
     },
     {
       "cell": [
@@ -141,7 +163,7 @@
         6
       ],
       "hitPoints": 8,
-      "id": 350316,
+      "id": 350318,
       "type": "cracked"
     },
     {
@@ -150,7 +172,7 @@
         4
       ],
       "hitPoints": 8,
-      "id": 350317,
+      "id": 350319,
       "type": "explosive"
     },
     {
@@ -158,32 +180,14 @@
         5,
         3
       ],
-      "hitPoints": 8,
-      "id": 350318,
-      "type": "normal"
-    },
-    {
-      "cell": [
-        6,
-        6
-      ],
-      "hitPoints": 6,
-      "id": 350319,
-      "type": "echo"
-    },
-    {
-      "cell": [
-        4,
-        6
-      ],
       "hitPoints": 4,
       "id": 350320,
       "type": "ball_cache"
     },
     {
       "cell": [
-        2,
-        3
+        6,
+        6
       ],
       "hitPoints": 4,
       "id": 350321,
@@ -199,13 +203,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-11",
+  "contentVersion": "p2-mines-12",
   "displayName": "Pas Kemeri",
   "displayNameKey": "MINE_35_WIDE_03",
   "exampleAngles": [
-    77.5,
-    77.5,
-    77.5
+    72.5,
+    72.5,
+    72.5
   ],
   "family": "safe",
   "height": 8,

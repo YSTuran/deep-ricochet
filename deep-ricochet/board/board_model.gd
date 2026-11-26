@@ -164,7 +164,7 @@ func resolve_acid_burst(source_block_id: int) -> Array[BlockDamageResult]:
 		var radius := maxi(absi(offset.x), absi(offset.y))
 		if radius > ACID_RADIUS_CELLS:
 			continue
-		var damage := 7 if radius <= 1 else (3 if radius == 2 else 1)
+		var damage := 5 if radius <= 1 else (3 if radius == 2 else 1)
 		# Asit zırhı aşındırır, fakat tek seferde parçalamaz.
 		if target.type == BlockState.BlockType.ARMORED:
 			damage = 1

@@ -3,7 +3,7 @@ extends RefCounted
 
 const DAILY_MINE_ID := &"daily"
 const SOURCE_MINE_ID := &"mine_28"
-const CONTENT_VERSION := "daily-9"
+const CONTENT_VERSION := "daily-10"
 const CRACKED_HIT_POINTS := 8
 const TARGET_BLOCK_COUNT := 24
 const SOURCE_ROOM_IDS: Array[StringName] = [
@@ -267,7 +267,7 @@ static func _append_block(
 	elif block_type == BlockState.BlockType.PIERCING:
 		candidate_index = _first_piercing_candidate_index(template, candidates, variant)
 		if candidate_index < 0:
-			push_error("Günlük delici kristal için destekli ışın hattı bulunamadı: %s" % template.room_id)
+			push_error("Günlük ışık kristali için destekli ışın hattı bulunamadı: %s" % template.room_id)
 			return false
 	elif block_type == BlockState.BlockType.ACID_BARREL:
 		candidate_index = -1
@@ -276,7 +276,7 @@ static func _append_block(
 				candidate_index = index
 				break
 		if candidate_index < 0:
-			push_error("Günlük asit varili için çekirdekten uzak uygun hücre bulunamadı: %s" % template.room_id)
+			push_error("Günlük asit varili için uygun hücre bulunamadı: %s" % template.room_id)
 			return false
 	var cell: Vector2i = candidates.pop_at(candidate_index)
 	var vulnerable_sides := BlockState.ALL_VULNERABLE_SIDES
@@ -311,9 +311,7 @@ static func _replace_redundant_block(
 	variant: int,
 ) -> bool:
 	for definition: RoomBlockDefinition in template.blocks:
-		if definition.block_type == BlockState.BlockType.CORE \
-			or (definition.block_type == BlockState.BlockType.ROCK \
-				and new_type != BlockState.BlockType.ACID_BARREL) \
+		if definition.block_type in [BlockState.BlockType.CORE, BlockState.BlockType.ROCK] \
 			or int(type_counts.get(definition.block_type, 0)) <= 1:
 			continue
 		if new_type == BlockState.BlockType.ARMORED \
@@ -439,14 +437,6 @@ static func _definition_at(template: RoomTemplate, cell: Vector2i) -> RoomBlockD
 
 
 static func _acid_cell_valid(template: RoomTemplate, cell: Vector2i) -> bool:
-	var core_cell := Vector2i(-1, -1)
-	for definition: RoomBlockDefinition in template.blocks:
-		if definition.block_type == BlockState.BlockType.CORE:
-			core_cell = definition.cell
-			break
-	if core_cell.x < 0 or maxi(absi(cell.x - core_cell.x), absi(cell.y - core_cell.y)) \
-		<= BoardModel.ACID_RADIUS_CELLS:
-		return false
 	var neighbors := 0
 	for definition: RoomBlockDefinition in template.blocks:
 		if definition.cell == cell or definition.block_type == BlockState.BlockType.ROCK:

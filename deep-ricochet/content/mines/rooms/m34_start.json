@@ -20,8 +20,8 @@
     },
     {
       "cell": [
-        0,
-        4
+        5,
+        3
       ],
       "hitPoints": 9,
       "id": 340003,
@@ -30,10 +30,19 @@
     {
       "cell": [
         7,
+        6
+      ],
+      "hitPoints": 9,
+      "id": 340004,
+      "type": "acid_barrel"
+    },
+    {
+      "cell": [
+        7,
         5
       ],
       "hitPoints": 0,
-      "id": 340004,
+      "id": 340005,
       "type": "rock"
     },
     {
@@ -42,22 +51,13 @@
         4
       ],
       "hitPoints": 0,
-      "id": 340005,
-      "type": "rock"
-    },
-    {
-      "cell": [
-        0,
-        3
-      ],
-      "hitPoints": 0,
       "id": 340006,
       "type": "rock"
     },
     {
       "cell": [
-        7,
-        2
+        0,
+        4
       ],
       "hitPoints": 0,
       "id": 340007,
@@ -66,10 +66,19 @@
     {
       "cell": [
         0,
-        7
+        3
       ],
       "hitPoints": 0,
       "id": 340008,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 340009,
       "type": "rock"
     },
     {
@@ -78,7 +87,7 @@
         4
       ],
       "hitPoints": 8,
-      "id": 340009,
+      "id": 340010,
       "type": "cracked"
     },
     {
@@ -87,7 +96,7 @@
         6
       ],
       "hitPoints": 8,
-      "id": 340010,
+      "id": 340011,
       "type": "ore"
     },
     {
@@ -96,7 +105,7 @@
         5
       ],
       "hitPoints": 8,
-      "id": 340011,
+      "id": 340012,
       "type": "cracked"
     },
     {
@@ -106,7 +115,7 @@
         5
       ],
       "hitPoints": 7,
-      "id": 340012,
+      "id": 340013,
       "type": "piercing"
     },
     {
@@ -115,7 +124,7 @@
         4
       ],
       "hitPoints": 8,
-      "id": 340013,
+      "id": 340014,
       "type": "explosive"
     },
     {
@@ -124,7 +133,7 @@
         2
       ],
       "hitPoints": 6,
-      "id": 340014,
+      "id": 340015,
       "type": "echo"
     },
     {
@@ -133,7 +142,7 @@
         4
       ],
       "hitPoints": 8,
-      "id": 340015,
+      "id": 340016,
       "type": "ore"
     },
     {
@@ -142,22 +151,12 @@
         3
       ],
       "hitPoints": 6,
-      "id": 340016,
+      "id": 340017,
       "type": "echo"
     },
     {
-      "beamDirection": "left",
       "cell": [
-        7,
-        7
-      ],
-      "hitPoints": 7,
-      "id": 340017,
-      "type": "piercing"
-    },
-    {
-      "cell": [
-        6,
+        0,
         7
       ],
       "hitPoints": 8,
@@ -166,17 +165,17 @@
     },
     {
       "cell": [
-        2,
-        6
+        7,
+        7
       ],
       "hitPoints": 8,
       "id": 340019,
-      "type": "normal"
+      "type": "ore"
     },
     {
       "cell": [
-        5,
-        3
+        6,
+        7
       ],
       "hitPoints": 4,
       "id": 340020,
@@ -184,7 +183,7 @@
     },
     {
       "cell": [
-        7,
+        2,
         6
       ],
       "hitPoints": 4,
@@ -201,7 +200,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-11",
+  "contentVersion": "p2-mines-12",
   "displayName": "Korozif Kapı",
   "displayNameKey": "MINE_34_START",
   "exampleAngles": [

@@ -97,7 +97,6 @@ func validation_errors() -> PackedStringArray:
 	var core_count := 0
 	var rock_count := 0
 	var acid_barrel_count := 0
-	var core_cell := Vector2i(-1, -1)
 	for block_index in range(blocks.size()):
 		var definition := blocks[block_index]
 		if definition == null:
@@ -124,7 +123,6 @@ func validation_errors() -> PackedStringArray:
 
 		if definition.block_type == BlockState.BlockType.CORE:
 			core_count += 1
-			core_cell = definition.cell
 			if not BoardGeometry.is_core_row(definition.cell.y):
 				errors.append(
 					"%s çekirdeği üst bölgede %d-%d satırları arasında olmalıdır." % [
@@ -188,12 +186,12 @@ func validation_errors() -> PackedStringArray:
 				errors.append("%s yankı bloğu olduğu için %d cana sahip olmalıdır." % [label, ECHO_HIT_POINTS])
 		elif definition.block_type == BlockState.BlockType.BALL_CACHE:
 			if definition.hit_points != BALL_CACHE_HIT_POINTS:
-				errors.append("%s top haznesi olduğu için %d cana sahip olmalıdır." % [label, BALL_CACHE_HIT_POINTS])
+				errors.append("%s top kutusu olduğu için %d cana sahip olmalıdır." % [label, BALL_CACHE_HIT_POINTS])
 		elif definition.block_type == BlockState.BlockType.PIERCING:
 			if definition.hit_points != PIERCING_HIT_POINTS:
-				errors.append("%s delici kristal olduğu için %d cana sahip olmalıdır." % [label, PIERCING_HIT_POINTS])
+				errors.append("%s ışık kristali olduğu için %d cana sahip olmalıdır." % [label, PIERCING_HIT_POINTS])
 			if not _is_valid_beam_direction(definition.beam_direction):
-				errors.append("%s delici kristalin ışın yönü geçersizdir." % label)
+				errors.append("%s ışık kristalinin ışın yönü geçersizdir." % label)
 		elif definition.block_type == BlockState.BlockType.ACID_BARREL:
 			acid_barrel_count += 1
 			if definition.hit_points != ACID_BARREL_HIT_POINTS:
@@ -204,12 +202,8 @@ func validation_errors() -> PackedStringArray:
 
 	if core_count != 1:
 		errors.append("Bir oda tam olarak bir çekirdek içermelidir; bulunan: %d." % core_count)
-	if acid_barrel_count > 1:
-		errors.append("Bir odada en fazla bir asit varili bulunabilir.")
-	for definition: RoomBlockDefinition in blocks:
-		if definition != null and definition.block_type == BlockState.BlockType.ACID_BARREL \
-			and maxi(absi(definition.cell.x - core_cell.x), absi(definition.cell.y - core_cell.y)) <= BoardModel.ACID_RADIUS_CELLS:
-			errors.append("%d kimlikli asit varili çekirdeğe çok yakın." % definition.id)
+	if acid_barrel_count > 2:
+		errors.append("Bir odada en fazla iki asit varili bulunabilir.")
 	for definition: RoomBlockDefinition in blocks:
 		if definition == null or definition.block_type != BlockState.BlockType.ARMORED:
 			continue
@@ -235,7 +229,7 @@ func validation_errors() -> PackedStringArray:
 		var support_cell := definition.cell - beam_step
 		if _is_cell_inside_world(support_cell) and not known_cells.has(support_cell):
 			errors.append(
-				"%d kimlikli delici kristalin arkasında blok veya duvar desteği yoktur." \
+				"%d kimlikli ışık kristalinin arkasında blok veya duvar desteği yoktur." \
 					% definition.id
 			)
 		var ray_cell := definition.cell + beam_step
@@ -248,7 +242,7 @@ func validation_errors() -> PackedStringArray:
 			ray_cell += beam_step
 		if not has_damageable_target:
 			errors.append(
-				"%d kimlikli delici kristalin ışın yönünde hasar alabilecek blok yoktur." \
+				"%d kimlikli ışık kristalinin ışın yönünde hasar alabilecek blok yoktur." \
 					% definition.id
 			)
 	if rock_count > MAX_ROCK_COUNT:

@@ -20,11 +20,20 @@
     },
     {
       "cell": [
-        7,
-        2
+        1,
+        7
       ],
       "hitPoints": 9,
       "id": 310303,
+      "type": "acid_barrel"
+    },
+    {
+      "cell": [
+        0,
+        2
+      ],
+      "hitPoints": 9,
+      "id": 310304,
       "type": "acid_barrel"
     },
     {
@@ -33,22 +42,13 @@
         5
       ],
       "hitPoints": 0,
-      "id": 310304,
-      "type": "rock"
-    },
-    {
-      "cell": [
-        0,
-        7
-      ],
-      "hitPoints": 0,
       "id": 310305,
       "type": "rock"
     },
     {
       "cell": [
-        0,
-        4
+        7,
+        2
       ],
       "hitPoints": 0,
       "id": 310306,
@@ -57,7 +57,7 @@
     {
       "cell": [
         0,
-        3
+        7
       ],
       "hitPoints": 0,
       "id": 310307,
@@ -66,10 +66,19 @@
     {
       "cell": [
         0,
-        2
+        4
       ],
       "hitPoints": 0,
       "id": 310308,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 310309,
       "type": "rock"
     },
     {
@@ -78,7 +87,7 @@
         5
       ],
       "hitPoints": 6,
-      "id": 310309,
+      "id": 310310,
       "type": "echo"
     },
     {
@@ -87,7 +96,7 @@
         6
       ],
       "hitPoints": 8,
-      "id": 310310,
+      "id": 310311,
       "type": "explosive"
     },
     {
@@ -96,7 +105,7 @@
         3
       ],
       "hitPoints": 6,
-      "id": 310311,
+      "id": 310312,
       "type": "echo"
     },
     {
@@ -105,7 +114,7 @@
         6
       ],
       "hitPoints": 8,
-      "id": 310312,
+      "id": 310313,
       "type": "cracked"
     },
     {
@@ -114,18 +123,17 @@
         5
       ],
       "hitPoints": 8,
-      "id": 310313,
+      "id": 310314,
       "type": "ore"
     },
     {
-      "beamDirection": "right",
       "cell": [
         1,
         2
       ],
-      "hitPoints": 7,
-      "id": 310314,
-      "type": "piercing"
+      "hitPoints": 8,
+      "id": 310315,
+      "type": "ore"
     },
     {
       "cell": [
@@ -133,7 +141,7 @@
         4
       ],
       "hitPoints": 8,
-      "id": 310315,
+      "id": 310316,
       "type": "cracked"
     },
     {
@@ -142,7 +150,7 @@
         3
       ],
       "hitPoints": 8,
-      "id": 310316,
+      "id": 310317,
       "type": "ore"
     },
     {
@@ -151,7 +159,7 @@
         7
       ],
       "hitPoints": 6,
-      "id": 310317,
+      "id": 310318,
       "type": "echo"
     },
     {
@@ -161,7 +169,7 @@
         4
       ],
       "hitPoints": 7,
-      "id": 310318,
+      "id": 310319,
       "type": "piercing"
     },
     {
@@ -169,23 +177,14 @@
         6,
         4
       ],
-      "hitPoints": 8,
-      "id": 310319,
-      "type": "normal"
-    },
-    {
-      "cell": [
-        2,
-        5
-      ],
       "hitPoints": 4,
       "id": 310320,
       "type": "ball_cache"
     },
     {
       "cell": [
-        5,
-        7
+        2,
+        5
       ],
       "hitPoints": 4,
       "id": 310321,
@@ -201,7 +200,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-11",
+  "contentVersion": "p2-mines-12",
   "displayName": "Çürük Kemer",
   "displayNameKey": "MINE_31_WIDE_03",
   "exampleAngles": [

@@ -9,6 +9,7 @@ const MATERIAL_INTERVAL_USEC := 85_000
 const PENTATONIC_PITCHES := [1.0, 1.189207, 1.33484, 1.498307, 1.781797]
 const AMBIENT_MIX_RATE := 22_050
 const AMBIENT_DURATION_SECONDS := 8
+const ACID_HISS_VOLUME_DB := -13.0
 
 const COLLISION_NOTE: AudioStream = preload("res://assets/audio/sfx/collision_note.ogg")
 const LAUNCH: AudioStream = preload("res://assets/audio/sfx/launch.ogg")
@@ -17,6 +18,7 @@ const ORE_HIT: AudioStream = preload("res://assets/audio/sfx/ore_hit.ogg")
 const ROCK_HIT: AudioStream = preload("res://assets/audio/sfx/rock_hit.ogg")
 const BLOCK_BREAK: AudioStream = preload("res://assets/audio/sfx/block_break.ogg")
 const CORE_BREAK: AudioStream = preload("res://assets/audio/sfx/core_break.ogg")
+const ACID_HISS: AudioStream = preload("res://assets/audio/sfx/acid_hiss.wav")
 const UI_CLICK: AudioStream = preload("res://assets/audio/sfx/ui_click.ogg")
 const UI_CONFIRM: AudioStream = preload("res://assets/audio/sfx/ui_confirm.ogg")
 const ROUTE_SELECT: AudioStream = preload("res://assets/audio/sfx/route_select.ogg")
@@ -140,7 +142,8 @@ func play_break(block_type: int) -> void:
 	elif block_type == BlockState.BlockType.PIERCING:
 		_play_sfx(CORE_BREAK, -7.0, 1.32)
 	elif block_type == BlockState.BlockType.ACID_BARREL:
-		_play_sfx(BLOCK_BREAK, -4.0, 0.68)
+		_play_sfx(BLOCK_BREAK, -10.0, 0.72)
+		_play_sfx(ACID_HISS, ACID_HISS_VOLUME_DB, 1.0)
 	else:
 		_play_sfx(BLOCK_BREAK, -7.0, 0.96)
 

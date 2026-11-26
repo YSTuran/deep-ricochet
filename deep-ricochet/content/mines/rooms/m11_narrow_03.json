@@ -202,7 +202,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-11",
+  "contentVersion": "p2-mines-12",
   "displayName": "Kalkan Boğazı",
   "displayNameKey": "MINE_11_NARROW_03",
   "exampleAngles": [

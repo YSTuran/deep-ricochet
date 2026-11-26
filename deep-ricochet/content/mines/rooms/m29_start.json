@@ -29,8 +29,8 @@
     },
     {
       "cell": [
-        0,
-        2
+        1,
+        6
       ],
       "hitPoints": 9,
       "id": 290004,
@@ -39,7 +39,7 @@
     {
       "cell": [
         0,
-        4
+        2
       ],
       "hitPoints": 0,
       "id": 290005,
@@ -47,8 +47,8 @@
     },
     {
       "cell": [
-        7,
-        7
+        0,
+        4
       ],
       "hitPoints": 0,
       "id": 290006,
@@ -56,7 +56,7 @@
     },
     {
       "cell": [
-        0,
+        7,
         7
       ],
       "hitPoints": 0,
@@ -65,8 +65,8 @@
     },
     {
       "cell": [
-        7,
-        2
+        0,
+        7
       ],
       "hitPoints": 0,
       "id": 290008,
@@ -74,8 +74,8 @@
     },
     {
       "cell": [
-        0,
-        3
+        7,
+        2
       ],
       "hitPoints": 0,
       "id": 290009,
@@ -127,13 +127,14 @@
       "type": "ore"
     },
     {
+      "beamDirection": "left",
       "cell": [
         2,
         6
       ],
-      "hitPoints": 8,
+      "hitPoints": 7,
       "id": 290015,
-      "type": "ore"
+      "type": "piercing"
     },
     {
       "cell": [
@@ -176,8 +177,8 @@
     },
     {
       "cell": [
-        2,
-        5
+        0,
+        3
       ],
       "hitPoints": 8,
       "id": 290020,
@@ -185,7 +186,7 @@
     },
     {
       "cell": [
-        0,
+        2,
         5
       ],
       "hitPoints": 4,
@@ -202,13 +203,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-11",
+  "contentVersion": "p2-mines-12",
   "displayName": "Asit Eşiği",
   "displayNameKey": "MINE_29_START",
   "exampleAngles": [
-    30.0,
-    30.0,
-    30.0
+    15.0,
+    15.0,
+    15.0
   ],
   "family": "safe",
   "height": 8,

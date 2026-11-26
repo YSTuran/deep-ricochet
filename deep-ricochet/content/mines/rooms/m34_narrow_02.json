@@ -30,7 +30,7 @@
     {
       "cell": [
         1,
-        7
+        6
       ],
       "hitPoints": 9,
       "id": 340504,
@@ -148,11 +148,11 @@
     {
       "cell": [
         1,
-        6
+        7
       ],
       "hitPoints": 8,
       "id": 340517,
-      "type": "explosive"
+      "type": "ore"
     },
     {
       "cell": [
@@ -173,23 +173,22 @@
       "type": "ore"
     },
     {
-      "beamDirection": "right",
       "cell": [
         0,
         7
       ],
-      "hitPoints": 7,
+      "hitPoints": 6,
       "id": 340520,
-      "type": "piercing"
+      "type": "echo"
     },
     {
       "cell": [
         2,
         4
       ],
-      "hitPoints": 6,
+      "hitPoints": 8,
       "id": 340521,
-      "type": "echo"
+      "type": "cracked"
     },
     {
       "cell": [
@@ -198,7 +197,7 @@
       ],
       "hitPoints": 8,
       "id": 340522,
-      "type": "cracked"
+      "type": "explosive"
     },
     {
       "cell": [
@@ -219,7 +218,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-11",
+  "contentVersion": "p2-mines-12",
   "displayName": "Sızan Damar",
   "displayNameKey": "MINE_34_NARROW_02",
   "exampleAngles": [

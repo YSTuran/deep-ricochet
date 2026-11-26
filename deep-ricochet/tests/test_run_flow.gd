@@ -145,7 +145,10 @@ static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: Gam
 		mine_roles[template.role] = mine_roles.get(template.role, 0) + 1
 		if not is_daily:
 			assert(room_cache_count >= 1 and room_cache_count <= 2)
-			assert(room_acid_count == (1 if mine_order >= 29 else 0))
+			if mine_order >= 29:
+				assert(room_acid_count >= 1 and room_acid_count <= 2)
+			else:
+				assert(room_acid_count == 0)
 			var density_tier := floori(float(mine_order - 1) / 3.0)
 			var base_density := mini(22, 14 + density_tier * 2)
 			var minimum_density := base_density
@@ -267,7 +270,11 @@ static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: Gam
 				assert(mine_types.get(BlockState.BlockType.PIERCING, 0) == 0)
 			else:
 				assert(mine_types.get(BlockState.BlockType.PIERCING, 0) > 0)
-		assert(mine_types.get(BlockState.BlockType.ACID_BARREL, 0) == (7 if mine_order >= 29 else 0))
+		var mine_acid_count: int = mine_types.get(BlockState.BlockType.ACID_BARREL, 0)
+		if mine_order >= 29:
+			assert(mine_acid_count >= 7 and mine_acid_count <= 14)
+		else:
+			assert(mine_acid_count == 0)
 		assert(mine_types.get(BlockState.BlockType.BALL_CACHE, 0) >= 7)
 		assert(mine_types.get(BlockState.BlockType.BALL_CACHE, 0) <= 14)
 	assert(mine_counts.get(DailyRooms.DAILY_MINE_ID, 0) == 14)

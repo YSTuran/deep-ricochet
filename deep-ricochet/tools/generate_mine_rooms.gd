@@ -1,6 +1,6 @@
 extends SceneTree
 
-const CONTENT_VERSION := "p2-mines-11"
+const CONTENT_VERSION := "p2-mines-12"
 const CRACKED_HIT_POINTS := 8
 const NARROW_DURABILITY_BONUS := 1
 const MAX_ROOM_BLOCKS := 24
@@ -146,17 +146,30 @@ func _room_data(mine_index: int, slot_index: int) -> Dictionary:
 			mine_index, slot_index, role, core_cell, passage,
 			occupied, solution_cells, false,
 		)
-		var acid_placed := false
-		for acid_cell: Vector2i in acid_candidates:
-			if maxi(absi(acid_cell.x - core_cell.x), absi(acid_cell.y - core_cell.y)) \
-				<= BoardModel.ACID_RADIUS_CELLS:
+		var acid_target := 1 + posmod(mine_index + slot_index, 2)
+		var acid_cells: Array[Vector2i] = []
+		# Son iki dar oda, önceki dar odalara fazla benzemesin.
+		var acid_variation := 11 if mine_index == 34 and slot_index in [4, 5] else 0
+		for candidate_offset in range(acid_candidates.size()):
+			var candidate_index := posmod(
+				mine_index * 17 + slot_index * 11 + acid_variation + candidate_offset,
+				acid_candidates.size(),
+			)
+			var acid_cell: Vector2i = acid_candidates[candidate_index]
+			var separated := true
+			for previous_cell: Vector2i in acid_cells:
+				if maxi(absi(acid_cell.x - previous_cell.x), absi(acid_cell.y - previous_cell.y)) < 3:
+					separated = false
+					break
+			if not separated:
 				continue
 			entries.append({"cell": acid_cell, "type": "acid_barrel", "base_hp": 9, "gate": false})
 			occupied[acid_cell] = true
-			acid_placed = true
-			break
-		if not acid_placed:
-			push_error("Asit varili için uygun hücre bulunamadı: %s" % room_id)
+			acid_cells.append(acid_cell)
+			if acid_cells.size() == acid_target:
+				break
+		if acid_cells.size() != acid_target:
+			push_error("Asit varilleri için uygun hücre bulunamadı: %s" % room_id)
 			return {}
 
 	var rock_candidates := _rock_candidates(
@@ -210,9 +223,9 @@ func _room_data(mine_index: int, slot_index: int) -> Dictionary:
 		])
 		return {}
 
-	_ensure_required_types(entries, occupied, core_cell, mine_index, slot_index)
-	if mine_index >= 28 and _count_type(entries, "acid_barrel") != 1:
-		push_error("Asit varili yerleştirilemedi: %s" % room_id)
+	_ensure_required_types(entries, occupied, mine_index, slot_index)
+	if mine_index >= 28 and _count_type(entries, "acid_barrel") not in [1, 2]:
+		push_error("Asit varili sayısı geçersiz: %s" % room_id)
 		return {}
 	var blocks := _block_data(entries, occupied, mine_number, slot_index, mine_index, role)
 	var core_hit_points := mini(8, 6 + floori(float(mine_index) / 5.0))
@@ -506,7 +519,6 @@ func _type_for_cell(
 func _ensure_required_types(
 	entries: Array[Dictionary],
 	occupied: Dictionary[Vector2i, bool],
-	core_cell: Vector2i,
 	mine_index: int,
 	slot_index: int,
 ) -> void:
@@ -541,25 +553,9 @@ func _ensure_required_types(
 			if required_type == "piercing" \
 				and _piercing_direction_for_cell(entry["cell"], occupied, entries, mine_index, slot_index, entry_index).is_empty():
 				continue
-			if required_type == "acid_barrel" \
-				and not _acid_candidate(entry["cell"], core_cell, entries):
-				continue
 			entry["type"] = required_type
 			entries[entry_index] = entry
 			break
-
-
-func _acid_candidate(cell: Vector2i, core_cell: Vector2i, entries: Array[Dictionary]) -> bool:
-	if maxi(absi(cell.x - core_cell.x), absi(cell.y - core_cell.y)) <= BoardModel.ACID_RADIUS_CELLS:
-		return false
-	var nearby := 0
-	for entry: Dictionary in entries:
-		if entry["cell"] == cell or str(entry["type"]) == "rock":
-			continue
-		var offset: Vector2i = entry["cell"] - cell
-		if maxi(absi(offset.x), absi(offset.y)) <= 2:
-			nearby += 1
-	return nearby >= 2
 
 
 func _block_data(

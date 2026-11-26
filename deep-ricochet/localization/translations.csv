@@ -27,6 +27,7 @@ CREDITS_SECTION_AUDIO,AUDIO PACKS,SES PAKETLERİ
 CREDITS_AUDIO_IMPACT,Impact Sounds,Impact Sounds
 CREDITS_AUDIO_INTERFACE,Interface Sounds,Interface Sounds
 CREDITS_AUDIO_DIGITAL,Digital Audio,Digital Audio
+CREDITS_AUDIO_ACID,Acid hiss,Asit tıslaması
 CREDITS_SECTION_LICENSES,LICENSES,LİSANSLAR
 CREDITS_LICENSE_AUDIO,Audio assets,Ses assetleri
 CREDITS_LICENSE_ENGINE,Game engine,Oyun motoru
@@ -106,12 +107,12 @@ TUTORIAL_TITLE_5,ARMORED BLOCK,ZIRHLI BLOK
 TUTORIAL_BODY_5,Armored blocks award 40 points and only take direct damage from their weak side or sides.,Zırhlı bloklar 40 puan verir ve yalnızca zayıf kenarlarından doğrudan hasar alır.
 TUTORIAL_TITLE_6,ECHO BLOCK,YANKI BLOĞU
 TUTORIAL_BODY_6,A direct ball hit deals 1 damage to every other echo block. Echo damage does not repeat the effect.,Doğrudan top teması diğer bütün yankı bloklarına 1 hasar verir. Yankı hasarı etkiyi tekrar tetiklemez.
-TUTORIAL_TITLE_7,BALL CACHE,TOP HAZNESİ
-TUTORIAL_BODY_7,Breaking a cache adds 2 balls only to the next shot. The room bonus is capped at 4 and never carries onward.,Hazneyi kırmak yalnızca sonraki atışa 2 top ekler. Oda bonusu en fazla 4 olur ve sonraki odaya taşınmaz.
-TUTORIAL_TITLE_8,PIERCING CRYSTAL,DELİCİ KRİSTAL
+TUTORIAL_TITLE_7,BALL BOX,TOP KUTUSU
+TUTORIAL_BODY_7,Breaking a ball box adds 2 balls only to the next shot. The room bonus is capped at 4 and never carries onward.,Top kutusunu kırmak yalnızca sonraki atışa 2 top ekler. Oda bonusu en fazla 4 olur ve sonraki odaya taşınmaz.
+TUTORIAL_TITLE_8,LIGHT CRYSTAL,IŞIK KRİSTALİ
 TUTORIAL_BODY_8,When broken it fires a beam in its pointed direction and deals 2 damage along that row or column. The beam passes through hard rock without damaging it.,Kırıldığında sivri yönüne ışın gönderip o satır veya sütundaki bloklara 2 hasar verir. Işın sert kayadan ona zarar vermeden geçer.
 TUTORIAL_TITLE_9,ACID BARREL,ASİT VARİLİ
-TUTORIAL_BODY_9,The 9-health acid barrel bursts when broken. It deals 7 damage nearby then 3 and 1 farther out. Hard rock is immune; armored blocks take only 1 damage.,9 canlı asit varili kırılınca yakınındaki bloklara 7; daha uzaktakilere 3 ve 1 hasar verir. Sert kaya etkilenmez; zırhlı bloklar yalnızca 1 hasar alır.
+TUTORIAL_BODY_9,The 9-health acid barrel deals 5 damage nearby then 3 and 1 farther out. Up to two may appear in a room. Hard rock is immune; armor takes only 1.,9 canlı asit varili yakına 5; daha uzağa 3 ve 1 hasar verir. Odada en fazla iki varil olabilir. Sert kaya etkilenmez; zırh 1 hasar alır.
 TUTORIAL_TITLE_10,CHOOSE YOUR ROUTE,ROTANI SEÇ
 TUTORIAL_BODY_10,Wide passages are safer. Narrow veins contain denser layouts but provide a higher score multiplier.,Geniş geçitler daha güvenlidir. Dar damarlar daha yoğundur ancak daha yüksek puan çarpanı verir.
 ROUTE_SELECT,CHOOSE A ROUTE,ROTA SEÇ
@@ -161,8 +162,8 @@ BLOCK_EXPLOSIVE,Explosive block,Patlayıcı blok
 BLOCK_CRACKED,Cracked rock,Çatlak kaya
 BLOCK_ARMORED,Armored block,Zırhlı blok
 BLOCK_ECHO,Echo block,Yankı bloğu
-BLOCK_BALL_CACHE,Ball cache,Top haznesi
-BLOCK_PIERCING,Piercing crystal,Delici kristal
+BLOCK_BALL_CACHE,Ball box,Top kutusu
+BLOCK_PIERCING,Light crystal,Işık kristali
 BLOCK_ACID_BARREL,Acid barrel,Asit varili
 BLOCK_GENERIC,Block,Blok
 NOTICE_INTERRUPTED,The interrupted shot will restart.,Yarım kalan atış baştan oynanacak.

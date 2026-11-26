@@ -20,8 +20,8 @@
     },
     {
       "cell": [
-        1,
-        4
+        0,
+        5
       ],
       "hitPoints": 9,
       "id": 300303,
@@ -29,8 +29,8 @@
     },
     {
       "cell": [
-        0,
-        5
+        7,
+        6
       ],
       "hitPoints": 0,
       "id": 300304,
@@ -39,7 +39,7 @@
     {
       "cell": [
         7,
-        6
+        2
       ],
       "hitPoints": 0,
       "id": 300305,
@@ -47,8 +47,8 @@
     },
     {
       "cell": [
-        7,
-        2
+        0,
+        3
       ],
       "hitPoints": 0,
       "id": 300306,
@@ -57,7 +57,7 @@
     {
       "cell": [
         0,
-        3
+        6
       ],
       "hitPoints": 0,
       "id": 300307,
@@ -66,7 +66,7 @@
     {
       "cell": [
         0,
-        6
+        4
       ],
       "hitPoints": 0,
       "id": 300308,
@@ -74,11 +74,20 @@
     },
     {
       "cell": [
+        1,
+        4
+      ],
+      "hitPoints": 6,
+      "id": 300309,
+      "type": "echo"
+    },
+    {
+      "cell": [
         4,
         6
       ],
       "hitPoints": 8,
-      "id": 300309,
+      "id": 300310,
       "type": "ore"
     },
     {
@@ -87,20 +96,8 @@
         3
       ],
       "hitPoints": 8,
-      "id": 300310,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
-    },
-    {
-      "cell": [
-        0,
-        4
-      ],
-      "hitPoints": 8,
       "id": 300311,
-      "type": "cracked"
+      "type": "ore"
     },
     {
       "cell": [
@@ -171,9 +168,12 @@
         7,
         5
       ],
-      "hitPoints": 6,
+      "hitPoints": 8,
       "id": 300319,
-      "type": "echo"
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
     },
     {
       "cell": [
@@ -203,7 +203,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-11",
+  "contentVersion": "p2-mines-12",
   "displayName": "Yeşil Kemer",
   "displayNameKey": "MINE_30_WIDE_03",
   "exampleAngles": [

@@ -29,11 +29,20 @@
     },
     {
       "cell": [
-        0,
-        7
+        1,
+        2
       ],
       "hitPoints": 9,
       "id": 350504,
+      "type": "acid_barrel"
+    },
+    {
+      "cell": [
+        7,
+        2
+      ],
+      "hitPoints": 9,
+      "id": 350505,
       "type": "acid_barrel"
     },
     {
@@ -42,21 +51,12 @@
         5
       ],
       "hitPoints": 0,
-      "id": 350505,
-      "type": "rock"
-    },
-    {
-      "cell": [
-        6,
-        5
-      ],
-      "hitPoints": 0,
       "id": 350506,
       "type": "rock"
     },
     {
       "cell": [
-        0,
+        6,
         5
       ],
       "hitPoints": 0,
@@ -65,7 +65,7 @@
     },
     {
       "cell": [
-        7,
+        0,
         5
       ],
       "hitPoints": 0,
@@ -74,8 +74,8 @@
     },
     {
       "cell": [
-        1,
-        6
+        7,
+        5
       ],
       "hitPoints": 0,
       "id": 350509,
@@ -83,7 +83,7 @@
     },
     {
       "cell": [
-        7,
+        1,
         6
       ],
       "hitPoints": 0,
@@ -92,7 +92,7 @@
     },
     {
       "cell": [
-        0,
+        7,
         6
       ],
       "hitPoints": 0,
@@ -101,7 +101,7 @@
     },
     {
       "cell": [
-        6,
+        0,
         6
       ],
       "hitPoints": 0,
@@ -110,11 +110,20 @@
     },
     {
       "cell": [
-        1,
-        7
+        6,
+        6
       ],
       "hitPoints": 0,
       "id": 350513,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        7
+      ],
+      "hitPoints": 0,
+      "id": 350514,
       "type": "rock"
     },
     {
@@ -123,7 +132,7 @@
         7
       ],
       "hitPoints": 8,
-      "id": 350514,
+      "id": 350515,
       "type": "armored",
       "vulnerableSides": [
         "bottom"
@@ -135,7 +144,7 @@
         7
       ],
       "hitPoints": 8,
-      "id": 350515,
+      "id": 350516,
       "type": "ore"
     },
     {
@@ -144,7 +153,7 @@
         6
       ],
       "hitPoints": 8,
-      "id": 350516,
+      "id": 350517,
       "type": "ore"
     },
     {
@@ -152,22 +161,13 @@
         7,
         4
       ],
-      "hitPoints": 8,
-      "id": 350517,
-      "type": "normal"
+      "hitPoints": 6,
+      "id": 350518,
+      "type": "echo"
     },
     {
       "cell": [
         6,
-        7
-      ],
-      "hitPoints": 8,
-      "id": 350518,
-      "type": "cracked"
-    },
-    {
-      "cell": [
-        5,
         7
       ],
       "hitPoints": 8,
@@ -176,18 +176,18 @@
     },
     {
       "cell": [
-        2,
-        4
+        1,
+        7
       ],
-      "hitPoints": 6,
+      "hitPoints": 8,
       "id": 350520,
-      "type": "echo"
+      "type": "cracked"
     },
     {
-      "beamDirection": "left",
+      "beamDirection": "right",
       "cell": [
         5,
-        6
+        7
       ],
       "hitPoints": 7,
       "id": 350521,
@@ -195,7 +195,7 @@
     },
     {
       "cell": [
-        3,
+        2,
         4
       ],
       "hitPoints": 4,
@@ -204,8 +204,8 @@
     },
     {
       "cell": [
-        2,
-        3
+        5,
+        6
       ],
       "hitPoints": 4,
       "id": 350523,
@@ -221,7 +221,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-11",
+  "contentVersion": "p2-mines-12",
   "displayName": "Son Damar",
   "displayNameKey": "MINE_35_NARROW_02",
   "exampleAngles": [

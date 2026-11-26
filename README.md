@@ -35,13 +35,13 @@ Oyun sırasında simülasyon `1×` ve `2×` arasında değiştirilebilir. `2×` 
 
 Oyunda sırayla açılan otuz beş maden bulunur. Her madende bir başlangıç, üç geniş geçit ve üç dar damar olmak üzere yedi şablon; toplamda 245 normal oda vardır. Bir koşu bu havuzdan seed tabanlı ve tekrar etmeyen dört oda seçer. Günlük maden için ayrıca on dört yoğun varyant üretilir.
 
-- **Maden 1–6:** Normal blok, cevher, sert kaya, çekirdek ve tek atışlık top haznelerini kullanır.
+- **Maden 1–6:** Normal blok, cevher, sert kaya, çekirdek ve tek atışlık top kutularını kullanır.
 - **Maden 7–10:** Çatlak kaya ve patlayıcı bloklar devreye girer.
 - **Maden 11–14:** Zırhlı bloklar yerleşimlere eklenir ve zayıf nokta kullanımı öğretilir.
 - **Maden 15–18:** Yankı blokları devreye girer; uzaktaki eş bloklar aynı doğrudan vuruştan etkilenir.
 - **Maden 19–22:** Zırhlı, yankılı, çatlak ve patlayıcı blokların birlikte kullanıldığı daha yoğun karışımlar başlar.
-- **Maden 23–28:** Delici kristaller, tek zayıf noktalı zırhlılar ve daha kapalı çekirdek yollarıyla ustalık bölümü oluşur.
-- **Maden 29–35:** Çekirdekten uzakta duran asit varili, çevresindeki blokları katmanlı hasarla etkiler.
+- **Maden 23–28:** Işık kristalleri, tek zayıf noktalı zırhlılar ve daha kapalı çekirdek yollarıyla ustalık bölümü oluşur.
+- **Maden 29–35:** Bir veya iki asit varili, odanın farklı bölgelerinde çevresindeki blokları katmanlı hasarla etkiler.
 
 Maden seviyesi yükseldikçe önce blok yoğunluğu ve ortalama dayanıklılık, ilerleyen bölümlerde ise özel blok oranı, zırhlı blok sayısı ve çekirdeğin koruma katmanı artar. Çekirdek yalnızca merkezde bulunmaz; üst bölgenin sol, orta veya sağ tarafında, kırılabilir blokların arkasında yer alabilir. Atıcının çevresini açık tutmak için 8×10 oyun ızgarasının en alt iki satırına blok yerleştirilmez.
 
@@ -127,15 +127,15 @@ Blokların ortasındaki sayı kalan canı gösterir. Topla doğrudan temas çoğ
       <td>Topun doğrudan temas ettiği her vuruşta odadaki diğer yankı bloklarına bir hasar iletir. İletilen hasar yeni bir yankı başlatmaz.</td>
     </tr>
     <tr>
-      <td><img src="deep-ricochet/assets/images/blocks/blok_top_haznesi.png" width="82" alt="Top haznesi"></td>
-      <td><strong>Top haznesi</strong></td>
+      <td><img src="deep-ricochet/assets/images/blocks/blok_top_haznesi.png" width="82" alt="Top kutusu"></td>
+      <td><strong>Top kutusu</strong></td>
       <td>4</td>
       <td>15</td>
       <td>Kırıldığında yalnızca sonraki atışa iki top ekler. Aynı odada bonus en fazla dört olur; kullanıldıktan veya oda değiştikten sonra sıfırlanır.</td>
     </tr>
     <tr>
-      <td><img src="deep-ricochet/assets/images/blocks/blok_delici_kristal.png" width="82" alt="Delici kristal"></td>
-      <td><strong>Delici kristal</strong></td>
+      <td><img src="deep-ricochet/assets/images/blocks/blok_delici_kristal.png" width="82" alt="Işık kristali"></td>
+      <td><strong>Işık kristali</strong></td>
       <td>7</td>
       <td>30</td>
       <td>Kırıldığında sivri ucunun baktığı satır ya da sütuna ışın gönderir ve yolundaki kırılabilir bloklara iki hasar verir. Sert kayadan geçer fakat ona hasar vermez.</td>
@@ -145,12 +145,12 @@ Blokların ortasındaki sayı kalan canı gösterir. Topla doğrudan temas çoğ
       <td><strong>Asit varili</strong></td>
       <td>9</td>
       <td>20</td>
-      <td>Kırıldığında 7×7 alana yayılır: yakın 3×3 bölgeye 7, 5×5 halkasına 3 ve dış halkaya 1 hasar verir. Sert kaya etkilenmez; zırhlı blok yalnızca 1 hasar alır.</td>
+      <td>Kırıldığında 7×7 alana yayılır: yakın 3×3 bölgeye 5, 5×5 halkasına 3 ve dış halkaya 1 hasar verir. Sert kaya etkilenmez; zırhlı blok yalnızca 1 hasar alır.</td>
     </tr>
   </tbody>
 </table>
 
-Patlama ve delici ışın hasarı zırhlı bloğun kapalı kenarlarını aşar; sert kayayı ise etkileyemez. Patlama, yankı, ışın veya asitle kırılan bütün puanlı bloklar normal kırılma puanlarını verir. Delici kristaller yalnızca arkalarında başka bir blok ya da duvar desteği ve ışın yönlerinde geçerli bir hedef bulunduğunda oda şablonuna yerleştirilir. Her normal odada tam bir veya iki top haznesi bulunur. Asit varili 29. madenden itibaren oda başına bir kez ve çekirdeği etkilemeyecek uzaklıkta yerleştirilir.
+Patlama ve ışık kristali ışını zırhlı bloğun kapalı kenarlarını aşar; sert kayayı ise etkileyemez. Patlama, yankı, ışın veya asitle kırılan bütün puanlı bloklar normal kırılma puanlarını verir. Işık kristalleri yalnızca arkalarında başka bir blok ya da duvar desteği ve ışın yönlerinde geçerli bir hedef bulunduğunda oda şablonuna yerleştirilir. Her normal odada tam bir veya iki top kutusu bulunur. Asit varili 29. madenden itibaren odanın uygun hücrelerine en fazla iki adet yerleştirilir.
 
 ## Puanlama
 
@@ -219,11 +219,11 @@ Seçilen tema ayarlara kaydedilir ve menü, rota önizlemeleri, öğretici ile o
 
 Çarpışma sesleri her yaylımda sıfırlanan Re minör pentatonik bir dizi kullanır. Normal blok, cevher, sert kaya ve çekirdek farklı ses katmanlarına sahiptir. Çok toplu yaylımlarda seslerin üst üste binmesini önlemek için çarpışmalar 45 milisaniyelik hız sınırıyla oynatılır.
 
-Her blok türünün ayrı kırılma dili vardır: normal blokta mavi parçalar, cevherde altın kıvılcımlar, çatlak kayada keskin kırık çizgileri, patlayıcıda çift şok dalgası, zırhlıda metal ve pembe cevher parçaları, yankı bloğunda genişleyen halkalar, top haznesinde dağılan küçük toplar, delici kristalde mor parçalar ve yönlü ışın, çekirdekte ise eş merkezli turkuaz halkalar gösterilir. Grafik modu ışına ek parıltı katmanları eklerken performans modu tek ve daha ince bir çizgi kullanır. Kazanılan puan kırılma noktasından yükselen renkli bir etiketle belirtilir; zırha yanlış yönden veya sert kayaya yapılan temas daha kısa bir sekme efekti üretir. Arka plan maden atmosferi kodla düşük maliyetli olarak üretilir. Android cihazlarda blok ve çekirdek olayları kısa titreşimlerle desteklenebilir; titreşim çağrıları da cihazı gereksiz yere yormamak için sınırlandırılır.
+Her blok türünün ayrı kırılma dili vardır: normal blokta mavi parçalar, cevherde altın kıvılcımlar, çatlak kayada keskin kırık çizgileri, patlayıcıda çift şok dalgası, zırhlıda metal ve pembe cevher parçaları, yankı bloğunda genişleyen halkalar, top kutusunda dağılan küçük toplar, ışık kristalinde mor parçalar ve yönlü ışın, çekirdekte ise eş merkezli turkuaz halkalar gösterilir. Grafik modu ışına ek parıltı katmanları eklerken performans modu tek ve daha ince bir çizgi kullanır. Kazanılan puan kırılma noktasından yükselen renkli bir etiketle belirtilir; zırha yanlış yönden veya sert kayaya yapılan temas daha kısa bir sekme efekti üretir. Arka plan maden atmosferi kodla düşük maliyetli olarak üretilir. Android cihazlarda blok ve çekirdek olayları kısa titreşimlerle desteklenebilir; titreşim çağrıları da cihazı gereksiz yere yormamak için sınırlandırılır.
 
 Asit varili kırıldığında üç etki halkası 3×3, 5×5 ve 7×7 hasar alanlarını gösterir. Performans modunda çizgiler daha sade, grafik modunda daha parlaktır.
 
-Ses efektleri Kenney'nin CC0 paketlerinden seçilmiştir. Kaynak eşleştirmeleri [THIRD_PARTY_AUDIO.md](deep-ricochet/audio/THIRD_PARTY_AUDIO.md) dosyasında tutulur.
+Asit varili kırıldığında kısa ve özgün bir tıslama sesi çalar. Diğer ses efektleri Kenney'nin CC0 paketlerinden seçilmiştir. Kaynak eşleştirmeleri [THIRD_PARTY_AUDIO.md](deep-ricochet/audio/THIRD_PARTY_AUDIO.md) dosyasında tutulur.
 
 ## Ayarlar
 
@@ -248,7 +248,7 @@ Uygulama arka plana geçtiğinde ya da masaüstünde odağını kaybettiğinde o
 
 Ana menünün altındaki **Emeği Geçenler • Lisanslar** bağlantısı iki sayfalı çevrimdışı credits ekranını açar. Geliştirme ve programlama Yusuf Samet Turan, proje danışmanlığı Mustafa Hakan Bozkurt tarafından yürütülmüştür. Görsel tasarım iki ismin ortak katkısıdır: ilk normal, cevher ve çekirdek blokları Mustafa Hakan Bozkurt; diğer bloklar ve oyun görselleri Yusuf Samet Turan tarafından hazırlanmıştır.
 
-Ses efektlerinde Kenney'nin CC0 1.0 lisanslı Impact Sounds, Interface Sounds ve Digital Audio paketleri kullanılır. Oyun motoru Godot Engine MIT lisansı altındadır. Ekrandaki içerik `content/credits.json` dosyasından yüklenir; Türkçe ve İngilizce etiketler ortak çeviri tablosundan gelir. Ayrıntılı ses dosyası eşleştirmeleri [THIRD_PARTY_AUDIO.md](deep-ricochet/audio/THIRD_PARTY_AUDIO.md) içinde tutulur.
+Ses efektlerinde Kenney'nin CC0 1.0 lisanslı Impact Sounds, Interface Sounds ve Digital Audio paketleri ile proje için üretilmiş özgün asit tıslaması kullanılır. Oyun motoru Godot Engine MIT lisansı altındadır. Ekrandaki içerik `content/credits.json` dosyasından yüklenir; Türkçe ve İngilizce etiketler ortak çeviri tablosundan gelir. Ayrıntılı ses dosyası eşleştirmeleri [THIRD_PARTY_AUDIO.md](deep-ricochet/audio/THIRD_PARTY_AUDIO.md) içinde tutulur.
 
 ## Dizin yapısı
 
@@ -329,7 +329,7 @@ Test paketi başlıca şu alanları kapsar:
 - Nişan önizlemesi ile gerçek atışın aynı sonuçları üretmesi.
 - Yaylım zamanlaması, `1×`/`2×` eşdeğerliği ve oda sonuçları.
 - On bir blok türü, erişilebilir zırh kenarları, 5×5 ve zincirleme patlama, 7×7 katmanlı asit, tekrarsız yankı ile yönlü delici ışın.
-- Puan, kalan atış bonusu, tek atışlık top haznesi, geniş/dar rota çarpanları.
+- Puan, kalan atış bonusu, tek atışlık top kutusu, geniş/dar rota çarpanları.
 - 245 normal ve 14 günlük oda; şablon şeması, alt iki satır ve örnek çözüm açıları.
 - Maden kilitleri, puan tabanlı yıldızlar, günlük seed, aynı seed ile tekrar ve dört odalık koşu akışı.
 - Profil, ayarlar, veri göçleri, atomik kayıt, yedek ve bozuk dosya karantinası.

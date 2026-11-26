@@ -21,7 +21,7 @@
     {
       "cell": [
         5,
-        5
+        6
       ],
       "hitPoints": 9,
       "id": 290203,
@@ -82,12 +82,22 @@
       "type": "explosive"
     },
     {
+      "beamDirection": "down",
+      "cell": [
+        5,
+        5
+      ],
+      "hitPoints": 7,
+      "id": 290210,
+      "type": "piercing"
+    },
+    {
       "cell": [
         2,
         6
       ],
       "hitPoints": 8,
-      "id": 290210,
+      "id": 290211,
       "type": "ore"
     },
     {
@@ -96,7 +106,7 @@
         5
       ],
       "hitPoints": 8,
-      "id": 290211,
+      "id": 290212,
       "type": "ore"
     },
     {
@@ -104,9 +114,9 @@
         4,
         6
       ],
-      "hitPoints": 6,
-      "id": 290212,
-      "type": "echo"
+      "hitPoints": 8,
+      "id": 290213,
+      "type": "cracked"
     },
     {
       "cell": [
@@ -114,26 +124,17 @@
         7
       ],
       "hitPoints": 8,
-      "id": 290213,
-      "type": "normal"
+      "id": 290214,
+      "type": "explosive"
     },
     {
       "cell": [
         3,
         4
       ],
-      "hitPoints": 8,
-      "id": 290214,
-      "type": "ore"
-    },
-    {
-      "cell": [
-        5,
-        6
-      ],
-      "hitPoints": 8,
+      "hitPoints": 6,
       "id": 290215,
-      "type": "ore"
+      "type": "echo"
     },
     {
       "cell": [
@@ -166,14 +167,13 @@
       "type": "ore"
     },
     {
-      "beamDirection": "down",
       "cell": [
         3,
         5
       ],
-      "hitPoints": 7,
+      "hitPoints": 8,
       "id": 290219,
-      "type": "piercing"
+      "type": "ore"
     },
     {
       "cell": [
@@ -182,7 +182,7 @@
       ],
       "hitPoints": 8,
       "id": 290220,
-      "type": "cracked"
+      "type": "ore"
     },
     {
       "cell": [
@@ -203,7 +203,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-11",
+  "contentVersion": "p2-mines-12",
   "displayName": "Paslı Koridor",
   "displayNameKey": "MINE_29_WIDE_02",
   "exampleAngles": [

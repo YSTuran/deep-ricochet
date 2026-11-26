@@ -21,7 +21,7 @@
     {
       "cell": [
         7,
-        2
+        6
       ],
       "hitPoints": 9,
       "id": 350003,
@@ -29,8 +29,8 @@
     },
     {
       "cell": [
-        0,
-        7
+        7,
+        2
       ],
       "hitPoints": 0,
       "id": 350004,
@@ -39,7 +39,7 @@
     {
       "cell": [
         0,
-        4
+        7
       ],
       "hitPoints": 0,
       "id": 350005,
@@ -48,7 +48,7 @@
     {
       "cell": [
         0,
-        5
+        4
       ],
       "hitPoints": 0,
       "id": 350006,
@@ -57,7 +57,7 @@
     {
       "cell": [
         0,
-        3
+        5
       ],
       "hitPoints": 0,
       "id": 350007,
@@ -65,8 +65,8 @@
     },
     {
       "cell": [
-        7,
-        7
+        0,
+        3
       ],
       "hitPoints": 0,
       "id": 350008,
@@ -127,14 +127,13 @@
       "type": "explosive"
     },
     {
-      "beamDirection": "left",
       "cell": [
         6,
         7
       ],
-      "hitPoints": 7,
+      "hitPoints": 8,
       "id": 350015,
-      "type": "piercing"
+      "type": "ore"
     },
     {
       "cell": [
@@ -204,7 +203,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-11",
+  "contentVersion": "p2-mines-12",
   "displayName": "Son Sızıntı",
   "displayNameKey": "MINE_35_START",
   "exampleAngles": [

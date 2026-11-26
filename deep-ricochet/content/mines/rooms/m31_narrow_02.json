@@ -29,11 +29,20 @@
     },
     {
       "cell": [
-        6,
-        6
+        0,
+        5
       ],
       "hitPoints": 9,
       "id": 310504,
+      "type": "acid_barrel"
+    },
+    {
+      "cell": [
+        7,
+        4
+      ],
+      "hitPoints": 9,
+      "id": 310505,
       "type": "acid_barrel"
     },
     {
@@ -42,21 +51,12 @@
         7
       ],
       "hitPoints": 0,
-      "id": 310505,
-      "type": "rock"
-    },
-    {
-      "cell": [
-        1,
-        7
-      ],
-      "hitPoints": 0,
       "id": 310506,
       "type": "rock"
     },
     {
       "cell": [
-        6,
+        1,
         7
       ],
       "hitPoints": 0,
@@ -65,8 +65,8 @@
     },
     {
       "cell": [
-        1,
-        2
+        6,
+        7
       ],
       "hitPoints": 0,
       "id": 310508,
@@ -74,7 +74,7 @@
     },
     {
       "cell": [
-        7,
+        1,
         2
       ],
       "hitPoints": 0,
@@ -83,7 +83,7 @@
     },
     {
       "cell": [
-        0,
+        7,
         2
       ],
       "hitPoints": 0,
@@ -92,7 +92,7 @@
     },
     {
       "cell": [
-        6,
+        0,
         2
       ],
       "hitPoints": 0,
@@ -101,8 +101,8 @@
     },
     {
       "cell": [
-        1,
-        3
+        6,
+        2
       ],
       "hitPoints": 0,
       "id": 310512,
@@ -110,7 +110,7 @@
     },
     {
       "cell": [
-        6,
+        1,
         3
       ],
       "hitPoints": 0,
@@ -119,25 +119,28 @@
     },
     {
       "cell": [
+        6,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 310514,
+      "type": "rock"
+    },
+    {
+      "cell": [
         3,
         7
       ],
       "hitPoints": 8,
-      "id": 310514,
-      "type": "normal"
+      "id": 310515,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
     },
     {
       "cell": [
         0,
-        6
-      ],
-      "hitPoints": 8,
-      "id": 310515,
-      "type": "ore"
-    },
-    {
-      "cell": [
-        4,
         6
       ],
       "hitPoints": 8,
@@ -147,25 +150,26 @@
     {
       "cell": [
         4,
-        7
+        6
       ],
       "hitPoints": 8,
       "id": 310517,
       "type": "ore"
     },
     {
+      "beamDirection": "down",
       "cell": [
-        7,
+        6,
         6
       ],
-      "hitPoints": 8,
+      "hitPoints": 7,
       "id": 310518,
-      "type": "cracked"
+      "type": "piercing"
     },
     {
       "cell": [
         4,
-        5
+        7
       ],
       "hitPoints": 6,
       "id": 310519,
@@ -173,19 +177,16 @@
     },
     {
       "cell": [
-        6,
-        5
+        7,
+        6
       ],
       "hitPoints": 8,
       "id": 310520,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "cracked"
     },
     {
       "cell": [
-        0,
+        4,
         5
       ],
       "hitPoints": 8,
@@ -194,8 +195,8 @@
     },
     {
       "cell": [
-        7,
-        4
+        6,
+        5
       ],
       "hitPoints": 4,
       "id": 310522,
@@ -220,7 +221,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-11",
+  "contentVersion": "p2-mines-12",
   "displayName": "Karanlık Damar",
   "displayNameKey": "MINE_31_NARROW_02",
   "exampleAngles": [

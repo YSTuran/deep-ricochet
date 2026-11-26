@@ -163,7 +163,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-11",
+  "contentVersion": "p2-mines-12",
   "displayName": "Barut Girişi",
   "displayNameKey": "MINE_7_START",
   "exampleAngles": [

@@ -29,8 +29,8 @@
     },
     {
       "cell": [
-        1,
-        7
+        6,
+        3
       ],
       "hitPoints": 9,
       "id": 290404,
@@ -128,13 +128,24 @@
       "type": "piercing"
     },
     {
+      "beamDirection": "left",
+      "cell": [
+        1,
+        7
+      ],
+      "hitPoints": 7,
+      "id": 290415,
+      "type": "piercing"
+    },
+    {
+      "beamDirection": "right",
       "cell": [
         0,
         7
       ],
-      "hitPoints": 8,
-      "id": 290415,
-      "type": "ore"
+      "hitPoints": 7,
+      "id": 290416,
+      "type": "piercing"
     },
     {
       "cell": [
@@ -142,27 +153,26 @@
         6
       ],
       "hitPoints": 8,
-      "id": 290416,
-      "type": "cracked"
+      "id": 290417,
+      "type": "ore"
     },
     {
-      "beamDirection": "left",
       "cell": [
         7,
         7
       ],
-      "hitPoints": 7,
-      "id": 290417,
-      "type": "piercing"
+      "hitPoints": 8,
+      "id": 290418,
+      "type": "ore"
     },
     {
       "cell": [
         1,
         6
       ],
-      "hitPoints": 6,
-      "id": 290418,
-      "type": "echo"
+      "hitPoints": 8,
+      "id": 290419,
+      "type": "cracked"
     },
     {
       "cell": [
@@ -170,8 +180,8 @@
         6
       ],
       "hitPoints": 8,
-      "id": 290419,
-      "type": "ore"
+      "id": 290420,
+      "type": "explosive"
     },
     {
       "cell": [
@@ -179,7 +189,7 @@
         7
       ],
       "hitPoints": 6,
-      "id": 290420,
+      "id": 290421,
       "type": "echo"
     },
     {
@@ -187,23 +197,17 @@
         1,
         3
       ],
-      "hitPoints": 6,
-      "id": 290421,
-      "type": "echo"
+      "hitPoints": 8,
+      "id": 290422,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
     },
     {
       "cell": [
         4,
         7
-      ],
-      "hitPoints": 8,
-      "id": 290422,
-      "type": "explosive"
-    },
-    {
-      "cell": [
-        5,
-        4
       ],
       "hitPoints": 4,
       "id": 290423,
@@ -219,13 +223,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-11",
+  "contentVersion": "p2-mines-12",
   "displayName": "Yeşil Yarık",
   "displayNameKey": "MINE_29_NARROW_01",
   "exampleAngles": [
-    17.5,
-    17.5,
-    17.5
+    15.0,
+    15.0,
+    15.0
   ],
   "family": "bonus",
   "height": 8,

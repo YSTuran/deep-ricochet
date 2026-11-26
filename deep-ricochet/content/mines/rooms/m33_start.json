@@ -20,8 +20,8 @@
     },
     {
       "cell": [
-        1,
-        6
+        4,
+        4
       ],
       "hitPoints": 9,
       "id": 330003,
@@ -74,12 +74,21 @@
     },
     {
       "cell": [
+        1,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 330009,
+      "type": "ore"
+    },
+    {
+      "cell": [
         6,
         5
       ],
-      "hitPoints": 6,
-      "id": 330009,
-      "type": "echo"
+      "hitPoints": 8,
+      "id": 330010,
+      "type": "cracked"
     },
     {
       "cell": [
@@ -87,17 +96,8 @@
         6
       ],
       "hitPoints": 8,
-      "id": 330010,
-      "type": "normal"
-    },
-    {
-      "cell": [
-        4,
-        4
-      ],
-      "hitPoints": 8,
       "id": 330011,
-      "type": "ore"
+      "type": "explosive"
     },
     {
       "beamDirection": "left",
@@ -204,13 +204,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-11",
+  "contentVersion": "p2-mines-12",
   "displayName": "Fıçı Eşiği",
   "displayNameKey": "MINE_33_START",
   "exampleAngles": [
-    71.0,
-    71.0,
-    71.0
+    76.0,
+    76.0,
+    76.0
   ],
   "family": "safe",
   "height": 8,
