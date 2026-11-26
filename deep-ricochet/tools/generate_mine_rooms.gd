@@ -49,6 +49,13 @@ const DISPLAY_NAMES := [
 	["Kadim Derinlik", "Harabe Galerisi", "Mühür Koridoru", "Taş Kemer", "Kayıp Yarık", "Kadim Damar", "Unutulmuş Kalp"],
 	["Dip Kapısı", "Son Basamak", "Derin Salon", "Kader Kemeri", "Sonsuz Yarık", "Dip Damarı", "Son Mahzen"],
 	["Nihai Derinlik", "Uç Galeri", "Çekirdek Koridoru", "Nihai Kemer", "Son Sınav", "Efsane Damarı", "Derinlik Tacı"],
+	["Asit Eşiği", "Sızıntı Galerisi", "Paslı Koridor", "Kapalı Fıçı", "Yeşil Yarık", "Aşınmış Damar", "Asit Boğazı"],
+	["Zehirli İniş", "Nemli Basamak", "Fıçı Salonu", "Yeşil Kemer", "Sızan Yarık", "Korozif Damar", "Derin Sızıntı"],
+	["Pas Kapısı", "Ağır Galeri", "Aşınma Koridoru", "Çürük Kemer", "Asit Çukuru", "Karanlık Damar", "Paslı Mahzen"],
+	["Yeşil Derinlik", "Saklı Basamak", "Toksik Salon", "Sızıntı Kemeri", "Kırık Varil", "Yeşil Damar", "Aşınma Kuyusu"],
+	["Fıçı Eşiği", "Eski Galeri", "Akıntı Koridoru", "Zehir Kemeri", "Pas Yarığı", "Çürük Damar", "Asit Mahzeni"],
+	["Korozif Kapı", "Islak Basamak", "Zehirli Salon", "Fıçı Kemeri", "Akıntı Yarığı", "Sızan Damar", "Derin Varil"],
+	["Son Sızıntı", "Dip Basamağı", "Asit Hisarı", "Pas Kemeri", "Yeşil Sınav", "Son Damar", "Derinlik Fıçısı"],
 ]
 
 var _config: GameConfig
@@ -134,6 +141,23 @@ func _room_data(mine_index: int, slot_index: int) -> Dictionary:
 	var solution_cells := _solution_cells(core_cell)
 	var entries: Array[Dictionary] = []
 	_add_core_gates(entries, occupied, core_cell, mine_index, slot_index)
+	if mine_index >= 28:
+		var acid_candidates := _scored_open_cells(
+			mine_index, slot_index, role, core_cell, passage,
+			occupied, solution_cells, false,
+		)
+		var acid_placed := false
+		for acid_cell: Vector2i in acid_candidates:
+			if maxi(absi(acid_cell.x - core_cell.x), absi(acid_cell.y - core_cell.y)) \
+				<= BoardModel.ACID_RADIUS_CELLS:
+				continue
+			entries.append({"cell": acid_cell, "type": "acid_barrel", "base_hp": 9, "gate": false})
+			occupied[acid_cell] = true
+			acid_placed = true
+			break
+		if not acid_placed:
+			push_error("Asit varili için uygun hücre bulunamadı: %s" % room_id)
+			return {}
 
 	var rock_candidates := _rock_candidates(
 		mine_index,
@@ -186,7 +210,10 @@ func _room_data(mine_index: int, slot_index: int) -> Dictionary:
 		])
 		return {}
 
-	_ensure_required_types(entries, occupied, mine_index, slot_index)
+	_ensure_required_types(entries, occupied, core_cell, mine_index, slot_index)
+	if mine_index >= 28 and _count_type(entries, "acid_barrel") != 1:
+		push_error("Asit varili yerleştirilemedi: %s" % room_id)
+		return {}
 	var blocks := _block_data(entries, occupied, mine_number, slot_index, mine_index, role)
 	var core_hit_points := mini(8, 6 + floori(float(mine_index) / 5.0))
 	if role == "narrow":
@@ -479,6 +506,7 @@ func _type_for_cell(
 func _ensure_required_types(
 	entries: Array[Dictionary],
 	occupied: Dictionary[Vector2i, bool],
+	core_cell: Vector2i,
 	mine_index: int,
 	slot_index: int,
 ) -> void:
@@ -495,6 +523,8 @@ func _ensure_required_types(
 		required.append("echo")
 	if mine_index >= 22:
 		required.append("piercing")
+	if mine_index >= 28:
+		required.append("acid_barrel")
 	for required_type: String in required:
 		if _count_type(entries, required_type) > 0:
 			continue
@@ -511,9 +541,25 @@ func _ensure_required_types(
 			if required_type == "piercing" \
 				and _piercing_direction_for_cell(entry["cell"], occupied, entries, mine_index, slot_index, entry_index).is_empty():
 				continue
+			if required_type == "acid_barrel" \
+				and not _acid_candidate(entry["cell"], core_cell, entries):
+				continue
 			entry["type"] = required_type
 			entries[entry_index] = entry
 			break
+
+
+func _acid_candidate(cell: Vector2i, core_cell: Vector2i, entries: Array[Dictionary]) -> bool:
+	if maxi(absi(cell.x - core_cell.x), absi(cell.y - core_cell.y)) <= BoardModel.ACID_RADIUS_CELLS:
+		return false
+	var nearby := 0
+	for entry: Dictionary in entries:
+		if entry["cell"] == cell or str(entry["type"]) == "rock":
+			continue
+		var offset: Vector2i = entry["cell"] - cell
+		if maxi(absi(offset.x), absi(offset.y)) <= 2:
+			nearby += 1
+	return nearby >= 2
 
 
 func _block_data(
@@ -635,6 +681,8 @@ func _hit_points(
 		return RoomTemplate.BALL_CACHE_HIT_POINTS
 	if type_name == "piercing":
 		return RoomTemplate.PIERCING_HIT_POINTS
+	if type_name == "acid_barrel":
+		return RoomTemplate.ACID_BARREL_HIT_POINTS
 	var role_bonus := NARROW_DURABILITY_BONUS if role == "narrow" else 0
 	if type_name == "explosive":
 		return clampi(base_hp + floori(float(mine_index - 6) / 3.0) + role_bonus, 2, 8)

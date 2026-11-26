@@ -1,0 +1,240 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        4,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 330601,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        5,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 330602,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        5,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 330603,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        1,
+        7
+      ],
+      "hitPoints": 9,
+      "id": 330604,
+      "type": "acid_barrel"
+    },
+    {
+      "cell": [
+        1,
+        4
+      ],
+      "hitPoints": 0,
+      "id": 330605,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        4
+      ],
+      "hitPoints": 0,
+      "id": 330606,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        6,
+        4
+      ],
+      "hitPoints": 0,
+      "id": 330607,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 330608,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 330609,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        1,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 330610,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        6,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 330611,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        1,
+        6
+      ],
+      "hitPoints": 0,
+      "id": 330612,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        6
+      ],
+      "hitPoints": 0,
+      "id": 330613,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        6,
+        7
+      ],
+      "hitPoints": 6,
+      "id": 330614,
+      "type": "echo"
+    },
+    {
+      "cell": [
+        0,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 330615,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        3,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 330616,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        5,
+        5
+      ],
+      "hitPoints": 6,
+      "id": 330617,
+      "type": "echo"
+    },
+    {
+      "cell": [
+        7,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 330618,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        3,
+        5
+      ],
+      "hitPoints": 6,
+      "id": 330619,
+      "type": "echo"
+    },
+    {
+      "beamDirection": "left",
+      "cell": [
+        6,
+        6
+      ],
+      "hitPoints": 7,
+      "id": 330620,
+      "type": "piercing"
+    },
+    {
+      "cell": [
+        2,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 330621,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        2,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 330622,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        4,
+        7
+      ],
+      "hitPoints": 4,
+      "id": 330623,
+      "type": "ball_cache"
+    },
+    {
+      "cell": [
+        5,
+        8
+      ],
+      "hitPoints": 8,
+      "id": 330699,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-11",
+  "displayName": "Asit Mahzeni",
+  "displayNameKey": "MINE_33_NARROW_03",
+  "exampleAngles": [
+    84.5,
+    84.5,
+    84.5
+  ],
+  "family": "bonus",
+  "height": 8,
+  "id": "m33_narrow_03",
+  "mineId": "mine_33",
+  "multiplierBps": 15000,
+  "passageColumns": [
+    3
+  ],
+  "role": "narrow",
+  "schemaVersion": 1,
+  "width": 8
+}

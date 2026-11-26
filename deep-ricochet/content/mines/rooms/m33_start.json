@@ -1,0 +1,227 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        5,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 330001,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        5,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 330002,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        1,
+        6
+      ],
+      "hitPoints": 9,
+      "id": 330003,
+      "type": "acid_barrel"
+    },
+    {
+      "cell": [
+        7,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 330004,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        7
+      ],
+      "hitPoints": 0,
+      "id": 330005,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        4
+      ],
+      "hitPoints": 0,
+      "id": 330006,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 330007,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        4
+      ],
+      "hitPoints": 0,
+      "id": 330008,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        6,
+        5
+      ],
+      "hitPoints": 6,
+      "id": 330009,
+      "type": "echo"
+    },
+    {
+      "cell": [
+        6,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 330010,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        4,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 330011,
+      "type": "ore"
+    },
+    {
+      "beamDirection": "left",
+      "cell": [
+        2,
+        4
+      ],
+      "hitPoints": 7,
+      "id": 330012,
+      "type": "piercing"
+    },
+    {
+      "cell": [
+        6,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 330013,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        3,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 330014,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        2,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 330015,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        1,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 330016,
+      "type": "cracked"
+    },
+    {
+      "beamDirection": "right",
+      "cell": [
+        4,
+        5
+      ],
+      "hitPoints": 7,
+      "id": 330017,
+      "type": "piercing"
+    },
+    {
+      "cell": [
+        6,
+        4
+      ],
+      "hitPoints": 6,
+      "id": 330018,
+      "type": "echo"
+    },
+    {
+      "cell": [
+        3,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 330019,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        3,
+        3
+      ],
+      "hitPoints": 8,
+      "id": 330020,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        0,
+        5
+      ],
+      "hitPoints": 4,
+      "id": 330021,
+      "type": "ball_cache"
+    },
+    {
+      "cell": [
+        5,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 330099,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-11",
+  "displayName": "Fıçı Eşiği",
+  "displayNameKey": "MINE_33_START",
+  "exampleAngles": [
+    71.0,
+    71.0,
+    71.0
+  ],
+  "family": "safe",
+  "height": 8,
+  "id": "m33_start",
+  "mineId": "mine_33",
+  "multiplierBps": 10000,
+  "passageColumns": [
+    4,
+    5
+  ],
+  "role": "start",
+  "schemaVersion": 1,
+  "width": 8
+}

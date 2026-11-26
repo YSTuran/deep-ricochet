@@ -19,6 +19,7 @@ const INTEGER_FIELDS := [
 	"echoBreakPoints",
 	"ballCacheBreakPoints",
 	"piercingBreakPoints",
+	"acidBarrelBreakPoints",
 	"unusedShotBonus",
 ]
 const NUMBER_FIELDS := [
@@ -55,6 +56,7 @@ var armored_break_points: int = 40
 var echo_break_points: int = 18
 var ball_cache_break_points: int = 15
 var piercing_break_points: int = 30
+var acid_barrel_break_points: int = 20
 var unused_shot_bonus: int = 20
 
 
@@ -101,6 +103,7 @@ static func load_from_file(path: String = DEFAULT_PATH) -> GameConfig:
 	config.echo_break_points = int(data.get("echoBreakPoints", config.echo_break_points))
 	config.ball_cache_break_points = int(data.get("ballCacheBreakPoints", config.ball_cache_break_points))
 	config.piercing_break_points = int(data.get("piercingBreakPoints", config.piercing_break_points))
+	config.acid_barrel_break_points = int(data.get("acidBarrelBreakPoints", config.acid_barrel_break_points))
 	config.unused_shot_bonus = int(data.get("unusedShotBonus", config.unused_shot_bonus))
 	var validation_errors := config.validation_errors()
 	if not validation_errors.is_empty():
@@ -153,7 +156,8 @@ func validation_errors() -> PackedStringArray:
 	if normal_break_points < 0 or ore_break_points < 0 or core_break_points <= 0 \
 		or explosive_break_points != 10 or cracked_break_points != 6 \
 		or armored_break_points != 40 or echo_break_points != 18 \
-		or ball_cache_break_points != 15 or piercing_break_points != 30:
+		or ball_cache_break_points != 15 or piercing_break_points != 30 \
+		or acid_barrel_break_points != 20:
 		errors.append("Blok puanları negatif olamaz; çekirdek puanı pozitif olmalıdır.")
 	if unused_shot_bonus < 0:
 		errors.append("Kullanılmayan atış bonusu negatif olamaz.")

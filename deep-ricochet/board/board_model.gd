@@ -5,6 +5,7 @@ const ROOM_GRID_SIZE := BoardGeometry.BLOCK_GRID_SIZE
 const CORE_TARGET_ROW := BoardGeometry.CORE_ROW
 const CORE_MIN_TARGET_ROW := BoardGeometry.CORE_MIN_ROW
 const EXPLOSION_RADIUS_CELLS := 2
+const ACID_RADIUS_CELLS := 3
 
 var blocks: Array[BlockState] = []
 
@@ -149,6 +150,40 @@ func resolve_explosion(source_block_id: int, damage: int = 3) -> Array[BlockDama
 	return results
 
 
+func resolve_acid_burst(source_block_id: int) -> Array[BlockDamageResult]:
+	var results: Array[BlockDamageResult] = []
+	var source := get_block_by_id(source_block_id)
+	if source == null or source.type != BlockState.BlockType.ACID_BARREL \
+		or not source.is_destroyed():
+		return results
+	for target: BlockState in blocks:
+		if target.id == source_block_id or target.is_destroyed() \
+			or target.type == BlockState.BlockType.ROCK:
+			continue
+		var offset := target.cell - source.cell
+		var radius := maxi(absi(offset.x), absi(offset.y))
+		if radius > ACID_RADIUS_CELLS:
+			continue
+		var damage := 7 if radius <= 1 else (3 if radius == 2 else 1)
+		# Asit zırhı aşındırır, fakat tek seferde parçalamaz.
+		if target.type == BlockState.BlockType.ARMORED:
+			damage = 1
+		var result := _resolve_damage(
+			target,
+			damage,
+			Vector2.ZERO,
+			false,
+			false,
+			false,
+			Vector2i(-1, -1),
+			BlockState.BeamDirection.NONE,
+			true,
+		)
+		if result.damage_applied:
+			results.append(result)
+	return results
+
+
 func _resolve_damage(
 	block: BlockState,
 	damage: int,
@@ -158,6 +193,7 @@ func _resolve_damage(
 	is_piercing: bool = false,
 	piercing_origin_cell: Vector2i = Vector2i(-1, -1),
 	piercing_direction: int = BlockState.BeamDirection.NONE,
+	is_acid: bool = false,
 ) -> BlockDamageResult:
 	var result := BlockDamageResult.new()
 
@@ -169,9 +205,11 @@ func _resolve_damage(
 	result.is_explosion = is_explosion
 	result.is_echo = is_echo
 	result.is_piercing = is_piercing
+	result.is_acid = is_acid
 	result.piercing_origin_cell = piercing_origin_cell
 	result.piercing_direction = piercing_direction
 	if block.type == BlockState.BlockType.ARMORED and not is_explosion and not is_piercing \
+		and not is_acid \
 		and not block.accepts_contact(contact_normal):
 		result.blocked_by_armor = true
 		return result

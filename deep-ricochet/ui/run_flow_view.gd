@@ -24,6 +24,7 @@ const ARMORED_RIGHT_BOTTOM_TEXTURE: Texture2D = preload("res://assets/images/blo
 const ECHO_TEXTURE: Texture2D = preload("res://assets/images/blocks/blok_yanki.png")
 const BALL_CACHE_TEXTURE: Texture2D = preload("res://assets/images/blocks/blok_top_haznesi.png")
 const PIERCING_TEXTURE: Texture2D = preload("res://assets/images/blocks/blok_delici_kristal.png")
+const ACID_BARREL_TEXTURE: Texture2D = preload("res://assets/images/blocks/blok_asit_varili.png")
 const CRACKED_SOURCE := Rect2(32.0, 36.0, 447.0, 454.0)
 const EXPLOSIVE_SOURCE := Rect2(54.0, 65.0, 404.0, 407.0)
 const ARMORED_BOTTOM_SOURCE := Rect2(5.0, 6.0, 502.0, 502.0)
@@ -267,6 +268,9 @@ func _draw_template_preview(template: RoomTemplate, origin: Vector2, cell_size: 
 			continue
 		elif definition.block_type == BlockState.BlockType.PIERCING:
 			_draw_preview_piercing(block_rect, definition.beam_direction, value)
+			continue
+		elif definition.block_type == BlockState.BlockType.ACID_BARREL:
+			_draw_preview_full_block(block_rect, ACID_BARREL_TEXTURE, value, definition.block_type)
 			continue
 		DeepUI.draw_panel(self, block_rect, color, Color(color).lightened(0.18), 4, 1, false)
 		_draw_mini_value(center, value, cell_size, DeepUI.TEXT)

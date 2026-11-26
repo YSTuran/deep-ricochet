@@ -1,0 +1,226 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        5,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 300301,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        5,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 300302,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        1,
+        4
+      ],
+      "hitPoints": 9,
+      "id": 300303,
+      "type": "acid_barrel"
+    },
+    {
+      "cell": [
+        0,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 300304,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        6
+      ],
+      "hitPoints": 0,
+      "id": 300305,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 300306,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 300307,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        6
+      ],
+      "hitPoints": 0,
+      "id": 300308,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        4,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 300309,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        6,
+        3
+      ],
+      "hitPoints": 8,
+      "id": 300310,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        0,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 300311,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        6,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 300312,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        3,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 300313,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        4,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 300314,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        3,
+        2
+      ],
+      "hitPoints": 8,
+      "id": 300315,
+      "type": "ore"
+    },
+    {
+      "beamDirection": "right",
+      "cell": [
+        1,
+        3
+      ],
+      "hitPoints": 7,
+      "id": 300316,
+      "type": "piercing"
+    },
+    {
+      "cell": [
+        2,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 300317,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        2,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 300318,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        7,
+        5
+      ],
+      "hitPoints": 6,
+      "id": 300319,
+      "type": "echo"
+    },
+    {
+      "cell": [
+        2,
+        3
+      ],
+      "hitPoints": 8,
+      "id": 300320,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        3,
+        4
+      ],
+      "hitPoints": 4,
+      "id": 300321,
+      "type": "ball_cache"
+    },
+    {
+      "cell": [
+        5,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 300399,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-11",
+  "displayName": "Yeşil Kemer",
+  "displayNameKey": "MINE_30_WIDE_03",
+  "exampleAngles": [
+    76.0,
+    76.0,
+    76.0
+  ],
+  "family": "safe",
+  "height": 8,
+  "id": "m30_wide_03",
+  "mineId": "mine_30",
+  "multiplierBps": 10000,
+  "passageColumns": [
+    4,
+    5
+  ],
+  "role": "wide",
+  "schemaVersion": 1,
+  "width": 8
+}

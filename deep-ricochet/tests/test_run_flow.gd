@@ -46,7 +46,7 @@ static func _test_mine_registry_normalizes_order() -> void:
 
 static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: GameConfig) -> void:
 	assert(catalog != null)
-	assert(catalog.templates.size() == 210)
+	assert(catalog.templates.size() == 259)
 	var mine_counts: Dictionary[StringName, int] = {}
 	var block_type_counts: Dictionary[int, int] = {}
 	var mine_block_type_counts: Dictionary[StringName, Dictionary] = {}
@@ -84,6 +84,7 @@ static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: Gam
 		var room_rock_count := 0
 		var edge_rock_count := 0
 		var room_cache_count := 0
+		var room_acid_count := 0
 		for definition: RoomBlockDefinition in template.blocks:
 			if definition.block_type != BlockState.BlockType.CORE:
 				assert(
@@ -123,6 +124,9 @@ static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: Gam
 			elif definition.block_type == BlockState.BlockType.PIERCING:
 				assert(definition.hit_points == RoomTemplate.PIERCING_HIT_POINTS)
 				assert(definition.beam_direction != BlockState.BeamDirection.NONE)
+			elif definition.block_type == BlockState.BlockType.ACID_BARREL:
+				room_acid_count += 1
+				assert(definition.hit_points == RoomTemplate.ACID_BARREL_HIT_POINTS)
 			elif definition.block_type == BlockState.BlockType.CORE:
 				assert(BoardGeometry.is_core_row(definition.cell.y))
 				assert(definition.cell.x >= 1 and definition.cell.x <= 6)
@@ -141,6 +145,7 @@ static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: Gam
 		mine_roles[template.role] = mine_roles.get(template.role, 0) + 1
 		if not is_daily:
 			assert(room_cache_count >= 1 and room_cache_count <= 2)
+			assert(room_acid_count == (1 if mine_order >= 29 else 0))
 			var density_tier := floori(float(mine_order - 1) / 3.0)
 			var base_density := mini(22, 14 + density_tier * 2)
 			var minimum_density := base_density
@@ -176,6 +181,7 @@ static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: Gam
 			assert(template.multiplier_bps == config.bonus_multiplier_bps)
 			assert(template.passage_columns.size() == 1)
 		if is_daily:
+			assert(room_acid_count == 1)
 			assert(
 				template.blocks.size() == DailyRooms.TARGET_BLOCK_COUNT,
 				"Günlük oda yoğunluğu uyuşmuyor: %s (%d/%d)" % [
@@ -198,6 +204,7 @@ static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: Gam
 				BlockState.BlockType.ECHO,
 				BlockState.BlockType.BALL_CACHE,
 				BlockState.BlockType.PIERCING,
+				BlockState.BlockType.ACID_BARREL,
 			]:
 				assert(daily_types.has(required_type))
 	_assert_normal_layout_uniqueness(normal_templates)
@@ -260,6 +267,7 @@ static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: Gam
 				assert(mine_types.get(BlockState.BlockType.PIERCING, 0) == 0)
 			else:
 				assert(mine_types.get(BlockState.BlockType.PIERCING, 0) > 0)
+		assert(mine_types.get(BlockState.BlockType.ACID_BARREL, 0) == (7 if mine_order >= 29 else 0))
 		assert(mine_types.get(BlockState.BlockType.BALL_CACHE, 0) >= 7)
 		assert(mine_types.get(BlockState.BlockType.BALL_CACHE, 0) <= 14)
 	assert(mine_counts.get(DailyRooms.DAILY_MINE_ID, 0) == 14)
@@ -274,6 +282,7 @@ static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: Gam
 	assert(block_type_counts.get(BlockState.BlockType.ECHO, 0) > 0)
 	assert(block_type_counts.get(BlockState.BlockType.BALL_CACHE, 0) > 0)
 	assert(block_type_counts.get(BlockState.BlockType.PIERCING, 0) > 0)
+	assert(block_type_counts.get(BlockState.BlockType.ACID_BARREL, 0) > 0)
 
 	for mine_order in range(1, PlayerProfile.MINE_COUNT + 1):
 		var mine_id := StringName("mine_%02d" % mine_order)
@@ -580,7 +589,7 @@ static func _test_controller_four_room_flow(
 	assert(controller.run_session.mine_id == &"mine_02")
 
 	var final_mine_result := RunSession.new()
-	final_mine_result.mine_id = &"mine_28"
+	final_mine_result.mine_id = &"mine_35"
 	final_mine_result.run_kind = RunSession.RunKind.NORMAL
 	final_mine_result.ended = true
 	final_mine_result.succeeded = true

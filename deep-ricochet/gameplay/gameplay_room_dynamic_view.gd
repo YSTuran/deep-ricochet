@@ -114,9 +114,11 @@ func _draw_impact_effects() -> void:
 				_draw_ball_cache_break(center, progress, color, seed, high_quality)
 			BlockState.BlockType.PIERCING:
 				_draw_piercing_break(center, progress, color, seed, high_quality)
+			BlockState.BlockType.ACID_BARREL:
+				_draw_acid_burst(center, progress, color, high_quality)
 			_:
 				_draw_normal_fragments(center, progress, color, seed, high_quality)
-		if is_explosion and high_quality:
+		if is_explosion and high_quality and block_type == BlockState.BlockType.EXPLOSIVE:
 			draw_arc(center, lerpf(18.0, 78.0, progress), 0.0, TAU, 28, Color(color, 0.42 * (1.0 - progress)), 4.0, true)
 		_draw_point_popup(center, progress, int(effect.get("points", 0)), color, high_quality)
 
@@ -298,6 +300,28 @@ func _draw_piercing_break(
 		]), Color(color.lightened(0.3), 1.0 - progress))
 
 
+func _draw_acid_burst(
+	center: Vector2, progress: float, color: Color, high_quality: bool,
+) -> void:
+	var alpha := (1.0 - progress) * (0.78 if high_quality else 0.56)
+	for radius in range(1, 4):
+		var half_side := float(radius) * BoardGeometry.WORLD_SCALE
+		var size := Vector2.ONE * half_side * 2.0
+		var ring_rect := Rect2(center - Vector2.ONE * half_side, size).intersection(
+			BoardGeometry.SCREEN_RECT
+		)
+		if not ring_rect.has_area():
+			continue
+		draw_rect(
+			ring_rect,
+			Color(color, alpha / float(radius)),
+			false,
+			3.0 if high_quality else 1.5,
+		)
+	if high_quality:
+		draw_circle(center, lerpf(12.0, 35.0, progress), Color(color, alpha * 0.16))
+
+
 func _draw_piercing_beams() -> void:
 	var high_quality := room.quality_mode == AppSettings.QualityMode.GRAPHICS
 	var beam_color := CaveTheme.block_color(BlockState.BlockType.PIERCING).lightened(0.28)
@@ -348,4 +372,6 @@ func _effect_angle(index: int, count: int, seed: int) -> float:
 
 
 func _impact_color(block_type: int) -> Color:
+	if block_type == BlockState.BlockType.ACID_BARREL:
+		return CaveTheme.color(&"acid")
 	return CaveTheme.block_color(block_type)

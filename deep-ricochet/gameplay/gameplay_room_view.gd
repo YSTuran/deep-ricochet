@@ -12,6 +12,7 @@ const ARMORED_RIGHT_BOTTOM_TEXTURE: Texture2D = preload("res://assets/images/blo
 const ECHO_TEXTURE: Texture2D = preload("res://assets/images/blocks/blok_yanki.png")
 const BALL_CACHE_TEXTURE: Texture2D = preload("res://assets/images/blocks/blok_top_haznesi.png")
 const PIERCING_TEXTURE: Texture2D = preload("res://assets/images/blocks/blok_delici_kristal.png")
+const ACID_BARREL_TEXTURE: Texture2D = preload("res://assets/images/blocks/blok_asit_varili.png")
 const CRACKED_SOURCE := Rect2(32.0, 36.0, 447.0, 454.0)
 const EXPLOSIVE_SOURCE := Rect2(54.0, 65.0, 404.0, 407.0)
 const ARMORED_BOTTOM_SOURCE := Rect2(5.0, 6.0, 502.0, 502.0)
@@ -183,6 +184,8 @@ func _draw() -> void:
 				_draw_full_texture_block(block, BALL_CACHE_TEXTURE)
 			BlockState.BlockType.PIERCING:
 				_draw_piercing(block)
+			BlockState.BlockType.ACID_BARREL:
+				_draw_full_texture_block(block, ACID_BARREL_TEXTURE)
 
 
 

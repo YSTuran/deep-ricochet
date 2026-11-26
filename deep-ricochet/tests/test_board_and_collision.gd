@@ -12,6 +12,7 @@ static func run(config: GameConfig) -> void:
 	_test_corner_collision(config)
 	_test_preview_contract(config)
 	_test_special_blocks()
+	_test_acid_barrel()
 
 
 static func _test_shared_geometry() -> void:
@@ -370,3 +371,30 @@ static func _test_special_blocks() -> void:
 	assert(beam_rock.hit_points == 0)
 	assert(beam_armor.hit_points == 1)
 	assert(outside_beam.hit_points == 3)
+
+
+static func _test_acid_barrel() -> void:
+	var board := BoardModel.new()
+	var barrel := BlockState.new(100, BlockState.BlockType.ACID_BARREL, Vector2i(3, 4), 1)
+	var close := BlockState.new(101, BlockState.BlockType.NORMAL, Vector2i(4, 4), 8)
+	var middle := BlockState.new(102, BlockState.BlockType.ORE, Vector2i(5, 4), 5)
+	var far := BlockState.new(103, BlockState.BlockType.NORMAL, Vector2i(6, 4), 5)
+	var outside := BlockState.new(104, BlockState.BlockType.NORMAL, Vector2i(7, 4), 5)
+	var rock := BlockState.new(105, BlockState.BlockType.ROCK, Vector2i(3, 6), 0)
+	var armor := BlockState.new(
+		106, BlockState.BlockType.ARMORED, Vector2i(2, 4), 5, BlockState.VulnerableSide.TOP,
+	)
+	for block: BlockState in [barrel, close, middle, far, outside, rock, armor]:
+		assert(board.add_block(block))
+	assert(board.resolve_acid_burst(barrel.id).is_empty())
+	assert(board.resolve_contact(barrel.id, 1, Vector2.LEFT).destroyed)
+	var results := board.resolve_acid_burst(barrel.id)
+	assert(results.size() == 4)
+	for result: BlockDamageResult in results:
+		assert(result.is_acid)
+	assert(close.hit_points == 1)
+	assert(middle.hit_points == 2)
+	assert(far.hit_points == 4)
+	assert(outside.hit_points == 5)
+	assert(rock.hit_points == 0)
+	assert(armor.hit_points == 4)

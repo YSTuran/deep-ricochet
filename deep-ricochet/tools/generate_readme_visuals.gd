@@ -10,7 +10,7 @@ const THEME_OUTPUTS := [
 	"glacial_mine.png",
 ]
 const ROCK_IMAGE_SIZE := Vector2i(512, 512)
-const THEME_IMAGE_SIZE := Vector2i(1680, 260)
+const THEME_IMAGE_SIZE := Vector2i(1840, 260)
 
 
 class PreviewCanvas:
@@ -25,6 +25,7 @@ class PreviewCanvas:
 	const ECHO_TEXTURE: Texture2D = preload("res://assets/images/blocks/blok_yanki.png")
 	const BALL_CACHE_TEXTURE: Texture2D = preload("res://assets/images/blocks/blok_top_haznesi.png")
 	const PIERCING_TEXTURE: Texture2D = preload("res://assets/images/blocks/blok_delici_kristal.png")
+	const ACID_BARREL_TEXTURE: Texture2D = preload("res://assets/images/blocks/blok_asit_varili.png")
 	const NORMAL_SOURCE := Rect2(139.0, 159.0, 976.0, 939.0)
 	const ORE_SOURCE := Rect2(209.0, 220.0, 837.0, 831.0)
 	const CRACKED_SOURCE := Rect2(32.0, 36.0, 447.0, 454.0)
@@ -43,7 +44,7 @@ class PreviewCanvas:
 
 
 	func _draw_theme_background() -> void:
-		var image_size := Vector2(1680.0, 260.0)
+		var image_size := Vector2(1840.0, 260.0)
 		var top := CaveTheme.color(&"background")
 		var bottom := CaveTheme.color(&"background_deep")
 		for band_index in range(20):
@@ -63,11 +64,11 @@ class PreviewCanvas:
 		for point: Vector2 in left_rock:
 			right_rock.append(Vector2(image_size.x - point.x, point.y))
 		draw_colored_polygon(right_rock, CaveTheme.color(&"cave_dark"))
-		var panel := Rect2(70.0, 31.0, 1540.0, 198.0)
+		var panel := Rect2(70.0, 31.0, 1700.0, 198.0)
 		draw_rect(panel, CaveTheme.color(&"board"), true)
 		draw_rect(panel, CaveTheme.color(&"board_border"), false, 4.0)
-		for column in range(1, 10):
-			var x := panel.position.x + float(column) * panel.size.x / 10.0
+		for column in range(1, 11):
+			var x := panel.position.x + float(column) * panel.size.x / 11.0
 			draw_line(
 				Vector2(x, panel.position.y),
 				Vector2(x, panel.end.y),
@@ -88,8 +89,8 @@ class PreviewCanvas:
 		var size := Vector2(118.0, 118.0)
 		var y := 71.0
 		var positions: Array[float] = []
-		for index in range(10):
-			positions.append(130.0 + float(index) * 158.0)
+		for index in range(11):
+			positions.append(130.0 + float(index) * 156.0)
 		var destinations: Array[Rect2] = []
 		for center_x: float in positions:
 			destinations.append(Rect2(Vector2(center_x - size.x * 0.5, y), size))
@@ -144,6 +145,10 @@ class PreviewCanvas:
 			self, PIERCING_TEXTURE, destinations[9], BlockState.BlockType.PIERCING,
 		)
 		_draw_value(destinations[9], "7")
+		CaveTheme.draw_texture(
+			self, ACID_BARREL_TEXTURE, destinations[10], BlockState.BlockType.ACID_BARREL,
+		)
+		_draw_value(destinations[10], "9")
 
 
 	func _draw_value(rect: Rect2, value: String, color: Color = Color("f4f1e8")) -> void:

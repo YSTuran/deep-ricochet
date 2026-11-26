@@ -30,6 +30,13 @@
     { "id": "mine_25", "displayNameKey": "MINE_25_NAME", "order": 25, "unlockAfter": "mine_24", "twoStarScore": 1490, "threeStarScore": 2200 },
     { "id": "mine_26", "displayNameKey": "MINE_26_NAME", "order": 26, "unlockAfter": "mine_25", "twoStarScore": 1530, "threeStarScore": 2260 },
     { "id": "mine_27", "displayNameKey": "MINE_27_NAME", "order": 27, "unlockAfter": "mine_26", "twoStarScore": 1570, "threeStarScore": 2320 },
-    { "id": "mine_28", "displayNameKey": "MINE_28_NAME", "order": 28, "unlockAfter": "mine_27", "twoStarScore": 1610, "threeStarScore": 2380 }
+    { "id": "mine_28", "displayNameKey": "MINE_28_NAME", "order": 28, "unlockAfter": "mine_27", "twoStarScore": 1610, "threeStarScore": 2380 },
+    { "id": "mine_29", "displayNameKey": "MINE_29_NAME", "order": 29, "unlockAfter": "mine_28", "twoStarScore": 1650, "threeStarScore": 2440 },
+    { "id": "mine_30", "displayNameKey": "MINE_30_NAME", "order": 30, "unlockAfter": "mine_29", "twoStarScore": 1690, "threeStarScore": 2500 },
+    { "id": "mine_31", "displayNameKey": "MINE_31_NAME", "order": 31, "unlockAfter": "mine_30", "twoStarScore": 1730, "threeStarScore": 2560 },
+    { "id": "mine_32", "displayNameKey": "MINE_32_NAME", "order": 32, "unlockAfter": "mine_31", "twoStarScore": 1770, "threeStarScore": 2620 },
+    { "id": "mine_33", "displayNameKey": "MINE_33_NAME", "order": 33, "unlockAfter": "mine_32", "twoStarScore": 1810, "threeStarScore": 2680 },
+    { "id": "mine_34", "displayNameKey": "MINE_34_NAME", "order": 34, "unlockAfter": "mine_33", "twoStarScore": 1850, "threeStarScore": 2740 },
+    { "id": "mine_35", "displayNameKey": "MINE_35_NAME", "order": 35, "unlockAfter": "mine_34", "twoStarScore": 1890, "threeStarScore": 2800 }
   ]
 }

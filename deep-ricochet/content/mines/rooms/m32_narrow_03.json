@@ -1,0 +1,245 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        5,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 320601,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        6,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 320602,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        5,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 320603,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        0,
+        7
+      ],
+      "hitPoints": 9,
+      "id": 320604,
+      "type": "acid_barrel"
+    },
+    {
+      "cell": [
+        0,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 320605,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 320606,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        6,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 320607,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        1,
+        4
+      ],
+      "hitPoints": 0,
+      "id": 320608,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        4
+      ],
+      "hitPoints": 0,
+      "id": 320609,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        4
+      ],
+      "hitPoints": 0,
+      "id": 320610,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        1,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 320611,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        6,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 320612,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 320613,
+      "type": "rock"
+    },
+    {
+      "beamDirection": "left",
+      "cell": [
+        7,
+        7
+      ],
+      "hitPoints": 7,
+      "id": 320614,
+      "type": "piercing"
+    },
+    {
+      "beamDirection": "down",
+      "cell": [
+        7,
+        6
+      ],
+      "hitPoints": 7,
+      "id": 320615,
+      "type": "piercing"
+    },
+    {
+      "beamDirection": "left",
+      "cell": [
+        7,
+        5
+      ],
+      "hitPoints": 7,
+      "id": 320616,
+      "type": "piercing"
+    },
+    {
+      "cell": [
+        1,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 320617,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        1,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 320618,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        6,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 320619,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        2,
+        7
+      ],
+      "hitPoints": 6,
+      "id": 320620,
+      "type": "echo"
+    },
+    {
+      "cell": [
+        4,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 320621,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        2,
+        6
+      ],
+      "hitPoints": 4,
+      "id": 320622,
+      "type": "ball_cache"
+    },
+    {
+      "cell": [
+        2,
+        3
+      ],
+      "hitPoints": 4,
+      "id": 320623,
+      "type": "ball_cache"
+    },
+    {
+      "cell": [
+        6,
+        8
+      ],
+      "hitPoints": 8,
+      "id": 320699,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-11",
+  "displayName": "Aşınma Kuyusu",
+  "displayNameKey": "MINE_32_NARROW_03",
+  "exampleAngles": [
+    73.5,
+    73.5,
+    73.5
+  ],
+  "family": "bonus",
+  "height": 8,
+  "id": "m32_narrow_03",
+  "mineId": "mine_32",
+  "multiplierBps": 15000,
+  "passageColumns": [
+    4
+  ],
+  "role": "narrow",
+  "schemaVersion": 1,
+  "width": 8
+}

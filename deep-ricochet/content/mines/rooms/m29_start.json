@@ -1,0 +1,225 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        3,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 290001,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        3,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 290002,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        3,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 290003,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        0,
+        2
+      ],
+      "hitPoints": 9,
+      "id": 290004,
+      "type": "acid_barrel"
+    },
+    {
+      "cell": [
+        0,
+        4
+      ],
+      "hitPoints": 0,
+      "id": 290005,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        7
+      ],
+      "hitPoints": 0,
+      "id": 290006,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        7
+      ],
+      "hitPoints": 0,
+      "id": 290007,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 290008,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 290009,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        5,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 290010,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        6,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 290011,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        6,
+        3
+      ],
+      "hitPoints": 8,
+      "id": 290012,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        6,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 290013,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        5,
+        2
+      ],
+      "hitPoints": 8,
+      "id": 290014,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        2,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 290015,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        6,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 290016,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        5,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 290017,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        4,
+        7
+      ],
+      "hitPoints": 6,
+      "id": 290018,
+      "type": "echo"
+    },
+    {
+      "cell": [
+        1,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 290019,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        2,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 290020,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        0,
+        5
+      ],
+      "hitPoints": 4,
+      "id": 290021,
+      "type": "ball_cache"
+    },
+    {
+      "cell": [
+        3,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 290099,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-11",
+  "displayName": "Asit Eşiği",
+  "displayNameKey": "MINE_29_START",
+  "exampleAngles": [
+    30.0,
+    30.0,
+    30.0
+  ],
+  "family": "safe",
+  "height": 8,
+  "id": "m29_start",
+  "mineId": "mine_29",
+  "multiplierBps": 10000,
+  "passageColumns": [
+    3,
+    4
+  ],
+  "role": "start",
+  "schemaVersion": 1,
+  "width": 8
+}

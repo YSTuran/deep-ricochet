@@ -79,6 +79,7 @@ static func _test_scoring_and_room_resolution(config: GameConfig) -> void:
 	assert(ScoreCalculator.break_points(BlockState.BlockType.ECHO, config) == 18)
 	assert(ScoreCalculator.break_points(BlockState.BlockType.BALL_CACHE, config) == 15)
 	assert(ScoreCalculator.break_points(BlockState.BlockType.PIERCING, config) == 30)
+	assert(ScoreCalculator.break_points(BlockState.BlockType.ACID_BARREL, config) == 20)
 
 	var guard_board := BoardModel.new()
 	var guard_block := BlockState.new(29, BlockState.BlockType.NORMAL, Vector2i(7, 0), 1)

@@ -11,6 +11,7 @@ var damage_amount: int = 0
 var is_explosion: bool = false
 var is_echo: bool = false
 var is_piercing: bool = false
+var is_acid: bool = false
 var piercing_origin_cell := Vector2i(-1, -1)
 var piercing_direction: int = BlockState.BeamDirection.NONE
 var blocked_by_armor: bool = false

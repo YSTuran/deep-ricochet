@@ -1,0 +1,227 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        3,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 300001,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        2,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 300002,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        2,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 300003,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        6,
+        6
+      ],
+      "hitPoints": 9,
+      "id": 300004,
+      "type": "acid_barrel"
+    },
+    {
+      "cell": [
+        0,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 300005,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        6
+      ],
+      "hitPoints": 0,
+      "id": 300006,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 300007,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        6
+      ],
+      "hitPoints": 0,
+      "id": 300008,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 300009,
+      "type": "rock"
+    },
+    {
+      "beamDirection": "down",
+      "cell": [
+        5,
+        5
+      ],
+      "hitPoints": 7,
+      "id": 300010,
+      "type": "piercing"
+    },
+    {
+      "cell": [
+        1,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 300011,
+      "type": "ore"
+    },
+    {
+      "beamDirection": "right",
+      "cell": [
+        4,
+        4
+      ],
+      "hitPoints": 7,
+      "id": 300012,
+      "type": "piercing"
+    },
+    {
+      "cell": [
+        4,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 300013,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        6,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 300014,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        5,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 300015,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        6,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 300016,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        3,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 300017,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        5,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 300018,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        6,
+        2
+      ],
+      "hitPoints": 6,
+      "id": 300019,
+      "type": "echo"
+    },
+    {
+      "cell": [
+        2,
+        2
+      ],
+      "hitPoints": 4,
+      "id": 300020,
+      "type": "ball_cache"
+    },
+    {
+      "cell": [
+        7,
+        4
+      ],
+      "hitPoints": 4,
+      "id": 300021,
+      "type": "ball_cache"
+    },
+    {
+      "cell": [
+        2,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 300099,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-11",
+  "displayName": "Zehirli İniş",
+  "displayNameKey": "MINE_30_START",
+  "exampleAngles": [
+    99.5,
+    99.5,
+    99.5
+  ],
+  "family": "safe",
+  "height": 8,
+  "id": "m30_start",
+  "mineId": "mine_30",
+  "multiplierBps": 10000,
+  "passageColumns": [
+    4,
+    5
+  ],
+  "role": "start",
+  "schemaVersion": 1,
+  "width": 8
+}

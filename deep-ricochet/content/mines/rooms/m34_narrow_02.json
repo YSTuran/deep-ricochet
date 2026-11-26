@@ -1,0 +1,241 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        4,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 340501,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        5,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 340502,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        5,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 340503,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        1,
+        7
+      ],
+      "hitPoints": 9,
+      "id": 340504,
+      "type": "acid_barrel"
+    },
+    {
+      "cell": [
+        0,
+        4
+      ],
+      "hitPoints": 0,
+      "id": 340505,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        4
+      ],
+      "hitPoints": 0,
+      "id": 340506,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        1,
+        4
+      ],
+      "hitPoints": 0,
+      "id": 340507,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        6,
+        4
+      ],
+      "hitPoints": 0,
+      "id": 340508,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 340509,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 340510,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        6,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 340511,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        6
+      ],
+      "hitPoints": 0,
+      "id": 340512,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        6
+      ],
+      "hitPoints": 0,
+      "id": 340513,
+      "type": "rock"
+    },
+    {
+      "beamDirection": "right",
+      "cell": [
+        6,
+        7
+      ],
+      "hitPoints": 7,
+      "id": 340514,
+      "type": "piercing"
+    },
+    {
+      "cell": [
+        4,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 340515,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        2,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 340516,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        1,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 340517,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        4,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 340518,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        7,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 340519,
+      "type": "ore"
+    },
+    {
+      "beamDirection": "right",
+      "cell": [
+        0,
+        7
+      ],
+      "hitPoints": 7,
+      "id": 340520,
+      "type": "piercing"
+    },
+    {
+      "cell": [
+        2,
+        4
+      ],
+      "hitPoints": 6,
+      "id": 340521,
+      "type": "echo"
+    },
+    {
+      "cell": [
+        3,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 340522,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        3,
+        6
+      ],
+      "hitPoints": 4,
+      "id": 340523,
+      "type": "ball_cache"
+    },
+    {
+      "cell": [
+        5,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 340599,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-11",
+  "displayName": "Sızan Damar",
+  "displayNameKey": "MINE_34_NARROW_02",
+  "exampleAngles": [
+    22.5,
+    22.5,
+    22.5
+  ],
+  "family": "bonus",
+  "height": 8,
+  "id": "m34_narrow_02",
+  "mineId": "mine_34",
+  "multiplierBps": 15000,
+  "passageColumns": [
+    3
+  ],
+  "role": "narrow",
+  "schemaVersion": 1,
+  "width": 8
+}

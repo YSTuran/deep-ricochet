@@ -19,6 +19,7 @@ CREDITS_VISUAL_DESIGN,Visual design,Görsel tasarım
 CREDITS_SECTION_VISUALS,VISUAL ASSETS,GÖRSEL ASSETLER
 CREDITS_INITIAL_BLOCKS,Original normal • ore • core blocks,İlk normal • cevher • çekirdek blokları
 CREDITS_ADDITIONAL_VISUALS,Additional blocks & game visuals,Diğer bloklar ve oyun görselleri
+CREDITS_ACID_BARREL,Acid barrel design & rendering,Asit varili tasarımı ve görsel üretimi
 CREDITS_SECTION_TECHNOLOGY,TECHNOLOGY,TEKNOLOJİ
 CREDITS_ENGINE,Game engine,Oyun motoru
 CREDITS_LANGUAGE,Scripting language,Betik dili
@@ -109,8 +110,10 @@ TUTORIAL_TITLE_7,BALL CACHE,TOP HAZNESİ
 TUTORIAL_BODY_7,Breaking a cache adds 2 balls only to the next shot. The room bonus is capped at 4 and never carries onward.,Hazneyi kırmak yalnızca sonraki atışa 2 top ekler. Oda bonusu en fazla 4 olur ve sonraki odaya taşınmaz.
 TUTORIAL_TITLE_8,PIERCING CRYSTAL,DELİCİ KRİSTAL
 TUTORIAL_BODY_8,When broken it fires a beam in its pointed direction and deals 2 damage along that row or column. The beam passes through hard rock without damaging it.,Kırıldığında sivri yönüne ışın gönderip o satır veya sütundaki bloklara 2 hasar verir. Işın sert kayadan ona zarar vermeden geçer.
-TUTORIAL_TITLE_9,CHOOSE YOUR ROUTE,ROTANI SEÇ
-TUTORIAL_BODY_9,Wide passages are safer. Narrow veins contain denser layouts but provide a higher score multiplier.,Geniş geçitler daha güvenlidir. Dar damarlar daha yoğundur ancak daha yüksek puan çarpanı verir.
+TUTORIAL_TITLE_9,ACID BARREL,ASİT VARİLİ
+TUTORIAL_BODY_9,The 9-health acid barrel bursts when broken. It deals 7 damage nearby then 3 and 1 farther out. Hard rock is immune; armored blocks take only 1 damage.,9 canlı asit varili kırılınca yakınındaki bloklara 7; daha uzaktakilere 3 ve 1 hasar verir. Sert kaya etkilenmez; zırhlı bloklar yalnızca 1 hasar alır.
+TUTORIAL_TITLE_10,CHOOSE YOUR ROUTE,ROTANI SEÇ
+TUTORIAL_BODY_10,Wide passages are safer. Narrow veins contain denser layouts but provide a higher score multiplier.,Geniş geçitler daha güvenlidir. Dar damarlar daha yoğundur ancak daha yüksek puan çarpanı verir.
 ROUTE_SELECT,CHOOSE A ROUTE,ROTA SEÇ
 ROUTE_SUMMARY,Room %d complete • +%d • Total %d • Next %d/%d,Oda %d tamamlandı • +%d • Toplam %d • Sıradaki %d/%d
 ROUTE_HINT,The mini board is the exact room that will be loaded.,Karttaki küçük tahta seçildiğinde yüklenecek gerçek odadır.
@@ -160,6 +163,7 @@ BLOCK_ARMORED,Armored block,Zırhlı blok
 BLOCK_ECHO,Echo block,Yankı bloğu
 BLOCK_BALL_CACHE,Ball cache,Top haznesi
 BLOCK_PIERCING,Piercing crystal,Delici kristal
+BLOCK_ACID_BARREL,Acid barrel,Asit varili
 BLOCK_GENERIC,Block,Blok
 NOTICE_INTERRUPTED,The interrupted shot will restart.,Yarım kalan atış baştan oynanacak.
 NOTICE_BACKUP,The main save failed. The latest valid backup was loaded.,Ana kayıt açılamadı; son geçerli yedek yüklendi.
@@ -430,3 +434,59 @@ ROOM_BONUS_09,Golden Steps,Altın Basamak
 ROOM_BONUS_10,Dark Gutter,Karanlık Oluk
 ROOM_BONUS_11,Ore Crown,Cevher Tacı
 ROOM_BONUS_12,Tight Vein,Sıkışık Damar
+MINE_29_NAME,ACID FRONTIER,ASİT EŞİĞİ
+MINE_30_NAME,TOXIC DESCENT,ZEHİRLİ İNİŞ
+MINE_31_NAME,RUST GATE,PAS KAPISI
+MINE_32_NAME,GREEN DEPTH,YEŞİL DERİNLİK
+MINE_33_NAME,BARREL FRONTIER,FIÇI EŞİĞİ
+MINE_34_NAME,CORROSIVE GATE,KOROZİF KAPI
+MINE_35_NAME,FINAL LEAK,SON SIZINTI
+MINE_29_START,Acid Frontier,Asit Eşiği
+MINE_29_WIDE_01,Leaking Gallery,Sızıntı Galerisi
+MINE_29_WIDE_02,Rusty Corridor,Paslı Koridor
+MINE_29_WIDE_03,Sealed Barrel,Kapalı Fıçı
+MINE_29_NARROW_01,Green Fissure,Yeşil Yarık
+MINE_29_NARROW_02,Eroded Vein,Aşınmış Damar
+MINE_29_NARROW_03,Acid Gorge,Asit Boğazı
+MINE_30_START,Toxic Descent,Zehirli İniş
+MINE_30_WIDE_01,Damp Steps,Nemli Basamak
+MINE_30_WIDE_02,Barrel Hall,Fıçı Salonu
+MINE_30_WIDE_03,Green Arch,Yeşil Kemer
+MINE_30_NARROW_01,Seeping Fissure,Sızan Yarık
+MINE_30_NARROW_02,Corrosive Vein,Korozif Damar
+MINE_30_NARROW_03,Deep Leak,Derin Sızıntı
+MINE_31_START,Rust Gate,Pas Kapısı
+MINE_31_WIDE_01,Heavy Gallery,Ağır Galeri
+MINE_31_WIDE_02,Erosion Corridor,Aşınma Koridoru
+MINE_31_WIDE_03,Rotten Arch,Çürük Kemer
+MINE_31_NARROW_01,Acid Pit,Asit Çukuru
+MINE_31_NARROW_02,Dark Vein,Karanlık Damar
+MINE_31_NARROW_03,Rusty Vault,Paslı Mahzen
+MINE_32_START,Green Depth,Yeşil Derinlik
+MINE_32_WIDE_01,Hidden Steps,Saklı Basamak
+MINE_32_WIDE_02,Toxic Hall,Toksik Salon
+MINE_32_WIDE_03,Leak Arch,Sızıntı Kemeri
+MINE_32_NARROW_01,Broken Barrel,Kırık Varil
+MINE_32_NARROW_02,Green Vein,Yeşil Damar
+MINE_32_NARROW_03,Erosion Well,Aşınma Kuyusu
+MINE_33_START,Barrel Frontier,Fıçı Eşiği
+MINE_33_WIDE_01,Old Gallery,Eski Galeri
+MINE_33_WIDE_02,Flow Corridor,Akıntı Koridoru
+MINE_33_WIDE_03,Poison Arch,Zehir Kemeri
+MINE_33_NARROW_01,Rust Fissure,Pas Yarığı
+MINE_33_NARROW_02,Rotten Vein,Çürük Damar
+MINE_33_NARROW_03,Acid Vault,Asit Mahzeni
+MINE_34_START,Corrosive Gate,Korozif Kapı
+MINE_34_WIDE_01,Wet Steps,Islak Basamak
+MINE_34_WIDE_02,Toxic Hall,Zehirli Salon
+MINE_34_WIDE_03,Barrel Arch,Fıçı Kemeri
+MINE_34_NARROW_01,Flowing Fissure,Akıntı Yarığı
+MINE_34_NARROW_02,Seeping Vein,Sızan Damar
+MINE_34_NARROW_03,Deep Barrel,Derin Varil
+MINE_35_START,Final Leak,Son Sızıntı
+MINE_35_WIDE_01,Bottom Steps,Dip Basamağı
+MINE_35_WIDE_02,Acid Fortress,Asit Hisarı
+MINE_35_WIDE_03,Rust Arch,Pas Kemeri
+MINE_35_NARROW_01,Green Trial,Yeşil Sınav
+MINE_35_NARROW_02,Final Vein,Son Damar
+MINE_35_NARROW_03,Barrel of the Deep,Derinlik Fıçısı

@@ -198,6 +198,8 @@ static func _block_type_from_name(type_name: String) -> int:
 			return BlockState.BlockType.BALL_CACHE
 		"piercing":
 			return BlockState.BlockType.PIERCING
+		"acid_barrel":
+			return BlockState.BlockType.ACID_BARREL
 	return -1
 
 

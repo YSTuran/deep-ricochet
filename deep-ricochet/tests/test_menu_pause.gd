@@ -44,7 +44,7 @@ static func run(controller: RunController, parent: Node) -> void:
 		if card_index > 0:
 			assert(not MineSelectView.CARD_RECTS[card_index - 1].intersects(card_rect))
 	assert(MineSelectView.CARD_RECTS[-1].end.y < MineSelectView.BACK_BUTTON.position.y)
-	assert(controller.mine_select_view._page_count() == 4)
+	assert(controller.mine_select_view._page_count() == 5)
 	assert(controller.mine_select_view.page_index == 0)
 	var next_page_touch := InputEventScreenTouch.new()
 	next_page_touch.position = MineSelectView.NEXT_BUTTON.get_center()

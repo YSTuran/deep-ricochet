@@ -16,7 +16,8 @@
           "titleKey": "CREDITS_SECTION_VISUALS",
           "entries": [
             { "labelKey": "CREDITS_INITIAL_BLOCKS", "value": "Mustafa Hakan Bozkurt" },
-            { "labelKey": "CREDITS_ADDITIONAL_VISUALS", "value": "Yusuf Samet Turan" }
+            { "labelKey": "CREDITS_ADDITIONAL_VISUALS", "value": "Yusuf Samet Turan" },
+            { "labelKey": "CREDITS_ACID_BARREL", "value": "Yusuf Samet Turan • OpenAI ImageGen" }
           ]
         },
         {

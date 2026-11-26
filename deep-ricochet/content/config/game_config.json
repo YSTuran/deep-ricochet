@@ -23,5 +23,6 @@
   "echoBreakPoints": 18,
   "ballCacheBreakPoints": 15,
   "piercingBreakPoints": 30,
+  "acidBarrelBreakPoints": 20,
   "unusedShotBonus": 20
 }

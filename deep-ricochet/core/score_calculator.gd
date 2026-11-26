@@ -22,6 +22,8 @@ static func break_points(block_type: int, config: GameConfig) -> int:
 			return config.ball_cache_break_points
 		BlockState.BlockType.PIERCING:
 			return config.piercing_break_points
+		BlockState.BlockType.ACID_BARREL:
+			return config.acid_barrel_break_points
 	return 0
 
 

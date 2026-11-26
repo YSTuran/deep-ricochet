@@ -15,6 +15,7 @@ const FULL_TEXTURE_SOURCE_REGIONS := {
 	BlockState.BlockType.ECHO: Rect2(138.0, 156.0, 978.0, 943.0),
 	BlockState.BlockType.BALL_CACHE: Rect2(128.0, 163.0, 998.0, 984.0),
 	BlockState.BlockType.PIERCING: Rect2(100.0, 80.0, 1054.0, 1103.0),
+	BlockState.BlockType.ACID_BARREL: Rect2(92.0, 72.0, 1070.0, 1142.0),
 }
 
 const NAME_KEYS := [
@@ -49,6 +50,8 @@ const PALETTES := [
 		&"echo": Color("36c9c2"),
 		&"ball_cache": Color("70452c"),
 		&"piercing": Color("6e3fa6"),
+		&"acid_barrel": Color("70452c"),
+		&"acid": Color("b9f600"),
 	},
 	{
 		&"background_deep": Color("100b18"),
@@ -73,6 +76,8 @@ const PALETTES := [
 		&"echo": Color("8f83dd"),
 		&"ball_cache": Color("60435f"),
 		&"piercing": Color("9b5be8"),
+		&"acid_barrel": Color("60435f"),
+		&"acid": Color("d779f1"),
 	},
 	{
 		&"background_deep": Color("0d0c0d"),
@@ -97,6 +102,8 @@ const PALETTES := [
 		&"echo": Color("e07b45"),
 		&"ball_cache": Color("4d3026"),
 		&"piercing": Color("e0523b"),
+		&"acid_barrel": Color("4d3026"),
+		&"acid": Color("ff993a"),
 	},
 	{
 		&"background_deep": Color("0b1713"),
@@ -121,6 +128,8 @@ const PALETTES := [
 		&"echo": Color("62c9aa"),
 		&"ball_cache": Color("4f6242"),
 		&"piercing": Color("78b866"),
+		&"acid_barrel": Color("4f6242"),
+		&"acid": Color("c8ee59"),
 	},
 	{
 		&"background_deep": Color("091821"),
@@ -145,6 +154,8 @@ const PALETTES := [
 		&"echo": Color("73d9e8"),
 		&"ball_cache": Color("5a6b73"),
 		&"piercing": Color("79bfe8"),
+		&"acid_barrel": Color("5a6b73"),
+		&"acid": Color("6adbea"),
 	},
 ]
 
@@ -360,6 +371,17 @@ static func _recolor_image(image: Image, block_type: int) -> void:
 			var pixel := image.get_pixel(x, y)
 			if pixel.a <= 0.001:
 				continue
+			if block_type == BlockState.BlockType.ACID_BARREL \
+				and pixel.s >= 0.55 and pixel.v >= 0.36 \
+				and pixel.h >= 0.12 and pixel.h <= 0.34:
+				var acid_color := color(&"acid")
+				image.set_pixel(x, y, Color.from_hsv(
+					acid_color.h,
+					clampf(pixel.s * acid_color.s / 0.95, 0.0, 1.0),
+					clampf(pixel.v * acid_color.v, 0.0, 1.0),
+					pixel.a,
+				))
+				continue
 			if block_type == BlockState.BlockType.BALL_CACHE \
 				and y_ratio <= BALL_CACHE_BALL_MAX_Y_RATIO \
 				and pixel.v >= 0.52 \
@@ -433,4 +455,6 @@ static func _block_key(block_type: int) -> StringName:
 			return &"ball_cache"
 		BlockState.BlockType.PIERCING:
 			return &"piercing"
+		BlockState.BlockType.ACID_BARREL:
+			return &"acid_barrel"
 	return &"normal"

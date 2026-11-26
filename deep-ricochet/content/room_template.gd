@@ -10,6 +10,7 @@ const MAX_SPECIAL_BLOCK_HP := 8
 const ECHO_HIT_POINTS := 6
 const BALL_CACHE_HIT_POINTS := 4
 const PIERCING_HIT_POINTS := 7
+const ACID_BARREL_HIT_POINTS := 9
 const MIN_CORE_HP := 6
 const MAX_CORE_HP := 8
 const MIN_BLOCK_ROW := 2
@@ -95,6 +96,7 @@ func validation_errors() -> PackedStringArray:
 	var definitions_by_cell: Dictionary[Vector2i, RoomBlockDefinition] = {}
 	var core_count := 0
 	var rock_count := 0
+	var acid_barrel_count := 0
 	var core_cell := Vector2i(-1, -1)
 	for block_index in range(blocks.size()):
 		var definition := blocks[block_index]
@@ -192,12 +194,22 @@ func validation_errors() -> PackedStringArray:
 				errors.append("%s delici kristal olduğu için %d cana sahip olmalıdır." % [label, PIERCING_HIT_POINTS])
 			if not _is_valid_beam_direction(definition.beam_direction):
 				errors.append("%s delici kristalin ışın yönü geçersizdir." % label)
+		elif definition.block_type == BlockState.BlockType.ACID_BARREL:
+			acid_barrel_count += 1
+			if definition.hit_points != ACID_BARREL_HIT_POINTS:
+				errors.append("%s asit varili olduğu için %d cana sahip olmalıdır." % [label, ACID_BARREL_HIT_POINTS])
 		elif definition.block_type == BlockState.BlockType.CORE \
 			and (definition.hit_points < MIN_CORE_HP or definition.hit_points > MAX_CORE_HP):
 			errors.append("%s çekirdek olduğu için %d-%d cana sahip olmalıdır." % [label, MIN_CORE_HP, MAX_CORE_HP])
 
 	if core_count != 1:
 		errors.append("Bir oda tam olarak bir çekirdek içermelidir; bulunan: %d." % core_count)
+	if acid_barrel_count > 1:
+		errors.append("Bir odada en fazla bir asit varili bulunabilir.")
+	for definition: RoomBlockDefinition in blocks:
+		if definition != null and definition.block_type == BlockState.BlockType.ACID_BARREL \
+			and maxi(absi(definition.cell.x - core_cell.x), absi(definition.cell.y - core_cell.y)) <= BoardModel.ACID_RADIUS_CELLS:
+			errors.append("%d kimlikli asit varili çekirdeğe çok yakın." % definition.id)
 	for definition: RoomBlockDefinition in blocks:
 		if definition == null or definition.block_type != BlockState.BlockType.ARMORED:
 			continue
@@ -289,7 +301,8 @@ func _is_known_block_type(block_type: int) -> bool:
 		or block_type == BlockState.BlockType.ARMORED \
 		or block_type == BlockState.BlockType.ECHO \
 		or block_type == BlockState.BlockType.BALL_CACHE \
-		or block_type == BlockState.BlockType.PIERCING
+		or block_type == BlockState.BlockType.PIERCING \
+		or block_type == BlockState.BlockType.ACID_BARREL
 
 
 static func _is_valid_beam_direction(direction: int) -> bool:

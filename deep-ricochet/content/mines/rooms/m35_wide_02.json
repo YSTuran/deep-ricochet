@@ -1,0 +1,225 @@
+{
+  "blocks": [
+    {
+      "cell": [
+        2,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 350201,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        1,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 350202,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        2,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 350203,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        6,
+        6
+      ],
+      "hitPoints": 9,
+      "id": 350204,
+      "type": "acid_barrel"
+    },
+    {
+      "cell": [
+        0,
+        6
+      ],
+      "hitPoints": 0,
+      "id": 350205,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 350206,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 350207,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        4
+      ],
+      "hitPoints": 0,
+      "id": 350208,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        7
+      ],
+      "hitPoints": 0,
+      "id": 350209,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        5,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 350210,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        6,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 350211,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        1,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 350212,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
+        6,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 350213,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        2,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 350214,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        6,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 350215,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        4,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 350216,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        7,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 350217,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        6,
+        3
+      ],
+      "hitPoints": 8,
+      "id": 350218,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        4,
+        7
+      ],
+      "hitPoints": 6,
+      "id": 350219,
+      "type": "echo"
+    },
+    {
+      "cell": [
+        3,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 350220,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        3,
+        7
+      ],
+      "hitPoints": 4,
+      "id": 350221,
+      "type": "ball_cache"
+    },
+    {
+      "cell": [
+        1,
+        8
+      ],
+      "hitPoints": 8,
+      "id": 350299,
+      "type": "core"
+    }
+  ],
+  "contentVersion": "p2-mines-11",
+  "displayName": "Asit Hisarı",
+  "displayNameKey": "MINE_35_WIDE_02",
+  "exampleAngles": [
+    107.5,
+    107.5,
+    107.5
+  ],
+  "family": "safe",
+  "height": 8,
+  "id": "m35_wide_02",
+  "mineId": "mine_35",
+  "multiplierBps": 10000,
+  "passageColumns": [
+    4,
+    5
+  ],
+  "role": "wide",
+  "schemaVersion": 1,
+  "width": 8
+}

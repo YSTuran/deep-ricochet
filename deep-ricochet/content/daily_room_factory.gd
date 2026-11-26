@@ -3,7 +3,7 @@ extends RefCounted
 
 const DAILY_MINE_ID := &"daily"
 const SOURCE_MINE_ID := &"mine_28"
-const CONTENT_VERSION := "daily-8"
+const CONTENT_VERSION := "daily-9"
 const CRACKED_HIT_POINTS := 8
 const TARGET_BLOCK_COUNT := 24
 const SOURCE_ROOM_IDS: Array[StringName] = [
@@ -149,6 +149,15 @@ static func _create_daily_template(
 				return null
 		type_counts[block_type] = type_counts.get(block_type, 0) + 1
 		present_types[block_type] = true
+	if template.blocks.size() < TARGET_BLOCK_COUNT:
+		if not _append_block(template, candidates, BlockState.BlockType.ACID_BARREL, next_id + 1, source_index):
+			return null
+		next_id += 1
+	elif not _replace_redundant_block(
+		template, candidates, type_counts, BlockState.BlockType.ACID_BARREL, source_index,
+	):
+		return null
+	type_counts[BlockState.BlockType.ACID_BARREL] = 1
 
 	var density_index := source_index
 	while template.blocks.size() < TARGET_BLOCK_COUNT:
@@ -260,6 +269,15 @@ static func _append_block(
 		if candidate_index < 0:
 			push_error("Günlük delici kristal için destekli ışın hattı bulunamadı: %s" % template.room_id)
 			return false
+	elif block_type == BlockState.BlockType.ACID_BARREL:
+		candidate_index = -1
+		for index in range(candidates.size()):
+			if _acid_cell_valid(template, candidates[index]):
+				candidate_index = index
+				break
+		if candidate_index < 0:
+			push_error("Günlük asit varili için çekirdekten uzak uygun hücre bulunamadı: %s" % template.room_id)
+			return false
 	var cell: Vector2i = candidates.pop_at(candidate_index)
 	var vulnerable_sides := BlockState.ALL_VULNERABLE_SIDES
 	var beam_direction := BlockState.BeamDirection.NONE
@@ -293,11 +311,16 @@ static func _replace_redundant_block(
 	variant: int,
 ) -> bool:
 	for definition: RoomBlockDefinition in template.blocks:
-		if definition.block_type in [BlockState.BlockType.CORE, BlockState.BlockType.ROCK] \
+		if definition.block_type == BlockState.BlockType.CORE \
+			or (definition.block_type == BlockState.BlockType.ROCK \
+				and new_type != BlockState.BlockType.ACID_BARREL) \
 			or int(type_counts.get(definition.block_type, 0)) <= 1:
 			continue
 		if new_type == BlockState.BlockType.ARMORED \
 			and not _cell_is_open(template, definition.cell + Vector2i.UP):
+			continue
+		if new_type == BlockState.BlockType.ACID_BARREL \
+			and not _acid_cell_valid(template, definition.cell):
 			continue
 		var piercing_direction := BlockState.BeamDirection.NONE
 		if new_type == BlockState.BlockType.PIERCING:
@@ -415,6 +438,25 @@ static func _definition_at(template: RoomTemplate, cell: Vector2i) -> RoomBlockD
 	return null
 
 
+static func _acid_cell_valid(template: RoomTemplate, cell: Vector2i) -> bool:
+	var core_cell := Vector2i(-1, -1)
+	for definition: RoomBlockDefinition in template.blocks:
+		if definition.block_type == BlockState.BlockType.CORE:
+			core_cell = definition.cell
+			break
+	if core_cell.x < 0 or maxi(absi(cell.x - core_cell.x), absi(cell.y - core_cell.y)) \
+		<= BoardModel.ACID_RADIUS_CELLS:
+		return false
+	var neighbors := 0
+	for definition: RoomBlockDefinition in template.blocks:
+		if definition.cell == cell or definition.block_type == BlockState.BlockType.ROCK:
+			continue
+		var offset := definition.cell - cell
+		if maxi(absi(offset.x), absi(offset.y)) <= 2:
+			neighbors += 1
+	return neighbors >= 2
+
+
 static func _cell_is_inside_world(cell: Vector2i) -> bool:
 	return cell.x >= 0 and cell.x < BoardGeometry.WORLD_GRID_SIZE.x \
 		and cell.y >= 0 and cell.y < BoardGeometry.WORLD_GRID_SIZE.y
@@ -454,4 +496,6 @@ static func _hit_points_for(block_type: int) -> int:
 			return RoomTemplate.BALL_CACHE_HIT_POINTS
 		BlockState.BlockType.PIERCING:
 			return RoomTemplate.PIERCING_HIT_POINTS
+		BlockState.BlockType.ACID_BARREL:
+			return RoomTemplate.ACID_BARREL_HIT_POINTS
 	return 1

@@ -11,8 +11,8 @@ enum Mode {
 const VIEW_SIZE := Vector2(540.0, 960.0)
 const SKIP_BUTTON := Rect2(35.0, 845.0, 170.0, 65.0)
 const NEXT_BUTTON := Rect2(275.0, 845.0, 230.0, 65.0)
-const PAGE_COUNT := 9
-const COACH_PAGE_BY_STEP := [0, 1, 8]
+const PAGE_COUNT := 10
+const COACH_PAGE_BY_STEP := [0, 1, 9]
 const NORMAL_TEXTURE: Texture2D = preload("res://assets/images/blocks/blok_normal.png")
 const ORE_TEXTURE: Texture2D = preload("res://assets/images/blocks/blok_cevher.png")
 const CORE_TEXTURE: Texture2D = preload("res://assets/images/blocks/cekirdek.png")
@@ -24,6 +24,7 @@ const ARMORED_RIGHT_TEXTURE: Texture2D = preload("res://assets/images/blocks/blo
 const ECHO_TEXTURE: Texture2D = preload("res://assets/images/blocks/blok_yanki.png")
 const BALL_CACHE_TEXTURE: Texture2D = preload("res://assets/images/blocks/blok_top_haznesi.png")
 const PIERCING_TEXTURE: Texture2D = preload("res://assets/images/blocks/blok_delici_kristal.png")
+const ACID_BARREL_TEXTURE: Texture2D = preload("res://assets/images/blocks/blok_asit_varili.png")
 const NORMAL_SOURCE_RECT := Rect2(139.0, 159.0, 976.0, 939.0)
 const ORE_SOURCE_RECT := Rect2(209.0, 220.0, 837.0, 831.0)
 const CRACKED_SOURCE_RECT := Rect2(32.0, 36.0, 447.0, 454.0)
@@ -305,6 +306,22 @@ func _draw_illustration() -> void:
 				BlockState.BlockType.ORE,
 			)
 		8:
+			_draw_full_asset_block(
+				ACID_BARREL_TEXTURE,
+				Rect2(211.0, 242.0, 118.0, 118.0),
+				"9",
+				BlockState.BlockType.ACID_BARREL,
+			)
+			var acid_color := CaveTheme.color(&"acid")
+			for radius in range(1, 4):
+				var side := float(radius) * 62.0
+				draw_rect(
+					Rect2(Vector2(270.0, 301.0) - Vector2.ONE * side * 0.5, Vector2.ONE * side),
+					Color(acid_color, 0.55 / float(radius)),
+					false,
+					2.0,
+				)
+		9:
 			DeepUI.draw_panel(self, Rect2(80.0, 155.0, 175.0, 225.0), Color("173550"), DeepUI.BLUE, 15, 2, true)
 			DeepUI.draw_panel(self, Rect2(285.0, 155.0, 175.0, 225.0), Color("4a3923"), DeepUI.GOLD, 15, 2, true)
 			DeepUI.draw_centered(self, "×1.0", Rect2(90.0, 195.0, 155.0, 50.0), 25, DeepUI.BLUE_LIGHT)

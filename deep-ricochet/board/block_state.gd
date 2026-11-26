@@ -12,6 +12,7 @@ enum BlockType {
 	ECHO,
 	BALL_CACHE,
 	PIERCING,
+	ACID_BARREL,
 }
 
 enum BeamDirection {

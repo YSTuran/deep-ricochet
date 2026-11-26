@@ -466,7 +466,10 @@ func _append_impact_effect(
 		if quality_mode == AppSettings.QualityMode.GRAPHICS else PERFORMANCE_IMPACT_EFFECTS
 	if impact_effects.size() >= effect_limit:
 		impact_effects.pop_front()
-	var is_blast := result.destroyed and block.type == BlockState.BlockType.EXPLOSIVE
+	var is_blast := result.destroyed and block.type in [
+		BlockState.BlockType.EXPLOSIVE,
+		BlockState.BlockType.ACID_BARREL,
+	]
 	impact_effects.append({
 		"position": block.collision_center_world(),
 		"block_type": block.type,

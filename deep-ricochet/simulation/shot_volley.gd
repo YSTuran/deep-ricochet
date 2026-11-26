@@ -176,6 +176,7 @@ func _append_destroy_effects(
 	var pending: Array[BlockDamageResult] = initial_results.duplicate()
 	var exploded_ids: Dictionary[int, bool] = {}
 	var pierced_ids: Dictionary[int, bool] = {}
+	var acid_ids: Dictionary[int, bool] = {}
 	while not pending.is_empty():
 		var result: BlockDamageResult = pending.pop_front()
 		if not result.damage_applied or not result.destroyed:
@@ -199,6 +200,11 @@ func _append_destroy_effects(
 			if source != null:
 				step_result.piercing_beams.append(_piercing_beam_event(source))
 			effect_results = board.resolve_piercing(result.block_id, 2)
+		elif result.block_type == BlockState.BlockType.ACID_BARREL:
+			if acid_ids.has(result.block_id):
+				continue
+			acid_ids[result.block_id] = true
+			effect_results = board.resolve_acid_burst(result.block_id)
 		else:
 			continue
 		step_result.damage_results.append_array(effect_results)
