@@ -205,6 +205,36 @@ static func _test_settings_round_trip() -> void:
 		assert(source_rect.size.y < texture.get_size().y)
 		assert(source_rect.size.x >= texture.get_size().x * 0.65)
 		assert(source_rect.size.y >= texture.get_size().y * 0.65)
+	var ball_cache_sample := Image.create(4, 4, false, Image.FORMAT_RGBA8)
+	ball_cache_sample.fill(CaveTheme.color_for_theme(CaveTheme.DEEP_SAPPHIRE, &"ball_cache"))
+	ball_cache_sample.set_pixel(0, 0, Color("f4f1e8"))
+	var original_ball_color := ball_cache_sample.get_pixel(0, 0)
+	CaveTheme._recolor_image(ball_cache_sample, BlockState.BlockType.BALL_CACHE)
+	assert(ball_cache_sample.get_pixel(0, 0).is_equal_approx(original_ball_color))
+	assert(CaveTheme.set_current_theme(CaveTheme.VOLCANIC))
+	var piercing_sample := Image.create(2, 4, false, Image.FORMAT_RGBA8)
+	piercing_sample.fill(CaveTheme.color_for_theme(CaveTheme.DEEP_SAPPHIRE, &"piercing"))
+	for x in range(piercing_sample.get_width()):
+		piercing_sample.set_pixel(
+			x,
+			piercing_sample.get_height() - 1,
+			CaveTheme.color_for_theme(CaveTheme.DEEP_SAPPHIRE, &"rock"),
+		)
+	CaveTheme._recolor_image(piercing_sample, BlockState.BlockType.PIERCING)
+	var crystal_color := piercing_sample.get_pixel(0, 0)
+	var crystal_target := CaveTheme.color_for_theme(CaveTheme.VOLCANIC, &"piercing")
+	assert(
+		Vector3(crystal_color.r, crystal_color.g, crystal_color.b).distance_to(
+			Vector3(crystal_target.r, crystal_target.g, crystal_target.b),
+		) < 0.04
+	)
+	var base_color := piercing_sample.get_pixel(0, piercing_sample.get_height() - 1)
+	var base_target := CaveTheme.color_for_theme(CaveTheme.VOLCANIC, &"rock")
+	assert(
+		Vector3(base_color.r, base_color.g, base_color.b).distance_to(
+			Vector3(base_target.r, base_target.g, base_target.b),
+		) < 0.04
+	)
 	assert(CaveTheme.set_current_theme(CaveTheme.DEEP_SAPPHIRE))
 	assert(service.clear_all())
 

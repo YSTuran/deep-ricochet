@@ -8,6 +8,8 @@ const MOSSY := 3
 const GLACIAL := 4
 const THEME_COUNT := 5
 const GENERATED_TEXTURE_SIZE := 256
+const BALL_CACHE_BALL_MAX_Y_RATIO := 0.34
+const PIERCING_ROCK_START_Y_RATIO := 0.72
 const FULL_TEXTURE_REFERENCE_SIZE := Vector2(1254.0, 1254.0)
 const FULL_TEXTURE_SOURCE_REGIONS := {
 	BlockState.BlockType.ECHO: Rect2(138.0, 156.0, 978.0, 943.0),
@@ -68,8 +70,8 @@ const PALETTES := [
 		&"cracked": Color("625573"),
 		&"armored": Color("3a3445"),
 		&"armored_weak": Color("55d5d0"),
-		&"echo": Color("5bc6c6"),
-		&"ball_cache": Color("563746"),
+		&"echo": Color("8f83dd"),
+		&"ball_cache": Color("60435f"),
 		&"piercing": Color("9b5be8"),
 	},
 	{
@@ -94,7 +96,7 @@ const PALETTES := [
 		&"armored_weak": Color("ffd45a"),
 		&"echo": Color("e07b45"),
 		&"ball_cache": Color("4d3026"),
-		&"piercing": Color("b64a7e"),
+		&"piercing": Color("e0523b"),
 	},
 	{
 		&"background_deep": Color("0b1713"),
@@ -117,8 +119,8 @@ const PALETTES := [
 		&"armored": Color("35433d"),
 		&"armored_weak": Color("f07e72"),
 		&"echo": Color("62c9aa"),
-		&"ball_cache": Color("624632"),
-		&"piercing": Color("7661a8"),
+		&"ball_cache": Color("4f6242"),
+		&"piercing": Color("78b866"),
 	},
 	{
 		&"background_deep": Color("091821"),
@@ -141,8 +143,8 @@ const PALETTES := [
 		&"armored": Color("3a4a55"),
 		&"armored_weak": Color("d875e8"),
 		&"echo": Color("73d9e8"),
-		&"ball_cache": Color("665c55"),
-		&"piercing": Color("a665d1"),
+		&"ball_cache": Color("5a6b73"),
+		&"piercing": Color("79bfe8"),
 	},
 ]
 
@@ -337,10 +339,31 @@ static func _recolor_image(image: Image, block_type: int) -> void:
 		1.35,
 	)
 	var minimum_saturation := target_reference.s * 0.24
+	var rock_source_reference := color_for_theme(DEEP_SAPPHIRE, &"rock")
+	var rock_target_reference := color(&"rock")
+	var rock_hue_shift := rock_target_reference.h - rock_source_reference.h
+	var rock_saturation_scale := clampf(
+		rock_target_reference.s / maxf(rock_source_reference.s, 0.12),
+		0.45,
+		1.85,
+	)
+	var rock_value_scale := clampf(
+		rock_target_reference.v / maxf(rock_source_reference.v, 0.12),
+		0.65,
+		1.35,
+	)
+	var rock_minimum_saturation := rock_target_reference.s * 0.24
+	var height_denominator := maxf(float(image.get_height() - 1), 1.0)
 	for y in range(image.get_height()):
+		var y_ratio := float(y) / height_denominator
 		for x in range(image.get_width()):
 			var pixel := image.get_pixel(x, y)
 			if pixel.a <= 0.001:
+				continue
+			if block_type == BlockState.BlockType.BALL_CACHE \
+				and y_ratio <= BALL_CACHE_BALL_MAX_Y_RATIO \
+				and pixel.v >= 0.52 \
+				and pixel.s <= 0.42:
 				continue
 			if block_type == BlockState.BlockType.ARMORED \
 				and pixel.s >= 0.38 \
@@ -362,15 +385,30 @@ static func _recolor_image(image: Image, block_type: int) -> void:
 					Color.from_hsv(weak_color.h, weak_saturation, weak_value, pixel.a),
 				)
 				continue
-			var hue := target_reference.h if pixel.s < 0.06 \
-				else fposmod(pixel.h + hue_shift + 1.0, 1.0)
+			var active_target := target_reference
+			var active_hue_shift := hue_shift
+			var active_saturation_scale := saturation_scale
+			var active_value_scale := value_scale
+			var active_minimum_saturation := minimum_saturation
+			if block_type == BlockState.BlockType.PIERCING \
+				and y_ratio >= PIERCING_ROCK_START_Y_RATIO:
+				active_target = rock_target_reference
+				active_hue_shift = rock_hue_shift
+				active_saturation_scale = rock_saturation_scale
+				active_value_scale = rock_value_scale
+				active_minimum_saturation = rock_minimum_saturation
+			var hue := active_target.h if pixel.s < 0.06 \
+				else fposmod(pixel.h + active_hue_shift + 1.0, 1.0)
 			var highlight := smoothstep(0.72, 1.0, pixel.v)
 			var saturation := clampf(
-				maxf(pixel.s * saturation_scale, minimum_saturation * (1.0 - highlight)),
+				maxf(
+					pixel.s * active_saturation_scale,
+					active_minimum_saturation * (1.0 - highlight),
+				),
 				0.0,
 				1.0,
 			)
-			var value := clampf(pixel.v * value_scale, 0.0, 1.0)
+			var value := clampf(pixel.v * active_value_scale, 0.0, 1.0)
 			var recolored := Color.from_hsv(hue, saturation, value, pixel.a)
 			image.set_pixel(x, y, recolored)
 
