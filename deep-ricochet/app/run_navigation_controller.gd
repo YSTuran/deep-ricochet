@@ -71,8 +71,7 @@ func request_new_game_confirmation(controller, from_main_menu: bool) -> void:
 	controller.confirmation_from_main_menu = from_main_menu
 	controller.pause_overlay.show_new_game_confirmation()
 	if not from_main_menu:
-		controller.pause_active = true
-		controller.get_tree().paused = true
+		controller._enter_pause_state()
 
 
 func cancel_new_game_confirmation(controller) -> void:
@@ -205,11 +204,10 @@ func pause_game(controller) -> void:
 	if not controller.gameplay_room.room.shot_in_progress:
 		controller._save_stable()
 	controller.pause_origin_screen = controller.flow_view.screen
-	controller.pause_active = true
+	controller._enter_pause_state()
 	controller.pause_button.visible = false
 	controller.speed_button.visible = false
 	controller.pause_overlay.show_pause()
-	controller.get_tree().paused = true
 
 
 func resume_game(controller) -> void:

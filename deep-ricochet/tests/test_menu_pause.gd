@@ -88,7 +88,9 @@ static func run(controller: RunController, parent: Node) -> void:
 	assert(controller.gameplay_room.aiming)
 	controller.pause_game()
 	assert(controller.pause_active)
-	assert(parent.get_tree().paused)
+	assert(not parent.get_tree().paused)
+	assert(not controller.gameplay_room.simulation_enabled)
+	assert(controller.gameplay_room.process_mode == Node.PROCESS_MODE_DISABLED)
 	assert(controller.pause_overlay.visible)
 	assert(not controller.speed_button.visible)
 	assert(not controller.gameplay_room.aiming)
@@ -101,9 +103,9 @@ static func run(controller: RunController, parent: Node) -> void:
 
 	controller._notification(MainLoop.NOTIFICATION_APPLICATION_FOCUS_OUT)
 	assert(controller.pause_active)
-	assert(parent.get_tree().paused)
+	assert(not parent.get_tree().paused)
 	await parent.get_tree().process_frame
-	assert(parent.get_tree().paused)
+	assert(not parent.get_tree().paused)
 	controller.resume_game()
 
 	controller.gameplay_room.aiming = true
@@ -175,6 +177,54 @@ static func run(controller: RunController, parent: Node) -> void:
 	assert(not parent.get_tree().paused)
 	assert(not controller.main_menu_view.visible)
 	assert(controller.run_session != null)
+	await _test_daily_pause_input(controller, parent)
+
+
+static func _test_daily_pause_input(controller: RunController, parent: Node) -> void:
+	var daily_key := controller.current_daily_key()
+	assert(controller.start_new_run(
+		controller.daily_seed_for_key(daily_key), &"daily",
+		RunSession.RunKind.DAILY, daily_key,
+	))
+	assert(controller.run_session.run_kind == RunSession.RunKind.DAILY)
+	await _tap_screen(parent, controller.pause_button.get_global_rect().get_center())
+	assert(controller.pause_active)
+	assert(controller.pause_overlay.visible)
+	assert(not controller.gameplay_room.simulation_enabled)
+	assert(controller.gameplay_room.process_mode == Node.PROCESS_MODE_DISABLED)
+	assert(not parent.get_tree().paused)
+	await _tap_screen(parent, PauseOverlay.NEW_GAME_BUTTON.get_center())
+	assert(controller.pause_overlay.mode == PauseOverlay.Mode.CONFIRM_NEW_GAME)
+	await _tap_screen(parent, PauseOverlay.CANCEL_BUTTON.get_center())
+	assert(controller.pause_overlay.mode == PauseOverlay.Mode.PAUSE)
+	await _tap_screen(parent, PauseOverlay.MAIN_MENU_BUTTON.get_center())
+	assert(controller.pause_overlay.mode == PauseOverlay.Mode.CONFIRM_MAIN_MENU)
+	await _tap_screen(parent, PauseOverlay.CANCEL_BUTTON.get_center())
+	assert(controller.pause_overlay.mode == PauseOverlay.Mode.PAUSE)
+	await _tap_screen(parent, PauseOverlay.SETTINGS_BUTTON.get_center())
+	assert(controller.settings_overlay.visible)
+	await _tap_screen(parent, SettingsOverlay.BACK_BUTTON.get_center())
+	assert(controller.pause_overlay.visible)
+	await _tap_screen(parent, PauseOverlay.CONTINUE_BUTTON.get_center())
+	assert(not controller.pause_active)
+	assert(not controller.pause_overlay.visible)
+	assert(controller.gameplay_room.simulation_enabled)
+	assert(controller.gameplay_room.process_mode == Node.PROCESS_MODE_PAUSABLE)
+
+
+static func _tap_screen(parent: Node, position: Vector2) -> void:
+	var press := InputEventScreenTouch.new()
+	press.index = 0
+	press.position = position
+	press.pressed = true
+	parent.get_viewport().push_input(press, true)
+	await parent.get_tree().process_frame
+	var release := InputEventScreenTouch.new()
+	release.index = 0
+	release.position = position
+	release.pressed = false
+	parent.get_viewport().push_input(release, true)
+	await parent.get_tree().process_frame
 
 
 static func _assert_blank_release_is_silent(control: Control) -> void:

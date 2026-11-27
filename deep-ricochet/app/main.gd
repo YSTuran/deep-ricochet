@@ -553,8 +553,15 @@ func _show_main_menu(can_continue: bool, notice: String = "") -> void:
 	main_menu_view.show_menu(can_continue, notice)
 
 
+func _enter_pause_state() -> void:
+	pause_active = true
+	gameplay_room.set_simulation_enabled(false)
+	gameplay_room.process_mode = Node.PROCESS_MODE_DISABLED
+
+
 func _leave_pause_state() -> void:
 	pause_active = false
+	gameplay_room.process_mode = Node.PROCESS_MODE_PAUSABLE
 	if get_tree() != null:
 		get_tree().paused = false
 
