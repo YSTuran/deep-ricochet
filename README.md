@@ -160,7 +160,7 @@ Oda puanı, kırılan blokların toplamı ve başarı durumunda kullanılmayan h
 oda ödülü = (kırılma puanı + kalan atış × 20) × rota çarpanı
 ```
 
-Başarısız olunan odada kullanılmayan atış bonusu verilmez. Her odanın kırılma puanı, kalan atış bonusu, çarpanı ve toplam ödülü sonuç geçmişinde ayrı ayrı gösterilir. Her maden seviyesinin en iyi koşu puanı ve tamamlanma sayısı profilde ayrı ayrı saklanır; ana menü genel koşu istatistiklerini, Devam düğmesinin altında da kayıtlı koşunun seviye ve oda bilgisini gösterir.
+Başarısız olunan odada kullanılmayan atış bonusu verilmez. Her odanın kırılma puanı, kalan atış bonusu, çarpanı ve toplam ödülü sonuç geçmişinde ayrı ayrı gösterilir. Her maden seviyesinin en iyi koşu puanı ve tamamlanma sayısı profilde ayrı ayrı saklanır. Ana menüde Devam düğmesinin altında kayıtlı koşunun seviye ve oda bilgisi gösterilir.
 
 ## Günlük maden
 

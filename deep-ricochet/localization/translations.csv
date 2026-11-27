@@ -36,7 +36,6 @@ CREDITS_LICENSE_ENGINE,Game engine,Oyun motoru
 CREDITS_SECTION_SOURCES,SOURCES,KAYNAKLAR
 CREDITS_SOURCE_KENNEY,Kenney assets,Kenney assetleri
 CREDITS_SOURCE_GODOT,Godot Engine,Godot Engine
-PROFILE_STATS,Runs %d • Wins %d • Cores %d,Koşu %d • Başarı %d • Çekirdek %d
 PAUSE_TITLE,GAME PAUSED,OYUN DURAKLATILDI
 PAUSE_SUBTITLE,Simulation waits until you continue.,Devam etmeden simülasyon akmaz.
 PAUSE_CONTINUE,CONTINUE,DEVAM

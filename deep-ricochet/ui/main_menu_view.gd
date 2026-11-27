@@ -4,11 +4,11 @@ extends Control
 const TouchControlsScript := preload("res://ui/touch_controls.gd")
 
 const VIEW_SIZE := Vector2(540.0, 960.0)
-const CONTINUE_BUTTON := Rect2(80.0, 500.0, 380.0, 58.0)
-const CONTINUE_DETAIL := Rect2(80.0, 560.0, 380.0, 24.0)
-const NEW_GAME_BUTTON := Rect2(80.0, 590.0, 380.0, 56.0)
-const DAILY_BUTTON := Rect2(80.0, 662.0, 380.0, 56.0)
-const SETTINGS_BUTTON := Rect2(80.0, 734.0, 380.0, 56.0)
+const CONTINUE_BUTTON := Rect2(80.0, 466.0, 380.0, 58.0)
+const CONTINUE_DETAIL := Rect2(80.0, 526.0, 380.0, 24.0)
+const NEW_GAME_BUTTON := Rect2(80.0, 556.0, 380.0, 56.0)
+const DAILY_BUTTON := Rect2(80.0, 628.0, 380.0, 56.0)
+const SETTINGS_BUTTON := Rect2(80.0, 700.0, 380.0, 56.0)
 const CREDITS_LINK := Rect2(145.0, 867.0, 250.0, 36.0)
 const CORE_TEXTURE: Texture2D = preload("res://assets/images/blocks/cekirdek.png")
 const ACTION_CONTINUE := &"continue"
@@ -94,27 +94,6 @@ func _draw() -> void:
 		18,
 		DeepUI.MUTED,
 	)
-	if controller != null and controller.profile != null:
-		DeepUI.draw_panel(
-			self,
-			Rect2(80.0, 434.0, 380.0, 58.0),
-			Color(DeepUI.PANEL_SOFT, 0.92),
-			DeepUI.BORDER_SOFT,
-			12,
-			1,
-			false,
-		)
-		DeepUI.draw_centered(
-			self,
-			tr("PROFILE_STATS") % [
-				controller.profile.runs_played,
-				controller.profile.successful_runs,
-				controller.profile.total_cores_broken,
-			],
-			Rect2(90.0, 439.0, 360.0, 44.0),
-			13,
-			DeepUI.MUTED,
-		)
 	if continue_available:
 		DeepUI.draw_button(
 			self, CONTINUE_BUTTON, tr("MENU_CONTINUE"), &"primary", 24, true,
