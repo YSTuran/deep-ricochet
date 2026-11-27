@@ -113,9 +113,9 @@
         0,
         5
       ],
-      "hitPoints": 4,
+      "hitPoints": 5,
       "id": 20213,
-      "type": "ball_cache"
+      "type": "ore"
     },
     {
       "cell": [
@@ -124,7 +124,7 @@
       ],
       "hitPoints": 4,
       "id": 20214,
-      "type": "ball_cache"
+      "type": "normal"
     },
     {
       "cell": [
@@ -136,7 +136,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-12",
+  "contentVersion": "p2-mines-13",
   "displayName": "Kırık Galeri",
   "displayNameKey": "MINE_2_WIDE_02",
   "exampleAngles": [

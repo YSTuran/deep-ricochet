@@ -199,7 +199,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-12",
+  "contentVersion": "p2-mines-13",
   "displayName": "Derin Koridor",
   "displayNameKey": "MINE_16_WIDE_02",
   "exampleAngles": [

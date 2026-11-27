@@ -188,9 +188,9 @@
         2,
         4
       ],
-      "hitPoints": 4,
+      "hitPoints": 8,
       "id": 110621,
-      "type": "ball_cache"
+      "type": "cracked"
     },
     {
       "cell": [
@@ -202,7 +202,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-12",
+  "contentVersion": "p2-mines-13",
   "displayName": "Kalkan Boğazı",
   "displayNameKey": "MINE_11_NARROW_03",
   "exampleAngles": [

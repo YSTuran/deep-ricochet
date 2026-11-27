@@ -167,12 +167,9 @@
         5,
         7
       ],
-      "hitPoints": 6,
+      "hitPoints": 8,
       "id": 130019,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "normal"
     },
     {
       "cell": [
@@ -188,9 +185,12 @@
         3,
         4
       ],
-      "hitPoints": 4,
+      "hitPoints": 5,
       "id": 130021,
-      "type": "ball_cache"
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
     },
     {
       "cell": [
@@ -202,7 +202,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-12",
+  "contentVersion": "p2-mines-13",
   "displayName": "Titan Kapısı",
   "displayNameKey": "MINE_13_START",
   "exampleAngles": [

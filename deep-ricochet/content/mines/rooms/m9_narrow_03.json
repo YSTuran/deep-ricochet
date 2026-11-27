@@ -158,18 +158,18 @@
         4,
         5
       ],
-      "hitPoints": 6,
+      "hitPoints": 8,
       "id": 90618,
-      "type": "explosive"
+      "type": "normal"
     },
     {
       "cell": [
         7,
         7
       ],
-      "hitPoints": 4,
+      "hitPoints": 5,
       "id": 90619,
-      "type": "ball_cache"
+      "type": "explosive"
     },
     {
       "cell": [
@@ -181,7 +181,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-12",
+  "contentVersion": "p2-mines-13",
   "displayName": "Tozlu Şaft",
   "displayNameKey": "MINE_9_NARROW_03",
   "exampleAngles": [

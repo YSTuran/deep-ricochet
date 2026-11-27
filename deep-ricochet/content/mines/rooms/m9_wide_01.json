@@ -140,27 +140,27 @@
         3,
         7
       ],
-      "hitPoints": 8,
+      "hitPoints": 7,
       "id": 90116,
-      "type": "cracked"
+      "type": "normal"
     },
     {
       "cell": [
         7,
         6
       ],
-      "hitPoints": 4,
+      "hitPoints": 8,
       "id": 90117,
-      "type": "ball_cache"
+      "type": "cracked"
     },
     {
       "cell": [
         2,
         2
       ],
-      "hitPoints": 4,
+      "hitPoints": 3,
       "id": 90118,
-      "type": "ball_cache"
+      "type": "explosive"
     },
     {
       "cell": [
@@ -172,7 +172,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-12",
+  "contentVersion": "p2-mines-13",
   "displayName": "Kırık Basamak",
   "displayNameKey": "MINE_9_WIDE_01",
   "exampleAngles": [

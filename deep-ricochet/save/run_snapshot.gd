@@ -283,13 +283,18 @@ func _content_matches(catalog: RoomCatalog) -> bool:
 		return true
 	if schema_version == SCHEMA_VERSION:
 		return _fingerprints_match(catalog)
-	# p2-mines-12 yalnızca 29-35. madenlerin yerleşimini değiştirdi.
-	return schema_version == PREVIOUS_SCHEMA_VERSION \
-		and content_version == "p2-mines-11" \
-		and catalog.content_version == "p2-mines-12" \
+	if schema_version != PREVIOUS_SCHEMA_VERSION \
+		or catalog.content_version != "p2-mines-13":
+		return false
+	var mine_order := PlayerProfile._mine_order(mine_id)
+	# 12→13 değişikliği normal maden 1-14 odalarını etkiler; günlük odalar sabittir.
+	if content_version == "p2-mines-12":
+		return run_kind == RunSession.RunKind.DAILY \
+			or (run_kind == RunSession.RunKind.NORMAL and mine_order >= 15)
+	# 11→12 değişikliği normal maden 29-35 odalarını da etkilemişti.
+	return content_version == "p2-mines-11" \
 		and run_kind == RunSession.RunKind.NORMAL \
-		and str(mine_id).begins_with("mine_") \
-		and str(mine_id).trim_prefix("mine_").to_int() <= 28
+		and mine_order >= 15 and mine_order <= 28
 
 
 func _fingerprints_match(catalog: RoomCatalog) -> bool:

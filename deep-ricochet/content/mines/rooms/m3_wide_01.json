@@ -115,16 +115,16 @@
       ],
       "hitPoints": 4,
       "id": 30113,
-      "type": "ball_cache"
+      "type": "ore"
     },
     {
       "cell": [
         7,
         5
       ],
-      "hitPoints": 4,
+      "hitPoints": 6,
       "id": 30114,
-      "type": "ball_cache"
+      "type": "ore"
     },
     {
       "cell": [
@@ -136,7 +136,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-12",
+  "contentVersion": "p2-mines-13",
   "displayName": "Basınç Tüneli",
   "displayNameKey": "MINE_3_WIDE_01",
   "exampleAngles": [

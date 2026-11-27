@@ -179,18 +179,18 @@
         3,
         5
       ],
-      "hitPoints": 4,
+      "hitPoints": 8,
       "id": 130120,
-      "type": "ball_cache"
+      "type": "cracked"
     },
     {
       "cell": [
         6,
         3
       ],
-      "hitPoints": 4,
+      "hitPoints": 8,
       "id": 130121,
-      "type": "ball_cache"
+      "type": "ore"
     },
     {
       "cell": [
@@ -202,7 +202,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-12",
+  "contentVersion": "p2-mines-13",
   "displayName": "Ağır Basamak",
   "displayNameKey": "MINE_13_WIDE_01",
   "exampleAngles": [

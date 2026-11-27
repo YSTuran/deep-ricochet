@@ -113,9 +113,9 @@
         4,
         5
       ],
-      "hitPoints": 4,
+      "hitPoints": 3,
       "id": 10013,
-      "type": "ball_cache"
+      "type": "normal"
     },
     {
       "cell": [
@@ -127,7 +127,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-12",
+  "contentVersion": "p2-mines-13",
   "displayName": "Kıyı Galerisi",
   "displayNameKey": "MINE_1_START",
   "exampleAngles": [

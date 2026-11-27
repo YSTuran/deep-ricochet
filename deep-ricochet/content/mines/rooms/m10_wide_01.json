@@ -167,9 +167,9 @@
         5,
         5
       ],
-      "hitPoints": 4,
+      "hitPoints": 8,
       "id": 100119,
-      "type": "ball_cache"
+      "type": "normal"
     },
     {
       "cell": [
@@ -181,7 +181,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-12",
+  "contentVersion": "p2-mines-13",
   "displayName": "Fitilsiz Salon",
   "displayNameKey": "MINE_10_WIDE_01",
   "exampleAngles": [

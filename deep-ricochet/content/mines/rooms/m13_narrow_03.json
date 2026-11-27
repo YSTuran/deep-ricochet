@@ -212,9 +212,12 @@
         3,
         5
       ],
-      "hitPoints": 4,
+      "hitPoints": 5,
       "id": 130623,
-      "type": "ball_cache"
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
     },
     {
       "cell": [
@@ -226,7 +229,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-12",
+  "contentVersion": "p2-mines-13",
   "displayName": "Taş Hisar",
   "displayNameKey": "MINE_13_NARROW_03",
   "exampleAngles": [

@@ -166,27 +166,27 @@
         7,
         6
       ],
-      "hitPoints": 8,
+      "hitPoints": 4,
       "id": 120218,
-      "type": "cracked"
+      "type": "explosive"
     },
     {
       "cell": [
         3,
         6
       ],
-      "hitPoints": 4,
+      "hitPoints": 8,
       "id": 120219,
-      "type": "ball_cache"
+      "type": "normal"
     },
     {
       "cell": [
         6,
         3
       ],
-      "hitPoints": 4,
+      "hitPoints": 8,
       "id": 120220,
-      "type": "ball_cache"
+      "type": "cracked"
     },
     {
       "cell": [
@@ -198,7 +198,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-12",
+  "contentVersion": "p2-mines-13",
   "displayName": "Kara Burç",
   "displayNameKey": "MINE_12_WIDE_02",
   "exampleAngles": [

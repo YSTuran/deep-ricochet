@@ -158,27 +158,27 @@
         3,
         7
       ],
-      "hitPoints": 3,
+      "hitPoints": 6,
       "id": 80418,
-      "type": "explosive"
+      "type": "ore"
     },
     {
       "cell": [
         0,
         3
       ],
-      "hitPoints": 4,
+      "hitPoints": 8,
       "id": 80419,
-      "type": "ball_cache"
+      "type": "ore"
     },
     {
       "cell": [
         6,
         4
       ],
-      "hitPoints": 4,
+      "hitPoints": 5,
       "id": 80420,
-      "type": "ball_cache"
+      "type": "explosive"
     },
     {
       "cell": [
@@ -190,13 +190,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-12",
+  "contentVersion": "p2-mines-13",
   "displayName": "Kor Yarığı",
   "displayNameKey": "MINE_8_NARROW_01",
   "exampleAngles": [
-    100.5,
-    100.5,
-    100.5
+    101.5,
+    101.5,
+    101.5
   ],
   "family": "bonus",
   "height": 8,

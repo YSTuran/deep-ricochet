@@ -188,27 +188,30 @@
         6,
         4
       ],
-      "hitPoints": 8,
+      "hitPoints": 7,
       "id": 140421,
-      "type": "cracked"
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
     },
     {
       "cell": [
         1,
         4
       ],
-      "hitPoints": 4,
+      "hitPoints": 8,
       "id": 140422,
-      "type": "ball_cache"
+      "type": "explosive"
     },
     {
       "cell": [
         6,
         5
       ],
-      "hitPoints": 4,
+      "hitPoints": 8,
       "id": 140423,
-      "type": "ball_cache"
+      "type": "cracked"
     },
     {
       "cell": [
@@ -220,7 +223,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-12",
+  "contentVersion": "p2-mines-13",
   "displayName": "Nihai Yarık",
   "displayNameKey": "MINE_14_NARROW_01",
   "exampleAngles": [

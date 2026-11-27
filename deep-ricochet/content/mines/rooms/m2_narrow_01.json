@@ -133,16 +133,16 @@
       ],
       "hitPoints": 4,
       "id": 20415,
-      "type": "ball_cache"
+      "type": "normal"
     },
     {
       "cell": [
         3,
         5
       ],
-      "hitPoints": 4,
+      "hitPoints": 5,
       "id": 20416,
-      "type": "ball_cache"
+      "type": "ore"
     },
     {
       "cell": [
@@ -154,7 +154,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-12",
+  "contentVersion": "p2-mines-13",
   "displayName": "Karanlık Oluk",
   "displayNameKey": "MINE_2_NARROW_01",
   "exampleAngles": [

@@ -13,6 +13,7 @@ static func run(controller: RunController, parent: Node) -> void:
 	assert(controller.main_menu_view._new_game_button_rect() == MainMenuView.CONTINUE_BUTTON)
 	assert(controller.main_menu_view._daily_button_rect() == MainMenuView.NEW_GAME_BUTTON)
 	assert(controller.main_menu_view._settings_button_rect() == MainMenuView.DAILY_BUTTON)
+	assert(MainMenuView.CONTINUE_DETAIL.end.y < MainMenuView.NEW_GAME_BUTTON.position.y)
 	assert(controller.storage_notice != null)
 	_assert_blank_release_is_silent(controller.main_menu_view)
 	assert(controller.credits_view != null)
@@ -150,6 +151,9 @@ static func run(controller: RunController, parent: Node) -> void:
 	assert(controller.main_menu_view.visible)
 	assert(controller.main_menu_view.continue_available)
 	assert(controller.main_menu_view._new_game_button_rect() == MainMenuView.NEW_GAME_BUTTON)
+	assert(controller.main_menu_view._continue_location_text() == (
+		controller.tr("MENU_CONTINUE_LOCATION") % [1, 1, controller.config.room_count]
+	))
 	assert(not controller.gameplay_room.simulation_enabled)
 	assert(controller.continue_saved_run())
 	assert(controller.run_session.seed == expected_seed)

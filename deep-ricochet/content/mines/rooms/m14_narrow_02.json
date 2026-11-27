@@ -212,9 +212,12 @@
         3,
         7
       ],
-      "hitPoints": 4,
+      "hitPoints": 6,
       "id": 140523,
-      "type": "ball_cache"
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
     },
     {
       "cell": [
@@ -226,7 +229,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-12",
+  "contentVersion": "p2-mines-13",
   "displayName": "Derin Damar",
   "displayNameKey": "MINE_14_NARROW_02",
   "exampleAngles": [

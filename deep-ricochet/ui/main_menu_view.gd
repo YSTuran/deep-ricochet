@@ -4,10 +4,11 @@ extends Control
 const TouchControlsScript := preload("res://ui/touch_controls.gd")
 
 const VIEW_SIZE := Vector2(540.0, 960.0)
-const CONTINUE_BUTTON := Rect2(80.0, 500.0, 380.0, 66.0)
-const NEW_GAME_BUTTON := Rect2(80.0, 580.0, 380.0, 66.0)
-const DAILY_BUTTON := Rect2(80.0, 660.0, 380.0, 66.0)
-const SETTINGS_BUTTON := Rect2(80.0, 740.0, 380.0, 62.0)
+const CONTINUE_BUTTON := Rect2(80.0, 500.0, 380.0, 58.0)
+const CONTINUE_DETAIL := Rect2(80.0, 560.0, 380.0, 24.0)
+const NEW_GAME_BUTTON := Rect2(80.0, 590.0, 380.0, 56.0)
+const DAILY_BUTTON := Rect2(80.0, 662.0, 380.0, 56.0)
+const SETTINGS_BUTTON := Rect2(80.0, 734.0, 380.0, 56.0)
 const CREDITS_LINK := Rect2(145.0, 867.0, 250.0, 36.0)
 const CORE_TEXTURE: Texture2D = preload("res://assets/images/blocks/cekirdek.png")
 const ACTION_CONTINUE := &"continue"
@@ -105,19 +106,12 @@ func _draw() -> void:
 		)
 		DeepUI.draw_centered(
 			self,
-			tr("PROFILE_LAST_SCORE") % controller.profile.last_score,
-			Rect2(90.0, 439.0, 170.0, 44.0),
-			16,
-			DeepUI.GOLD,
-		)
-		DeepUI.draw_centered(
-			self,
 			tr("PROFILE_STATS") % [
 				controller.profile.runs_played,
 				controller.profile.successful_runs,
 				controller.profile.total_cores_broken,
 			],
-			Rect2(250.0, 439.0, 200.0, 44.0),
+			Rect2(90.0, 439.0, 360.0, 44.0),
 			13,
 			DeepUI.MUTED,
 		)
@@ -126,6 +120,11 @@ func _draw() -> void:
 			self, CONTINUE_BUTTON, tr("MENU_CONTINUE"), &"primary", 24, true,
 			touch_controls.is_pressed(ACTION_CONTINUE),
 		)
+		var continue_detail := _continue_location_text()
+		if not continue_detail.is_empty():
+			DeepUI.draw_centered(
+				self, continue_detail, CONTINUE_DETAIL, 14, DeepUI.MUTED,
+			)
 	DeepUI.draw_button(
 		self,
 		_new_game_button_rect(),
@@ -151,7 +150,7 @@ func _draw() -> void:
 		touch_controls.is_pressed(ACTION_SETTINGS),
 	)
 	if not notice.is_empty():
-		DeepUI.draw_centered(self, notice, Rect2(45.0, 818.0, 450.0, 52.0), 14, DeepUI.MUTED)
+		DeepUI.draw_centered(self, notice, Rect2(45.0, 802.0, 450.0, 52.0), 14, DeepUI.MUTED)
 	var credits_color := DeepUI.GOLD_LIGHT \
 		if touch_controls.is_pressed(ACTION_CREDITS) else DeepUI.MUTED
 	DeepUI.draw_centered(
@@ -178,6 +177,38 @@ func _draw() -> void:
 
 func _new_game_button_rect() -> Rect2:
 	return NEW_GAME_BUTTON if continue_available else CONTINUE_BUTTON
+
+
+func _continue_location_text() -> String:
+	if controller == null:
+		return ""
+	var mine_id: StringName = &""
+	var run_kind := RunSession.RunKind.NORMAL
+	var room_number := 0
+	var room_count := 0
+	var phase := RunSession.Phase.PLAYING
+	if controller.pending_continue_snapshot != null:
+		var snapshot: RunSnapshot = controller.pending_continue_snapshot
+		mine_id = snapshot.mine_id
+		run_kind = snapshot.run_kind
+		room_number = snapshot.room_number
+		room_count = snapshot.room_count
+		phase = snapshot.phase
+	elif controller.continue_in_memory and controller.run_session != null:
+		var session: RunSession = controller.run_session
+		mine_id = session.mine_id
+		run_kind = session.run_kind
+		room_number = session.room_number
+		room_count = session.room_count
+		phase = session.phase
+	if room_count <= 0:
+		return ""
+	var next_room := mini(room_count, room_number + int(phase == RunSession.Phase.ROUTE_SELECTION))
+	if run_kind == RunSession.RunKind.DAILY:
+		return tr("MENU_CONTINUE_DAILY_LOCATION") % [next_room, room_count]
+	var mine_number := PlayerProfile._mine_order(mine_id)
+	return tr("MENU_CONTINUE_LOCATION") % [mine_number, next_room, room_count] \
+		if mine_number > 0 else ""
 
 
 func _settings_button_rect() -> Rect2:

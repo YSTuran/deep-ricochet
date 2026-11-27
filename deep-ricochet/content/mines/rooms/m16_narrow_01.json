@@ -217,7 +217,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-12",
+  "contentVersion": "p2-mines-13",
   "displayName": "Soğuk Yarık",
   "displayNameKey": "MINE_16_NARROW_01",
   "exampleAngles": [

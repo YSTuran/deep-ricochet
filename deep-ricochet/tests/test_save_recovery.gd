@@ -136,6 +136,9 @@ static func _test_interrupted_shot_main_menu_continue(
 	assert(controller.main_menu_view.visible)
 	assert(controller.main_menu_view.continue_available)
 	assert(controller.pending_continue_snapshot != null)
+	assert(controller.main_menu_view._continue_location_text() == (
+		controller.tr("MENU_CONTINUE_LOCATION") % [1, 1, controller.config.room_count]
+	))
 	assert(controller.continue_saved_run())
 	assert(controller.run_session.seed == 81_818)
 	assert(not controller.gameplay_room.room.shot_in_progress)
@@ -160,6 +163,11 @@ static func _test_route_and_result_restore(
 	var bonus_option_id := controller.run_session.pending_routes[1].option_id
 	var route_snapshot := controller.create_snapshot()
 	assert(service.save_stable(route_snapshot))
+	controller.pending_continue_snapshot = route_snapshot
+	assert(controller.main_menu_view._continue_location_text() == (
+		controller.tr("MENU_CONTINUE_LOCATION") % [1, 2, controller.config.room_count]
+	))
+	controller.pending_continue_snapshot = null
 
 	assert(controller.start_new_run(90_002))
 	var loaded := service.load_active(controller.catalog, controller.config)
@@ -274,10 +282,24 @@ static func _test_content_compatibility(
 
 	var previous_data := current_data.duplicate(true)
 	previous_data["schemaVersion"] = RunSnapshot.PREVIOUS_SCHEMA_VERSION
-	previous_data["contentVersion"] = "p2-mines-11"
-	assert(RunSnapshot.from_dictionary(previous_data).validation_errors(
+	previous_data["contentVersion"] = "p2-mines-12"
+	assert(not RunSnapshot.from_dictionary(previous_data).validation_errors(
 		controller.catalog, config,
 	).is_empty())
+	var previous_unlocked := controller.profile.highest_unlocked_mine
+	controller.profile.highest_unlocked_mine = maxi(previous_unlocked, 15)
+	assert(controller.start_new_run(57_058, &"mine_15"))
+	var later_mine_data := controller.create_snapshot().to_dictionary()
+	later_mine_data["schemaVersion"] = RunSnapshot.PREVIOUS_SCHEMA_VERSION
+	later_mine_data["contentVersion"] = "p2-mines-12"
+	assert(RunSnapshot.from_dictionary(later_mine_data).validation_errors(
+		controller.catalog, config,
+	).is_empty())
+	later_mine_data["contentVersion"] = "p2-mines-11"
+	assert(RunSnapshot.from_dictionary(later_mine_data).validation_errors(
+		controller.catalog, config,
+	).is_empty())
+	controller.profile.highest_unlocked_mine = previous_unlocked
 	assert(service.clear_all())
 
 
@@ -352,6 +374,9 @@ static func _test_startup_restore(
 	assert(restored_controller.run_session == null)
 	assert(restored_controller.main_menu_view.visible)
 	assert(restored_controller.main_menu_view.continue_available)
+	assert(restored_controller.main_menu_view._continue_location_text() == (
+		restored_controller.tr("MENU_CONTINUE_LOCATION") % [1, 1, controller.config.room_count]
+	))
 	assert(restored_controller.continue_saved_run())
 	assert(restored_controller.run_session.seed == 61_616)
 	assert(restored_controller.run_session.current_template_id == expected_template_id)
@@ -391,6 +416,9 @@ static func _test_daily_startup_restore(
 	parent.add_child(restored_controller)
 	await parent.get_tree().process_frame
 	assert(restored_controller.main_menu_view.continue_available)
+	assert(restored_controller.main_menu_view._continue_location_text() == (
+		restored_controller.tr("MENU_CONTINUE_DAILY_LOCATION") % [1, config.room_count]
+	))
 	assert(restored_controller.continue_saved_run())
 	assert(restored_controller.run_session.run_kind == RunSession.RunKind.DAILY)
 	assert(restored_controller.run_session.daily_key == daily_key)

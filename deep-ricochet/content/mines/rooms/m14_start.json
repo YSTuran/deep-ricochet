@@ -173,27 +173,30 @@
         2,
         6
       ],
-      "hitPoints": 8,
+      "hitPoints": 4,
       "id": 140019,
-      "type": "cracked"
+      "type": "explosive"
     },
     {
       "cell": [
         1,
         2
       ],
-      "hitPoints": 4,
+      "hitPoints": 5,
       "id": 140020,
-      "type": "ball_cache"
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
     },
     {
       "cell": [
         4,
         6
       ],
-      "hitPoints": 4,
+      "hitPoints": 8,
       "id": 140021,
-      "type": "ball_cache"
+      "type": "cracked"
     },
     {
       "cell": [
@@ -205,7 +208,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-12",
+  "contentVersion": "p2-mines-13",
   "displayName": "Son Derinlik",
   "displayNameKey": "MINE_14_START",
   "exampleAngles": [

@@ -149,9 +149,9 @@
         2,
         4
       ],
-      "hitPoints": 4,
+      "hitPoints": 5,
       "id": 50617,
-      "type": "ball_cache"
+      "type": "normal"
     },
     {
       "cell": [
@@ -163,7 +163,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-12",
+  "contentVersion": "p2-mines-13",
   "displayName": "Derin Mahzen",
   "displayNameKey": "MINE_5_NARROW_03",
   "exampleAngles": [

@@ -133,16 +133,16 @@
       ],
       "hitPoints": 4,
       "id": 40015,
-      "type": "ball_cache"
+      "type": "ore"
     },
     {
       "cell": [
         7,
         4
       ],
-      "hitPoints": 4,
+      "hitPoints": 5,
       "id": 40016,
-      "type": "ball_cache"
+      "type": "ore"
     },
     {
       "cell": [
@@ -154,7 +154,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-12",
+  "contentVersion": "p2-mines-13",
   "displayName": "Kadim Kapı",
   "displayNameKey": "MINE_4_START",
   "exampleAngles": [

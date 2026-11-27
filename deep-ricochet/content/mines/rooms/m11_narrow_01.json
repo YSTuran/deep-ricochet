@@ -183,9 +183,9 @@
         6,
         5
       ],
-      "hitPoints": 7,
+      "hitPoints": 8,
       "id": 110420,
-      "type": "explosive"
+      "type": "ore"
     },
     {
       "cell": [
@@ -194,7 +194,7 @@
       ],
       "hitPoints": 4,
       "id": 110421,
-      "type": "ball_cache"
+      "type": "explosive"
     },
     {
       "cell": [
@@ -206,7 +206,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-12",
+  "contentVersion": "p2-mines-13",
   "displayName": "Pembe Yarık",
   "displayNameKey": "MINE_11_NARROW_01",
   "exampleAngles": [

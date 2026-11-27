@@ -202,7 +202,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-12",
+  "contentVersion": "p2-mines-13",
   "displayName": "Akıntı Koridoru",
   "displayNameKey": "MINE_33_WIDE_02",
   "exampleAngles": [

@@ -167,12 +167,9 @@
         3,
         6
       ],
-      "hitPoints": 6,
+      "hitPoints": 8,
       "id": 140619,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "ore"
     },
     {
       "cell": [
@@ -181,34 +178,34 @@
       ],
       "hitPoints": 8,
       "id": 140620,
-      "type": "cracked"
+      "type": "ore"
     },
     {
       "cell": [
         2,
         5
       ],
-      "hitPoints": 6,
+      "hitPoints": 8,
       "id": 140621,
-      "type": "explosive"
+      "type": "cracked"
     },
     {
       "cell": [
         0,
         7
       ],
-      "hitPoints": 4,
+      "hitPoints": 8,
       "id": 140622,
-      "type": "ball_cache"
+      "type": "ore"
     },
     {
       "cell": [
         0,
         5
       ],
-      "hitPoints": 4,
+      "hitPoints": 8,
       "id": 140623,
-      "type": "ball_cache"
+      "type": "explosive"
     },
     {
       "cell": [
@@ -220,7 +217,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-12",
+  "contentVersion": "p2-mines-13",
   "displayName": "Maden Kalbi",
   "displayNameKey": "MINE_14_NARROW_03",
   "exampleAngles": [

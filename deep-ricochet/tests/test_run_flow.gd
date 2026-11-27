@@ -148,7 +148,10 @@ static func _test_catalog_and_seeded_selection(
 		var mine_roles: Dictionary = role_counts[template.mine_id]
 		mine_roles[template.role] = mine_roles.get(template.role, 0) + 1
 		if not is_daily:
-			assert(room_cache_count >= 1 and room_cache_count <= 2)
+			if mine_order <= 14:
+				assert(room_cache_count == 0)
+			else:
+				assert(room_cache_count >= 1 and room_cache_count <= 2)
 			if mine_order >= 29:
 				assert(room_acid_count >= 1 and room_acid_count <= 2)
 			else:
@@ -279,8 +282,11 @@ static func _test_catalog_and_seeded_selection(
 			assert(mine_acid_count >= 7 and mine_acid_count <= 14)
 		else:
 			assert(mine_acid_count == 0)
-		assert(mine_types.get(BlockState.BlockType.BALL_CACHE, 0) >= 7)
-		assert(mine_types.get(BlockState.BlockType.BALL_CACHE, 0) <= 14)
+		var mine_cache_count: int = mine_types.get(BlockState.BlockType.BALL_CACHE, 0)
+		if mine_order <= 14:
+			assert(mine_cache_count == 0)
+		else:
+			assert(mine_cache_count >= 7 and mine_cache_count <= 14)
 	assert(mine_counts.get(DailyRooms.DAILY_MINE_ID, 0) == 14)
 	var daily_roles: Dictionary = role_counts[DailyRooms.DAILY_MINE_ID]
 	assert(daily_roles.get(RoomTemplate.Role.START, 0) == 2)

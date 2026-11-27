@@ -149,9 +149,9 @@
         3,
         5
       ],
-      "hitPoints": 4,
+      "hitPoints": 5,
       "id": 80117,
-      "type": "ball_cache"
+      "type": "explosive"
     },
     {
       "cell": [
@@ -163,7 +163,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-12",
+  "contentVersion": "p2-mines-13",
   "displayName": "Ateş Galerisi",
   "displayNameKey": "MINE_8_WIDE_01",
   "exampleAngles": [

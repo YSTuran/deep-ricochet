@@ -131,9 +131,9 @@
         1,
         5
       ],
-      "hitPoints": 4,
+      "hitPoints": 5,
       "id": 20515,
-      "type": "ball_cache"
+      "type": "ore"
     },
     {
       "cell": [
@@ -145,7 +145,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-12",
+  "contentVersion": "p2-mines-13",
   "displayName": "Sıkışık Damar",
   "displayNameKey": "MINE_2_NARROW_02",
   "exampleAngles": [

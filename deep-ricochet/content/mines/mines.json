@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "contentVersion": "p2-mines-12",
+  "contentVersion": "p2-mines-13",
   "roomCatalog": "res://content/mines/catalog.json",
   "mines": [
     { "id": "mine_01", "displayNameKey": "MINE_01_NAME", "order": 1, "unlockAfter": "", "twoStarScore": 550, "threeStarScore": 800 },

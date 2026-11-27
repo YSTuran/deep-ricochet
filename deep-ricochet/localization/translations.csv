@@ -1,6 +1,8 @@
 keys,en,tr
 MENU_TAGLINE,Aim • Ricochet • Break the core,Nişan al • Sektir • Çekirdeği kır
 MENU_CONTINUE,CONTINUE,DEVAM
+MENU_CONTINUE_LOCATION,LEVEL %d • ROOM %d/%d,SEVİYE %d • ODA %d/%d
+MENU_CONTINUE_DAILY_LOCATION,DAILY MINE • ROOM %d/%d,GÜNLÜK MADEN • ODA %d/%d
 MENU_NO_SAVE,NO SAVED RUN,KAYITLI OYUN YOK
 MENU_NEW_GAME,NEW GAME,YENİ OYUN
 MENU_DAILY_MINE,DAILY MINE,GÜNLÜK MADEN
@@ -34,7 +36,6 @@ CREDITS_LICENSE_ENGINE,Game engine,Oyun motoru
 CREDITS_SECTION_SOURCES,SOURCES,KAYNAKLAR
 CREDITS_SOURCE_KENNEY,Kenney assets,Kenney assetleri
 CREDITS_SOURCE_GODOT,Godot Engine,Godot Engine
-PROFILE_LAST_SCORE,LAST SCORE  %d,SON SKOR  %d
 PROFILE_STATS,Runs %d • Wins %d • Cores %d,Koşu %d • Başarı %d • Çekirdek %d
 PAUSE_TITLE,GAME PAUSED,OYUN DURAKLATILDI
 PAUSE_SUBTITLE,Simulation waits until you continue.,Devam etmeden simülasyon akmaz.

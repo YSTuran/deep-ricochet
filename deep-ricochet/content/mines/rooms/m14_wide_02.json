@@ -149,12 +149,9 @@
         7,
         7
       ],
-      "hitPoints": 6,
+      "hitPoints": 8,
       "id": 140217,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "ore"
     },
     {
       "cell": [
@@ -172,7 +169,7 @@
       ],
       "hitPoints": 8,
       "id": 140219,
-      "type": "cracked"
+      "type": "normal"
     },
     {
       "cell": [
@@ -181,16 +178,19 @@
       ],
       "hitPoints": 4,
       "id": 140220,
-      "type": "ball_cache"
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
     },
     {
       "cell": [
         3,
         2
       ],
-      "hitPoints": 4,
+      "hitPoints": 8,
       "id": 140221,
-      "type": "ball_cache"
+      "type": "cracked"
     },
     {
       "cell": [
@@ -202,7 +202,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-12",
+  "contentVersion": "p2-mines-13",
   "displayName": "Çekirdek Hisarı",
   "displayNameKey": "MINE_14_WIDE_02",
   "exampleAngles": [

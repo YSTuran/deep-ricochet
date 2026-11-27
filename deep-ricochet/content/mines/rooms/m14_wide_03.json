@@ -191,9 +191,9 @@
         0,
         5
       ],
-      "hitPoints": 4,
+      "hitPoints": 8,
       "id": 140321,
-      "type": "ball_cache"
+      "type": "normal"
     },
     {
       "cell": [
@@ -205,7 +205,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-12",
+  "contentVersion": "p2-mines-13",
   "displayName": "Son Kemer",
   "displayNameKey": "MINE_14_WIDE_03",
   "exampleAngles": [

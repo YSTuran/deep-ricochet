@@ -149,18 +149,18 @@
         1,
         5
       ],
-      "hitPoints": 4,
+      "hitPoints": 5,
       "id": 40417,
-      "type": "ball_cache"
+      "type": "ore"
     },
     {
       "cell": [
         7,
         5
       ],
-      "hitPoints": 4,
+      "hitPoints": 6,
       "id": 40418,
-      "type": "ball_cache"
+      "type": "ore"
     },
     {
       "cell": [
@@ -172,7 +172,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-12",
+  "contentVersion": "p2-mines-13",
   "displayName": "Son Yarık",
   "displayNameKey": "MINE_4_NARROW_01",
   "exampleAngles": [

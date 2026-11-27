@@ -131,9 +131,9 @@
         4,
         5
       ],
-      "hitPoints": 4,
+      "hitPoints": 6,
       "id": 50115,
-      "type": "ball_cache"
+      "type": "normal"
     },
     {
       "cell": [
@@ -142,7 +142,7 @@
       ],
       "hitPoints": 4,
       "id": 50116,
-      "type": "ball_cache"
+      "type": "normal"
     },
     {
       "cell": [
@@ -154,7 +154,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-12",
+  "contentVersion": "p2-mines-13",
   "displayName": "Kristal Burç",
   "displayNameKey": "MINE_5_WIDE_01",
   "exampleAngles": [

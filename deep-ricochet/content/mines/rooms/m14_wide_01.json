@@ -182,9 +182,9 @@
         7,
         5
       ],
-      "hitPoints": 7,
+      "hitPoints": 8,
       "id": 140120,
-      "type": "explosive"
+      "type": "normal"
     },
     {
       "cell": [
@@ -193,7 +193,7 @@
       ],
       "hitPoints": 4,
       "id": 140121,
-      "type": "ball_cache"
+      "type": "explosive"
     },
     {
       "cell": [
@@ -205,7 +205,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-12",
+  "contentVersion": "p2-mines-13",
   "displayName": "Dip Galerisi",
   "displayNameKey": "MINE_14_WIDE_01",
   "exampleAngles": [

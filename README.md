@@ -150,7 +150,7 @@ Blokların ortasındaki sayı kalan canı gösterir. Topla doğrudan temas çoğ
   </tbody>
 </table>
 
-Patlama ve ışık kristali ışını zırhlı bloğun kapalı kenarlarını aşar; sert kayayı ise etkileyemez. Patlama, yankı, ışın veya asitle kırılan bütün puanlı bloklar normal kırılma puanlarını verir. Işık kristalleri yalnızca arkalarında başka bir blok ya da duvar desteği ve ışın yönlerinde geçerli bir hedef bulunduğunda oda şablonuna yerleştirilir. Her normal odada tam bir veya iki top kutusu bulunur. Asit varili 29. madenden itibaren odanın uygun hücrelerine en fazla iki adet yerleştirilir.
+Patlama ve ışık kristali ışını zırhlı bloğun kapalı kenarlarını aşar; sert kayayı ise etkileyemez. Patlama, yankı, ışın veya asitle kırılan bütün puanlı bloklar normal kırılma puanlarını verir. Işık kristalleri yalnızca arkalarında başka bir blok ya da duvar desteği ve ışın yönlerinde geçerli bir hedef bulunduğunda oda şablonuna yerleştirilir. Top kutusu 15. madenden itibaren normal odalarda bir veya iki adet bulunur; ilk 14 madende yer almaz. Asit varili 29. madenden itibaren odanın uygun hücrelerine en fazla iki adet yerleştirilir.
 
 ## Puanlama
 
@@ -160,7 +160,7 @@ Oda puanı, kırılan blokların toplamı ve başarı durumunda kullanılmayan h
 oda ödülü = (kırılma puanı + kalan atış × 20) × rota çarpanı
 ```
 
-Başarısız olunan odada kullanılmayan atış bonusu verilmez. Her odanın kırılma puanı, kalan atış bonusu, çarpanı ve toplam ödülü sonuç geçmişinde ayrı ayrı gösterilir. Her maden seviyesinin en iyi koşu puanı ve tamamlanma sayısı profilde ayrı ayrı saklanır; ana menü son oynanan koşunun puanını gösterir.
+Başarısız olunan odada kullanılmayan atış bonusu verilmez. Her odanın kırılma puanı, kalan atış bonusu, çarpanı ve toplam ödülü sonuç geçmişinde ayrı ayrı gösterilir. Her maden seviyesinin en iyi koşu puanı ve tamamlanma sayısı profilde ayrı ayrı saklanır; ana menü genel koşu istatistiklerini, Devam düğmesinin altında da kayıtlı koşunun seviye ve oda bilgisini gösterir.
 
 ## Günlük maden
 

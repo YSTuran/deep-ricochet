@@ -222,7 +222,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-12",
+  "contentVersion": "p2-mines-13",
   "displayName": "Derinlik Tacı",
   "displayNameKey": "MINE_28_NARROW_03",
   "exampleAngles": [

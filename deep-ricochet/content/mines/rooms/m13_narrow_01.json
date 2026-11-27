@@ -199,16 +199,16 @@
       ],
       "hitPoints": 8,
       "id": 130422,
-      "type": "cracked"
+      "type": "normal"
     },
     {
       "cell": [
         1,
         5
       ],
-      "hitPoints": 4,
+      "hitPoints": 8,
       "id": 130423,
-      "type": "ball_cache"
+      "type": "cracked"
     },
     {
       "cell": [
@@ -220,7 +220,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-12",
+  "contentVersion": "p2-mines-13",
   "displayName": "Büyük Yarık",
   "displayNameKey": "MINE_13_NARROW_01",
   "exampleAngles": [

@@ -149,18 +149,18 @@
         4,
         4
       ],
-      "hitPoints": 4,
+      "hitPoints": 8,
       "id": 80017,
-      "type": "ball_cache"
+      "type": "cracked"
     },
     {
       "cell": [
         1,
         7
       ],
-      "hitPoints": 4,
+      "hitPoints": 7,
       "id": 80018,
-      "type": "ball_cache"
+      "type": "ore"
     },
     {
       "cell": [
@@ -172,7 +172,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-12",
+  "contentVersion": "p2-mines-13",
   "displayName": "Kıvılcım Eşiği",
   "displayNameKey": "MINE_8_START",
   "exampleAngles": [

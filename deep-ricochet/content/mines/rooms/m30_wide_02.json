@@ -200,7 +200,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-12",
+  "contentVersion": "p2-mines-13",
   "displayName": "Fıçı Salonu",
   "displayNameKey": "MINE_30_WIDE_02",
   "exampleAngles": [

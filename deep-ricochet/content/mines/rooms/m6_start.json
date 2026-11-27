@@ -131,18 +131,18 @@
         5,
         6
       ],
-      "hitPoints": 4,
+      "hitPoints": 5,
       "id": 60015,
-      "type": "ball_cache"
+      "type": "normal"
     },
     {
       "cell": [
         6,
         7
       ],
-      "hitPoints": 4,
+      "hitPoints": 6,
       "id": 60016,
-      "type": "ball_cache"
+      "type": "ore"
     },
     {
       "cell": [
@@ -154,7 +154,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-12",
+  "contentVersion": "p2-mines-13",
   "displayName": "Uçurum Kapısı",
   "displayNameKey": "MINE_6_START",
   "exampleAngles": [

@@ -175,18 +175,22 @@
         1,
         6
       ],
-      "hitPoints": 4,
+      "hitPoints": 3,
       "id": 110319,
-      "type": "ball_cache"
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom",
+        "right"
+      ]
     },
     {
       "cell": [
         3,
         4
       ],
-      "hitPoints": 4,
+      "hitPoints": 7,
       "id": 110320,
-      "type": "ball_cache"
+      "type": "normal"
     },
     {
       "cell": [
@@ -198,7 +202,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-12",
+  "contentVersion": "p2-mines-13",
   "displayName": "Muhafız Kemeri",
   "displayNameKey": "MINE_11_WIDE_03",
   "exampleAngles": [

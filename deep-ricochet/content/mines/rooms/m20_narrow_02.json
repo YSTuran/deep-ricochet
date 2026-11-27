@@ -223,7 +223,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-12",
+  "contentVersion": "p2-mines-13",
   "displayName": "Yoğun Damar",
   "displayNameKey": "MINE_20_NARROW_02",
   "exampleAngles": [

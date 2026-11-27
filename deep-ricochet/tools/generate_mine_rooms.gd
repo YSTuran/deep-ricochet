@@ -1,6 +1,7 @@
 extends SceneTree
 
-const CONTENT_VERSION := "p2-mines-12"
+const CONTENT_VERSION := "p2-mines-13"
+const BALL_CACHE_FIRST_MINE_INDEX := 14
 const CRACKED_HIT_POINTS := 8
 const NARROW_DURABILITY_BONUS := 1
 const MAX_ROOM_BLOCKS := 24
@@ -522,10 +523,11 @@ func _ensure_required_types(
 	mine_index: int,
 	slot_index: int,
 ) -> void:
-	_ensure_ball_cache_count(
-		entries,
-		1 + posmod(mine_index + slot_index, 2),
-	)
+	if mine_index >= BALL_CACHE_FIRST_MINE_INDEX:
+		_ensure_ball_cache_count(
+			entries,
+			1 + posmod(mine_index + slot_index, 2),
+		)
 	var required: Array[String] = ["normal", "ore"]
 	if mine_index >= 6:
 		required.append_array(["explosive", "cracked"])
