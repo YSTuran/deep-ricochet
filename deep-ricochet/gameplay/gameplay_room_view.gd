@@ -101,20 +101,28 @@ func _draw() -> void:
 	DeepUI.draw_chip(
 		self,
 		Rect2(30.0, 58.0, 104.0, 28.0),
+		tr("HUD_DAILY_LEVEL") if room.run_is_daily \
+			else tr("HUD_MINE_LEVEL") % room.run_mine_number,
+		DeepUI.CORE,
+		12,
+	)
+	DeepUI.draw_chip(
+		self,
+		Rect2(140.0, 58.0, 104.0, 28.0),
 		tr("HUD_ROOM_CHIP") % [room.run_room_number, room.run_room_count],
 		DeepUI.BLUE,
 		12,
 	)
 	DeepUI.draw_chip(
 		self,
-		Rect2(140.0, 58.0, 104.0, 28.0),
+		Rect2(250.0, 58.0, 104.0, 28.0),
 		tr("HUD_SHOTS_CHIP") % [room.room.shots_remaining, room.shots_per_room],
 		DeepUI.GOLD,
 		12,
 	)
 	DeepUI.draw_chip(
 		self,
-		Rect2(250.0, 58.0, 78.0, 28.0),
+		Rect2(360.0, 58.0, 88.0, 28.0),
 		"×%.1f" % (float(room.room.multiplier_bps) / 10_000.0),
 		DeepUI.GOLD,
 		13,

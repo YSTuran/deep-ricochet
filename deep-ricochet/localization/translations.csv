@@ -34,7 +34,7 @@ CREDITS_LICENSE_ENGINE,Game engine,Oyun motoru
 CREDITS_SECTION_SOURCES,SOURCES,KAYNAKLAR
 CREDITS_SOURCE_KENNEY,Kenney assets,Kenney assetleri
 CREDITS_SOURCE_GODOT,Godot Engine,Godot Engine
-PROFILE_BEST,BEST SCORE  %d,EN İYİ SKOR  %d
+PROFILE_LAST_SCORE,LAST SCORE  %d,SON SKOR  %d
 PROFILE_STATS,Runs %d • Wins %d • Cores %d,Koşu %d • Başarı %d • Çekirdek %d
 PAUSE_TITLE,GAME PAUSED,OYUN DURAKLATILDI
 PAUSE_SUBTITLE,Simulation waits until you continue.,Devam etmeden simülasyon akmaz.
@@ -135,6 +135,7 @@ RESULT_TABLE_MULTIPLIER,MULT.,ÇARP.
 RESULT_TABLE_TOTAL,TOTAL,TOPLAM
 RESULT_NEW_BEST,NEW BEST!,YENİ REKOR!
 RESULT_BEST,Best %d,En iyi %d
+RESULT_DAILY_EXPIRED,Daily mine has changed.,Günlük maden değişti.
 RESULT_RETRY_SEED,RETRY SAME MINE,AYNI MADENİ DENE
 RESULT_REPLAY,NEW MINE,YENİ MADEN
 RESULT_NEXT_MINE,NEXT MINE,SONRAKİ MADEN
@@ -143,6 +144,8 @@ RESULT_RESTART,RESTART,YENİDEN BAŞLAT
 RESULT_MAIN_MENU,MAIN MENU,ANA MENÜ
 HUD_TITLE,DEEP RICOCHET • %s,DEEP RICOCHET • %s
 HUD_ROOM_CHIP,ROOM %d/%d,ODA %d/%d
+HUD_MINE_LEVEL,LEVEL %d,SEVİYE %d
+HUD_DAILY_LEVEL,DAILY,GÜNLÜK
 HUD_SCORE_CHIP,TOTAL %d,TOPLAM %d
 HUD_ROOM_SCORE_CHIP,ROOM %d,ODA %d
 HUD_SHOTS_CHIP,SHOT %d/%d,ATIŞ %d/%d
@@ -169,6 +172,7 @@ BLOCK_GENERIC,Block,Blok
 NOTICE_INTERRUPTED,The interrupted shot will restart.,Yarım kalan atış baştan oynanacak.
 NOTICE_BACKUP,The main save failed. The latest valid backup was loaded.,Ana kayıt açılamadı; son geçerli yedek yüklendi.
 NOTICE_SAVE_INVALID,Save validation failed. The damaged file was isolated.,Kayıt doğrulanamadı; bozuk dosya ayrıldı.
+NOTICE_SAVE_INCOMPATIBLE,This save uses older mine content. The file was kept; start a new run to continue.,Bu kayıt eski maden içeriğiyle uyumsuz. Dosya korundu; devam etmek için yeni bir oyun başlat.
 NOTICE_LOAD_FAILED,The save could not be opened.,Kayıt şu anda açılamadı.
 NOTICE_RUN_SAVED,Run saved.,Koşu kaydedildi.
 NOTICE_SHOT_RETRY,Shot cancelled. You can retry after continuing.,Atış iptal edildi; devamda yeniden deneyebilirsin.

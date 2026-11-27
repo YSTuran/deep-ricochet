@@ -31,6 +31,8 @@ func bind(run_controller: RunController) -> void:
 
 
 func show_menu(can_continue: bool, message: String = "") -> void:
+	if controller != null:
+		controller._sync_daily_record()
 	continue_available = can_continue
 	notice = message
 	visible = true
@@ -103,7 +105,7 @@ func _draw() -> void:
 		)
 		DeepUI.draw_centered(
 			self,
-			tr("PROFILE_BEST") % controller.profile.best_score,
+			tr("PROFILE_LAST_SCORE") % controller.profile.last_score,
 			Rect2(90.0, 439.0, 170.0, 44.0),
 			16,
 			DeepUI.GOLD,
@@ -135,8 +137,11 @@ func _draw() -> void:
 	)
 	var daily_label := tr("MENU_DAILY_MINE")
 	if controller != null and controller.profile != null \
+		and controller.profile.daily_attempts > 0 \
 		and controller.profile.daily_key == controller.current_daily_key():
-		daily_label = tr("MENU_DAILY_SCORE") % controller.profile.daily_best_score
+		daily_label = tr("MENU_DAILY_SCORE") % controller.profile.best_for_daily_key(
+			controller.current_daily_key()
+		)
 	DeepUI.draw_button(
 		self, _daily_button_rect(), daily_label, &"core", 19, true,
 		touch_controls.is_pressed(ACTION_DAILY),

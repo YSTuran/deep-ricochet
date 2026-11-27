@@ -23,6 +23,8 @@ func select_route(controller, option_id: StringName) -> bool:
 		controller.run_session.room_number,
 		controller.run_session.room_count,
 		controller.run_session.banked_score,
+		PlayerProfile._mine_order(controller.run_session.mine_id),
+		controller.run_session.run_kind == RunSession.RunKind.DAILY,
 	)
 	AudioManager.play_route_select()
 	controller.flow_view.show_gameplay()

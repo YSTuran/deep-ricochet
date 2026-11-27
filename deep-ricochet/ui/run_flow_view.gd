@@ -380,7 +380,15 @@ func _draw_run_result() -> void:
 		)
 	_draw_result_table()
 	if profile != null:
-		var best_label := tr("RESULT_NEW_BEST") if new_best else tr("RESULT_BEST") % profile.best_score
+		var best_label := ""
+		if run_session.run_kind == RunSession.RunKind.DAILY \
+			and run_session.daily_key != controller.current_daily_key():
+			best_label = tr("RESULT_DAILY_EXPIRED")
+		else:
+			var best_score := profile.best_for_mine(run_session.mine_id) \
+				if run_session.run_kind == RunSession.RunKind.NORMAL \
+				else profile.best_for_daily_key(run_session.daily_key)
+			best_label = tr("RESULT_NEW_BEST") if new_best else tr("RESULT_BEST") % best_score
 		DeepUI.draw_chip(self, Rect2(135.0, 580.0, 270.0, 38.0), best_label, accent, 17)
 	var primary_label := tr("RESULT_RETRY_SEED")
 	var restart_label := tr("RESULT_REPLAY")

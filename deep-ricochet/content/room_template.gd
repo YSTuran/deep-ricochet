@@ -43,6 +43,25 @@ var example_angles := PackedFloat32Array()
 var blocks: Array[RoomBlockDefinition] = []
 
 
+func gameplay_fingerprint() -> String:
+	var block_parts: Array[String] = []
+	for definition: RoomBlockDefinition in blocks:
+		block_parts.append("%d:%d:%d:%d:%d:%d:%d" % [
+			definition.id,
+			definition.block_type,
+			definition.cell.x,
+			definition.cell.y,
+			definition.hit_points,
+			definition.vulnerable_sides,
+			definition.beam_direction,
+		])
+	block_parts.sort()
+	return JSON.stringify([
+		str(room_id), str(mine_id), role, family, width, height,
+		multiplier_bps, Array(passage_columns), block_parts,
+	]).sha256_text()
+
+
 func validation_errors() -> PackedStringArray:
 	var errors := PackedStringArray()
 	if schema_version != SUPPORTED_SCHEMA_VERSION:

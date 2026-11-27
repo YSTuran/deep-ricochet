@@ -14,6 +14,7 @@ static func run(controller: RunController, config: GameConfig, parent: Node) -> 
 	_test_interrupted_shot_main_menu_continue(controller, service)
 	_test_route_and_result_restore(controller, service)
 	_test_snapshot_integrity(controller, config)
+	_test_content_compatibility(controller, service, config)
 	_test_backup_and_invalid_save(controller, service, config)
 	await _test_startup_restore(controller, service, parent)
 	await _test_daily_startup_restore(controller, service, config, parent)
@@ -236,10 +237,48 @@ static func _test_backup_and_invalid_save(
 	assert(service.clear_all())
 	var stale_envelope := SaveEnvelope.create(controller.create_snapshot()).to_dictionary()
 	var stale_state: Dictionary = stale_envelope["state"]
+	stale_state["schemaVersion"] = RunSnapshot.PREVIOUS_SCHEMA_VERSION
 	stale_state["contentVersion"] = "eski-icerik"
 	_write_text(service.primary_path, JSON.stringify(stale_envelope))
 	loaded = service.load_active(controller.catalog, config)
-	assert(loaded.status == SaveLoadResult.Status.INVALID)
+	assert(loaded.status == SaveLoadResult.Status.INCOMPATIBLE)
+	assert(FileAccess.file_exists(service.primary_path))
+
+
+static func _test_content_compatibility(
+	controller: RunController,
+	service: SaveService,
+	config: GameConfig,
+) -> void:
+	assert(service.clear_all())
+	assert(controller.start_new_run(57_057))
+	var current_data := controller.create_snapshot().to_dictionary()
+	var compatible_data := current_data.duplicate(true)
+	compatible_data["contentVersion"] = "onceki-oda-surumu"
+	var compatible := RunSnapshot.from_dictionary(compatible_data)
+	assert(compatible.validation_errors(controller.catalog, config).is_empty())
+	assert(service.save_stable(compatible))
+	var loaded := service.load_active(controller.catalog, config)
+	assert(loaded.has_valid_save())
+	assert(controller.restore_snapshot(loaded.snapshot_for_restore()))
+	assert(controller.run_session.content_version == controller.catalog.content_version)
+	assert(controller.create_snapshot().content_version == controller.catalog.content_version)
+
+	var tampered_data := compatible_data.duplicate(true)
+	var fingerprints: Dictionary = tampered_data["templateFingerprints"]
+	var first_id := str(controller.run_session.current_template_id)
+	fingerprints[first_id] = "different-room-layout"
+	assert(not RunSnapshot.from_dictionary(tampered_data).validation_errors(
+		controller.catalog, config,
+	).is_empty())
+
+	var previous_data := current_data.duplicate(true)
+	previous_data["schemaVersion"] = RunSnapshot.PREVIOUS_SCHEMA_VERSION
+	previous_data["contentVersion"] = "p2-mines-11"
+	assert(RunSnapshot.from_dictionary(previous_data).validation_errors(
+		controller.catalog, config,
+	).is_empty())
+	assert(service.clear_all())
 
 
 static func _test_snapshot_integrity(controller: RunController, config: GameConfig) -> void:
@@ -254,6 +293,7 @@ static func _test_snapshot_integrity(controller: RunController, config: GameConf
 	assert(snapshot.mine_id == &"mine_01")
 	assert(snapshot.run_kind == RunSession.RunKind.NORMAL)
 	assert(snapshot.validation_errors(controller.catalog, config).is_empty())
+	assert(not snapshot.template_fingerprints.is_empty())
 	var result := snapshot.room_results[0]
 	assert(result.schema_version == RoomResultRecord.SCHEMA_VERSION)
 	assert(not result.scored_block_ids.is_empty())

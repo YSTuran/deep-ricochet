@@ -160,7 +160,7 @@ Oda puanı, kırılan blokların toplamı ve başarı durumunda kullanılmayan h
 oda ödülü = (kırılma puanı + kalan atış × 20) × rota çarpanı
 ```
 
-Başarısız olunan odada kullanılmayan atış bonusu verilmez. Her odanın kırılma puanı, kalan atış bonusu, çarpanı ve toplam ödülü sonuç geçmişinde ayrı ayrı gösterilir. Profilde genel en iyi skorun yanında her madenin en iyi skoru ve tamamlanma sayısı da saklanır.
+Başarısız olunan odada kullanılmayan atış bonusu verilmez. Her odanın kırılma puanı, kalan atış bonusu, çarpanı ve toplam ödülü sonuç geçmişinde ayrı ayrı gösterilir. Her maden seviyesinin en iyi koşu puanı ve tamamlanma sayısı profilde ayrı ayrı saklanır; ana menü son oynanan koşunun puanını gösterir.
 
 ## Günlük maden
 
@@ -170,7 +170,7 @@ Günlük maden normal ilerleme zincirinden bağımsız, daha yoğun bir mücadel
 - On bir blok türünün tamamı kullanılır.
 - Normal madenlerdeki üç atış yerine beş atış hakkı verilir.
 - Maden 28 düzenlerinden türetilen ve aynalanmış eşleriyle birlikte 14 günlük oda bulunur.
-- Günlük sonuç profilde ayrıca saklanır ve normal maden kilitlerini değiştirmez.
+- Günlük en iyi puan yalnız o gün için tutulur; yerel tarih değiştiğinde sıfırlanır ve normal maden kilitlerini değiştirmez.
 
 ## Renk temaları
 

@@ -7,7 +7,8 @@ const VOLCANIC := 2
 const MOSSY := 3
 const GLACIAL := 4
 const THEME_COUNT := 5
-const GENERATED_TEXTURE_SIZE := 256
+const GENERATED_TEXTURE_SIZE := 192
+const TEXTURES_GENERATED_PER_FRAME := 1
 const BALL_CACHE_BALL_MAX_Y_RATIO := 0.34
 const PIERCING_ROCK_START_Y_RATIO := 0.72
 const FULL_TEXTURE_REFERENCE_SIZE := Vector2(1254.0, 1254.0)
@@ -161,6 +162,10 @@ const PALETTES := [
 
 static var current_theme := DEEP_SAPPHIRE
 static var _texture_cache: Dictionary = {}
+static var _texture_generation_frame := -1
+static var _textures_generated_this_frame := 0
+static var _redraw_frame := -1
+static var _queued_redraws: Dictionary[int, bool] = {}
 
 
 static func is_supported(theme_id: int) -> bool:
@@ -172,7 +177,6 @@ static func set_current_theme(theme_id: int) -> bool:
 		return false
 	if current_theme != theme_id:
 		current_theme = theme_id
-		_texture_cache.clear()
 	return true
 
 
@@ -257,7 +261,26 @@ static func draw_texture_region(
 	if current_theme == DEEP_SAPPHIRE:
 		canvas.draw_texture_rect_region(texture, destination, source_rect, modulate)
 		return
-	var themed_texture := _themed_texture(texture, source_rect, block_type)
+	var themed_texture := _themed_texture(texture, source_rect, block_type, false)
+	if themed_texture == null:
+		var frame := Engine.get_frames_drawn()
+		var waiting_for_budget := false
+		if _texture_generation_frame != frame:
+			_texture_generation_frame = frame
+			_textures_generated_this_frame = 0
+		if _textures_generated_this_frame < TEXTURES_GENERATED_PER_FRAME:
+			_textures_generated_this_frame += 1
+			themed_texture = _themed_texture(texture, source_rect, block_type)
+		else:
+			waiting_for_budget = true
+		if waiting_for_budget:
+			if _redraw_frame != frame:
+				_redraw_frame = frame
+				_queued_redraws.clear()
+			var canvas_id := canvas.get_instance_id()
+			if not _queued_redraws.has(canvas_id):
+				_queued_redraws[canvas_id] = true
+				canvas.call_deferred(&"queue_redraw")
 	if themed_texture == null:
 		canvas.draw_texture_rect_region(texture, destination, source_rect, modulate)
 		return
@@ -297,6 +320,7 @@ static func _themed_texture(
 	texture: Texture2D,
 	source_rect: Rect2,
 	block_type: int,
+	allow_generate: bool = true,
 ) -> Texture2D:
 	var cache_key := "%d|%s|%d|%d|%d|%d|%d" % [
 		current_theme,
@@ -310,6 +334,8 @@ static func _themed_texture(
 	var cached: Texture2D = _texture_cache.get(cache_key)
 	if cached != null:
 		return cached
+	if not allow_generate:
+		return null
 	var source_image := texture.get_image()
 	if source_image == null or source_image.is_empty():
 		return null

@@ -48,8 +48,12 @@ func load_active(catalog: RoomCatalog, config: GameConfig) -> SaveLoadResult:
 			result.status = SaveLoadResult.Status.LOADED
 		return result
 
-	result.status = SaveLoadResult.Status.INVALID
-	result.message = "Aktif oyun kaydı ve yedeği doğrulanamadı."
+	if _has_incompatible_content(catalog):
+		result.status = SaveLoadResult.Status.INCOMPATIBLE
+		result.message = "Kayıt eski içerikle oluşturulmuş; dosya korunuyor."
+	else:
+		result.status = SaveLoadResult.Status.INVALID
+		result.message = "Aktif oyun kaydı ve yedeği doğrulanamadı."
 	return result
 
 
@@ -87,3 +91,24 @@ func _is_valid_envelope_data(
 ) -> bool:
 	var envelope := SaveEnvelope.from_dictionary(data)
 	return envelope != null and envelope.validation_errors(catalog, config).is_empty()
+
+
+func _has_incompatible_content(catalog: RoomCatalog) -> bool:
+	if catalog == null:
+		return false
+	for path: String in [primary_path, backup_path]:
+		var raw_data: Variant = store._read_dictionary(path)
+		if typeof(raw_data) != TYPE_DICTIONARY:
+			continue
+		var envelope := SaveEnvelope.from_dictionary(raw_data)
+		if envelope.schema_version != SaveEnvelope.SCHEMA_VERSION or envelope.state == null:
+			continue
+		var snapshot := envelope.state
+		if snapshot.schema_version < RunSnapshot.OLDEST_SUPPORTED_SCHEMA_VERSION \
+			or snapshot.schema_version > RunSnapshot.SCHEMA_VERSION:
+			continue
+		if snapshot.run_id.strip_edges().is_empty() or snapshot.seed == 0:
+			continue
+		if snapshot.content_version != catalog.content_version:
+			return true
+	return false

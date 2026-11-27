@@ -11,7 +11,7 @@ const MINE_ORDER_PATH := "user://tests/deep_ricochet_mines_order_test.json"
 
 static func run(controller: RunController, config: GameConfig) -> void:
 	_test_mine_registry_normalizes_order()
-	_test_catalog_and_seeded_selection(controller.catalog, config)
+	_test_catalog_and_seeded_selection(controller.catalog, config, controller.mine_registry)
 	_test_template_example_angles(controller.catalog, config)
 	_test_failed_run(controller.catalog, config)
 	_test_controller_four_room_flow(controller, config)
@@ -44,7 +44,11 @@ static func _test_mine_registry_normalizes_order() -> void:
 	DirAccess.remove_absolute(ProjectSettings.globalize_path(MINE_ORDER_PATH))
 
 
-static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: GameConfig) -> void:
+static func _test_catalog_and_seeded_selection(
+	catalog: RoomCatalog,
+	config: GameConfig,
+	registry: MineRegistry,
+) -> void:
 	assert(catalog != null)
 	assert(catalog.templates.size() == 259)
 	var mine_counts: Dictionary[StringName, int] = {}
@@ -290,6 +294,39 @@ static func _test_catalog_and_seeded_selection(catalog: RoomCatalog, config: Gam
 	assert(block_type_counts.get(BlockState.BlockType.BALL_CACHE, 0) > 0)
 	assert(block_type_counts.get(BlockState.BlockType.PIERCING, 0) > 0)
 	assert(block_type_counts.get(BlockState.BlockType.ACID_BARREL, 0) > 0)
+	for mine_order in range(1, PlayerProfile.MINE_COUNT + 1):
+		var mine_id := StringName("mine_%02d" % mine_order)
+		var mine := registry.get_mine(mine_id)
+		assert(mine != null)
+		var first_room_maximum := 0
+		var route_maximums: Array[int] = []
+		for template: RoomTemplate in normal_templates:
+			if template.mine_id != mine_id:
+				continue
+			var all_block_points := 0
+			for block: RoomBlockDefinition in template.blocks:
+				all_block_points += ScoreCalculator.break_points(block.block_type, config)
+			var room_maximum := ScoreCalculator.room_reward(
+				all_block_points,
+				config.shots_per_room - 1,
+				template.multiplier_bps,
+				true,
+				config,
+			)
+			if template.role == RoomTemplate.Role.START:
+				first_room_maximum = room_maximum
+			else:
+				route_maximums.append(room_maximum)
+		route_maximums.sort_custom(func(left: int, right: int) -> bool: return left > right)
+		var run_maximum := first_room_maximum
+		for route_index in range(config.room_count - 1):
+			run_maximum += route_maximums[route_index]
+		assert(
+			mine.three_star_score <= run_maximum,
+			"Üç yıldız eşiği erişilebilir puanı aşıyor: %s (%d > %d)" % [
+				mine_id, mine.three_star_score, run_maximum,
+			],
+		)
 
 	for mine_order in range(1, PlayerProfile.MINE_COUNT + 1):
 		var mine_id := StringName("mine_%02d" % mine_order)
@@ -564,6 +601,8 @@ static func _test_controller_four_room_flow(
 	assert(controller.start_next_mine_from_result())
 	assert(controller.run_session.mine_id == &"mine_02")
 	assert(controller.run_session.room_number == 1)
+	assert(controller.gameplay_room.run_mine_number == 2)
+	assert(not controller.gameplay_room.run_is_daily)
 	assert(not controller.flow_view.visible)
 	var daily_key := "2026-11-11"
 	var daily_seed := controller.daily_seed_for_key(daily_key)
@@ -578,6 +617,7 @@ static func _test_controller_four_room_flow(
 	assert(controller.run_session.run_kind == RunSession.RunKind.DAILY)
 	assert(controller.run_session.daily_key == daily_key)
 	assert(controller.run_session.mine_id == DailyRooms.DAILY_MINE_ID)
+	assert(controller.gameplay_room.run_is_daily)
 	assert(controller.gameplay_room.room.shots_remaining == config.daily_shots_per_room)
 	assert(controller.gameplay_room.shots_per_room == config.daily_shots_per_room)
 	var daily_snapshot := controller.create_snapshot()
@@ -588,12 +628,15 @@ static func _test_controller_four_room_flow(
 	assert(controller.start_new_run(778))
 	assert(controller.restore_snapshot(daily_snapshot))
 	assert(controller.run_session.mine_id == DailyRooms.DAILY_MINE_ID)
+	assert(controller.gameplay_room.run_is_daily)
 	assert(controller.gameplay_room.room.shots_remaining == config.daily_shots_per_room)
 	assert(controller.start_new_run(778))
 	assert(controller.run_session.banked_score == 0)
 	assert(controller.run_session.room_number == 1)
 	assert(controller.start_new_run(779, &"mine_02"))
 	assert(controller.run_session.mine_id == &"mine_02")
+	assert(controller.gameplay_room.run_mine_number == 2)
+	assert(not controller.gameplay_room.run_is_daily)
 
 	var final_mine_result := RunSession.new()
 	final_mine_result.mine_id = &"mine_35"

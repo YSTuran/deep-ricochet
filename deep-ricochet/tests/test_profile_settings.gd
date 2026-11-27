@@ -30,6 +30,15 @@ class FailingProfileService:
 		return false
 
 
+class CountingSettingsService:
+	extends SettingsService
+	var save_count := 0
+
+	func save_settings(_settings: AppSettings) -> bool:
+		save_count += 1
+		return true
+
+
 static func run(controller: RunController) -> void:
 	_test_profile_round_trip()
 	_test_settings_round_trip()
@@ -43,7 +52,7 @@ static func _test_profile_round_trip() -> void:
 	assert(service.clear_all())
 	var profile := service.load_profile()
 	assert(profile.is_valid())
-	assert(profile.best_score == 0)
+	assert(profile.best_for_mine(&"mine_01") == 0)
 	assert(profile.record_run("run_profile_1", 450, true, 4, &"mine_01", false, "", 3))
 	assert(not profile.record_run("run_profile_1", 900, true, 4))
 	assert(profile.runs_played == 1)
@@ -56,7 +65,7 @@ static func _test_profile_round_trip() -> void:
 	profile.tutorial_completed = true
 	assert(service.save_profile(profile))
 	var restored := service.load_profile()
-	assert(restored.best_score == 450)
+	assert(restored.best_for_mine(&"mine_01") == 450)
 	assert(restored.tutorial_completed)
 	assert(restored.last_recorded_run_id == "run_profile_1")
 	assert(restored.highest_unlocked_mine == 2)
@@ -67,24 +76,42 @@ static func _test_profile_round_trip() -> void:
 	assert(service.save_profile(profile))
 	_write_text(service.store.primary_path, "{damaged-profile")
 	restored = service.load_profile()
-	assert(restored.best_score == 450)
+	assert(restored.best_for_mine(&"mine_01") == 450)
 	assert(restored.runs_played == 1)
 	assert(not service.store.loaded_from_backup)
 	_write_text(service.store.primary_path, JSON.stringify({
 		"schemaVersion": PlayerProfile.SCHEMA_VERSION,
-		"bestScore": -10,
+		"lastScore": -10,
 	}))
 	restored = service.load_profile()
-	assert(restored.best_score == 450)
+	assert(restored.best_for_mine(&"mine_01") == 450)
 	assert(restored.runs_played == 1)
 	assert(not service.store.loaded_from_backup)
 	assert(FileAccess.file_exists(service.store.primary_path))
 	assert(FileAccess.file_exists(service.store.backup_path))
 	_write_text(service.store.primary_path, "{damaged-again")
 	restored = service.load_profile()
-	assert(restored.best_score == 450)
+	assert(restored.best_for_mine(&"mine_01") == 450)
 	assert(restored.runs_played == 1)
 	assert(not service.store.loaded_from_backup)
+	var scoped := PlayerProfile.new()
+	assert(scoped.record_run("mine_01_first", 1000, true, 4, &"mine_01"))
+	assert(scoped.record_run("mine_02_first", 1500, true, 4, &"mine_02"))
+	assert(scoped.record_run("mine_01_better", 1200, true, 4, &"mine_01"))
+	assert(scoped.best_for_mine(&"mine_01") == 1200)
+	assert(scoped.best_for_mine(&"mine_02") == 1500)
+	assert(not scoped.record_run("mine_01_worse", 1100, false, 0, &"mine_01"))
+	var legacy_data := scoped.to_dictionary()
+	legacy_data["schemaVersion"] = 3
+	legacy_data["bestScore"] = 1500
+	assert(service.clear_all())
+	_write_text(service.store.primary_path, JSON.stringify(legacy_data))
+	var migrated := service.load_profile()
+	assert(migrated.schema_version == PlayerProfile.SCHEMA_VERSION)
+	assert(migrated.best_for_mine(&"mine_01") == 1200)
+	assert(migrated.best_for_mine(&"mine_02") == 1500)
+	assert(service.save_profile(migrated))
+	assert(service.load_profile().best_for_mine(&"mine_01") == 1200)
 	var daily := PlayerProfile.new()
 	assert(daily.record_run("daily_1", 220, true, 4, &"mine_01", true, "2026-11-11"))
 	assert(daily.highest_unlocked_mine == 1)
@@ -95,6 +122,14 @@ static func _test_profile_round_trip() -> void:
 	assert(not daily.record_run("daily_2", 180, false, 1, &"mine_01", true, "2026-11-11"))
 	assert(daily.daily_best_score == 220)
 	assert(daily.daily_attempts == 2)
+	assert(daily.sync_daily_key("2026-11-12"))
+	assert(daily.daily_best_score == 0)
+	assert(daily.daily_attempts == 0)
+	assert(daily.best_for_daily_key("2026-11-11") == 0)
+	assert(not daily.record_run("daily_late", 999, true, 4, &"mine_01", true, "2026-11-11"))
+	assert(daily.daily_best_score == 0)
+	assert(daily.record_run("daily_3", 250, true, 4, &"mine_01", true, "2026-11-12"))
+	assert(daily.best_for_daily_key("2026-11-12") == 250)
 	for mine_order in range(1, PlayerProfile.MINE_COUNT + 1):
 		var mine_id := StringName("mine_%02d" % mine_order)
 		assert(daily.record_run(
@@ -235,6 +270,10 @@ static func _test_settings_round_trip() -> void:
 			Vector3(base_target.r, base_target.g, base_target.b),
 		) < 0.04
 	)
+	assert(CaveTheme.set_current_theme(CaveTheme.AMETHYST))
+	assert(CaveTheme._themed_texture(
+		THEME_TEST_TEXTURE, THEME_TEST_SOURCE, BlockState.BlockType.NORMAL,
+	) == themed_texture)
 	assert(CaveTheme.set_current_theme(CaveTheme.DEEP_SAPPHIRE))
 	assert(service.clear_all())
 
@@ -321,7 +360,7 @@ static func _test_controller_profile_tutorial_and_locale(controller: RunControll
 	result.break_score = 321
 	controller._on_room_finished(result)
 	assert(controller.profile.runs_played == 1)
-	assert(controller.profile.best_score == 321)
+	assert(controller.profile.best_for_mine(&"mine_01") == 321)
 	assert(controller.flow_view.profile == controller.profile)
 	assert(controller.flow_view.new_best)
 
@@ -341,6 +380,9 @@ static func _test_controller_profile_tutorial_and_locale(controller: RunControll
 	controller.settings_overlay._gui_input(category_touch)
 	assert(controller.settings_overlay.page == SettingsOverlay.Page.GENERAL)
 	controller.settings_overlay.show_settings("", SettingsOverlay.Page.AUDIO)
+	var previous_settings_service := controller.settings_service
+	var counting_service := CountingSettingsService.new()
+	controller.settings_service = counting_service
 	var slider_press := InputEventScreenTouch.new()
 	slider_press.index = 0
 	slider_press.position = Vector2(
@@ -357,11 +399,14 @@ static func _test_controller_profile_tutorial_and_locale(controller: RunControll
 	)
 	controller.settings_overlay._gui_input(slider_drag)
 	assert(is_equal_approx(controller.app_settings.sfx_volume, 0.7))
+	assert(counting_service.save_count == 0)
 	var slider_release := InputEventScreenTouch.new()
 	slider_release.index = 0
 	slider_release.position = slider_drag.position
 	slider_release.pressed = false
 	controller.settings_overlay._gui_input(slider_release)
+	assert(counting_service.save_count == 1)
+	controller.settings_service = previous_settings_service
 	assert(controller.settings_overlay.touch_controls.active_action.is_empty())
 	controller.settings_overlay.show_settings("", SettingsOverlay.Page.GENERAL)
 	assert(controller.set_language(&"en"))
@@ -426,7 +471,7 @@ static func _test_controller_profile_tutorial_and_locale(controller: RunControll
 	controller.settings_overlay.show_delete_all_confirmation()
 	controller.profile_service = FailingProfileService.new()
 	assert(not controller.confirm_delete_all_data())
-	assert(controller.profile.best_score == 321)
+	assert(controller.profile.best_for_mine(&"mine_01") == 321)
 	assert(controller.settings_overlay.visible)
 	assert(controller.settings_overlay.page == SettingsOverlay.Page.GENERAL)
 	assert(not controller.settings_overlay.notice.is_empty())
@@ -435,7 +480,7 @@ static func _test_controller_profile_tutorial_and_locale(controller: RunControll
 	controller.profile_service = null
 	controller.settings_overlay.show_delete_all_confirmation()
 	assert(controller.confirm_delete_all_data())
-	assert(controller.profile.best_score == 0)
+	assert(controller.profile.best_for_mine(&"mine_01") == 0)
 	assert(not controller.profile.tutorial_completed)
 	assert(controller.app_settings.language == &"tr")
 	assert(is_equal_approx(controller.app_settings.sfx_volume, 0.8))

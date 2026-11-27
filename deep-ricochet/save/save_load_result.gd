@@ -5,6 +5,7 @@ enum Status {
 	NO_SAVE,
 	LOADED,
 	RECOVERED_BACKUP,
+	INCOMPATIBLE,
 	INVALID,
 }
 

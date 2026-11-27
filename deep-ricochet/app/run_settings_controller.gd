@@ -44,12 +44,13 @@ func toggle_sfx(controller) -> void:
 		AudioManager.play_ui_confirm()
 
 
-func set_sfx_volume(controller, volume: float) -> void:
+func set_sfx_volume(controller, volume: float, save_now: bool = true) -> void:
 	if controller.app_settings == null:
 		return
 	controller.app_settings.sfx_volume = clampf(volume, 0.0, 1.0)
 	AudioManager.apply_settings(controller.app_settings)
-	controller._save_app_settings()
+	if save_now:
+		controller._save_app_settings()
 	controller.settings_overlay.queue_redraw()
 
 
@@ -62,12 +63,13 @@ func toggle_music(controller) -> void:
 	controller.settings_overlay.queue_redraw()
 
 
-func set_music_volume(controller, volume: float) -> void:
+func set_music_volume(controller, volume: float, save_now: bool = true) -> void:
 	if controller.app_settings == null:
 		return
 	controller.app_settings.music_volume = clampf(volume, 0.0, 1.0)
 	AudioManager.apply_settings(controller.app_settings)
-	controller._save_app_settings()
+	if save_now:
+		controller._save_app_settings()
 	controller.settings_overlay.queue_redraw()
 
 

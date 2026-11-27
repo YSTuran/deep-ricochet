@@ -42,6 +42,8 @@ var impact_effects: Array[Dictionary] = []
 var piercing_beam_effects: Array[Dictionary] = []
 var run_room_number: int = 1
 var run_room_count: int = 1
+var run_mine_number: int = 1
+var run_is_daily := false
 var banked_score: int = 0
 var simulation_enabled := true
 var simulation_speed := 1
@@ -140,9 +142,17 @@ func restore_room(template: RoomTemplate, snapshot: RoomSnapshot) -> bool:
 	return true
 
 
-func set_run_context(room_number: int, room_count: int, confirmed_score: int) -> void:
+func set_run_context(
+	room_number: int,
+	room_count: int,
+	confirmed_score: int,
+	mine_number: int = 1,
+	is_daily: bool = false,
+) -> void:
 	run_room_number = room_number
 	run_room_count = room_count
+	run_mine_number = mine_number
+	run_is_daily = is_daily
 	banked_score = confirmed_score
 	_refresh_view()
 

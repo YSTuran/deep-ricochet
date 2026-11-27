@@ -25,47 +25,6 @@ $ReleaseOutput = [System.IO.Path]::GetFullPath($ReleaseOutput)
 New-Item -ItemType Directory -Path (Split-Path -Parent $DebugOutput) -Force | Out-Null
 New-Item -ItemType Directory -Path (Split-Path -Parent $ReleaseOutput) -Force | Out-Null
 
-function Invoke-Godot {
-    param([string[]]$Arguments)
-
-    $stdoutPath = [System.IO.Path]::GetTempFileName()
-    $stderrPath = [System.IO.Path]::GetTempFileName()
-    $escapedArguments = foreach ($argument in $Arguments) {
-        if ($argument -match '[\s"]') {
-            '"{0}"' -f $argument.Replace('"', '\"')
-        } else {
-            $argument
-        }
-    }
-    try {
-        $process = Start-Process `
-            -FilePath $godotExecutable `
-            -ArgumentList $escapedArguments `
-            -RedirectStandardOutput $stdoutPath `
-            -RedirectStandardError $stderrPath `
-            -WindowStyle Hidden `
-            -PassThru
-        $process.WaitForExit()
-        $stdout = Get-Content -LiteralPath $stdoutPath -Raw -ErrorAction SilentlyContinue
-        $stderr = Get-Content -LiteralPath $stderrPath -Raw -ErrorAction SilentlyContinue
-        if (-not [string]::IsNullOrWhiteSpace($stdout)) {
-            Write-Host $stdout.TrimEnd()
-        }
-        if (-not [string]::IsNullOrWhiteSpace($stderr)) {
-            Write-Host $stderr.TrimEnd()
-        }
-        if ($process.ExitCode -ne 0) {
-            throw "Godot exited with code $($process.ExitCode)."
-        }
-        $combined = "$stdout`n$stderr"
-        if ($combined -match '(?im)(^ERROR:|SCRIPT ERROR:|Parse Error:|Compile Error:|Failed to load script|Invalid call\.)') {
-            throw "Godot export reported a script or resource error."
-        }
-    } finally {
-        Remove-Item -LiteralPath $stdoutPath, $stderrPath -Force -ErrorAction SilentlyContinue
-    }
-}
-
 function Assert-Apk {
     param(
         [string]$Path,
@@ -154,12 +113,11 @@ try {
     $env:GODOT_ANDROID_KEYSTORE_RELEASE_USER = $releaseUser
     $env:GODOT_ANDROID_KEYSTORE_RELEASE_PASSWORD = $releasePassword
     Write-Host "Building the optimized Android 10+ release APK..."
-    Invoke-Godot @(
-        "--headless",
-        "--path", $projectPath,
-        "--export-release", "Android", $ReleaseOutput,
-        "--quit"
-    )
+    & (Join-Path $PSScriptRoot "export_android_apk.ps1") `
+        -GodotPath $godotExecutable `
+        -ProjectPath $projectPath `
+        -Mode release `
+        -OutputPath $ReleaseOutput
 } finally {
     $env:GODOT_ANDROID_KEYSTORE_RELEASE_PATH = $previousReleasePath
     $env:GODOT_ANDROID_KEYSTORE_RELEASE_USER = $previousReleaseUser

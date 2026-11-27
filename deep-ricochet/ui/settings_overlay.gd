@@ -70,6 +70,7 @@ var mode: Mode = Mode.SETTINGS
 var page: Page = Page.ROOT
 var notice: String
 var touch_controls = TouchControlsScript.new()
+var _pending_volume_save := false
 
 
 func _ready() -> void:
@@ -99,6 +100,7 @@ func show_delete_all_confirmation() -> void:
 
 
 func hide_overlay() -> void:
+	_flush_volume_settings()
 	touch_controls.reset()
 	visible = false
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -106,6 +108,12 @@ func hide_overlay() -> void:
 
 func refresh_locale() -> void:
 	queue_redraw()
+
+
+func _notification(what: int) -> void:
+	if what == MainLoop.NOTIFICATION_APPLICATION_PAUSED \
+		or what == MainLoop.NOTIFICATION_APPLICATION_FOCUS_OUT:
+		_flush_volume_settings()
 
 
 func _gui_input(event: InputEvent) -> void:
@@ -117,6 +125,14 @@ func _gui_input(event: InputEvent) -> void:
 		queue_redraw()
 	if controller == null:
 		return
+	if touch_controls.phase in [&"released", &"canceled"]:
+		if action == ACTION_SFX_SLIDER:
+			_set_sfx_from_position(touch_controls.last_position)
+		elif action == ACTION_MUSIC_SLIDER:
+			_set_music_from_position(touch_controls.last_position)
+		_flush_volume_settings()
+		if action == ACTION_SFX_SLIDER or action == ACTION_MUSIC_SLIDER:
+			return
 	if touch_controls.active_action == ACTION_SFX_SLIDER \
 		and touch_controls.phase in [&"pressed", &"dragged"]:
 		_set_sfx_from_position(touch_controls.last_position)
@@ -126,12 +142,6 @@ func _gui_input(event: InputEvent) -> void:
 		_set_music_from_position(touch_controls.last_position)
 		return
 	if action.is_empty():
-		return
-	if action == ACTION_SFX_SLIDER:
-		_set_sfx_from_position(touch_controls.last_position)
-		return
-	if action == ACTION_MUSIC_SLIDER:
-		_set_music_from_position(touch_controls.last_position)
 		return
 	AudioManager.play_ui_click()
 	_activate_action(action)
@@ -182,21 +192,36 @@ func _activate_action(action: StringName) -> void:
 
 
 func _set_sfx_from_position(position: Vector2) -> void:
-	controller.set_sfx_volume(clampf(
+	var volume := clampf(
 		(position.x - SFX_SLIDER.position.x) / SFX_SLIDER.size.x,
 		0.0,
 		1.0,
-	))
+	)
+	if is_equal_approx(controller.app_settings.sfx_volume, volume):
+		return
+	controller.set_sfx_volume(volume, false)
+	_pending_volume_save = true
 	queue_redraw()
 
 
 func _set_music_from_position(position: Vector2) -> void:
-	controller.set_music_volume(clampf(
+	var volume := clampf(
 		(position.x - MUSIC_SLIDER.position.x) / MUSIC_SLIDER.size.x,
 		0.0,
 		1.0,
-	))
+	)
+	if is_equal_approx(controller.app_settings.music_volume, volume):
+		return
+	controller.set_music_volume(volume, false)
+	_pending_volume_save = true
 	queue_redraw()
+
+
+func _flush_volume_settings() -> void:
+	if not _pending_volume_save or controller == null:
+		return
+	_pending_volume_save = false
+	controller._save_app_settings()
 
 
 func _open_page(next_page: Page, play_sound: bool = true) -> void:

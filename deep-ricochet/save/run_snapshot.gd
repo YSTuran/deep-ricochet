@@ -1,8 +1,9 @@
 class_name RunSnapshot
 extends RefCounted
 
-const SCHEMA_VERSION := 5
-const PREVIOUS_SCHEMA_VERSION := 4
+const SCHEMA_VERSION := 6
+const PREVIOUS_SCHEMA_VERSION := 5
+const RNG_STATE_SCHEMA_VERSION := 4
 const LEGACY_SCHEMA_VERSION := 3
 const OLDEST_SUPPORTED_SCHEMA_VERSION := 2
 
@@ -27,6 +28,7 @@ var succeeded: bool
 var current_template_id: StringName
 var selected_template_ids: Array[StringName] = []
 var offered_template_ids: Array[StringName] = []
+var template_fingerprints: Dictionary[String, String] = {}
 var pending_routes: Array[Dictionary] = []
 var room_results: Array[RoomResultRecord] = []
 var last_room_reward: int
@@ -42,8 +44,9 @@ static func capture(
 	current_rng_state: int,
 	current_config_version: String = "",
 	current_daily_content_version: String = "",
+	current_catalog: RoomCatalog = null,
 ) -> RunSnapshot:
-	if session == null or room_snapshot == null:
+	if session == null or room_snapshot == null or current_catalog == null:
 		return null
 	var snapshot := RunSnapshot.new()
 	snapshot.run_id = session.run_id
@@ -66,6 +69,11 @@ static func capture(
 	snapshot.current_template_id = session.current_template_id
 	snapshot.selected_template_ids = session.selected_template_ids.duplicate()
 	snapshot.offered_template_ids = session.offered_template_ids.duplicate()
+	for template_id: StringName in snapshot.selected_template_ids + snapshot.offered_template_ids:
+		var template := current_catalog.get_template(template_id)
+		if template == null:
+			return null
+		snapshot.template_fingerprints[str(template_id)] = template.gameplay_fingerprint()
 	for option: RouteOption in session.pending_routes:
 		snapshot.pending_routes.append({
 			"optionId": str(option.option_id),
@@ -103,6 +111,10 @@ static func from_dictionary(data: Dictionary) -> RunSnapshot:
 	snapshot.current_template_id = StringName(str(data.get("currentTemplateId", "")))
 	snapshot.selected_template_ids = _string_name_array(data.get("selectedTemplateIds", []))
 	snapshot.offered_template_ids = _string_name_array(data.get("offeredTemplateIds", []))
+	var raw_fingerprints: Variant = data.get("templateFingerprints", {})
+	if typeof(raw_fingerprints) == TYPE_DICTIONARY:
+		for template_id: Variant in raw_fingerprints:
+			snapshot.template_fingerprints[str(template_id)] = str(raw_fingerprints[template_id])
 	var raw_routes: Variant = data.get("pendingRoutes", [])
 	if typeof(raw_routes) == TYPE_ARRAY:
 		for raw_route: Variant in raw_routes:
@@ -151,6 +163,7 @@ func to_dictionary() -> Dictionary:
 		"currentTemplateId": str(current_template_id),
 		"selectedTemplateIds": _string_array(selected_template_ids),
 		"offeredTemplateIds": _string_array(offered_template_ids),
+		"templateFingerprints": template_fingerprints.duplicate(),
 		"pendingRoutes": pending_routes.duplicate(true),
 		"roomResults": serialized_results,
 		"lastRoomReward": last_room_reward,
@@ -167,18 +180,22 @@ func validation_errors(catalog: RoomCatalog, config: GameConfig) -> PackedString
 	if schema_version not in [
 		SCHEMA_VERSION,
 		PREVIOUS_SCHEMA_VERSION,
+		RNG_STATE_SCHEMA_VERSION,
 		LEGACY_SCHEMA_VERSION,
 		OLDEST_SUPPORTED_SCHEMA_VERSION,
 	]:
 		errors.append("Desteklenmeyen koşu snapshot sürümü.")
 	if run_id.strip_edges().is_empty() or seed == 0:
 		errors.append("Koşu kimliği veya seed geçersiz.")
-	if catalog == null or content_version != catalog.content_version:
+	if not _content_matches(catalog):
 		errors.append("Kayıt içerik sürümü mevcut katalogla uyuşmuyor.")
-	if schema_version == SCHEMA_VERSION:
+	if schema_version == SCHEMA_VERSION and not _fingerprints_match(catalog):
+		errors.append("Kayıttaki oda şablonları mevcut içerikle uyuşmuyor.")
+	if schema_version >= PREVIOUS_SCHEMA_VERSION:
 		if config == null or config_version != config.config_version:
 			errors.append("Kayıt oyun ayarı sürümüyle uyuşmuyor.")
 		if run_kind == RunSession.RunKind.DAILY \
+			and schema_version == PREVIOUS_SCHEMA_VERSION \
 			and (catalog == null or daily_content_version != catalog.daily_content_version):
 			errors.append("Kayıt günlük maden içerik sürümüyle uyuşmuyor.")
 	if mine_id.is_empty():
@@ -220,7 +237,9 @@ func validation_errors(catalog: RoomCatalog, config: GameConfig) -> PackedString
 				errors.append("Sunulan şablon katalogda bulunmuyor: %s." % template_id)
 			elif offered_template.mine_id != mine_id:
 				errors.append("Sunulan şablon koşu madeniyle uyuşmuyor: %s." % template_id)
-	_validate_rng_history(catalog, errors)
+	if schema_version != SCHEMA_VERSION or catalog == null \
+		or content_version == catalog.content_version:
+		_validate_rng_history(catalog, errors)
 	if not selected_template_ids.has(current_template_id):
 		errors.append("Etkin şablon seçilmiş şablonlar arasında değil.")
 	_validate_room_results(catalog, config, run_shots_per_room, errors)
@@ -255,6 +274,38 @@ func validation_errors(catalog: RoomCatalog, config: GameConfig) -> PackedString
 			or last_room_succeeded != active_room.room_succeeded:
 			errors.append("Son oda özeti etkin oda sonucuyla uyuşmuyor.")
 	return errors
+
+
+func _content_matches(catalog: RoomCatalog) -> bool:
+	if catalog == null:
+		return false
+	if content_version == catalog.content_version:
+		return true
+	if schema_version == SCHEMA_VERSION:
+		return _fingerprints_match(catalog)
+	# p2-mines-12 yalnızca 29-35. madenlerin yerleşimini değiştirdi.
+	return schema_version == PREVIOUS_SCHEMA_VERSION \
+		and content_version == "p2-mines-11" \
+		and catalog.content_version == "p2-mines-12" \
+		and run_kind == RunSession.RunKind.NORMAL \
+		and str(mine_id).begins_with("mine_") \
+		and str(mine_id).trim_prefix("mine_").to_int() <= 28
+
+
+func _fingerprints_match(catalog: RoomCatalog) -> bool:
+	if catalog == null:
+		return false
+	var expected_ids: Dictionary[String, bool] = {}
+	for template_id: StringName in selected_template_ids + offered_template_ids:
+		expected_ids[str(template_id)] = true
+	if expected_ids.is_empty() or template_fingerprints.size() != expected_ids.size():
+		return false
+	for template_id: String in expected_ids:
+		var template := catalog.get_template(StringName(template_id))
+		if template == null or template_fingerprints.get(template_id, "") \
+			!= template.gameplay_fingerprint():
+			return false
+	return true
 
 
 func create_session(catalog: RoomCatalog) -> RunSession:
@@ -294,7 +345,7 @@ func create_session(catalog: RoomCatalog) -> RunSession:
 
 
 func rng_state_for_restore(catalog: RoomCatalog) -> int:
-	if schema_version >= PREVIOUS_SCHEMA_VERSION:
+	if schema_version >= RNG_STATE_SCHEMA_VERSION:
 		return rng_state
 	var history_rng := RandomNumberGenerator.new()
 	history_rng.seed = seed
@@ -418,7 +469,7 @@ func _validate_rng_history(catalog: RoomCatalog, errors: PackedStringArray) -> v
 			if selected_id != options[0].template.room_id \
 				and selected_id != options[1].template.room_id:
 				errors.append("Seçilen oda, o adımda sunulan rotalardan biri değil.")
-	if schema_version >= PREVIOUS_SCHEMA_VERSION and rng_state != history_rng.state:
+	if schema_version >= RNG_STATE_SCHEMA_VERSION and rng_state != history_rng.state:
 		errors.append("Koşu RNG durumu seed ve rota geçmişiyle uyuşmuyor.")
 
 

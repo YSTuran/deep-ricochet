@@ -53,6 +53,10 @@ func boot_from_save(controller) -> void:
 				controller.pending_continue_notice = controller.tr("NOTICE_BACKUP")
 			controller._show_main_menu(true, controller.pending_continue_notice)
 			return
+	if load_result.status == SaveLoadResult.Status.INCOMPATIBLE:
+		controller.last_recovery_message = controller.tr("NOTICE_SAVE_INCOMPATIBLE")
+		controller._show_main_menu(false, controller.last_recovery_message)
+		return
 	if load_result.status == SaveLoadResult.Status.INVALID:
 		controller.last_recovery_message = controller.tr("NOTICE_SAVE_INVALID")
 		if controller.save_service.quarantine_invalid():
@@ -106,6 +110,7 @@ func create_snapshot(controller) -> RunSnapshot:
 		controller.rng.state,
 		controller.config.config_version,
 		controller.catalog.daily_content_version,
+		controller.catalog,
 	)
 
 
@@ -133,6 +138,7 @@ func restore_internal(controller, snapshot: RunSnapshot) -> bool:
 	var template: RoomTemplate = controller.catalog.get_template(snapshot.current_template_id)
 	if restored_session == null or template == null:
 		return false
+	restored_session.content_version = controller.catalog.content_version
 	if not controller.gameplay_room.set_shots_per_room(
 		RunSession.shots_per_room_for_kind(controller.config, restored_session.run_kind)
 	):
@@ -144,6 +150,8 @@ func restore_internal(controller, snapshot: RunSnapshot) -> bool:
 		restored_session.room_number,
 		restored_session.room_count,
 		restored_session.banked_score,
+		PlayerProfile._mine_order(restored_session.mine_id),
+		restored_session.run_kind == RunSession.RunKind.DAILY,
 	)
 	controller.rng.seed = snapshot.seed
 	controller.rng.state = snapshot.rng_state_for_restore(controller.catalog)

@@ -79,6 +79,7 @@ var pending_new_mine_id: StringName = &"mine_01"
 var pending_new_run_kind: int = RunSession.RunKind.NORMAL
 var pending_new_seed := 0
 var pending_new_daily_key: String
+var daily_rollover_timer: Timer
 
 
 func _ready() -> void:
@@ -115,6 +116,13 @@ func _ready() -> void:
 	gameplay_room.set_simulation_enabled(false)
 	pause_button.visible = false
 	speed_button.visible = false
+	daily_rollover_timer = Timer.new()
+	daily_rollover_timer.wait_time = 30.0
+	daily_rollover_timer.process_mode = Node.PROCESS_MODE_ALWAYS
+	daily_rollover_timer.timeout.connect(_sync_daily_record)
+	add_child(daily_rollover_timer)
+	daily_rollover_timer.start()
+	_sync_daily_record()
 	_boot_from_save()
 	print("Deep Ricochet hazır. Madenler: %d, içerik: %s" % [mine_registry.mines.size(), catalog.content_version])
 
@@ -132,6 +140,9 @@ func _notification(what: int) -> void:
 		or what == MainLoop.NOTIFICATION_APPLICATION_FOCUS_OUT:
 		pause_game()
 		_flush_test_events()
+	elif what == MainLoop.NOTIFICATION_APPLICATION_RESUMED \
+		or what == MainLoop.NOTIFICATION_APPLICATION_FOCUS_IN:
+		_sync_daily_record()
 	elif what == NOTIFICATION_WM_GO_BACK_REQUEST:
 		_handle_back_request()
 
@@ -284,6 +295,16 @@ func current_daily_key() -> String:
 	return RunFactory.current_daily_key()
 
 
+func _sync_daily_record() -> void:
+	if profile == null or not profile.sync_daily_key(current_daily_key()):
+		return
+	_save_profile()
+	if is_instance_valid(main_menu_view):
+		main_menu_view.queue_redraw()
+	if is_instance_valid(flow_view):
+		flow_view.queue_redraw()
+
+
 func daily_seed_for_key(key: String) -> int:
 	return RunFactory.daily_seed_for_key(key)
 
@@ -352,16 +373,16 @@ func toggle_sfx() -> void:
 	settings_controller.toggle_sfx(self)
 
 
-func set_sfx_volume(volume: float) -> void:
-	settings_controller.set_sfx_volume(self, volume)
+func set_sfx_volume(volume: float, save_now: bool = true) -> void:
+	settings_controller.set_sfx_volume(self, volume, save_now)
 
 
 func toggle_music() -> void:
 	settings_controller.toggle_music(self)
 
 
-func set_music_volume(volume: float) -> void:
-	settings_controller.set_music_volume(self, volume)
+func set_music_volume(volume: float, save_now: bool = true) -> void:
+	settings_controller.set_music_volume(self, volume, save_now)
 
 
 func toggle_screen_shake() -> void:
@@ -481,6 +502,8 @@ func _load_current_room(template: RoomTemplate) -> bool:
 		run_session.room_number,
 		run_session.room_count,
 		run_session.banked_score,
+		PlayerProfile._mine_order(run_session.mine_id),
+		run_session.run_kind == RunSession.RunKind.DAILY,
 	)
 	return true
 
@@ -547,6 +570,7 @@ func _clear_pending_continue() -> void:
 func _record_run_result_if_needed() -> void:
 	if run_session == null or not run_session.ended or profile == null:
 		return
+	_sync_daily_record()
 	if profile.last_recorded_run_id == run_session.run_id:
 		last_result_new_best = false
 		return

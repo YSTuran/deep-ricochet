@@ -1,12 +1,11 @@
 class_name PlayerProfile
 extends RefCounted
 
-const SCHEMA_VERSION := 3
-const LEGACY_SCHEMA_VERSIONS := [1, 2]
+const SCHEMA_VERSION := 4
+const LEGACY_SCHEMA_VERSIONS := [1, 2, 3]
 const MINE_COUNT := 35
 
 var schema_version := SCHEMA_VERSION
-var best_score := 0
 var last_score := 0
 var runs_played := 0
 var successful_runs := 0
@@ -34,22 +33,24 @@ func record_run(
 ) -> bool:
 	if run_id.is_empty() or run_id == last_recorded_run_id:
 		return false
-	var is_new_best := score > best_score
+	if is_daily and run_daily_key.is_empty():
+		return false
 	last_score = maxi(0, score)
-	best_score = maxi(best_score, last_score)
+	var is_new_best := false
 	runs_played += 1
 	if succeeded:
 		successful_runs += 1
 	total_cores_broken += maxi(0, cores_broken)
 	var mine_key := str(mine_id)
 	if is_daily:
-		if daily_key != run_daily_key:
-			daily_key = run_daily_key
-			daily_best_score = 0
-			daily_attempts = 0
-		daily_attempts += 1
-		daily_best_score = maxi(daily_best_score, last_score)
+		if daily_key.is_empty() or run_daily_key > daily_key:
+			sync_daily_key(run_daily_key)
+		if daily_key == run_daily_key:
+			is_new_best = last_score > daily_best_score
+			daily_attempts += 1
+			daily_best_score = maxi(daily_best_score, last_score)
 	else:
+		is_new_best = last_score > best_for_mine(mine_id)
 		mine_best_scores[mine_key] = maxi(int(mine_best_scores.get(mine_key, 0)), last_score)
 		if succeeded:
 			mine_best_stars[mine_key] = maxi(
@@ -65,7 +66,6 @@ func record_run(
 func to_dictionary() -> Dictionary:
 	return {
 		"schemaVersion": schema_version,
-		"bestScore": best_score,
 		"lastScore": last_score,
 		"runsPlayed": runs_played,
 		"successfulRuns": successful_runs,
@@ -88,7 +88,6 @@ static func from_dictionary(data: Dictionary) -> PlayerProfile:
 	profile.schema_version = SCHEMA_VERSION \
 		if source_schema == SCHEMA_VERSION or source_schema in LEGACY_SCHEMA_VERSIONS \
 		else source_schema
-	profile.best_score = int(data.get("bestScore", -1))
 	profile.last_score = int(data.get("lastScore", -1))
 	profile.runs_played = int(data.get("runsPlayed", -1))
 	profile.successful_runs = int(data.get("successfulRuns", -1))
@@ -113,7 +112,6 @@ static func from_dictionary(data: Dictionary) -> PlayerProfile:
 
 func is_valid() -> bool:
 	return schema_version == SCHEMA_VERSION \
-		and best_score >= 0 \
 		and last_score >= 0 \
 		and runs_played >= 0 \
 		and successful_runs >= 0 \
@@ -135,6 +133,19 @@ func is_mine_unlocked(mine_id: StringName) -> bool:
 
 func best_for_mine(mine_id: StringName) -> int:
 	return int(mine_best_scores.get(str(mine_id), 0))
+
+
+func best_for_daily_key(key: String) -> int:
+	return daily_best_score if daily_key == key else 0
+
+
+func sync_daily_key(key: String) -> bool:
+	if key.is_empty() or daily_key == key:
+		return false
+	daily_key = key
+	daily_best_score = 0
+	daily_attempts = 0
+	return true
 
 
 func completions_for_mine(mine_id: StringName) -> int:

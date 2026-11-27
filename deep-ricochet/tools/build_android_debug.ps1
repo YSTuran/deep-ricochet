@@ -89,18 +89,17 @@ Write-Host "Running mandatory smoke-test gate..."
 $smokeTestScript = Join-Path $PSScriptRoot "run_smoke_tests.ps1"
 & $smokeTestScript -GodotPath $godotExecutable
 
-Write-Host "Building ARM Android 10+ debug APK..."
-$exportArguments = @(
-    "--headless",
-    "--path", $projectPath
-)
+Write-Host "Building Android 10+ debug APK..."
 if ($installBuildTemplate) {
     Write-Host "The Android Gradle build template will be installed during export..."
-    $exportArguments += "--install-android-build-template"
+    $installOutput = Invoke-Godot @("--headless", "--path", $projectPath, "--install-android-build-template", "--quit")
+    Assert-NoGodotScriptErrors -Output $installOutput -Stage "Android build template installation"
 }
-$exportArguments += @("--export-debug", "Android", $OutputPath, "--quit")
-$exportOutput = Invoke-Godot $exportArguments
-Assert-NoGodotScriptErrors -Output $exportOutput -Stage "Android export"
+& (Join-Path $PSScriptRoot "export_android_apk.ps1") `
+    -GodotPath $godotExecutable `
+    -ProjectPath $projectPath `
+    -Mode debug `
+    -OutputPath $OutputPath
 
 if (-not (Test-Path -LiteralPath $OutputPath)) {
     throw "Godot reported success, but the APK was not created: $OutputPath"
@@ -125,7 +124,7 @@ try {
     )
     foreach ($requiredLibrary in $requiredLibraries) {
         if ($nativeLibraries -notcontains $requiredLibrary) {
-            throw "The ARM APK is missing a required Godot library: $requiredLibrary"
+            throw "The APK is missing a required Godot library: $requiredLibrary"
         }
     }
     $supportedAbis = @("armeabi-v7a", "arm64-v8a")
@@ -136,7 +135,7 @@ try {
         }
     )
     if ($unexpectedLibraries.Count -gt 0) {
-        throw "The ARM APK contains unexpected ABIs: $($unexpectedLibraries -join ', ')"
+        throw "The APK contains unexpected ABIs: $($unexpectedLibraries -join ', ')"
     }
 } finally {
     $archive.Dispose()
