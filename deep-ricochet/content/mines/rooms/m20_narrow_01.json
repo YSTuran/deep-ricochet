@@ -20,16 +20,16 @@
     },
     {
       "cell": [
-        1,
-        7
+        3,
+        5
       ],
-      "hitPoints": 0,
+      "hitPoints": 8,
       "id": 200403,
-      "type": "rock"
+      "type": "normal"
     },
     {
       "cell": [
-        6,
+        1,
         7
       ],
       "hitPoints": 0,
@@ -38,7 +38,7 @@
     },
     {
       "cell": [
-        0,
+        6,
         7
       ],
       "hitPoints": 0,
@@ -48,7 +48,7 @@
     {
       "cell": [
         0,
-        2
+        7
       ],
       "hitPoints": 0,
       "id": 200406,
@@ -56,7 +56,7 @@
     },
     {
       "cell": [
-        7,
+        0,
         2
       ],
       "hitPoints": 0,
@@ -65,7 +65,7 @@
     },
     {
       "cell": [
-        1,
+        7,
         2
       ],
       "hitPoints": 0,
@@ -74,7 +74,7 @@
     },
     {
       "cell": [
-        6,
+        1,
         2
       ],
       "hitPoints": 0,
@@ -83,8 +83,8 @@
     },
     {
       "cell": [
-        0,
-        3
+        6,
+        2
       ],
       "hitPoints": 0,
       "id": 200410,
@@ -92,7 +92,7 @@
     },
     {
       "cell": [
-        7,
+        0,
         3
       ],
       "hitPoints": 0,
@@ -101,11 +101,20 @@
     },
     {
       "cell": [
+        7,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 200412,
+      "type": "rock"
+    },
+    {
+      "cell": [
         2,
         7
       ],
       "hitPoints": 8,
-      "id": 200412,
+      "id": 200413,
       "type": "ore"
     },
     {
@@ -114,7 +123,7 @@
         6
       ],
       "hitPoints": 8,
-      "id": 200413,
+      "id": 200414,
       "type": "normal"
     },
     {
@@ -123,7 +132,7 @@
         7
       ],
       "hitPoints": 8,
-      "id": 200414,
+      "id": 200415,
       "type": "cracked"
     },
     {
@@ -132,7 +141,7 @@
         6
       ],
       "hitPoints": 8,
-      "id": 200415,
+      "id": 200416,
       "type": "cracked"
     },
     {
@@ -140,9 +149,9 @@
         6,
         5
       ],
-      "hitPoints": 6,
-      "id": 200416,
-      "type": "echo"
+      "hitPoints": 4,
+      "id": 200417,
+      "type": "ball_cache"
     },
     {
       "cell": [
@@ -150,7 +159,7 @@
         6
       ],
       "hitPoints": 8,
-      "id": 200417,
+      "id": 200418,
       "type": "ore"
     },
     {
@@ -158,9 +167,9 @@
         7,
         4
       ],
-      "hitPoints": 8,
-      "id": 200418,
-      "type": "ore"
+      "hitPoints": 4,
+      "id": 200419,
+      "type": "ball_cache"
     },
     {
       "cell": [
@@ -168,7 +177,7 @@
         7
       ],
       "hitPoints": 8,
-      "id": 200419,
+      "id": 200420,
       "type": "ore"
     },
     {
@@ -177,7 +186,7 @@
         7
       ],
       "hitPoints": 8,
-      "id": 200420,
+      "id": 200421,
       "type": "armored",
       "vulnerableSides": [
         "bottom"
@@ -189,7 +198,7 @@
         6
       ],
       "hitPoints": 7,
-      "id": 200421,
+      "id": 200422,
       "type": "explosive"
     },
     {
@@ -197,18 +206,9 @@
         0,
         5
       ],
-      "hitPoints": 4,
-      "id": 200422,
-      "type": "ball_cache"
-    },
-    {
-      "cell": [
-        3,
-        4
-      ],
-      "hitPoints": 4,
+      "hitPoints": 6,
       "id": 200423,
-      "type": "ball_cache"
+      "type": "echo"
     },
     {
       "cell": [
@@ -220,7 +220,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-13",
+  "contentVersion": "p2-mines-14",
   "displayName": "Daralan Yarık",
   "displayNameKey": "MINE_20_NARROW_01",
   "exampleAngles": [

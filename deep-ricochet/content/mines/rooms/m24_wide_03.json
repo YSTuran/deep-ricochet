@@ -29,11 +29,20 @@
     },
     {
       "cell": [
+        4,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 240304,
+      "type": "normal"
+    },
+    {
+      "cell": [
         0,
-        4
+        3
       ],
       "hitPoints": 0,
-      "id": 240304,
+      "id": 240305,
       "type": "rock"
     },
     {
@@ -42,7 +51,16 @@
         6
       ],
       "hitPoints": 0,
-      "id": 240305,
+      "id": 240306,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        6
+      ],
+      "hitPoints": 0,
+      "id": 240307,
       "type": "rock"
     },
     {
@@ -51,16 +69,7 @@
         5
       ],
       "hitPoints": 0,
-      "id": 240306,
-      "type": "rock"
-    },
-    {
-      "cell": [
-        0,
-        2
-      ],
-      "hitPoints": 0,
-      "id": 240307,
+      "id": 240308,
       "type": "rock"
     },
     {
@@ -69,72 +78,81 @@
         5
       ],
       "hitPoints": 0,
-      "id": 240308,
+      "id": 240309,
       "type": "rock"
+    },
+    {
+      "cell": [
+        5,
+        4
+      ],
+      "hitPoints": 4,
+      "id": 240310,
+      "type": "ball_cache"
     },
     {
       "cell": [
         3,
         4
       ],
-      "hitPoints": 6,
-      "id": 240309,
-      "type": "echo"
+      "hitPoints": 8,
+      "id": 240311,
+      "type": "cracked"
     },
     {
       "cell": [
         3,
         2
       ],
-      "hitPoints": 8,
-      "id": 240310,
-      "type": "ore"
+      "hitPoints": 6,
+      "id": 240312,
+      "type": "echo"
     },
     {
       "cell": [
         2,
         3
       ],
-      "hitPoints": 6,
-      "id": 240311,
-      "type": "echo"
+      "hitPoints": 8,
+      "id": 240313,
+      "type": "cracked"
     },
     {
+      "beamDirection": "down",
       "cell": [
         4,
         5
       ],
-      "hitPoints": 8,
-      "id": 240312,
-      "type": "ore"
+      "hitPoints": 7,
+      "id": 240314,
+      "type": "piercing"
     },
     {
-      "beamDirection": "up",
       "cell": [
         6,
         3
       ],
-      "hitPoints": 7,
-      "id": 240313,
-      "type": "piercing"
+      "hitPoints": 8,
+      "id": 240315,
+      "type": "ore"
     },
     {
       "cell": [
         2,
         7
       ],
-      "hitPoints": 8,
-      "id": 240314,
-      "type": "ore"
+      "hitPoints": 6,
+      "id": 240316,
+      "type": "echo"
     },
     {
       "cell": [
         3,
         6
       ],
-      "hitPoints": 6,
-      "id": 240315,
-      "type": "echo"
+      "hitPoints": 8,
+      "id": 240317,
+      "type": "cracked"
     },
     {
       "cell": [
@@ -142,8 +160,11 @@
         3
       ],
       "hitPoints": 8,
-      "id": 240316,
-      "type": "ore"
+      "id": 240318,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
     },
     {
       "cell": [
@@ -151,31 +172,16 @@
         5
       ],
       "hitPoints": 8,
-      "id": 240317,
-      "type": "ore"
+      "id": 240319,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
     },
     {
       "cell": [
         2,
         4
-      ],
-      "hitPoints": 6,
-      "id": 240318,
-      "type": "echo"
-    },
-    {
-      "cell": [
-        6,
-        2
-      ],
-      "hitPoints": 8,
-      "id": 240319,
-      "type": "explosive"
-    },
-    {
-      "cell": [
-        2,
-        2
       ],
       "hitPoints": 8,
       "id": 240320,
@@ -184,11 +190,20 @@
     {
       "cell": [
         6,
-        6
+        2
       ],
-      "hitPoints": 4,
+      "hitPoints": 8,
       "id": 240321,
-      "type": "ball_cache"
+      "type": "ore"
+    },
+    {
+      "cell": [
+        2,
+        2
+      ],
+      "hitPoints": 8,
+      "id": 240322,
+      "type": "explosive"
     },
     {
       "cell": [
@@ -200,13 +215,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-13",
+  "contentVersion": "p2-mines-14",
   "displayName": "Gök Kemer",
   "displayNameKey": "MINE_24_WIDE_03",
   "exampleAngles": [
-    79.0,
-    79.0,
-    79.0
+    17.5,
+    17.5,
+    17.5
   ],
   "family": "safe",
   "height": 8,

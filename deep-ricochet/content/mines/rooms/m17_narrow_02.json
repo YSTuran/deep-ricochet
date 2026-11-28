@@ -137,21 +137,12 @@
     },
     {
       "cell": [
-        0,
-        7
-      ],
-      "hitPoints": 6,
-      "id": 170516,
-      "type": "explosive"
-    },
-    {
-      "cell": [
         2,
         6
       ],
-      "hitPoints": 6,
-      "id": 170517,
-      "type": "echo"
+      "hitPoints": 8,
+      "id": 170516,
+      "type": "cracked"
     },
     {
       "cell": [
@@ -159,7 +150,7 @@
         7
       ],
       "hitPoints": 8,
-      "id": 170518,
+      "id": 170517,
       "type": "ore"
     },
     {
@@ -168,8 +159,17 @@
         6
       ],
       "hitPoints": 8,
-      "id": 170519,
+      "id": 170518,
       "type": "ore"
+    },
+    {
+      "cell": [
+        3,
+        5
+      ],
+      "hitPoints": 6,
+      "id": 170519,
+      "type": "echo"
     },
     {
       "cell": [
@@ -185,16 +185,16 @@
     },
     {
       "cell": [
-        5,
-        6
+        3,
+        4
       ],
-      "hitPoints": 8,
+      "hitPoints": 4,
       "id": 170521,
-      "type": "cracked"
+      "type": "ball_cache"
     },
     {
       "cell": [
-        3,
+        2,
         4
       ],
       "hitPoints": 4,
@@ -203,12 +203,12 @@
     },
     {
       "cell": [
-        1,
-        4
+        2,
+        3
       ],
-      "hitPoints": 4,
+      "hitPoints": 8,
       "id": 170523,
-      "type": "ball_cache"
+      "type": "explosive"
     },
     {
       "cell": [
@@ -220,13 +220,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-13",
+  "contentVersion": "p2-mines-14",
   "displayName": "Sıcak Damar",
   "displayNameKey": "MINE_17_NARROW_02",
   "exampleAngles": [
-    17.5,
-    17.5,
-    17.5
+    67.5,
+    67.5,
+    67.5
   ],
   "family": "bonus",
   "height": 8,

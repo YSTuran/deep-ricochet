@@ -29,25 +29,25 @@
     },
     {
       "cell": [
-        1,
-        5
+        2,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 340104,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        6,
+        4
       ],
       "hitPoints": 9,
-      "id": 340104,
+      "id": 340105,
       "type": "acid_barrel"
     },
     {
       "cell": [
         0,
-        3
-      ],
-      "hitPoints": 0,
-      "id": 340105,
-      "type": "rock"
-    },
-    {
-      "cell": [
-        7,
         3
       ],
       "hitPoints": 0,
@@ -83,11 +83,20 @@
     },
     {
       "cell": [
+        0,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 340110,
+      "type": "rock"
+    },
+    {
+      "cell": [
         1,
         6
       ],
       "hitPoints": 8,
-      "id": 340110,
+      "id": 340111,
       "type": "ore"
     },
     {
@@ -96,7 +105,7 @@
         5
       ],
       "hitPoints": 6,
-      "id": 340111,
+      "id": 340112,
       "type": "echo"
     },
     {
@@ -105,7 +114,7 @@
         6
       ],
       "hitPoints": 8,
-      "id": 340112,
+      "id": 340113,
       "type": "normal"
     },
     {
@@ -114,7 +123,7 @@
         5
       ],
       "hitPoints": 8,
-      "id": 340113,
+      "id": 340114,
       "type": "ore"
     },
     {
@@ -122,23 +131,14 @@
         4,
         4
       ],
-      "hitPoints": 8,
-      "id": 340114,
-      "type": "cracked"
-    },
-    {
-      "cell": [
-        2,
-        2
-      ],
-      "hitPoints": 8,
+      "hitPoints": 4,
       "id": 340115,
-      "type": "ore"
+      "type": "ball_cache"
     },
     {
       "cell": [
-        6,
-        5
+        4,
+        6
       ],
       "hitPoints": 8,
       "id": 340116,
@@ -149,23 +149,24 @@
         1,
         4
       ],
-      "hitPoints": 8,
+      "hitPoints": 6,
       "id": 340117,
-      "type": "cracked"
+      "type": "echo"
     },
     {
+      "beamDirection": "right",
       "cell": [
         2,
-        6
+        4
       ],
-      "hitPoints": 8,
+      "hitPoints": 7,
       "id": 340118,
-      "type": "ore"
+      "type": "piercing"
     },
     {
       "cell": [
-        6,
-        7
+        1,
+        5
       ],
       "hitPoints": 8,
       "id": 340119,
@@ -173,11 +174,23 @@
     },
     {
       "cell": [
+        6,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 340120,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
         2,
         7
       ],
       "hitPoints": 6,
-      "id": 340120,
+      "id": 340121,
       "type": "echo"
     },
     {
@@ -185,9 +198,9 @@
         5,
         7
       ],
-      "hitPoints": 4,
-      "id": 340121,
-      "type": "ball_cache"
+      "hitPoints": 8,
+      "id": 340122,
+      "type": "cracked"
     },
     {
       "cell": [
@@ -199,13 +212,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-13",
+  "contentVersion": "p2-mines-14",
   "displayName": "Islak Basamak",
   "displayNameKey": "MINE_34_WIDE_01",
   "exampleAngles": [
-    15.0,
-    15.0,
-    15.0
+    32.5,
+    32.5,
+    32.5
   ],
   "family": "safe",
   "height": 8,

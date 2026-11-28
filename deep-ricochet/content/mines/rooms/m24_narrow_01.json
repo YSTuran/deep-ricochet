@@ -29,16 +29,16 @@
     },
     {
       "cell": [
-        1,
-        5
+        5,
+        7
       ],
-      "hitPoints": 0,
+      "hitPoints": 8,
       "id": 240404,
-      "type": "rock"
+      "type": "normal"
     },
     {
       "cell": [
-        6,
+        1,
         5
       ],
       "hitPoints": 0,
@@ -47,7 +47,7 @@
     },
     {
       "cell": [
-        0,
+        6,
         5
       ],
       "hitPoints": 0,
@@ -56,7 +56,7 @@
     },
     {
       "cell": [
-        7,
+        0,
         5
       ],
       "hitPoints": 0,
@@ -65,8 +65,8 @@
     },
     {
       "cell": [
-        1,
-        6
+        7,
+        5
       ],
       "hitPoints": 0,
       "id": 240408,
@@ -74,7 +74,7 @@
     },
     {
       "cell": [
-        6,
+        1,
         6
       ],
       "hitPoints": 0,
@@ -83,7 +83,7 @@
     },
     {
       "cell": [
-        0,
+        6,
         6
       ],
       "hitPoints": 0,
@@ -92,7 +92,7 @@
     },
     {
       "cell": [
-        7,
+        0,
         6
       ],
       "hitPoints": 0,
@@ -101,8 +101,8 @@
     },
     {
       "cell": [
-        1,
-        7
+        7,
+        6
       ],
       "hitPoints": 0,
       "id": 240412,
@@ -110,34 +110,35 @@
     },
     {
       "cell": [
-        0,
+        1,
         7
       ],
-      "hitPoints": 8,
+      "hitPoints": 0,
       "id": 240413,
-      "type": "ore"
+      "type": "rock"
     },
     {
       "cell": [
-        3,
+        7,
         7
       ],
       "hitPoints": 8,
       "id": 240414,
-      "type": "cracked"
+      "type": "ore"
     },
     {
+      "beamDirection": "right",
       "cell": [
-        5,
-        6
+        0,
+        7
       ],
-      "hitPoints": 8,
+      "hitPoints": 7,
       "id": 240415,
-      "type": "explosive"
+      "type": "piercing"
     },
     {
       "cell": [
-        6,
+        3,
         7
       ],
       "hitPoints": 8,
@@ -147,7 +148,7 @@
     {
       "beamDirection": "left",
       "cell": [
-        5,
+        6,
         7
       ],
       "hitPoints": 7,
@@ -156,20 +157,11 @@
     },
     {
       "cell": [
-        5,
-        4
+        2,
+        6
       ],
       "hitPoints": 8,
       "id": 240418,
-      "type": "ore"
-    },
-    {
-      "cell": [
-        2,
-        7
-      ],
-      "hitPoints": 8,
-      "id": 240419,
       "type": "armored",
       "vulnerableSides": [
         "bottom"
@@ -177,12 +169,21 @@
     },
     {
       "cell": [
+        2,
+        7
+      ],
+      "hitPoints": 6,
+      "id": 240419,
+      "type": "echo"
+    },
+    {
+      "cell": [
         0,
         3
       ],
-      "hitPoints": 6,
+      "hitPoints": 8,
       "id": 240420,
-      "type": "echo"
+      "type": "cracked"
     },
     {
       "cell": [
@@ -191,12 +192,12 @@
       ],
       "hitPoints": 8,
       "id": 240421,
-      "type": "ore"
+      "type": "explosive"
     },
     {
       "cell": [
-        2,
-        5
+        1,
+        3
       ],
       "hitPoints": 4,
       "id": 240422,
@@ -204,8 +205,8 @@
     },
     {
       "cell": [
-        1,
-        3
+        6,
+        4
       ],
       "hitPoints": 4,
       "id": 240423,
@@ -221,13 +222,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-13",
+  "contentVersion": "p2-mines-14",
   "displayName": "Çarpan Yarık",
   "displayNameKey": "MINE_24_NARROW_01",
   "exampleAngles": [
-    67.5,
-    67.5,
-    67.5
+    17.5,
+    17.5,
+    17.5
   ],
   "family": "bonus",
   "height": 8,

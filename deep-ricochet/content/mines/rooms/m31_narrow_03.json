@@ -20,11 +20,20 @@
     },
     {
       "cell": [
-        3,
-        6
+        0,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 310603,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        2,
+        2
       ],
       "hitPoints": 9,
-      "id": 310603,
+      "id": 310604,
       "type": "acid_barrel"
     },
     {
@@ -33,21 +42,12 @@
         2
       ],
       "hitPoints": 0,
-      "id": 310604,
-      "type": "rock"
-    },
-    {
-      "cell": [
-        7,
-        2
-      ],
-      "hitPoints": 0,
       "id": 310605,
       "type": "rock"
     },
     {
       "cell": [
-        1,
+        7,
         2
       ],
       "hitPoints": 0,
@@ -56,8 +56,8 @@
     },
     {
       "cell": [
-        0,
-        3
+        1,
+        2
       ],
       "hitPoints": 0,
       "id": 310607,
@@ -65,8 +65,8 @@
     },
     {
       "cell": [
-        7,
-        3
+        6,
+        2
       ],
       "hitPoints": 0,
       "id": 310608,
@@ -74,7 +74,7 @@
     },
     {
       "cell": [
-        1,
+        0,
         3
       ],
       "hitPoints": 0,
@@ -83,7 +83,7 @@
     },
     {
       "cell": [
-        6,
+        7,
         3
       ],
       "hitPoints": 0,
@@ -92,8 +92,8 @@
     },
     {
       "cell": [
-        7,
-        4
+        1,
+        3
       ],
       "hitPoints": 0,
       "id": 310611,
@@ -101,7 +101,7 @@
     },
     {
       "cell": [
-        1,
+        0,
         4
       ],
       "hitPoints": 0,
@@ -110,11 +110,20 @@
     },
     {
       "cell": [
+        7,
+        4
+      ],
+      "hitPoints": 0,
+      "id": 310613,
+      "type": "rock"
+    },
+    {
+      "cell": [
         0,
         7
       ],
       "hitPoints": 8,
-      "id": 310613,
+      "id": 310614,
       "type": "ore"
     },
     {
@@ -123,7 +132,7 @@
         7
       ],
       "hitPoints": 8,
-      "id": 310614,
+      "id": 310615,
       "type": "explosive"
     },
     {
@@ -132,11 +141,17 @@
         6
       ],
       "hitPoints": 8,
-      "id": 310615,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "id": 310616,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        1,
+        7
+      ],
+      "hitPoints": 6,
+      "id": 310617,
+      "type": "echo"
     },
     {
       "cell": [
@@ -144,44 +159,7 @@
         7
       ],
       "hitPoints": 8,
-      "id": 310616,
-      "type": "ore"
-    },
-    {
-      "beamDirection": "down",
-      "cell": [
-        7,
-        6
-      ],
-      "hitPoints": 7,
-      "id": 310617,
-      "type": "piercing"
-    },
-    {
-      "cell": [
-        2,
-        7
-      ],
-      "hitPoints": 8,
       "id": 310618,
-      "type": "explosive"
-    },
-    {
-      "cell": [
-        7,
-        5
-      ],
-      "hitPoints": 8,
-      "id": 310619,
-      "type": "ore"
-    },
-    {
-      "cell": [
-        4,
-        5
-      ],
-      "hitPoints": 8,
-      "id": 310620,
       "type": "armored",
       "vulnerableSides": [
         "bottom"
@@ -189,30 +167,49 @@
     },
     {
       "cell": [
-        4,
-        7
+        7,
+        6
       ],
-      "hitPoints": 6,
-      "id": 310621,
-      "type": "echo"
+      "hitPoints": 8,
+      "id": 310619,
+      "type": "ore"
     },
     {
       "cell": [
         2,
-        6
+        7
       ],
       "hitPoints": 8,
-      "id": 310622,
-      "type": "cracked"
+      "id": 310620,
+      "type": "ore"
+    },
+    {
+      "beamDirection": "left",
+      "cell": [
+        7,
+        5
+      ],
+      "hitPoints": 7,
+      "id": 310621,
+      "type": "piercing"
     },
     {
       "cell": [
-        7,
-        7
+        4,
+        5
       ],
       "hitPoints": 4,
-      "id": 310623,
+      "id": 310622,
       "type": "ball_cache"
+    },
+    {
+      "cell": [
+        4,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 310623,
+      "type": "cracked"
     },
     {
       "cell": [
@@ -224,13 +221,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-13",
+  "contentVersion": "p2-mines-14",
   "displayName": "Paslı Mahzen",
   "displayNameKey": "MINE_31_NARROW_03",
   "exampleAngles": [
-    112.5,
-    112.5,
-    112.5
+    111.5,
+    111.5,
+    111.5
   ],
   "family": "bonus",
   "height": 8,

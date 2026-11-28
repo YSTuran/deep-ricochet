@@ -21,16 +21,16 @@
     {
       "cell": [
         7,
-        6
+        5
       ],
-      "hitPoints": 9,
+      "hitPoints": 8,
       "id": 320003,
-      "type": "acid_barrel"
+      "type": "normal"
     },
     {
       "cell": [
         3,
-        4
+        7
       ],
       "hitPoints": 9,
       "id": 320004,
@@ -38,17 +38,17 @@
     },
     {
       "cell": [
-        7,
-        5
+        0,
+        3
       ],
-      "hitPoints": 0,
+      "hitPoints": 9,
       "id": 320005,
-      "type": "rock"
+      "type": "acid_barrel"
     },
     {
       "cell": [
-        0,
-        3
+        7,
+        6
       ],
       "hitPoints": 0,
       "id": 320006,
@@ -74,8 +74,8 @@
     },
     {
       "cell": [
-        7,
-        4
+        0,
+        6
       ],
       "hitPoints": 0,
       "id": 320009,
@@ -83,11 +83,20 @@
     },
     {
       "cell": [
-        2,
+        7,
         2
       ],
-      "hitPoints": 8,
+      "hitPoints": 0,
       "id": 320010,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        5,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 320011,
       "type": "ore"
     },
     {
@@ -96,7 +105,7 @@
         5
       ],
       "hitPoints": 8,
-      "id": 320011,
+      "id": 320012,
       "type": "cracked"
     },
     {
@@ -105,7 +114,7 @@
         6
       ],
       "hitPoints": 8,
-      "id": 320012,
+      "id": 320013,
       "type": "armored",
       "vulnerableSides": [
         "bottom"
@@ -117,7 +126,7 @@
         4
       ],
       "hitPoints": 8,
-      "id": 320013,
+      "id": 320014,
       "type": "normal"
     },
     {
@@ -126,23 +135,14 @@
         7
       ],
       "hitPoints": 8,
-      "id": 320014,
+      "id": 320015,
       "type": "explosive"
     },
     {
+      "beamDirection": "right",
       "cell": [
         1,
         6
-      ],
-      "hitPoints": 8,
-      "id": 320015,
-      "type": "ore"
-    },
-    {
-      "beamDirection": "left",
-      "cell": [
-        2,
-        4
       ],
       "hitPoints": 7,
       "id": 320016,
@@ -150,51 +150,58 @@
     },
     {
       "cell": [
-        5,
-        2
+        2,
+        4
       ],
-      "hitPoints": 6,
+      "hitPoints": 4,
       "id": 320017,
-      "type": "echo"
+      "type": "ball_cache"
     },
     {
       "cell": [
         5,
-        6
+        2
       ],
-      "hitPoints": 8,
+      "hitPoints": 6,
       "id": 320018,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "echo"
+    },
+    {
+      "beamDirection": "right",
+      "cell": [
+        0,
+        4
+      ],
+      "hitPoints": 7,
+      "id": 320019,
+      "type": "piercing"
     },
     {
       "cell": [
         2,
         3
       ],
-      "hitPoints": 4,
-      "id": 320019,
-      "type": "ball_cache"
+      "hitPoints": 6,
+      "id": 320020,
+      "type": "echo"
     },
     {
       "cell": [
         4,
         4
       ],
-      "hitPoints": 8,
-      "id": 320020,
-      "type": "ore"
+      "hitPoints": 4,
+      "id": 320021,
+      "type": "ball_cache"
     },
     {
       "cell": [
         1,
         3
       ],
-      "hitPoints": 4,
-      "id": 320021,
-      "type": "ball_cache"
+      "hitPoints": 8,
+      "id": 320022,
+      "type": "cracked"
     },
     {
       "cell": [
@@ -206,13 +213,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-13",
+  "contentVersion": "p2-mines-14",
   "displayName": "Yeşil Derinlik",
   "displayNameKey": "MINE_32_START",
   "exampleAngles": [
-    72.5,
-    72.5,
-    72.5
+    65.0,
+    65.0,
+    65.0
   ],
   "family": "safe",
   "height": 8,

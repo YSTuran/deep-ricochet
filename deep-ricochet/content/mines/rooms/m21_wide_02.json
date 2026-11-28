@@ -29,17 +29,17 @@
     },
     {
       "cell": [
-        7,
-        5
+        2,
+        6
       ],
-      "hitPoints": 0,
+      "hitPoints": 8,
       "id": 210204,
-      "type": "rock"
+      "type": "normal"
     },
     {
       "cell": [
-        0,
-        2
+        7,
+        5
       ],
       "hitPoints": 0,
       "id": 210205,
@@ -47,7 +47,7 @@
     },
     {
       "cell": [
-        7,
+        0,
         2
       ],
       "hitPoints": 0,
@@ -56,8 +56,8 @@
     },
     {
       "cell": [
-        0,
-        5
+        7,
+        2
       ],
       "hitPoints": 0,
       "id": 210207,
@@ -66,10 +66,19 @@
     {
       "cell": [
         0,
-        3
+        5
       ],
       "hitPoints": 0,
       "id": 210208,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        6
+      ],
+      "hitPoints": 0,
+      "id": 210209,
       "type": "rock"
     },
     {
@@ -78,7 +87,7 @@
         7
       ],
       "hitPoints": 8,
-      "id": 210209,
+      "id": 210210,
       "type": "ore"
     },
     {
@@ -87,7 +96,7 @@
         6
       ],
       "hitPoints": 8,
-      "id": 210210,
+      "id": 210211,
       "type": "ore"
     },
     {
@@ -96,7 +105,7 @@
         7
       ],
       "hitPoints": 8,
-      "id": 210211,
+      "id": 210212,
       "type": "ore"
     },
     {
@@ -105,7 +114,7 @@
         3
       ],
       "hitPoints": 8,
-      "id": 210212,
+      "id": 210213,
       "type": "explosive"
     },
     {
@@ -114,7 +123,7 @@
         3
       ],
       "hitPoints": 8,
-      "id": 210213,
+      "id": 210214,
       "type": "ore"
     },
     {
@@ -122,9 +131,9 @@
         6,
         4
       ],
-      "hitPoints": 8,
-      "id": 210214,
-      "type": "normal"
+      "hitPoints": 4,
+      "id": 210215,
+      "type": "ball_cache"
     },
     {
       "cell": [
@@ -132,7 +141,7 @@
         7
       ],
       "hitPoints": 6,
-      "id": 210215,
+      "id": 210216,
       "type": "echo"
     },
     {
@@ -141,29 +150,8 @@
         7
       ],
       "hitPoints": 8,
-      "id": 210216,
-      "type": "cracked"
-    },
-    {
-      "cell": [
-        2,
-        6
-      ],
-      "hitPoints": 8,
       "id": 210217,
-      "type": "ore"
-    },
-    {
-      "cell": [
-        0,
-        7
-      ],
-      "hitPoints": 8,
-      "id": 210218,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "cracked"
     },
     {
       "cell": [
@@ -171,26 +159,38 @@
         6
       ],
       "hitPoints": 8,
-      "id": 210219,
-      "type": "normal"
-    },
-    {
-      "cell": [
-        0,
-        4
-      ],
-      "hitPoints": 8,
-      "id": 210220,
-      "type": "normal"
+      "id": 210218,
+      "type": "cracked"
     },
     {
       "cell": [
         4,
         6
       ],
-      "hitPoints": 4,
+      "hitPoints": 8,
+      "id": 210219,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        2,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 210220,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        5,
+        7
+      ],
+      "hitPoints": 8,
       "id": 210221,
-      "type": "ball_cache"
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
     },
     {
       "cell": [
@@ -202,13 +202,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-13",
+  "contentVersion": "p2-mines-14",
   "displayName": "Mıknatıs Salonu",
   "displayNameKey": "MINE_21_WIDE_02",
   "exampleAngles": [
-    32.5,
-    32.5,
-    32.5
+    15.0,
+    15.0,
+    15.0
   ],
   "family": "safe",
   "height": 8,

@@ -29,25 +29,25 @@
     },
     {
       "cell": [
-        1,
+        2,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 310404,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        5,
         3
       ],
       "hitPoints": 9,
-      "id": 310404,
+      "id": 310405,
       "type": "acid_barrel"
     },
     {
       "cell": [
         1,
-        6
-      ],
-      "hitPoints": 0,
-      "id": 310405,
-      "type": "rock"
-    },
-    {
-      "cell": [
-        7,
         6
       ],
       "hitPoints": 0,
@@ -65,8 +65,8 @@
     },
     {
       "cell": [
-        0,
-        7
+        6,
+        6
       ],
       "hitPoints": 0,
       "id": 310408,
@@ -74,7 +74,7 @@
     },
     {
       "cell": [
-        7,
+        0,
         7
       ],
       "hitPoints": 0,
@@ -83,7 +83,7 @@
     },
     {
       "cell": [
-        1,
+        7,
         7
       ],
       "hitPoints": 0,
@@ -92,7 +92,7 @@
     },
     {
       "cell": [
-        6,
+        1,
         7
       ],
       "hitPoints": 0,
@@ -101,8 +101,8 @@
     },
     {
       "cell": [
-        1,
-        2
+        6,
+        7
       ],
       "hitPoints": 0,
       "id": 310412,
@@ -110,7 +110,7 @@
     },
     {
       "cell": [
-        7,
+        1,
         2
       ],
       "hitPoints": 0,
@@ -119,17 +119,17 @@
     },
     {
       "cell": [
-        2,
-        7
+        7,
+        2
       ],
-      "hitPoints": 8,
+      "hitPoints": 0,
       "id": 310414,
-      "type": "ore"
+      "type": "rock"
     },
     {
       "cell": [
-        5,
-        6
+        2,
+        7
       ],
       "hitPoints": 8,
       "id": 310415,
@@ -138,37 +138,28 @@
     {
       "cell": [
         5,
-        7
+        6
       ],
       "hitPoints": 8,
       "id": 310416,
-      "type": "cracked"
+      "type": "ore"
     },
     {
       "cell": [
         4,
         7
       ],
-      "hitPoints": 8,
-      "id": 310417,
-      "type": "cracked"
-    },
-    {
-      "cell": [
-        4,
-        5
-      ],
       "hitPoints": 6,
-      "id": 310418,
+      "id": 310417,
       "type": "echo"
     },
     {
       "cell": [
-        5,
+        4,
         5
       ],
       "hitPoints": 8,
-      "id": 310419,
+      "id": 310418,
       "type": "ore"
     },
     {
@@ -176,12 +167,9 @@
         7,
         4
       ],
-      "hitPoints": 8,
-      "id": 310420,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "hitPoints": 4,
+      "id": 310419,
+      "type": "ball_cache"
     },
     {
       "cell": [
@@ -189,13 +177,22 @@
         3
       ],
       "hitPoints": 8,
+      "id": 310420,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        7,
+        5
+      ],
+      "hitPoints": 8,
       "id": 310421,
-      "type": "explosive"
+      "type": "ore"
     },
     {
       "beamDirection": "left",
       "cell": [
-        7,
+        6,
         5
       ],
       "hitPoints": 7,
@@ -204,12 +201,12 @@
     },
     {
       "cell": [
-        5,
-        3
+        4,
+        6
       ],
-      "hitPoints": 4,
+      "hitPoints": 8,
       "id": 310423,
-      "type": "ball_cache"
+      "type": "explosive"
     },
     {
       "cell": [
@@ -221,13 +218,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-13",
+  "contentVersion": "p2-mines-14",
   "displayName": "Asit Çukuru",
   "displayNameKey": "MINE_31_NARROW_01",
   "exampleAngles": [
-    50.0,
-    50.0,
-    50.0
+    37.5,
+    37.5,
+    37.5
   ],
   "family": "bonus",
   "height": 8,

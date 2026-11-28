@@ -3,7 +3,7 @@ extends RefCounted
 
 const DAILY_MINE_ID := &"daily"
 const SOURCE_MINE_ID := &"mine_28"
-const CONTENT_VERSION := "daily-10"
+const CONTENT_VERSION := "daily-11"
 const CRACKED_HIT_POINTS := 8
 const TARGET_BLOCK_COUNT := 24
 const SOURCE_ROOM_IDS: Array[StringName] = [
@@ -16,20 +16,20 @@ const SOURCE_ROOM_IDS: Array[StringName] = [
 	&"m28_narrow_03",
 ]
 const VERIFIED_EXAMPLE_ANGLES := {
-	"daily_m28_start_a": 35.0,
+	"daily_m28_start_a": 30.0,
 	"daily_m28_start_b": 165.0,
-	"daily_m28_wide_01_a": 27.5,
+	"daily_m28_wide_01_a": 25.0,
 	"daily_m28_wide_01_b": 152.5,
-	"daily_m28_wide_02_a": 103.0,
-	"daily_m28_wide_02_b": 76.0,
-	"daily_m28_wide_03_a": 110.5,
-	"daily_m28_wide_03_b": 69.5,
+	"daily_m28_wide_02_a": 102.5,
+	"daily_m28_wide_02_b": 75.0,
+	"daily_m28_wide_03_a": 110.0,
+	"daily_m28_wide_03_b": 70.0,
 	"daily_m28_narrow_01_a": 15.0,
 	"daily_m28_narrow_01_b": 165.0,
-	"daily_m28_narrow_02_a": 84.5,
-	"daily_m28_narrow_02_b": 95.5,
-	"daily_m28_narrow_03_a": 85.5,
-	"daily_m28_narrow_03_b": 94.5,
+	"daily_m28_narrow_02_a": 75.0,
+	"daily_m28_narrow_02_b": 105.0,
+	"daily_m28_narrow_03_a": 85.0,
+	"daily_m28_narrow_03_b": 95.0,
 }
 const DENSITY_TYPES: Array[int] = [
 	BlockState.BlockType.NORMAL,

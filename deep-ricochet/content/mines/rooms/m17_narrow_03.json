@@ -29,7 +29,7 @@
     },
     {
       "cell": [
-        1,
+        7,
         6
       ],
       "hitPoints": 0,
@@ -38,7 +38,7 @@
     },
     {
       "cell": [
-        7,
+        6,
         6
       ],
       "hitPoints": 0,
@@ -48,28 +48,10 @@
     {
       "cell": [
         0,
-        6
-      ],
-      "hitPoints": 0,
-      "id": 170606,
-      "type": "rock"
-    },
-    {
-      "cell": [
-        6,
-        6
-      ],
-      "hitPoints": 0,
-      "id": 170607,
-      "type": "rock"
-    },
-    {
-      "cell": [
-        0,
         7
       ],
       "hitPoints": 0,
-      "id": 170608,
+      "id": 170606,
       "type": "rock"
     },
     {
@@ -78,7 +60,7 @@
         7
       ],
       "hitPoints": 0,
-      "id": 170609,
+      "id": 170607,
       "type": "rock"
     },
     {
@@ -87,12 +69,30 @@
         7
       ],
       "hitPoints": 0,
-      "id": 170610,
+      "id": 170608,
       "type": "rock"
     },
     {
       "cell": [
         1,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 170609,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 170610,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
         2
       ],
       "hitPoints": 0,
@@ -146,7 +146,7 @@
     },
     {
       "cell": [
-        0,
+        7,
         5
       ],
       "hitPoints": 8,
@@ -155,38 +155,11 @@
     },
     {
       "cell": [
-        5,
+        0,
         5
       ],
       "hitPoints": 8,
       "id": 170618,
-      "type": "ore"
-    },
-    {
-      "cell": [
-        2,
-        6
-      ],
-      "hitPoints": 6,
-      "id": 170619,
-      "type": "echo"
-    },
-    {
-      "cell": [
-        4,
-        5
-      ],
-      "hitPoints": 8,
-      "id": 170620,
-      "type": "normal"
-    },
-    {
-      "cell": [
-        7,
-        3
-      ],
-      "hitPoints": 8,
-      "id": 170621,
       "type": "armored",
       "vulnerableSides": [
         "bottom"
@@ -194,16 +167,43 @@
     },
     {
       "cell": [
-        4,
-        4
+        5,
+        5
       ],
       "hitPoints": 8,
-      "id": 170622,
+      "id": 170619,
       "type": "ore"
     },
     {
       "cell": [
-        0,
+        2,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 170620,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        4,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 170621,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        7,
+        3
+      ],
+      "hitPoints": 8,
+      "id": 170622,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        4,
         4
       ],
       "hitPoints": 4,
@@ -220,13 +220,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-13",
+  "contentVersion": "p2-mines-14",
   "displayName": "Lav Boğazı",
   "displayNameKey": "MINE_17_NARROW_03",
   "exampleAngles": [
-    102.5,
-    102.5,
-    102.5
+    27.5,
+    27.5,
+    27.5
   ],
   "family": "bonus",
   "height": 8,

@@ -29,17 +29,17 @@
     },
     {
       "cell": [
-        2,
-        5
+        3,
+        7
       ],
-      "hitPoints": 9,
+      "hitPoints": 8,
       "id": 340204,
-      "type": "acid_barrel"
+      "type": "normal"
     },
     {
       "cell": [
         5,
-        4
+        2
       ],
       "hitPoints": 9,
       "id": 340205,
@@ -48,16 +48,16 @@
     {
       "cell": [
         0,
-        7
+        3
       ],
-      "hitPoints": 0,
+      "hitPoints": 9,
       "id": 340206,
-      "type": "rock"
+      "type": "acid_barrel"
     },
     {
       "cell": [
         0,
-        4
+        7
       ],
       "hitPoints": 0,
       "id": 340207,
@@ -66,7 +66,7 @@
     {
       "cell": [
         0,
-        3
+        4
       ],
       "hitPoints": 0,
       "id": 340208,
@@ -84,10 +84,19 @@
     {
       "cell": [
         7,
-        5
+        3
       ],
       "hitPoints": 0,
       "id": 340210,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        6
+      ],
+      "hitPoints": 0,
+      "id": 340211,
       "type": "rock"
     },
     {
@@ -96,7 +105,7 @@
         6
       ],
       "hitPoints": 8,
-      "id": 340211,
+      "id": 340212,
       "type": "cracked"
     },
     {
@@ -104,9 +113,9 @@
         5,
         5
       ],
-      "hitPoints": 8,
-      "id": 340212,
-      "type": "ore"
+      "hitPoints": 4,
+      "id": 340213,
+      "type": "ball_cache"
     },
     {
       "cell": [
@@ -114,7 +123,7 @@
         7
       ],
       "hitPoints": 8,
-      "id": 340213,
+      "id": 340214,
       "type": "ore"
     },
     {
@@ -122,46 +131,27 @@
         1,
         4
       ],
+      "hitPoints": 4,
+      "id": 340215,
+      "type": "ball_cache"
+    },
+    {
+      "cell": [
+        5,
+        7
+      ],
       "hitPoints": 8,
-      "id": 340214,
+      "id": 340216,
       "type": "normal"
     },
     {
       "cell": [
-        5,
-        6
-      ],
-      "hitPoints": 8,
-      "id": 340215,
-      "type": "cracked"
-    },
-    {
-      "cell": [
-        2,
-        3
-      ],
-      "hitPoints": 8,
-      "id": 340216,
-      "type": "ore"
-    },
-    {
-      "cell": [
-        5,
-        2
-      ],
-      "hitPoints": 6,
-      "id": 340217,
-      "type": "echo"
-    },
-    {
-      "beamDirection": "left",
-      "cell": [
         6,
         7
       ],
-      "hitPoints": 7,
-      "id": 340218,
-      "type": "piercing"
+      "hitPoints": 8,
+      "id": 340217,
+      "type": "ore"
     },
     {
       "cell": [
@@ -169,26 +159,51 @@
         7
       ],
       "hitPoints": 8,
-      "id": 340219,
+      "id": 340218,
       "type": "explosive"
     },
     {
       "cell": [
-        7,
-        7
+        1,
+        3
       ],
-      "hitPoints": 4,
-      "id": 340220,
-      "type": "ball_cache"
+      "hitPoints": 8,
+      "id": 340219,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
     },
     {
       "cell": [
         6,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 340220,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "beamDirection": "down",
+      "cell": [
+        3,
         6
       ],
-      "hitPoints": 4,
+      "hitPoints": 7,
       "id": 340221,
-      "type": "ball_cache"
+      "type": "piercing"
+    },
+    {
+      "cell": [
+        1,
+        5
+      ],
+      "hitPoints": 6,
+      "id": 340222,
+      "type": "echo"
     },
     {
       "cell": [
@@ -200,13 +215,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-13",
+  "contentVersion": "p2-mines-14",
   "displayName": "Zehirli Salon",
   "displayNameKey": "MINE_34_WIDE_02",
   "exampleAngles": [
-    100.5,
-    100.5,
-    100.5
+    95.5,
+    95.5,
+    95.5
   ],
   "family": "safe",
   "height": 8,

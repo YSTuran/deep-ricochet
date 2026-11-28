@@ -20,17 +20,17 @@
     },
     {
       "cell": [
-        7,
-        4
+        5,
+        5
       ],
-      "hitPoints": 0,
+      "hitPoints": 8,
       "id": 260203,
-      "type": "rock"
+      "type": "normal"
     },
     {
       "cell": [
-        0,
-        6
+        7,
+        4
       ],
       "hitPoints": 0,
       "id": 260204,
@@ -65,17 +65,17 @@
     },
     {
       "cell": [
-        3,
-        6
+        7,
+        3
       ],
-      "hitPoints": 8,
+      "hitPoints": 0,
       "id": 260208,
-      "type": "explosive"
+      "type": "rock"
     },
     {
       "cell": [
-        1,
-        7
+        3,
+        6
       ],
       "hitPoints": 8,
       "id": 260209,
@@ -84,10 +84,19 @@
     {
       "cell": [
         1,
-        6
+        7
       ],
       "hitPoints": 8,
       "id": 260210,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        1,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 260211,
       "type": "explosive"
     },
     {
@@ -96,7 +105,7 @@
         6
       ],
       "hitPoints": 8,
-      "id": 260211,
+      "id": 260212,
       "type": "cracked"
     },
     {
@@ -105,7 +114,7 @@
         7
       ],
       "hitPoints": 8,
-      "id": 260212,
+      "id": 260213,
       "type": "explosive"
     },
     {
@@ -113,9 +122,9 @@
         5,
         4
       ],
-      "hitPoints": 6,
-      "id": 260213,
-      "type": "echo"
+      "hitPoints": 4,
+      "id": 260214,
+      "type": "ball_cache"
     },
     {
       "beamDirection": "down",
@@ -124,7 +133,7 @@
         5
       ],
       "hitPoints": 7,
-      "id": 260214,
+      "id": 260215,
       "type": "piercing"
     },
     {
@@ -132,9 +141,9 @@
         6,
         4
       ],
-      "hitPoints": 8,
-      "id": 260215,
-      "type": "explosive"
+      "hitPoints": 4,
+      "id": 260216,
+      "type": "ball_cache"
     },
     {
       "cell": [
@@ -142,7 +151,7 @@
         2
       ],
       "hitPoints": 8,
-      "id": 260216,
+      "id": 260217,
       "type": "armored",
       "vulnerableSides": [
         "bottom"
@@ -152,15 +161,6 @@
       "cell": [
         3,
         5
-      ],
-      "hitPoints": 8,
-      "id": 260217,
-      "type": "explosive"
-    },
-    {
-      "cell": [
-        3,
-        4
       ],
       "hitPoints": 8,
       "id": 260218,
@@ -173,25 +173,35 @@
       ],
       "hitPoints": 8,
       "id": 260219,
-      "type": "explosive"
+      "type": "normal"
     },
     {
+      "beamDirection": "left",
       "cell": [
         6,
         3
       ],
-      "hitPoints": 4,
+      "hitPoints": 7,
       "id": 260220,
-      "type": "ball_cache"
+      "type": "piercing"
     },
     {
       "cell": [
         7,
         6
       ],
-      "hitPoints": 4,
+      "hitPoints": 8,
       "id": 260221,
-      "type": "ball_cache"
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        2,
+        5
+      ],
+      "hitPoints": 6,
+      "id": 260222,
+      "type": "echo"
     },
     {
       "cell": [
@@ -203,7 +213,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-13",
+  "contentVersion": "p2-mines-14",
   "displayName": "Mühür Koridoru",
   "displayNameKey": "MINE_26_WIDE_02",
   "exampleAngles": [

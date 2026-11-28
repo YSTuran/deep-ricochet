@@ -35,15 +35,17 @@ Oyun sırasında simülasyon `1×` ve `2×` arasında değiştirilebilir. `2×` 
 
 Oyunda sırayla açılan otuz beş maden bulunur. Her madende bir başlangıç, üç geniş geçit ve üç dar damar olmak üzere yedi şablon; toplamda 245 normal oda vardır. Bir koşu bu havuzdan seed tabanlı ve tekrar etmeyen dört oda seçer. Günlük maden için ayrıca on dört yoğun varyant üretilir.
 
-- **Maden 1–6:** Normal blok, cevher, sert kaya, çekirdek ve tek atışlık top kutularını kullanır.
+- **Maden 1–6:** Normal blok, cevher, sert kaya ve çekirdek ile temel sekme mekaniğini öğretir.
 - **Maden 7–10:** Çatlak kaya ve patlayıcı bloklar devreye girer.
 - **Maden 11–14:** Zırhlı bloklar yerleşimlere eklenir ve zayıf nokta kullanımı öğretilir.
-- **Maden 15–18:** Yankı blokları devreye girer; uzaktaki eş bloklar aynı doğrudan vuruştan etkilenir.
+- **Maden 15–18:** Yankı blokları ve yalnızca sonraki atışı güçlendiren top kutuları devreye girer; uzaktaki eş yankı blokları aynı doğrudan vuruştan etkilenir.
 - **Maden 19–22:** Zırhlı, yankılı, çatlak ve patlayıcı blokların birlikte kullanıldığı daha yoğun karışımlar başlar.
 - **Maden 23–28:** Işık kristalleri, tek zayıf noktalı zırhlılar ve daha kapalı çekirdek yollarıyla ustalık bölümü oluşur.
 - **Maden 29–35:** Bir veya iki asit varili, odanın farklı bölgelerinde çevresindeki blokları katmanlı hasarla etkiler.
 
 Maden seviyesi yükseldikçe önce blok yoğunluğu ve ortalama dayanıklılık, ilerleyen bölümlerde ise özel blok oranı, zırhlı blok sayısı ve çekirdeğin koruma katmanı artar. Çekirdek yalnızca merkezde bulunmaz; üst bölgenin sol, orta veya sağ tarafında, kırılabilir blokların arkasında yer alabilir. Atıcının çevresini açık tutmak için 8×10 oyun ızgarasının en alt iki satırına blok yerleştirilmez.
+
+Geç madenlerde çekirdeğin yanına ek kırılabilir korumalar yerleştirilir. Top kutuları çoğunlukla odanın orta satırlarında bulunur; asit varilleri çekirdeğin hemen yanında yer almaz. Böylece bu bloklar yararlı kalırken tek hamlede çekirdeğe giden yolu açmaları sınırlanır.
 
 Dar damarlar geniş geçitlerden yalnızca sayı bakımından değil, geometri bakımından da ayrılır. Yanlardaki sert kaya yığınları yolu tek hücrelik bir geçide kadar daraltabilir; değerli bloklar üst bölgede toplanır ve çekirdeğe doğrudan erişim zorlaştırılır.
 

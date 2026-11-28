@@ -29,11 +29,20 @@
     },
     {
       "cell": [
+        3,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 270304,
+      "type": "normal"
+    },
+    {
+      "cell": [
         0,
         3
       ],
       "hitPoints": 0,
-      "id": 270304,
+      "id": 270305,
       "type": "rock"
     },
     {
@@ -42,21 +51,12 @@
         2
       ],
       "hitPoints": 0,
-      "id": 270305,
-      "type": "rock"
-    },
-    {
-      "cell": [
-        0,
-        7
-      ],
-      "hitPoints": 0,
       "id": 270306,
       "type": "rock"
     },
     {
       "cell": [
-        7,
+        0,
         7
       ],
       "hitPoints": 0,
@@ -66,7 +66,7 @@
     {
       "cell": [
         7,
-        6
+        7
       ],
       "hitPoints": 0,
       "id": 270308,
@@ -74,25 +74,25 @@
     },
     {
       "cell": [
+        7,
+        6
+      ],
+      "hitPoints": 0,
+      "id": 270309,
+      "type": "rock"
+    },
+    {
+      "cell": [
         5,
         4
       ],
-      "hitPoints": 8,
-      "id": 270309,
-      "type": "explosive"
+      "hitPoints": 4,
+      "id": 270310,
+      "type": "ball_cache"
     },
     {
       "cell": [
         5,
-        5
-      ],
-      "hitPoints": 8,
-      "id": 270310,
-      "type": "ore"
-    },
-    {
-      "cell": [
-        6,
         5
       ],
       "hitPoints": 8,
@@ -100,23 +100,32 @@
       "type": "ore"
     },
     {
+      "beamDirection": "left",
+      "cell": [
+        3,
+        7
+      ],
+      "hitPoints": 7,
+      "id": 270312,
+      "type": "piercing"
+    },
+    {
+      "cell": [
+        6,
+        5
+      ],
+      "hitPoints": 6,
+      "id": 270313,
+      "type": "echo"
+    },
+    {
       "cell": [
         5,
         7
       ],
       "hitPoints": 8,
-      "id": 270312,
-      "type": "cracked"
-    },
-    {
-      "beamDirection": "left",
-      "cell": [
-        6,
-        2
-      ],
-      "hitPoints": 7,
-      "id": 270313,
-      "type": "piercing"
+      "id": 270314,
+      "type": "normal"
     },
     {
       "cell": [
@@ -124,7 +133,7 @@
         6
       ],
       "hitPoints": 8,
-      "id": 270314,
+      "id": 270315,
       "type": "armored",
       "vulnerableSides": [
         "bottom"
@@ -136,7 +145,7 @@
         3
       ],
       "hitPoints": 8,
-      "id": 270315,
+      "id": 270316,
       "type": "cracked"
     },
     {
@@ -145,27 +154,26 @@
         5
       ],
       "hitPoints": 8,
-      "id": 270316,
+      "id": 270317,
       "type": "cracked"
     },
     {
-      "beamDirection": "right",
       "cell": [
         2,
         2
       ],
-      "hitPoints": 7,
-      "id": 270317,
-      "type": "piercing"
+      "hitPoints": 8,
+      "id": 270318,
+      "type": "ore"
     },
     {
       "cell": [
         1,
         4
       ],
-      "hitPoints": 6,
-      "id": 270318,
-      "type": "echo"
+      "hitPoints": 4,
+      "id": 270319,
+      "type": "ball_cache"
     },
     {
       "cell": [
@@ -173,7 +181,7 @@
         2
       ],
       "hitPoints": 8,
-      "id": 270319,
+      "id": 270320,
       "type": "ore"
     },
     {
@@ -181,18 +189,18 @@
         4,
         7
       ],
-      "hitPoints": 4,
-      "id": 270320,
-      "type": "ball_cache"
+      "hitPoints": 6,
+      "id": 270321,
+      "type": "echo"
     },
     {
       "cell": [
         7,
-        4
+        3
       ],
-      "hitPoints": 4,
-      "id": 270321,
-      "type": "ball_cache"
+      "hitPoints": 8,
+      "id": 270322,
+      "type": "explosive"
     },
     {
       "cell": [
@@ -204,7 +212,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-13",
+  "contentVersion": "p2-mines-14",
   "displayName": "Kader Kemeri",
   "displayNameKey": "MINE_27_WIDE_03",
   "exampleAngles": [

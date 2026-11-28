@@ -29,17 +29,17 @@
     },
     {
       "cell": [
-        0,
+        3,
         6
       ],
-      "hitPoints": 0,
+      "hitPoints": 8,
       "id": 220204,
-      "type": "rock"
+      "type": "normal"
     },
     {
       "cell": [
-        7,
-        7
+        0,
+        3
       ],
       "hitPoints": 0,
       "id": 220205,
@@ -47,8 +47,8 @@
     },
     {
       "cell": [
-        7,
-        2
+        0,
+        6
       ],
       "hitPoints": 0,
       "id": 220206,
@@ -57,7 +57,7 @@
     {
       "cell": [
         7,
-        5
+        7
       ],
       "hitPoints": 0,
       "id": 220207,
@@ -65,11 +65,20 @@
     },
     {
       "cell": [
-        0,
-        7
+        7,
+        2
       ],
       "hitPoints": 0,
       "id": 220208,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 220209,
       "type": "rock"
     },
     {
@@ -78,7 +87,7 @@
         7
       ],
       "hitPoints": 8,
-      "id": 220209,
+      "id": 220210,
       "type": "normal"
     },
     {
@@ -87,7 +96,7 @@
         6
       ],
       "hitPoints": 8,
-      "id": 220210,
+      "id": 220211,
       "type": "ore"
     },
     {
@@ -96,7 +105,7 @@
         7
       ],
       "hitPoints": 8,
-      "id": 220211,
+      "id": 220212,
       "type": "normal"
     },
     {
@@ -105,7 +114,7 @@
         4
       ],
       "hitPoints": 8,
-      "id": 220212,
+      "id": 220213,
       "type": "ore"
     },
     {
@@ -113,30 +122,18 @@
         4,
         4
       ],
-      "hitPoints": 8,
-      "id": 220213,
-      "type": "normal"
+      "hitPoints": 4,
+      "id": 220214,
+      "type": "ball_cache"
     },
     {
       "cell": [
         6,
         4
       ],
-      "hitPoints": 8,
-      "id": 220214,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
-    },
-    {
-      "cell": [
-        3,
-        6
-      ],
-      "hitPoints": 8,
+      "hitPoints": 4,
       "id": 220215,
-      "type": "ore"
+      "type": "ball_cache"
     },
     {
       "cell": [
@@ -154,12 +151,12 @@
       ],
       "hitPoints": 8,
       "id": 220217,
-      "type": "explosive"
+      "type": "ore"
     },
     {
       "cell": [
-        1,
-        3
+        6,
+        5
       ],
       "hitPoints": 6,
       "id": 220218,
@@ -167,30 +164,30 @@
     },
     {
       "cell": [
-        6,
-        5
-      ],
-      "hitPoints": 8,
-      "id": 220219,
-      "type": "cracked"
-    },
-    {
-      "cell": [
         3,
         5
       ],
-      "hitPoints": 4,
-      "id": 220220,
-      "type": "ball_cache"
+      "hitPoints": 7,
+      "id": 220219,
+      "type": "explosive"
     },
     {
       "cell": [
         5,
         3
       ],
-      "hitPoints": 4,
+      "hitPoints": 8,
+      "id": 220220,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        4,
+        6
+      ],
+      "hitPoints": 8,
       "id": 220221,
-      "type": "ball_cache"
+      "type": "ore"
     },
     {
       "cell": [
@@ -202,7 +199,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-13",
+  "contentVersion": "p2-mines-14",
   "displayName": "Kristal Koridor",
   "displayNameKey": "MINE_22_WIDE_02",
   "exampleAngles": [

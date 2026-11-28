@@ -29,12 +29,12 @@
     },
     {
       "cell": [
-        7,
-        7
+        2,
+        6
       ],
-      "hitPoints": 0,
+      "hitPoints": 8,
       "id": 260304,
-      "type": "rock"
+      "type": "normal"
     },
     {
       "cell": [
@@ -74,31 +74,24 @@
     },
     {
       "cell": [
-        4,
+        0,
         5
       ],
-      "hitPoints": 6,
+      "hitPoints": 0,
       "id": 260309,
-      "type": "echo"
+      "type": "rock"
     },
     {
-      "beamDirection": "right",
       "cell": [
         1,
         5
       ],
-      "hitPoints": 7,
-      "id": 260310,
-      "type": "piercing"
-    },
-    {
-      "cell": [
-        2,
-        6
-      ],
       "hitPoints": 8,
-      "id": 260311,
-      "type": "cracked"
+      "id": 260310,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
     },
     {
       "cell": [
@@ -106,41 +99,49 @@
         7
       ],
       "hitPoints": 8,
-      "id": 260312,
+      "id": 260311,
       "type": "ore"
     },
     {
       "cell": [
         2,
         7
+      ],
+      "hitPoints": 8,
+      "id": 260312,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        5,
+        5
       ],
       "hitPoints": 8,
       "id": 260313,
       "type": "ore"
     },
     {
-      "beamDirection": "right",
-      "cell": [
-        5,
-        5
-      ],
-      "hitPoints": 7,
-      "id": 260314,
-      "type": "piercing"
-    },
-    {
-      "cell": [
-        2,
-        2
-      ],
-      "hitPoints": 8,
-      "id": 260315,
-      "type": "cracked"
-    },
-    {
       "cell": [
         1,
         6
+      ],
+      "hitPoints": 8,
+      "id": 260314,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        6,
+        6
+      ],
+      "hitPoints": 6,
+      "id": 260315,
+      "type": "echo"
+    },
+    {
+      "cell": [
+        5,
+        2
       ],
       "hitPoints": 8,
       "id": 260316,
@@ -148,48 +149,58 @@
     },
     {
       "cell": [
-        6,
-        2
+        7,
+        5
       ],
       "hitPoints": 8,
       "id": 260317,
-      "type": "ore"
+      "type": "normal"
     },
     {
       "cell": [
-        6,
-        6
+        2,
+        4
       ],
-      "hitPoints": 8,
+      "hitPoints": 4,
       "id": 260318,
-      "type": "ore"
-    },
-    {
-      "cell": [
-        5,
-        2
-      ],
-      "hitPoints": 6,
-      "id": 260319,
-      "type": "echo"
+      "type": "ball_cache"
     },
     {
       "cell": [
         0,
-        5
+        4
       ],
       "hitPoints": 8,
+      "id": 260319,
+      "type": "ore"
+    },
+    {
+      "beamDirection": "right",
+      "cell": [
+        0,
+        7
+      ],
+      "hitPoints": 7,
       "id": 260320,
-      "type": "explosive"
+      "type": "piercing"
     },
     {
       "cell": [
-        7,
-        5
+        5,
+        3
       ],
-      "hitPoints": 4,
+      "hitPoints": 8,
       "id": 260321,
-      "type": "ball_cache"
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        6,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 260322,
+      "type": "explosive"
     },
     {
       "cell": [
@@ -201,7 +212,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-13",
+  "contentVersion": "p2-mines-14",
   "displayName": "Taş Kemer",
   "displayNameKey": "MINE_26_WIDE_03",
   "exampleAngles": [

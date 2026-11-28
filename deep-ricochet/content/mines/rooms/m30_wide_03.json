@@ -20,12 +20,30 @@
     },
     {
       "cell": [
+        4,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 300303,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        0,
+        2
+      ],
+      "hitPoints": 9,
+      "id": 300304,
+      "type": "acid_barrel"
+    },
+    {
+      "cell": [
         0,
         5
       ],
-      "hitPoints": 9,
-      "id": 300303,
-      "type": "acid_barrel"
+      "hitPoints": 0,
+      "id": 300305,
+      "type": "rock"
     },
     {
       "cell": [
@@ -33,7 +51,7 @@
         6
       ],
       "hitPoints": 0,
-      "id": 300304,
+      "id": 300306,
       "type": "rock"
     },
     {
@@ -42,7 +60,16 @@
         2
       ],
       "hitPoints": 0,
-      "id": 300305,
+      "id": 300307,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 300308,
       "type": "rock"
     },
     {
@@ -51,25 +78,7 @@
         3
       ],
       "hitPoints": 0,
-      "id": 300306,
-      "type": "rock"
-    },
-    {
-      "cell": [
-        0,
-        6
-      ],
-      "hitPoints": 0,
-      "id": 300307,
-      "type": "rock"
-    },
-    {
-      "cell": [
-        0,
-        4
-      ],
-      "hitPoints": 0,
-      "id": 300308,
+      "id": 300309,
       "type": "rock"
     },
     {
@@ -78,26 +87,37 @@
         4
       ],
       "hitPoints": 6,
-      "id": 300309,
+      "id": 300310,
       "type": "echo"
     },
     {
+      "beamDirection": "left",
       "cell": [
         4,
         6
       ],
-      "hitPoints": 8,
-      "id": 300310,
-      "type": "ore"
+      "hitPoints": 7,
+      "id": 300311,
+      "type": "piercing"
     },
     {
+      "beamDirection": "left",
       "cell": [
         6,
         3
       ],
+      "hitPoints": 7,
+      "id": 300312,
+      "type": "piercing"
+    },
+    {
+      "cell": [
+        0,
+        4
+      ],
       "hitPoints": 8,
-      "id": 300311,
-      "type": "ore"
+      "id": 300313,
+      "type": "normal"
     },
     {
       "cell": [
@@ -105,8 +125,18 @@
         5
       ],
       "hitPoints": 8,
-      "id": 300312,
-      "type": "cracked"
+      "id": 300314,
+      "type": "normal"
+    },
+    {
+      "beamDirection": "right",
+      "cell": [
+        0,
+        6
+      ],
+      "hitPoints": 7,
+      "id": 300315,
+      "type": "piercing"
     },
     {
       "cell": [
@@ -114,17 +144,27 @@
         7
       ],
       "hitPoints": 8,
-      "id": 300313,
-      "type": "cracked"
+      "id": 300316,
+      "type": "explosive"
+    },
+    {
+      "beamDirection": "left",
+      "cell": [
+        2,
+        2
+      ],
+      "hitPoints": 7,
+      "id": 300317,
+      "type": "piercing"
     },
     {
       "cell": [
         4,
-        5
+        4
       ],
-      "hitPoints": 8,
-      "id": 300314,
-      "type": "cracked"
+      "hitPoints": 4,
+      "id": 300318,
+      "type": "ball_cache"
     },
     {
       "cell": [
@@ -132,35 +172,25 @@
         2
       ],
       "hitPoints": 8,
-      "id": 300315,
-      "type": "ore"
+      "id": 300319,
+      "type": "cracked"
     },
     {
-      "beamDirection": "right",
+      "cell": [
+        5,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 300320,
+      "type": "cracked"
+    },
+    {
       "cell": [
         1,
         3
       ],
-      "hitPoints": 7,
-      "id": 300316,
-      "type": "piercing"
-    },
-    {
-      "cell": [
-        2,
-        5
-      ],
       "hitPoints": 8,
-      "id": 300317,
-      "type": "normal"
-    },
-    {
-      "cell": [
-        2,
-        4
-      ],
-      "hitPoints": 8,
-      "id": 300318,
+      "id": 300321,
       "type": "normal"
     },
     {
@@ -169,29 +199,11 @@
         5
       ],
       "hitPoints": 8,
-      "id": 300319,
+      "id": 300322,
       "type": "armored",
       "vulnerableSides": [
         "bottom"
       ]
-    },
-    {
-      "cell": [
-        2,
-        3
-      ],
-      "hitPoints": 8,
-      "id": 300320,
-      "type": "explosive"
-    },
-    {
-      "cell": [
-        3,
-        4
-      ],
-      "hitPoints": 4,
-      "id": 300321,
-      "type": "ball_cache"
     },
     {
       "cell": [
@@ -203,13 +215,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-13",
+  "contentVersion": "p2-mines-14",
   "displayName": "Yeşil Kemer",
   "displayNameKey": "MINE_30_WIDE_03",
   "exampleAngles": [
-    76.0,
-    76.0,
-    76.0
+    71.0,
+    71.0,
+    71.0
   ],
   "family": "safe",
   "height": 8,

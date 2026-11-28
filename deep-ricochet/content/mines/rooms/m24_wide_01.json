@@ -21,16 +21,16 @@
     {
       "cell": [
         0,
-        2
+        5
       ],
-      "hitPoints": 0,
+      "hitPoints": 8,
       "id": 240103,
-      "type": "rock"
+      "type": "normal"
     },
     {
       "cell": [
-        7,
-        6
+        0,
+        2
       ],
       "hitPoints": 0,
       "id": 240104,
@@ -39,7 +39,7 @@
     {
       "cell": [
         7,
-        2
+        6
       ],
       "hitPoints": 0,
       "id": 240105,
@@ -48,7 +48,7 @@
     {
       "cell": [
         7,
-        4
+        2
       ],
       "hitPoints": 0,
       "id": 240106,
@@ -57,10 +57,19 @@
     {
       "cell": [
         0,
-        6
+        4
       ],
       "hitPoints": 0,
       "id": 240107,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        4
+      ],
+      "hitPoints": 0,
+      "id": 240108,
       "type": "rock"
     },
     {
@@ -69,7 +78,7 @@
         5
       ],
       "hitPoints": 8,
-      "id": 240108,
+      "id": 240109,
       "type": "ore"
     },
     {
@@ -78,7 +87,7 @@
         2
       ],
       "hitPoints": 8,
-      "id": 240109,
+      "id": 240110,
       "type": "ore"
     },
     {
@@ -87,7 +96,7 @@
         3
       ],
       "hitPoints": 8,
-      "id": 240110,
+      "id": 240111,
       "type": "ore"
     },
     {
@@ -97,7 +106,7 @@
         2
       ],
       "hitPoints": 7,
-      "id": 240111,
+      "id": 240112,
       "type": "piercing"
     },
     {
@@ -106,7 +115,7 @@
         4
       ],
       "hitPoints": 8,
-      "id": 240112,
+      "id": 240113,
       "type": "ore"
     },
     {
@@ -115,18 +124,8 @@
         4
       ],
       "hitPoints": 8,
-      "id": 240113,
-      "type": "cracked"
-    },
-    {
-      "beamDirection": "left",
-      "cell": [
-        3,
-        6
-      ],
-      "hitPoints": 7,
       "id": 240114,
-      "type": "piercing"
+      "type": "cracked"
     },
     {
       "cell": [
@@ -135,34 +134,26 @@
       ],
       "hitPoints": 8,
       "id": 240115,
-      "type": "explosive"
+      "type": "normal"
     },
     {
       "cell": [
         4,
         4
       ],
-      "hitPoints": 8,
+      "hitPoints": 4,
       "id": 240116,
-      "type": "ore"
+      "type": "ball_cache"
     },
     {
-      "cell": [
-        5,
-        7
-      ],
-      "hitPoints": 8,
-      "id": 240117,
-      "type": "ore"
-    },
-    {
+      "beamDirection": "right",
       "cell": [
         2,
         5
       ],
-      "hitPoints": 6,
-      "id": 240118,
-      "type": "echo"
+      "hitPoints": 7,
+      "id": 240117,
+      "type": "piercing"
     },
     {
       "cell": [
@@ -170,11 +161,17 @@
         2
       ],
       "hitPoints": 8,
+      "id": 240118,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        5,
+        5
+      ],
+      "hitPoints": 8,
       "id": 240119,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "explosive"
     },
     {
       "cell": [
@@ -183,19 +180,25 @@
       ],
       "hitPoints": 8,
       "id": 240120,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "ore"
     },
     {
       "cell": [
         6,
         3
       ],
-      "hitPoints": 4,
+      "hitPoints": 8,
       "id": 240121,
-      "type": "ball_cache"
+      "type": "ore"
+    },
+    {
+      "cell": [
+        2,
+        7
+      ],
+      "hitPoints": 6,
+      "id": 240122,
+      "type": "echo"
     },
     {
       "cell": [
@@ -207,13 +210,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-13",
+  "contentVersion": "p2-mines-14",
   "displayName": "Şimşek Galerisi",
   "displayNameKey": "MINE_24_WIDE_01",
   "exampleAngles": [
-    110.0,
-    110.0,
-    110.0
+    107.5,
+    107.5,
+    107.5
   ],
   "family": "safe",
   "height": 8,

@@ -29,16 +29,16 @@
     },
     {
       "cell": [
-        1,
-        7
+        3,
+        6
       ],
-      "hitPoints": 0,
+      "hitPoints": 8,
       "id": 240604,
-      "type": "rock"
+      "type": "normal"
     },
     {
       "cell": [
-        6,
+        1,
         7
       ],
       "hitPoints": 0,
@@ -47,7 +47,7 @@
     },
     {
       "cell": [
-        0,
+        6,
         7
       ],
       "hitPoints": 0,
@@ -56,7 +56,7 @@
     },
     {
       "cell": [
-        7,
+        0,
         7
       ],
       "hitPoints": 0,
@@ -65,8 +65,8 @@
     },
     {
       "cell": [
-        1,
-        2
+        7,
+        7
       ],
       "hitPoints": 0,
       "id": 240608,
@@ -74,7 +74,7 @@
     },
     {
       "cell": [
-        7,
+        1,
         2
       ],
       "hitPoints": 0,
@@ -83,7 +83,7 @@
     },
     {
       "cell": [
-        6,
+        7,
         2
       ],
       "hitPoints": 0,
@@ -93,7 +93,7 @@
     {
       "cell": [
         0,
-        3
+        2
       ],
       "hitPoints": 0,
       "id": 240611,
@@ -101,11 +101,20 @@
     },
     {
       "cell": [
-        7,
-        3
+        6,
+        2
       ],
       "hitPoints": 0,
       "id": 240612,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 240613,
       "type": "rock"
     },
     {
@@ -114,7 +123,7 @@
         7
       ],
       "hitPoints": 8,
-      "id": 240613,
+      "id": 240614,
       "type": "explosive"
     },
     {
@@ -123,54 +132,34 @@
         6
       ],
       "hitPoints": 8,
-      "id": 240614,
-      "type": "ore"
-    },
-    {
-      "beamDirection": "left",
-      "cell": [
-        5,
-        7
-      ],
-      "hitPoints": 7,
       "id": 240615,
-      "type": "piercing"
+      "type": "ore"
     },
     {
       "cell": [
         0,
         6
       ],
-      "hitPoints": 8,
+      "hitPoints": 6,
       "id": 240616,
-      "type": "cracked"
+      "type": "echo"
     },
     {
       "cell": [
         7,
         5
       ],
-      "hitPoints": 6,
+      "hitPoints": 4,
       "id": 240617,
-      "type": "echo"
+      "type": "ball_cache"
     },
     {
-      "beamDirection": "right",
       "cell": [
-        4,
+        1,
         5
       ],
-      "hitPoints": 7,
-      "id": 240618,
-      "type": "piercing"
-    },
-    {
-      "cell": [
-        3,
-        6
-      ],
       "hitPoints": 8,
-      "id": 240619,
+      "id": 240618,
       "type": "ore"
     },
     {
@@ -179,29 +168,27 @@
         6
       ],
       "hitPoints": 8,
-      "id": 240620,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "id": 240619,
+      "type": "ore"
     },
     {
-      "cell": [
-        3,
-        5
-      ],
-      "hitPoints": 6,
-      "id": 240621,
-      "type": "echo"
-    },
-    {
+      "beamDirection": "down",
       "cell": [
         7,
         6
       ],
-      "hitPoints": 4,
-      "id": 240622,
-      "type": "ball_cache"
+      "hitPoints": 7,
+      "id": 240620,
+      "type": "piercing"
+    },
+    {
+      "cell": [
+        3,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 240621,
+      "type": "cracked"
     },
     {
       "cell": [
@@ -209,8 +196,20 @@
         4
       ],
       "hitPoints": 4,
-      "id": 240623,
+      "id": 240622,
       "type": "ball_cache"
+    },
+    {
+      "cell": [
+        4,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 240623,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
     },
     {
       "cell": [
@@ -222,13 +221,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-13",
+  "contentVersion": "p2-mines-14",
   "displayName": "Yankı Kuyusu",
   "displayNameKey": "MINE_24_NARROW_03",
   "exampleAngles": [
-    40.0,
-    40.0,
-    40.0
+    42.5,
+    42.5,
+    42.5
   ],
   "family": "bonus",
   "height": 8,

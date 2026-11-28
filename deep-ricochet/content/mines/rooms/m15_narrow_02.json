@@ -29,7 +29,7 @@
     },
     {
       "cell": [
-        7,
+        1,
         3
       ],
       "hitPoints": 0,
@@ -38,7 +38,7 @@
     },
     {
       "cell": [
-        0,
+        7,
         3
       ],
       "hitPoints": 0,
@@ -47,7 +47,7 @@
     },
     {
       "cell": [
-        6,
+        0,
         3
       ],
       "hitPoints": 0,
@@ -56,8 +56,8 @@
     },
     {
       "cell": [
-        0,
-        4
+        6,
+        3
       ],
       "hitPoints": 0,
       "id": 150507,
@@ -65,7 +65,7 @@
     },
     {
       "cell": [
-        1,
+        0,
         4
       ],
       "hitPoints": 0,
@@ -74,7 +74,7 @@
     },
     {
       "cell": [
-        7,
+        6,
         4
       ],
       "hitPoints": 0,
@@ -84,7 +84,7 @@
     {
       "cell": [
         1,
-        5
+        4
       ],
       "hitPoints": 0,
       "id": 150510,
@@ -93,7 +93,7 @@
     {
       "cell": [
         7,
-        5
+        4
       ],
       "hitPoints": 0,
       "id": 150511,
@@ -146,7 +146,7 @@
     },
     {
       "cell": [
-        7,
+        1,
         7
       ],
       "hitPoints": 8,
@@ -155,53 +155,56 @@
     },
     {
       "cell": [
-        1,
-        7
-      ],
-      "hitPoints": 8,
-      "id": 150518,
-      "type": "ore"
-    },
-    {
-      "cell": [
-        0,
+        7,
         5
       ],
-      "hitPoints": 8,
-      "id": 150519,
-      "type": "ore"
+      "hitPoints": 4,
+      "id": 150518,
+      "type": "ball_cache"
     },
     {
       "cell": [
         2,
         7
       ],
+      "hitPoints": 7,
+      "id": 150519,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        0,
+        6
+      ],
       "hitPoints": 8,
       "id": 150520,
-      "type": "cracked"
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
     },
     {
       "cell": [
         7,
         6
       ],
-      "hitPoints": 5,
+      "hitPoints": 8,
       "id": 150521,
-      "type": "explosive"
-    },
-    {
-      "cell": [
-        2,
-        4
-      ],
-      "hitPoints": 4,
-      "id": 150522,
-      "type": "ball_cache"
+      "type": "ore"
     },
     {
       "cell": [
         4,
         6
+      ],
+      "hitPoints": 8,
+      "id": 150522,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        2,
+        5
       ],
       "hitPoints": 4,
       "id": 150523,
@@ -217,13 +220,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-13",
+  "contentVersion": "p2-mines-14",
   "displayName": "Issız Damar",
   "displayNameKey": "MINE_15_NARROW_02",
   "exampleAngles": [
-    69.5,
-    69.5,
-    69.5
+    70.5,
+    70.5,
+    70.5
   ],
   "family": "bonus",
   "height": 8,

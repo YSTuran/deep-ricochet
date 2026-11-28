@@ -20,16 +20,16 @@
     },
     {
       "cell": [
-        1,
+        5,
         5
       ],
-      "hitPoints": 0,
+      "hitPoints": 8,
       "id": 280603,
-      "type": "rock"
+      "type": "normal"
     },
     {
       "cell": [
-        0,
+        1,
         5
       ],
       "hitPoints": 0,
@@ -38,7 +38,7 @@
     },
     {
       "cell": [
-        6,
+        0,
         5
       ],
       "hitPoints": 0,
@@ -47,8 +47,8 @@
     },
     {
       "cell": [
-        0,
-        6
+        6,
+        5
       ],
       "hitPoints": 0,
       "id": 280606,
@@ -56,7 +56,7 @@
     },
     {
       "cell": [
-        1,
+        0,
         6
       ],
       "hitPoints": 0,
@@ -65,7 +65,7 @@
     },
     {
       "cell": [
-        7,
+        6,
         6
       ],
       "hitPoints": 0,
@@ -75,7 +75,7 @@
     {
       "cell": [
         1,
-        7
+        6
       ],
       "hitPoints": 0,
       "id": 280609,
@@ -84,7 +84,7 @@
     {
       "cell": [
         7,
-        7
+        6
       ],
       "hitPoints": 0,
       "id": 280610,
@@ -92,7 +92,7 @@
     },
     {
       "cell": [
-        0,
+        1,
         7
       ],
       "hitPoints": 0,
@@ -101,26 +101,25 @@
     },
     {
       "cell": [
-        4,
+        7,
+        7
+      ],
+      "hitPoints": 0,
+      "id": 280612,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
         7
       ],
       "hitPoints": 8,
-      "id": 280612,
-      "type": "ore"
+      "id": 280613,
+      "type": "explosive"
     },
     {
-      "beamDirection": "left",
       "cell": [
         3,
-        6
-      ],
-      "hitPoints": 7,
-      "id": 280613,
-      "type": "piercing"
-    },
-    {
-      "cell": [
-        5,
         7
       ],
       "hitPoints": 8,
@@ -128,19 +127,18 @@
       "type": "ore"
     },
     {
-      "beamDirection": "right",
       "cell": [
-        2,
-        5
+        3,
+        6
       ],
-      "hitPoints": 7,
+      "hitPoints": 8,
       "id": 280615,
-      "type": "piercing"
+      "type": "ore"
     },
     {
       "cell": [
         5,
-        6
+        7
       ],
       "hitPoints": 8,
       "id": 280616,
@@ -148,17 +146,20 @@
     },
     {
       "cell": [
-        3,
+        2,
         5
       ],
       "hitPoints": 8,
       "id": 280617,
-      "type": "cracked"
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
     },
     {
       "cell": [
         5,
-        5
+        6
       ],
       "hitPoints": 8,
       "id": 280618,
@@ -166,21 +167,22 @@
     },
     {
       "cell": [
-        1,
-        4
+        3,
+        5
       ],
-      "hitPoints": 6,
+      "hitPoints": 4,
       "id": 280619,
-      "type": "echo"
+      "type": "ball_cache"
     },
     {
+      "beamDirection": "down",
       "cell": [
         2,
         6
       ],
-      "hitPoints": 8,
+      "hitPoints": 7,
       "id": 280620,
-      "type": "ore"
+      "type": "piercing"
     },
     {
       "cell": [
@@ -189,10 +191,7 @@
       ],
       "hitPoints": 8,
       "id": 280621,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "cracked"
     },
     {
       "cell": [
@@ -208,9 +207,9 @@
         2,
         7
       ],
-      "hitPoints": 4,
+      "hitPoints": 6,
       "id": 280623,
-      "type": "ball_cache"
+      "type": "echo"
     },
     {
       "cell": [
@@ -222,7 +221,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-13",
+  "contentVersion": "p2-mines-14",
   "displayName": "Derinlik Tacı",
   "displayNameKey": "MINE_28_NARROW_03",
   "exampleAngles": [

@@ -93,32 +93,29 @@
     {
       "cell": [
         1,
-        4
+        7
       ],
       "hitPoints": 8,
       "id": 180311,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
-    },
-    {
-      "cell": [
-        1,
-        7
-      ],
-      "hitPoints": 6,
-      "id": 180312,
-      "type": "echo"
+      "type": "cracked"
     },
     {
       "cell": [
         3,
         4
       ],
-      "hitPoints": 6,
+      "hitPoints": 4,
+      "id": 180312,
+      "type": "ball_cache"
+    },
+    {
+      "cell": [
+        3,
+        2
+      ],
+      "hitPoints": 7,
       "id": 180313,
-      "type": "echo"
+      "type": "explosive"
     },
     {
       "cell": [
@@ -140,33 +137,39 @@
     },
     {
       "cell": [
+        6,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 180316,
+      "type": "ore"
+    },
+    {
+      "cell": [
         2,
         6
       ],
       "hitPoints": 8,
-      "id": 180316,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "id": 180317,
+      "type": "normal"
     },
     {
       "cell": [
         2,
         7
       ],
-      "hitPoints": 5,
-      "id": 180317,
-      "type": "explosive"
+      "hitPoints": 8,
+      "id": 180318,
+      "type": "cracked"
     },
     {
       "cell": [
         3,
         5
       ],
-      "hitPoints": 6,
-      "id": 180318,
-      "type": "explosive"
+      "hitPoints": 8,
+      "id": 180319,
+      "type": "cracked"
     },
     {
       "cell": [
@@ -174,26 +177,17 @@
         5
       ],
       "hitPoints": 8,
-      "id": 180319,
-      "type": "normal"
+      "id": 180320,
+      "type": "explosive"
     },
     {
       "cell": [
         6,
         3
       ],
-      "hitPoints": 8,
-      "id": 180320,
-      "type": "cracked"
-    },
-    {
-      "cell": [
-        0,
-        4
-      ],
-      "hitPoints": 4,
+      "hitPoints": 6,
       "id": 180321,
-      "type": "ball_cache"
+      "type": "echo"
     },
     {
       "cell": [
@@ -205,13 +199,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-13",
+  "contentVersion": "p2-mines-14",
   "displayName": "Kök Kemeri",
   "displayNameKey": "MINE_18_WIDE_03",
   "exampleAngles": [
-    84.5,
-    84.5,
-    84.5
+    80.5,
+    80.5,
+    80.5
   ],
   "family": "safe",
   "height": 8,

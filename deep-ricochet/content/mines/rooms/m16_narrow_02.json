@@ -92,8 +92,8 @@
     },
     {
       "cell": [
-        6,
-        5
+        0,
+        6
       ],
       "hitPoints": 0,
       "id": 160511,
@@ -110,21 +110,21 @@
     },
     {
       "cell": [
-        3,
+        7,
         6
       ],
       "hitPoints": 8,
       "id": 160513,
-      "type": "ore"
+      "type": "cracked"
     },
     {
       "cell": [
         3,
-        7
+        6
       ],
       "hitPoints": 8,
       "id": 160514,
-      "type": "normal"
+      "type": "ore"
     },
     {
       "cell": [
@@ -141,7 +141,7 @@
     {
       "cell": [
         0,
-        6
+        7
       ],
       "hitPoints": 8,
       "id": 160516,
@@ -149,25 +149,25 @@
     },
     {
       "cell": [
-        0,
+        4,
+        5
+      ],
+      "hitPoints": 4,
+      "id": 160517,
+      "type": "ball_cache"
+    },
+    {
+      "cell": [
+        6,
         7
       ],
       "hitPoints": 8,
-      "id": 160517,
+      "id": 160518,
       "type": "ore"
     },
     {
       "cell": [
         4,
-        5
-      ],
-      "hitPoints": 6,
-      "id": 160518,
-      "type": "echo"
-    },
-    {
-      "cell": [
-        6,
         7
       ],
       "hitPoints": 8,
@@ -197,18 +197,18 @@
         6,
         6
       ],
-      "hitPoints": 7,
+      "hitPoints": 6,
       "id": 160522,
-      "type": "explosive"
+      "type": "echo"
     },
     {
       "cell": [
         1,
         6
       ],
-      "hitPoints": 4,
+      "hitPoints": 8,
       "id": 160523,
-      "type": "ball_cache"
+      "type": "explosive"
     },
     {
       "cell": [
@@ -220,13 +220,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-13",
+  "contentVersion": "p2-mines-14",
   "displayName": "Safir Damarı",
   "displayNameKey": "MINE_16_NARROW_02",
   "exampleAngles": [
-    79.0,
-    79.0,
-    79.0
+    73.0,
+    73.0,
+    73.0
   ],
   "family": "bonus",
   "height": 8,

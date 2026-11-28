@@ -29,17 +29,17 @@
     },
     {
       "cell": [
-        7,
-        4
+        3,
+        7
       ],
-      "hitPoints": 0,
+      "hitPoints": 8,
       "id": 240004,
-      "type": "rock"
+      "type": "normal"
     },
     {
       "cell": [
         7,
-        7
+        4
       ],
       "hitPoints": 0,
       "id": 240005,
@@ -47,8 +47,8 @@
     },
     {
       "cell": [
-        0,
-        5
+        7,
+        7
       ],
       "hitPoints": 0,
       "id": 240006,
@@ -57,7 +57,7 @@
     {
       "cell": [
         0,
-        7
+        5
       ],
       "hitPoints": 0,
       "id": 240007,
@@ -66,35 +66,34 @@
     {
       "cell": [
         0,
-        3
+        7
       ],
       "hitPoints": 0,
       "id": 240008,
       "type": "rock"
     },
     {
-      "beamDirection": "right",
       "cell": [
-        1,
+        0,
         3
       ],
-      "hitPoints": 7,
+      "hitPoints": 0,
       "id": 240009,
-      "type": "piercing"
+      "type": "rock"
     },
     {
       "cell": [
         2,
-        2
+        4
       ],
-      "hitPoints": 8,
+      "hitPoints": 4,
       "id": 240010,
-      "type": "ore"
+      "type": "ball_cache"
     },
     {
       "cell": [
-        5,
-        6
+        1,
+        3
       ],
       "hitPoints": 8,
       "id": 240011,
@@ -102,34 +101,34 @@
     },
     {
       "cell": [
-        1,
-        4
+        2,
+        2
       ],
-      "hitPoints": 8,
+      "hitPoints": 6,
       "id": 240012,
-      "type": "normal"
-    },
-    {
-      "cell": [
-        6,
-        7
-      ],
-      "hitPoints": 8,
-      "id": 240013,
-      "type": "explosive"
-    },
-    {
-      "cell": [
-        4,
-        7
-      ],
-      "hitPoints": 8,
-      "id": 240014,
-      "type": "normal"
+      "type": "echo"
     },
     {
       "cell": [
         5,
+        6
+      ],
+      "hitPoints": 6,
+      "id": 240013,
+      "type": "echo"
+    },
+    {
+      "cell": [
+        1,
+        4
+      ],
+      "hitPoints": 4,
+      "id": 240014,
+      "type": "ball_cache"
+    },
+    {
+      "cell": [
+        6,
         7
       ],
       "hitPoints": 8,
@@ -138,38 +137,29 @@
     },
     {
       "cell": [
-        6,
-        5
+        4,
+        7
       ],
       "hitPoints": 8,
       "id": 240016,
+      "type": "explosive"
+    },
+    {
+      "cell": [
+        5,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 240017,
       "type": "ore"
     },
     {
       "cell": [
-        4,
-        5
-      ],
-      "hitPoints": 6,
-      "id": 240017,
-      "type": "echo"
-    },
-    {
-      "cell": [
-        1,
+        6,
         5
       ],
       "hitPoints": 8,
       "id": 240018,
-      "type": "cracked"
-    },
-    {
-      "cell": [
-        6,
-        2
-      ],
-      "hitPoints": 8,
-      "id": 240019,
       "type": "armored",
       "vulnerableSides": [
         "bottom"
@@ -177,21 +167,39 @@
     },
     {
       "cell": [
+        4,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 240019,
+      "type": "ore"
+    },
+    {
+      "cell": [
         2,
         3
       ],
-      "hitPoints": 4,
+      "hitPoints": 8,
       "id": 240020,
-      "type": "ball_cache"
+      "type": "cracked"
     },
     {
       "cell": [
         6,
         3
       ],
-      "hitPoints": 4,
+      "hitPoints": 8,
       "id": 240021,
-      "type": "ball_cache"
+      "type": "ore"
+    },
+    {
+      "cell": [
+        4,
+        6
+      ],
+      "hitPoints": 6,
+      "id": 240022,
+      "type": "echo"
     },
     {
       "cell": [
@@ -203,7 +211,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-13",
+  "contentVersion": "p2-mines-14",
   "displayName": "Fırtına Eşiği",
   "displayNameKey": "MINE_24_START",
   "exampleAngles": [

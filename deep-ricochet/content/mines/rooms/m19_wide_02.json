@@ -65,8 +65,8 @@
     },
     {
       "cell": [
-        0,
-        6
+        7,
+        2
       ],
       "hitPoints": 0,
       "id": 190208,
@@ -95,12 +95,30 @@
     },
     {
       "cell": [
+        6,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 190211,
+      "type": "normal"
+    },
+    {
+      "cell": [
         2,
         4
       ],
       "hitPoints": 8,
-      "id": 190211,
+      "id": 190212,
       "type": "ore"
+    },
+    {
+      "cell": [
+        3,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 190213,
+      "type": "normal"
     },
     {
       "cell": [
@@ -108,11 +126,8 @@
         6
       ],
       "hitPoints": 8,
-      "id": 190212,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "id": 190214,
+      "type": "ore"
     },
     {
       "cell": [
@@ -120,7 +135,7 @@
         7
       ],
       "hitPoints": 8,
-      "id": 190213,
+      "id": 190215,
       "type": "ore"
     },
     {
@@ -128,33 +143,18 @@
         4,
         6
       ],
-      "hitPoints": 7,
-      "id": 190214,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "hitPoints": 8,
+      "id": 190216,
+      "type": "ore"
     },
     {
       "cell": [
         3,
         4
       ],
-      "hitPoints": 8,
-      "id": 190215,
-      "type": "normal"
-    },
-    {
-      "cell": [
-        2,
-        6
-      ],
-      "hitPoints": 8,
-      "id": 190216,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "hitPoints": 4,
+      "id": 190217,
+      "type": "ball_cache"
     },
     {
       "cell": [
@@ -162,17 +162,17 @@
         7
       ],
       "hitPoints": 8,
-      "id": 190217,
-      "type": "ore"
+      "id": 190218,
+      "type": "explosive"
     },
     {
       "cell": [
         6,
         4
       ],
-      "hitPoints": 8,
-      "id": 190218,
-      "type": "cracked"
+      "hitPoints": 6,
+      "id": 190219,
+      "type": "echo"
     },
     {
       "cell": [
@@ -180,26 +180,23 @@
         3
       ],
       "hitPoints": 8,
-      "id": 190219,
-      "type": "explosive"
-    },
-    {
-      "cell": [
-        7,
-        2
-      ],
-      "hitPoints": 6,
       "id": 190220,
-      "type": "echo"
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
     },
     {
       "cell": [
         0,
         3
       ],
-      "hitPoints": 4,
+      "hitPoints": 8,
       "id": 190221,
-      "type": "ball_cache"
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
     },
     {
       "cell": [
@@ -211,13 +208,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-13",
+  "contentVersion": "p2-mines-14",
   "displayName": "Ayaz Salonu",
   "displayNameKey": "MINE_19_WIDE_02",
   "exampleAngles": [
-    57.5,
-    57.5,
-    57.5
+    30.0,
+    30.0,
+    30.0
   ],
   "family": "safe",
   "height": 8,

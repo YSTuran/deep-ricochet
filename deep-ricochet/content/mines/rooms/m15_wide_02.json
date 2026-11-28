@@ -38,20 +38,11 @@
     },
     {
       "cell": [
-        0,
-        4
-      ],
-      "hitPoints": 0,
-      "id": 150205,
-      "type": "rock"
-    },
-    {
-      "cell": [
         7,
         2
       ],
       "hitPoints": 0,
-      "id": 150206,
+      "id": 150205,
       "type": "rock"
     },
     {
@@ -60,13 +51,22 @@
         7
       ],
       "hitPoints": 0,
+      "id": 150206,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        3
+      ],
+      "hitPoints": 0,
       "id": 150207,
       "type": "rock"
     },
     {
       "cell": [
-        6,
-        4
+        5,
+        7
       ],
       "hitPoints": 8,
       "id": 150208,
@@ -75,15 +75,15 @@
     {
       "cell": [
         6,
-        5
+        4
       ],
-      "hitPoints": 8,
+      "hitPoints": 4,
       "id": 150209,
-      "type": "ore"
+      "type": "ball_cache"
     },
     {
       "cell": [
-        5,
+        6,
         5
       ],
       "hitPoints": 8,
@@ -92,20 +92,11 @@
     },
     {
       "cell": [
-        2,
-        4
-      ],
-      "hitPoints": 6,
-      "id": 150211,
-      "type": "echo"
-    },
-    {
-      "cell": [
-        4,
+        5,
         5
       ],
-      "hitPoints": 8,
-      "id": 150212,
+      "hitPoints": 7,
+      "id": 150211,
       "type": "armored",
       "vulnerableSides": [
         "bottom"
@@ -113,17 +104,26 @@
     },
     {
       "cell": [
-        1,
-        6
+        2,
+        4
       ],
       "hitPoints": 8,
-      "id": 150213,
+      "id": 150212,
       "type": "ore"
     },
     {
       "cell": [
-        5,
-        2
+        4,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 150213,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        1,
+        6
       ],
       "hitPoints": 8,
       "id": 150214,
@@ -135,11 +135,20 @@
     {
       "cell": [
         5,
-        6
+        2
       ],
       "hitPoints": 8,
       "id": 150215,
-      "type": "ore"
+      "type": "normal"
+    },
+    {
+      "cell": [
+        5,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 150216,
+      "type": "normal"
     },
     {
       "cell": [
@@ -147,8 +156,8 @@
         6
       ],
       "hitPoints": 8,
-      "id": 150216,
-      "type": "ore"
+      "id": 150217,
+      "type": "normal"
     },
     {
       "cell": [
@@ -156,8 +165,11 @@
         2
       ],
       "hitPoints": 8,
-      "id": 150217,
-      "type": "ore"
+      "id": 150218,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
     },
     {
       "cell": [
@@ -165,17 +177,8 @@
         3
       ],
       "hitPoints": 6,
-      "id": 150218,
-      "type": "echo"
-    },
-    {
-      "cell": [
-        4,
-        7
-      ],
-      "hitPoints": 5,
       "id": 150219,
-      "type": "explosive"
+      "type": "echo"
     },
     {
       "cell": [
@@ -191,9 +194,9 @@
         2,
         5
       ],
-      "hitPoints": 4,
+      "hitPoints": 5,
       "id": 150221,
-      "type": "ball_cache"
+      "type": "explosive"
     },
     {
       "cell": [
@@ -205,13 +208,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-13",
+  "contentVersion": "p2-mines-14",
   "displayName": "Kayıp Galeri",
   "displayNameKey": "MINE_15_WIDE_02",
   "exampleAngles": [
-    98.5,
-    98.5,
-    98.5
+    30.0,
+    30.0,
+    30.0
   ],
   "family": "safe",
   "height": 8,

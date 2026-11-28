@@ -29,20 +29,29 @@
     },
     {
       "cell": [
-        4,
-        4
-      ],
-      "hitPoints": 9,
-      "id": 300204,
-      "type": "acid_barrel"
-    },
-    {
-      "cell": [
         7,
         7
       ],
-      "hitPoints": 9,
+      "hitPoints": 8,
+      "id": 300204,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        6,
+        4
+      ],
+      "hitPoints": 4,
       "id": 300205,
+      "type": "ball_cache"
+    },
+    {
+      "cell": [
+        0,
+        5
+      ],
+      "hitPoints": 9,
+      "id": 300206,
       "type": "acid_barrel"
     },
     {
@@ -51,22 +60,13 @@
         3
       ],
       "hitPoints": 0,
-      "id": 300206,
+      "id": 300207,
       "type": "rock"
     },
     {
       "cell": [
         7,
         6
-      ],
-      "hitPoints": 0,
-      "id": 300207,
-      "type": "rock"
-    },
-    {
-      "cell": [
-        0,
-        2
       ],
       "hitPoints": 0,
       "id": 300208,
@@ -75,7 +75,7 @@
     {
       "cell": [
         0,
-        3
+        2
       ],
       "hitPoints": 0,
       "id": 300209,
@@ -84,21 +84,41 @@
     {
       "cell": [
         0,
-        7
+        3
       ],
       "hitPoints": 0,
       "id": 300210,
       "type": "rock"
     },
     {
-      "beamDirection": "right",
+      "cell": [
+        0,
+        7
+      ],
+      "hitPoints": 0,
+      "id": 300211,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        1,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 300212,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
       "cell": [
         3,
         5
       ],
-      "hitPoints": 7,
-      "id": 300211,
-      "type": "piercing"
+      "hitPoints": 8,
+      "id": 300213,
+      "type": "ore"
     },
     {
       "cell": [
@@ -106,8 +126,11 @@
         4
       ],
       "hitPoints": 8,
-      "id": 300212,
-      "type": "ore"
+      "id": 300214,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
     },
     {
       "cell": [
@@ -115,31 +138,13 @@
         6
       ],
       "hitPoints": 8,
-      "id": 300213,
-      "type": "cracked"
-    },
-    {
-      "cell": [
-        2,
-        5
-      ],
-      "hitPoints": 6,
-      "id": 300214,
-      "type": "echo"
-    },
-    {
-      "cell": [
-        2,
-        7
-      ],
-      "hitPoints": 8,
       "id": 300215,
-      "type": "explosive"
+      "type": "normal"
     },
     {
       "cell": [
-        5,
-        3
+        4,
+        5
       ],
       "hitPoints": 8,
       "id": 300216,
@@ -147,11 +152,38 @@
     },
     {
       "cell": [
-        6,
-        6
+        2,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 300217,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        4,
+        4
+      ],
+      "hitPoints": 4,
+      "id": 300218,
+      "type": "ball_cache"
+    },
+    {
+      "cell": [
+        5,
+        3
+      ],
+      "hitPoints": 8,
+      "id": 300219,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        5,
+        2
       ],
       "hitPoints": 6,
-      "id": 300217,
+      "id": 300220,
       "type": "echo"
     },
     {
@@ -160,35 +192,18 @@
         6
       ],
       "hitPoints": 8,
-      "id": 300218,
-      "type": "ore"
+      "id": 300221,
+      "type": "cracked"
     },
     {
+      "beamDirection": "right",
       "cell": [
         2,
         4
       ],
-      "hitPoints": 8,
-      "id": 300219,
-      "type": "ore"
-    },
-    {
-      "cell": [
-        1,
-        7
-      ],
-      "hitPoints": 4,
-      "id": 300220,
-      "type": "ball_cache"
-    },
-    {
-      "cell": [
-        0,
-        6
-      ],
-      "hitPoints": 4,
-      "id": 300221,
-      "type": "ball_cache"
+      "hitPoints": 7,
+      "id": 300222,
+      "type": "piercing"
     },
     {
       "cell": [
@@ -200,13 +215,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-13",
+  "contentVersion": "p2-mines-14",
   "displayName": "Fıçı Salonu",
   "displayNameKey": "MINE_30_WIDE_02",
   "exampleAngles": [
-    71.5,
-    71.5,
-    71.5
+    70.0,
+    70.0,
+    70.0
   ],
   "family": "safe",
   "height": 8,

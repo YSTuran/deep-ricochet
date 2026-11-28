@@ -20,16 +20,16 @@
     },
     {
       "cell": [
-        0,
-        4
+        4,
+        5
       ],
-      "hitPoints": 0,
+      "hitPoints": 8,
       "id": 220503,
-      "type": "rock"
+      "type": "normal"
     },
     {
       "cell": [
-        7,
+        0,
         4
       ],
       "hitPoints": 0,
@@ -38,7 +38,7 @@
     },
     {
       "cell": [
-        6,
+        7,
         4
       ],
       "hitPoints": 0,
@@ -74,8 +74,8 @@
     },
     {
       "cell": [
-        0,
-        6
+        6,
+        5
       ],
       "hitPoints": 0,
       "id": 220509,
@@ -101,16 +101,16 @@
     },
     {
       "cell": [
-        7,
-        7
+        6,
+        6
       ],
-      "hitPoints": 8,
+      "hitPoints": 0,
       "id": 220512,
-      "type": "ore"
+      "type": "rock"
     },
     {
       "cell": [
-        1,
+        7,
         7
       ],
       "hitPoints": 8,
@@ -119,11 +119,20 @@
     },
     {
       "cell": [
+        1,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 220514,
+      "type": "ore"
+    },
+    {
+      "cell": [
         4,
         6
       ],
       "hitPoints": 6,
-      "id": 220514,
+      "id": 220515,
       "type": "echo"
     },
     {
@@ -132,29 +141,17 @@
         7
       ],
       "hitPoints": 8,
-      "id": 220515,
+      "id": 220516,
       "type": "ore"
     },
     {
       "cell": [
-        6,
-        6
-      ],
-      "hitPoints": 8,
-      "id": 220516,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
-    },
-    {
-      "cell": [
-        4,
-        5
+        0,
+        7
       ],
       "hitPoints": 8,
       "id": 220517,
-      "type": "ore"
+      "type": "cracked"
     },
     {
       "cell": [
@@ -163,7 +160,7 @@
       ],
       "hitPoints": 8,
       "id": 220518,
-      "type": "explosive"
+      "type": "ore"
     },
     {
       "cell": [
@@ -181,7 +178,7 @@
       ],
       "hitPoints": 8,
       "id": 220520,
-      "type": "cracked"
+      "type": "explosive"
     },
     {
       "cell": [
@@ -190,19 +187,16 @@
       ],
       "hitPoints": 8,
       "id": 220521,
-      "type": "explosive"
+      "type": "ore"
     },
     {
       "cell": [
-        2,
-        4
+        3,
+        6
       ],
       "hitPoints": 8,
       "id": 220522,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "explosive"
     },
     {
       "cell": [
@@ -223,7 +217,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-13",
+  "contentVersion": "p2-mines-14",
   "displayName": "Ametist Damarı",
   "displayNameKey": "MINE_22_NARROW_02",
   "exampleAngles": [

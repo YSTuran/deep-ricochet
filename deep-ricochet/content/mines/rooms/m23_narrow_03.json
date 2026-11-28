@@ -29,16 +29,16 @@
     },
     {
       "cell": [
-        0,
+        2,
         6
       ],
-      "hitPoints": 0,
+      "hitPoints": 8,
       "id": 230604,
-      "type": "rock"
+      "type": "normal"
     },
     {
       "cell": [
-        7,
+        0,
         6
       ],
       "hitPoints": 0,
@@ -47,7 +47,7 @@
     },
     {
       "cell": [
-        1,
+        7,
         6
       ],
       "hitPoints": 0,
@@ -56,7 +56,7 @@
     },
     {
       "cell": [
-        6,
+        1,
         6
       ],
       "hitPoints": 0,
@@ -65,8 +65,8 @@
     },
     {
       "cell": [
-        0,
-        7
+        6,
+        6
       ],
       "hitPoints": 0,
       "id": 230608,
@@ -74,7 +74,7 @@
     },
     {
       "cell": [
-        1,
+        7,
         7
       ],
       "hitPoints": 0,
@@ -83,7 +83,7 @@
     },
     {
       "cell": [
-        6,
+        1,
         7
       ],
       "hitPoints": 0,
@@ -92,8 +92,8 @@
     },
     {
       "cell": [
-        0,
-        2
+        6,
+        7
       ],
       "hitPoints": 0,
       "id": 230611,
@@ -101,7 +101,7 @@
     },
     {
       "cell": [
-        7,
+        0,
         2
       ],
       "hitPoints": 0,
@@ -110,11 +110,20 @@
     },
     {
       "cell": [
+        7,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 230613,
+      "type": "rock"
+    },
+    {
+      "cell": [
         4,
         7
       ],
       "hitPoints": 6,
-      "id": 230613,
+      "id": 230614,
       "type": "echo"
     },
     {
@@ -123,7 +132,7 @@
         7
       ],
       "hitPoints": 8,
-      "id": 230614,
+      "id": 230615,
       "type": "ore"
     },
     {
@@ -132,7 +141,7 @@
         5
       ],
       "hitPoints": 8,
-      "id": 230615,
+      "id": 230616,
       "type": "explosive"
     },
     {
@@ -141,7 +150,7 @@
         6
       ],
       "hitPoints": 8,
-      "id": 230616,
+      "id": 230617,
       "type": "ore"
     },
     {
@@ -150,7 +159,7 @@
         5
       ],
       "hitPoints": 8,
-      "id": 230617,
+      "id": 230618,
       "type": "ore"
     },
     {
@@ -159,7 +168,7 @@
         5
       ],
       "hitPoints": 8,
-      "id": 230618,
+      "id": 230619,
       "type": "armored",
       "vulnerableSides": [
         "bottom"
@@ -171,7 +180,7 @@
         5
       ],
       "hitPoints": 6,
-      "id": 230619,
+      "id": 230620,
       "type": "echo"
     },
     {
@@ -181,7 +190,7 @@
         7
       ],
       "hitPoints": 7,
-      "id": 230620,
+      "id": 230621,
       "type": "piercing"
     },
     {
@@ -189,27 +198,18 @@
         1,
         4
       ],
-      "hitPoints": 8,
-      "id": 230621,
-      "type": "normal"
+      "hitPoints": 4,
+      "id": 230622,
+      "type": "ball_cache"
     },
     {
       "cell": [
         5,
-        6
+        5
       ],
       "hitPoints": 8,
-      "id": 230622,
-      "type": "cracked"
-    },
-    {
-      "cell": [
-        0,
-        3
-      ],
-      "hitPoints": 4,
       "id": 230623,
-      "type": "ball_cache"
+      "type": "cracked"
     },
     {
       "cell": [
@@ -221,13 +221,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-13",
+  "contentVersion": "p2-mines-14",
   "displayName": "Derin Kuyu",
   "displayNameKey": "MINE_23_NARROW_03",
   "exampleAngles": [
-    30.0,
-    30.0,
-    30.0
+    42.5,
+    42.5,
+    42.5
   ],
   "family": "bonus",
   "height": 8,

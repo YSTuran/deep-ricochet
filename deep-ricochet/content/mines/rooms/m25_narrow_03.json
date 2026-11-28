@@ -29,16 +29,16 @@
     },
     {
       "cell": [
-        1,
-        2
+        0,
+        6
       ],
-      "hitPoints": 0,
+      "hitPoints": 8,
       "id": 250604,
-      "type": "rock"
+      "type": "normal"
     },
     {
       "cell": [
-        7,
+        1,
         2
       ],
       "hitPoints": 0,
@@ -47,7 +47,7 @@
     },
     {
       "cell": [
-        0,
+        7,
         2
       ],
       "hitPoints": 0,
@@ -74,7 +74,7 @@
     },
     {
       "cell": [
-        1,
+        7,
         3
       ],
       "hitPoints": 0,
@@ -83,7 +83,7 @@
     },
     {
       "cell": [
-        6,
+        1,
         3
       ],
       "hitPoints": 0,
@@ -92,8 +92,8 @@
     },
     {
       "cell": [
-        1,
-        4
+        6,
+        3
       ],
       "hitPoints": 0,
       "id": 250611,
@@ -101,7 +101,7 @@
     },
     {
       "cell": [
-        7,
+        1,
         4
       ],
       "hitPoints": 0,
@@ -111,10 +111,19 @@
     {
       "cell": [
         7,
+        4
+      ],
+      "hitPoints": 0,
+      "id": 250613,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
         6
       ],
       "hitPoints": 6,
-      "id": 250613,
+      "id": 250614,
       "type": "echo"
     },
     {
@@ -123,35 +132,29 @@
         7
       ],
       "hitPoints": 8,
-      "id": 250614,
-      "type": "ore"
-    },
-    {
-      "cell": [
-        3,
-        7
-      ],
-      "hitPoints": 8,
       "id": 250615,
       "type": "ore"
     },
     {
       "cell": [
-        6,
+        3,
         7
       ],
       "hitPoints": 8,
       "id": 250616,
-      "type": "explosive"
+      "type": "ore"
     },
     {
       "cell": [
-        3,
-        6
+        5,
+        7
       ],
-      "hitPoints": 6,
+      "hitPoints": 8,
       "id": 250617,
-      "type": "echo"
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
     },
     {
       "cell": [
@@ -160,7 +163,7 @@
       ],
       "hitPoints": 8,
       "id": 250618,
-      "type": "ore"
+      "type": "cracked"
     },
     {
       "cell": [
@@ -172,13 +175,14 @@
       "type": "ore"
     },
     {
+      "beamDirection": "right",
       "cell": [
         0,
         7
       ],
-      "hitPoints": 8,
+      "hitPoints": 7,
       "id": 250620,
-      "type": "cracked"
+      "type": "piercing"
     },
     {
       "cell": [
@@ -190,23 +194,22 @@
       "type": "ore"
     },
     {
-      "beamDirection": "left",
       "cell": [
         4,
         5
       ],
-      "hitPoints": 7,
+      "hitPoints": 4,
       "id": 250622,
-      "type": "piercing"
+      "type": "ball_cache"
     },
     {
       "cell": [
         6,
         5
       ],
-      "hitPoints": 4,
+      "hitPoints": 8,
       "id": 250623,
-      "type": "ball_cache"
+      "type": "explosive"
     },
     {
       "cell": [
@@ -218,7 +221,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-13",
+  "contentVersion": "p2-mines-14",
   "displayName": "Sınav Boğazı",
   "displayNameKey": "MINE_25_NARROW_03",
   "exampleAngles": [

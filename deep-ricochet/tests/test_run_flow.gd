@@ -89,6 +89,8 @@ static func _test_catalog_and_seeded_selection(
 		var edge_rock_count := 0
 		var room_cache_count := 0
 		var room_acid_count := 0
+		var room_acid_cells: Array[Vector2i] = []
+		var core_cell := Vector2i(-1, -1)
 		for definition: RoomBlockDefinition in template.blocks:
 			if definition.block_type != BlockState.BlockType.CORE:
 				assert(
@@ -125,13 +127,16 @@ static func _test_catalog_and_seeded_selection(
 			elif definition.block_type == BlockState.BlockType.BALL_CACHE:
 				room_cache_count += 1
 				assert(definition.hit_points == RoomTemplate.BALL_CACHE_HIT_POINTS)
+				assert(definition.cell.y >= 3)
 			elif definition.block_type == BlockState.BlockType.PIERCING:
 				assert(definition.hit_points == RoomTemplate.PIERCING_HIT_POINTS)
 				assert(definition.beam_direction != BlockState.BeamDirection.NONE)
 			elif definition.block_type == BlockState.BlockType.ACID_BARREL:
 				room_acid_count += 1
+				room_acid_cells.append(definition.cell)
 				assert(definition.hit_points == RoomTemplate.ACID_BARREL_HIT_POINTS)
 			elif definition.block_type == BlockState.BlockType.CORE:
+				core_cell = definition.cell
 				assert(BoardGeometry.is_core_row(definition.cell.y))
 				assert(definition.cell.x >= 1 and definition.cell.x <= 6)
 				if not is_daily:
@@ -143,6 +148,21 @@ static func _test_catalog_and_seeded_selection(
 				if template.role == RoomTemplate.Role.NARROW:
 					expected_core_hp = mini(8, expected_core_hp + 1)
 				assert(definition.hit_points == expected_core_hp)
+		if not is_daily and mine_order >= 20:
+			var has_side_guard := false
+			for definition: RoomBlockDefinition in template.blocks:
+				if definition.block_type in [BlockState.BlockType.NORMAL, BlockState.BlockType.ORE] \
+					and definition.cell.y == core_cell.y - 1 \
+					and absi(definition.cell.x - core_cell.x) == 1:
+					has_side_guard = true
+					break
+			assert(has_side_guard, "Çekirdek yan koruması eksik: %s" % template.room_id)
+		for acid_cell: Vector2i in room_acid_cells:
+			if not is_daily:
+				assert(maxi(
+					absi(acid_cell.x - core_cell.x),
+					absi(acid_cell.y - core_cell.y),
+				) >= 3, "Asit varili çekirdeğe fazla yakın: %s" % template.room_id)
 		if not role_counts.has(template.mine_id):
 			role_counts[template.mine_id] = {}
 		var mine_roles: Dictionary = role_counts[template.mine_id]
@@ -158,8 +178,9 @@ static func _test_catalog_and_seeded_selection(
 				assert(room_acid_count == 0)
 			var density_tier := floori(float(mine_order - 1) / 3.0)
 			var base_density := mini(22, 14 + density_tier * 2)
-			var minimum_density := base_density
-			var maximum_density := mini(22, base_density + 1)
+			var late_density_bonus := 1 if mine_order >= 23 else 0
+			var minimum_density := base_density + late_density_bonus
+			var maximum_density := mini(23, base_density + late_density_bonus + 1)
 			if template.role == RoomTemplate.Role.NARROW:
 				minimum_density = mini(24, base_density + 2)
 				maximum_density = mini(24, base_density + 3)
@@ -182,7 +203,8 @@ static func _test_catalog_and_seeded_selection(
 			var role_difficulty: Dictionary = mine_role_difficulty_totals[template.mine_id]
 			var role_room_counts: Dictionary = mine_role_room_counts[template.mine_id]
 			role_difficulty[template.role] = role_difficulty.get(template.role, 0) \
-				+ room_durability + room_rock_count * 5
+				+ room_durability + room_rock_count * 5 \
+				+ (10 if template.role == RoomTemplate.Role.NARROW else 0)
 			role_room_counts[template.role] = role_room_counts.get(template.role, 0) + 1
 		if template.family == RoomTemplate.Family.SAFE:
 			assert(template.multiplier_bps == config.safe_multiplier_bps)

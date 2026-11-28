@@ -20,11 +20,20 @@
     },
     {
       "cell": [
-        0,
-        6
+        4,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 350403,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        1,
+        3
       ],
       "hitPoints": 9,
-      "id": 350403,
+      "id": 350404,
       "type": "acid_barrel"
     },
     {
@@ -33,7 +42,7 @@
         4
       ],
       "hitPoints": 0,
-      "id": 350404,
+      "id": 350405,
       "type": "rock"
     },
     {
@@ -42,21 +51,12 @@
         4
       ],
       "hitPoints": 0,
-      "id": 350405,
-      "type": "rock"
-    },
-    {
-      "cell": [
-        0,
-        4
-      ],
-      "hitPoints": 0,
       "id": 350406,
       "type": "rock"
     },
     {
       "cell": [
-        6,
+        0,
         4
       ],
       "hitPoints": 0,
@@ -65,8 +65,8 @@
     },
     {
       "cell": [
-        0,
-        5
+        6,
+        4
       ],
       "hitPoints": 0,
       "id": 350408,
@@ -83,7 +83,7 @@
     },
     {
       "cell": [
-        6,
+        1,
         5
       ],
       "hitPoints": 0,
@@ -109,13 +109,22 @@
       "type": "rock"
     },
     {
+      "cell": [
+        0,
+        6
+      ],
+      "hitPoints": 0,
+      "id": 350413,
+      "type": "rock"
+    },
+    {
       "beamDirection": "right",
       "cell": [
         0,
         7
       ],
       "hitPoints": 7,
-      "id": 350413,
+      "id": 350414,
       "type": "piercing"
     },
     {
@@ -124,7 +133,7 @@
         7
       ],
       "hitPoints": 8,
-      "id": 350414,
+      "id": 350415,
       "type": "cracked"
     },
     {
@@ -133,22 +142,13 @@
         7
       ],
       "hitPoints": 8,
-      "id": 350415,
+      "id": 350416,
       "type": "ore"
     },
     {
       "cell": [
-        7,
-        7
-      ],
-      "hitPoints": 6,
-      "id": 350416,
-      "type": "echo"
-    },
-    {
-      "cell": [
         3,
-        6
+        7
       ],
       "hitPoints": 8,
       "id": 350417,
@@ -156,7 +156,7 @@
     },
     {
       "cell": [
-        2,
+        3,
         6
       ],
       "hitPoints": 8,
@@ -165,11 +165,20 @@
     },
     {
       "cell": [
+        2,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 350419,
+      "type": "ore"
+    },
+    {
+      "cell": [
         1,
         7
       ],
       "hitPoints": 8,
-      "id": 350419,
+      "id": 350420,
       "type": "ore"
     },
     {
@@ -178,7 +187,7 @@
         7
       ],
       "hitPoints": 8,
-      "id": 350420,
+      "id": 350421,
       "type": "explosive"
     },
     {
@@ -186,27 +195,18 @@
         2,
         5
       ],
-      "hitPoints": 8,
-      "id": 350421,
-      "type": "ore"
+      "hitPoints": 4,
+      "id": 350422,
+      "type": "ball_cache"
     },
     {
       "cell": [
         4,
         7
       ],
-      "hitPoints": 8,
-      "id": 350422,
-      "type": "explosive"
-    },
-    {
-      "cell": [
-        5,
-        3
-      ],
-      "hitPoints": 4,
+      "hitPoints": 6,
       "id": 350423,
-      "type": "ball_cache"
+      "type": "echo"
     },
     {
       "cell": [
@@ -218,7 +218,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-13",
+  "contentVersion": "p2-mines-14",
   "displayName": "Yeşil Sınav",
   "displayNameKey": "MINE_35_NARROW_01",
   "exampleAngles": [

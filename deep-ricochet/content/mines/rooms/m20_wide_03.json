@@ -29,16 +29,16 @@
     },
     {
       "cell": [
-        7,
-        2
+        2,
+        7
       ],
-      "hitPoints": 0,
+      "hitPoints": 8,
       "id": 200304,
-      "type": "rock"
+      "type": "normal"
     },
     {
       "cell": [
-        0,
+        7,
         2
       ],
       "hitPoints": 0,
@@ -47,8 +47,8 @@
     },
     {
       "cell": [
-        7,
-        3
+        0,
+        2
       ],
       "hitPoints": 0,
       "id": 200306,
@@ -57,10 +57,19 @@
     {
       "cell": [
         7,
-        7
+        3
       ],
       "hitPoints": 0,
       "id": 200307,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        7
+      ],
+      "hitPoints": 0,
+      "id": 200308,
       "type": "rock"
     },
     {
@@ -69,7 +78,7 @@
         4
       ],
       "hitPoints": 0,
-      "id": 200308,
+      "id": 200309,
       "type": "rock"
     },
     {
@@ -78,7 +87,7 @@
         3
       ],
       "hitPoints": 6,
-      "id": 200309,
+      "id": 200310,
       "type": "echo"
     },
     {
@@ -87,7 +96,7 @@
         4
       ],
       "hitPoints": 8,
-      "id": 200310,
+      "id": 200311,
       "type": "armored",
       "vulnerableSides": [
         "bottom"
@@ -99,7 +108,7 @@
         4
       ],
       "hitPoints": 6,
-      "id": 200311,
+      "id": 200312,
       "type": "echo"
     },
     {
@@ -108,7 +117,7 @@
         2
       ],
       "hitPoints": 8,
-      "id": 200312,
+      "id": 200313,
       "type": "ore"
     },
     {
@@ -117,7 +126,7 @@
         3
       ],
       "hitPoints": 6,
-      "id": 200313,
+      "id": 200314,
       "type": "echo"
     },
     {
@@ -126,7 +135,7 @@
         7
       ],
       "hitPoints": 6,
-      "id": 200314,
+      "id": 200315,
       "type": "explosive"
     },
     {
@@ -135,7 +144,7 @@
         6
       ],
       "hitPoints": 8,
-      "id": 200315,
+      "id": 200316,
       "type": "ore"
     },
     {
@@ -144,7 +153,7 @@
         2
       ],
       "hitPoints": 8,
-      "id": 200316,
+      "id": 200317,
       "type": "armored",
       "vulnerableSides": [
         "bottom"
@@ -156,7 +165,7 @@
         5
       ],
       "hitPoints": 8,
-      "id": 200317,
+      "id": 200318,
       "type": "ore"
     },
     {
@@ -164,18 +173,9 @@
         4,
         4
       ],
-      "hitPoints": 8,
-      "id": 200318,
-      "type": "ore"
-    },
-    {
-      "cell": [
-        0,
-        3
-      ],
-      "hitPoints": 8,
+      "hitPoints": 4,
       "id": 200319,
-      "type": "normal"
+      "type": "ball_cache"
     },
     {
       "cell": [
@@ -184,16 +184,16 @@
       ],
       "hitPoints": 8,
       "id": 200320,
-      "type": "cracked"
+      "type": "ore"
     },
     {
       "cell": [
         5,
         2
       ],
-      "hitPoints": 4,
+      "hitPoints": 8,
       "id": 200321,
-      "type": "ball_cache"
+      "type": "cracked"
     },
     {
       "cell": [
@@ -205,7 +205,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-13",
+  "contentVersion": "p2-mines-14",
   "displayName": "Ağır Kemer",
   "displayNameKey": "MINE_20_WIDE_03",
   "exampleAngles": [

@@ -30,25 +30,25 @@
     {
       "cell": [
         0,
-        4
+        6
+      ],
+      "hitPoints": 8,
+      "id": 310004,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        5,
+        3
       ],
       "hitPoints": 9,
-      "id": 310004,
+      "id": 310005,
       "type": "acid_barrel"
     },
     {
       "cell": [
         0,
-        3
-      ],
-      "hitPoints": 0,
-      "id": 310005,
-      "type": "rock"
-    },
-    {
-      "cell": [
-        7,
-        6
+        4
       ],
       "hitPoints": 0,
       "id": 310006,
@@ -56,7 +56,7 @@
     },
     {
       "cell": [
-        7,
+        0,
         3
       ],
       "hitPoints": 0,
@@ -66,7 +66,7 @@
     {
       "cell": [
         7,
-        5
+        6
       ],
       "hitPoints": 0,
       "id": 310008,
@@ -74,8 +74,8 @@
     },
     {
       "cell": [
-        0,
-        5
+        7,
+        3
       ],
       "hitPoints": 0,
       "id": 310009,
@@ -83,12 +83,21 @@
     },
     {
       "cell": [
+        7,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 310010,
+      "type": "rock"
+    },
+    {
+      "cell": [
         4,
         4
       ],
-      "hitPoints": 8,
-      "id": 310010,
-      "type": "ore"
+      "hitPoints": 4,
+      "id": 310011,
+      "type": "ball_cache"
     },
     {
       "cell": [
@@ -96,7 +105,7 @@
         4
       ],
       "hitPoints": 8,
-      "id": 310011,
+      "id": 310012,
       "type": "ore"
     },
     {
@@ -105,7 +114,7 @@
         2
       ],
       "hitPoints": 8,
-      "id": 310012,
+      "id": 310013,
       "type": "ore"
     },
     {
@@ -114,7 +123,7 @@
         2
       ],
       "hitPoints": 8,
-      "id": 310013,
+      "id": 310014,
       "type": "normal"
     },
     {
@@ -123,7 +132,7 @@
         2
       ],
       "hitPoints": 8,
-      "id": 310014,
+      "id": 310015,
       "type": "normal"
     },
     {
@@ -132,7 +141,7 @@
         5
       ],
       "hitPoints": 8,
-      "id": 310015,
+      "id": 310016,
       "type": "ore"
     },
     {
@@ -141,23 +150,14 @@
         6
       ],
       "hitPoints": 6,
-      "id": 310016,
-      "type": "echo"
-    },
-    {
-      "cell": [
-        3,
-        7
-      ],
-      "hitPoints": 6,
       "id": 310017,
       "type": "echo"
     },
     {
       "beamDirection": "left",
       "cell": [
-        4,
-        6
+        3,
+        5
       ],
       "hitPoints": 7,
       "id": 310018,
@@ -168,27 +168,36 @@
         5,
         4
       ],
-      "hitPoints": 8,
+      "hitPoints": 6,
       "id": 310019,
-      "type": "cracked"
-    },
-    {
-      "cell": [
-        6,
-        5
-      ],
-      "hitPoints": 8,
-      "id": 310020,
-      "type": "explosive"
+      "type": "echo"
     },
     {
       "cell": [
         2,
         6
       ],
-      "hitPoints": 4,
+      "hitPoints": 6,
+      "id": 310020,
+      "type": "echo"
+    },
+    {
+      "cell": [
+        0,
+        5
+      ],
+      "hitPoints": 8,
       "id": 310021,
-      "type": "ball_cache"
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        6,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 310022,
+      "type": "explosive"
     },
     {
       "cell": [
@@ -200,7 +209,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-13",
+  "contentVersion": "p2-mines-14",
   "displayName": "Pas Kapısı",
   "displayNameKey": "MINE_31_START",
   "exampleAngles": [

@@ -29,17 +29,17 @@
     },
     {
       "cell": [
-        7,
-        3
+        4,
+        6
       ],
-      "hitPoints": 0,
+      "hitPoints": 8,
       "id": 270004,
-      "type": "rock"
+      "type": "normal"
     },
     {
       "cell": [
-        0,
-        6
+        7,
+        3
       ],
       "hitPoints": 0,
       "id": 270005,
@@ -65,11 +65,20 @@
     },
     {
       "cell": [
-        7,
-        7
+        0,
+        4
       ],
       "hitPoints": 0,
       "id": 270008,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        6
+      ],
+      "hitPoints": 0,
+      "id": 270009,
       "type": "rock"
     },
     {
@@ -78,7 +87,7 @@
         3
       ],
       "hitPoints": 8,
-      "id": 270009,
+      "id": 270010,
       "type": "cracked"
     },
     {
@@ -87,7 +96,7 @@
         3
       ],
       "hitPoints": 6,
-      "id": 270010,
+      "id": 270011,
       "type": "echo"
     },
     {
@@ -96,7 +105,7 @@
         5
       ],
       "hitPoints": 6,
-      "id": 270011,
+      "id": 270012,
       "type": "echo"
     },
     {
@@ -105,7 +114,7 @@
         5
       ],
       "hitPoints": 8,
-      "id": 270012,
+      "id": 270013,
       "type": "ore"
     },
     {
@@ -114,7 +123,7 @@
         3
       ],
       "hitPoints": 8,
-      "id": 270013,
+      "id": 270014,
       "type": "ore"
     },
     {
@@ -123,7 +132,7 @@
         6
       ],
       "hitPoints": 6,
-      "id": 270014,
+      "id": 270015,
       "type": "echo"
     },
     {
@@ -132,7 +141,7 @@
         5
       ],
       "hitPoints": 8,
-      "id": 270015,
+      "id": 270016,
       "type": "cracked"
     },
     {
@@ -141,36 +150,17 @@
         7
       ],
       "hitPoints": 8,
-      "id": 270016,
+      "id": 270017,
       "type": "explosive"
     },
     {
       "cell": [
         6,
-        6
-      ],
-      "hitPoints": 8,
-      "id": 270017,
-      "type": "ore"
-    },
-    {
-      "beamDirection": "right",
-      "cell": [
-        0,
         4
       ],
-      "hitPoints": 7,
+      "hitPoints": 4,
       "id": 270018,
-      "type": "piercing"
-    },
-    {
-      "cell": [
-        6,
-        4
-      ],
-      "hitPoints": 8,
-      "id": 270019,
-      "type": "ore"
+      "type": "ball_cache"
     },
     {
       "cell": [
@@ -178,20 +168,39 @@
         5
       ],
       "hitPoints": 8,
+      "id": 270019,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        4,
+        7
+      ],
+      "hitPoints": 6,
       "id": 270020,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "echo"
     },
     {
       "cell": [
         2,
         2
       ],
-      "hitPoints": 4,
+      "hitPoints": 8,
       "id": 270021,
-      "type": "ball_cache"
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "beamDirection": "left",
+      "cell": [
+        7,
+        4
+      ],
+      "hitPoints": 7,
+      "id": 270022,
+      "type": "piercing"
     },
     {
       "cell": [
@@ -203,13 +212,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-13",
+  "contentVersion": "p2-mines-14",
   "displayName": "Dip Kapısı",
   "displayNameKey": "MINE_27_START",
   "exampleAngles": [
-    80.5,
-    80.5,
-    80.5
+    15.0,
+    15.0,
+    15.0
   ],
   "family": "safe",
   "height": 8,

@@ -29,17 +29,17 @@
     },
     {
       "cell": [
-        0,
-        6
+        7,
+        7
       ],
-      "hitPoints": 0,
+      "hitPoints": 8,
       "id": 250104,
-      "type": "rock"
+      "type": "normal"
     },
     {
       "cell": [
-        7,
-        2
+        0,
+        4
       ],
       "hitPoints": 0,
       "id": 250105,
@@ -48,10 +48,19 @@
     {
       "cell": [
         0,
-        2
+        6
       ],
       "hitPoints": 0,
       "id": 250106,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 250107,
       "type": "rock"
     },
     {
@@ -60,7 +69,7 @@
         5
       ],
       "hitPoints": 0,
-      "id": 250107,
+      "id": 250108,
       "type": "rock"
     },
     {
@@ -69,7 +78,7 @@
         5
       ],
       "hitPoints": 0,
-      "id": 250108,
+      "id": 250109,
       "type": "rock"
     },
     {
@@ -78,8 +87,11 @@
         5
       ],
       "hitPoints": 8,
-      "id": 250109,
-      "type": "ore"
+      "id": 250110,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
     },
     {
       "cell": [
@@ -87,7 +99,7 @@
         3
       ],
       "hitPoints": 8,
-      "id": 250110,
+      "id": 250111,
       "type": "ore"
     },
     {
@@ -96,7 +108,7 @@
         6
       ],
       "hitPoints": 6,
-      "id": 250111,
+      "id": 250112,
       "type": "echo"
     },
     {
@@ -105,7 +117,7 @@
         5
       ],
       "hitPoints": 8,
-      "id": 250112,
+      "id": 250113,
       "type": "ore"
     },
     {
@@ -114,26 +126,17 @@
         7
       ],
       "hitPoints": 6,
-      "id": 250113,
-      "type": "echo"
-    },
-    {
-      "cell": [
-        3,
-        6
-      ],
-      "hitPoints": 6,
       "id": 250114,
       "type": "echo"
     },
     {
       "cell": [
-        6,
-        4
+        3,
+        3
       ],
-      "hitPoints": 8,
+      "hitPoints": 4,
       "id": 250115,
-      "type": "normal"
+      "type": "ball_cache"
     },
     {
       "cell": [
@@ -151,7 +154,10 @@
       ],
       "hitPoints": 8,
       "id": 250117,
-      "type": "ore"
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
     },
     {
       "cell": [
@@ -160,7 +166,7 @@
       ],
       "hitPoints": 8,
       "id": 250118,
-      "type": "cracked"
+      "type": "explosive"
     },
     {
       "cell": [
@@ -169,7 +175,10 @@
       ],
       "hitPoints": 8,
       "id": 250119,
-      "type": "explosive"
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
     },
     {
       "cell": [
@@ -185,9 +194,18 @@
         3,
         5
       ],
-      "hitPoints": 4,
+      "hitPoints": 8,
       "id": 250121,
-      "type": "ball_cache"
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        1,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 250122,
+      "type": "ore"
     },
     {
       "cell": [
@@ -199,13 +217,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-13",
+  "contentVersion": "p2-mines-14",
   "displayName": "Keskin Basamak",
   "displayNameKey": "MINE_25_WIDE_01",
   "exampleAngles": [
-    67.5,
-    67.5,
-    67.5
+    15.0,
+    15.0,
+    15.0
   ],
   "family": "safe",
   "height": 8,

@@ -83,21 +83,30 @@
     },
     {
       "cell": [
-        5,
-        7
+        1,
+        5
       ],
       "hitPoints": 8,
       "id": 180210,
-      "type": "normal"
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        5,
+        7
+      ],
+      "hitPoints": 5,
+      "id": 180211,
+      "type": "explosive"
     },
     {
       "cell": [
         3,
         4
       ],
-      "hitPoints": 8,
-      "id": 180211,
-      "type": "ore"
+      "hitPoints": 4,
+      "id": 180212,
+      "type": "ball_cache"
     },
     {
       "cell": [
@@ -105,8 +114,8 @@
         5
       ],
       "hitPoints": 8,
-      "id": 180212,
-      "type": "normal"
+      "id": 180213,
+      "type": "ore"
     },
     {
       "cell": [
@@ -114,17 +123,17 @@
         5
       ],
       "hitPoints": 8,
-      "id": 180213,
-      "type": "normal"
+      "id": 180214,
+      "type": "explosive"
     },
     {
       "cell": [
         4,
         7
       ],
-      "hitPoints": 6,
-      "id": 180214,
-      "type": "echo"
+      "hitPoints": 8,
+      "id": 180215,
+      "type": "ore"
     },
     {
       "cell": [
@@ -132,29 +141,26 @@
         5
       ],
       "hitPoints": 8,
-      "id": 180215,
-      "type": "normal"
+      "id": 180216,
+      "type": "ore"
     },
     {
       "cell": [
         2,
         4
       ],
-      "hitPoints": 6,
-      "id": 180216,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "hitPoints": 4,
+      "id": 180217,
+      "type": "ball_cache"
     },
     {
       "cell": [
         1,
         6
       ],
-      "hitPoints": 8,
-      "id": 180217,
-      "type": "cracked"
+      "hitPoints": 6,
+      "id": 180218,
+      "type": "echo"
     },
     {
       "cell": [
@@ -162,8 +168,8 @@
         5
       ],
       "hitPoints": 8,
-      "id": 180218,
-      "type": "ore"
+      "id": 180219,
+      "type": "normal"
     },
     {
       "cell": [
@@ -171,7 +177,7 @@
         2
       ],
       "hitPoints": 8,
-      "id": 180219,
+      "id": 180220,
       "type": "explosive"
     },
     {
@@ -179,18 +185,12 @@
         5,
         2
       ],
-      "hitPoints": 4,
-      "id": 180220,
-      "type": "ball_cache"
-    },
-    {
-      "cell": [
-        4,
-        3
-      ],
-      "hitPoints": 4,
+      "hitPoints": 8,
       "id": 180221,
-      "type": "ball_cache"
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
     },
     {
       "cell": [
@@ -202,13 +202,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-13",
+  "contentVersion": "p2-mines-14",
   "displayName": "Yeşil Koridor",
   "displayNameKey": "MINE_18_WIDE_02",
   "exampleAngles": [
-    15.0,
-    15.0,
-    15.0
+    71.5,
+    71.5,
+    71.5
   ],
   "family": "safe",
   "height": 8,

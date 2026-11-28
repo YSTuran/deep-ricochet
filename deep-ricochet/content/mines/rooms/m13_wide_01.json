@@ -202,7 +202,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-13",
+  "contentVersion": "p2-mines-14",
   "displayName": "Ağır Basamak",
   "displayNameKey": "MINE_13_WIDE_01",
   "exampleAngles": [

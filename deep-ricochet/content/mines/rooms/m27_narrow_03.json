@@ -20,16 +20,16 @@
     },
     {
       "cell": [
-        0,
-        4
+        4,
+        5
       ],
-      "hitPoints": 0,
+      "hitPoints": 8,
       "id": 270603,
-      "type": "rock"
+      "type": "normal"
     },
     {
       "cell": [
-        1,
+        0,
         4
       ],
       "hitPoints": 0,
@@ -38,7 +38,7 @@
     },
     {
       "cell": [
-        6,
+        7,
         4
       ],
       "hitPoints": 0,
@@ -47,8 +47,8 @@
     },
     {
       "cell": [
-        0,
-        5
+        1,
+        4
       ],
       "hitPoints": 0,
       "id": 270606,
@@ -56,8 +56,8 @@
     },
     {
       "cell": [
-        7,
-        5
+        6,
+        4
       ],
       "hitPoints": 0,
       "id": 270607,
@@ -65,7 +65,7 @@
     },
     {
       "cell": [
-        1,
+        0,
         5
       ],
       "hitPoints": 0,
@@ -74,7 +74,7 @@
     },
     {
       "cell": [
-        6,
+        7,
         5
       ],
       "hitPoints": 0,
@@ -83,8 +83,8 @@
     },
     {
       "cell": [
-        0,
-        6
+        1,
+        5
       ],
       "hitPoints": 0,
       "id": 270610,
@@ -92,11 +92,20 @@
     },
     {
       "cell": [
-        7,
-        6
+        6,
+        5
       ],
       "hitPoints": 0,
       "id": 270611,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        6
+      ],
+      "hitPoints": 0,
+      "id": 270612,
       "type": "rock"
     },
     {
@@ -105,79 +114,71 @@
         7
       ],
       "hitPoints": 8,
-      "id": 270612,
+      "id": 270613,
       "type": "ore"
     },
     {
       "cell": [
-        2,
+        6,
         7
-      ],
-      "hitPoints": 8,
-      "id": 270613,
-      "type": "explosive"
-    },
-    {
-      "cell": [
-        2,
-        6
       ],
       "hitPoints": 8,
       "id": 270614,
-      "type": "explosive"
-    },
-    {
-      "beamDirection": "right",
-      "cell": [
-        3,
-        7
-      ],
-      "hitPoints": 7,
-      "id": 270615,
-      "type": "piercing"
+      "type": "ore"
     },
     {
       "cell": [
-        4,
+        2,
         6
       ],
       "hitPoints": 8,
-      "id": 270616,
-      "type": "ore"
+      "id": 270615,
+      "type": "explosive"
     },
     {
       "beamDirection": "left",
       "cell": [
-        1,
+        3,
         7
       ],
       "hitPoints": 7,
-      "id": 270617,
+      "id": 270616,
       "type": "piercing"
     },
     {
-      "beamDirection": "right",
+      "cell": [
+        1,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 270617,
+      "type": "ore"
+    },
+    {
       "cell": [
         2,
         5
       ],
-      "hitPoints": 7,
+      "hitPoints": 8,
       "id": 270618,
-      "type": "piercing"
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
     },
     {
       "cell": [
         3,
         6
       ],
-      "hitPoints": 8,
+      "hitPoints": 6,
       "id": 270619,
-      "type": "cracked"
+      "type": "echo"
     },
     {
       "cell": [
-        5,
-        7
+        1,
+        6
       ],
       "hitPoints": 8,
       "id": 270620,
@@ -185,30 +186,30 @@
     },
     {
       "cell": [
-        4,
-        4
+        5,
+        7
       ],
       "hitPoints": 8,
       "id": 270621,
-      "type": "normal"
+      "type": "ore"
+    },
+    {
+      "cell": [
+        4,
+        4
+      ],
+      "hitPoints": 4,
+      "id": 270622,
+      "type": "ball_cache"
     },
     {
       "cell": [
         4,
         7
       ],
-      "hitPoints": 6,
-      "id": 270622,
-      "type": "echo"
-    },
-    {
-      "cell": [
-        0,
-        7
-      ],
-      "hitPoints": 4,
+      "hitPoints": 8,
       "id": 270623,
-      "type": "ball_cache"
+      "type": "cracked"
     },
     {
       "cell": [
@@ -220,7 +221,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-13",
+  "contentVersion": "p2-mines-14",
   "displayName": "Son Mahzen",
   "displayNameKey": "MINE_27_NARROW_03",
   "exampleAngles": [

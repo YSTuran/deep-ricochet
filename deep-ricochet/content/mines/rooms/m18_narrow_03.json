@@ -29,7 +29,7 @@
     },
     {
       "cell": [
-        6,
+        1,
         7
       ],
       "hitPoints": 0,
@@ -38,7 +38,7 @@
     },
     {
       "cell": [
-        0,
+        6,
         7
       ],
       "hitPoints": 0,
@@ -47,7 +47,7 @@
     },
     {
       "cell": [
-        7,
+        0,
         7
       ],
       "hitPoints": 0,
@@ -56,8 +56,8 @@
     },
     {
       "cell": [
-        0,
-        2
+        7,
+        7
       ],
       "hitPoints": 0,
       "id": 180607,
@@ -65,7 +65,7 @@
     },
     {
       "cell": [
-        7,
+        0,
         2
       ],
       "hitPoints": 0,
@@ -74,7 +74,7 @@
     },
     {
       "cell": [
-        1,
+        7,
         2
       ],
       "hitPoints": 0,
@@ -83,8 +83,8 @@
     },
     {
       "cell": [
-        0,
-        3
+        1,
+        2
       ],
       "hitPoints": 0,
       "id": 180610,
@@ -92,7 +92,7 @@
     },
     {
       "cell": [
-        7,
+        0,
         3
       ],
       "hitPoints": 0,
@@ -101,7 +101,7 @@
     },
     {
       "cell": [
-        1,
+        7,
         3
       ],
       "hitPoints": 0,
@@ -128,11 +128,20 @@
     },
     {
       "cell": [
+        7,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 180615,
+      "type": "ore"
+    },
+    {
+      "cell": [
         6,
         6
       ],
       "hitPoints": 8,
-      "id": 180615,
+      "id": 180616,
       "type": "ore"
     },
     {
@@ -141,17 +150,8 @@
         7
       ],
       "hitPoints": 8,
-      "id": 180616,
-      "type": "ore"
-    },
-    {
-      "cell": [
-        0,
-        5
-      ],
-      "hitPoints": 8,
       "id": 180617,
-      "type": "normal"
+      "type": "ore"
     },
     {
       "cell": [
@@ -179,18 +179,18 @@
         0,
         4
       ],
-      "hitPoints": 8,
+      "hitPoints": 4,
       "id": 180620,
-      "type": "cracked"
+      "type": "ball_cache"
     },
     {
       "cell": [
         4,
         7
       ],
-      "hitPoints": 7,
+      "hitPoints": 8,
       "id": 180621,
-      "type": "explosive"
+      "type": "cracked"
     },
     {
       "cell": [
@@ -206,9 +206,9 @@
         7,
         6
       ],
-      "hitPoints": 4,
+      "hitPoints": 7,
       "id": 180623,
-      "type": "ball_cache"
+      "type": "explosive"
     },
     {
       "cell": [
@@ -220,7 +220,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-13",
+  "contentVersion": "p2-mines-14",
   "displayName": "Kadim Oyuk",
   "displayNameKey": "MINE_18_NARROW_03",
   "exampleAngles": [

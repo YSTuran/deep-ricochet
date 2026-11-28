@@ -20,11 +20,20 @@
     },
     {
       "cell": [
-        7,
-        6
+        2,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 350003,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        0,
+        4
       ],
       "hitPoints": 9,
-      "id": 350003,
+      "id": 350004,
       "type": "acid_barrel"
     },
     {
@@ -33,22 +42,13 @@
         2
       ],
       "hitPoints": 0,
-      "id": 350004,
-      "type": "rock"
-    },
-    {
-      "cell": [
-        0,
-        7
-      ],
-      "hitPoints": 0,
       "id": 350005,
       "type": "rock"
     },
     {
       "cell": [
         0,
-        4
+        7
       ],
       "hitPoints": 0,
       "id": 350006,
@@ -74,11 +74,20 @@
     },
     {
       "cell": [
+        7,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 350009,
+      "type": "rock"
+    },
+    {
+      "cell": [
         1,
         3
       ],
       "hitPoints": 8,
-      "id": 350009,
+      "id": 350010,
       "type": "ore"
     },
     {
@@ -87,7 +96,7 @@
         4
       ],
       "hitPoints": 8,
-      "id": 350010,
+      "id": 350011,
       "type": "cracked"
     },
     {
@@ -96,7 +105,7 @@
         2
       ],
       "hitPoints": 8,
-      "id": 350011,
+      "id": 350012,
       "type": "ore"
     },
     {
@@ -104,9 +113,9 @@
         2,
         4
       ],
-      "hitPoints": 8,
-      "id": 350012,
-      "type": "ore"
+      "hitPoints": 4,
+      "id": 350013,
+      "type": "ball_cache"
     },
     {
       "cell": [
@@ -114,7 +123,7 @@
         7
       ],
       "hitPoints": 8,
-      "id": 350013,
+      "id": 350014,
       "type": "ore"
     },
     {
@@ -123,7 +132,7 @@
         2
       ],
       "hitPoints": 8,
-      "id": 350014,
+      "id": 350015,
       "type": "explosive"
     },
     {
@@ -132,7 +141,7 @@
         7
       ],
       "hitPoints": 8,
-      "id": 350015,
+      "id": 350016,
       "type": "ore"
     },
     {
@@ -141,7 +150,7 @@
         5
       ],
       "hitPoints": 8,
-      "id": 350016,
+      "id": 350017,
       "type": "armored",
       "vulnerableSides": [
         "bottom"
@@ -149,12 +158,12 @@
     },
     {
       "cell": [
-        5,
-        7
+        1,
+        5
       ],
       "hitPoints": 8,
-      "id": 350017,
-      "type": "ore"
+      "id": 350018,
+      "type": "cracked"
     },
     {
       "cell": [
@@ -162,7 +171,7 @@
         7
       ],
       "hitPoints": 8,
-      "id": 350018,
+      "id": 350019,
       "type": "ore"
     },
     {
@@ -172,7 +181,7 @@
         5
       ],
       "hitPoints": 7,
-      "id": 350019,
+      "id": 350020,
       "type": "piercing"
     },
     {
@@ -180,18 +189,18 @@
         1,
         6
       ],
-      "hitPoints": 6,
-      "id": 350020,
-      "type": "echo"
+      "hitPoints": 8,
+      "id": 350021,
+      "type": "ore"
     },
     {
       "cell": [
-        4,
-        6
+        2,
+        2
       ],
-      "hitPoints": 4,
-      "id": 350021,
-      "type": "ball_cache"
+      "hitPoints": 6,
+      "id": 350022,
+      "type": "echo"
     },
     {
       "cell": [
@@ -203,7 +212,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-13",
+  "contentVersion": "p2-mines-14",
   "displayName": "Son Sızıntı",
   "displayNameKey": "MINE_35_START",
   "exampleAngles": [

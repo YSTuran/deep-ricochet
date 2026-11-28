@@ -20,16 +20,16 @@
     },
     {
       "cell": [
-        7,
-        2
+        0,
+        5
       ],
-      "hitPoints": 0,
+      "hitPoints": 8,
       "id": 210403,
-      "type": "rock"
+      "type": "normal"
     },
     {
       "cell": [
-        1,
+        0,
         2
       ],
       "hitPoints": 0,
@@ -38,7 +38,7 @@
     },
     {
       "cell": [
-        6,
+        7,
         2
       ],
       "hitPoints": 0,
@@ -47,8 +47,8 @@
     },
     {
       "cell": [
-        0,
-        3
+        1,
+        2
       ],
       "hitPoints": 0,
       "id": 210406,
@@ -56,8 +56,8 @@
     },
     {
       "cell": [
-        7,
-        3
+        6,
+        2
       ],
       "hitPoints": 0,
       "id": 210407,
@@ -65,7 +65,7 @@
     },
     {
       "cell": [
-        1,
+        0,
         3
       ],
       "hitPoints": 0,
@@ -74,7 +74,7 @@
     },
     {
       "cell": [
-        6,
+        7,
         3
       ],
       "hitPoints": 0,
@@ -83,8 +83,8 @@
     },
     {
       "cell": [
-        0,
-        4
+        1,
+        3
       ],
       "hitPoints": 0,
       "id": 210410,
@@ -92,11 +92,20 @@
     },
     {
       "cell": [
-        7,
-        4
+        6,
+        3
       ],
       "hitPoints": 0,
       "id": 210411,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        4
+      ],
+      "hitPoints": 0,
+      "id": 210412,
       "type": "rock"
     },
     {
@@ -105,7 +114,7 @@
         7
       ],
       "hitPoints": 8,
-      "id": 210412,
+      "id": 210413,
       "type": "ore"
     },
     {
@@ -114,7 +123,7 @@
         7
       ],
       "hitPoints": 8,
-      "id": 210413,
+      "id": 210414,
       "type": "explosive"
     },
     {
@@ -123,24 +132,12 @@
         7
       ],
       "hitPoints": 8,
-      "id": 210414,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
-    },
-    {
-      "cell": [
-        4,
-        7
-      ],
-      "hitPoints": 8,
       "id": 210415,
       "type": "ore"
     },
     {
       "cell": [
-        5,
+        4,
         7
       ],
       "hitPoints": 8,
@@ -149,11 +146,23 @@
     },
     {
       "cell": [
+        5,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 210417,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
         0,
         7
       ],
       "hitPoints": 6,
-      "id": 210417,
+      "id": 210418,
       "type": "echo"
     },
     {
@@ -162,7 +171,7 @@
         5
       ],
       "hitPoints": 8,
-      "id": 210418,
+      "id": 210419,
       "type": "armored",
       "vulnerableSides": [
         "bottom"
@@ -174,44 +183,35 @@
         6
       ],
       "hitPoints": 6,
-      "id": 210419,
+      "id": 210420,
       "type": "echo"
     },
     {
       "cell": [
-        1,
+        3,
         7
       ],
-      "hitPoints": 8,
-      "id": 210420,
-      "type": "ore"
-    },
-    {
-      "cell": [
-        0,
-        5
-      ],
-      "hitPoints": 8,
+      "hitPoints": 7,
       "id": 210421,
-      "type": "ore"
+      "type": "explosive"
     },
     {
       "cell": [
         1,
         4
       ],
-      "hitPoints": 8,
+      "hitPoints": 4,
       "id": 210422,
-      "type": "cracked"
+      "type": "ball_cache"
     },
     {
       "cell": [
-        5,
+        6,
         6
       ],
-      "hitPoints": 4,
+      "hitPoints": 8,
       "id": 210423,
-      "type": "ball_cache"
+      "type": "cracked"
     },
     {
       "cell": [
@@ -223,7 +223,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-13",
+  "contentVersion": "p2-mines-14",
   "displayName": "Paslı Yarık",
   "displayNameKey": "MINE_21_NARROW_01",
   "exampleAngles": [

@@ -21,16 +21,16 @@
     {
       "cell": [
         7,
-        2
+        5
       ],
-      "hitPoints": 0,
+      "hitPoints": 8,
       "id": 240203,
-      "type": "rock"
+      "type": "normal"
     },
     {
       "cell": [
         7,
-        5
+        2
       ],
       "hitPoints": 0,
       "id": 240204,
@@ -39,7 +39,7 @@
     {
       "cell": [
         0,
-        5
+        3
       ],
       "hitPoints": 0,
       "id": 240205,
@@ -48,7 +48,7 @@
     {
       "cell": [
         0,
-        3
+        2
       ],
       "hitPoints": 0,
       "id": 240206,
@@ -57,10 +57,19 @@
     {
       "cell": [
         0,
-        7
+        6
       ],
       "hitPoints": 0,
       "id": 240207,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        6
+      ],
+      "hitPoints": 0,
+      "id": 240208,
       "type": "rock"
     },
     {
@@ -69,7 +78,7 @@
         7
       ],
       "hitPoints": 8,
-      "id": 240208,
+      "id": 240209,
       "type": "ore"
     },
     {
@@ -79,7 +88,7 @@
         7
       ],
       "hitPoints": 7,
-      "id": 240209,
+      "id": 240210,
       "type": "piercing"
     },
     {
@@ -88,17 +97,17 @@
         5
       ],
       "hitPoints": 8,
-      "id": 240210,
+      "id": 240211,
       "type": "ore"
     },
     {
-      "beamDirection": "right",
+      "beamDirection": "left",
       "cell": [
         2,
         5
       ],
       "hitPoints": 7,
-      "id": 240211,
+      "id": 240212,
       "type": "piercing"
     },
     {
@@ -107,7 +116,7 @@
         7
       ],
       "hitPoints": 8,
-      "id": 240212,
+      "id": 240213,
       "type": "ore"
     },
     {
@@ -116,7 +125,7 @@
         3
       ],
       "hitPoints": 6,
-      "id": 240213,
+      "id": 240214,
       "type": "echo"
     },
     {
@@ -125,7 +134,7 @@
         6
       ],
       "hitPoints": 8,
-      "id": 240214,
+      "id": 240215,
       "type": "ore"
     },
     {
@@ -134,7 +143,7 @@
         6
       ],
       "hitPoints": 8,
-      "id": 240215,
+      "id": 240216,
       "type": "ore"
     },
     {
@@ -142,9 +151,9 @@
         1,
         4
       ],
-      "hitPoints": 8,
-      "id": 240216,
-      "type": "cracked"
+      "hitPoints": 4,
+      "id": 240217,
+      "type": "ball_cache"
     },
     {
       "cell": [
@@ -152,21 +161,20 @@
         5
       ],
       "hitPoints": 8,
-      "id": 240217,
+      "id": 240218,
       "type": "armored",
       "vulnerableSides": [
         "bottom"
       ]
     },
     {
-      "beamDirection": "left",
       "cell": [
         6,
         2
       ],
-      "hitPoints": 7,
-      "id": 240218,
-      "type": "piercing"
+      "hitPoints": 8,
+      "id": 240219,
+      "type": "ore"
     },
     {
       "cell": [
@@ -174,7 +182,7 @@
         7
       ],
       "hitPoints": 8,
-      "id": 240219,
+      "id": 240220,
       "type": "explosive"
     },
     {
@@ -183,17 +191,17 @@
         4
       ],
       "hitPoints": 4,
-      "id": 240220,
+      "id": 240221,
       "type": "ball_cache"
     },
     {
       "cell": [
-        1,
-        2
+        2,
+        6
       ],
-      "hitPoints": 4,
-      "id": 240221,
-      "type": "ball_cache"
+      "hitPoints": 8,
+      "id": 240222,
+      "type": "cracked"
     },
     {
       "cell": [
@@ -205,7 +213,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-13",
+  "contentVersion": "p2-mines-14",
   "displayName": "Yüklü Koridor",
   "displayNameKey": "MINE_24_WIDE_02",
   "exampleAngles": [

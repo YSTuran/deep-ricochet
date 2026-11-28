@@ -20,26 +20,26 @@
     },
     {
       "cell": [
-        5,
+        0,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 290203,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        7,
         6
       ],
       "hitPoints": 9,
-      "id": 290203,
+      "id": 290204,
       "type": "acid_barrel"
     },
     {
       "cell": [
         7,
         2
-      ],
-      "hitPoints": 0,
-      "id": 290204,
-      "type": "rock"
-    },
-    {
-      "cell": [
-        7,
-        6
       ],
       "hitPoints": 0,
       "id": 290205,
@@ -66,10 +66,19 @@
     {
       "cell": [
         0,
-        5
+        6
       ],
       "hitPoints": 0,
       "id": 290208,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        7
+      ],
+      "hitPoints": 0,
+      "id": 290209,
       "type": "rock"
     },
     {
@@ -78,7 +87,7 @@
         7
       ],
       "hitPoints": 8,
-      "id": 290209,
+      "id": 290210,
       "type": "explosive"
     },
     {
@@ -88,7 +97,7 @@
         5
       ],
       "hitPoints": 7,
-      "id": 290210,
+      "id": 290211,
       "type": "piercing"
     },
     {
@@ -97,7 +106,7 @@
         6
       ],
       "hitPoints": 8,
-      "id": 290211,
+      "id": 290212,
       "type": "ore"
     },
     {
@@ -106,17 +115,8 @@
         5
       ],
       "hitPoints": 8,
-      "id": 290212,
-      "type": "ore"
-    },
-    {
-      "cell": [
-        4,
-        6
-      ],
-      "hitPoints": 8,
       "id": 290213,
-      "type": "cracked"
+      "type": "ore"
     },
     {
       "cell": [
@@ -125,16 +125,25 @@
       ],
       "hitPoints": 8,
       "id": 290214,
-      "type": "explosive"
+      "type": "normal"
     },
     {
       "cell": [
         3,
         4
       ],
-      "hitPoints": 6,
+      "hitPoints": 4,
       "id": 290215,
-      "type": "echo"
+      "type": "ball_cache"
+    },
+    {
+      "cell": [
+        5,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 290216,
+      "type": "ore"
     },
     {
       "cell": [
@@ -142,7 +151,7 @@
         2
       ],
       "hitPoints": 8,
-      "id": 290216,
+      "id": 290217,
       "type": "armored",
       "vulnerableSides": [
         "bottom"
@@ -154,7 +163,7 @@
         2
       ],
       "hitPoints": 8,
-      "id": 290217,
+      "id": 290218,
       "type": "explosive"
     },
     {
@@ -163,17 +172,11 @@
         6
       ],
       "hitPoints": 8,
-      "id": 290218,
-      "type": "ore"
-    },
-    {
-      "cell": [
-        3,
-        5
-      ],
-      "hitPoints": 8,
       "id": 290219,
-      "type": "ore"
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
     },
     {
       "cell": [
@@ -189,9 +192,18 @@
         2,
         2
       ],
-      "hitPoints": 4,
+      "hitPoints": 6,
       "id": 290221,
-      "type": "ball_cache"
+      "type": "echo"
+    },
+    {
+      "cell": [
+        5,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 290222,
+      "type": "cracked"
     },
     {
       "cell": [
@@ -203,13 +215,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-13",
+  "contentVersion": "p2-mines-14",
   "displayName": "Paslı Koridor",
   "displayNameKey": "MINE_29_WIDE_02",
   "exampleAngles": [
-    113.5,
-    113.5,
-    113.5
+    115.0,
+    115.0,
+    115.0
   ],
   "family": "safe",
   "height": 8,

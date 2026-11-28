@@ -20,17 +20,17 @@
     },
     {
       "cell": [
-        0,
-        4
+        2,
+        5
       ],
-      "hitPoints": 0,
+      "hitPoints": 8,
       "id": 220103,
-      "type": "rock"
+      "type": "normal"
     },
     {
       "cell": [
         0,
-        5
+        4
       ],
       "hitPoints": 0,
       "id": 220104,
@@ -39,7 +39,7 @@
     {
       "cell": [
         0,
-        3
+        5
       ],
       "hitPoints": 0,
       "id": 220105,
@@ -48,7 +48,7 @@
     {
       "cell": [
         0,
-        6
+        3
       ],
       "hitPoints": 0,
       "id": 220106,
@@ -56,11 +56,20 @@
     },
     {
       "cell": [
+        0,
+        6
+      ],
+      "hitPoints": 0,
+      "id": 220107,
+      "type": "rock"
+    },
+    {
+      "cell": [
         7,
         7
       ],
       "hitPoints": 0,
-      "id": 220107,
+      "id": 220108,
       "type": "rock"
     },
     {
@@ -69,7 +78,7 @@
         5
       ],
       "hitPoints": 8,
-      "id": 220108,
+      "id": 220109,
       "type": "ore"
     },
     {
@@ -78,8 +87,17 @@
         7
       ],
       "hitPoints": 8,
-      "id": 220109,
+      "id": 220110,
       "type": "ore"
+    },
+    {
+      "cell": [
+        1,
+        4
+      ],
+      "hitPoints": 4,
+      "id": 220111,
+      "type": "ball_cache"
     },
     {
       "cell": [
@@ -87,8 +105,17 @@
         6
       ],
       "hitPoints": 8,
-      "id": 220110,
+      "id": 220112,
       "type": "ore"
+    },
+    {
+      "cell": [
+        6,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 220113,
+      "type": "cracked"
     },
     {
       "cell": [
@@ -96,11 +123,8 @@
         6
       ],
       "hitPoints": 8,
-      "id": 220111,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "id": 220114,
+      "type": "ore"
     },
     {
       "cell": [
@@ -108,17 +132,20 @@
         7
       ],
       "hitPoints": 8,
-      "id": 220112,
-      "type": "normal"
+      "id": 220115,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
     },
     {
       "cell": [
         7,
         4
       ],
-      "hitPoints": 6,
-      "id": 220113,
-      "type": "echo"
+      "hitPoints": 8,
+      "id": 220116,
+      "type": "ore"
     },
     {
       "cell": [
@@ -126,25 +153,16 @@
         7
       ],
       "hitPoints": 8,
-      "id": 220114,
-      "type": "normal"
+      "id": 220117,
+      "type": "ore"
     },
     {
       "cell": [
         4,
         5
       ],
-      "hitPoints": 6,
-      "id": 220115,
-      "type": "echo"
-    },
-    {
-      "cell": [
-        7,
-        6
-      ],
       "hitPoints": 8,
-      "id": 220116,
+      "id": 220118,
       "type": "ore"
     },
     {
@@ -153,8 +171,8 @@
         3
       ],
       "hitPoints": 8,
-      "id": 220117,
-      "type": "ore"
+      "id": 220119,
+      "type": "explosive"
     },
     {
       "cell": [
@@ -162,35 +180,17 @@
         6
       ],
       "hitPoints": 8,
-      "id": 220118,
-      "type": "normal"
+      "id": 220120,
+      "type": "ore"
     },
     {
       "cell": [
         7,
         2
       ],
-      "hitPoints": 8,
-      "id": 220119,
-      "type": "cracked"
-    },
-    {
-      "cell": [
-        4,
-        4
-      ],
-      "hitPoints": 8,
-      "id": 220120,
-      "type": "explosive"
-    },
-    {
-      "cell": [
-        1,
-        7
-      ],
-      "hitPoints": 4,
+      "hitPoints": 6,
       "id": 220121,
-      "type": "ball_cache"
+      "type": "echo"
     },
     {
       "cell": [
@@ -202,7 +202,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-13",
+  "contentVersion": "p2-mines-14",
   "displayName": "Mor Galeri",
   "displayNameKey": "MINE_22_WIDE_01",
   "exampleAngles": [

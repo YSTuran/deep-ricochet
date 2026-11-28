@@ -30,7 +30,7 @@
     {
       "cell": [
         7,
-        2
+        4
       ],
       "hitPoints": 0,
       "id": 190004,
@@ -38,8 +38,8 @@
     },
     {
       "cell": [
-        0,
-        5
+        7,
+        2
       ],
       "hitPoints": 0,
       "id": 190005,
@@ -48,7 +48,7 @@
     {
       "cell": [
         0,
-        4
+        5
       ],
       "hitPoints": 0,
       "id": 190006,
@@ -56,8 +56,8 @@
     },
     {
       "cell": [
-        7,
-        6
+        0,
+        4
       ],
       "hitPoints": 0,
       "id": 190007,
@@ -92,12 +92,12 @@
     },
     {
       "cell": [
-        6,
+        4,
         5
       ],
-      "hitPoints": 6,
+      "hitPoints": 7,
       "id": 190011,
-      "type": "echo"
+      "type": "explosive"
     },
     {
       "cell": [
@@ -134,9 +134,9 @@
         5,
         4
       ],
-      "hitPoints": 8,
+      "hitPoints": 4,
       "id": 190015,
-      "type": "ore"
+      "type": "ball_cache"
     },
     {
       "cell": [
@@ -179,21 +179,24 @@
     },
     {
       "cell": [
+        7,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 190020,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
+    },
+    {
+      "cell": [
         1,
         2
       ],
       "hitPoints": 8,
-      "id": 190020,
-      "type": "normal"
-    },
-    {
-      "cell": [
-        6,
-        3
-      ],
-      "hitPoints": 4,
       "id": 190021,
-      "type": "ball_cache"
+      "type": "ore"
     },
     {
       "cell": [
@@ -205,7 +208,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-13",
+  "contentVersion": "p2-mines-14",
   "displayName": "Buz Kapısı",
   "displayNameKey": "MINE_19_START",
   "exampleAngles": [

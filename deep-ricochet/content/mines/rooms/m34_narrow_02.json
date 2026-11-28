@@ -29,25 +29,25 @@
     },
     {
       "cell": [
-        1,
+        4,
         6
       ],
-      "hitPoints": 9,
+      "hitPoints": 8,
       "id": 340504,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        0,
+        7
+      ],
+      "hitPoints": 9,
+      "id": 340505,
       "type": "acid_barrel"
     },
     {
       "cell": [
         0,
-        4
-      ],
-      "hitPoints": 0,
-      "id": 340505,
-      "type": "rock"
-    },
-    {
-      "cell": [
-        7,
         4
       ],
       "hitPoints": 0,
@@ -92,7 +92,7 @@
     },
     {
       "cell": [
-        6,
+        1,
         5
       ],
       "hitPoints": 0,
@@ -101,8 +101,8 @@
     },
     {
       "cell": [
-        0,
-        6
+        6,
+        5
       ],
       "hitPoints": 0,
       "id": 340512,
@@ -118,13 +118,22 @@
       "type": "rock"
     },
     {
-      "beamDirection": "right",
+      "cell": [
+        7,
+        7
+      ],
+      "hitPoints": 0,
+      "id": 340514,
+      "type": "rock"
+    },
+    {
+      "beamDirection": "left",
       "cell": [
         6,
         7
       ],
       "hitPoints": 7,
-      "id": 340514,
+      "id": 340515,
       "type": "piercing"
     },
     {
@@ -133,7 +142,7 @@
         7
       ],
       "hitPoints": 8,
-      "id": 340515,
+      "id": 340516,
       "type": "ore"
     },
     {
@@ -142,7 +151,7 @@
         7
       ],
       "hitPoints": 8,
-      "id": 340516,
+      "id": 340517,
       "type": "ore"
     },
     {
@@ -151,30 +160,21 @@
         7
       ],
       "hitPoints": 8,
-      "id": 340517,
-      "type": "ore"
-    },
-    {
-      "cell": [
-        4,
-        6
-      ],
-      "hitPoints": 8,
       "id": 340518,
       "type": "ore"
     },
     {
       "cell": [
-        7,
-        7
+        2,
+        4
       ],
       "hitPoints": 8,
       "id": 340519,
-      "type": "ore"
+      "type": "explosive"
     },
     {
       "cell": [
-        0,
+        3,
         7
       ],
       "hitPoints": 6,
@@ -184,29 +184,29 @@
     {
       "cell": [
         2,
-        4
+        6
       ],
       "hitPoints": 8,
       "id": 340521,
-      "type": "cracked"
+      "type": "ore"
     },
     {
       "cell": [
-        3,
-        7
-      ],
-      "hitPoints": 8,
-      "id": 340522,
-      "type": "explosive"
-    },
-    {
-      "cell": [
-        3,
-        6
+        5,
+        4
       ],
       "hitPoints": 4,
-      "id": 340523,
+      "id": 340522,
       "type": "ball_cache"
+    },
+    {
+      "cell": [
+        1,
+        2
+      ],
+      "hitPoints": 8,
+      "id": 340523,
+      "type": "cracked"
     },
     {
       "cell": [
@@ -218,13 +218,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-13",
+  "contentVersion": "p2-mines-14",
   "displayName": "Sızan Damar",
   "displayNameKey": "MINE_34_NARROW_02",
   "exampleAngles": [
-    22.5,
-    22.5,
-    22.5
+    20.0,
+    20.0,
+    20.0
   ],
   "family": "bonus",
   "height": 8,

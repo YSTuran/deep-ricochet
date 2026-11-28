@@ -20,17 +20,17 @@
     },
     {
       "cell": [
-        7,
-        4
+        3,
+        5
       ],
-      "hitPoints": 0,
+      "hitPoints": 8,
       "id": 230103,
-      "type": "rock"
+      "type": "normal"
     },
     {
       "cell": [
-        0,
-        6
+        7,
+        4
       ],
       "hitPoints": 0,
       "id": 230104,
@@ -39,7 +39,7 @@
     {
       "cell": [
         0,
-        5
+        6
       ],
       "hitPoints": 0,
       "id": 230105,
@@ -48,10 +48,19 @@
     {
       "cell": [
         0,
-        2
+        5
       ],
       "hitPoints": 0,
       "id": 230106,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 230107,
       "type": "rock"
     },
     {
@@ -60,17 +69,8 @@
         3
       ],
       "hitPoints": 0,
-      "id": 230107,
-      "type": "rock"
-    },
-    {
-      "cell": [
-        6,
-        6
-      ],
-      "hitPoints": 6,
       "id": 230108,
-      "type": "echo"
+      "type": "rock"
     },
     {
       "cell": [
@@ -86,19 +86,18 @@
         5,
         6
       ],
-      "hitPoints": 8,
+      "hitPoints": 6,
       "id": 230110,
-      "type": "cracked"
+      "type": "echo"
     },
     {
-      "beamDirection": "left",
       "cell": [
         3,
         4
       ],
-      "hitPoints": 7,
+      "hitPoints": 4,
       "id": 230111,
-      "type": "piercing"
+      "type": "ball_cache"
     },
     {
       "cell": [
@@ -107,12 +106,12 @@
       ],
       "hitPoints": 8,
       "id": 230112,
-      "type": "explosive"
+      "type": "normal"
     },
     {
       "cell": [
-        6,
-        3
+        5,
+        5
       ],
       "hitPoints": 8,
       "id": 230113,
@@ -123,28 +122,30 @@
         4,
         4
       ],
-      "hitPoints": 8,
+      "hitPoints": 4,
       "id": 230114,
-      "type": "normal"
+      "type": "ball_cache"
     },
     {
-      "beamDirection": "down",
       "cell": [
         6,
         5
       ],
-      "hitPoints": 7,
+      "hitPoints": 8,
       "id": 230115,
-      "type": "piercing"
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
     },
     {
       "cell": [
         5,
         7
       ],
-      "hitPoints": 6,
+      "hitPoints": 8,
       "id": 230116,
-      "type": "echo"
+      "type": "ore"
     },
     {
       "cell": [
@@ -160,39 +161,46 @@
         0,
         3
       ],
-      "hitPoints": 8,
+      "hitPoints": 6,
       "id": 230118,
-      "type": "cracked"
+      "type": "echo"
     },
     {
       "cell": [
         3,
         7
       ],
-      "hitPoints": 8,
+      "hitPoints": 6,
       "id": 230119,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "echo"
     },
     {
+      "beamDirection": "up",
       "cell": [
         5,
         3
       ],
-      "hitPoints": 4,
+      "hitPoints": 7,
       "id": 230120,
-      "type": "ball_cache"
+      "type": "piercing"
     },
     {
       "cell": [
         5,
         2
       ],
-      "hitPoints": 4,
+      "hitPoints": 8,
       "id": 230121,
-      "type": "ball_cache"
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        1,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 230122,
+      "type": "explosive"
     },
     {
       "cell": [
@@ -204,13 +212,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-13",
+  "contentVersion": "p2-mines-14",
   "displayName": "Obsidyen Basamak",
   "displayNameKey": "MINE_23_WIDE_01",
   "exampleAngles": [
-    99.0,
-    99.0,
-    99.0
+    104.0,
+    104.0,
+    104.0
   ],
   "family": "safe",
   "height": 8,

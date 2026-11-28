@@ -21,10 +21,19 @@
     {
       "cell": [
         4,
-        4
+        5
+      ],
+      "hitPoints": 8,
+      "id": 330003,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        2,
+        5
       ],
       "hitPoints": 9,
-      "id": 330003,
+      "id": 330004,
       "type": "acid_barrel"
     },
     {
@@ -33,22 +42,13 @@
         3
       ],
       "hitPoints": 0,
-      "id": 330004,
+      "id": 330005,
       "type": "rock"
     },
     {
       "cell": [
         0,
         7
-      ],
-      "hitPoints": 0,
-      "id": 330005,
-      "type": "rock"
-    },
-    {
-      "cell": [
-        7,
-        4
       ],
       "hitPoints": 0,
       "id": 330006,
@@ -57,10 +57,19 @@
     {
       "cell": [
         7,
-        5
+        4
       ],
       "hitPoints": 0,
       "id": 330007,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 330008,
       "type": "rock"
     },
     {
@@ -69,7 +78,7 @@
         4
       ],
       "hitPoints": 0,
-      "id": 330008,
+      "id": 330009,
       "type": "rock"
     },
     {
@@ -78,7 +87,7 @@
         6
       ],
       "hitPoints": 8,
-      "id": 330009,
+      "id": 330010,
       "type": "ore"
     },
     {
@@ -87,7 +96,7 @@
         5
       ],
       "hitPoints": 8,
-      "id": 330010,
+      "id": 330011,
       "type": "cracked"
     },
     {
@@ -96,18 +105,26 @@
         6
       ],
       "hitPoints": 8,
-      "id": 330011,
+      "id": 330012,
       "type": "explosive"
     },
     {
-      "beamDirection": "left",
+      "cell": [
+        4,
+        4
+      ],
+      "hitPoints": 4,
+      "id": 330013,
+      "type": "ball_cache"
+    },
+    {
       "cell": [
         2,
         4
       ],
-      "hitPoints": 7,
-      "id": 330012,
-      "type": "piercing"
+      "hitPoints": 8,
+      "id": 330014,
+      "type": "ore"
     },
     {
       "cell": [
@@ -115,7 +132,7 @@
         7
       ],
       "hitPoints": 8,
-      "id": 330013,
+      "id": 330015,
       "type": "ore"
     },
     {
@@ -124,8 +141,8 @@
         4
       ],
       "hitPoints": 8,
-      "id": 330014,
-      "type": "cracked"
+      "id": 330016,
+      "type": "normal"
     },
     {
       "cell": [
@@ -133,8 +150,8 @@
         6
       ],
       "hitPoints": 8,
-      "id": 330015,
-      "type": "explosive"
+      "id": 330017,
+      "type": "ore"
     },
     {
       "cell": [
@@ -142,18 +159,8 @@
         4
       ],
       "hitPoints": 8,
-      "id": 330016,
-      "type": "cracked"
-    },
-    {
-      "beamDirection": "right",
-      "cell": [
-        4,
-        5
-      ],
-      "hitPoints": 7,
-      "id": 330017,
-      "type": "piercing"
+      "id": 330018,
+      "type": "normal"
     },
     {
       "cell": [
@@ -161,7 +168,7 @@
         4
       ],
       "hitPoints": 6,
-      "id": 330018,
+      "id": 330019,
       "type": "echo"
     },
     {
@@ -170,7 +177,7 @@
         5
       ],
       "hitPoints": 8,
-      "id": 330019,
+      "id": 330020,
       "type": "ore"
     },
     {
@@ -179,20 +186,21 @@
         3
       ],
       "hitPoints": 8,
-      "id": 330020,
+      "id": 330021,
       "type": "armored",
       "vulnerableSides": [
         "bottom"
       ]
     },
     {
+      "beamDirection": "right",
       "cell": [
         0,
         5
       ],
-      "hitPoints": 4,
-      "id": 330021,
-      "type": "ball_cache"
+      "hitPoints": 7,
+      "id": 330022,
+      "type": "piercing"
     },
     {
       "cell": [
@@ -204,13 +212,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-13",
+  "contentVersion": "p2-mines-14",
   "displayName": "Fıçı Eşiği",
   "displayNameKey": "MINE_33_START",
   "exampleAngles": [
-    76.0,
-    76.0,
-    76.0
+    71.0,
+    71.0,
+    71.0
   ],
   "family": "safe",
   "height": 8,

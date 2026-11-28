@@ -20,11 +20,20 @@
     },
     {
       "cell": [
-        2,
+        3,
+        5
+      ],
+      "hitPoints": 8,
+      "id": 300603,
+      "type": "normal"
+    },
+    {
+      "cell": [
+        0,
         2
       ],
       "hitPoints": 9,
-      "id": 300603,
+      "id": 300604,
       "type": "acid_barrel"
     },
     {
@@ -33,17 +42,8 @@
         7
       ],
       "hitPoints": 9,
-      "id": 300604,
-      "type": "acid_barrel"
-    },
-    {
-      "cell": [
-        1,
-        7
-      ],
-      "hitPoints": 0,
       "id": 300605,
-      "type": "rock"
+      "type": "acid_barrel"
     },
     {
       "cell": [
@@ -65,7 +65,7 @@
     },
     {
       "cell": [
-        0,
+        7,
         2
       ],
       "hitPoints": 0,
@@ -74,7 +74,7 @@
     },
     {
       "cell": [
-        7,
+        1,
         2
       ],
       "hitPoints": 0,
@@ -110,7 +110,7 @@
     },
     {
       "cell": [
-        1,
+        6,
         3
       ],
       "hitPoints": 0,
@@ -118,30 +118,26 @@
       "type": "rock"
     },
     {
-      "beamDirection": "left",
       "cell": [
-        5,
-        7
+        0,
+        4
       ],
-      "hitPoints": 7,
+      "hitPoints": 0,
       "id": 300614,
-      "type": "piercing"
+      "type": "rock"
     },
     {
       "cell": [
-        3,
+        4,
         7
       ],
       "hitPoints": 8,
       "id": 300615,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "ore"
     },
     {
       "cell": [
-        2,
+        5,
         7
       ],
       "hitPoints": 8,
@@ -149,18 +145,19 @@
       "type": "ore"
     },
     {
+      "beamDirection": "right",
       "cell": [
-        1,
-        6
+        3,
+        7
       ],
-      "hitPoints": 8,
+      "hitPoints": 7,
       "id": 300617,
-      "type": "ore"
+      "type": "piercing"
     },
     {
       "cell": [
-        6,
-        6
+        2,
+        7
       ],
       "hitPoints": 8,
       "id": 300618,
@@ -168,7 +165,7 @@
     },
     {
       "cell": [
-        7,
+        6,
         6
       ],
       "hitPoints": 6,
@@ -177,7 +174,7 @@
     },
     {
       "cell": [
-        4,
+        7,
         6
       ],
       "hitPoints": 8,
@@ -186,8 +183,8 @@
     },
     {
       "cell": [
-        5,
-        4
+        4,
+        6
       ],
       "hitPoints": 8,
       "id": 300621,
@@ -195,8 +192,8 @@
     },
     {
       "cell": [
-        6,
-        4
+        0,
+        5
       ],
       "hitPoints": 4,
       "id": 300622,
@@ -204,8 +201,8 @@
     },
     {
       "cell": [
-        0,
-        6
+        5,
+        4
       ],
       "hitPoints": 4,
       "id": 300623,
@@ -221,7 +218,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-13",
+  "contentVersion": "p2-mines-14",
   "displayName": "Derin Sızıntı",
   "displayNameKey": "MINE_30_NARROW_03",
   "exampleAngles": [

@@ -29,11 +29,20 @@
     },
     {
       "cell": [
+        5,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 320204,
+      "type": "normal"
+    },
+    {
+      "cell": [
         1,
         7
       ],
       "hitPoints": 9,
-      "id": 320204,
+      "id": 320205,
       "type": "acid_barrel"
     },
     {
@@ -42,7 +51,7 @@
         3
       ],
       "hitPoints": 9,
-      "id": 320205,
+      "id": 320206,
       "type": "acid_barrel"
     },
     {
@@ -51,7 +60,7 @@
         4
       ],
       "hitPoints": 0,
-      "id": 320206,
+      "id": 320207,
       "type": "rock"
     },
     {
@@ -60,7 +69,7 @@
         6
       ],
       "hitPoints": 0,
-      "id": 320207,
+      "id": 320208,
       "type": "rock"
     },
     {
@@ -69,7 +78,16 @@
         3
       ],
       "hitPoints": 0,
-      "id": 320208,
+      "id": 320209,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        3
+      ],
+      "hitPoints": 0,
+      "id": 320210,
       "type": "rock"
     },
     {
@@ -78,16 +96,7 @@
         2
       ],
       "hitPoints": 0,
-      "id": 320209,
-      "type": "rock"
-    },
-    {
-      "cell": [
-        0,
-        4
-      ],
-      "hitPoints": 0,
-      "id": 320210,
+      "id": 320211,
       "type": "rock"
     },
     {
@@ -95,9 +104,9 @@
         1,
         4
       ],
-      "hitPoints": 8,
-      "id": 320211,
-      "type": "cracked"
+      "hitPoints": 4,
+      "id": 320212,
+      "type": "ball_cache"
     },
     {
       "beamDirection": "left",
@@ -106,7 +115,7 @@
         6
       ],
       "hitPoints": 7,
-      "id": 320212,
+      "id": 320213,
       "type": "piercing"
     },
     {
@@ -115,7 +124,7 @@
         3
       ],
       "hitPoints": 8,
-      "id": 320213,
+      "id": 320214,
       "type": "normal"
     },
     {
@@ -125,16 +134,16 @@
         6
       ],
       "hitPoints": 7,
-      "id": 320214,
+      "id": 320215,
       "type": "piercing"
     },
     {
       "cell": [
-        3,
-        4
+        2,
+        2
       ],
       "hitPoints": 8,
-      "id": 320215,
+      "id": 320216,
       "type": "ore"
     },
     {
@@ -143,7 +152,7 @@
         7
       ],
       "hitPoints": 8,
-      "id": 320216,
+      "id": 320217,
       "type": "normal"
     },
     {
@@ -152,11 +161,8 @@
         5
       ],
       "hitPoints": 8,
-      "id": 320217,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "id": 320218,
+      "type": "cracked"
     },
     {
       "cell": [
@@ -164,8 +170,11 @@
         2
       ],
       "hitPoints": 8,
-      "id": 320218,
-      "type": "explosive"
+      "id": 320219,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
     },
     {
       "cell": [
@@ -173,7 +182,7 @@
         6
       ],
       "hitPoints": 6,
-      "id": 320219,
+      "id": 320220,
       "type": "echo"
     },
     {
@@ -181,17 +190,17 @@
         6,
         7
       ],
-      "hitPoints": 4,
-      "id": 320220,
-      "type": "ball_cache"
+      "hitPoints": 8,
+      "id": 320221,
+      "type": "explosive"
     },
     {
       "cell": [
-        0,
-        5
+        6,
+        4
       ],
       "hitPoints": 4,
-      "id": 320221,
+      "id": 320222,
       "type": "ball_cache"
     },
     {
@@ -204,7 +213,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-13",
+  "contentVersion": "p2-mines-14",
   "displayName": "Toksik Salon",
   "displayNameKey": "MINE_32_WIDE_02",
   "exampleAngles": [

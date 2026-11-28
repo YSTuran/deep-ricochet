@@ -286,17 +286,21 @@ static func _test_content_compatibility(
 	assert(not RunSnapshot.from_dictionary(previous_data).validation_errors(
 		controller.catalog, config,
 	).is_empty())
+	previous_data["contentVersion"] = "p2-mines-13"
+	assert(RunSnapshot.from_dictionary(previous_data).validation_errors(
+		controller.catalog, config,
+	).is_empty())
 	var previous_unlocked := controller.profile.highest_unlocked_mine
 	controller.profile.highest_unlocked_mine = maxi(previous_unlocked, 15)
 	assert(controller.start_new_run(57_058, &"mine_15"))
 	var later_mine_data := controller.create_snapshot().to_dictionary()
 	later_mine_data["schemaVersion"] = RunSnapshot.PREVIOUS_SCHEMA_VERSION
-	later_mine_data["contentVersion"] = "p2-mines-12"
-	assert(RunSnapshot.from_dictionary(later_mine_data).validation_errors(
+	later_mine_data["contentVersion"] = "p2-mines-13"
+	assert(not RunSnapshot.from_dictionary(later_mine_data).validation_errors(
 		controller.catalog, config,
 	).is_empty())
 	later_mine_data["contentVersion"] = "p2-mines-11"
-	assert(RunSnapshot.from_dictionary(later_mine_data).validation_errors(
+	assert(not RunSnapshot.from_dictionary(later_mine_data).validation_errors(
 		controller.catalog, config,
 	).is_empty())
 	controller.profile.highest_unlocked_mine = previous_unlocked

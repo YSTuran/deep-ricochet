@@ -29,16 +29,16 @@
     },
     {
       "cell": [
-        0,
-        3
+        7,
+        6
       ],
-      "hitPoints": 0,
+      "hitPoints": 8,
       "id": 280404,
-      "type": "rock"
+      "type": "normal"
     },
     {
       "cell": [
-        7,
+        0,
         3
       ],
       "hitPoints": 0,
@@ -47,7 +47,7 @@
     },
     {
       "cell": [
-        6,
+        7,
         3
       ],
       "hitPoints": 0,
@@ -56,8 +56,8 @@
     },
     {
       "cell": [
-        7,
-        4
+        6,
+        3
       ],
       "hitPoints": 0,
       "id": 280407,
@@ -65,7 +65,7 @@
     },
     {
       "cell": [
-        1,
+        0,
         4
       ],
       "hitPoints": 0,
@@ -74,7 +74,7 @@
     },
     {
       "cell": [
-        6,
+        7,
         4
       ],
       "hitPoints": 0,
@@ -84,7 +84,7 @@
     {
       "cell": [
         1,
-        5
+        4
       ],
       "hitPoints": 0,
       "id": 280410,
@@ -93,7 +93,7 @@
     {
       "cell": [
         6,
-        5
+        4
       ],
       "hitPoints": 0,
       "id": 280411,
@@ -101,7 +101,7 @@
     },
     {
       "cell": [
-        0,
+        1,
         5
       ],
       "hitPoints": 0,
@@ -111,29 +111,47 @@
     {
       "cell": [
         0,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 280413,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
         7
       ],
       "hitPoints": 8,
-      "id": 280413,
+      "id": 280414,
       "type": "cracked"
     },
     {
-      "beamDirection": "up",
+      "beamDirection": "right",
       "cell": [
         5,
         6
       ],
       "hitPoints": 7,
-      "id": 280414,
+      "id": 280415,
       "type": "piercing"
     },
     {
       "cell": [
-        2,
+        7,
         7
       ],
       "hitPoints": 8,
-      "id": 280415,
+      "id": 280416,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        2,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 280417,
       "type": "armored",
       "vulnerableSides": [
         "bottom"
@@ -145,8 +163,8 @@
         7
       ],
       "hitPoints": 8,
-      "id": 280416,
-      "type": "cracked"
+      "id": 280418,
+      "type": "ore"
     },
     {
       "cell": [
@@ -154,48 +172,30 @@
         7
       ],
       "hitPoints": 8,
-      "id": 280417,
-      "type": "cracked"
+      "id": 280419,
+      "type": "normal"
     },
     {
       "cell": [
         3,
         5
       ],
-      "hitPoints": 8,
-      "id": 280418,
-      "type": "ore"
+      "hitPoints": 4,
+      "id": 280420,
+      "type": "ball_cache"
     },
     {
       "cell": [
         3,
         6
       ],
-      "hitPoints": 8,
-      "id": 280419,
-      "type": "cracked"
-    },
-    {
-      "cell": [
-        7,
-        6
-      ],
       "hitPoints": 6,
-      "id": 280420,
+      "id": 280421,
       "type": "echo"
     },
     {
       "cell": [
         4,
-        6
-      ],
-      "hitPoints": 8,
-      "id": 280421,
-      "type": "explosive"
-    },
-    {
-      "cell": [
-        0,
         6
       ],
       "hitPoints": 4,
@@ -204,12 +204,12 @@
     },
     {
       "cell": [
-        2,
-        4
+        0,
+        6
       ],
-      "hitPoints": 4,
+      "hitPoints": 8,
       "id": 280423,
-      "type": "ball_cache"
+      "type": "explosive"
     },
     {
       "cell": [
@@ -221,13 +221,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-13",
+  "contentVersion": "p2-mines-14",
   "displayName": "Son Sınav",
   "displayNameKey": "MINE_28_NARROW_01",
   "exampleAngles": [
-    15.0,
-    15.0,
-    15.0
+    70.5,
+    70.5,
+    70.5
   ],
   "family": "bonus",
   "height": 8,

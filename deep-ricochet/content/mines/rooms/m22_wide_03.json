@@ -30,11 +30,11 @@
     {
       "cell": [
         0,
-        3
+        7
       ],
-      "hitPoints": 0,
+      "hitPoints": 8,
       "id": 220304,
-      "type": "rock"
+      "type": "normal"
     },
     {
       "cell": [
@@ -74,11 +74,20 @@
     },
     {
       "cell": [
+        7,
+        4
+      ],
+      "hitPoints": 0,
+      "id": 220309,
+      "type": "rock"
+    },
+    {
+      "cell": [
         6,
         5
       ],
       "hitPoints": 8,
-      "id": 220309,
+      "id": 220310,
       "type": "ore"
     },
     {
@@ -87,7 +96,7 @@
         3
       ],
       "hitPoints": 8,
-      "id": 220310,
+      "id": 220311,
       "type": "cracked"
     },
     {
@@ -96,22 +105,13 @@
         5
       ],
       "hitPoints": 8,
-      "id": 220311,
+      "id": 220312,
       "type": "ore"
     },
     {
       "cell": [
         6,
-        3
-      ],
-      "hitPoints": 7,
-      "id": 220312,
-      "type": "explosive"
-    },
-    {
-      "cell": [
-        1,
-        6
+        2
       ],
       "hitPoints": 8,
       "id": 220313,
@@ -119,29 +119,47 @@
     },
     {
       "cell": [
+        6,
+        3
+      ],
+      "hitPoints": 8,
+      "id": 220314,
+      "type": "cracked"
+    },
+    {
+      "cell": [
+        1,
+        6
+      ],
+      "hitPoints": 7,
+      "id": 220315,
+      "type": "explosive"
+    },
+    {
+      "cell": [
         4,
         2
       ],
       "hitPoints": 8,
-      "id": 220314,
-      "type": "ore"
+      "id": 220316,
+      "type": "explosive"
     },
     {
       "cell": [
         6,
         7
       ],
-      "hitPoints": 8,
-      "id": 220315,
-      "type": "ore"
+      "hitPoints": 7,
+      "id": 220317,
+      "type": "explosive"
     },
     {
       "cell": [
-        4,
-        6
+        5,
+        5
       ],
       "hitPoints": 8,
-      "id": 220316,
+      "id": 220318,
       "type": "armored",
       "vulnerableSides": [
         "bottom"
@@ -152,9 +170,9 @@
         1,
         4
       ],
-      "hitPoints": 8,
-      "id": 220317,
-      "type": "cracked"
+      "hitPoints": 6,
+      "id": 220319,
+      "type": "echo"
     },
     {
       "cell": [
@@ -162,33 +180,12 @@
         7
       ],
       "hitPoints": 8,
-      "id": 220318,
-      "type": "explosive"
+      "id": 220320,
+      "type": "cracked"
     },
     {
       "cell": [
         3,
-        4
-      ],
-      "hitPoints": 8,
-      "id": 220319,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
-    },
-    {
-      "cell": [
-        5,
-        2
-      ],
-      "hitPoints": 6,
-      "id": 220320,
-      "type": "echo"
-    },
-    {
-      "cell": [
-        7,
         4
       ],
       "hitPoints": 4,
@@ -205,13 +202,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-13",
+  "contentVersion": "p2-mines-14",
   "displayName": "Işık Kemeri",
   "displayNameKey": "MINE_22_WIDE_03",
   "exampleAngles": [
-    107.5,
-    107.5,
-    107.5
+    108.5,
+    108.5,
+    108.5
   ],
   "family": "safe",
   "height": 8,

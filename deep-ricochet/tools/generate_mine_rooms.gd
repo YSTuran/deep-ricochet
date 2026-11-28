@@ -1,6 +1,6 @@
 extends SceneTree
 
-const CONTENT_VERSION := "p2-mines-13"
+const CONTENT_VERSION := "p2-mines-14"
 const BALL_CACHE_FIRST_MINE_INDEX := 14
 const CRACKED_HIT_POINTS := 8
 const NARROW_DURABILITY_BONUS := 1
@@ -60,6 +60,7 @@ const DISPLAY_NAMES := [
 ]
 
 var _config: GameConfig
+var _variation_salt := 0
 
 
 func _initialize() -> void:
@@ -76,11 +77,26 @@ func _generate() -> void:
 	var generated_rooms: Array[Dictionary] = []
 	for mine_index in range(DISPLAY_NAMES.size()):
 		for slot_index in range(ROOM_SLOTS.size()):
-			var data := _room_data(mine_index, slot_index)
+			var data: Dictionary = {}
+			for variation in range(16):
+				_variation_salt = variation
+				var candidate := _room_data(mine_index, slot_index)
+				if candidate.is_empty():
+					continue
+				var unique := true
+				for previous: Dictionary in generated_rooms:
+					if not _layout_uniqueness_errors([previous, candidate]).is_empty():
+						unique = false
+						break
+				if unique:
+					data = candidate
+					break
 			if data.is_empty():
+				push_error("Özgün ve çözülebilir oda üretilemedi: m%d/%d" % [mine_index + 1, slot_index])
 				quit(1)
 				return
 			generated_rooms.append(data)
+	_variation_salt = 0
 
 	var uniqueness_errors := _layout_uniqueness_errors(generated_rooms)
 	if not uniqueness_errors.is_empty():
@@ -157,6 +173,10 @@ func _room_data(mine_index: int, slot_index: int) -> Dictionary:
 				acid_candidates.size(),
 			)
 			var acid_cell: Vector2i = acid_candidates[candidate_index]
+			# A barrel may appear in the middle of a room, but should not open
+			# the core's protection by itself when it breaks.
+			if maxi(absi(acid_cell.x - core_cell.x), absi(acid_cell.y - core_cell.y)) < 3:
+				continue
 			var separated := true
 			for previous_cell: Vector2i in acid_cells:
 				if maxi(absi(acid_cell.x - previous_cell.x), absi(acid_cell.y - previous_cell.y)) < 3:
@@ -285,6 +305,8 @@ func _passage_columns(mine_index: int, slot_index: int, role: String) -> Array[i
 func _target_block_count(mine_index: int, slot_index: int, role: String) -> int:
 	var tier := floori(float(mine_index) / 3.0)
 	var wide_target := mini(22, 14 + tier * 2 + posmod(mine_index + slot_index, 2))
+	if mine_index >= 22:
+		wide_target += 1
 	if role == "narrow":
 		return mini(MAX_ROOM_BLOCKS, wide_target + 2)
 	return wide_target
@@ -334,6 +356,25 @@ func _add_core_gates(
 			"gate": true,
 		})
 		occupied[cell] = true
+	if mine_index < 19:
+		return
+	var side_order := [-1, 1] if posmod(mine_index + slot_index, 2) == 0 else [1, -1]
+	var side_guards := 1
+	var added := 0
+	for side: int in side_order:
+		var cell := core_cell + Vector2i(side, -1)
+		if occupied.has(cell) or cell.x < 0 or cell.x >= BoardGeometry.BLOCK_GRID_SIZE.x:
+			continue
+		entries.append({
+			"cell": cell,
+			"type": "normal" if added == 0 else "ore",
+			"base_hp": 4 + added,
+			"gate": true,
+		})
+		occupied[cell] = true
+		added += 1
+		if added == side_guards:
+			break
 
 
 func _rock_candidates(
@@ -445,6 +486,8 @@ func _scored_open_cells(
 
 func _cell_hash(mine_index: int, slot_index: int, x: int, y: int) -> int:
 	var value := (mine_index + 1) * 73_856_093
+	if _variation_salt > 0:
+		value = value ^ (_variation_salt * 1_048_583)
 	value = value ^ ((slot_index + 1) * 19_349_663)
 	value = value ^ ((x + 1) * 83_492_791)
 	value = value ^ ((y + 1) * 2_654_435_761)
@@ -467,12 +510,12 @@ func _is_identity_gap(cell: Vector2i, mine_index: int, slot_index: int) -> bool:
 	gap_count += 1
 	if mine_index >= 21:
 		gap_count += 1
-	var gap_x_seed := _cell_hash(mine_index, slot_index, 17, 19)
-	var gap_y_seed := _cell_hash(mine_index, slot_index, 23, 29)
+	if mine_index >= 22:
+		gap_count += 2
 	for gap_index in range(gap_count):
-		var gap_x := posmod(gap_x_seed + gap_index * 3, 8)
+		var gap_x := posmod(_cell_hash(mine_index, slot_index, 17 + gap_index, 19), 8)
 		var gap_y := RoomTemplate.MIN_BLOCK_ROW \
-			+ posmod(gap_y_seed + gap_index * 5, 6)
+			+ posmod(_cell_hash(mine_index, slot_index, 23, 29 + gap_index), 6)
 		if cell == Vector2i(gap_x, gap_y):
 			return true
 	return false
@@ -703,20 +746,27 @@ func _count_type(entries: Array[Dictionary], type_name: String) -> int:
 
 func _ensure_ball_cache_count(entries: Array[Dictionary], target_count: int) -> void:
 	while _count_type(entries, "ball_cache") < target_count:
-		var replaced := false
-		for entry_index in range(entries.size() - 1, -1, -1):
+		var best_index := -1
+		var best_score := 999
+		for entry_index in range(entries.size()):
 			var entry: Dictionary = entries[entry_index]
 			var type_name := str(entry["type"])
 			if bool(entry.get("gate", false)) or type_name == "rock" \
 				or type_name == "ball_cache" \
 				or (type_name in ["normal", "ore"] and _count_type(entries, type_name) <= 1):
 				continue
-			entry["type"] = "ball_cache"
-			entries[entry_index] = entry
-			replaced = true
+			var cell: Vector2i = entry["cell"]
+			# Keep the bonus useful on the next shot without giving it away
+			# beside the launcher at the start of every room.
+			var score := absi(cell.y - 4) * 10 + absi(cell.x - 4)
+			if score < best_score:
+				best_score = score
+				best_index = entry_index
+		if best_index < 0:
 			break
-		if not replaced:
-			break
+		var chosen: Dictionary = entries[best_index]
+		chosen["type"] = "ball_cache"
+		entries[best_index] = chosen
 
 
 func _piercing_direction_for_cell(

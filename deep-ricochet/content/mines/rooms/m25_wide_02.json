@@ -20,12 +20,12 @@
     },
     {
       "cell": [
-        0,
-        4
+        4,
+        5
       ],
-      "hitPoints": 0,
+      "hitPoints": 8,
       "id": 250203,
-      "type": "rock"
+      "type": "normal"
     },
     {
       "cell": [
@@ -38,11 +38,20 @@
     },
     {
       "cell": [
+        0,
+        2
+      ],
+      "hitPoints": 0,
+      "id": 250205,
+      "type": "rock"
+    },
+    {
+      "cell": [
         7,
         3
       ],
       "hitPoints": 0,
-      "id": 250205,
+      "id": 250206,
       "type": "rock"
     },
     {
@@ -51,7 +60,7 @@
         6
       ],
       "hitPoints": 0,
-      "id": 250206,
+      "id": 250207,
       "type": "rock"
     },
     {
@@ -60,7 +69,7 @@
         7
       ],
       "hitPoints": 0,
-      "id": 250207,
+      "id": 250208,
       "type": "rock"
     },
     {
@@ -69,22 +78,13 @@
         6
       ],
       "hitPoints": 8,
-      "id": 250208,
+      "id": 250209,
       "type": "ore"
     },
     {
       "cell": [
         1,
         7
-      ],
-      "hitPoints": 6,
-      "id": 250209,
-      "type": "echo"
-    },
-    {
-      "cell": [
-        1,
-        6
       ],
       "hitPoints": 6,
       "id": 250210,
@@ -93,20 +93,29 @@
     {
       "cell": [
         3,
-        6
+        7
       ],
       "hitPoints": 8,
       "id": 250211,
       "type": "explosive"
     },
     {
-      "beamDirection": "left",
+      "cell": [
+        1,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 250212,
+      "type": "cracked"
+    },
+    {
+      "beamDirection": "right",
       "cell": [
         6,
         5
       ],
       "hitPoints": 7,
-      "id": 250212,
+      "id": 250213,
       "type": "piercing"
     },
     {
@@ -115,7 +124,7 @@
         7
       ],
       "hitPoints": 8,
-      "id": 250213,
+      "id": 250214,
       "type": "ore"
     },
     {
@@ -124,7 +133,7 @@
         2
       ],
       "hitPoints": 6,
-      "id": 250214,
+      "id": 250215,
       "type": "echo"
     },
     {
@@ -133,7 +142,7 @@
         3
       ],
       "hitPoints": 8,
-      "id": 250215,
+      "id": 250216,
       "type": "ore"
     },
     {
@@ -142,7 +151,7 @@
         5
       ],
       "hitPoints": 8,
-      "id": 250216,
+      "id": 250217,
       "type": "explosive"
     },
     {
@@ -151,8 +160,17 @@
         6
       ],
       "hitPoints": 8,
-      "id": 250217,
+      "id": 250218,
       "type": "ore"
+    },
+    {
+      "cell": [
+        5,
+        3
+      ],
+      "hitPoints": 8,
+      "id": 250219,
+      "type": "cracked"
     },
     {
       "cell": [
@@ -160,8 +178,8 @@
         5
       ],
       "hitPoints": 8,
-      "id": 250218,
-      "type": "cracked"
+      "id": 250220,
+      "type": "normal"
     },
     {
       "cell": [
@@ -169,7 +187,7 @@
         6
       ],
       "hitPoints": 8,
-      "id": 250219,
+      "id": 250221,
       "type": "ore"
     },
     {
@@ -177,17 +195,8 @@
         4,
         4
       ],
-      "hitPoints": 8,
-      "id": 250220,
-      "type": "explosive"
-    },
-    {
-      "cell": [
-        7,
-        2
-      ],
       "hitPoints": 4,
-      "id": 250221,
+      "id": 250222,
       "type": "ball_cache"
     },
     {
@@ -200,7 +209,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-13",
+  "contentVersion": "p2-mines-14",
   "displayName": "Usta Salonu",
   "displayNameKey": "MINE_25_WIDE_02",
   "exampleAngles": [

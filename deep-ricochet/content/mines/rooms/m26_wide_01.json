@@ -29,17 +29,17 @@
     },
     {
       "cell": [
-        0,
-        6
+        4,
+        7
       ],
-      "hitPoints": 0,
+      "hitPoints": 8,
       "id": 260104,
-      "type": "rock"
+      "type": "normal"
     },
     {
       "cell": [
         0,
-        2
+        6
       ],
       "hitPoints": 0,
       "id": 260105,
@@ -47,7 +47,7 @@
     },
     {
       "cell": [
-        7,
+        0,
         2
       ],
       "hitPoints": 0,
@@ -57,7 +57,7 @@
     {
       "cell": [
         7,
-        6
+        2
       ],
       "hitPoints": 0,
       "id": 260107,
@@ -66,10 +66,19 @@
     {
       "cell": [
         7,
-        5
+        6
       ],
       "hitPoints": 0,
       "id": 260108,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 260109,
       "type": "rock"
     },
     {
@@ -78,7 +87,7 @@
         5
       ],
       "hitPoints": 6,
-      "id": 260109,
+      "id": 260110,
       "type": "echo"
     },
     {
@@ -87,26 +96,26 @@
         4
       ],
       "hitPoints": 8,
-      "id": 260110,
-      "type": "explosive"
-    },
-    {
-      "cell": [
-        5,
-        3
-      ],
-      "hitPoints": 8,
       "id": 260111,
-      "type": "ore"
+      "type": "explosive"
     },
     {
       "cell": [
         3,
         6
       ],
-      "hitPoints": 8,
+      "hitPoints": 6,
       "id": 260112,
-      "type": "cracked"
+      "type": "echo"
+    },
+    {
+      "cell": [
+        2,
+        6
+      ],
+      "hitPoints": 6,
+      "id": 260113,
+      "type": "echo"
     },
     {
       "cell": [
@@ -114,17 +123,8 @@
         2
       ],
       "hitPoints": 8,
-      "id": 260113,
-      "type": "cracked"
-    },
-    {
-      "cell": [
-        5,
-        4
-      ],
-      "hitPoints": 8,
       "id": 260114,
-      "type": "explosive"
+      "type": "cracked"
     },
     {
       "cell": [
@@ -142,7 +142,17 @@
       ],
       "hitPoints": 8,
       "id": 260116,
-      "type": "ore"
+      "type": "explosive"
+    },
+    {
+      "beamDirection": "left",
+      "cell": [
+        5,
+        5
+      ],
+      "hitPoints": 7,
+      "id": 260117,
+      "type": "piercing"
     },
     {
       "cell": [
@@ -150,26 +160,17 @@
         7
       ],
       "hitPoints": 8,
-      "id": 260117,
-      "type": "ore"
-    },
-    {
-      "cell": [
-        7,
-        3
-      ],
-      "hitPoints": 6,
       "id": 260118,
-      "type": "echo"
+      "type": "ore"
     },
     {
       "cell": [
         3,
         4
       ],
-      "hitPoints": 8,
+      "hitPoints": 4,
       "id": 260119,
-      "type": "ore"
+      "type": "ball_cache"
     },
     {
       "cell": [
@@ -178,16 +179,28 @@
       ],
       "hitPoints": 8,
       "id": 260120,
-      "type": "ore"
+      "type": "explosive"
     },
     {
       "cell": [
         4,
         6
       ],
-      "hitPoints": 4,
+      "hitPoints": 8,
       "id": 260121,
-      "type": "ball_cache"
+      "type": "normal"
+    },
+    {
+      "cell": [
+        1,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 260122,
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
     },
     {
       "cell": [
@@ -199,13 +212,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-13",
+  "contentVersion": "p2-mines-14",
   "displayName": "Harabe Galerisi",
   "displayNameKey": "MINE_26_WIDE_01",
   "exampleAngles": [
-    79.5,
-    79.5,
-    79.5
+    32.5,
+    32.5,
+    32.5
   ],
   "family": "safe",
   "height": 8,

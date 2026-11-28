@@ -29,17 +29,17 @@
     },
     {
       "cell": [
-        7,
-        6
+        2,
+        7
       ],
-      "hitPoints": 0,
+      "hitPoints": 8,
       "id": 280104,
-      "type": "rock"
+      "type": "normal"
     },
     {
       "cell": [
         7,
-        4
+        5
       ],
       "hitPoints": 0,
       "id": 280105,
@@ -47,11 +47,29 @@
     },
     {
       "cell": [
+        7,
+        6
+      ],
+      "hitPoints": 0,
+      "id": 280106,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        7,
+        4
+      ],
+      "hitPoints": 0,
+      "id": 280107,
+      "type": "rock"
+    },
+    {
+      "cell": [
         0,
         4
       ],
       "hitPoints": 0,
-      "id": 280106,
+      "id": 280108,
       "type": "rock"
     },
     {
@@ -60,16 +78,7 @@
         6
       ],
       "hitPoints": 0,
-      "id": 280107,
-      "type": "rock"
-    },
-    {
-      "cell": [
-        7,
-        2
-      ],
-      "hitPoints": 0,
-      "id": 280108,
+      "id": 280109,
       "type": "rock"
     },
     {
@@ -78,7 +87,7 @@
         5
       ],
       "hitPoints": 8,
-      "id": 280109,
+      "id": 280110,
       "type": "cracked"
     },
     {
@@ -87,7 +96,7 @@
         6
       ],
       "hitPoints": 6,
-      "id": 280110,
+      "id": 280111,
       "type": "echo"
     },
     {
@@ -97,7 +106,7 @@
         3
       ],
       "hitPoints": 7,
-      "id": 280111,
+      "id": 280112,
       "type": "piercing"
     },
     {
@@ -106,7 +115,7 @@
         3
       ],
       "hitPoints": 8,
-      "id": 280112,
+      "id": 280113,
       "type": "explosive"
     },
     {
@@ -115,7 +124,7 @@
         4
       ],
       "hitPoints": 8,
-      "id": 280113,
+      "id": 280114,
       "type": "ore"
     },
     {
@@ -124,36 +133,53 @@
         5
       ],
       "hitPoints": 8,
-      "id": 280114,
+      "id": 280115,
       "type": "cracked"
+    },
+    {
+      "cell": [
+        4,
+        6
+      ],
+      "hitPoints": 8,
+      "id": 280116,
+      "type": "explosive"
     },
     {
       "cell": [
         0,
         7
       ],
-      "hitPoints": 6,
-      "id": 280115,
-      "type": "echo"
+      "hitPoints": 8,
+      "id": 280117,
+      "type": "cracked"
     },
     {
       "cell": [
         4,
         4
       ],
-      "hitPoints": 8,
-      "id": 280116,
-      "type": "normal"
+      "hitPoints": 4,
+      "id": 280118,
+      "type": "ball_cache"
     },
     {
-      "beamDirection": "right",
       "cell": [
         0,
         3
       ],
-      "hitPoints": 7,
-      "id": 280117,
-      "type": "piercing"
+      "hitPoints": 8,
+      "id": 280119,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        0,
+        2
+      ],
+      "hitPoints": 8,
+      "id": 280120,
+      "type": "ore"
     },
     {
       "cell": [
@@ -161,7 +187,7 @@
         2
       ],
       "hitPoints": 8,
-      "id": 280118,
+      "id": 280121,
       "type": "ore"
     },
     {
@@ -170,29 +196,11 @@
         4
       ],
       "hitPoints": 8,
-      "id": 280119,
+      "id": 280122,
       "type": "armored",
       "vulnerableSides": [
         "bottom"
       ]
-    },
-    {
-      "cell": [
-        0,
-        5
-      ],
-      "hitPoints": 8,
-      "id": 280120,
-      "type": "explosive"
-    },
-    {
-      "cell": [
-        2,
-        5
-      ],
-      "hitPoints": 4,
-      "id": 280121,
-      "type": "ball_cache"
     },
     {
       "cell": [
@@ -204,13 +212,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-13",
+  "contentVersion": "p2-mines-14",
   "displayName": "Uç Galeri",
   "displayNameKey": "MINE_28_WIDE_01",
   "exampleAngles": [
-    27.5,
-    27.5,
-    27.5
+    17.5,
+    17.5,
+    17.5
   ],
   "family": "safe",
   "height": 8,

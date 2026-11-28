@@ -29,16 +29,16 @@
     },
     {
       "cell": [
-        1,
-        3
+        7,
+        7
       ],
-      "hitPoints": 0,
+      "hitPoints": 8,
       "id": 270504,
-      "type": "rock"
+      "type": "normal"
     },
     {
       "cell": [
-        7,
+        1,
         3
       ],
       "hitPoints": 0,
@@ -92,7 +92,7 @@
     },
     {
       "cell": [
-        1,
+        7,
         5
       ],
       "hitPoints": 0,
@@ -101,7 +101,7 @@
     },
     {
       "cell": [
-        7,
+        0,
         5
       ],
       "hitPoints": 0,
@@ -110,11 +110,20 @@
     },
     {
       "cell": [
+        6,
+        5
+      ],
+      "hitPoints": 0,
+      "id": 270513,
+      "type": "rock"
+    },
+    {
+      "cell": [
         0,
         6
       ],
       "hitPoints": 8,
-      "id": 270513,
+      "id": 270514,
       "type": "normal"
     },
     {
@@ -123,7 +132,7 @@
         6
       ],
       "hitPoints": 8,
-      "id": 270514,
+      "id": 270515,
       "type": "cracked"
     },
     {
@@ -131,9 +140,9 @@
         3,
         6
       ],
-      "hitPoints": 8,
-      "id": 270515,
-      "type": "ore"
+      "hitPoints": 4,
+      "id": 270516,
+      "type": "ball_cache"
     },
     {
       "beamDirection": "right",
@@ -142,26 +151,17 @@
         7
       ],
       "hitPoints": 7,
-      "id": 270516,
-      "type": "piercing"
-    },
-    {
-      "cell": [
-        6,
-        5
-      ],
-      "hitPoints": 8,
       "id": 270517,
-      "type": "explosive"
+      "type": "piercing"
     },
     {
       "cell": [
         3,
         5
       ],
-      "hitPoints": 8,
+      "hitPoints": 4,
       "id": 270518,
-      "type": "cracked"
+      "type": "ball_cache"
     },
     {
       "cell": [
@@ -170,7 +170,10 @@
       ],
       "hitPoints": 8,
       "id": 270519,
-      "type": "cracked"
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
     },
     {
       "cell": [
@@ -186,27 +189,27 @@
         1,
         7
       ],
-      "hitPoints": 6,
+      "hitPoints": 8,
       "id": 270521,
-      "type": "echo"
+      "type": "explosive"
     },
     {
       "cell": [
         5,
         7
       ],
-      "hitPoints": 4,
+      "hitPoints": 6,
       "id": 270522,
-      "type": "ball_cache"
+      "type": "echo"
     },
     {
       "cell": [
         7,
-        7
+        6
       ],
-      "hitPoints": 4,
+      "hitPoints": 8,
       "id": 270523,
-      "type": "ball_cache"
+      "type": "ore"
     },
     {
       "cell": [
@@ -218,13 +221,13 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-13",
+  "contentVersion": "p2-mines-14",
   "displayName": "Dip Damarı",
   "displayNameKey": "MINE_27_NARROW_02",
   "exampleAngles": [
-    70.0,
-    70.0,
-    70.0
+    77.5,
+    77.5,
+    77.5
   ],
   "family": "bonus",
   "height": 8,

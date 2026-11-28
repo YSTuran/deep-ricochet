@@ -29,11 +29,20 @@
     },
     {
       "cell": [
+        2,
+        7
+      ],
+      "hitPoints": 8,
+      "id": 330204,
+      "type": "normal"
+    },
+    {
+      "cell": [
         4,
         3
       ],
       "hitPoints": 9,
-      "id": 330204,
+      "id": 330205,
       "type": "acid_barrel"
     },
     {
@@ -42,22 +51,13 @@
         4
       ],
       "hitPoints": 0,
-      "id": 330205,
+      "id": 330206,
       "type": "rock"
     },
     {
       "cell": [
         7,
         7
-      ],
-      "hitPoints": 0,
-      "id": 330206,
-      "type": "rock"
-    },
-    {
-      "cell": [
-        0,
-        6
       ],
       "hitPoints": 0,
       "id": 330207,
@@ -66,7 +66,7 @@
     {
       "cell": [
         0,
-        4
+        3
       ],
       "hitPoints": 0,
       "id": 330208,
@@ -74,11 +74,20 @@
     },
     {
       "cell": [
-        7,
-        3
+        0,
+        6
       ],
       "hitPoints": 0,
       "id": 330209,
+      "type": "rock"
+    },
+    {
+      "cell": [
+        0,
+        4
+      ],
+      "hitPoints": 0,
+      "id": 330210,
       "type": "rock"
     },
     {
@@ -87,26 +96,17 @@
         7
       ],
       "hitPoints": 8,
-      "id": 330210,
-      "type": "normal"
-    },
-    {
-      "cell": [
-        2,
-        7
-      ],
-      "hitPoints": 8,
       "id": 330211,
-      "type": "cracked"
+      "type": "normal"
     },
     {
       "cell": [
         4,
         4
       ],
-      "hitPoints": 8,
+      "hitPoints": 4,
       "id": 330212,
-      "type": "cracked"
+      "type": "ball_cache"
     },
     {
       "cell": [
@@ -115,7 +115,10 @@
       ],
       "hitPoints": 8,
       "id": 330213,
-      "type": "ore"
+      "type": "armored",
+      "vulnerableSides": [
+        "bottom"
+      ]
     },
     {
       "cell": [
@@ -124,10 +127,7 @@
       ],
       "hitPoints": 8,
       "id": 330214,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
+      "type": "ore"
     },
     {
       "cell": [
@@ -143,9 +143,9 @@
         5,
         6
       ],
-      "hitPoints": 6,
+      "hitPoints": 8,
       "id": 330216,
-      "type": "echo"
+      "type": "ore"
     },
     {
       "cell": [
@@ -154,21 +154,21 @@
       ],
       "hitPoints": 8,
       "id": 330217,
-      "type": "ore"
+      "type": "explosive"
     },
     {
       "cell": [
         6,
         4
       ],
-      "hitPoints": 8,
+      "hitPoints": 6,
       "id": 330218,
-      "type": "cracked"
+      "type": "echo"
     },
     {
       "cell": [
         5,
-        3
+        4
       ],
       "hitPoints": 6,
       "id": 330219,
@@ -176,21 +176,31 @@
     },
     {
       "cell": [
+        5,
+        3
+      ],
+      "hitPoints": 6,
+      "id": 330220,
+      "type": "echo"
+    },
+    {
+      "beamDirection": "right",
+      "cell": [
         1,
         3
       ],
-      "hitPoints": 8,
-      "id": 330220,
-      "type": "explosive"
+      "hitPoints": 7,
+      "id": 330221,
+      "type": "piercing"
     },
     {
       "cell": [
         1,
         4
       ],
-      "hitPoints": 4,
-      "id": 330221,
-      "type": "ball_cache"
+      "hitPoints": 8,
+      "id": 330222,
+      "type": "cracked"
     },
     {
       "cell": [
@@ -202,7 +212,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-13",
+  "contentVersion": "p2-mines-14",
   "displayName": "Akıntı Koridoru",
   "displayNameKey": "MINE_33_WIDE_02",
   "exampleAngles": [

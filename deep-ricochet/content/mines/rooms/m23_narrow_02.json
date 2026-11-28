@@ -20,16 +20,16 @@
     },
     {
       "cell": [
-        6,
+        5,
         5
       ],
-      "hitPoints": 0,
+      "hitPoints": 8,
       "id": 230503,
-      "type": "rock"
+      "type": "normal"
     },
     {
       "cell": [
-        0,
+        1,
         5
       ],
       "hitPoints": 0,
@@ -38,7 +38,7 @@
     },
     {
       "cell": [
-        7,
+        6,
         5
       ],
       "hitPoints": 0,
@@ -47,8 +47,8 @@
     },
     {
       "cell": [
-        1,
-        6
+        0,
+        5
       ],
       "hitPoints": 0,
       "id": 230506,
@@ -57,7 +57,7 @@
     {
       "cell": [
         7,
-        6
+        5
       ],
       "hitPoints": 0,
       "id": 230507,
@@ -65,7 +65,7 @@
     },
     {
       "cell": [
-        0,
+        7,
         6
       ],
       "hitPoints": 0,
@@ -75,7 +75,7 @@
     {
       "cell": [
         0,
-        7
+        6
       ],
       "hitPoints": 0,
       "id": 230509,
@@ -83,7 +83,7 @@
     },
     {
       "cell": [
-        7,
+        0,
         7
       ],
       "hitPoints": 0,
@@ -92,7 +92,7 @@
     },
     {
       "cell": [
-        1,
+        7,
         7
       ],
       "hitPoints": 0,
@@ -101,16 +101,16 @@
     },
     {
       "cell": [
-        5,
+        1,
         7
       ],
-      "hitPoints": 8,
+      "hitPoints": 0,
       "id": 230512,
-      "type": "ore"
+      "type": "rock"
     },
     {
       "cell": [
-        4,
+        5,
         7
       ],
       "hitPoints": 8,
@@ -119,7 +119,7 @@
     },
     {
       "cell": [
-        6,
+        4,
         7
       ],
       "hitPoints": 8,
@@ -128,8 +128,8 @@
     },
     {
       "cell": [
-        3,
-        6
+        6,
+        7
       ],
       "hitPoints": 8,
       "id": 230515,
@@ -137,27 +137,26 @@
     },
     {
       "cell": [
-        2,
-        6
+        3,
+        7
       ],
       "hitPoints": 8,
       "id": 230516,
       "type": "ore"
     },
     {
-      "beamDirection": "right",
       "cell": [
-        2,
-        7
+        3,
+        6
       ],
-      "hitPoints": 7,
+      "hitPoints": 8,
       "id": 230517,
-      "type": "piercing"
+      "type": "ore"
     },
     {
       "cell": [
-        3,
-        5
+        2,
+        6
       ],
       "hitPoints": 6,
       "id": 230518,
@@ -165,8 +164,8 @@
     },
     {
       "cell": [
-        3,
-        4
+        2,
+        7
       ],
       "hitPoints": 8,
       "id": 230519,
@@ -174,37 +173,34 @@
     },
     {
       "cell": [
-        1,
-        4
+        3,
+        5
       ],
       "hitPoints": 8,
       "id": 230520,
-      "type": "armored",
-      "vulnerableSides": [
-        "bottom"
-      ]
-    },
-    {
-      "cell": [
-        5,
-        4
-      ],
-      "hitPoints": 8,
-      "id": 230521,
       "type": "explosive"
     },
     {
       "cell": [
-        2,
+        3,
         4
       ],
       "hitPoints": 4,
-      "id": 230522,
+      "id": 230521,
       "type": "ball_cache"
     },
     {
       "cell": [
-        6,
+        1,
+        4
+      ],
+      "hitPoints": 8,
+      "id": 230522,
+      "type": "ore"
+    },
+    {
+      "cell": [
+        5,
         4
       ],
       "hitPoints": 4,
@@ -221,7 +217,7 @@
       "type": "core"
     }
   ],
-  "contentVersion": "p2-mines-13",
+  "contentVersion": "p2-mines-14",
   "displayName": "Kara Damar",
   "displayNameKey": "MINE_23_NARROW_02",
   "exampleAngles": [
