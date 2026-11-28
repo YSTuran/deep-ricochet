@@ -210,6 +210,21 @@ static func _test_daily_pause_input(controller: RunController, parent: Node) -> 
 	assert(not controller.pause_overlay.visible)
 	assert(controller.gameplay_room.simulation_enabled)
 	assert(controller.gameplay_room.process_mode == Node.PROCESS_MODE_PAUSABLE)
+	var previous_run_id := controller.run_session.run_id
+	await _click_mouse(parent, controller.pause_button.get_global_rect().get_center())
+	assert(controller.pause_active)
+	await _click_mouse(parent, PauseOverlay.NEW_GAME_BUTTON.get_center())
+	assert(controller.pause_overlay.mode == PauseOverlay.Mode.CONFIRM_NEW_GAME)
+	assert(controller.pending_new_run_kind == RunSession.RunKind.DAILY)
+	assert(controller.pending_new_mine_id == &"daily")
+	assert(controller.pending_new_daily_key == daily_key)
+	await _click_mouse(parent, PauseOverlay.CONFIRM_BUTTON.get_center())
+	assert(not controller.pause_active)
+	assert(not controller.pause_overlay.visible)
+	assert(controller.run_session.run_kind == RunSession.RunKind.DAILY)
+	assert(controller.run_session.daily_key == daily_key)
+	assert(controller.run_session.run_id != previous_run_id)
+	assert(controller.gameplay_room.simulation_enabled)
 
 
 static func _tap_screen(parent: Node, position: Vector2) -> void:
@@ -221,6 +236,21 @@ static func _tap_screen(parent: Node, position: Vector2) -> void:
 	await parent.get_tree().process_frame
 	var release := InputEventScreenTouch.new()
 	release.index = 0
+	release.position = position
+	release.pressed = false
+	parent.get_viewport().push_input(release, true)
+	await parent.get_tree().process_frame
+
+
+static func _click_mouse(parent: Node, position: Vector2) -> void:
+	var press := InputEventMouseButton.new()
+	press.button_index = MOUSE_BUTTON_LEFT
+	press.position = position
+	press.pressed = true
+	parent.get_viewport().push_input(press, true)
+	await parent.get_tree().process_frame
+	var release := InputEventMouseButton.new()
+	release.button_index = MOUSE_BUTTON_LEFT
 	release.position = position
 	release.pressed = false
 	parent.get_viewport().push_input(release, true)

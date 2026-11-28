@@ -64,10 +64,18 @@ func prepare_new_run(
 
 func request_new_game_confirmation(controller, from_main_menu: bool) -> void:
 	if not from_main_menu:
-		var current_mine: StringName = (
-			controller.run_session.mine_id if controller.run_session != null else &"mine_01"
-		)
-		prepare_new_run(controller, current_mine, RunSession.RunKind.NORMAL, 0, "")
+		if controller.run_session != null \
+			and controller.run_session.run_kind == RunSession.RunKind.DAILY:
+			var daily_key := RunFactory.current_daily_key()
+			prepare_new_run(
+				controller, DailyRooms.DAILY_MINE_ID, RunSession.RunKind.DAILY,
+				RunFactory.daily_seed_for_key(daily_key), daily_key,
+			)
+		else:
+			var current_mine: StringName = (
+				controller.run_session.mine_id if controller.run_session != null else &"mine_01"
+			)
+			prepare_new_run(controller, current_mine, RunSession.RunKind.NORMAL, 0, "")
 	controller.confirmation_from_main_menu = from_main_menu
 	controller.pause_overlay.show_new_game_confirmation()
 	if not from_main_menu:
@@ -82,14 +90,13 @@ func cancel_new_game_confirmation(controller) -> void:
 
 
 func confirm_new_game(controller) -> void:
-	controller.confirmation_from_main_menu = false
-	controller._leave_pause_state()
-	controller.start_new_run(
+	if controller.start_new_run(
 		controller.pending_new_seed,
 		controller.pending_new_mine_id,
 		controller.pending_new_run_kind,
 		controller.pending_new_daily_key,
-	)
+	):
+		controller.confirmation_from_main_menu = false
 
 
 func restart_same_seed(controller) -> bool:
